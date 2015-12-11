@@ -1,0 +1,394 @@
+<html><head prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# object: http://ogp.me/ns/object# article: http://ogp.me/ns/article# profile: http://ogp.me/ns/profile#">
+<meta charset="utf-8">
+<meta content="IE=edge" http-equiv="X-UA-Compatible">
+<meta content="en" http-equiv="Content-Language">
+<meta content="width=1020" name="viewport">
+<title>Runtime Configurations · NetEase/pomelo Wiki · GitHub</title>
+<link href="/opensearch.xml" rel="search" title="GitHub" type="application/opensearchdescription+xml">
+<link href="src/ad667adaa2cfe8f3caa4a41b7d0a79a1.png" rel="fluid-icon" title="GitHub">
+<link href="src/a10d19ff5f738940a7a5086be334f50b.png" rel="apple-touch-icon" sizes="57x57">
+<link href="src/a10d19ff5f738940a7a5086be334f50b.png" rel="apple-touch-icon" sizes="114x114">
+<link href="src/b4cd268bc600cc14d2cdd557de6da2fb.png" rel="apple-touch-icon" sizes="72x72">
+<link href="src/b4cd268bc600cc14d2cdd557de6da2fb.png" rel="apple-touch-icon" sizes="144x144">
+<meta content="1401488693436528" property="fb:app_id">
+<meta content="@github" name="twitter:site"/><meta content="summary" name="twitter:card"/><meta content="NetEase/pomelo" name="twitter:title"/><meta content="pomelo - A fast,scalable,distributed game server framework for Node.js." name="twitter:description"/><meta content="https://avatars0.githubusercontent.com/u/1460597?v=3&amp;s=400" name="twitter:image:src"/>
+<meta content="GitHub" property="og:site_name"/><meta content="object" property="og:type"/><meta content="https://avatars0.githubusercontent.com/u/1460597?v=3&amp;s=400" property="og:image"/><meta content="NetEase/pomelo" property="og:title"/><meta content="https://github.com/NetEase/pomelo" property="og:url"/><meta content="pomelo - A fast,scalable,distributed game server framework for Node.js." property="og:description"/>
+<meta content="https://api.github.com/_private/browser/stats" name="browser-stats-url">
+<meta content="https://api.github.com/_private/browser/errors" name="browser-errors-url">
+<link href="https://assets-cdn.github.com/" rel="assets">
+<meta content="1000" name="pjax-timeout">
+<meta content="/windows-tile.png" name="msapplication-TileImage">
+<meta content="#ffffff" name="msapplication-TileColor">
+<meta data-pjax-transient="" name="selected-link" value="repo_wiki">
+<meta content="KT5gs8h0wvaagLKAVWq8bbeNwnZZK1r1XQysX3xurLU" name="google-site-verification">
+<meta content="UA-3769691-2" name="google-analytics">
+<meta content="collector.githubapp.com" name="octolytics-host"/><meta content="github" name="octolytics-app-id"/><meta content="CA86616A:448D:EAE0533:5670C12C" name="octolytics-dimension-request_id"/>
+<meta content="/&lt;user-name&gt;/&lt;repo-name&gt;/wiki/show" data-pjax-transient="true" name="analytics-location"/>
+<meta content="Rails, view, wiki#show" data-pjax-transient="true" name="analytics-event"/>
+<meta class="js-ga-set" content="Logged Out" name="dimension1">
+<meta content="github.com" name="hostname">
+<meta content="" name="user-login">
+<meta content="github.com" name="expected-hostname">
+<link color="#4078c0" href="https://assets-cdn.github.com/pinned-octocat.svg" rel="mask-icon">
+<link href="https://assets-cdn.github.com/favicon.ico" rel="icon" type="image/x-icon">
+<meta content="a7f92b0e91788e10e9fe1f052bc51d5512a41de5" name="form-nonce"/>
+<link crossorigin="anonymous" href="src/350888e1495e7af27e01faa9d8291dee.css" media="all" rel="stylesheet"/>
+<link crossorigin="anonymous" href="src/9fae9b7d8f0785d745a43c6465f74ae5.css" media="all" rel="stylesheet"/>
+<meta content="cd9958d45e48e8e3157a320e9c346eaa" http-equiv="x-pjax-version">
+<meta content="pomelo - A fast,scalable,distributed game server framework for Node.js." name="description">
+<meta content="github.com/NetEase/pomelo git https://github.com/NetEase/pomelo.git" name="go-import">
+<meta content="1460597" name="octolytics-dimension-user_id"/><meta content="NetEase" name="octolytics-dimension-user_login"/><meta content="5880912" name="octolytics-dimension-repository_id"/><meta content="NetEase/pomelo" name="octolytics-dimension-repository_nwo"/><meta content="true" name="octolytics-dimension-repository_public"/><meta content="false" name="octolytics-dimension-repository_is_fork"/><meta content="5880912" name="octolytics-dimension-repository_network_root_id"/><meta content="NetEase/pomelo" name="octolytics-dimension-repository_network_root_nwo"/>
+<link href="https://github.com/NetEase/pomelo/commits/master.atom" rel="alternate" title="Recent Commits to pomelo:master" type="application/atom+xml">
+</link></meta></meta></meta></link></link></meta></meta></meta></meta></meta></meta></meta></meta></meta></meta></link></meta></meta></meta></link></link></link></link></link></link></meta></meta></meta></meta></head><body style="padding:0 25px;"><div class="gollum-markdown-content instapaper_body" id="wiki-body">
+<div class="markdown-body">
+<p>Here are the all runtime configurations of Pomelo.</p>
+<h1>
+<a aria-hidden="true" class="anchor" href="#1-masterconfig" id="user-content-1-masterconfig"><span class="octicon octicon-link"></span></a>1. masterConfig</h1>
+<p>This config can only be applied to master server.</p>
+<h3>
+<a aria-hidden="true" class="anchor" href="#authuser" id="user-content-authuser"><span class="octicon octicon-link"></span></a>authUser</h3>
+<ul>
+<li>Desc: The function to auth user.</li>
+<li>Type: Function.</li>
+<li>Default value: utils.defaultAuthUser from 'pomelo-admin'.</li>
+</ul>
+<h3>
+<a aria-hidden="true" class="anchor" href="#authserver" id="user-content-authserver"><span class="octicon octicon-link"></span></a>authServer</h3>
+<ul>
+<li>Desc: The function to auth server.</li>
+<li>Type: Function.</li>
+<li>Default value: utils.defaultAuthServerMaster from 'pomelo-admin'.</li>
+</ul>
+<h3>
+<a aria-hidden="true" class="anchor" href="#example" id="user-content-example"><span class="octicon octicon-link"></span></a>Example</h3>
+<div class="highlight highlight-source-js"><pre><span class="pl-smi">app</span>.<span class="pl-en">configure</span>(<span class="pl-s"><span class="pl-pds">'</span>production|development<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>master<span class="pl-pds">'</span></span>, <span class="pl-k">function</span>(){
+  <span class="pl-smi">app</span>.<span class="pl-en">set</span>(<span class="pl-s"><span class="pl-pds">'</span>masterConfig<span class="pl-pds">'</span></span>, {
+    <span class="pl-en">authUser</span><span class="pl-k">:</span> <span class="pl-k">function</span> () { ... },
+    <span class="pl-en">authServer</span><span class="pl-k">:</span> <span class="pl-k">function</span> () { ... }
+  });
+});</pre></div>
+<h1>
+<a aria-hidden="true" class="anchor" href="#2-proxyconfig" id="user-content-2-proxyconfig"><span class="octicon octicon-link"></span></a>2. proxyConfig</h1>
+<p>The config affects the client of 'pomeo-rpc'. It can be applied to all servers except master server.</p>
+<h3>
+<a aria-hidden="true" class="anchor" href="#buffermsg" id="user-content-buffermsg"><span class="octicon octicon-link"></span></a>bufferMsg</h3>
+<ul>
+<li>Desc: This flag determines whether the pomelo-rpc sends the message directly or not. If true, it will send the message every 'interval (see below)' milliseconds. If false, it will send the directly.</li>
+<li>Type: Boolean.</li>
+<li>Default value: Not set, which will be evaluated as false.</li>
+</ul>
+<h3>
+<a aria-hidden="true" class="anchor" href="#interval" id="user-content-interval"><span class="octicon octicon-link"></span></a>interval</h3>
+<ul>
+<li>Desc: See above. The unit is millisecond. Used when bufferMsg is true.</li>
+<li>Type: Number.</li>
+<li>Default value: 50.</li>
+</ul>
+<h3>
+<a aria-hidden="true" class="anchor" href="#timeout" id="user-content-timeout"><span class="octicon octicon-link"></span></a>timeout</h3>
+<ul>
+<li>Desc: The seconds that failure action will fire after rpc was called. Unit is second.</li>
+<li>Type: Number.</li>
+<li>Default value: 30.</li>
+</ul>
+<h3>
+<a aria-hidden="true" class="anchor" href="#example-1" id="user-content-example-1"><span class="octicon octicon-link"></span></a>Example</h3>
+<div class="highlight highlight-source-js"><pre><span class="pl-smi">app</span>.<span class="pl-en">configure</span>(<span class="pl-s"><span class="pl-pds">'</span>production|development<span class="pl-pds">'</span></span>, <span class="pl-k">function</span>(){
+  <span class="pl-smi">app</span>.<span class="pl-en">set</span>(<span class="pl-s"><span class="pl-pds">'</span>proxyConfig<span class="pl-pds">'</span></span>, {
+    bufferMsg<span class="pl-k">:</span> <span class="pl-c1">true</span>,
+    interval<span class="pl-k">:</span> <span class="pl-c1">20</span>
+  });
+});</pre></div>
+<h1>
+<a aria-hidden="true" class="anchor" href="#3-remoteconfig" id="user-content-3-remoteconfig"><span class="octicon octicon-link"></span></a>3. remoteConfig</h1>
+<p>The config affects the server of 'pomeo-rpc'. It can be applied to all servers except master server..</p>
+<h3>
+<a aria-hidden="true" class="anchor" href="#buffermsg-1" id="user-content-buffermsg-1"><span class="octicon octicon-link"></span></a>bufferMsg</h3>
+<ul>
+<li>Same as proxyConfig.bufferMsg.</li>
+</ul>
+<h3>
+<a aria-hidden="true" class="anchor" href="#interval-1" id="user-content-interval-1"><span class="octicon octicon-link"></span></a>interval</h3>
+<ul>
+<li>Same as proxyConfig.interval.</li>
+</ul>
+<h3>
+<a aria-hidden="true" class="anchor" href="#whitelist" id="user-content-whitelist"><span class="octicon octicon-link"></span></a>whitelist</h3>
+<ul>
+<li>Desc: Function to provide valid IPs.</li>
+<li>Type: Function.</li>
+<li>Default value: Not set.</li>
+</ul>
+<h3>
+<a aria-hidden="true" class="anchor" href="#example-2" id="user-content-example-2"><span class="octicon octicon-link"></span></a>Example</h3>
+<div class="highlight highlight-source-js"><pre><span class="pl-smi">app</span>.<span class="pl-en">configure</span>(<span class="pl-s"><span class="pl-pds">'</span>production|development<span class="pl-pds">'</span></span>, <span class="pl-k">function</span>(){
+  <span class="pl-smi">app</span>.<span class="pl-en">set</span>(<span class="pl-s"><span class="pl-pds">'</span>remoteConfig<span class="pl-pds">'</span></span>, {
+    bufferMsg<span class="pl-k">:</span> <span class="pl-c1">true</span>,
+    interval<span class="pl-k">:</span> <span class="pl-c1">20</span>
+  });
+});</pre></div>
+<h1>
+<a aria-hidden="true" class="anchor" href="#4-connectionconfig" id="user-content-4-connectionconfig"><span class="octicon octicon-link"></span></a>4. connectionConfig</h1>
+<p>Not implemented.</p>
+<h1>
+<a aria-hidden="true" class="anchor" href="#5-connectorconfig" id="user-content-5-connectorconfig"><span class="octicon octicon-link"></span></a>5. connectorConfig</h1>
+<p>This config is for connector. It can only be applied to frontend servers.</p>
+<h3>
+<a aria-hidden="true" class="anchor" href="#encode" id="user-content-encode"><span class="octicon octicon-link"></span></a>encode</h3>
+<ul>
+<li>Desc: Function to encode data which will be sent over network.</li>
+<li>Type: Function.</li>
+<li>Default value: Provided by connector.</li>
+</ul>
+<h3>
+<a aria-hidden="true" class="anchor" href="#decode" id="user-content-decode"><span class="octicon octicon-link"></span></a>decode</h3>
+<ul>
+<li>Desc: Function to decode data received from network.</li>
+<li>Type: Function.</li>
+<li>Default value: Provided by connector.</li>
+</ul>
+<h3>
+<a aria-hidden="true" class="anchor" href="#usecrypto" id="user-content-usecrypto"><span class="octicon octicon-link"></span></a>useCrypto</h3>
+<ul>
+<li>Desc: If true, pomelo will use RSA to verify the integrity of the message sent by client.</li>
+<li>Type: Boolean.</li>
+<li>Default value: Not set, which will be evaluated as false.</li>
+</ul>
+<h3>
+<a aria-hidden="true" class="anchor" href="#blacklistfun" id="user-content-blacklistfun"><span class="octicon octicon-link"></span></a>blacklistFun</h3>
+<ul>
+<li>Desc: Function to filter IPv4 address.</li>
+<li>Type: Function.</li>
+<li>Default value: Not set (Do <strong>not</strong> use this feature, use 'iptables' to filter IPs).</li>
+</ul>
+<p>If you insist to use this feature, Here is one implementation:</p>
+<div class="highlight highlight-source-js"><pre><span class="pl-k">function</span> <span class="pl-en">blacklistFun</span> (<span class="pl-smi">cb</span>) {
+  <span class="pl-k">var</span> badIpList <span class="pl-k">=</span> [<span class="pl-s"><span class="pl-pds">'</span>192.168.1.1<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>192.168.1.2<span class="pl-pds">'</span></span>];
+  <span class="pl-en">cb</span>(<span class="pl-c1">null</span>, badIpList);
+}</pre></div>
+<h3>
+<a aria-hidden="true" class="anchor" href="#usedict" id="user-content-usedict"><span class="octicon octicon-link"></span></a>useDict</h3>
+<ul>
+<li>Desc: Enable route compression or not. If true, pomelo will try to read dictionary from $APPBASE/config/dictionary.json. You can override this by providing dictionaryConfig. See below.</li>
+<li>Type: Boolean.</li>
+<li>Default value: Not set, which will be evaluated as false.</li>
+</ul>
+<h3>
+<a aria-hidden="true" class="anchor" href="#useprotobuf" id="user-content-useprotobuf"><span class="octicon octicon-link"></span></a>useProtobuf</h3>
+<ul>
+<li>Desc: Enable protobuf or not. If true, pomelo will try to read config from $APPBASE/config/clientProtos.json and $APPBASE/config/serverProtos.json. You can override this by providing protobufConfig. See below.</li>
+<li>Type: Boolean.</li>
+<li>Default value: Not set, which will be evaluated as false.</li>
+</ul>
+<h3>
+<a aria-hidden="true" class="anchor" href="#connector" id="user-content-connector"><span class="octicon octicon-link"></span></a>connector</h3>
+<ul>
+<li>Desc: The type of connector.</li>
+<li>Type: Object.</li>
+<li>Default value: sioconnector.</li>
+</ul>
+<h3>
+<a aria-hidden="true" class="anchor" href="#heartbeat" id="user-content-heartbeat"><span class="octicon octicon-link"></span></a>heartbeat</h3>
+<ul>
+<li>Desc: The interval to send heartbeat packet. Unit is <strong>second</strong>.</li>
+<li>Type: Number.</li>
+<li>Default value: Not set.</li>
+</ul>
+<h3>
+<a aria-hidden="true" class="anchor" href="#disconnectontimeout" id="user-content-disconnectontimeout"><span class="octicon octicon-link"></span></a>disconnectOnTimeout</h3>
+<ul>
+<li>Desc: Disconnect the socket if not receive the heartbeat in time.</li>
+<li>Type: Boolean.</li>
+<li>Default value: Not set.</li>
+</ul>
+<h3>
+<a aria-hidden="true" class="anchor" href="#timeout-1" id="user-content-timeout-1"><span class="octicon octicon-link"></span></a>timeout</h3>
+<ul>
+<li>Desc: Seconds to receive heartbeat. Used when disconnectOnTimeout is true. Unit is <strong>second</strong>.</li>
+<li>Type: Number.</li>
+<li>Default value: Not set.</li>
+</ul>
+<h3>
+<a aria-hidden="true" class="anchor" href="#checkclient" id="user-content-checkclient"><span class="octicon octicon-link"></span></a>checkClient</h3>
+<ul>
+<li>Desc: Function will be called at handshake.</li>
+<li>Type: Function.</li>
+<li>Default value: Not set.</li>
+</ul>
+<h3>
+<a aria-hidden="true" class="anchor" href="#handshake" id="user-content-handshake"><span class="octicon octicon-link"></span></a>handshake</h3>
+<ul>
+<li>Desc: Handshake function.</li>
+<li>Type: Function.</li>
+<li>Default value: Not set.</li>
+</ul>
+<h3>
+<a aria-hidden="true" class="anchor" href="#setnodelay" id="user-content-setnodelay"><span class="octicon octicon-link"></span></a>setNoDelay</h3>
+<ul>
+<li>Desc: Disable nagle's algorithm.</li>
+<li>Type: Boolean</li>
+<li>Default value: Not set.</li>
+</ul>
+<h3>
+<a aria-hidden="true" class="anchor" href="#example-3" id="user-content-example-3"><span class="octicon octicon-link"></span></a>Example</h3>
+<div class="highlight highlight-source-js"><pre><span class="pl-smi">app</span>.<span class="pl-en">configure</span>(<span class="pl-s"><span class="pl-pds">'</span>production|development<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>gate|connector<span class="pl-pds">'</span></span>, <span class="pl-k">function</span>(){
+  <span class="pl-smi">app</span>.<span class="pl-en">set</span>(<span class="pl-s"><span class="pl-pds">'</span>connectorConfig<span class="pl-pds">'</span></span>, {
+    connector<span class="pl-k">:</span> <span class="pl-smi">pomelo</span>.<span class="pl-smi">connectors</span>.<span class="pl-smi">hybridconnector</span>,
+    heartbeat<span class="pl-k">:</span> <span class="pl-c1">45</span>,
+    timeout<span class="pl-k">:</span> <span class="pl-c1">55</span>,    <span class="pl-c">// Seconds, heartbeat timer + timeout timer</span>
+    disconnectOnTimeout <span class="pl-k">:</span> <span class="pl-c1">true</span>,
+    useDict<span class="pl-k">:</span> <span class="pl-c1">true</span>,
+    useProtobuf<span class="pl-k">:</span> <span class="pl-c1">true</span>
+  });
+});</pre></div>
+<h1>
+<a aria-hidden="true" class="anchor" href="#6-dictionaryconfig" id="user-content-6-dictionaryconfig"><span class="octicon octicon-link"></span></a>6. dictionaryConfig</h1>
+<p>Useful when connectorConfig.useDict is true. It can only be applied to frontend servers.</p>
+<h3>
+<a aria-hidden="true" class="anchor" href="#dict" id="user-content-dict"><span class="octicon octicon-link"></span></a>dict</h3>
+<ul>
+<li>Desc: Absolute path of the dictionary file.</li>
+<li>Type: String.</li>
+<li>Default value: Not set.</li>
+</ul>
+<h3>
+<a aria-hidden="true" class="anchor" href="#example-4" id="user-content-example-4"><span class="octicon octicon-link"></span></a>Example</h3>
+<div class="highlight highlight-source-js"><pre><span class="pl-smi">app</span>.<span class="pl-en">configure</span>(<span class="pl-s"><span class="pl-pds">'</span>production|development<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>connector<span class="pl-pds">'</span></span>, <span class="pl-k">function</span>(){
+  <span class="pl-smi">app</span>.<span class="pl-en">set</span>(<span class="pl-s"><span class="pl-pds">'</span>connectorConfig<span class="pl-pds">'</span></span>, {
+    ...
+    useDict<span class="pl-k">:</span> <span class="pl-c1">true</span> 
+  });
+
+  <span class="pl-smi">app</span>.<span class="pl-en">set</span>(<span class="pl-s"><span class="pl-pds">'</span>dictionaryConfig<span class="pl-pds">'</span></span>, {
+    dict<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>/home/foo/config/dictionary.json<span class="pl-pds">'</span></span>
+  });
+});</pre></div>
+<h1>
+<a aria-hidden="true" class="anchor" href="#7-protobufconfig" id="user-content-7-protobufconfig"><span class="octicon octicon-link"></span></a>7. protobufConfig</h1>
+<p>Useful when connectorConfig.useProtobuf is true. It can only be applied to frontend servers.</p>
+<h3>
+<a aria-hidden="true" class="anchor" href="#serverprotos" id="user-content-serverprotos"><span class="octicon octicon-link"></span></a>serverProtos</h3>
+<ul>
+<li>Desc: Absolute path of the server proto file.</li>
+<li>Type: String.</li>
+<li>Default value: Not set.</li>
+</ul>
+<h3>
+<a aria-hidden="true" class="anchor" href="#clientprotos" id="user-content-clientprotos"><span class="octicon octicon-link"></span></a>clientProtos</h3>
+<ul>
+<li>Desc: Absolute path of the client proto file.</li>
+<li>Type: String.</li>
+<li>Default value: Not set.</li>
+</ul>
+<h3>
+<a aria-hidden="true" class="anchor" href="#example-5" id="user-content-example-5"><span class="octicon octicon-link"></span></a>Example</h3>
+<div class="highlight highlight-source-js"><pre><span class="pl-smi">app</span>.<span class="pl-en">configure</span>(<span class="pl-s"><span class="pl-pds">'</span>production|development<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>connector<span class="pl-pds">'</span></span>, <span class="pl-k">function</span>(){
+  <span class="pl-smi">app</span>.<span class="pl-en">set</span>(<span class="pl-s"><span class="pl-pds">'</span>connectorConfig<span class="pl-pds">'</span></span>, {
+    ...
+    useProtobuf<span class="pl-k">:</span> <span class="pl-c1">true</span>
+  });
+
+  <span class="pl-smi">app</span>.<span class="pl-en">set</span>(<span class="pl-s"><span class="pl-pds">'</span>protobufConfig<span class="pl-pds">'</span></span>, {
+    serverProtos<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>/home/foo/config/serverProtos.json<span class="pl-pds">'</span></span>,
+    clientProtos<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>/home/foo/config/clientProtos.json<span class="pl-pds">'</span></span>
+  });
+});</pre></div>
+<h1>
+<a aria-hidden="true" class="anchor" href="#8-sessionconfig" id="user-content-8-sessionconfig"><span class="octicon octicon-link"></span></a>8. sessionConfig</h1>
+<p>Config for frontend sessionService. It can only be applied to frontend servers.</p>
+<h3>
+<a aria-hidden="true" class="anchor" href="#singlesession" id="user-content-singlesession"><span class="octicon octicon-link"></span></a>singleSession</h3>
+<ul>
+<li>Desc: <a href="https://github.com/NetEase/pomelo/wiki/Backend-server">According to the doc</a>, if set it to true, then it allows only one logged session for an user, when a new session is logging, the logged session will be kicked. <strong>But from the codes, if set it to true, the logged session is kept, and the new session is denied.</strong>
+</li>
+<li>Type: Boolean.</li>
+<li>Default value: Not set which will be evaluated as false.</li>
+</ul>
+<h3>
+<a aria-hidden="true" class="anchor" href="#example-6" id="user-content-example-6"><span class="octicon octicon-link"></span></a>Example</h3>
+<div class="highlight highlight-source-js"><pre><span class="pl-smi">app</span>.<span class="pl-en">configure</span>(<span class="pl-s"><span class="pl-pds">'</span>production|development<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>connector<span class="pl-pds">'</span></span>, <span class="pl-k">function</span>(){
+  <span class="pl-smi">app</span>.<span class="pl-en">set</span>(<span class="pl-s"><span class="pl-pds">'</span>sessionConfig<span class="pl-pds">'</span></span>, {
+    singleSession<span class="pl-k">:</span> <span class="pl-c1">true</span>
+  });
+});</pre></div>
+<h1>
+<a aria-hidden="true" class="anchor" href="#9-schedulerconfig--pushschedulerconfig" id="user-content-9-schedulerconfig--pushschedulerconfig"><span class="octicon octicon-link"></span></a>9. schedulerConfig / pushSchedulerConfig</h1>
+<p>Config for push scheduler. It can only be applied to frontend servers.</p>
+<h3>
+<a aria-hidden="true" class="anchor" href="#flushinterval" id="user-content-flushinterval"><span class="octicon octicon-link"></span></a>flushInterval</h3>
+<ul>
+<li>Desc: Push message to clients every 'flushInterval' milliseconds.</li>
+<li>Type: Number.</li>
+<li>Default value: 20.</li>
+</ul>
+<h3>
+<a aria-hidden="true" class="anchor" href="#example-7" id="user-content-example-7"><span class="octicon octicon-link"></span></a>Example</h3>
+<div class="highlight highlight-source-js"><pre><span class="pl-smi">app</span>.<span class="pl-en">configure</span>(<span class="pl-s"><span class="pl-pds">'</span>production|development<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>connector<span class="pl-pds">'</span></span>, <span class="pl-k">function</span>(){
+  <span class="pl-c">// app.set('pushSchedulerConfig', {</span>
+  <span class="pl-smi">app</span>.<span class="pl-en">set</span>(<span class="pl-s"><span class="pl-pds">'</span>schedulerConfig<span class="pl-pds">'</span></span>, { 
+    flushInterval<span class="pl-k">:</span> <span class="pl-c1">10</span>
+  });
+});</pre></div>
+<h1>
+<a aria-hidden="true" class="anchor" href="#10-backendsessionconfig" id="user-content-10-backendsessionconfig"><span class="octicon octicon-link"></span></a>10. backendSessionConfig</h1>
+<p>Not implemented.</p>
+<h1>
+<a aria-hidden="true" class="anchor" href="#11-channelconfig" id="user-content-11-channelconfig"><span class="octicon octicon-link"></span></a>11. channelConfig</h1>
+<p>Config for channelService. It can be applied to all servers except master server.</p>
+<h3>
+<a aria-hidden="true" class="anchor" href="#prefix" id="user-content-prefix"><span class="octicon octicon-link"></span></a>prefix</h3>
+<ul>
+<li>Desc: A string will be used to create object key.</li>
+<li>Type: String.</li>
+<li>Default value: Not set which will be evaluated as ''.</li>
+</ul>
+<h3>
+<a aria-hidden="true" class="anchor" href="#store" id="user-content-store"><span class="octicon octicon-link"></span></a>store</h3>
+<ul>
+<li>Desc: An object to store channelService. Seems like redis or something else.</li>
+<li>Type: Object.</li>
+<li>Default value: Not set.</li>
+</ul>
+<h3>
+<a aria-hidden="true" class="anchor" href="#broadcastfilter" id="user-content-broadcastfilter"><span class="octicon octicon-link"></span></a>broadcastFilter</h3>
+<ul>
+<li>Desc: A function which will be called when push messages to clients if set.</li>
+<li>Type: Function.</li>
+<li>Default value: Not set.</li>
+</ul>
+<h1>
+<a aria-hidden="true" class="anchor" href="#12-serverconfig" id="user-content-12-serverconfig"><span class="octicon octicon-link"></span></a>12. serverConfig</h1>
+<p>Config for servers. It can be applied to all servers except master server.</p>
+<h3>
+<a aria-hidden="true" class="anchor" href="#reloadhandlers" id="user-content-reloadhandlers"><span class="octicon octicon-link"></span></a>reloadHandlers</h3>
+<ul>
+<li>Desc: This flag controls whether pomelo will reload handlers when they are modified.</li>
+<li>Type: Boolean.</li>
+<li>Default value: Not set which will be evaluated as false.</li>
+</ul>
+<h3>
+<a aria-hidden="true" class="anchor" href="#example-8" id="user-content-example-8"><span class="octicon octicon-link"></span></a>Example</h3>
+<div class="highlight highlight-source-js"><pre><span class="pl-smi">app</span>.<span class="pl-en">configure</span>(<span class="pl-s"><span class="pl-pds">'</span>production|development<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>connector<span class="pl-pds">'</span></span>, <span class="pl-k">function</span>(){
+  <span class="pl-smi">app</span>.<span class="pl-en">set</span>(<span class="pl-s"><span class="pl-pds">'</span>serverConfig<span class="pl-pds">'</span></span>, { 
+    reloadHandlers<span class="pl-k">:</span> <span class="pl-c1">true</span>
+  });
+});</pre></div>
+<h1>
+<a aria-hidden="true" class="anchor" href="#13-monitorconfig" id="user-content-13-monitorconfig"><span class="octicon octicon-link"></span></a>13. monitorConfig</h1>
+<p>Config for monitor module. It <strong>should</strong> be applied to all servers including master server if you want to use this config.</p>
+<h3>
+<a aria-hidden="true" class="anchor" href="#closewatcher" id="user-content-closewatcher"><span class="octicon octicon-link"></span></a>closeWatcher</h3>
+<ul>
+<li>Desc: Used to enable/disable the watchdog function.</li>
+<li>Type: Boolean.</li>
+<li>Default value: Not set which will be evaluated as false.</li>
+</ul>
+<h3>
+<a aria-hidden="true" class="anchor" href="#example-9" id="user-content-example-9"><span class="octicon octicon-link"></span></a>Example</h3>
+<div class="highlight highlight-source-js"><pre><span class="pl-smi">app</span>.<span class="pl-en">configure</span>(<span class="pl-s"><span class="pl-pds">'</span>production|development<span class="pl-pds">'</span></span>, <span class="pl-k">function</span>(){
+  <span class="pl-smi">app</span>.<span class="pl-en">set</span>(<span class="pl-s"><span class="pl-pds">'</span>monitorConfig<span class="pl-pds">'</span></span>, { 
+    closeWatcher<span class="pl-k">:</span> <span class="pl-c1">true</span>
+  });
+});</pre></div>
+</div>
+</div></body></html>

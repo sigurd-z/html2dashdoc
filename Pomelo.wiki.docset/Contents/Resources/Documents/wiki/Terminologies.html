@@ -1,0 +1,165 @@
+<html><head prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# object: http://ogp.me/ns/object# article: http://ogp.me/ns/article# profile: http://ogp.me/ns/profile#">
+<meta charset="utf-8">
+<meta content="IE=edge" http-equiv="X-UA-Compatible">
+<meta content="en" http-equiv="Content-Language">
+<meta content="width=1020" name="viewport">
+<title>Terminologies · NetEase/pomelo Wiki · GitHub</title>
+<link href="/opensearch.xml" rel="search" title="GitHub" type="application/opensearchdescription+xml">
+<link href="src/ad667adaa2cfe8f3caa4a41b7d0a79a1.png" rel="fluid-icon" title="GitHub">
+<link href="src/a10d19ff5f738940a7a5086be334f50b.png" rel="apple-touch-icon" sizes="57x57">
+<link href="src/a10d19ff5f738940a7a5086be334f50b.png" rel="apple-touch-icon" sizes="114x114">
+<link href="src/b4cd268bc600cc14d2cdd557de6da2fb.png" rel="apple-touch-icon" sizes="72x72">
+<link href="src/b4cd268bc600cc14d2cdd557de6da2fb.png" rel="apple-touch-icon" sizes="144x144">
+<meta content="1401488693436528" property="fb:app_id">
+<meta content="@github" name="twitter:site"/><meta content="summary" name="twitter:card"/><meta content="NetEase/pomelo" name="twitter:title"/><meta content="pomelo - A fast,scalable,distributed game server framework for Node.js." name="twitter:description"/><meta content="https://avatars0.githubusercontent.com/u/1460597?v=3&amp;s=400" name="twitter:image:src"/>
+<meta content="GitHub" property="og:site_name"/><meta content="object" property="og:type"/><meta content="https://avatars0.githubusercontent.com/u/1460597?v=3&amp;s=400" property="og:image"/><meta content="NetEase/pomelo" property="og:title"/><meta content="https://github.com/NetEase/pomelo" property="og:url"/><meta content="pomelo - A fast,scalable,distributed game server framework for Node.js." property="og:description"/>
+<meta content="https://api.github.com/_private/browser/stats" name="browser-stats-url">
+<meta content="https://api.github.com/_private/browser/errors" name="browser-errors-url">
+<link href="https://assets-cdn.github.com/" rel="assets">
+<meta content="1000" name="pjax-timeout">
+<meta content="/windows-tile.png" name="msapplication-TileImage">
+<meta content="#ffffff" name="msapplication-TileColor">
+<meta data-pjax-transient="" name="selected-link" value="repo_wiki">
+<meta content="KT5gs8h0wvaagLKAVWq8bbeNwnZZK1r1XQysX3xurLU" name="google-site-verification">
+<meta content="UA-3769691-2" name="google-analytics">
+<meta content="collector.githubapp.com" name="octolytics-host"/><meta content="github" name="octolytics-app-id"/><meta content="7250A4CA:6923:11D1F091:5670C141" name="octolytics-dimension-request_id"/>
+<meta content="/&lt;user-name&gt;/&lt;repo-name&gt;/wiki/show" data-pjax-transient="true" name="analytics-location"/>
+<meta content="Rails, view, wiki#show" data-pjax-transient="true" name="analytics-event"/>
+<meta class="js-ga-set" content="Logged Out" name="dimension1">
+<meta content="github.com" name="hostname">
+<meta content="" name="user-login">
+<meta content="github.com" name="expected-hostname">
+<link color="#4078c0" href="https://assets-cdn.github.com/pinned-octocat.svg" rel="mask-icon">
+<link href="https://assets-cdn.github.com/favicon.ico" rel="icon" type="image/x-icon">
+<meta content="b28575ff927a06291372742097280dc5226f1a2a" name="form-nonce"/>
+<link crossorigin="anonymous" href="src/350888e1495e7af27e01faa9d8291dee.css" media="all" rel="stylesheet"/>
+<link crossorigin="anonymous" href="src/9fae9b7d8f0785d745a43c6465f74ae5.css" media="all" rel="stylesheet"/>
+<meta content="cd9958d45e48e8e3157a320e9c346eaa" http-equiv="x-pjax-version">
+<meta content="pomelo - A fast,scalable,distributed game server framework for Node.js." name="description">
+<meta content="github.com/NetEase/pomelo git https://github.com/NetEase/pomelo.git" name="go-import">
+<meta content="1460597" name="octolytics-dimension-user_id"/><meta content="NetEase" name="octolytics-dimension-user_login"/><meta content="5880912" name="octolytics-dimension-repository_id"/><meta content="NetEase/pomelo" name="octolytics-dimension-repository_nwo"/><meta content="true" name="octolytics-dimension-repository_public"/><meta content="false" name="octolytics-dimension-repository_is_fork"/><meta content="5880912" name="octolytics-dimension-repository_network_root_id"/><meta content="NetEase/pomelo" name="octolytics-dimension-repository_network_root_nwo"/>
+<link href="https://github.com/NetEase/pomelo/commits/master.atom" rel="alternate" title="Recent Commits to pomelo:master" type="application/atom+xml">
+</link></meta></meta></meta></link></link></meta></meta></meta></meta></meta></meta></meta></meta></meta></meta></link></meta></meta></meta></link></link></link></link></link></link></meta></meta></meta></meta></head><body style="padding:0 25px;"><div class="gollum-markdown-content instapaper_body" id="wiki-body">
+<div class="markdown-body">
+<p>Pomelo has it's own terminology which some may find confusing without a brief explanation. Here we will try and give readers an overview of some common terms you may come across in this tutorial.</p>
+<h1>
+<a aria-hidden="true" class="anchor" href="#common-terms" id="user-content-common-terms"><span class="octicon octicon-link"></span></a>Common Terms</h1>
+<h3>
+<a aria-hidden="true" class="anchor" href="#gate-server" id="user-content-gate-server"><span class="octicon octicon-link"></span></a>Gate server</h3>
+<p>In most cases the Gate server does not handle RPC calls. In Pomelo configuration terms, this means it only requires a port that faces toward the client (clientPort) as the Gate server is primarily used for frontend load balancing. Ideally, your Gate server will be the client's first point of contact and serve no other purpose than to assign the client to a connector server. Load balancing strategies can be implemented within the Gate server to assign users to various connector servers.</p>
+<h3>
+<a aria-hidden="true" class="anchor" href="#connector-server" id="user-content-connector-server"><span class="octicon octicon-link"></span></a>Connector server</h3>
+<p>The Connector server is responsible for receiving incoming connection requests, creating connections with clients, maintaining clients' session information, receiving client requests and forwarding the requests to a specific backend server according to the developers routing policy. When the backend server has process the request or needs to push messages to clients, the Connector server will send messages to clients as an intermediate role. </p>
+<p>The Connector server has a client facing port (clientPort) and an internal port (port). The client port is used for listening to client connections, and port is used for other backend services to communicate.</p>
+<h3>
+<a aria-hidden="true" class="anchor" href="#application-server" id="user-content-application-server"><span class="octicon octicon-link"></span></a>Application server</h3>
+<p>The Gate server and the Connector server are called frontend servers. An Application server is a backend server which performs application logic providing services to clients. An Application server has client requests routed to it via your frontend servers, while interactions between your Application servers will be handled by RPC calls. Logically since your backend servers don't directly communicate with clients, backend servers only require an internal port defined in its configuration.</p>
+<h3>
+<a aria-hidden="true" class="anchor" href="#master-server" id="user-content-master-server"><span class="octicon octicon-link"></span></a>Master server</h3>
+<p>The Master server is responsible for loading configuration files, starting the server cluster through the configuration file and managing all other servers.</p>
+<h3>
+<a aria-hidden="true" class="anchor" href="#rpc-invocation" id="user-content-rpc-invocation"><span class="octicon octicon-link"></span></a>RPC invocation</h3>
+<p>Pomelo invokes RPC calls for interprocess communications. These internal RPC calls can be divided into three types:</p>
+<ul>
+<li>Frontend servers forwarding client requests to backend servers</li>
+<li>Backend servers pushing session information requests to frontend servers</li>
+<li>Backend servers pushing messages to frontend servers through channels</li>
+</ul>
+<p>In addition to the system RPC calls are your user defined RPC calls. These kind of calls require you to complete the RPC server code.</p>
+<h3>
+<a aria-hidden="true" class="anchor" href="#route-router" id="user-content-route-router"><span class="octicon octicon-link"></span></a>Route, Router</h3>
+<p>A "route" is a unique identifier to a specific service endpoint where clients push messages to your servers, or where clients handle data received from servers. For servers, routes are usually reached with the following route naming convention: .., such as "chat.chatHandler.send". In our example, chat is the server name, chatHandler is the handler defined in the chat server and send is a method within the chatHandler.</p>
+<p>For the client, its general form will be on<a href="for%20our%20example,%20onChat">ExpectedEventName</a>. When servers push messages, the client will assign a function to handle the incoming data from the server for display or processing (commonly referred to as a callback). </p>
+<p>Generally speaking, there will be multiple instances of any given application servers running at any given point in time. When a client request arrives a frontend server will dispatch the client's requests to a specific backend server. This is possible due to a distributed routing function router.</p>
+<p>The router that can use user's session as well as the contents of its request , does some calculations, it will map it to a specific application server id. The route can be invoked through the application of a type of server to configure their router. If you do not configure it, pomelo will use a default router which uses session routing function inside the uid fields, calculates fields crc32 checksums uid. Note that there is a trap: If the session is not bound with uid, at this time the uid field is undefined, and this may cause all requests to be routed to the same server. So in the actual development developers still need to configure their own router.</p>
+<h3>
+<a aria-hidden="true" class="anchor" href="#session-frontendsession-backendsessionsessionservicebackendsessionservice" id="user-content-session-frontendsession-backendsessionsessionservicebackendsessionservice"><span class="octicon octicon-link"></span></a>Session, FrontendSession, BackendSession，SessionService，BackendSessionService</h3>
+<p>In pomelo, one of the most confusing issues is the concept of these three kinds of session and two kinds of service: <code>SessionService</code> and <code>BackendSessionService</code>. Here is some explanation, which will hopefully make this a lot clearer to you.
+Session is an abstraction of client connection , its fields are as follow:</p>
+<pre lang="javasript"><code>{
+    id : &lt;session id&gt; // readonly
+    frontendId : &lt;frontend server id&gt; // readonly
+    uid : &lt;bound uid&gt; // readonly
+    settings : &lt;key-value map&gt; // read and write  
+    __socket__ : &lt;raw_socket&gt;
+    __state__ : &lt;session state&gt;
+
+    // ...
+}
+</code></pre>
+<ul>
+<li>Id is the session id, which is unique in global and generated by the increment way;</li>
+<li>FrontendId is the frontend server id which maintains the session;</li>
+<li>Uid is the user id which is binded with the session;</li>
+<li>__socket__ is a reference to the native socket;</li>
+<li>__state__ is used to indicate the current state of session.</li>
+<li>Settings is a key-value map, which is used to keep some custom attributes of session.</li>
+</ul>
+<p>From the above analysis, once a session is established, the field id, frontendId, __socket__, __state__, uid are identified, and they should be readonly. The settings should not be freely modified.</p>
+<p>Therefore, in the frontend server, we introduce the FrontendSession, which can be seen as a puppet of real session in frontend server, FrontendSession fields as follows:</p>
+<div class="highlight highlight-source-js"><pre>{
+    id <span class="pl-k">:</span> <span class="pl-k">&lt;</span>session id<span class="pl-k">&gt;</span> <span class="pl-c">// readonly</span>
+    frontendId <span class="pl-k">:</span> <span class="pl-k">&lt;</span>frontend server id<span class="pl-k">&gt;</span> <span class="pl-c">// readonly</span>
+    uid <span class="pl-k">:</span> <span class="pl-k">&lt;</span>bound uid<span class="pl-k">&gt;</span> <span class="pl-c">// readonly</span>
+    settings <span class="pl-k">:</span> <span class="pl-k">&lt;</span>key<span class="pl-k">-</span>value map<span class="pl-k">&gt;</span> <span class="pl-c">// read and write  </span>
+}</pre></div>
+<p>The following is FrontendSession's function:</p>
+<ul>
+<li>Settings can be set by FrontendSession, and the values of settings in FrontendSession can be synchronized to the real session by invoking the push method of FrontendSession. </li>
+<li>You can bind uid to the session by invoking the bind method of FrontendSession;</li>
+<li>Of course, the read-only fields in session can also be accessed via FrontendSession, but it can not send the changes to the original session.</li>
+</ul>
+<p>BackendSession is similar to FrontendSession, it is used in backend servers and created and maintained by BackendSessionService. </p>
+<h3>
+<a aria-hidden="true" class="anchor" href="#channel" id="user-content-channel"><span class="octicon octicon-link"></span></a>Channel</h3>
+<p>channel can be seen as a container of players, it is used in the cases in which broadcasting is very frequent. When broadcasting to a channel, all the users in the channel will receive the broadcasting message. A player can be contained by multiple channels. Note that channel is server-local, that means application server A and B does not share their channel information.</p>
+<h3>
+<a aria-hidden="true" class="anchor" href="#request-response-notify-push" id="user-content-request-response-notify-push"><span class="octicon octicon-link"></span></a>Request, response, notify, push</h3>
+<p>There are four types of messages in pomelo: <em>request</em>, <em>response</em>, <em>notify</em> and <em>push</em>. Client initiates request to server, and then server returns a response after handling the request. Notify message is also sent to server by client, but it does not need a response. Pushing message is sent by server to client actively.</p>
+<h3>
+<a aria-hidden="true" class="anchor" href="#filter" id="user-content-filter"><span class="octicon octicon-link"></span></a>Filter</h3>
+<p>Filter can be divided into two categories: <em>before filter</em> and <em>after filter</em>. Before filter would do some pre-handling on the request such as recording log for user "login"ing. After filter would do some post-handling on the request, it always does some cleaning up. In after filter, it should not modify the content of the response, because the response has been sent to client before entering into after filters.</p>
+<h3>
+<a aria-hidden="true" class="anchor" href="#handler" id="user-content-handler"><span class="octicon octicon-link"></span></a>Handler</h3>
+<p>Handler is used to do business logic, which is located between the before filter and after filter in the request-handling-chain, its signature is declared as follows:</p>
+<div class="highlight highlight-source-js"><pre><span class="pl-c1">handler</span>.<span class="pl-en">methodName</span> <span class="pl-k">=</span> <span class="pl-k">function</span>(<span class="pl-smi">msg</span>, <span class="pl-smi">session</span>, <span class="pl-smi">next</span>) {
+  <span class="pl-c">// ...</span>
+}</pre></div>
+<p>Similar meanings to the <em>before filter</em> parameters. Handler processing is complete, if necessary, in the response back to the client, you can return the result packaged as js object passed to the back through the next process.</p>
+<h3>
+<a aria-hidden="true" class="anchor" href="#error-handler" id="user-content-error-handler"><span class="octicon octicon-link"></span></a>Error handler</h3>
+<p>Error handler is used to handle the exceptions generated from handling requests from clients. In error handler, it can record the exception log, respond error message to clients and so on. Error handler is optional, and it can be registered to pomelo framework using following if necessary:</p>
+<div class="highlight highlight-source-js"><pre><span class="pl-smi">app</span>.<span class="pl-en">set</span> (<span class="pl-s"><span class="pl-pds">'</span>errorHandler<span class="pl-pds">'</span></span>, handleFunc);</pre></div>
+<p>The error handler's signature is declared as follows:</p>
+<div class="highlight highlight-source-js"><pre><span class="pl-en">errorHandler</span> <span class="pl-k">=</span> <span class="pl-k">function</span>(<span class="pl-smi">err</span>, <span class="pl-smi">msg</span>, <span class="pl-smi">resp</span>, <span class="pl-smi">session</span>, <span class="pl-smi">next</span>) {
+  <span class="pl-c">// ...</span>
+}</pre></div>
+<h3>
+<a aria-hidden="true" class="anchor" href="#component" id="user-content-component"><span class="octicon octicon-link"></span></a>Component</h3>
+<p>The pomelo framework is composed of a number of loosely coupled components and the pomelo framework can be regarded as a container of component. Each component defines callbacks: start, afterStart, stop.</p>
+<h3>
+<a aria-hidden="true" class="anchor" href="#admin-client-monitor-master" id="user-content-admin-client-monitor-master"><span class="octicon octicon-link"></span></a>Admin client, Monitor, Master</h3>
+<p>In pomelo administration framework, there are three roles that servers will act as: admin client, monitor, master.</p>
+<ul>
+<li><p>Monitor, monitor will report its server status to master and respond to the instructions sent by master.</p></li>
+<li><p>Master, master server is responsible for collecting all the information of the server cluster and sending instructions to the server cluster.</p></li>
+<li><p>Admin Client, is a third-party administration client. It will connect and register to the master and then request the information about the server cluster or send instructions to the server cluster through the master.</p></li>
+</ul>
+<h3>
+<a aria-hidden="true" class="anchor" href="#admin-module" id="user-content-admin-module"><span class="octicon octicon-link"></span></a>Admin module</h3>
+<p>Admin module is used for server administration. Each module defines four callbacks and all of them are optional :</p>
+<ul>
+<li>masterHandler(agnet, msg, cb), it will be callbacked by master once receiving a request/notify from monitor;</li>
+<li>monitorHandler(agent, msg, cb), it will be callbacked by monitor once receiving a request/notify from master;</li>
+<li>clientHandler(agent, msg, cb), it will be callbacked by master once receiving a request/notify from a third-party client;</li>
+<li>start(cb), it will be callbacked to do some initialization after being loaded by the administration framework.</li>
+</ul>
+<h3>
+<a aria-hidden="true" class="anchor" href="#plugin" id="user-content-plugin"><span class="octicon octicon-link"></span></a>Plugin</h3>
+<p>Plugin is a new extension mechanism and it is added since pomelo 0.6. A plugin is composed of several components and some event handlers to handle the event emitted by the framework. It provides a very flexible mechanism to extend pomelo.</p>
+<h1>
+<a aria-hidden="true" class="anchor" href="#summary" id="user-content-summary"><span class="octicon octicon-link"></span></a>Summary</h1>
+<p>We have briefly described some terms used in pomelo, and these terms will be invoked in the following example. </p>
+<p>Next, we will go to our example distributed chat application. We will <a href="Getting-source-code-&amp;-installation">get its source code and install it</a> first.</p>
+</div>
+</div></body></html>

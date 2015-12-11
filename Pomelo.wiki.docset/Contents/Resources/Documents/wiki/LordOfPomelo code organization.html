@@ -1,0 +1,109 @@
+<html><head prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# object: http://ogp.me/ns/object# article: http://ogp.me/ns/article# profile: http://ogp.me/ns/profile#">
+<meta charset="utf-8">
+<meta content="IE=edge" http-equiv="X-UA-Compatible">
+<meta content="en" http-equiv="Content-Language">
+<meta content="width=1020" name="viewport">
+<title>LordOfPomelo code organization · NetEase/pomelo Wiki · GitHub</title>
+<link href="/opensearch.xml" rel="search" title="GitHub" type="application/opensearchdescription+xml">
+<link href="src/ad667adaa2cfe8f3caa4a41b7d0a79a1.png" rel="fluid-icon" title="GitHub">
+<link href="src/a10d19ff5f738940a7a5086be334f50b.png" rel="apple-touch-icon" sizes="57x57">
+<link href="src/a10d19ff5f738940a7a5086be334f50b.png" rel="apple-touch-icon" sizes="114x114">
+<link href="src/b4cd268bc600cc14d2cdd557de6da2fb.png" rel="apple-touch-icon" sizes="72x72">
+<link href="src/b4cd268bc600cc14d2cdd557de6da2fb.png" rel="apple-touch-icon" sizes="144x144">
+<meta content="1401488693436528" property="fb:app_id">
+<meta content="@github" name="twitter:site"/><meta content="summary" name="twitter:card"/><meta content="NetEase/pomelo" name="twitter:title"/><meta content="pomelo - A fast,scalable,distributed game server framework for Node.js." name="twitter:description"/><meta content="https://avatars0.githubusercontent.com/u/1460597?v=3&amp;s=400" name="twitter:image:src"/>
+<meta content="GitHub" property="og:site_name"/><meta content="object" property="og:type"/><meta content="https://avatars0.githubusercontent.com/u/1460597?v=3&amp;s=400" property="og:image"/><meta content="NetEase/pomelo" property="og:title"/><meta content="https://github.com/NetEase/pomelo" property="og:url"/><meta content="pomelo - A fast,scalable,distributed game server framework for Node.js." property="og:description"/>
+<meta content="https://api.github.com/_private/browser/stats" name="browser-stats-url">
+<meta content="https://api.github.com/_private/browser/errors" name="browser-errors-url">
+<link href="https://assets-cdn.github.com/" rel="assets">
+<meta content="1000" name="pjax-timeout">
+<meta content="/windows-tile.png" name="msapplication-TileImage">
+<meta content="#ffffff" name="msapplication-TileColor">
+<meta data-pjax-transient="" name="selected-link" value="repo_wiki">
+<meta content="KT5gs8h0wvaagLKAVWq8bbeNwnZZK1r1XQysX3xurLU" name="google-site-verification">
+<meta content="UA-3769691-2" name="google-analytics">
+<meta content="collector.githubapp.com" name="octolytics-host"/><meta content="github" name="octolytics-app-id"/><meta content="7250A4CA:6925:144C0279:5670C03A" name="octolytics-dimension-request_id"/>
+<meta content="/&lt;user-name&gt;/&lt;repo-name&gt;/wiki/show" data-pjax-transient="true" name="analytics-location"/>
+<meta content="Rails, view, wiki#show" data-pjax-transient="true" name="analytics-event"/>
+<meta class="js-ga-set" content="Logged Out" name="dimension1">
+<meta content="github.com" name="hostname">
+<meta content="" name="user-login">
+<meta content="github.com" name="expected-hostname">
+<link color="#4078c0" href="https://assets-cdn.github.com/pinned-octocat.svg" rel="mask-icon">
+<link href="https://assets-cdn.github.com/favicon.ico" rel="icon" type="image/x-icon">
+<meta content="9865cdaa4ea65a019ad75706a166879614df2ace" name="form-nonce"/>
+<link crossorigin="anonymous" href="src/350888e1495e7af27e01faa9d8291dee.css" media="all" rel="stylesheet"/>
+<link crossorigin="anonymous" href="src/9fae9b7d8f0785d745a43c6465f74ae5.css" media="all" rel="stylesheet"/>
+<meta content="cd9958d45e48e8e3157a320e9c346eaa" http-equiv="x-pjax-version">
+<meta content="pomelo - A fast,scalable,distributed game server framework for Node.js." name="description">
+<meta content="github.com/NetEase/pomelo git https://github.com/NetEase/pomelo.git" name="go-import">
+<meta content="1460597" name="octolytics-dimension-user_id"/><meta content="NetEase" name="octolytics-dimension-user_login"/><meta content="5880912" name="octolytics-dimension-repository_id"/><meta content="NetEase/pomelo" name="octolytics-dimension-repository_nwo"/><meta content="true" name="octolytics-dimension-repository_public"/><meta content="false" name="octolytics-dimension-repository_is_fork"/><meta content="5880912" name="octolytics-dimension-repository_network_root_id"/><meta content="NetEase/pomelo" name="octolytics-dimension-repository_network_root_nwo"/>
+<link href="https://github.com/NetEase/pomelo/commits/master.atom" rel="alternate" title="Recent Commits to pomelo:master" type="application/atom+xml">
+</link></meta></meta></meta></link></link></meta></meta></meta></meta></meta></meta></meta></meta></meta></meta></link></meta></meta></meta></link></link></link></link></link></link></meta></meta></meta></meta></head><body style="padding:0 25px;"><div class="gollum-markdown-content instapaper_body" id="wiki-body">
+<div class="markdown-body">
+<p>LordOfPomelo's code mainly includes two parts: the back-end server code(game-server) and the front-end client code(web-server). The game-server is a game server, including all of the game logic code and the server code. Web-server is the game client, including user registration and login interface code, as well as a game client written in HTML5. In addition to these two parts, there is a common shared directory, used to store shared code and configuration of front-end and back-end.</p>
+<p>As a distributed game server, LordOfPomelo can run on multiple servers at the same time, but using the same set of code, different servers will load respective directories according to the configuration. Below is the code structure of the LordOfPomelo: </p>
+<p><img alt="lordofpomelo_arch" data-canonical-src="http://pomelo.netease.com/resource/documentImage/lordofpomelo/code/LOP_arch.png" src="https://camo.githubusercontent.com/ff4b3c6e60f8c5f5baba556be78e197825441692/687474703a2f2f706f6d656c6f2e6e6574656173652e636f6d2f7265736f757263652f646f63756d656e74496d6167652f6c6f72646f66706f6d656c6f2f636f64652f4c4f505f617263682e706e67"> </img></p>
+<h2>
+<a aria-hidden="true" class="anchor" href="#game-server-server-code-analysis" id="user-content-game-server-server-code-analysis"><span class="octicon octicon-link"></span></a>game-server server code analysis</h2>
+<p><img alt="game-server" data-canonical-src="http://pomelo.netease.com/resource/documentImage/lordofpomelo/code/game-server.png" src="https://camo.githubusercontent.com/5b7f9bb887f86732b2669165a6ca440360113562/687474703a2f2f706f6d656c6f2e6e6574656173652e636f6d2f7265736f757263652f646f63756d656e74496d6167652f6c6f72646f66706f6d656c6f2f636f64652f67616d652d7365727665722e706e67"> </img></p>
+<p>The app.js in the root directory of game-server is the entrance of the server code, the functions of the other directories are as follows: </p>
+<ul>
+<li>/app: server-side js code, including server code and game logic code. </li>
+<li>/config: the configuration file of LordOfPomelo. </li>
+<li>/logs: server-side log files which are generated at runtime.</li>
+<li>/scripts: the local script for the statistics module. </li>
+<li>/test: test cases of LordOfPomelo.</li>
+</ul>
+<h3>
+<a aria-hidden="true" class="anchor" href="#logic-code" id="user-content-logic-code"><span class="octicon octicon-link"></span></a>logic code</h3>
+<p>Logic code is mainly used to complete the specific game logic, such as code used to drive the monster's AI, the pathfinding code used to calculate the map path. Logic code is in the "/app/domain" directory: </p>
+<p><img alt="logic" data-canonical-src="http://pomelo.netease.com/resource/documentImage/lordofpomelo/code/logic.png" src="https://camo.githubusercontent.com/72679b1399bcbbf7ccd4a9baf74c1abf25d83073/687474703a2f2f706f6d656c6f2e6e6574656173652e636f6d2f7265736f757263652f646f63756d656e74496d6167652f6c6f72646f66706f6d656c6f2f636f64652f6c6f6769632e706e67"> </img></p>
+<ul>
+<li>/action: responsible for dealing with the client's requests. The area is driven by tick, generally, the interval of tick is short(default 100ms). When the request need to be performed in more than one tick, it will be encapsulated as an action to perform. </li>
+<li>/aoi: aoi relate logic codes, including aoi message encapsulation, and handling of aoi messages. </li>
+<li>/area: area related logic codes, provides the main interfaces in the area. Including: add, update, and delete entities in the scene, broadcast messages, provide services in the area (AOI, AI etc.), provide area information, etc. Also includes a timer, used to drive the logic in the scene. </li>
+<li>/entity: all entities in the area, including the player, monster, NPC, treasure, equipment, team, etc. </li>
+<li>/event: processing logic for a variety of events in the scene, including the player's and monster's messages, etc. </li>
+<li>/map: used to complete the loading and parsing the maps, and abstract the area in the map. </li>
+<li>/task: task related code, controlling task execution and cancellation, obtaining the quest rewards. </li>
+</ul>
+<h3>
+<a aria-hidden="true" class="anchor" href="#server-code" id="user-content-server-code"><span class="octicon octicon-link"></span></a>Server code</h3>
+<p><img alt="servers" data-canonical-src="http://pomelo.netease.com/resource/documentImage/lordofpomelo/code/servers.png" src="https://camo.githubusercontent.com/1d40963348764640d8bb51cae2fd43b41512496a/687474703a2f2f706f6d656c6f2e6e6574656173652e636f6d2f7265736f757263652f646f63756d656e74496d6167652f6c6f72646f66706f6d656c6f2f636f64652f736572766572732e706e67"> </img></p>
+<p>Server codes are in "/servers" directory, organized through the status, it provides the RPC interface and deal with the client and server requests. Servers used in LordOfPomelo including: </p>
+<ul>
+<li>/area: area server, used to store the scene information, dealing with the client's request, such as to add/delete users, to attack monsters, and so on. </li>
+<li>/chat: chat server, processing chat messages.</li>
+<li>/connector: connector server, responsible for maintaining the user session, accept user data, and push the server-side broadcasting data to the players. </li>
+<li>/login: login server, used to verify the user login information</li>
+<li>/path: pathfinding server, used to complete the path calculation function. </li>
+<li>/manager: copy/team server, which is used to manage global copy and team functions. </li>
+</ul>
+<h2>
+<a aria-hidden="true" class="anchor" href="#web-server-code-architecture" id="user-content-web-server-code-architecture"><span class="octicon octicon-link"></span></a>web-server code architecture</h2>
+<p><img alt="web server" data-canonical-src="http://pomelo.netease.com/resource/documentImage/lordofpomelo/code/web_server.png" src="https://camo.githubusercontent.com/f1a2d74057c022e7dea5ccbb06089c2cb3f12744/687474703a2f2f706f6d656c6f2e6e6574656173652e636f6d2f7265736f757263652f646f63756d656e74496d6167652f6c6f72646f66706f6d656c6f2f636f64652f7765625f7365727665722e706e67"> </img></p>
+<p>LordOfPomelo's client-side code is divided into two main parts: UI code which is based on the HTML5 and game logic code which is based on colorbox. The UI code includes registration/login page, various options and menus in the game scene. These codes are developed based on HTML5, using CSS3 render the game scene. Game scene drawing and the logical driving are developed based on the colorbox, and use many features in HTML5. </p>
+<p>In addition, web-server also includes user registration code and oauth logic code which are in the lib directory. </p>
+<p>Below is the contents of the client:</p>
+<p><img alt="client &amp; HTML" data-canonical-src="http://pomelo.netease.com/resource/documentImage/lordofpomelo/code/client_html.png" src="https://camo.githubusercontent.com/4565ed0d4c5ef945b09d1a1068a3b8cab8a214f4/687474703a2f2f706f6d656c6f2e6e6574656173652e636f6d2f7265736f757263652f646f63756d656e74496d6167652f6c6f72646f66706f6d656c6f2f636f64652f636c69656e745f68746d6c2e706e67"> </img></p>
+<ul>
+<li>/animation_json: animation related json description files. </li>
+<li>/css: css files which are used in the code. </li>
+<li>/image: the picture resources used in the client. </li>
+<li>/js: all client js file. </li>
+<li>/index.html: the entrance of the LordOfPomelo. </li>
+</ul>
+<p>Below is the game js code organization: </p>
+<p><img alt="client &amp; HTML" data-canonical-src="http://pomelo.netease.com/resource/documentImage/lordofpomelo/code/game_client.png" src="https://camo.githubusercontent.com/5f30743735cdbdb70448d8220b9428dd7c92f6fc/687474703a2f2f706f6d656c6f2e6e6574656173652e636f6d2f7265736f757263652f646f63756d656e74496d6167652f6c6f72646f66706f6d656c6f2f636f64652f67616d655f636c69656e742e706e67"> </img></p>
+<ul>
+<li>/config: client configuration information. </li>
+<li>/handler: client handler, used to handle the response of the server. </li>
+<li>/lib: colorbox and pomelo client communication library code. </li>
+<li>/model: the game logic code for the client. </li>
+<li>/ui: ui code. </li>
+<li>/utils: the tool classes used in the client. </li>
+<li>/app.js: the entrance of the client initialization, which is responsible for the initialization of the logic code for the client. </li>
+</ul>
+</div>
+</div></body></html>

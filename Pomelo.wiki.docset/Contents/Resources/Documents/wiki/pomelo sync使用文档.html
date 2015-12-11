@@ -1,0 +1,191 @@
+<html><head prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# object: http://ogp.me/ns/object# article: http://ogp.me/ns/article# profile: http://ogp.me/ns/profile#">
+<meta charset="utf-8">
+<meta content="IE=edge" http-equiv="X-UA-Compatible">
+<meta content="en" http-equiv="Content-Language">
+<meta content="width=1020" name="viewport">
+<title>pomelo sync使用文档 · NetEase/pomelo Wiki · GitHub</title>
+<link href="/opensearch.xml" rel="search" title="GitHub" type="application/opensearchdescription+xml">
+<link href="src/ad667adaa2cfe8f3caa4a41b7d0a79a1.png" rel="fluid-icon" title="GitHub">
+<link href="src/a10d19ff5f738940a7a5086be334f50b.png" rel="apple-touch-icon" sizes="57x57">
+<link href="src/a10d19ff5f738940a7a5086be334f50b.png" rel="apple-touch-icon" sizes="114x114">
+<link href="src/b4cd268bc600cc14d2cdd557de6da2fb.png" rel="apple-touch-icon" sizes="72x72">
+<link href="src/b4cd268bc600cc14d2cdd557de6da2fb.png" rel="apple-touch-icon" sizes="144x144">
+<meta content="1401488693436528" property="fb:app_id">
+<meta content="@github" name="twitter:site"/><meta content="summary" name="twitter:card"/><meta content="NetEase/pomelo" name="twitter:title"/><meta content="pomelo - A fast,scalable,distributed game server framework for Node.js." name="twitter:description"/><meta content="https://avatars0.githubusercontent.com/u/1460597?v=3&amp;s=400" name="twitter:image:src"/>
+<meta content="GitHub" property="og:site_name"/><meta content="object" property="og:type"/><meta content="https://avatars0.githubusercontent.com/u/1460597?v=3&amp;s=400" property="og:image"/><meta content="NetEase/pomelo" property="og:title"/><meta content="https://github.com/NetEase/pomelo" property="og:url"/><meta content="pomelo - A fast,scalable,distributed game server framework for Node.js." property="og:description"/>
+<meta content="https://api.github.com/_private/browser/stats" name="browser-stats-url">
+<meta content="https://api.github.com/_private/browser/errors" name="browser-errors-url">
+<link href="https://assets-cdn.github.com/" rel="assets">
+<meta content="1000" name="pjax-timeout">
+<meta content="/windows-tile.png" name="msapplication-TileImage">
+<meta content="#ffffff" name="msapplication-TileColor">
+<meta data-pjax-transient="" name="selected-link" value="repo_wiki">
+<meta content="KT5gs8h0wvaagLKAVWq8bbeNwnZZK1r1XQysX3xurLU" name="google-site-verification">
+<meta content="UA-3769691-2" name="google-analytics">
+<meta content="collector.githubapp.com" name="octolytics-host"/><meta content="github" name="octolytics-app-id"/><meta content="7250A4CA:6922:F4109B3:5670C0C5" name="octolytics-dimension-request_id"/>
+<meta content="/&lt;user-name&gt;/&lt;repo-name&gt;/wiki/show" data-pjax-transient="true" name="analytics-location"/>
+<meta content="Rails, view, wiki#show" data-pjax-transient="true" name="analytics-event"/>
+<meta class="js-ga-set" content="Logged Out" name="dimension1">
+<meta content="github.com" name="hostname">
+<meta content="" name="user-login">
+<meta content="github.com" name="expected-hostname">
+<link color="#4078c0" href="https://assets-cdn.github.com/pinned-octocat.svg" rel="mask-icon">
+<link href="https://assets-cdn.github.com/favicon.ico" rel="icon" type="image/x-icon">
+<meta content="9f81525fb65d265b60e9965b92aeefd9fdf8fce4" name="form-nonce"/>
+<link crossorigin="anonymous" href="src/350888e1495e7af27e01faa9d8291dee.css" media="all" rel="stylesheet"/>
+<link crossorigin="anonymous" href="src/9fae9b7d8f0785d745a43c6465f74ae5.css" media="all" rel="stylesheet"/>
+<meta content="cd9958d45e48e8e3157a320e9c346eaa" http-equiv="x-pjax-version">
+<meta content="pomelo - A fast,scalable,distributed game server framework for Node.js." name="description">
+<meta content="github.com/NetEase/pomelo git https://github.com/NetEase/pomelo.git" name="go-import">
+<meta content="1460597" name="octolytics-dimension-user_id"/><meta content="NetEase" name="octolytics-dimension-user_login"/><meta content="5880912" name="octolytics-dimension-repository_id"/><meta content="NetEase/pomelo" name="octolytics-dimension-repository_nwo"/><meta content="true" name="octolytics-dimension-repository_public"/><meta content="false" name="octolytics-dimension-repository_is_fork"/><meta content="5880912" name="octolytics-dimension-repository_network_root_id"/><meta content="NetEase/pomelo" name="octolytics-dimension-repository_network_root_nwo"/>
+<link href="https://github.com/NetEase/pomelo/commits/master.atom" rel="alternate" title="Recent Commits to pomelo:master" type="application/atom+xml">
+</link></meta></meta></meta></link></link></meta></meta></meta></meta></meta></meta></meta></meta></meta></meta></link></meta></meta></meta></link></link></link></link></link></link></meta></meta></meta></meta></head><body style="padding:0 25px;"><div class="gollum-markdown-content instapaper_body" id="wiki-body">
+<div class="markdown-body">
+<h2>
+<a aria-hidden="true" class="anchor" href="#%E5%85%B3%E4%BA%8E" id="user-content-关于"><span class="octicon octicon-link"></span></a>关于</h2>
+<p>pomelo sync 模块是管理游戏进程内需要持久化的数据在内存和存储系统之间的同步，提供一种异步的同步方式，根据用户配置定时的同步数据到持久层，如MYSQL，Redis，文件等。</p>
+<h2>
+<a aria-hidden="true" class="anchor" href="#%E7%9B%AE%E7%9A%84" id="user-content-目的"><span class="octicon octicon-link"></span></a>目的</h2>
+<p>由于在游戏应用场景中，需要大量的数据更新与同步，如用户的位置，血量，装备值等，如果频繁的操作数据层，会产生很大的IO操作开销，采用定时批量的方式处理变动的数据是避免压力过大的方法之一，pomelo sync就是为了满足这样的需求而开发的。</p>
+<p>类似与IBatis的配置，但是ORM完全由用户配置控制，具有很大的灵活性，因此，可以应用于自己的不同数据层中，如其他的Mongdb等。</p>
+<h2>
+<a aria-hidden="true" class="anchor" href="#%E6%A8%A1%E5%9D%97%E7%BB%93%E6%9E%84" id="user-content-模块结构"><span class="octicon octicon-link"></span></a>模块结构</h2>
+<p>pomelo sync模块内部结构如下：</p>
+<p><img alt="boardcast result" data-canonical-src="http://pomelo.netease.com/resource/documentImage/pomelo-sync.png" src="https://camo.githubusercontent.com/e4df599b8278380306ec6ee602a2c074dfb18c0c/687474703a2f2f706f6d656c6f2e6e6574656173652e636f6d2f7265736f757263652f646f63756d656e74496d6167652f706f6d656c6f2d73796e632e706e67"> </img></p>
+<p>Logic Interface：提供侵入式的数据更新调用接口，包括常规的add、update、delete和立即执行持久化的接口<br/></p>
+<p>Invoke Interface：提供持久化的实际调用执行：<br>
+Queue：提供本周期内需要持久化的对象，可支持多节点转发的数据<br>
+Timer：提供定时静态配置、动态修改<br>
+Mapping：提供在持久化时同步方法的映射<br/></br></br></br></p>
+<p>Store Interface：封装了各存储引擎的持久化接口以<br>
+Log：提供对数据变动时的AOF日志记录<br>
+Mysql,Redis,File：根据用户传入的对象执行用户自定义的同步方法。<br/></br></br></p>
+<h2>
+<a aria-hidden="true" class="anchor" href="#%E5%AE%89%E8%A3%85" id="user-content-安装"><span class="octicon octicon-link"></span></a>安装</h2>
+<p>npm install pomelo-sync</p>
+<h2>
+<a aria-hidden="true" class="anchor" href="#%E4%BD%BF%E7%94%A8%E7%A4%BA%E4%BE%8B" id="user-content-使用示例"><span class="octicon octicon-link"></span></a>使用示例</h2>
+<h3>
+<a aria-hidden="true" class="anchor" href="#%E5%88%9B%E5%BB%BAsync%E5%AF%B9%E8%B1%A1" id="user-content-创建sync对象"><span class="octicon octicon-link"></span></a>创建sync对象</h3>
+<div class="highlight highlight-source-js"><pre><span class="pl-c">//引用库</span>
+<span class="pl-k">var</span> DBsync <span class="pl-k">=</span> <span class="pl-c1">require</span>(<span class="pl-s"><span class="pl-pds">'</span>pomelo-sync<span class="pl-pds">'</span></span>);
+<span class="pl-c">//配置客户端连接,即同步的连接，如mysqlclient;</span>
+<span class="pl-k">var</span> dbclient <span class="pl-k">=</span> mysqlclient;
+<span class="pl-k">var</span> opts <span class="pl-k">=</span> opts <span class="pl-k">||</span> {};
+<span class="pl-c">//配置映射的路径方法</span>
+<span class="pl-smi">opts</span>.<span class="pl-smi">client</span> <span class="pl-k">=</span> dbclient;
+<span class="pl-smi">opts</span>.<span class="pl-smi">interval</span> <span class="pl-k">=</span> <span class="pl-smi">opts</span>.<span class="pl-smi">interval</span> <span class="pl-k">||</span> <span class="pl-c1">60</span> <span class="pl-k">*</span> <span class="pl-c1">1000</span>;
+<span class="pl-k">var</span> sync <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-en">DBsync</span>(opts) ;</pre></div>
+<h3>
+<a aria-hidden="true" class="anchor" href="#%E9%85%8D%E7%BD%AE%E5%90%8C%E6%AD%A5%E5%AF%B9%E8%B1%A1%E6%98%A0%E5%B0%84%E5%85%B3%E7%B3%BB" id="user-content-配置同步对象映射关系"><span class="octicon octicon-link"></span></a>配置同步对象映射关系</h3>
+<p>目前，本库支持用户自行定义和设置映射路径，代码分别如下：</p>
+<h4>
+<a aria-hidden="true" class="anchor" href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E4%BC%A0%E5%85%A5%E7%9A%84%E6%96%B9%E6%B3%95" id="user-content-自定义传入的方法"><span class="octicon octicon-link"></span></a>自定义传入的方法</h4>
+<div class="highlight highlight-source-js"><pre>
+<span class="pl-k">var</span> <span class="pl-en">updateTask</span> <span class="pl-k">=</span> <span class="pl-k">function</span>(<span class="pl-smi">dbclient</span>,<span class="pl-smi">val</span>) {
+    <span class="pl-k">var</span> sql <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">'</span>update Task set taskState = ?, startTime = ?, taskData = ? where id = ?<span class="pl-pds">'</span></span>;
+    <span class="pl-k">var</span> taskData <span class="pl-k">=</span> <span class="pl-smi">val</span>.<span class="pl-smi">taskData</span>;
+    <span class="pl-k">if</span> (<span class="pl-k">typeof</span> taskData <span class="pl-k">!==</span> <span class="pl-s"><span class="pl-pds">'</span>string<span class="pl-pds">'</span></span>) {
+        taskData <span class="pl-k">=</span> <span class="pl-smi">JSON</span>.<span class="pl-en">stringify</span>(taskData);
+    }
+    <span class="pl-k">var</span> args <span class="pl-k">=</span> [<span class="pl-smi">val</span>.<span class="pl-smi">taskState</span>, <span class="pl-smi">val</span>.<span class="pl-smi">startTime</span>, taskData, <span class="pl-smi">val</span>.<span class="pl-c1">id</span>];    
+    <span class="pl-smi">dbclient</span>.<span class="pl-en">query</span>(sql, args, <span class="pl-k">function</span>(<span class="pl-smi">err</span>, <span class="pl-smi">res</span>) {
+        <span class="pl-k">if</span> (err) {
+            <span class="pl-en">console</span>.<span class="pl-c1">error</span>(<span class="pl-s"><span class="pl-pds">'</span>write mysql failed! <span class="pl-pds">'</span></span> <span class="pl-k">+</span> sql <span class="pl-k">+</span> <span class="pl-smi">JSON</span>.<span class="pl-en">stringify</span>(val));
+        } <span class="pl-k">else</span> {
+            callback <span class="pl-k">&amp;&amp;</span> <span class="pl-en">callback</span>(<span class="pl-k">!!</span>err);
+        }
+    });
+}
+
+<span class="pl-k">var</span> optKey <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">'</span>taskSync.updateTask<span class="pl-pds">'</span></span>;
+<span class="pl-smi">sync</span>.<span class="pl-smi">mapping</span> <span class="pl-k">=</span> {optKey<span class="pl-k">:</span>updateTask}; 
+​</pre></div>
+<h4>
+<a aria-hidden="true" class="anchor" href="#%E4%BC%A0%E5%85%A5%E7%94%A8%E6%88%B7%E8%87%AA%E5%AE%9A%E4%B9%89%E8%B7%AF%E5%BE%84" id="user-content-传入用户自定义路径"><span class="octicon octicon-link"></span></a>传入用户自定义路径</h4>
+<p>由模块扫描配置的文件夹的所有JS文件，并把JS的文件名和导出的方法作为Key与对应的导出方法映射。</p>
+<div class="highlight highlight-source-js"><pre><span class="pl-k">var</span> mappingPath <span class="pl-k">=</span> <span class="pl-c1">__dirname</span><span class="pl-k">+</span> <span class="pl-s"><span class="pl-pds">'</span>/mapping<span class="pl-pds">'</span></span>;
+<span class="pl-smi">sync</span>.<span class="pl-smi">mapping</span> <span class="pl-k">=</span> <span class="pl-smi">sync</span>.<span class="pl-en">loadMapping</span>(mappingPath);</pre></div>
+<p>mapping文件夹下的taskSync.js文件内容</p>
+<div class="highlight highlight-source-js"><pre><span class="pl-smi">module</span>.<span class="pl-smi">exports</span> <span class="pl-k">=</span> {
+    <span class="pl-en">updateTask</span><span class="pl-k">:</span> <span class="pl-k">function</span>(<span class="pl-smi">dbclient</span>, <span class="pl-smi">val</span>, <span class="pl-smi">callback</span>) {
+        <span class="pl-k">var</span> sql <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">'</span>update Task set taskState = ?, startTime = ?, taskData = ? where id = ?<span class="pl-pds">'</span></span>;
+        <span class="pl-k">var</span> taskData <span class="pl-k">=</span> <span class="pl-smi">val</span>.<span class="pl-smi">taskData</span>;
+        <span class="pl-k">if</span> (<span class="pl-k">typeof</span> taskData <span class="pl-k">!==</span> <span class="pl-s"><span class="pl-pds">'</span>string<span class="pl-pds">'</span></span>) {
+            taskData <span class="pl-k">=</span> <span class="pl-smi">JSON</span>.<span class="pl-en">stringify</span>(taskData);
+        }
+        <span class="pl-k">var</span> args <span class="pl-k">=</span> [<span class="pl-smi">val</span>.<span class="pl-smi">taskState</span>, <span class="pl-smi">val</span>.<span class="pl-smi">startTime</span>, taskData, <span class="pl-smi">val</span>.<span class="pl-c1">id</span>];    
+        <span class="pl-smi">dbclient</span>.<span class="pl-en">query</span>(sql, args, <span class="pl-k">function</span>(<span class="pl-smi">err</span>, <span class="pl-smi">res</span>) {
+            <span class="pl-k">if</span> (err) {
+                <span class="pl-en">console</span>.<span class="pl-c1">error</span>(<span class="pl-s"><span class="pl-pds">'</span>write mysql failed! <span class="pl-pds">'</span></span> <span class="pl-k">+</span> sql <span class="pl-k">+</span> <span class="pl-smi">JSON</span>.<span class="pl-en">stringify</span>(val));
+            } <span class="pl-k">else</span> {
+                callback <span class="pl-k">&amp;&amp;</span> <span class="pl-en">callback</span>(<span class="pl-k">!!</span>err);
+            }
+        });
+    }
+};</pre></div>
+<h3>
+<a aria-hidden="true" class="anchor" href="#%E6%B7%BB%E5%8A%A0%E9%9C%80%E8%A6%81%E5%90%8C%E6%AD%A5%E7%9A%84%E5%AF%B9%E8%B1%A1" id="user-content-添加需要同步的对象"><span class="octicon octicon-link"></span></a>添加需要同步的对象</h3>
+<p>需要传入同步时回调方法的关键词，同步对象的主键及同步对象，定时器会把添加的对象同步到数据库中。</p>
+<div class="highlight highlight-source-js"><pre><span class="pl-k">var</span> id <span class="pl-k">=</span> <span class="pl-c1">10001</span>;
+<span class="pl-k">var</span> task <span class="pl-k">=</span> {<span class="pl-s"><span class="pl-pds">"</span>taskState<span class="pl-pds">"</span></span><span class="pl-k">:</span><span class="pl-c1">1</span>,<span class="pl-s"><span class="pl-pds">"</span>startTime<span class="pl-pds">"</span></span><span class="pl-k">:</span><span class="pl-smi">Date</span>.<span class="pl-en">now</span>(),<span class="pl-s"><span class="pl-pds">"</span>taskData<span class="pl-pds">"</span></span><span class="pl-k">:</span><span class="pl-c1">1</span>,<span class="pl-s"><span class="pl-pds">"</span>id<span class="pl-pds">"</span></span><span class="pl-k">:</span>id};
+<span class="pl-smi">sync</span>.<span class="pl-c1">exec</span>(optKey,id,task);
+​</pre></div>
+<h2>
+<a aria-hidden="true" class="anchor" href="#api" id="user-content-api"><span class="octicon octicon-link"></span></a>API</h2>
+<h3>
+<a aria-hidden="true" class="anchor" href="#syncexeckeyidvalcb" id="user-content-syncexeckeyidvalcb"><span class="octicon octicon-link"></span></a>sync.exec(key,id,val,cb)</h3>
+<p>添加异步定时执行的操作</p>
+<h4>
+<a aria-hidden="true" class="anchor" href="#arguments" id="user-content-arguments"><span class="octicon octicon-link"></span></a>Arguments</h4>
+<ul>
+<li>key -  方法映射的关键词，使用时需要唯一。</li>
+<li>id  -  实体对象主键。</li>
+<li>val -  需要同步对象，添加后会克隆此对象。</li>
+<li>cb  -  同步完成后的异步回调，可以为空。</li>
+</ul>
+<p>具体使用见上示例</p>
+<h3>
+<a aria-hidden="true" class="anchor" href="#syncflushkeyidvalcb" id="user-content-syncflushkeyidvalcb"><span class="octicon octicon-link"></span></a>sync.flush(key,id,val,cb)</h3>
+<p>立即同步某个对象到持久层</p>
+<h4>
+<a aria-hidden="true" class="anchor" href="#arguments-1" id="user-content-arguments-1"><span class="octicon octicon-link"></span></a>Arguments</h4>
+<ul>
+<li>key -  方法映射的关键词，使用时需要唯一。</li>
+<li>id  -  实体对象主键。</li>
+<li>val -  需要同步对象。</li>
+<li>cb  -  同步完成后的异步回调，可以为空。</li>
+</ul>
+<p>具体使用同上示例。</p>
+<h3>
+<a aria-hidden="true" class="anchor" href="#syncsync" id="user-content-syncsync"><span class="octicon octicon-link"></span></a>sync.sync()</h3>
+<p>用户手工立即执行同步过程，不等到定时器调用。一般使用在服务器关闭关调用。代码如下：</p>
+<div class="highlight highlight-source-js"><pre><span class="pl-k">var</span> <span class="pl-en">stop</span> <span class="pl-k">=</span> <span class="pl-k">function</span>(<span class="pl-smi">cb</span>) {
+  <span class="pl-k">var</span> self <span class="pl-k">=</span> <span class="pl-v">this</span>;
+  <span class="pl-smi">self</span>.<span class="pl-smi">sync</span>.<span class="pl-en">sync</span>();
+  <span class="pl-smi">self</span>.<span class="pl-smi">state</span> <span class="pl-k">=</span> <span class="pl-c1">STATE_STOPED</span>;
+  <span class="pl-k">var</span> interval <span class="pl-k">=</span> <span class="pl-c1">setInterval</span>(<span class="pl-k">function</span>(){
+    <span class="pl-k">if</span> (<span class="pl-smi">self</span>.<span class="pl-smi">sync</span>.<span class="pl-en">isDone</span>()) {
+      <span class="pl-c1">clearInterval</span>(interval);
+      <span class="pl-en">cb</span>();
+    }
+  }, <span class="pl-c1">200</span>);
+};
+​</pre></div>
+<h3>
+<a aria-hidden="true" class="anchor" href="#syncisdone" id="user-content-syncisdone"><span class="octicon octicon-link"></span></a>sync.isDone</h3>
+<p>获得内存是否还有需要同步对象的状态，有的话为FALSE，用户可以根据状态判断是否关闭。
+一般配置sync()方法一起使用，具体使用见上面的代码</p>
+<h2>
+<a aria-hidden="true" class="anchor" href="#%E5%85%B6%E4%BB%96%E5%8F%82%E6%95%B0%E9%80%89%E9%A1%B9" id="user-content-其他参数选项"><span class="octicon octicon-link"></span></a>其他参数选项</h2>
+<p>系统默认的同步间隔时间为 1000 * 60（即1分钟）,需要修改的在opts.interval传入即可。<br>
+系统默认是关闭aof日志记录，如需要可使用opts.aof = ture打开。</br></p>
+<h2>
+<a aria-hidden="true" class="anchor" href="#%E6%B3%A8%E6%84%8F" id="user-content-注意"><span class="octicon octicon-link"></span></a>注意</h2>
+<p>使用外部的持久化时需要设置对应的CLIENT对象，在调用方法时会按第一个参数传给调用方法。需要同步的对象传出在第二个参数位置上。
+本模块需要采用持久层的内置事务模型来保证对事务的支持，本身不提供。 </p>
+<h2>
+<a aria-hidden="true" class="anchor" href="#%E5%85%B6%E4%BB%96" id="user-content-其他"><span class="octicon octicon-link"></span></a>其他</h2>
+<p>更详细的示例，请参考库的<a href="https://github.com/NetEase/pomelo-sync">源代码</a>与<a href="https://github.com/NetEase/lordofpomelo">游戏DEMO</a>。</p>
+</div>
+</div></body></html>

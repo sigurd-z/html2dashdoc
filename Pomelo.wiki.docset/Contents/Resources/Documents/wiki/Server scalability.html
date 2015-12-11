@@ -1,0 +1,140 @@
+<html><head prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# object: http://ogp.me/ns/object# article: http://ogp.me/ns/article# profile: http://ogp.me/ns/profile#">
+<meta charset="utf-8">
+<meta content="IE=edge" http-equiv="X-UA-Compatible">
+<meta content="en" http-equiv="Content-Language">
+<meta content="width=1020" name="viewport">
+<title>Server scalability · NetEase/pomelo Wiki · GitHub</title>
+<link href="/opensearch.xml" rel="search" title="GitHub" type="application/opensearchdescription+xml">
+<link href="src/ad667adaa2cfe8f3caa4a41b7d0a79a1.png" rel="fluid-icon" title="GitHub">
+<link href="src/a10d19ff5f738940a7a5086be334f50b.png" rel="apple-touch-icon" sizes="57x57">
+<link href="src/a10d19ff5f738940a7a5086be334f50b.png" rel="apple-touch-icon" sizes="114x114">
+<link href="src/b4cd268bc600cc14d2cdd557de6da2fb.png" rel="apple-touch-icon" sizes="72x72">
+<link href="src/b4cd268bc600cc14d2cdd557de6da2fb.png" rel="apple-touch-icon" sizes="144x144">
+<meta content="1401488693436528" property="fb:app_id">
+<meta content="@github" name="twitter:site"/><meta content="summary" name="twitter:card"/><meta content="NetEase/pomelo" name="twitter:title"/><meta content="pomelo - A fast,scalable,distributed game server framework for Node.js." name="twitter:description"/><meta content="https://avatars0.githubusercontent.com/u/1460597?v=3&amp;s=400" name="twitter:image:src"/>
+<meta content="GitHub" property="og:site_name"/><meta content="object" property="og:type"/><meta content="https://avatars0.githubusercontent.com/u/1460597?v=3&amp;s=400" property="og:image"/><meta content="NetEase/pomelo" property="og:title"/><meta content="https://github.com/NetEase/pomelo" property="og:url"/><meta content="pomelo - A fast,scalable,distributed game server framework for Node.js." property="og:description"/>
+<meta content="https://api.github.com/_private/browser/stats" name="browser-stats-url">
+<meta content="https://api.github.com/_private/browser/errors" name="browser-errors-url">
+<link href="https://assets-cdn.github.com/" rel="assets">
+<meta content="1000" name="pjax-timeout">
+<meta content="/windows-tile.png" name="msapplication-TileImage">
+<meta content="#ffffff" name="msapplication-TileColor">
+<meta data-pjax-transient="" name="selected-link" value="repo_wiki">
+<meta content="KT5gs8h0wvaagLKAVWq8bbeNwnZZK1r1XQysX3xurLU" name="google-site-verification">
+<meta content="UA-3769691-2" name="google-analytics">
+<meta content="collector.githubapp.com" name="octolytics-host"/><meta content="github" name="octolytics-app-id"/><meta content="7250A4CA:6924:139FEC45:5670C139" name="octolytics-dimension-request_id"/>
+<meta content="/&lt;user-name&gt;/&lt;repo-name&gt;/wiki/show" data-pjax-transient="true" name="analytics-location"/>
+<meta content="Rails, view, wiki#show" data-pjax-transient="true" name="analytics-event"/>
+<meta class="js-ga-set" content="Logged Out" name="dimension1">
+<meta content="github.com" name="hostname">
+<meta content="" name="user-login">
+<meta content="github.com" name="expected-hostname">
+<link color="#4078c0" href="https://assets-cdn.github.com/pinned-octocat.svg" rel="mask-icon">
+<link href="https://assets-cdn.github.com/favicon.ico" rel="icon" type="image/x-icon">
+<meta content="223053b889328acd3a0fc94d61c430bd16f84c7a" name="form-nonce"/>
+<link crossorigin="anonymous" href="src/350888e1495e7af27e01faa9d8291dee.css" media="all" rel="stylesheet"/>
+<link crossorigin="anonymous" href="src/9fae9b7d8f0785d745a43c6465f74ae5.css" media="all" rel="stylesheet"/>
+<meta content="cd9958d45e48e8e3157a320e9c346eaa" http-equiv="x-pjax-version">
+<meta content="pomelo - A fast,scalable,distributed game server framework for Node.js." name="description">
+<meta content="github.com/NetEase/pomelo git https://github.com/NetEase/pomelo.git" name="go-import">
+<meta content="1460597" name="octolytics-dimension-user_id"/><meta content="NetEase" name="octolytics-dimension-user_login"/><meta content="5880912" name="octolytics-dimension-repository_id"/><meta content="NetEase/pomelo" name="octolytics-dimension-repository_nwo"/><meta content="true" name="octolytics-dimension-repository_public"/><meta content="false" name="octolytics-dimension-repository_is_fork"/><meta content="5880912" name="octolytics-dimension-repository_network_root_id"/><meta content="NetEase/pomelo" name="octolytics-dimension-repository_network_root_nwo"/>
+<link href="https://github.com/NetEase/pomelo/commits/master.atom" rel="alternate" title="Recent Commits to pomelo:master" type="application/atom+xml">
+</link></meta></meta></meta></link></link></meta></meta></meta></meta></meta></meta></meta></meta></meta></meta></link></meta></meta></meta></link></link></link></link></link></link></meta></meta></meta></meta></head><body style="padding:0 25px;"><div class="gollum-markdown-content instapaper_body" id="wiki-body">
+<div class="markdown-body">
+<p>If there are only a few users to use our application simultaneously, only a single server is enough to support it. But as users increase, a single server may not be able to bear it, it requires us to scale the server out and use mutli-server to provide service.</p>
+<p>Multi-server version of the chat application is on the branch <code>tutorial-multi-server</code>, you can use the following command to switch to <code>tutorial-multi-server</code> branch:</p>
+<pre><code>$ git checkout tutorial-multi-server
+</code></pre>
+<h1>
+<a aria-hidden="true" class="anchor" href="#modifying-configuration-" id="user-content-modifying-configuration-"><span class="octicon octicon-link"></span></a>Modifying Configuration </h1>
+<p>In pomelo, it is very easy to scale server out, it is not required to modify the source code, but add more servers configuration in the servers configuration file. For our chat example, the new server configuration file config/servers.json is shown as below:</p>
+<div class="highlight highlight-source-json"><pre>{
+  <span class="pl-s"><span class="pl-pds">"</span>development<span class="pl-pds">"</span></span>: {
+    <span class="pl-s"><span class="pl-pds">"</span>connector<span class="pl-pds">"</span></span>: [
+      {<span class="pl-s"><span class="pl-pds">"</span>id<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>connector-server-1<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>host<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>127.0.0.1<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>port<span class="pl-pds">"</span></span>: <span class="pl-c1">4050</span>, <span class="pl-s"><span class="pl-pds">"</span>clientPort<span class="pl-pds">"</span></span>: <span class="pl-c1">3050</span>, <span class="pl-s"><span class="pl-pds">"</span>frontend<span class="pl-pds">"</span></span>: <span class="pl-c1">true</span>},
+      {<span class="pl-s"><span class="pl-pds">"</span>id<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>connector-server-2<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>host<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>127.0.0.1<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>port<span class="pl-pds">"</span></span>: <span class="pl-c1">4051</span>, <span class="pl-s"><span class="pl-pds">"</span>clientPort<span class="pl-pds">"</span></span>: <span class="pl-c1">3051</span>, <span class="pl-s"><span class="pl-pds">"</span>frontend<span class="pl-pds">"</span></span>: <span class="pl-c1">true</span>},
+      {<span class="pl-s"><span class="pl-pds">"</span>id<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>connector-server-3<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>host<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>127.0.0.1<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>port<span class="pl-pds">"</span></span>: <span class="pl-c1">4052</span>, <span class="pl-s"><span class="pl-pds">"</span>clientPort<span class="pl-pds">"</span></span>: <span class="pl-c1">3052</span>, <span class="pl-s"><span class="pl-pds">"</span>frontend<span class="pl-pds">"</span></span>: <span class="pl-c1">true</span>}
+    ],
+    <span class="pl-s"><span class="pl-pds">"</span>chat<span class="pl-pds">"</span></span>: [
+<span class="pl-ii"> </span>     {<span class="pl-s"><span class="pl-pds">"</span>id<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>chat-server-1<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>host<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>127.0.0.1<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>port<span class="pl-pds">"</span></span>: <span class="pl-c1">6050</span>},
+     <span class="pl-ii"> </span>{<span class="pl-s"><span class="pl-pds">"</span>id<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>chat-server-2<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>host<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>127.0.0.1<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>port<span class="pl-pds">"</span></span>: <span class="pl-c1">6051</span>},
+<span class="pl-ii"> </span>     {<span class="pl-s"><span class="pl-pds">"</span>id<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>chat-server-3<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>host<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>127.0.0.1<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>port<span class="pl-pds">"</span></span>: <span class="pl-c1">6052</span>}
+    ],
+    <span class="pl-s"><span class="pl-pds">"</span>gate<span class="pl-pds">"</span></span>: [
+      {<span class="pl-s"><span class="pl-pds">"</span>id<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>gate-server-1<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>host<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>127.0.0.1<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>clientPort<span class="pl-pds">"</span></span>: <span class="pl-c1">3014</span>, <span class="pl-s"><span class="pl-pds">"</span>frontend<span class="pl-pds">"</span></span>: <span class="pl-c1">true</span>}
+    ]
+  },
+  <span class="pl-s"><span class="pl-pds">"</span>production<span class="pl-pds">"</span></span>: {
+    <span class="pl-s"><span class="pl-pds">"</span>connector<span class="pl-pds">"</span></span>: [
+      {<span class="pl-s"><span class="pl-pds">"</span>id<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>connector-server-1<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>host<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>127.0.0.1<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>port<span class="pl-pds">"</span></span>: <span class="pl-c1">4050</span>, <span class="pl-s"><span class="pl-pds">"</span>clientPort<span class="pl-pds">"</span></span>: <span class="pl-c1">3050</span>, <span class="pl-s"><span class="pl-pds">"</span>frontend<span class="pl-pds">"</span></span>: <span class="pl-c1">true</span>},
+      {<span class="pl-s"><span class="pl-pds">"</span>id<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>connector-server-2<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>host<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>127.0.0.1<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>port<span class="pl-pds">"</span></span>: <span class="pl-c1">4051</span>, <span class="pl-s"><span class="pl-pds">"</span>clientPort<span class="pl-pds">"</span></span>: <span class="pl-c1">3051</span>, <span class="pl-s"><span class="pl-pds">"</span>frontend<span class="pl-pds">"</span></span>: <span class="pl-c1">true</span>},
+      {<span class="pl-s"><span class="pl-pds">"</span>id<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>connector-server-3<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>host<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>127.0.0.1<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>port<span class="pl-pds">"</span></span>: <span class="pl-c1">4052</span>, <span class="pl-s"><span class="pl-pds">"</span>clientPort<span class="pl-pds">"</span></span>: <span class="pl-c1">3052</span>, <span class="pl-s"><span class="pl-pds">"</span>frontend<span class="pl-pds">"</span></span>: <span class="pl-c1">true</span>}
+    ],
+    <span class="pl-s"><span class="pl-pds">"</span>chat<span class="pl-pds">"</span></span>: [
+<span class="pl-ii"> </span>     {<span class="pl-s"><span class="pl-pds">"</span>id<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>chat-server-1<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>host<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>127.0.0.1<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>port<span class="pl-pds">"</span></span>: <span class="pl-c1">6050</span>},
+<span class="pl-ii"> </span>     {<span class="pl-s"><span class="pl-pds">"</span>id<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>chat-server-2<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>host<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>127.0.0.1<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>port<span class="pl-pds">"</span></span>: <span class="pl-c1">6051</span>},
+      {<span class="pl-s"><span class="pl-pds">"</span>id<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>chat-server-3<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>host<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>127.0.0.1<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>port<span class="pl-pds">"</span></span>: <span class="pl-c1">6052</span>}
+    ],
+    <span class="pl-s"><span class="pl-pds">"</span>gate<span class="pl-pds">"</span></span>: [
+      {<span class="pl-s"><span class="pl-pds">"</span>id<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>gate-server-1<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>host<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>127.0.0.1<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>clientPort<span class="pl-pds">"</span></span>: <span class="pl-c1">3014</span>, <span class="pl-s"><span class="pl-pds">"</span>frontend<span class="pl-pds">"</span></span>: <span class="pl-c1">true</span>}
+<span class="pl-ii"> </span>   ]
+  }
+}
+</pre></div>
+<h1>
+<a aria-hidden="true" class="anchor" href="#configuring-router" id="user-content-configuring-router"><span class="octicon octicon-link"></span></a>Configuring Router</h1>
+<p>Comparing with the example before where there is only one server for a certain server type, here we configure more than one servers for server type <code>connector</code> and <code>chat</code>. Therefore it is needed to consider how to dispatch user requests to multi-server.</p>
+<p>For <code>gate</code> server, in the previous example, because there is only one <code>connector</code> server, so gate will always return this server if requesting. But here there are multiple connector servers, from which gate should select one using some selecting strategy. We use a utility function <code>dispatch</code> to select appropriate server, which uses crc32 checksum of uid modulus the number of connector servers as the connector server index, rough code is presented below:</p>
+<div class="highlight highlight-source-js"><pre><span class="pl-c">// util/dispatcher.js</span>
+<span class="pl-c1">module.exports</span>.<span class="pl-en">dispatch</span> <span class="pl-k">=</span> <span class="pl-k">function</span> (<span class="pl-smi">key</span>, <span class="pl-smi">list</span>) {
+  <span class="pl-k">var</span> index <span class="pl-k">=</span> <span class="pl-smi">Math</span>.<span class="pl-en">abs</span> (<span class="pl-smi">crc</span>.<span class="pl-en">crc32</span> (key))<span class="pl-k">%</span> <span class="pl-smi">list</span>.<span class="pl-c1">length</span>;
+  <span class="pl-k">return</span> list[index];
+};
+
+<span class="pl-c">// GateHandler.js</span>
+<span class="pl-c1">handler</span>.<span class="pl-en">queryEntry</span> <span class="pl-k">=</span> <span class="pl-k">function</span> (<span class="pl-smi">msg</span>, <span class="pl-smi">session</span>, <span class="pl-smi">next</span>) {
+  <span class="pl-c">// ...</span>
+
+  <span class="pl-c">// get all connectors</span>
+  <span class="pl-k">var</span> connectors <span class="pl-k">=</span> <span class="pl-smi">this</span>.<span class="pl-smi">app</span>.<span class="pl-en">getServersByType</span> (<span class="pl-s"><span class="pl-pds">'</span>connector<span class="pl-pds">'</span></span>);
+
+  <span class="pl-c">// ...</span>
+
+  <span class="pl-k">var</span> res <span class="pl-k">=</span> <span class="pl-smi">dispatcher</span>.<span class="pl-en">dispatch</span> (uid, connectors); <span class="pl-c">// select a connector from all the connectors</span>
+  <span class="pl-c">// do something with res</span>
+};
+</pre></div>
+<p>When requests come, because there are multiple chat servers now, so it is also required to select one to handle coming requests. In other words, frontend server should select a backend server and route the requests to it. Here we use the previously mentioned utility function dispatch to select appropriate chat server and configure the routing strategy using application.route, shown as follows:</p>
+<div class="highlight highlight-source-js"><pre><span class="pl-c">// app.js</span>
+
+<span class="pl-c">// routing strategy definition for chat server</span>
+<span class="pl-k">var</span> <span class="pl-en">chatRoute</span> <span class="pl-k">=</span> <span class="pl-k">function</span> (<span class="pl-smi">session</span>, <span class="pl-smi">msg</span>, <span class="pl-smi">app</span>, <span class="pl-smi">cb</span>) {
+  <span class="pl-k">var</span> chatServers <span class="pl-k">=</span> <span class="pl-smi">app</span>.<span class="pl-en">getServersByType</span> (<span class="pl-s"><span class="pl-pds">'</span>chat<span class="pl-pds">'</span></span>);
+
+  <span class="pl-k">if</span> (<span class="pl-k">!</span> chatServers <span class="pl-k">|</span> <span class="pl-k">|</span> <span class="pl-smi">chatServers</span>.<span class="pl-c1">length</span> <span class="pl-k">===</span> <span class="pl-c1">0</span>) {
+    <span class="pl-en">cb</span> (<span class="pl-k">new</span> <span class="pl-en">Error</span> (<span class="pl-s"><span class="pl-pds">'</span>can not find chat servers.<span class="pl-pds">'</span></span>));
+    <span class="pl-k">return</span>;
+  }
+
+  <span class="pl-k">var</span> res <span class="pl-k">=</span> <span class="pl-smi">dispatcher</span>.<span class="pl-en">dispatch</span> (<span class="pl-smi">session</span>.<span class="pl-en">get</span> (<span class="pl-s"><span class="pl-pds">'</span>rid<span class="pl-pds">'</span></span>), chatServers);
+  <span class="pl-en">cb</span> (<span class="pl-c1">null</span>, <span class="pl-smi">res</span>.<span class="pl-c1">id</span>);
+};
+
+<span class="pl-smi">app</span>.<span class="pl-en">configure</span> (<span class="pl-s"><span class="pl-pds">'</span>production|development<span class="pl-pds">'</span></span>, <span class="pl-k">function</span>() {
+  <span class="pl-smi">app</span>.<span class="pl-en">route</span> (<span class="pl-s"><span class="pl-pds">'</span>chat<span class="pl-pds">'</span></span>, chatRoute);
+});
+</pre></div>
+<p>In fact, routing requests from frontend server to backend server is a RPC invocation. Here <code>chatRoute</code> is the router for chat server, it accepts three arguments and returns chat server id it has selected. For the three arguments, the first one is routing parameter, it is used to calculate the target server, and here it uses session; The second one describes information about the RPC invocation, including the invoked server type, service name, and so on; The third parameter is a context variable, here is app. And the fourth is a callback function used to bring the result out. </p>
+<h1>
+<a aria-hidden="true" class="anchor" href="#some-notes" id="user-content-some-notes"><span class="octicon octicon-link"></span></a>Some Notes</h1>
+<ul>
+<li><p>By modifying the server's configuration file and configuring the router, we can easily scale the server out. For our example application, if we want to continue to scale our server out, we just need to modify config/servers.json will. </p></li>
+<li><p>If we have considered scalability of the server at the beginning and  implement the router configuration, so later we can just modify the config/servers.json to scale the server out without modifying the source code.</p></li>
+<li><p>In the previous example that there is only ONE server for a server type, the router can be omited, that is because if we do not define the router , then pomelo will use a default router to complete the routing . For chat server, as only one chat server, so pomelo always routes all the requests to this server, the router configuration can be ommited in the example before.</p></li>
+<li><p>In practice, it is generally required to implement a certain router, instead of using the default provided by pomelo. When imlementing routers, load balancing should be considered.</p></li>
+</ul>
+<h1>
+<a aria-hidden="true" class="anchor" href="#summary" id="user-content-summary"><span class="octicon octicon-link"></span></a>Summary</h1>
+<p>In this section, we scale the server out. it is so easy and just modify the server configuration file. In the next section, we will try to use the pomelo's <a href="Adding-a-filter" title="adding filter">filter mechanism</a> to improve our chat application continually.</p>
+</div>
+</div></body></html>

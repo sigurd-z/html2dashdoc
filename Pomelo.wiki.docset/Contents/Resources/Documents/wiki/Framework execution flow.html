@@ -1,0 +1,119 @@
+<html><head prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# object: http://ogp.me/ns/object# article: http://ogp.me/ns/article# profile: http://ogp.me/ns/profile#">
+<meta charset="utf-8">
+<meta content="IE=edge" http-equiv="X-UA-Compatible">
+<meta content="en" http-equiv="Content-Language">
+<meta content="width=1020" name="viewport">
+<title>Framework execution flow · NetEase/pomelo Wiki · GitHub</title>
+<link href="/opensearch.xml" rel="search" title="GitHub" type="application/opensearchdescription+xml">
+<link href="src/ad667adaa2cfe8f3caa4a41b7d0a79a1.png" rel="fluid-icon" title="GitHub">
+<link href="src/a10d19ff5f738940a7a5086be334f50b.png" rel="apple-touch-icon" sizes="57x57">
+<link href="src/a10d19ff5f738940a7a5086be334f50b.png" rel="apple-touch-icon" sizes="114x114">
+<link href="src/b4cd268bc600cc14d2cdd557de6da2fb.png" rel="apple-touch-icon" sizes="72x72">
+<link href="src/b4cd268bc600cc14d2cdd557de6da2fb.png" rel="apple-touch-icon" sizes="144x144">
+<meta content="1401488693436528" property="fb:app_id">
+<meta content="@github" name="twitter:site"/><meta content="summary" name="twitter:card"/><meta content="NetEase/pomelo" name="twitter:title"/><meta content="pomelo - A fast,scalable,distributed game server framework for Node.js." name="twitter:description"/><meta content="https://avatars0.githubusercontent.com/u/1460597?v=3&amp;s=400" name="twitter:image:src"/>
+<meta content="GitHub" property="og:site_name"/><meta content="object" property="og:type"/><meta content="https://avatars0.githubusercontent.com/u/1460597?v=3&amp;s=400" property="og:image"/><meta content="NetEase/pomelo" property="og:title"/><meta content="https://github.com/NetEase/pomelo" property="og:url"/><meta content="pomelo - A fast,scalable,distributed game server framework for Node.js." property="og:description"/>
+<meta content="https://api.github.com/_private/browser/stats" name="browser-stats-url">
+<meta content="https://api.github.com/_private/browser/errors" name="browser-errors-url">
+<link href="https://assets-cdn.github.com/" rel="assets">
+<meta content="1000" name="pjax-timeout">
+<meta content="/windows-tile.png" name="msapplication-TileImage">
+<meta content="#ffffff" name="msapplication-TileColor">
+<meta data-pjax-transient="" name="selected-link" value="repo_wiki">
+<meta content="KT5gs8h0wvaagLKAVWq8bbeNwnZZK1r1XQysX3xurLU" name="google-site-verification">
+<meta content="UA-3769691-2" name="google-analytics">
+<meta content="collector.githubapp.com" name="octolytics-host"/><meta content="github" name="octolytics-app-id"/><meta content="CA86616A:448C:146AB3C1:5670C009" name="octolytics-dimension-request_id"/>
+<meta content="/&lt;user-name&gt;/&lt;repo-name&gt;/wiki/show" data-pjax-transient="true" name="analytics-location"/>
+<meta content="Rails, view, wiki#show" data-pjax-transient="true" name="analytics-event"/>
+<meta class="js-ga-set" content="Logged Out" name="dimension1">
+<meta content="github.com" name="hostname">
+<meta content="" name="user-login">
+<meta content="github.com" name="expected-hostname">
+<link color="#4078c0" href="https://assets-cdn.github.com/pinned-octocat.svg" rel="mask-icon">
+<link href="https://assets-cdn.github.com/favicon.ico" rel="icon" type="image/x-icon">
+<meta content="51853c2d0ec47dbf43fe71ab6d068fe002aad314" name="form-nonce"/>
+<link crossorigin="anonymous" href="src/350888e1495e7af27e01faa9d8291dee.css" media="all" rel="stylesheet"/>
+<link crossorigin="anonymous" href="src/9fae9b7d8f0785d745a43c6465f74ae5.css" media="all" rel="stylesheet"/>
+<meta content="cd9958d45e48e8e3157a320e9c346eaa" http-equiv="x-pjax-version">
+<meta content="pomelo - A fast,scalable,distributed game server framework for Node.js." name="description">
+<meta content="github.com/NetEase/pomelo git https://github.com/NetEase/pomelo.git" name="go-import">
+<meta content="1460597" name="octolytics-dimension-user_id"/><meta content="NetEase" name="octolytics-dimension-user_login"/><meta content="5880912" name="octolytics-dimension-repository_id"/><meta content="NetEase/pomelo" name="octolytics-dimension-repository_nwo"/><meta content="true" name="octolytics-dimension-repository_public"/><meta content="false" name="octolytics-dimension-repository_is_fork"/><meta content="5880912" name="octolytics-dimension-repository_network_root_id"/><meta content="NetEase/pomelo" name="octolytics-dimension-repository_network_root_nwo"/>
+<link href="https://github.com/NetEase/pomelo/commits/master.atom" rel="alternate" title="Recent Commits to pomelo:master" type="application/atom+xml">
+</link></meta></meta></meta></link></link></meta></meta></meta></meta></meta></meta></meta></meta></meta></meta></link></meta></meta></meta></link></link></link></link></link></link></meta></meta></meta></meta></head><body style="padding:0 25px;"><div class="gollum-markdown-content instapaper_body" id="wiki-body">
+<div class="markdown-body">
+<p>When developing applications using pomelo, we have concerned more on how to fill code into the framework and configure the framework, and less on how to drive the framework. This chapter will tell you about framework execution flow.</p>
+<p>When we start an application, we execute command "pomelo start" in game-server directory, then you can see a lot of logs printed, and the server cluster is started. But we do not know how the framework has it done. In this section, it is a try to tell you how to drive an application based on pomelo framework.</p>
+<p>First, see the figure below:</p>
+<p><img alt="ps_tree" src="src/7ce65a1c45187c3945e29b3638f95e92.png"/></p>
+<p>This figure is part of a process tree snapshot after the example chat started on local host that uses Ubuntu 12.04 by command:</p>
+<pre><code>$ pstree -au
+</code></pre>
+<p>It can be seen from the figure, the process "pomelo start" will spawn a child process, which execs "node app.js env = development", and then the child process will spawn a series of child processes, all the child processes exec same orignal file "app.js", but with more parameters, such as id, serverType, port and so on.</p>
+<p>Well, now we can make a simple explanation, the child process that "pomelo start" process directly spawns is the master server process, and all the child processes spawned by master server process are the application server process, the command they exec is similar to: </p>
+<pre><code>$ node &lt;BasePath&gt;/app.js env = development id = chat-server-1 ...
+</code></pre>
+<p>Of course, where all the processes are on same local host, so there is parent-child process relationship among them, and the master server process is the parent process for other application servers. If the servers are spawned in distributed environment, that means different hosts,  pomelo will launch these servers by ssh, in that case, there will be not parent-child process relationship between the master server process and the application processes which spawned by the master server process.</p>
+<p>Let us analyze the procedure of pomelo launching with pomelo.createApp method first.</p>
+<p>First, we exec "pomelo start", pomelo command-line tool will check start parameters, such as --daemon  for daemon startup, the environment it use, which may be production, development or others that specified by users. Here, we just "pomelo start" without other parameters, then the command-line tool will add a default env to its parameters, namely "env = develpment", then it spawn a node.js process by exec:</p>
+<pre><code>$ node &lt;BasePath&gt;/app.js env=development
+</code></pre>
+<p>In this way, "pomelo start" spawns a node.js process with startup file "app.js". </p>
+<h1>
+<a aria-hidden="true" class="anchor" href="#application-initialization" id="user-content-application-initialization"><span class="octicon octicon-link"></span></a>Application Initialization</h1>
+<p>Now we analyze app.js's execution :</p>
+<p><img alt="init_app" src="src/6eff81228429c05280c8729fa2904d43.png"/></p>
+<p>As shown in the sequence diagram above :</p>
+<ul>
+<li>Call Pomelo.createApp() to create a Application instance;</li>
+<li>Pomelo.createApp call will call app.init method to complete the initialization of app;</li>
+<li>App uses defaultConfiguration provided by appUtil to complete its initializational configuration;</li>
+<li><p>In the call to AppUtil.defaultConfiguration, it will call some initialization methods, these methods include setEnv, loadMaster, loadServers, parseArgs, configLogger. Here setEnv method will set the current env to development for default as we did not provide it, loadMaster will load the master server's configuration information, such as where it should spawn on and which port it should listen for managing the server cluster, loadServers will load all the static application server configuration information. ParseArgs is a very critical method, since we only specify startup parameters env without other parameters specified, pomelo will spawn it as master server. Thus, the current process will use the master's configuration information that includes its own serverId, serverType and other parameters, that is why the master server just exec "node app.js" without other parameters seen from the process tree figure. If it is a application server, pomelo will add required parameters such as serverId, serverType and so on to the exec command. All the parameters will be handled in parseArgs method to determine the server's id, type, and other information.</p></li>
+<li><p>After finishing the above operations, app turns into INITED state, while pomelo.createApp returned.</p></li>
+</ul>
+<p>After pomelo.createApp() returns an application instance "app", in app.js, we can do some configuration to app, such as calling app.set to set options for builtin components, app.route to configure a routing policy, etc..</p>
+<h1>
+<a aria-hidden="true" class="anchor" href="#master-server-startup" id="user-content-master-server-startup"><span class="octicon octicon-link"></span></a>Master server startup</h1>
+<p>Now we turn to master server.</p>
+<p>After all the above operations done, it will enter into the app.start (). When app.start called, it will first load the default builtin component, for master server, its default builtin components are master component and monitor component. Next, we will analyze the master component's responsibility in startup:</p>
+<p><img alt="init_app" src="src/b16fc1c8e767424f540b58794219230b.png"/></p>
+<p>As shown in the sequence diagram above:</p>
+<ul>
+<li><p>First app.start() will load the default builtin components, for master server, master component will be loaded. As master component is exported by factory function, it will create master component using its factory function, In master component's creation procedure, it creates MasterConsole, MasterConsole creates MasterAgent, MasterAgent creates a server-side socket, that is used to listen and accept monitoring and management requests from the application servers.</p></li>
+<li><p>When finished to load all the components, including Master component , it will start all the components by call the start callback defined in component's implementation. For master server, it will start the master and monitor components. Master component will register default admin modules, which calls app.registerAdmin. BTW, if users customized its own admin-modules, it should call app.registerAdmin to register it to admin framework before app.start call.</p></li>
+<li><p>After all the default admin-module are registered to app, master component starts MasterConsoleService. While starting MasterConsoleService, MasterConsoleService will obtain all the registered admin-module from app, then add them to its own admin-module repository, which is a map using ModuleId as key. When request comes later, the corresponding callback within admin-module in MasterConsoleService's admin-module repository will be called directly.</p></li>
+<li><p>Then, MasterAgent will listen on configured port, at this time , Master component would be able to accept the request for monitoring and management.</p></li>
+<li><p>After starting listening on configured port, the next step is to enable all of the admin-module. Based on option type and interval an admin-module provides, it can be determined whether the admin-module callback trigger mode is by master to pull or by the monitor to report periodically, or non-periodically but triggered by other events. If you are using a periodical trigger, this step will schedule it by pomelo-schedule, otherwise it does nothing.</p></li>
+<li><p>Next, it will start all the admin-module by calling the callback "start" defined in admin-module's implementation if possible. Until now, master component has started to listen requests, stored all the callback provided by admin-modules that should be called for requests in its own repository, scheduled all the admin-modules which uses periodic trigger.</p></li>
+<li><p>It's time to start all application server. When the master component completed all its own initialization, it will launch the server cluster by delegating Starter to do it.  </p></li>
+</ul>
+<p>Note: Because an application server, will report its status to the master once started, so master component must be started and ready to accept requests for monitoring and management before the application servers started, so that is why master component complete its own initialization operations before going to start the application servers.</p>
+<ul>
+<li>
+<p>As we know, when after master server initialization, master server will obtain the information configured for all application servers that should be launched. The information for each server includes its host, port, serverType, serverId and so on. When Starter launches application servers, it will check whether the server process should be launched locally or remotely, if former, it will spawn application server as its child process, otherwise it will spawn the remote server process by ssh. The application server launching will use more specified parameters that are used to describe the application server, here is an example from demo chat while launching an application server it will exec:</p>
+<p>node /app.js env=development id=chat-server-1 host=127.0.0.1 port=6050 serverType=chat</p>
+</li>
+<li><p>Thereafter, all the application servers will be launched.</p></li>
+<li>After "start" method call for master component, due to the master component does not define "afterStart" method, so it is complete to launch the master server process at this time. From now, master server can listen and accept requests from monitor of other application servers and client that is used to manage the server cluster.</li>
+</ul>
+<h1>
+<a aria-hidden="true" class="anchor" href="#application-server-startup" id="user-content-application-server-startup"><span class="octicon octicon-link"></span></a>Application Server Startup</h1>
+<ul>
+<li><p>For application servers, they are similar to master server, it will execute app.js, create app, load configuration information, and do other initialization operations. The only difference between application server and master server in initialization stage is, master server execute app.js with no specific server parameters, that makes pomelo treat it as master server while the application server execute app.js with specific server parameters that describe what the server is. For the master server, it loads master component, but for application server, the components it loads depends on the application server's configuration.</p></li>
+<li><p>After initializing app instance, the code to configure app in app.js  will be executed, including calls such as app.route, app.set and so on.</p></li>
+<li><p>After executing user-configured code, app.start will be called, in which pomelo framework will load different builtin components for various type of server by default. For pomelo, each server can be treated as a container of its components loaded and used to manage their lifecycles.There are "start", "afterStart" and "stop" optional callbacks defined for each component, these callbacks are used lifecycle management by framework, the calling sequence is shown as follows:</p></li>
+</ul>
+<p><img alt="app" data-canonical-src="https://github-camo.global.ssl.fastly.net/cc8061f334e3d953f731be4c9327b275abc84e4d/687474703a2f2f706f6d656c6f2e6e6574656173652e636f6d2f7265736f757263652f646f63756d656e74496d6167652f636f6d706f6e656e74732e706e67" src="https://camo.githubusercontent.com/df1afe416132eb19f9add0b527880cb3d4156f9f/68747470733a2f2f6769746875622d63616d6f2e676c6f62616c2e73736c2e666173746c792e6e65742f636338303631663333346533643935336637333162653463393332376232373561626338346534642f363837343734373033613266326637303666366436353663366632653665363537343635363137333635326536333666366432663732363537333666373537323633363532663634366636333735366436353665373434393664363136373635326636333666366437303666366536353665373437333265373036653637"/></p>
+<ul>
+<li><p>Pomelo framework always call the "start" callback of all components one by one in the order of how they are loaded, and then "afterStart". The reason why providing "afterStart" callback is there may be components some of whose initializational operations depend on others', then you can move these operations to "afterStart" for delay its execution. In addition, there may be some initialization operations that need to be executed after global work being done, you can also move them to "afterStart" callback. </p></li>
+<li><p>Different components can provide different functionalities. All functionalities of an application server are provided by its loaded components. </p></li>
+<li><p>After "afterStart" was called for all the components, the application server complete its startup. At this time, the application server has ability to handle incoming requets. The server cluster is launched completely.</p></li>
+</ul>
+<h1>
+<a aria-hidden="true" class="anchor" href="#server-cluster-shutdown-" id="user-content-server-cluster-shutdown-"><span class="octicon octicon-link"></span></a>Server Cluster Shutdown </h1>
+<p>When we execute "pomelo start" to launch the server cluster, all servers will run its own event loop, accepting the incoming request event or its timer event, and then invoking corresponding callback if an event is emitted.</p>
+<p>When we want to shut down the server cluster, we can use the command-line tool to exec <code>pomelo stop</code> to shut down gracefully,. In fact, the command-line tool acts as a client role for pomelo management framework, it uses the builtin admin-module "console", it will connect and register to master server and send a stop request, then after receiving,  the callback for master server will notify it to all the application servers. the callback for that request in application server  will invoke app.stop, as the figure described above, it will invoke "stop" callback for its loaded components according to the reverse loaded order.After callback "stop" invoked completely for all the components, the application server will be shut down. Master server will stop its components too. Finally, the server cluster is shut down.</p>
+<h1>
+<a aria-hidden="true" class="anchor" href="#summary" id="user-content-summary"><span class="octicon octicon-link"></span></a>Summary</h1>
+<p>In this section, we explain how pomelo application servers launch and shut down. A pomelo application server can actually be treated as a container for its loaded components and manage lifecycle for these components, which provide all its functionalities. When implementing a component, The exported is often a factory function other than a object. While loading it, app create the corresponding component using its factory function if the exported is a factory function. The app as an instance of Application, does not perform any game-related logic, it is only to be used as a framework-driven entrance and a global context.</p>
+</div>
+</div></body></html>

@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<!--[if IE 7]>
+<html class="ie ie7" lang="en-US">
+<![endif]-->
+<!--[if IE 8]>
+<html class="ie ie8" lang="en-US">
+<![endif]-->
+<!--[if !(IE 7) & !(IE 8)]><!-->
+<html lang="en-US">
+<!--<![endif]-->
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width">
+	<title>Raspberry Pi 初步体验 | ArchBoy</title>
+	<link rel="profile" href="http://gmpg.org/xfn/11">
+	<link rel="pingback" href="http://archboy.org/xmlrpc.php">
+	<!--[if lt IE 9]>
+	<script src="http://archboy.org/wp-content/themes/twentythirteen/js/html5.js"></script>
+	<![endif]-->
+	<link rel="alternate" type="application/rss+xml" title="ArchBoy &raquo; Feed" href="http://archboy.org/feed/" />
+<link rel="alternate" type="application/rss+xml" title="ArchBoy &raquo; Comments Feed" href="http://archboy.org/comments/feed/" />
+<link rel="alternate" type="application/rss+xml" title="ArchBoy &raquo; Raspberry Pi 初步体验 Comments Feed" href="http://archboy.org/2012/12/11/raspberry-pi-first-review/feed/" />
+		<script type="text/javascript">
+			window._wpemojiSettings = {"baseUrl":"http:\/\/s.w.org\/images\/core\/emoji\/72x72\/","ext":".png","source":{"concatemoji":"http:\/\/archboy.org\/wp-includes\/js\/wp-emoji-release.min.js?ver=4.3.1"}};
+			!function(a,b,c){function d(a){var c=b.createElement("canvas"),d=c.getContext&&c.getContext("2d");return d&&d.fillText?(d.textBaseline="top",d.font="600 32px Arial","flag"===a?(d.fillText(String.fromCharCode(55356,56812,55356,56807),0,0),c.toDataURL().length>3e3):(d.fillText(String.fromCharCode(55357,56835),0,0),0!==d.getImageData(16,16,1,1).data[0])):!1}function e(a){var c=b.createElement("script");c.src=a,c.type="text/javascript",b.getElementsByTagName("head")[0].appendChild(c)}var f,g;c.supports={simple:d("simple"),flag:d("flag")},c.DOMReady=!1,c.readyCallback=function(){c.DOMReady=!0},c.supports.simple&&c.supports.flag||(g=function(){c.readyCallback()},b.addEventListener?(b.addEventListener("DOMContentLoaded",g,!1),a.addEventListener("load",g,!1)):(a.attachEvent("onload",g),b.attachEvent("onreadystatechange",function(){"complete"===b.readyState&&c.readyCallback()})),f=c.source||{},f.concatemoji?e(f.concatemoji):f.wpemoji&&f.twemoji&&(e(f.twemoji),e(f.wpemoji)))}(window,document,window._wpemojiSettings);
+		</script>
+		<style type="text/css">
+img.wp-smiley,
+img.emoji {
+	display: inline !important;
+	border: none !important;
+	box-shadow: none !important;
+	height: 1em !important;
+	width: 1em !important;
+	margin: 0 .07em !important;
+	vertical-align: -0.1em !important;
+	background: none !important;
+	padding: 0 !important;
+}
+</style>
+<link rel='stylesheet' id='twentythirteen-fonts-css'  href='https://fonts.googleapis.com/css?family=Source+Sans+Pro%3A300%2C400%2C700%2C300italic%2C400italic%2C700italic%7CBitter%3A400%2C700&#038;subset=latin%2Clatin-ext' type='text/css' media='all' />
+<link rel='stylesheet' id='genericons-css'  href='http://archboy.org/wp-content/themes/twentythirteen/genericons/genericons.css?ver=3.03' type='text/css' media='all' />
+<link rel='stylesheet' id='twentythirteen-style-css'  href='http://archboy.org/wp-content/themes/twentythirteen/style.css?ver=2013-07-18' type='text/css' media='all' />
+<!--[if lt IE 9]>
+<link rel='stylesheet' id='twentythirteen-ie-css'  href='http://archboy.org/wp-content/themes/twentythirteen/css/ie.css?ver=2013-07-18' type='text/css' media='all' />
+<![endif]-->
+<script type='text/javascript' src='http://archboy.org/wp-includes/js/jquery/jquery.js?ver=1.11.3'></script>
+<script type='text/javascript' src='http://archboy.org/wp-includes/js/jquery/jquery-migrate.min.js?ver=1.2.1'></script>
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://archboy.org/xmlrpc.php?rsd" />
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="http://archboy.org/wp-includes/wlwmanifest.xml" /> 
+<link rel='prev' title='转换 wav,ape,flac 音乐为 mp3,m4a(mp4) 格式' href='http://archboy.org/2012/10/18/convert-ape-flac-music-to-mp3/' />
+<link rel='next' title='分享一些 HIG' href='http://archboy.org/2013/02/06/share-something-about-hig/' />
+<meta name="generator" content="WordPress 4.3.1" />
+<link rel='canonical' href='http://archboy.org/2012/12/11/raspberry-pi-first-review/' />
+<link rel='shortlink' href='http://archboy.org/?p=257' />
+	<style type="text/css">.recentcomments a{display:inline !important;padding:0 !important;margin:0 !important;}</style>
+	<style type="text/css" id="twentythirteen-header-css">
+			.site-header {
+			background: url(http://archboy.org/wp-content/themes/twentythirteen/images/headers/circle.png) no-repeat scroll top;
+			background-size: 1600px auto;
+		}
+		@media (max-width: 767px) {
+			.site-header {
+				background-size: 768px auto;
+			}
+		}
+		@media (max-width: 359px) {
+			.site-header {
+				background-size: 360px auto;
+			}
+		}
+			.site-title,
+		.site-description {
+			color: #ffffff;
+		}
+		</style>
+	</head>
+
+<body class="single single-post postid-257 single-format-standard sidebar">
+	<div id="page" class="hfeed site">
+		<header id="masthead" class="site-header" role="banner">
+			<a class="home-link" href="http://archboy.org/" title="ArchBoy" rel="home">
+				<h1 class="site-title">ArchBoy</h1>
+				<h2 class="site-description">开源, 架构, 编程 相关的杂文</h2>
+			</a>
+
+			<div id="navbar" class="navbar">
+				<nav id="site-navigation" class="navigation main-navigation" role="navigation">
+					<button class="menu-toggle">Menu</button>
+					<a class="screen-reader-text skip-link" href="#content" title="Skip to content">Skip to content</a>
+					<div class="nav-menu"><ul><li class="page_item page-item-93"><a href="http://archboy.org/maillist/">邮件列表</a></li><li class="page_item page-item-7"><a href="http://archboy.org/about/">关于</a></li></ul></div>
+					<form role="search" method="get" class="search-form" action="http://archboy.org/">
+				<label>
+					<span class="screen-reader-text">Search for:</span>
+					<input type="search" class="search-field" placeholder="Search &hellip;" value="" name="s" title="Search for:" />
+				</label>
+				<input type="submit" class="search-submit" value="Search" />
+			</form>				</nav><!-- #site-navigation -->
+			</div><!-- #navbar -->
+		</header><!-- #masthead -->
+
+		<div id="main" class="site-main">
+
+	<div id="primary" class="content-area">
+		<div id="content" class="site-content" role="main">
+
+						
+				
+<article id="post-257" class="post-257 post type-post status-publish format-standard hentry category-arm-device tag-arch-linux tag-arm tag-raspberry-pi">
+	<header class="entry-header">
+		
+				<h1 class="entry-title">Raspberry Pi 初步体验</h1>
+		
+		<div class="entry-meta">
+			<span class="date"><a href="http://archboy.org/2012/12/11/raspberry-pi-first-review/" title="Permalink to Raspberry Pi 初步体验" rel="bookmark"><time class="entry-date" datetime="2012-12-11T20:41:16+00:00">2012/12/11</time></a></span><span class="categories-links"><a href="http://archboy.org/category/arm-device/" rel="category tag">ARM Device</a></span><span class="tags-links"><a href="http://archboy.org/tag/arch-linux/" rel="tag">Arch Linux</a>, <a href="http://archboy.org/tag/arm/" rel="tag">ARM</a>, <a href="http://archboy.org/tag/raspberry-pi/" rel="tag">Raspberry Pi</a></span><span class="author vcard"><a class="url fn n" href="http://archboy.org/author/ivarptr/" title="View all posts by ivarptr" rel="author">ivarptr</a></span>					</div><!-- .entry-meta -->
+	</header><!-- .entry-header -->
+
+		<div class="entry-content">
+		<p>上周五从 element14 购买的 <a href="http://www.raspberrypi.org/">Raspberry Pi</a> （树莓派）已经送到了，Raspberry Pi 是一块单板电脑，只有一张卡片大小，使用的是 700MHz 的 ARM v6 CPU，带有 512MB内存，有网卡和两个USB接口，使用SD卡作为储存器。另外还有数字输出接口GPIO，可以通过编程控制连接的数字电路。是一块可玩性比较高的单板电脑。详细的见官方网站：<a href="http://www.raspberrypi.org/faqs">http://www.raspberrypi.org/faqs</a></p>
+<p><a href="http://archboy.org/2012/12/11/raspberry-pi-first-review/w2/" rel="attachment wp-att-258"><img class="alignnone size-medium wp-image-258" title="w2" src="http://archboy.org/wp-content/uploads/2012/12/w2-600x450.jpg" alt="" width="600" height="450" /></a></p>
+<p>作为初步体验，我想先刷个系统。</p>
+<p>在系统选择方面，有很多arm的linux发行版可以选择，在官方网站上有相应的镜像文件可以下载。因为个人比较偏好 arch linux，因此我下载的是 arch linux arm 的镜像文件。然后开始准备一些必要的材料：</p>
+<ul>
+<li>一张SD卡，我购买的是16GB SDHC卡，需要注意的是有很多SD卡跟树莓派是不兼容的，我第一次买的SD卡刚好不兼容卡，更新固件也没起作用（更新固件的具体方法在官方的wiki的疑难解答一栏有说明），所以如果还没有购买SD卡，最好先到这里（<a href="http://elinux.org/R-Pi_Troubleshooting#SD_cards">http://elinux.org/R-Pi_Troubleshooting#SD_cards</a>）看看，避免买到不兼容的。</li>
+<li>SD卡读卡器，用于通过桌面电脑向SD卡写入操作系统的镜像，需要注意的是新SD卡（比如 SDHC）不能使用旧的SD卡读卡器读写，如果你的SD卡接入读卡器之后识别不了，可能需要买一个新的读卡器了。</li>
+<li>一根网线，用于联网。</li>
+<li>一根 HDMI 转 DVI 的连接线，树莓派没有提供VGA或者DVI接口，只有一个一般电视机使用的HDMI接口，因此没办法直接接入普通电脑显示器。</li>
+<li>一根 PS/2 转 USB 的连接线，用于连接键盘和鼠标。如果键盘和鼠标是 USB 接口的则可以省略这根线。</li>
+<li>一个电源适配器，要求5V电压和1000毫安左右的电流输出，使用一般手机的充电器（micro usb接口）就可以了，我用的是一个iPad最好充电器，5.1V 和最大 2100 毫安电流输出。</li>
+</ul>
+<p><a href="http://archboy.org/2012/12/11/raspberry-pi-first-review/s1/" rel="attachment wp-att-259"><img class="alignnone size-medium wp-image-259" title="s1" src="http://archboy.org/wp-content/uploads/2012/12/s1-600x450.jpg" alt="" width="600" height="450" /></a></p>
+<p>把这些零件都连接起来之后，然后通上电源是没法启动树莓派的，还要把下载好的镜像写入SD卡，再接上电源才可以启动树莓派并进入系统了，过程非常简单。具体的方法在官方网站和wiki都有说明。</p>
+<p><a href="http://archboy.org/2012/12/11/raspberry-pi-first-review/s2/" rel="attachment wp-att-260"><img class="alignnone size-medium wp-image-260" title="s2" src="http://archboy.org/wp-content/uploads/2012/12/s2-600x450.jpg" alt="" width="600" height="450" /></a></p>
+<p>这次先写到这里，下一篇再具体说说如何配置 arch linux arm，以及尝试播放音乐和视频。</p>
+	</div><!-- .entry-content -->
+	
+	<footer class="entry-meta">
+		
+			</footer><!-- .entry-meta -->
+</article><!-- #post -->
+					<nav class="navigation post-navigation" role="navigation">
+		<h1 class="screen-reader-text">Post navigation</h1>
+		<div class="nav-links">
+
+			<a href="http://archboy.org/2012/10/18/convert-ape-flac-music-to-mp3/" rel="prev"><span class="meta-nav">&larr;</span> 转换 wav,ape,flac 音乐为 mp3,m4a(mp4) 格式</a>			<a href="http://archboy.org/2013/02/06/share-something-about-hig/" rel="next">分享一些 HIG <span class="meta-nav">&rarr;</span></a>
+		</div><!-- .nav-links -->
+	</nav><!-- .navigation -->
+					
+<div id="comments" class="comments-area">
+
+			<h2 class="comments-title">
+			7 thoughts on &ldquo;<span>Raspberry Pi 初步体验</span>&rdquo;		</h2>
+
+		<ol class="comment-list">
+					<li id="comment-791" class="comment even thread-even depth-1 parent">
+			<article id="div-comment-791" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='http://2.gravatar.com/avatar/8b7e8197cb08670be86a5ef9af366ace?s=74&#038;d=mm&#038;r=g' srcset='http://2.gravatar.com/avatar/8b7e8197cb08670be86a5ef9af366ace?s=148&amp;d=mm&amp;r=g 2x' class='avatar avatar-74 photo' height='74' width='74' />						<b class="fn"><a href='http://www.jasonllinux.com' rel='external nofollow' class='url'>jasonllinux</a></b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="http://archboy.org/2012/12/11/raspberry-pi-first-review/#comment-791">
+							<time datetime="2012-12-11T20:54:55+00:00">
+								2012/12/11 at 8:54 pm							</time>
+						</a>
+											</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>前段时间也入了一个 不过还没能善用，。。。。</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://archboy.org/2012/12/11/raspberry-pi-first-review/?replytocom=791#respond' onclick='return addComment.moveForm( "div-comment-791", "791", "respond", "257" )' aria-label='Reply to jasonllinux'>Reply</a></div>			</article><!-- .comment-body -->
+<ol class="children">
+		<li id="comment-890" class="comment byuser comment-author-ivarptr bypostauthor odd alt depth-2">
+			<article id="div-comment-890" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='http://2.gravatar.com/avatar/54ae18677a2fad676b9e19fabdad2ebb?s=74&#038;d=mm&#038;r=g' srcset='http://2.gravatar.com/avatar/54ae18677a2fad676b9e19fabdad2ebb?s=148&amp;d=mm&amp;r=g 2x' class='avatar avatar-74 photo' height='74' width='74' />						<b class="fn"><a href='http://twitter.com/#!/ivarptr' rel='external nofollow' class='url'>ivarptr</a></b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="http://archboy.org/2012/12/11/raspberry-pi-first-review/#comment-890">
+							<time datetime="2012-12-20T01:56:00+00:00">
+								2012/12/20 at 1:56 am							</time>
+						</a>
+											</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>目前我的安装了 raspbmc (XBMC) 当媒体播放机连接着电视，还可以充当一下bt客户端 :D</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://archboy.org/2012/12/11/raspberry-pi-first-review/?replytocom=890#respond' onclick='return addComment.moveForm( "div-comment-890", "890", "respond", "257" )' aria-label='Reply to ivarptr'>Reply</a></div>			</article><!-- .comment-body -->
+</li><!-- #comment-## -->
+</ol><!-- .children -->
+</li><!-- #comment-## -->
+		<li id="comment-1024" class="comment even thread-odd thread-alt depth-1 parent">
+			<article id="div-comment-1024" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='http://0.gravatar.com/avatar/c11afbcea2d0461e573a06855299de06?s=74&#038;d=mm&#038;r=g' srcset='http://0.gravatar.com/avatar/c11afbcea2d0461e573a06855299de06?s=148&amp;d=mm&amp;r=g 2x' class='avatar avatar-74 photo' height='74' width='74' />						<b class="fn"><a href='http://jettsang.com' rel='external nofollow' class='url'>jetsanix</a></b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="http://archboy.org/2012/12/11/raspberry-pi-first-review/#comment-1024">
+							<time datetime="2013-01-08T10:32:40+00:00">
+								2013/01/08 at 10:32 am							</time>
+						</a>
+											</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>买几个电机和摄像头做一个四轴飞行器吧！</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://archboy.org/2012/12/11/raspberry-pi-first-review/?replytocom=1024#respond' onclick='return addComment.moveForm( "div-comment-1024", "1024", "respond", "257" )' aria-label='Reply to jetsanix'>Reply</a></div>			</article><!-- .comment-body -->
+<ol class="children">
+		<li id="comment-1045" class="comment byuser comment-author-ivarptr bypostauthor odd alt depth-2">
+			<article id="div-comment-1045" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='http://2.gravatar.com/avatar/54ae18677a2fad676b9e19fabdad2ebb?s=74&#038;d=mm&#038;r=g' srcset='http://2.gravatar.com/avatar/54ae18677a2fad676b9e19fabdad2ebb?s=148&amp;d=mm&amp;r=g 2x' class='avatar avatar-74 photo' height='74' width='74' />						<b class="fn"><a href='http://twitter.com/#!/ivarptr' rel='external nofollow' class='url'>ivarptr</a></b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="http://archboy.org/2012/12/11/raspberry-pi-first-review/#comment-1045">
+							<time datetime="2013-01-10T22:40:56+00:00">
+								2013/01/10 at 10:40 pm							</time>
+						</a>
+											</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>我还以为你想做街头自动追踪目标的偷拍机器人</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://archboy.org/2012/12/11/raspberry-pi-first-review/?replytocom=1045#respond' onclick='return addComment.moveForm( "div-comment-1045", "1045", "respond", "257" )' aria-label='Reply to ivarptr'>Reply</a></div>			</article><!-- .comment-body -->
+</li><!-- #comment-## -->
+</ol><!-- .children -->
+</li><!-- #comment-## -->
+		<li id="comment-2155" class="pingback even thread-even depth-1">
+			<div class="comment-body">
+				Pingback: <a href='http://www.wiloon.com/wordpress/?p=5408' rel='external nofollow' class='url'>树莓派(raspberry pi) 系统在SD卡上安装Linux – wiloon</a> 			</div>
+</li><!-- #comment-## -->
+		<li id="comment-6064" class="pingback odd alt thread-odd thread-alt depth-1">
+			<div class="comment-body">
+				Pingback: <a href='http://archboy.org/2013/11/03/hp-chromebook-11-2013-review/' rel='external nofollow' class='url'>体验 HP Chromebook 11 | ArchBoy</a> 			</div>
+</li><!-- #comment-## -->
+		<li id="comment-79246" class="pingback even thread-even depth-1">
+			<div class="comment-body">
+				Pingback: <a href='http://www.docxiu.com/98.html' rel='external nofollow' class='url'>Raspberry Pi 初步体验 | 道客秀</a> 			</div>
+</li><!-- #comment-## -->
+		</ol><!-- .comment-list -->
+
+		
+		
+	
+							<div id="respond" class="comment-respond">
+				<h3 id="reply-title" class="comment-reply-title">Leave a Reply <small><a rel="nofollow" id="cancel-comment-reply-link" href="/2012/12/11/raspberry-pi-first-review/#respond" style="display:none;">Cancel reply</a></small></h3>
+									<form action="http://archboy.org/wp-comments-post.php" method="post" id="commentform" class="comment-form" novalidate>
+																			<p class="comment-notes"><span id="email-notes">Your email address will not be published.</span> Required fields are marked <span class="required">*</span></p>							<p class="comment-form-author"><label for="author">Name <span class="required">*</span></label> <input id="author" name="author" type="text" value="" size="30" aria-required='true' required='required' /></p>
+<p class="comment-form-email"><label for="email">Email <span class="required">*</span></label> <input id="email" name="email" type="email" value="" size="30" aria-describedby="email-notes" aria-required='true' required='required' /></p>
+<p class="comment-form-url"><label for="url">Website</label> <input id="url" name="url" type="url" value="" size="30" /></p>
+												<p class="comment-form-comment"><label for="comment">Comment</label> <textarea id="comment" name="comment" cols="45" rows="8"  aria-required="true" required="required"></textarea></p>						
+						<p class="form-submit"><input name="submit" type="submit" id="submit" class="submit" value="Post Comment" /> <input type='hidden' name='comment_post_ID' value='257' id='comment_post_ID' />
+<input type='hidden' name='comment_parent' id='comment_parent' value='0' />
+</p><p style="display: none;"><input type="hidden" id="akismet_comment_nonce" name="akismet_comment_nonce" value="932199943f" /></p><p style="display: none;"><input type="hidden" id="ak_js" name="ak_js" value="106"/></p>					</form>
+							</div><!-- #respond -->
+			
+</div><!-- #comments -->
+			
+		</div><!-- #content -->
+	</div><!-- #primary -->
+
+	<div id="tertiary" class="sidebar-container" role="complementary">
+		<div class="sidebar-inner">
+			<div class="widget-area">
+				<aside id="text-2" class="widget widget_text">			<div class="textwidget"><a href="http://www.linode.com/?r=015bb87e20b23347b3247dd2137d8a00ea4df3ce">
+<img src="http://archboy.org/wp-content/uploads/2013/04/linode.jpg" border="0" width="83" height="100"/></a>
+<p>本站寄宿于 Linode，这是一家比较稳定兼厚道的虚拟主机提供商，如有需要可以<a href="http://www.linode.com/?r=015bb87e20b23347b3247dd2137d8a00ea4df3ce">猛戳这个有尾巴的链接</a>购买VPS。</p></div>
+		</aside><aside id="categories-3" class="widget widget_categories"><h3 class="widget-title">Categories</h3>		<ul>
+	<li class="cat-item cat-item-34"><a href="http://archboy.org/category/arm-device/" >ARM Device</a>
+</li>
+	<li class="cat-item cat-item-1"><a href="http://archboy.org/category/etc/" >etc</a>
+</li>
+	<li class="cat-item cat-item-3"><a href="http://archboy.org/category/linux/" >Linux</a>
+</li>
+	<li class="cat-item cat-item-69"><a href="http://archboy.org/category/security-and-privacy/" >Security</a>
+</li>
+	<li class="cat-item cat-item-80"><a href="http://archboy.org/category/server/" >Server</a>
+</li>
+	<li class="cat-item cat-item-78"><a href="http://archboy.org/category/distributed/" >分布式计算与存储</a>
+</li>
+	<li class="cat-item cat-item-4"><a href="http://archboy.org/category/devel/" >软件开发</a>
+</li>
+		</ul>
+</aside>		<aside id="recent-posts-4" class="widget widget_recent_entries">		<h3 class="widget-title">Recent Posts</h3>		<ul>
+					<li>
+				<a href="http://archboy.org/2014/08/21/ffmpeg-scale-cut-crop-video/">使用 ffmpeg 缩放、裁剪、剪辑视频</a>
+							<span class="post-date">2014/08/21</span>
+						</li>
+					<li>
+				<a href="http://archboy.org/2014/08/02/https-proxy-server-the-easy-way/">简单搭建 https proxy 服务器</a>
+							<span class="post-date">2014/08/02</span>
+						</li>
+					<li>
+				<a href="http://archboy.org/2014/08/02/how-to-buy-the-cheap-ssl-certificates/">如何购买廉价 SSL 证书</a>
+							<span class="post-date">2014/08/02</span>
+						</li>
+					<li>
+				<a href="http://archboy.org/2014/08/01/just-update-2014-08/">刷刷存在感</a>
+							<span class="post-date">2014/08/01</span>
+						</li>
+					<li>
+				<a href="http://archboy.org/2013/11/03/hp-chromebook-11-2013-review/">体验 HP Chromebook 11</a>
+							<span class="post-date">2013/11/03</span>
+						</li>
+					<li>
+				<a href="http://archboy.org/2013/10/23/open-secure-id-draft/">一种开放式安全ID的设计</a>
+							<span class="post-date">2013/10/23</span>
+						</li>
+					<li>
+				<a href="http://archboy.org/2013/09/10/clobaframe-2-3-reference/">Clobaframe 2.3 参考文档</a>
+							<span class="post-date">2013/09/10</span>
+						</li>
+					<li>
+				<a href="http://archboy.org/2013/07/08/rfc-4880-openpgp-message-format-reading-notes/">RFC 4880 阅读笔记</a>
+							<span class="post-date">2013/07/08</span>
+						</li>
+					<li>
+				<a href="http://archboy.org/2013/07/01/protect-chat-privacy-with-pidgin-otr/">使用 OTR 保护你的聊天隐私</a>
+							<span class="post-date">2013/07/01</span>
+						</li>
+					<li>
+				<a href="http://archboy.org/2013/05/15/gnupg-pgp-encrypt-decrypt-file-and-digital-signing-easy-tutorial/">使用 GnuPG 实现文件加密和数字签名——PGP 30分钟简明教程(2)</a>
+							<span class="post-date">2013/05/15</span>
+						</li>
+				</ul>
+		</aside><aside id="tag_cloud-3" class="widget widget_tag_cloud"><h3 class="widget-title">Tags</h3><div class="tagcloud"><a href='http://archboy.org/tag/aac/' class='tag-link-91' title='2 topics' style='font-size: 14.3pt;'>aac</a>
+<a href='http://archboy.org/tag/afp/' class='tag-link-5' title='1 topic' style='font-size: 8pt;'>afp</a>
+<a href='http://archboy.org/tag/apache/' class='tag-link-6' title='3 topics' style='font-size: 18.5pt;'>Apache</a>
+<a href='http://archboy.org/tag/apr/' class='tag-link-40' title='2 topics' style='font-size: 14.3pt;'>apr</a>
+<a href='http://archboy.org/tag/archlinux-2/' class='tag-link-7' title='2 topics' style='font-size: 14.3pt;'>ArchLinux</a>
+<a href='http://archboy.org/tag/arm/' class='tag-link-63' title='2 topics' style='font-size: 14.3pt;'>ARM</a>
+<a href='http://archboy.org/tag/arm-device/' class='tag-link-95' title='4 topics' style='font-size: 22pt;'>ARM Device</a>
+<a href='http://archboy.org/tag/cassandra/' class='tag-link-8' title='1 topic' style='font-size: 8pt;'>Cassandra</a>
+<a href='http://archboy.org/tag/cconv/' class='tag-link-9' title='1 topic' style='font-size: 8pt;'>cconv</a>
+<a href='http://archboy.org/tag/clobaframe/' class='tag-link-81' title='1 topic' style='font-size: 8pt;'>clobaframe</a>
+<a href='http://archboy.org/tag/cyanogenmod/' class='tag-link-35' title='1 topic' style='font-size: 8pt;'>CyanogenMod</a>
+<a href='http://archboy.org/tag/digital-signature/' class='tag-link-74' title='2 topics' style='font-size: 14.3pt;'>Digital Signature</a>
+<a href='http://archboy.org/tag/encrypt/' class='tag-link-73' title='3 topics' style='font-size: 18.5pt;'>Encrypt</a>
+<a href='http://archboy.org/tag/fedora/' class='tag-link-10' title='1 topic' style='font-size: 8pt;'>Fedora</a>
+<a href='http://archboy.org/tag/ffmpeg/' class='tag-link-56' title='2 topics' style='font-size: 14.3pt;'>ffmpeg</a>
+<a href='http://archboy.org/tag/flash/' class='tag-link-11' title='1 topic' style='font-size: 8pt;'>Flash</a>
+<a href='http://archboy.org/tag/freebsd/' class='tag-link-12' title='3 topics' style='font-size: 18.5pt;'>FreeBSD</a>
+<a href='http://archboy.org/tag/git/' class='tag-link-13' title='1 topic' style='font-size: 8pt;'>Git</a>
+<a href='http://archboy.org/tag/gnome/' class='tag-link-14' title='2 topics' style='font-size: 14.3pt;'>Gnome</a>
+<a href='http://archboy.org/tag/gnupg/' class='tag-link-72' title='2 topics' style='font-size: 14.3pt;'>GnuPG</a>
+<a href='http://archboy.org/tag/godaddy/' class='tag-link-38' title='1 topic' style='font-size: 8pt;'>godaddy</a>
+<a href='http://archboy.org/tag/h264/' class='tag-link-15' title='2 topics' style='font-size: 14.3pt;'>h264</a>
+<a href='http://archboy.org/tag/hadoop/' class='tag-link-16' title='2 topics' style='font-size: 14.3pt;'>Hadoop</a>
+<a href='http://archboy.org/tag/kernel/' class='tag-link-17' title='1 topic' style='font-size: 8pt;'>kernel</a>
+<a href='http://archboy.org/tag/linux/' class='tag-link-94' title='1 topic' style='font-size: 8pt;'>Linux</a>
+<a href='http://archboy.org/tag/mac/' class='tag-link-18' title='1 topic' style='font-size: 8pt;'>mac</a>
+<a href='http://archboy.org/tag/mp4/' class='tag-link-59' title='2 topics' style='font-size: 14.3pt;'>mp4</a>
+<a href='http://archboy.org/tag/mpeg4/' class='tag-link-19' title='1 topic' style='font-size: 8pt;'>mpeg4</a>
+<a href='http://archboy.org/tag/mysql/' class='tag-link-20' title='2 topics' style='font-size: 14.3pt;'>MySQL</a>
+<a href='http://archboy.org/tag/netatalk/' class='tag-link-21' title='1 topic' style='font-size: 8pt;'>netatalk</a>
+<a href='http://archboy.org/tag/nio/' class='tag-link-41' title='1 topic' style='font-size: 8pt;'>nio</a>
+<a href='http://archboy.org/tag/openpgp/' class='tag-link-71' title='4 topics' style='font-size: 22pt;'>OpenPGP</a>
+<a href='http://archboy.org/tag/pgp/' class='tag-link-70' title='2 topics' style='font-size: 14.3pt;'>PGP</a>
+<a href='http://archboy.org/tag/php/' class='tag-link-22' title='1 topic' style='font-size: 8pt;'>PHP</a>
+<a href='http://archboy.org/tag/pptpd/' class='tag-link-23' title='1 topic' style='font-size: 8pt;'>pptpd</a>
+<a href='http://archboy.org/tag/security/' class='tag-link-24' title='4 topics' style='font-size: 22pt;'>security</a>
+<a href='http://archboy.org/tag/sendmail/' class='tag-link-25' title='1 topic' style='font-size: 8pt;'>sendmail</a>
+<a href='http://archboy.org/tag/sshd/' class='tag-link-26' title='1 topic' style='font-size: 8pt;'>sshd</a>
+<a href='http://archboy.org/tag/ssl/' class='tag-link-37' title='4 topics' style='font-size: 22pt;'>ssl</a>
+<a href='http://archboy.org/tag/timemachine/' class='tag-link-27' title='1 topic' style='font-size: 8pt;'>timemachine</a>
+<a href='http://archboy.org/tag/tomcat/' class='tag-link-36' title='4 topics' style='font-size: 22pt;'>tomcat</a>
+<a href='http://archboy.org/tag/ubuntu/' class='tag-link-29' title='1 topic' style='font-size: 8pt;'>Ubuntu</a>
+<a href='http://archboy.org/tag/wordpress/' class='tag-link-30' title='1 topic' style='font-size: 8pt;'>WordPress</a>
+<a href='http://archboy.org/tag/workbench/' class='tag-link-39' title='1 topic' style='font-size: 8pt;'>workbench</a>
+<a href='http://archboy.org/tag/%e7%94%b5%e6%ba%90%e7%ae%a1%e7%90%86/' class='tag-link-31' title='1 topic' style='font-size: 8pt;'>电源管理</a></div>
+</aside><aside id="archives-3" class="widget widget_archive"><h3 class="widget-title">Archives</h3>		<ul>
+	<li><a href='http://archboy.org/2014/08/'>August 2014</a></li>
+	<li><a href='http://archboy.org/2013/11/'>November 2013</a></li>
+	<li><a href='http://archboy.org/2013/10/'>October 2013</a></li>
+	<li><a href='http://archboy.org/2013/09/'>September 2013</a></li>
+	<li><a href='http://archboy.org/2013/07/'>July 2013</a></li>
+	<li><a href='http://archboy.org/2013/05/'>May 2013</a></li>
+	<li><a href='http://archboy.org/2013/04/'>April 2013</a></li>
+	<li><a href='http://archboy.org/2013/02/'>February 2013</a></li>
+	<li><a href='http://archboy.org/2012/12/'>December 2012</a></li>
+	<li><a href='http://archboy.org/2012/10/'>October 2012</a></li>
+	<li><a href='http://archboy.org/2012/09/'>September 2012</a></li>
+	<li><a href='http://archboy.org/2012/06/'>June 2012</a></li>
+	<li><a href='http://archboy.org/2012/05/'>May 2012</a></li>
+	<li><a href='http://archboy.org/2012/02/'>February 2012</a></li>
+	<li><a href='http://archboy.org/2011/12/'>December 2011</a></li>
+	<li><a href='http://archboy.org/2011/08/'>August 2011</a></li>
+		</ul>
+</aside><aside id="recent-comments-3" class="widget widget_recent_comments"><h3 class="widget-title">Recent Comments</h3><ul id="recentcomments"><li class="recentcomments"><span class="comment-author-link"><a href='http://www.2345.com/?ksdzfd' rel='external nofollow' class='url'>u2pgzr</a></span> on <a href="http://archboy.org/2014/08/21/ffmpeg-scale-cut-crop-video/#comment-143831">使用 ffmpeg 缩放、裁剪、剪辑视频</a></li><li class="recentcomments"><span class="comment-author-link"><a href='http://www.bateer.eeequn.com/' rel='external nofollow' class='url'>bateer</a></span> on <a href="http://archboy.org/2014/08/21/ffmpeg-scale-cut-crop-video/#comment-142691">使用 ffmpeg 缩放、裁剪、剪辑视频</a></li><li class="recentcomments"><span class="comment-author-link"><a href='http://www.nosa.me/2015/07/25/java-%e7%a8%8b%e5%ba%8f%e7%9a%84%e5%8f%91%e5%b8%83%e6%b5%81%e7%a8%8b/' rel='external nofollow' class='url'>Java 程序的发布流程 | nosa.me</a></span> on <a href="http://archboy.org/2012/05/21/apache-maven-profile-filtering-multiple-build-environments/#comment-129382">Apache Maven 使用 profile 和 filtering 实现多种环境下的资源配置管理</a></li><li class="recentcomments"><span class="comment-author-link">红白</span> on <a href="http://archboy.org/2013/04/18/gnupg-pgp-encrypt-decrypt-message-and-email-and-digital-signing-easy-tutorial/#comment-111805">使用 GnuPG 实现电子邮件加密和数字签名——PGP 30分钟简明教程(1)</a></li><li class="recentcomments"><span class="comment-author-link"><a href='http://wangleisd.cn/pi-samba-nas/' rel='external nofollow' class='url'>基于Samba实现NAS系统 | 王雷的博客 wanglei&#039;s blog</a></span> on <a href="http://archboy.org/2011/08/18/netatalk-afp-linux-share-file-mac-osx-timemachine-backup-server/#comment-106726">使用 Netatalk 让 Linux 与 Mac OSX 共享文件，同时为 Mac 搭建 TimeMachine 备份服务器</a></li></ul></aside><aside id="meta-4" class="widget widget_meta"><h3 class="widget-title">Meta</h3>			<ul>
+						<li><a href="http://archboy.org/wp-login.php">Log in</a></li>
+			<li><a href="http://archboy.org/feed/">Entries <abbr title="Really Simple Syndication">RSS</abbr></a></li>
+			<li><a href="http://archboy.org/comments/feed/">Comments <abbr title="Really Simple Syndication">RSS</abbr></a></li>
+<li><a href="https://wordpress.org/" title="Powered by WordPress, state-of-the-art semantic personal publishing platform.">WordPress.org</a></li>			</ul>
+</aside>			</div><!-- .widget-area -->
+		</div><!-- .sidebar-inner -->
+	</div><!-- #tertiary -->
+
+		</div><!-- #main -->
+		<footer id="colophon" class="site-footer" role="contentinfo">
+			
+			<div class="site-info">
+								<a href="https://wordpress.org/" title="Semantic Personal Publishing Platform">Proudly powered by WordPress</a>
+			</div><!-- .site-info -->
+		</footer><!-- #colophon -->
+	</div><!-- #page -->
+
+	<script type='text/javascript' src='http://archboy.org/wp-content/plugins/akismet/_inc/form.js?ver=3.1.5'></script>
+<script type='text/javascript' src='http://archboy.org/wp-includes/js/comment-reply.min.js?ver=4.3.1'></script>
+<script type='text/javascript' src='http://archboy.org/wp-content/themes/twentythirteen/js/functions.js?ver=20150330'></script>
+</body>
+</html>

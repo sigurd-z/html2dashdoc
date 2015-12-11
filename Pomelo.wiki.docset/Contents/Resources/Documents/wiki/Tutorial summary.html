@@ -1,0 +1,67 @@
+<html><head prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# object: http://ogp.me/ns/object# article: http://ogp.me/ns/article# profile: http://ogp.me/ns/profile#">
+<meta charset="utf-8">
+<meta content="IE=edge" http-equiv="X-UA-Compatible">
+<meta content="en" http-equiv="Content-Language">
+<meta content="width=1020" name="viewport">
+<title>Tutorial summary · NetEase/pomelo Wiki · GitHub</title>
+<link href="/opensearch.xml" rel="search" title="GitHub" type="application/opensearchdescription+xml">
+<link href="src/ad667adaa2cfe8f3caa4a41b7d0a79a1.png" rel="fluid-icon" title="GitHub">
+<link href="src/a10d19ff5f738940a7a5086be334f50b.png" rel="apple-touch-icon" sizes="57x57">
+<link href="src/a10d19ff5f738940a7a5086be334f50b.png" rel="apple-touch-icon" sizes="114x114">
+<link href="src/b4cd268bc600cc14d2cdd557de6da2fb.png" rel="apple-touch-icon" sizes="72x72">
+<link href="src/b4cd268bc600cc14d2cdd557de6da2fb.png" rel="apple-touch-icon" sizes="144x144">
+<meta content="1401488693436528" property="fb:app_id">
+<meta content="@github" name="twitter:site"/><meta content="summary" name="twitter:card"/><meta content="NetEase/pomelo" name="twitter:title"/><meta content="pomelo - A fast,scalable,distributed game server framework for Node.js." name="twitter:description"/><meta content="https://avatars0.githubusercontent.com/u/1460597?v=3&amp;s=400" name="twitter:image:src"/>
+<meta content="GitHub" property="og:site_name"/><meta content="object" property="og:type"/><meta content="https://avatars0.githubusercontent.com/u/1460597?v=3&amp;s=400" property="og:image"/><meta content="NetEase/pomelo" property="og:title"/><meta content="https://github.com/NetEase/pomelo" property="og:url"/><meta content="pomelo - A fast,scalable,distributed game server framework for Node.js." property="og:description"/>
+<meta content="https://api.github.com/_private/browser/stats" name="browser-stats-url">
+<meta content="https://api.github.com/_private/browser/errors" name="browser-errors-url">
+<link href="https://assets-cdn.github.com/" rel="assets">
+<meta content="1000" name="pjax-timeout">
+<meta content="/windows-tile.png" name="msapplication-TileImage">
+<meta content="#ffffff" name="msapplication-TileColor">
+<meta data-pjax-transient="" name="selected-link" value="repo_wiki">
+<meta content="KT5gs8h0wvaagLKAVWq8bbeNwnZZK1r1XQysX3xurLU" name="google-site-verification">
+<meta content="UA-3769691-2" name="google-analytics">
+<meta content="collector.githubapp.com" name="octolytics-host"/><meta content="github" name="octolytics-app-id"/><meta content="CA86616A:35CB:F48E4C2:5670C15D" name="octolytics-dimension-request_id"/>
+<meta content="/&lt;user-name&gt;/&lt;repo-name&gt;/wiki/show" data-pjax-transient="true" name="analytics-location"/>
+<meta content="Rails, view, wiki#show" data-pjax-transient="true" name="analytics-event"/>
+<meta class="js-ga-set" content="Logged Out" name="dimension1">
+<meta content="github.com" name="hostname">
+<meta content="" name="user-login">
+<meta content="github.com" name="expected-hostname">
+<link color="#4078c0" href="https://assets-cdn.github.com/pinned-octocat.svg" rel="mask-icon">
+<link href="https://assets-cdn.github.com/favicon.ico" rel="icon" type="image/x-icon">
+<meta content="e20e4eef3b1a1d7f903f8fa92d32e0ea4f2e3202" name="form-nonce"/>
+<link crossorigin="anonymous" href="src/350888e1495e7af27e01faa9d8291dee.css" media="all" rel="stylesheet"/>
+<link crossorigin="anonymous" href="src/9fae9b7d8f0785d745a43c6465f74ae5.css" media="all" rel="stylesheet"/>
+<meta content="cd9958d45e48e8e3157a320e9c346eaa" http-equiv="x-pjax-version">
+<meta content="pomelo - A fast,scalable,distributed game server framework for Node.js." name="description">
+<meta content="github.com/NetEase/pomelo git https://github.com/NetEase/pomelo.git" name="go-import">
+<meta content="1460597" name="octolytics-dimension-user_id"/><meta content="NetEase" name="octolytics-dimension-user_login"/><meta content="5880912" name="octolytics-dimension-repository_id"/><meta content="NetEase/pomelo" name="octolytics-dimension-repository_nwo"/><meta content="true" name="octolytics-dimension-repository_public"/><meta content="false" name="octolytics-dimension-repository_is_fork"/><meta content="5880912" name="octolytics-dimension-repository_network_root_id"/><meta content="NetEase/pomelo" name="octolytics-dimension-repository_network_root_nwo"/>
+<link href="https://github.com/NetEase/pomelo/commits/master.atom" rel="alternate" title="Recent Commits to pomelo:master" type="application/atom+xml">
+</link></meta></meta></meta></link></link></meta></meta></meta></meta></meta></meta></meta></meta></meta></meta></link></meta></meta></meta></link></link></link></link></link></link></meta></meta></meta></meta></head><body style="padding:0 25px;"><div class="gollum-markdown-content instapaper_body" id="wiki-body">
+<div class="markdown-body">
+<p>Now, the basic core features of pomelo have been presented before by examples. There are also some functionalities not covered in previous tutorial, and we put them here to make a brief description. At last, we make a summary for this whole tutorial.</p>
+<h1>
+<a aria-hidden="true" class="anchor" href="#not-covered" id="user-content-not-covered"><span class="octicon octicon-link"></span></a>Not Covered</h1>
+<h3>
+<a aria-hidden="true" class="anchor" href="#servers-administration" id="user-content-servers-administration"><span class="octicon octicon-link"></span></a>Servers Administration</h3>
+<p>Pomelo provides a command-line tool to help developers develop more conviently and easily. Since pomelo 0.6.0, Username/password is required for authentication while using this tool, its command line format is as follows:</p>
+<pre><code>$ pomelo [list|stop|kill] [-u &lt;username&gt;] [-p &lt;password&gt;]
+</code></pre>
+<p><a href="pomelo-cli-usage">pomelo-cli</a> provides more powerful capabilities to monitor and mange the server cluster.</p>
+<h3>
+<a aria-hidden="true" class="anchor" href="#plugin" id="user-content-plugin"><span class="octicon octicon-link"></span></a>Plugin</h3>
+<p>Pomelo provides a plugin-based extension mechanism, a plugin can contain some related components and a set of event handlers for internal events of pomelo, more detail is presented at <a href="https://github.com/NetEase/pomelo/wiki/plugin">plugin reference documentation</a>.</p>
+<h3>
+<a aria-hidden="true" class="anchor" href="#ide" id="user-content-ide"><span class="octicon octicon-link"></span></a>IDE</h3>
+<p>While developing, a handy IDE may be required. For pomelo, <a href="https://github.com/NetEase/pomelo/wiki/Debugging-Pomelo-ServerApps-With-WebStorm-IDE">here</a> introduces a powerful IDE for javascript.</p>
+<h3>
+<a aria-hidden="true" class="anchor" href="#server-configuration" id="user-content-server-configuration"><span class="octicon octicon-link"></span></a>Server Configuration</h3>
+<p>This tutorial talks shallowly on how to configure server information. You can get more about server configuration in section User Manual. </p>
+<h1>
+<a aria-hidden="true" class="anchor" href="#summary" id="user-content-summary"><span class="octicon octicon-link"></span></a>Summary</h1>
+<p>By the example chat, we start from the initialization of it, and show some features by change it step by step. we just aim to let the developer know how to add a filter, how to add a rpc invocation, how to enable and use protobuf encoding/decoding, how to customize your own component and let pomelo load it, how to customize an admin-module, etc.. These features are all pomelo core functionalities.</p>
+<p>After learning this example, we believe you would have a more detailed understanding of pomelo and its functionalities, as well as how to use pomelo to develop an application. This example can also be used as a sample application for developers, it basically involves all aspects of pomelo.</p>
+</div>
+</div></body></html>

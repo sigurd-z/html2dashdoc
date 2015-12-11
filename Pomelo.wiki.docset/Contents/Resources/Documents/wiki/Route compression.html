@@ -1,0 +1,97 @@
+<html><head prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# object: http://ogp.me/ns/object# article: http://ogp.me/ns/article# profile: http://ogp.me/ns/profile#">
+<meta charset="utf-8">
+<meta content="IE=edge" http-equiv="X-UA-Compatible">
+<meta content="en" http-equiv="Content-Language">
+<meta content="width=1020" name="viewport">
+<title>Route compression · NetEase/pomelo Wiki · GitHub</title>
+<link href="/opensearch.xml" rel="search" title="GitHub" type="application/opensearchdescription+xml">
+<link href="src/ad667adaa2cfe8f3caa4a41b7d0a79a1.png" rel="fluid-icon" title="GitHub">
+<link href="src/a10d19ff5f738940a7a5086be334f50b.png" rel="apple-touch-icon" sizes="57x57">
+<link href="src/a10d19ff5f738940a7a5086be334f50b.png" rel="apple-touch-icon" sizes="114x114">
+<link href="src/b4cd268bc600cc14d2cdd557de6da2fb.png" rel="apple-touch-icon" sizes="72x72">
+<link href="src/b4cd268bc600cc14d2cdd557de6da2fb.png" rel="apple-touch-icon" sizes="144x144">
+<meta content="1401488693436528" property="fb:app_id">
+<meta content="@github" name="twitter:site"/><meta content="summary" name="twitter:card"/><meta content="NetEase/pomelo" name="twitter:title"/><meta content="pomelo - A fast,scalable,distributed game server framework for Node.js." name="twitter:description"/><meta content="https://avatars0.githubusercontent.com/u/1460597?v=3&amp;s=400" name="twitter:image:src"/>
+<meta content="GitHub" property="og:site_name"/><meta content="object" property="og:type"/><meta content="https://avatars0.githubusercontent.com/u/1460597?v=3&amp;s=400" property="og:image"/><meta content="NetEase/pomelo" property="og:title"/><meta content="https://github.com/NetEase/pomelo" property="og:url"/><meta content="pomelo - A fast,scalable,distributed game server framework for Node.js." property="og:description"/>
+<meta content="https://api.github.com/_private/browser/stats" name="browser-stats-url">
+<meta content="https://api.github.com/_private/browser/errors" name="browser-errors-url">
+<link href="https://assets-cdn.github.com/" rel="assets">
+<meta content="1000" name="pjax-timeout">
+<meta content="/windows-tile.png" name="msapplication-TileImage">
+<meta content="#ffffff" name="msapplication-TileColor">
+<meta data-pjax-transient="" name="selected-link" value="repo_wiki">
+<meta content="KT5gs8h0wvaagLKAVWq8bbeNwnZZK1r1XQysX3xurLU" name="google-site-verification">
+<meta content="UA-3769691-2" name="google-analytics">
+<meta content="collector.githubapp.com" name="octolytics-host"/><meta content="github" name="octolytics-app-id"/><meta content="CA86616A:4487:8D81414:5670C124" name="octolytics-dimension-request_id"/>
+<meta content="/&lt;user-name&gt;/&lt;repo-name&gt;/wiki/show" data-pjax-transient="true" name="analytics-location"/>
+<meta content="Rails, view, wiki#show" data-pjax-transient="true" name="analytics-event"/>
+<meta class="js-ga-set" content="Logged Out" name="dimension1">
+<meta content="github.com" name="hostname">
+<meta content="" name="user-login">
+<meta content="github.com" name="expected-hostname">
+<link color="#4078c0" href="https://assets-cdn.github.com/pinned-octocat.svg" rel="mask-icon">
+<link href="https://assets-cdn.github.com/favicon.ico" rel="icon" type="image/x-icon">
+<meta content="1f173e4b7dc2da5df7c7bd573cfe261ff132b788" name="form-nonce"/>
+<link crossorigin="anonymous" href="src/350888e1495e7af27e01faa9d8291dee.css" media="all" rel="stylesheet"/>
+<link crossorigin="anonymous" href="src/9fae9b7d8f0785d745a43c6465f74ae5.css" media="all" rel="stylesheet"/>
+<meta content="cd9958d45e48e8e3157a320e9c346eaa" http-equiv="x-pjax-version">
+<meta content="pomelo - A fast,scalable,distributed game server framework for Node.js." name="description">
+<meta content="github.com/NetEase/pomelo git https://github.com/NetEase/pomelo.git" name="go-import">
+<meta content="1460597" name="octolytics-dimension-user_id"/><meta content="NetEase" name="octolytics-dimension-user_login"/><meta content="5880912" name="octolytics-dimension-repository_id"/><meta content="NetEase/pomelo" name="octolytics-dimension-repository_nwo"/><meta content="true" name="octolytics-dimension-repository_public"/><meta content="false" name="octolytics-dimension-repository_is_fork"/><meta content="5880912" name="octolytics-dimension-repository_network_root_id"/><meta content="NetEase/pomelo" name="octolytics-dimension-repository_network_root_nwo"/>
+<link href="https://github.com/NetEase/pomelo/commits/master.atom" rel="alternate" title="Recent Commits to pomelo:master" type="application/atom+xml">
+</link></meta></meta></meta></link></link></meta></meta></meta></meta></meta></meta></meta></meta></meta></meta></link></meta></meta></meta></link></link></link></link></link></link></meta></meta></meta></meta></head><body style="padding:0 25px;"><div class="gollum-markdown-content instapaper_body" id="wiki-body">
+<div class="markdown-body">
+<p>In practice, network bandwidth is a worthwhile consideration. Especially for mobile clients, the network resource is often not very rich, in order to save network resources, it is often needed to increase the effective payload ratio.</p>
+<p>Using the chat application as an example, when a user send a chat message, the route information is required, as shown below:</p>
+<div class="highlight highlight-source-js"><pre>
+<span class="pl-smi">pomelo</span>.<span class="pl-en">request</span>(<span class="pl-s"><span class="pl-pds">'</span>chat.chatHandler.send<span class="pl-pds">'</span></span>,
+  <span class="pl-c">//...</span>
+);
+</pre></div>
+<p>The routing information indicates that the request should be handled by send method of chatHandler on chat server. When server pushing messages to the client, route also should be specified to indicate a handler. In the chat example, there are onAdd, onLeave and other routes. Considering if a chat message is very short such as just a letter, but when being sent, it should be added a complete routing information, this would result in a very low effective payload ratio and wasting network resource. The direct idea to solve this problem is to shorten the routing information. On the server side, routing information is fixed while the server is determined. On the client side, although you can use a very short name for route, but it may be unreadable. </p>
+<p>To address this situation, pomelo provides the dictionary-based route compression.</p>
+<ul>
+<li>For the server side, pomelo scans all route information;</li>
+<li>For the client side, the developer needs list the route in file config/dictionary.json.</li>
+</ul>
+<p>Then, pomelo would get all the routes of client side and server side and then maps each route to a small integer. Currently pomelo route compression only supports hydridconnector. In implementation of hydridconnector, if you enable route compression, then the client and server will synchronize the dictionary in handshake phase while establishing a connection, so that the small integer can be used to replace the route later, and it can reduce the transmission cost.</p>
+<h1>
+<a aria-hidden="true" class="anchor" href="#using-in-chat" id="user-content-using-in-chat"><span class="octicon octicon-link"></span></a>Using in Chat</h1>
+<p>Now, we enable the route compression for our chat example. The sample code is specific in the branch <code>tutorial-dict</code>, use the following command to switch branch:</p>
+<pre><code> $ git checkout tutorial-dict
+</code></pre>
+<p>First, extract all the route from client side and list it in config/dictionary.json:</p>
+<div class="highlight highlight-source-js"><pre>
+<span class="pl-c">// dictionary.json</span>
+[
+  <span class="pl-s"><span class="pl-pds">"</span>onChat<span class="pl-pds">"</span></span>,
+  <span class="pl-s"><span class="pl-pds">"</span>onAdd<span class="pl-pds">"</span></span>,
+  <span class="pl-s"><span class="pl-pds">"</span>onLeave<span class="pl-pds">"</span></span>
+]
+</pre></div>
+<p>Then enable route compression by configuring connector options:</p>
+<div class="highlight highlight-source-js"><pre>
+<span class="pl-smi">app</span>.<span class="pl-en">configure</span>(<span class="pl-s"><span class="pl-pds">'</span>production|development<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>connector<span class="pl-pds">'</span></span>, <span class="pl-k">function</span>() {
+  <span class="pl-smi">app</span>.<span class="pl-en">set</span> (<span class="pl-s"><span class="pl-pds">'</span>connectorConfig<span class="pl-pds">'</span></span>, {
+    connector<span class="pl-k">:</span> <span class="pl-smi">pomelo</span>.<span class="pl-smi">connectors</span>.<span class="pl-smi">hydridconnector</span>,
+    heartbeat<span class="pl-k">:</span> <span class="pl-c1">3</span>,
+    useDict<span class="pl-k">:</span> <span class="pl-c1">true</span> <span class="pl-c">// enable dict</span>
+  });
+});
+
+<span class="pl-smi">app</span>.<span class="pl-en">configure</span>(<span class="pl-s"><span class="pl-pds">'</span>production|development<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>gate<span class="pl-pds">'</span></span>, <span class="pl-k">function</span>() {
+  <span class="pl-smi">app</span>.<span class="pl-en">set</span> (<span class="pl-s"><span class="pl-pds">'</span>connectorConfig<span class="pl-pds">'</span></span>, {
+    connector<span class="pl-k">:</span> <span class="pl-smi">pomelo</span>.<span class="pl-smi">connectors</span>.<span class="pl-smi">hydridconnector</span>,
+    useDict<span class="pl-k">:</span> <span class="pl-c1">true</span> <span class="pl-c">// enable dict</span>
+  });
+});
+</pre></div>
+<ul>
+<li>Well, now we have enabled routing compression for our chat example, and all the route will be replaced to a small integer while transferring.</li>
+<li> If some routes at client side is not listed in the dictionary.json, then pomelo would still use the original route without compression .</li>
+</ul>
+<h1>
+<a aria-hidden="true" class="anchor" href="#summary" id="user-content-summary"><span class="octicon octicon-link"></span></a>Summary</h1>
+<p>So far, The format of transmission message between client and server is json. Indeed, while json is very convenient, but it also brought some redundant information, which can be ommited to reduce transmission cost. That means directly sending binary data will be better to reduce overhead. In the next section we will apply <a href="Protobuf-compression" title="Protobuf compression">protobuf encoding/decoding</a> on our chat application in order make it better.</p>
+</div>
+</div></body></html>

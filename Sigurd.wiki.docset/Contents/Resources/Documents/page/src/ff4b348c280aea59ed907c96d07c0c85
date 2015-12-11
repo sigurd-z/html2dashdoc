@@ -1,0 +1,1098 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+
+    <title>CocoaChina_让移动开发更简单</title>
+    <meta name="keywords" content="iPhone开发,iOS开发,iPad开发,Mac开发,苹果开发中文站,iPhone开发中文站,CocoaChina首页, Mac OS开发, Cocoa介绍,移动互联网,触控科技,Cocoa,Apple,developer,iOS,iPhone,iPad,iMac,iPod Touch,iPhone5,iPhone4S,iPad3,招聘,iPhone程序员,Objective-c,iPhone应用外包,ios6,ios面试,Cocos2d-x,cocos2d,iTunes,App Store,苹果开发" />
+    <meta name="description" content="CocoaChina前身是全球成立最早规模最大的苹果开发中文站，现致力为所有移动开发者提供资讯服务、问答服务、代码下载、工具库及人才招聘服务" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="baidu-tc-cerfication" content="3300a939a1098c27e94457b75a0bb8c1" />
+    <script type='text/javascript'>
+        function gotoMobilePage() {
+            var sUserAgent = navigator.userAgent.toLowerCase();
+            var agent_iphone = /iphone/i;
+            var agent_android = /android/i;
+            //var agent_ipad = /ipad/i;
+            var agent_ipod = /ipod/i;
+            var agent_wphone = /windows phone/i;
+            if(agent_iphone.test(sUserAgent) || agent_android.test(sUserAgent) || agent_ipod.test(sUserAgent) || agent_wphone.test(sUserAgent)){
+                var re = /\/\w+\/\d+\/(\d+)\.html/, 
+                    result = re.exec(window.location.pathname);
+                if ( result )
+                {
+                    window.location.href = "http://www.cocoachina.com/cms/wap.php?action=article&id=" + result[1];
+                } else {
+                    window.location.href = "http://m.cocoachina.com/";
+                }
+            }
+        }
+        gotoMobilePage(); 
+    </script>
+    <link rel="stylesheet" href="http://cdn.cocimg.com/assets/css/global.css?v=20150818" media="all">
+    <link rel="stylesheet" href="http://cdn.cocimg.com/assets/css/index.css?v=20151015" media="all">
+    <link href="http://cdn.cocimg.com/assets/css/module.css?v=20150906" rel="stylesheet">
+    <link href="http://cdn.cocimg.com/assets/css/style.css?v=20150818" rel="stylesheet">
+    <link href="http://cdn.cocimg.com/assets/css/navheader.css?v=20151120" rel="stylesheet" />
+    <script src="http://cdn.cocimg.com/assets/js/jquery.min.js?v=20150818" type="text/javascript"></script>
+    <script type="text/javascript" src="http://cdn.cocimg.com/assets/js/navbar.js?v=20151013"></script>
+    <script type='text/javascript' src='http://js.adm.cnzz.net/js/abase.js'></script>
+    
+</head>
+<body>
+
+    <div class="nav-header">
+            <div class="nav-header-top">
+                <div class="nav-logo nav-fl"><a href="/"><img src="http://cdn.cocimg.com/assets/images/logo.png?v=201510272" /></a></div>
+                <div class="nav-list nav-fl">
+                    <ul>
+                        <li><a href="/news/">资讯</a></li>
+                        <li><a href="/bbs/">论坛</a></li>
+                        <li><a target="_blank" href="http://code.cocoachina.com/" title="CODE">代码</a></li>
+                        <li><a href="http://tools.cocoachina.com" title="工具" target='_blank'>工具</a></li>
+                        <li><a target="_blank" href="http://job.cocoachina.com/" title="JOB">招聘</a></li>
+                        <li><a target="_blank" href="http://cvp.cocos.com/" title="CVP">CVP</a></li>
+                    </ul>
+                </div>
+                <div class="nav-search nav-fl">
+                    <div class="nav-search-flag" style="display:block"><img src="http://cdn.cocimg.com/assets/img/search-icon.png?v=20150825" /></div>
+                    <div class="nav-search-form" style="display:none">
+                        <form action="/cms/plus/search.php" name="formsearch" method="post" target="_blank">
+                            <input type="hidden" name="kwtype" value="0" />
+                            <input type="hidden" name="searchtype" value="titlekeyword" />
+                            <input name="keyword" type="text" placeholder="站内搜索" />
+                            <input type="button" />
+                        </form>
+                    </div>
+                </div>
+                <div class="nav-user nav-fr">
+                    <!-- #region 未登录时显示此区域 -->
+                    <div class="nav-user-login" style="display:block">
+                        <a href="/bbs/login.php">登录</a>|
+                        <a href="/bbs/register.php">注册</a>
+                    </div>
+                    <!-- #endregion -->
+                    <!-- #region 已登录时显示此区域 -->
+                    <div class="nav-user-name" style="display:none">
+                        <div><alert></alert><img src="/assets/img/user.png" />Guest</div>
+                        <ul>
+                            <li><a href="#"><img src="/assets/img/i-man.png" />我的主页</a></li>
+                            <li><alert></alert><a href="#"><img src="/assets/img/i-mail.png" />我的消息</a></li>
+                            <li><a href="#"><img src="/assets/img/i-setting.png" />账户设置</a></li>
+                            <li><a href="index-offline.html"><img src="/assets/img/i-logout.png" />退出</a></li>
+                        </ul>
+                    </div>
+                    <!-- #endregion -->
+                </div>
+                <div class="nav-clear"></div>
+            </div>
+        <div class="nav-header-bottom">
+            <ul>
+                <li><a id="ios" href="/ios/" title="ios">iOS开发</a></li>
+                <li><a id="swift" href="/swift/" title="swift">Swift</a></li>
+                <li><a id="app_store" href="/appstore/" title="appstore">App Store研究</a></li>
+                <li><a id="design" href="/design/" title="design">产品设计</a></li>
+                <li><a id="review" href="/review/" title="review">应用评测</a></li>
+                <li><a id="game" href="/game/" title="game">游戏开发</a></li>
+                <li><a id="apple" href="/apple/" title="apple">苹果相关</a></li>
+                <!-- <li><a id="cocos" href="/cocos/" title="cocos">Cocos引擎</a></li>-->
+                <li><a id="webapp" href="/webapp/" title="HTML5">HTML5</a></li>
+                <li><a id="android" href="/android/" title="android">安卓相关</a></li>
+                <li><a id="market" href="/market/" title="market">营销推广</a></li>
+                <li><a id="industry" href="/industry/" title="industry">业界动态</a></li>
+                <li><a id="programmer" href="/programmer/" title="programmer">程序人生</a></li>
+            </ul>
+        </div>
+    </div>
+
+<div class="middle">
+    <div class="m-ad2">
+        <div class="ad2-l">
+            <script>CNZZ_SLOT_RENDER('323845');</script>
+        </div>
+        <div class="ad2-r">
+            <script>CNZZ_SLOT_RENDER('323846');</script>
+        </div>
+    </div>
+    <div class="m-banner">
+        <div class="m-role">
+            <div class="role-tab">
+                <ul class="role-main" id="slide_list">
+                    <li class="current">
+                        <a href="http://www.cocoachina.com/ios/20151214/14649.html" title="【译】持久化存储解决方案MagicalRecord使用入门" target="_blank">
+                            <img src="http://cc.cocimg.com/api/uploads/151210/943ca093281f496a99e34dccc5df55fe.jpg" alt="【译】持久化存储解决方案MagicalRecord使用入门" title="【译】持久化存储解决方案MagicalRecord使用入门" />
+                            <span>【译】持久化存储解决方案MagicalRecord使用入门<i>MagicalRecord 提供了便利的方法来创建那些使用Core Data 所必须的代码，诸如对 Core Data 的设置、查询、更新。它的设计灵感来源于德高</i></span>
+                        </a>
+                    </li>
+ <li>
+                        <a href="http://www.cocoachina.com/ios/20151214/14656.html" title="接口编程那些事（或者面向协议编程）" target="_blank">
+                            <img src="http://cc.cocimg.com/api/uploads/151210/25fad51e5fcb87e3d29ed170e1a10f44.jpg" alt="接口编程那些事（或者面向协议编程）" title="接口编程那些事（或者面向协议编程）" />
+                            <span>接口编程那些事（或者面向协议编程）<i>接口是一系列可调用方法的集合。何为接口编程？接口编程是指当写一个函数或一个方法时，我们应该更加关注具体的接口，而不是</i></span>
+                        </a>
+                    </li>
+ <li>
+                        <a href="http://www.cocoachina.com/special/career/" title="程序员求职专题：求职季，求职技" target="_blank">
+                            <img src="http://cc.cocimg.com/api/uploads/151210/f61fb98508caec075b90be1db37163b8.jpg" alt="程序员求职专题：求职季，求职技" title="程序员求职专题：求职季，求职技" />
+                            <span>程序员求职专题：求职季，求职技<i>CocoaChina倾情奉献超全超实用的求职指南，职业规划、简历制作、面试技巧、职业发展，诸多精彩内容，助力程序员们职业腾飞</i></span>
+                        </a>
+                    </li>
+ <li>
+                        <a href="http://www.cocoachina.com/programmer/20151211/14653.html" title="经验之谈！35岁程序员的独家面试经历" target="_blank">
+                            <img src="http://cc.cocimg.com/api/uploads/151210/2db2d4b695b5a11ddc0f0bc6a233dbcb.jpg" alt="经验之谈！35岁程序员的独家面试经历" title="经验之谈！35岁程序员的独家面试经历" />
+                            <span>经验之谈！35岁程序员的独家面试经历<i>把我面试三个公司的关键节点和问题列出来回顾一下，也许对大家也有帮助。如果你不耐烦看面试问题，也可以跳到最后看我总结的</i></span>
+                        </a>
+                    </li>
+ <li>
+                        <a href="http://www.cocoachina.com/ios/20151210/14636.html" title="Objective-C 引用计数：不讲用法，只说原理" target="_blank">
+                            <img src="http://cc.cocimg.com/api/uploads/151209/6291a06c51649527e6a4a96afcb96f34.jpg" alt="Objective-C 引用计数：不讲用法，只说原理" title="Objective-C 引用计数：不讲用法，只说原理" />
+                            <span>Objective-C 引用计数：不讲用法，只说原理<i>不讲用法，只说原理，谈谈引用计数的存储、获取引用计数、修改引用计数等问题</i></span>
+                        </a>
+                    </li>
+
+                </ul>
+
+                <div class="role-h" id="slide_click">
+                    <a href="http://www.cocoachina.com/ios/20151214/14649.html" 
+
+                        target="_blank" rel= "1"  title="【译】持久化存储解决方案MagicalRecord使用入门"
+                        class= "first current"><span>【译】持久化存储解决方案MagicalRecord使用入门</span></a>
+<a href="http://www.cocoachina.com/ios/20151214/14656.html" 
+
+                        target="_blank" rel= "2"  title="接口编程那些事（或者面向协议编程）"
+                        class=""><span>接口编程那些事（或者面向协议编程）</span></a>
+<a href="http://www.cocoachina.com/special/career/" 
+
+                        target="_blank" rel= "3"  title="程序员求职专题：求职季，求职技"
+                        class=""><span>程序员求职专题：求职季，求职技</span></a>
+<a href="http://www.cocoachina.com/programmer/20151211/14653.html" 
+
+                        target="_blank" rel= "4"  title="经验之谈！35岁程序员的独家面试经历"
+                        class=""><span>经验之谈！35岁程序员的独家面试经历</span></a>
+<a href="http://www.cocoachina.com/ios/20151210/14636.html" 
+
+                        target="_blank" rel= "5"  title="Objective-C 引用计数：不讲用法，只说原理"
+                        class=""><span>Objective-C 引用计数：不讲用法，只说原理</span></a>
+
+                </div>
+
+            </div>
+        </div>
+
+        <div class="m-coco">
+            <h2>
+                <a href="http://www.cocoachina.com/special/" target="_blank" title="专题">专题</a>
+                <a href="http://www.cocoachina.com/special/" class="more right" title="更多专题">更多</a>
+            </h2>
+            <div class="spec-list">
+                <div class="spec-item">
+                    <div class= "spec-item-title spec-hidden">
+                        <span>程序员求职专题：求职季，求职技</span></div>
+                    <a href="http://www.cocoachina.com/special/career/" title="程序员求职专题：求职季，求职技" target="_blank">
+                        <div class= "spec-item-detail spec-block">
+                            <img src="http://cc.cocimg.com/api/uploads/151210/651a9d618c8d1c447a0117a9c4c2c297.jpg" alt="程序员求职专题：求职季，求职技" />
+                            <div>程序员求职专题：求职季，求职技</div>
+                        </div>
+                    </a>
+                </div><div class="spec-item">
+                    <div class="spec-item-title">
+                        <span>JOIN US，下一个大牛就是你！</span></div>
+                    <a href="http://www.cocoachina.com/bbs/read.php?tid=329297" title="JOIN US，下一个大牛就是你！" target="_blank">
+                        <div class="spec-item-detail">
+                            <img src="http://cc.cocimg.com/api/uploads/151030/21ed05ed1f9d7c4ffa48b8a2227be38d.gif" alt="JOIN US，下一个大牛就是你！" />
+                            <div>JOIN US，下一个大牛就是你！</div>
+                        </div>
+                    </a>
+                </div><div class="spec-item">
+                    <div class="spec-item-title">
+                        <span>APP动效设计的点睛之美</span></div>
+                    <a href="http://www.cocoachina.com/special/appdesign/" title="APP动效设计的点睛之美" target="_blank">
+                        <div class="spec-item-detail">
+                            <img src="http://cc.cocimg.com/api/uploads/150929/fac97ed21b3591d686577cc9ceff14ff.jpg" alt="APP动效设计的点睛之美" />
+                            <div>APP动效设计的点睛之美</div>
+                        </div>
+                    </a>
+                </div><div class="spec-item">
+                    <div class="spec-item-title">
+                        <span>表有方寸，心无桎梏</span></div>
+                    <a href="http://www.cocoachina.com/applewatch/" title="表有方寸，心无桎梏" target="_blank">
+                        <div class="spec-item-detail">
+                            <img src="http://cc.cocimg.com/api/uploads/150811/ea89ea0696b9a71d9584c016023aafe0.jpg" alt="表有方寸，心无桎梏" />
+                            <div>表有方寸，心无桎梏</div>
+                        </div>
+                    </a>
+                </div><div class="spec-item">
+                    <div class="spec-item-title spec-last">
+                        <span>零基础学习Cocos2d-x</span></div>
+                    <a href="http://cn.cocos2d-x.org/special" title="零基础学习Cocos2d-x" target="_blank">
+                        <div class="spec-item-detail">
+                            <img src="http://cc.cocimg.com/api/uploads/150519/95bdafdf652c0415a3c0a1382e97d436.jpg" alt="零基础学习Cocos2d-x" />
+                            <div>零基础学习Cocos2d-x</div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+    <div class="m-downcode">
+        <h2><a href="http://code.cocoachina.com/" target="_blank">代码下载</a></h2>
+        <div class="code-tags">
+            <span>热门分类: </span>
+            <a href="http://code.cocoachina.com/list/30" title="瀑布流"target="_blank">瀑布流</a><a href="http://code.cocoachina.com/list/31" title="图文混排"target="_blank">图文混排</a><a href="http://code.cocoachina.com/list/20" title="手势交互"target="_blank">手势交互</a><a href="http://code.cocoachina.com/list/8" title="导航"target="_blank">导航</a><a href="http://code.cocoachina.com/list/32" title="菜单"target="_blank">菜单</a><a href="http://code.cocoachina.com/list/33" title="视图动画" class = "light" target="_blank">视图动画</a><a href="http://code.cocoachina.com/list/34" title="特效"target="_blank">特效</a><a href="http://code.cocoachina.com/list/27" title="键盘"target="_blank">键盘</a><a href="http://code.cocoachina.com/list/24" title="音频视频"target="_blank">音频视频</a><a href="http://code.cocoachina.com/list/35" title="数据持久化"target="_blank">数据持久化</a><a href="http://code.cocoachina.com/list/36" title="系统功能"target="_blank">系统功能</a><a href="http://code.cocoachina.com/list/28" title="游戏源码" class = "light" target="_blank">游戏源码</a><a href="http://code.cocoachina.com/list/37" title="日历"target="_blank">日历</a><a href="http://code.cocoachina.com/list/21" title="绘图"target="_blank">绘图</a><a href="http://code.cocoachina.com/list/25" title="网络"target="_blank">网络</a><a href="http://code.cocoachina.com/list/6" title="标签"target="_blank">标签</a><a href="http://code.cocoachina.com/list/1" title="按钮"target="_blank">按钮</a><a href="http://code.cocoachina.com/list/14" title="分段选择"target="_blank">分段选择</a><a href="http://code.cocoachina.com/list/42" title="文本输入"target="_blank">文本输入</a><a href="http://code.cocoachina.com/list/12" title="滑杆"target="_blank">滑杆</a><a href="http://code.cocoachina.com/list/11" title="开关"target="_blank">开关</a><a href="http://code.cocoachina.com/list/10" title="指示器"target="_blank">指示器</a><a href="http://code.cocoachina.com/list/9" title="进度条"target="_blank">进度条</a><a href="http://code.cocoachina.com/list/38" title="页数控制"target="_blank">页数控制</a><a href="http://code.cocoachina.com/list/16" title="文字视图"target="_blank">文字视图</a><a href="http://code.cocoachina.com/list/15" title="网页视图"target="_blank">网页视图</a><a href="http://code.cocoachina.com/list/7" title="地图"target="_blank">地图</a><a href="http://code.cocoachina.com/list/4" title="滚动视图" class = "light" target="_blank">滚动视图</a><a href="http://code.cocoachina.com/list/5" title="选择器"target="_blank">选择器</a><a href="http://code.cocoachina.com/list/39" title="搜索框"target="_blank">搜索框</a>
+            <br><br><br><br><br><br>
+            <div class="light">
+            <script>CNZZ_SLOT_RENDER('323848');</script></div>
+        </div>
+        <div class="code-list">
+            <ul>
+                
+        <li>
+            <a href='http://code.cocoachina.com/view/128607' title='自定制的UISearchDisplayController' target='_blank'>自定制的UISearchDisplayController</a>
+        </li>
+        <li>
+            <a href='http://code.cocoachina.com/view/128606' title='swift版本拼图游戏' target='_blank'>swift版本拼图游戏</a>
+        </li>
+        <li>
+            <a href='http://code.cocoachina.com/view/128605' title='自定义按钮，封装多种类型' target='_blank'>自定义按钮，封装多种类型</a>
+        </li>
+        <li>
+            <a href='http://code.cocoachina.com/view/128604' title='iOS有自带的UITableViewCell高度自动拉伸' target='_blank'>iOS有自带的UITableViewCell高度自动拉伸</a>
+        </li>
+        <li>
+            <a href='http://code.cocoachina.com/view/128603' title='平时项目常用分类' target='_blank'>平时项目常用分类</a>
+        </li>
+        <li>
+            <a href='http://code.cocoachina.com/view/128602' title='手动写一个类似词典的屏幕取词功能' target='_blank'>手动写一个类似词典的屏幕取词功能</a>
+        </li>
+        <li>
+            <a href='http://code.cocoachina.com/view/128601' title='绘画板' target='_blank'>绘画板</a>
+        </li>
+                <li><div class="light"><script>CNZZ_SLOT_RENDER('323849');</script></div></li>
+            </ul>
+        </div>
+        <div class="code-list">
+            <ul>
+                
+        <li>
+            <a href='http://code.cocoachina.com/view/128600' title='文件下载' target='_blank'>文件下载</a>
+        </li>
+        <li>
+            <a href='http://code.cocoachina.com/view/128599' title='录音和播放（amr和wav互转）' target='_blank'>录音和播放（amr和wav互转）</a>
+        </li>
+        <li>
+            <a href='http://code.cocoachina.com/view/128598' title='平时项目常用分类' target='_blank'>平时项目常用分类</a>
+        </li>
+        <li>
+            <a href='http://code.cocoachina.com/view/128596' title='圆弧进度条显示' target='_blank'>圆弧进度条显示</a>
+        </li>
+        <li>
+            <a href='http://code.cocoachina.com/view/128595' title='手机注册获取验证码' target='_blank'>手机注册获取验证码</a>
+        </li>
+        <li>
+            <a href='http://code.cocoachina.com/view/128594' title='一个简单的电话薄功能，简单的用了coreData功能，可以做入门学习' target='_blank'>一个简单的电话薄功能，简单的用了coreData功能，可以做入门学习</a>
+        </li>
+        <li>
+            <a href='http://code.cocoachina.com/view/128593' title='自定义弹出框' target='_blank'>自定义弹出框</a>
+        </li>
+                <li><div class="light"><script>CNZZ_SLOT_RENDER('323850');</script></div></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="m-ad2">
+        <div class="ad2-l">
+        <script>CNZZ_SLOT_RENDER('323851');</script></div>
+        <div class="ad2-r">
+        <script>CNZZ_SLOT_RENDER('323852');</script></div>
+    </div>
+
+    <div class="m-forum">
+        <div class="forum-l">
+            <div class="forum-l-t">
+                <h2>论坛热帖</h2>
+                <div class="forum-hot-list">
+                    
+            <div class='forum-hot-item'>
+                <div class='forum-hot-count forum-hot'>1</div>
+                <div class='forum-hot-title'><a href='http://www.cocoachina.com/bbs/read.php?tid-334149.html' title='法师传奇第五月数据和心得分享' target='_blank'>法师传奇第五月数据和心得分享</a></div>
+            </div>
+            <div class='forum-hot-item'>
+                <div class='forum-hot-count forum-hot'>2</div>
+                <div class='forum-hot-title'><a href='http://www.cocoachina.com/bbs/read.php?tid-329297.html' title='Cocos最有价值专家 福利来袭！' target='_blank'>Cocos最有价值专家 福利来袭！</a></div>
+            </div>
+            <div class='forum-hot-item'>
+                <div class='forum-hot-count forum-hot'>3</div>
+                <div class='forum-hot-title'><a href='http://www.cocoachina.com/bbs/read.php?tid-326558.html' title='调查下，看看用xcode7的人多么？' target='_blank'>调查下，看看用xcode7的人多么？</a></div>
+            </div>
+            <div class='forum-hot-item'>
+                <div class='forum-hot-count'>4</div>
+                <div class='forum-hot-title'><a href='http://www.cocoachina.com/bbs/read.php?tid-335133.html' title='最近iOS的下载量真的很差...' target='_blank'>最近iOS的下载量真的很差...</a></div>
+            </div>
+            <div class='forum-hot-item'>
+                <div class='forum-hot-count'>5</div>
+                <div class='forum-hot-title'><a href='http://www.cocoachina.com/bbs/read.php?tid-334779.html' title='【调查】你认为年底工作难找吗？' target='_blank'>【调查】你认为年底工作难找吗？</a></div>
+            </div>
+            <div class='forum-hot-item'>
+                <div class='forum-hot-count'>6</div>
+                <div class='forum-hot-title'><a href='http://www.cocoachina.com/bbs/read.php?tid-334249.html' title='面试问题整理第一波   ' target='_blank'>面试问题整理第一波   </a></div>
+            </div>
+            <div class='forum-hot-item'>
+                <div class='forum-hot-count'>7</div>
+                <div class='forum-hot-title'><a href='http://www.cocoachina.com/bbs/read.php?tid-334257.html' title='点击button  如何使label的数值加一 求大神指教 新手报道   ' target='_blank'>点击button  如何使label的数值加一 求大神指教 新手报道   </a></div>
+            </div>
+            <div class='forum-hot-item'>
+                <div class='forum-hot-count'>8</div>
+                <div class='forum-hot-title'><a href='http://www.cocoachina.com/bbs/read.php?tid-332870.html' title='27岁想从C转型iOS开发   ' target='_blank'>27岁想从C转型iOS开发   </a></div>
+            </div>
+            <div class='forum-hot-item'>
+                <div class='forum-hot-count'>9</div>
+                <div class='forum-hot-title'><a href='http://www.cocoachina.com/bbs/read.php?tid-334088.html' title='关于转行做ios，给你讲讲我的故事' target='_blank'>关于转行做ios，给你讲讲我的故事</a></div>
+            </div>
+            <div class='forum-hot-item'>
+                <div class='forum-hot-count'>10</div>
+                <div class='forum-hot-title'><a href='http://www.cocoachina.com/bbs/read.php?tid-333974.html' title='第一次收到苹果打来的钱，有点小激动！已成功结汇！' target='_blank'>第一次收到苹果打来的钱，有点小激动！已成功结汇！</a></div>
+            </div>
+            <div class='forum-hot-item'>
+                <div class='forum-hot-count'>11</div>
+                <div class='forum-hot-title'><a href='http://www.cocoachina.com/bbs/read.php?tid-333592.html' title='关于游戏在App Store排名的一些体会  ' target='_blank'>关于游戏在App Store排名的一些体会  </a></div>
+            </div>
+            <div class='forum-hot-item'>
+                <div class='forum-hot-count'>12</div>
+                <div class='forum-hot-title'><a href='http://www.cocoachina.com/bbs/read.php?tid-270505.html' title='Storyboard 跳转和传值   ' target='_blank'>Storyboard 跳转和传值   </a></div>
+            </div>
+            <div class='forum-hot-item'>
+                <div class='forum-hot-count'>13</div>
+                <div class='forum-hot-title'><a href='http://www.cocoachina.com/bbs/read.php?tid-332340-page-1.html' title='新游戏上线，下载量不足50，是不是代表游戏没戏了 ' target='_blank'>新游戏上线，下载量不足50，是不是代表游戏没戏了 </a></div>
+            </div>
+            <div class='forum-hot-item'>
+                <div class='forum-hot-count'>14</div>
+                <div class='forum-hot-title'><a href='http://www.cocoachina.com/bbs/read.php?tid-333143.html' title='28岁自学iOS，过来人给点建议' target='_blank'>28岁自学iOS，过来人给点建议</a></div>
+            </div>
+            <div class='forum-hot-item forum-hot-item-last'>
+                <div class='forum-hot-count'>15</div>
+                <div class='forum-hot-title'><a href='http://www.cocoachina.com/bbs/read.php?tid-331934.html' title='参与虚幻引擎用户调研~得官方定制T恤！' target='_blank'>参与虚幻引擎用户调研~得官方定制T恤！</a></div>
+            </div>
+                </div>
+            </div>
+
+            <div class="forum-l-ad1">
+                <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+                <!-- CC首页论坛热帖下方广告 -->
+                <ins class="adsbygoogle"
+                     style="display:inline-block;width:280px;height:96px"
+                     data-ad-client="ca-pub-1180518835303646"
+                     data-ad-slot="6745147168"></ins>
+                <script>
+                (adsbygoogle = window.adsbygoogle || []).push({});
+                </script>
+            </div>
+
+
+            <div class="forum-r-b2">
+                <div class="elite-box">
+                    <h3><a href="http://www.cocoachina.com/special/jinghua/" target="_blank" class="subscribe">每周精华周刊</a></h3>
+                    <ul>
+                        <li><a href="http://www.cocoachina.com/app/jinghua/template/cocoachina2015-119.html" target="_blank" title="实际经历告诉你，写一本技术书能赚多少钱">第119期 实际经历告诉你，写一本技术书能赚多少钱</a></li><li><a href="http://www.cocoachina.com/app/jinghua/template/cocoachina2015-118.html" target="_blank" title="我已经写了48年代码了，我感觉我还能写下去">第118期 我已经写了48年代码了，我感觉我还能写下去</a></li><li><a href="http://www.cocoachina.com/app/jinghua/template/cocoachina2015-117.html" target="_blank" title="iOS 9正式发布，你发现其中隐藏的功能了吗">第117期 iOS 9正式发布，你发现其中隐藏的功能了吗</a></li><li><a href="http://www.cocoachina.com/app/jinghua/template/cocoachina2015-116.html" target="_blank" title="从零开始学 iOS 开发的15条建议">第116期 从零开始学 iOS 开发的15条建议</a></li>
+                        <li class="m-b-take">
+                            <form action="" method="POST" name="take-form">
+                                <input name="email" id="demail" type="text" onfocus="$('#result').html('')" placeholder="输入常用邮箱订阅" class="take-mail" /><input type="button" onclick="subscribe()" value="订阅" class="take-btn" />
+                            </form>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="forum-c">
+            <h2>
+                <a href="http://www.cocoachina.com/news/" target="_blank">滚动</a>
+                <a href="http://www.cocoachina.com/deliver.php" class="right light" title="投稿爆料" target="_blank">投稿爆料</a>
+            </h2>
+            <ul>
+                
+            <li style="border-top:none;">
+                <a title='35年前2200美元投资苹果股票，现在能赚多少？' target='_blank' href='http://www.cocoachina.com/apple/20151214/14682.html'>
+                    <p class='img'><img src='http://cc.cocimg.com/api/uploads/151214/c95c2f1343aed40f203bb9aa9946607b.jpg' alt='35年前2200美元投资苹果股票，现在能赚多少？' /></p>
+                    <div>
+                        <h4>35年前2200美元投资苹果股票，现在能赚多少？</h4>
+                        <p>苹果已经是世界上最有价值的公司，如果你在35年前成功预测，那么你会非常富有</p>
+                        <span>刚刚</span>
+                    </div>
+                </a>
+            </li>
+            
+            <li >
+                <a title='UI设计基础－iOS设计中的三个关键字' target='_blank' href='http://www.cocoachina.com/design/20151214/14680.html'>
+                    <p class='img'><img src='http://cc.cocimg.com/api/uploads/151214/542549800f4fb665db50ccdf485f4a39.jpg' alt='UI设计基础－iOS设计中的三个关键字' /></p>
+                    <div>
+                        <h4>UI设计基础－iOS设计中的三个关键字</h4>
+                        <p>这几年的iOS人机界面指南，开篇始终是遵从（Deference），清晰（Clarity），深度（Depth）这三个关键字，从iOS7到iOS9从未变过。在iOS中UI作为内容的支撑</p>
+                        <span>34分钟前</span>
+                    </div>
+                </a>
+            </li>
+            
+            <li >
+                <a title='iOS 硬件授权检测：定位服务、通讯录、日历、提醒事项、照片、蓝牙共享、麦克风、相机等' target='_blank' href='http://www.cocoachina.com/ios/20151214/14502.html'>
+                    <p class='img'><img src='http://cc.cocimg.com/api/uploads/151130/78d3cf5dd7c0c60efe7606b9cae91d03.jpg' alt='iOS 硬件授权检测：定位服务、通讯录、日历、提醒事项、照片、蓝牙共享、麦克风、相机等' /></p>
+                    <div>
+                        <h4>iOS 硬件授权检测：定位服务、通讯录、日历、提醒事项、照片、蓝牙共享、麦克风、相机等</h4>
+                        <p>笔者将会综合性地把定位服务、通讯录、日历、提醒事项、照片、蓝牙共享、麦克风、相机等硬件的授权检测，一一地详细列出，并给出相关示例代码</p>
+                        <span>42分钟前</span>
+                    </div>
+                </a>
+            </li>
+            
+            <li >
+                <a title='银联推云闪付虚拟卡，即将公布与苹果合作' target='_blank' href='http://www.cocoachina.com/apple/20151214/14681.html'>
+                    <p class='img'><img src='http://cc.cocimg.com/api/uploads/151214/b77ec5f04ecbf7493424939e0ea4bbc8.jpg' alt='银联推云闪付虚拟卡，即将公布与苹果合作' /></p>
+                    <div>
+                        <h4>银联推云闪付虚拟卡，即将公布与苹果合作</h4>
+                        <p>对于银联与苹果合作一事，一位知情人士告诉记者，不久就会对外公布</p>
+                        <span>44分钟前</span>
+                    </div>
+                </a>
+            </li>
+            
+            <li >
+                <a title='苹果为了宣传6s，连弹窗广告都用上了' target='_blank' href='http://www.cocoachina.com/apple/20151214/14679.html'>
+                    <p class='img'><img src='http://cc.cocimg.com/api/uploads/151214/724794a55db67dd02bb488839520db3e.jpg' alt='苹果为了宣传6s，连弹窗广告都用上了' /></p>
+                    <div>
+                        <h4>苹果为了宣传6s，连弹窗广告都用上了</h4>
+                        <p>上周，苹果通过网站、邮件和App Store的横幅广告来大力宣传iPhone以旧换新</p>
+                        <span>51分钟前</span>
+                    </div>
+                </a>
+            </li>
+            
+            <li >
+                <a title='【译】持久化存储解决方案MagicalRecord使用入门' target='_blank' href='http://www.cocoachina.com/ios/20151214/14649.html'>
+                    <p class='img'><img src='http://cc.cocimg.com/api/uploads/151210/a5db1e71578e392c084949487ba4dd88.jpg' alt='【译】持久化存储解决方案MagicalRecord使用入门' /></p>
+                    <div>
+                        <h4>【译】持久化存储解决方案MagicalRecord使用入门</h4>
+                        <p>MagicalRecord 提供了便利的方法来创建那些使用Core Data 所必须的代码，诸如对 Core Data 的设置、查询、更新。它的设计灵感来源于德高望重的 Activ</p>
+                        <span>1小时前</span>
+                    </div>
+                </a>
+            </li>
+            
+            <li >
+                <a title='苹果新相机读卡器测试:USB 3.0果然够快' target='_blank' href='http://www.cocoachina.com/apple/20151214/14677.html'>
+                    <p class='img'><img src='http://cc.cocimg.com/api/uploads/151214/a35f5374411073d7c55fb96d997370cd.jpg' alt='苹果新相机读卡器测试:USB 3.0果然够快' /></p>
+                    <div>
+                        <h4>苹果新相机读卡器测试:USB 3.0果然够快</h4>
+                        <p>苹果将官方Lightning to SD Card 相机读卡器升级到了2015 年版本，相比2012 年版最大的改变当然就是支持USB 3.0 传输速率了，那么究竟能有多快？</p>
+                        <span>1小时前</span>
+                    </div>
+                </a>
+            </li>
+            
+            <li >
+                <a title='源码推荐(12.14)：iOS mansory纯代码自动计算cell高度，手势密码解锁' target='_blank' href='http://www.cocoachina.com/ios/20151214/14676.html'>
+                    <p class='img'><img src='http://cc.cocimg.com/api/uploads/151214/05ed89c59b812b5d9bfa2cd712ba7a15.jpg' alt='源码推荐(12.14)：iOS mansory纯代码自动计算cell高度，手势密码解锁' /></p>
+                    <div>
+                        <h4>源码推荐(12.14)：iOS mansory纯代码自动计算cell高度，手势密码解锁</h4>
+                        <p>搞出来了一个用Masonry框架 然后纯代码写的时候 怎么动态计算cell高度，很简单，也很适用；模仿常见的手势密码解锁小demo 用第三方fmdb存储信息 能够保存或删除重新手势</p>
+                        <span>1小时前</span>
+                    </div>
+                </a>
+            </li>
+            
+            <li >
+                <a title='我不是《纪念碑谷》，我是玩法不一样的《Maestria》' target='_blank' href='http://www.cocoachina.com/review/20151214/14670.html'>
+                    <p class='img'><img src='http://cc.cocimg.com/api/uploads/151211/da7c659d9a8986073bf203093b7ec45c.jpg' alt='我不是《纪念碑谷》，我是玩法不一样的《Maestria》' /></p>
+                    <div>
+                        <h4>我不是《纪念碑谷》，我是玩法不一样的《Maestria》</h4>
+                        <p>《Maestria》是由法国26岁的开发者Antoine Latour开发的一款休闲解谜游戏，讲述了主人公Fugue的冒险故事，为了寻回失去的Harmony，她必须要穿越八大故事章</p>
+                        <span>1小时前</span>
+                    </div>
+                </a>
+            </li>
+            
+            <li >
+                <a title='2016年，移动游戏公司怎样才能做好PR公关？' target='_blank' href='http://www.cocoachina.com/market/20151214/14671.html'>
+                    <p class='img'><img src='http://cc.cocimg.com/api/uploads/151211/bf7c5b898d6acffafd15b2893296ee2b.jpg' alt='2016年，移动游戏公司怎样才能做好PR公关？' /></p>
+                    <div>
+                        <h4>2016年，移动游戏公司怎样才能做好PR公关？</h4>
+                        <p>在互联网上，GIF动画无孔不入，频繁出现在Reddit社区、Tumblr、Facebook和推特等平台。游戏美术作品也许能够激发玩家的兴趣，但GIF更有可能让玩家产生共鸣，产生“我</p>
+                        <span>1小时前</span>
+                    </div>
+                </a>
+            </li>
+            
+            </ul>
+            <a class="more" title="more" href="http://www.cocoachina.com/news/" target="_blank">更多&gt;&gt;</a>
+        </div>
+
+        <div class="forum-r">
+            <div class="forum-r-b">
+                <h2>
+                    <a href="http://job.cocoachina.com/" title="招聘" target="_blank">招聘</a>
+                    <a href="http://job.cocoachina.com/job/add" title="发布招聘" class="right light" target="_blank">发布招聘</a>
+                </h2>
+                <ul>
+                    
+            <li class=''>
+                <a href='http://job.cocoachina.com/job/show?id=67546' class='mrpol-ttl' target='_blank' title='iOS开发（资深3人，普通若干）'>iOS开发（资深3人，普通若干）</a>
+                <span>上海 | 两年 | 本科</span>
+                <div class='hire-salary'>15K-50K</div>
+            </li>
+            
+            <li class=''>
+                <a href='http://job.cocoachina.com/job/show?id=67522' class='mrpol-ttl' target='_blank' title='iOS开发工程师'>iOS开发工程师</a>
+                <span>北京 | 三年 | 本科</span>
+                <div class='hire-salary'>15K-35K</div>
+            </li>
+            
+            <li class=''>
+                <a href='http://job.cocoachina.com/job/show?id=67508' class='mrpol-ttl' target='_blank' title='iOS讲师'>iOS讲师</a>
+                <span>深圳 | 两年 | 其它</span>
+                <div class='hire-salary'>30K-45K</div>
+            </li>
+            
+            <li class=''>
+                <a href='http://job.cocoachina.com/job/show?id=67190' class='mrpol-ttl' target='_blank' title='iOS资深开发工程师'>iOS资深开发工程师</a>
+                <span>深圳 | 五年以上 | 本科</span>
+                <div class='hire-salary'>25K-35K</div>
+            </li>
+            
+            <li class=''>
+                <a href='http://job.cocoachina.com/job/show?id=66799' class='mrpol-ttl' target='_blank' title='Cocos2d-x开发工程师'>Cocos2d-x开发工程师</a>
+                <span>深圳 | 一年 | 本科</span>
+                <div class='hire-salary'>8K-15K</div>
+            </li>
+            
+            <li class=''>
+                <a href='http://job.cocoachina.com/job/show?id=66800' class='mrpol-ttl' target='_blank' title='iOS开发工程师'>iOS开发工程师</a>
+                <span>深圳 | 一年 | 本科</span>
+                <div class='hire-salary'>10K-20K</div>
+            </li>
+            
+            <li class=''>
+                <a href='http://job.cocoachina.com/job/show?id=66801' class='mrpol-ttl' target='_blank' title='Android开发工程师'>Android开发工程师</a>
+                <span>深圳 | 一年 | 本科</span>
+                <div class='hire-salary'>6K-12K</div>
+            </li>
+            
+            <li class=''>
+                <a href='http://job.cocoachina.com/job/show?id=66302' class='mrpol-ttl' target='_blank' title='android应用开发工程师'>android应用开发工程师</a>
+                <span>东莞 | 一年 | 大专</span>
+                <div class='hire-salary'>8K-15K</div>
+            </li>
+            
+            <li class=''>
+                <a href='http://job.cocoachina.com/job/show?id=67493' class='mrpol-ttl' target='_blank' title='iOS开发高级工程师'>iOS开发高级工程师</a>
+                <span>杭州 | 两年 | 大专</span>
+                <div class='hire-salary'>15K-40K</div>
+            </li>
+            
+            <li class=''>
+                <a href='http://job.cocoachina.com/job/show?id=67494' class='mrpol-ttl' target='_blank' title='iOS开发工程师'>iOS开发工程师</a>
+                <span>杭州 | 一年 | 大专</span>
+                <div class='hire-salary'>10K-20K</div>
+            </li>
+            
+            <li class='li-last'>
+                <a href='http://job.cocoachina.com/job/show?id=66873' class='mrpol-ttl' target='_blank' title='iOS开发工程师'>iOS开发工程师</a>
+                <span>上海 | 三年 | 本科</span>
+                <div class='hire-salary'>10K-30K</div>
+            </li>
+            
+
+                </ul>
+            </div>
+
+            <div class="forum-r-t">
+                <h2><a href="http://www.cocoachina.com/events/" target="_blank" title="活动">活动</a></h2>
+                <ul>
+                    
+            <li class='act-new'>
+                <a href='http://www.cocoachina.com/events/event/show/128' title='【人人有奖】易观方舟，登船有礼，带你闯入江湖！   ' target='_blank'>
+                    <img src='http://cc.cocimg.com/api/uploads/151204/9aca4e4947a4dee39d61d9b16bef209d.gif' alt='【人人有奖】易观方舟，登船有礼，带你闯入江湖！   ' />
+                    【人人有奖】易观方舟，登船有礼，带你闯入江湖！   
+                </a>
+                <span class='act-info'>
+                    活动时间：2015-12-04 到 2015-12-18<br />已报名：17人
+                </span>
+                <a href='http://www.cocoachina.com/events/event/show/128' title='【人人有奖】易观方舟，登船有礼，带你闯入江湖！   ' target='_blank' class='apply-btn'>立即报名</a>
+            </li>
+            
+            <li class='act-new act-new-last'>
+                <a href='http://www.cocoachina.com/events/event/show/127' title='CVP游戏开发思享会——新游戏严冬下的技术推动力' target='_blank'>
+                    <img src='http://cc.cocimg.com/api/uploads/151203/bce06b76c077c873fe39a4fe892dfcac.gif' alt='CVP游戏开发思享会——新游戏严冬下的技术推动力' />
+                    CVP游戏开发思享会——新游戏严冬下的技术推动力
+                </a>
+                <span class='act-info'>
+                    活动时间：2015-12-13 到 2015-12-13<br />已报名：23人
+                </span>
+                <a href='http://www.cocoachina.com/events/event/show/127' title='CVP游戏开发思享会——新游戏严冬下的技术推动力' target='_blank' class='apply-btn'>立即报名</a>
+            </li>
+            
+                </ul>
+            </div>
+
+            <div class="forum-r-ad2">
+                <script>CNZZ_SLOT_RENDER('396138');</script>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="m-board">
+        <div class="board-box">
+            <h3><a href="/ios/" target="_blank" title="iOS开发">iOS开发</a></h3>
+            <ul>
+                <li class="m-b-hot">
+                    <a href="http://www.cocoachina.com/ios/20151214/14502.html" target="_blank" title="iOS 硬件授权检测：定位服务、通讯录、日历、提醒事项、照片、蓝牙共享、麦克风、相机等"><img src="http://cc.cocimg.com/api/uploads/151130/78d3cf5dd7c0c60efe7606b9cae91d03.jpg" alt="iOS 硬件授权检测：定位服务、通讯录、日历、提醒事项、照片、蓝牙共享、麦克风、相机等" />
+                    <p><span>iOS 硬件授权检测：定位服务、通讯录、日历、提醒事项、照片、蓝牙共享、麦克风、相机等</span></p></a>
+                </li>
+
+                <li><a href="http://www.cocoachina.com/ios/20151214/14649.html" target="_blank" title="【译】持久化存储解决方案MagicalRecord使用入门">【译】持久化存储解决方案MagicalRecord使用入门</a></li>
+<li><a href="http://www.cocoachina.com/ios/20151214/14676.html" target="_blank" title="源码推荐(12.14)：iOS mansory纯代码自动计算cell高度，手势密码解锁">源码推荐(12.14)：iOS mansory纯代码自动计算cell高度，手势密码解锁</a></li>
+<li><a href="http://www.cocoachina.com/ios/20151214/14596.html" target="_blank" title="尽量不要在viewWillDisappear:方法中移除通知">尽量不要在viewWillDisappear:方法中移除通知</a></li>
+<li><a href="http://www.cocoachina.com/ios/20151214/14656.html" target="_blank" title="接口编程那些事（或者面向协议编程）">接口编程那些事（或者面向协议编程）</a></li>
+
+            </ul>
+         </div><div class="board-box">
+            <h3><a href="/swift/" target="_blank" title="Swift">Swift</a></h3>
+            <ul>
+                <li class="m-b-hot">
+                    <a href="http://www.cocoachina.com/swift/20151211/14617.html" target="_blank" title="Swift性能提升的秘密Part 2 - Look under the hood"><img src="http://cc.cocimg.com/api/uploads/151211/ea0788272f1c5770fb4ab49a19f2516f.jpg" alt="Swift性能提升的秘密Part 2 - Look under the hood" />
+                    <p><span>Swift性能提升的秘密Part 2 - Look under the hood</span></p></a>
+                </li>
+
+                <li><a href="http://www.cocoachina.com/swift/20151207/14584.html" target="_blank" title="Swift中编写单例的正确方式">Swift中编写单例的正确方式</a></li>
+<li><a href="http://www.cocoachina.com/swift/20151204/14577.html" target="_blank" title="Swift学习: 从Objective-C到Swift">Swift学习: 从Objective-C到Swift</a></li>
+<li><a href="http://www.cocoachina.com/swift/20151204/14575.html" target="_blank" title="Swift 3 API 设计准则">Swift 3 API 设计准则</a></li>
+<li><a href="http://www.cocoachina.com/swift/20151203/14552.html" target="_blank" title="Swift 提升性能的秘密 Part 1 - Measure">Swift 提升性能的秘密 Part 1 - Measure</a></li>
+
+            </ul>
+         </div><div class="board-box">
+            <h3><a href="/game/" target="_blank" title="游戏开发">游戏开发</a></h3>
+            <ul>
+                <li class="m-b-hot">
+                    <a href="http://www.cocoachina.com/game/20151214/14675.html" target="_blank" title="国外开发者分享游戏设计需回避的10个错误做法"><img src="http://cc.cocimg.com/api/uploads/151214/3d09736694800d1b986c6c4ec1b7ef58.jpg" alt="国外开发者分享游戏设计需回避的10个错误做法" />
+                    <p><span>国外开发者分享游戏设计需回避的10个错误做法</span></p></a>
+                </li>
+
+                <li><a href="http://www.cocoachina.com/game/20151214/14674.html" target="_blank" title="成为更优秀关卡设计师需要养成的4个习惯">成为更优秀关卡设计师需要养成的4个习惯</a></li>
+<li><a href="http://www.cocoachina.com/game/20151210/14648.html" target="_blank" title="CP抱团取暖指南：2015手游行业那些“扶持运动”做了什么？">CP抱团取暖指南：2015手游行业那些“扶持运动”做了什么？</a></li>
+<li><a href="http://www.cocoachina.com/game/20151210/14650.html" target="_blank" title="游戏编程经验分享：打造KISS项目的六大要诀">游戏编程经验分享：打造KISS项目的六大要诀</a></li>
+<li><a href="http://www.cocoachina.com/game/20151210/14647.html" target="_blank" title="盘点：免费游戏中3大最糟糕的游戏体验">盘点：免费游戏中3大最糟糕的游戏体验</a></li>
+
+            </ul>
+         </div><div class="board-box  b-box-4">
+            <h3><a href="/appstore/" target="_blank" title="App Store研究">App Store研究</a></h3>
+            <ul>
+                <li class="m-b-hot">
+                    <a href="http://www.cocoachina.com/appstore/20151211/14661.html" target="_blank" title="腾讯iOS预审团队分享：被苹果拒绝100多次，一半原因是”IAP异常“"><img src="http://cc.cocimg.com/api/uploads/151211/2d68f8e41fb0c33815621ce49d495165.jpg" alt="腾讯iOS预审团队分享：被苹果拒绝100多次，一半原因是”IAP异常“" />
+                    <p><span>腾讯iOS预审团队分享：被苹果拒绝100多次，一半原因是”IAP异常“</span></p></a>
+                </li>
+
+                <li><a href="http://www.cocoachina.com/appstore/20151117/14191.html" target="_blank" title="为什么你的 App 没人用？请按这8条逐一对照">为什么你的 App 没人用？请按这8条逐一对照</a></li>
+<li><a href="http://www.cocoachina.com/appstore/20151116/14213.html" target="_blank" title="App Store搜索调整 可展示更多相关结果">App Store搜索调整 可展示更多相关结果</a></li>
+<li><a href="http://www.cocoachina.com/appstore/20151028/13947.html" target="_blank" title="App Store将于11月4日新增“购物”分类，开发者需注意关键词投放">App Store将于11月4日新增“购物”分类，开发者需注意关键词投放</a></li>
+<li><a href="http://www.cocoachina.com/appstore/20151028/13942.html" target="_blank" title="iOS９下App Store新应用提审攻略">iOS９下App Store新应用提审攻略</a></li>
+
+            </ul>
+         </div>
+
+        <div class="board-box">
+            <h3><a href="/apple/" target="_blank" title="苹果相关">苹果相关</a></h3>
+            <ul>
+                <li class="m-b-hot">
+                    <a href="http://www.cocoachina.com/apple/20151214/14682.html" target="_blank" title="35年前2200美元投资苹果股票，现在能赚多少？"><img src="http://cc.cocimg.com/api/uploads/151214/c95c2f1343aed40f203bb9aa9946607b.jpg" alt="35年前2200美元投资苹果股票，现在能赚多少？" />
+                    <p><span>35年前2200美元投资苹果股票，现在能赚多少？</span></p></a>
+                </li>
+
+                <li><a href="http://www.cocoachina.com/apple/20151214/14681.html" target="_blank" title="银联推云闪付虚拟卡，即将公布与苹果合作">银联推云闪付虚拟卡，即将公布与苹果合作</a></li>
+<li><a href="http://www.cocoachina.com/apple/20151214/14679.html" target="_blank" title="苹果为了宣传6s，连弹窗广告都用上了">苹果为了宣传6s，连弹窗广告都用上了</a></li>
+<li><a href="http://www.cocoachina.com/apple/20151214/14677.html" target="_blank" title="苹果新相机读卡器测试:USB 3.0果然够快">苹果新相机读卡器测试:USB 3.0果然够快</a></li>
+<li><a href="http://www.cocoachina.com/apple/20151211/14666.html" target="_blank" title="全新设计的 Apple ID 网页上线：更美观、更实用">全新设计的 Apple ID 网页上线：更美观、更实用</a></li>
+
+            </ul>
+         </div><div class="board-box">
+            <h3><a href="/industry/" target="_blank" title="业界动态">业界动态</a></h3>
+            <ul>
+                <li class="m-b-hot">
+                    <a href="http://www.cocoachina.com/industry/20151211/14669.html" target="_blank" title="Adxmi全球化移动变现及推广沙龙，干货十分接地气！"><img src="http://cc.cocimg.com/api/uploads/151211/848259fedc70884331fe0c342a9c8071.jpg" alt="Adxmi全球化移动变现及推广沙龙，干货十分接地气！" />
+                    <p><span>Adxmi全球化移动变现及推广沙龙，干货十分接地气！</span></p></a>
+                </li>
+
+                <li><a href="http://www.cocoachina.com/industry/20151211/14664.html" target="_blank" title="2015中国大数据技术大会在北京隆重开幕">2015中国大数据技术大会在北京隆重开幕</a></li>
+<li><a href="http://www.cocoachina.com/industry/20151211/14663.html" target="_blank" title="开发者必知的8款App快速开发工具">开发者必知的8款App快速开发工具</a></li>
+<li><a href="http://www.cocoachina.com/industry/20151211/14662.html" target="_blank" title="App Annie：2016年移动应用10大热门趋势预测">App Annie：2016年移动应用10大热门趋势预测</a></li>
+<li><a href="http://www.cocoachina.com/industry/20151209/14634.html" target="_blank" title="2015 MAIC 移动应用创新大会圆满落幕, 星耀沪上">2015 MAIC 移动应用创新大会圆满落幕, 星耀沪上</a></li>
+
+            </ul>
+         </div><div class="board-box">
+            <h3><a href="/design/" target="_blank" title="产品设计">产品设计</a></h3>
+            <ul>
+                <li class="m-b-hot">
+                    <a href="http://www.cocoachina.com/design/20151214/14680.html" target="_blank" title="UI设计基础－iOS设计中的三个关键字"><img src="http://cc.cocimg.com/api/uploads/151214/542549800f4fb665db50ccdf485f4a39.jpg" alt="UI设计基础－iOS设计中的三个关键字" />
+                    <p><span>UI设计基础－iOS设计中的三个关键字</span></p></a>
+                </li>
+
+                <li><a href="http://www.cocoachina.com/design/20151209/14600.html" target="_blank" title="用户为什么会卸载App？">用户为什么会卸载App？</a></li>
+<li><a href="http://www.cocoachina.com/design/20151208/14599.html" target="_blank" title="如何策划一个流量分发类的产品">如何策划一个流量分发类的产品</a></li>
+<li><a href="http://www.cocoachina.com/design/20151207/14590.html" target="_blank" title="【译文】移动应用界面设计7宗罪">【译文】移动应用界面设计7宗罪</a></li>
+<li><a href="http://www.cocoachina.com/design/20151204/14568.html" target="_blank" title="如何利用数据来支撑设计？">如何利用数据来支撑设计？</a></li>
+
+            </ul>
+         </div><div class="board-box  b-box-4">
+            <h3><a href="/market/" target="_blank" title="营销推广">营销推广</a></h3>
+            <ul>
+                <li class="m-b-hot">
+                    <a href="http://www.cocoachina.com/market/20151214/14671.html" target="_blank" title="2016年，移动游戏公司怎样才能做好PR公关？"><img src="http://cc.cocimg.com/api/uploads/151211/bf7c5b898d6acffafd15b2893296ee2b.jpg" alt="2016年，移动游戏公司怎样才能做好PR公关？" />
+                    <p><span>2016年，移动游戏公司怎样才能做好PR公关？</span></p></a>
+                </li>
+
+                <li><a href="http://www.cocoachina.com/market/20151202/14537.html" target="_blank" title="奇葩强势霸占高热度词，中小应用如何反击？">奇葩强势霸占高热度词，中小应用如何反击？</a></li>
+<li><a href="http://www.cocoachina.com/market/20151120/14190.html" target="_blank" title="讲真，做产品渠道推广才是硬道理，几百万就看怎么花！">讲真，做产品渠道推广才是硬道理，几百万就看怎么花！</a></li>
+<li><a href="http://www.cocoachina.com/market/20151119/14285.html" target="_blank" title="我们能从世界上增长最快的公司身上学到什么？">我们能从世界上增长最快的公司身上学到什么？</a></li>
+<li><a href="http://www.cocoachina.com/market/20151119/14272.html" target="_blank" title="《全民突击》与微信朋友圈广告的一次约会">《全民突击》与微信朋友圈广告的一次约会</a></li>
+
+            </ul>
+         </div>
+
+        <div class="board-box">
+            <h3><a href="/review/" target="_blank" title="应用评测">应用评测</a></h3>
+            <ul>
+                <li class="m-b-hot">
+                    <a href="http://www.cocoachina.com/review/20151214/14670.html" target="_blank" title="我不是《纪念碑谷》，我是玩法不一样的《Maestria》"><img src="http://cc.cocimg.com/api/uploads/151211/da7c659d9a8986073bf203093b7ec45c.jpg" alt="我不是《纪念碑谷》，我是玩法不一样的《Maestria》" />
+                    <p><span>我不是《纪念碑谷》，我是玩法不一样的《Maestria》</span></p></a>
+                </li>
+
+                <li><a href="http://www.cocoachina.com/review/20151202/14538.html" target="_blank" title="快讯：独立游戏大作《纪念碑谷》限时免费中">快讯：独立游戏大作《纪念碑谷》限时免费中</a></li>
+<li><a href="http://www.cocoachina.com/review/20151119/14280.html" target="_blank" title="何处不游戏，来自水墨画的艺术--《墨染》">何处不游戏，来自水墨画的艺术--《墨染》</a></li>
+<li><a href="http://www.cocoachina.com/review/20151022/13798.html" target="_blank" title="机器人的冒险之旅--《机器人进化》">机器人的冒险之旅--《机器人进化》</a></li>
+<li><a href="http://www.cocoachina.com/review/20151021/13754.html" target="_blank" title="四款让你用到3D Touch的iOS游戏盘点">四款让你用到3D Touch的iOS游戏盘点</a></li>
+
+            </ul>
+         </div><div class="board-box">
+            <h3><a href="/programmer/" target="_blank" title="程序人生">程序人生</a></h3>
+            <ul>
+                <li class="m-b-hot">
+                    <a href="http://www.cocoachina.com/programmer/20151211/14437.html" target="_blank" title="为什么我要垂直对齐代码（你也要如此！）"><img src="http://cc.cocimg.com/api/uploads/151125/1f0a93091756dce54448ea50c576c8b4.jpg" alt="为什么我要垂直对齐代码（你也要如此！）" />
+                    <p><span>为什么我要垂直对齐代码（你也要如此！）</span></p></a>
+                </li>
+
+                <li><a href="http://www.cocoachina.com/programmer/20151211/14653.html" target="_blank" title="经验之谈！35岁程序员的独家面试经历">经验之谈！35岁程序员的独家面试经历</a></li>
+<li><a href="http://www.cocoachina.com/programmer/20151210/14638.html" target="_blank" title="程序员应该正确面对的8个错觉">程序员应该正确面对的8个错觉</a></li>
+<li><a href="http://www.cocoachina.com/programmer/20151209/14383.html" target="_blank" title="编程语言大牛王垠：不要做聪明人">编程语言大牛王垠：不要做聪明人</a></li>
+<li><a href="http://www.cocoachina.com/programmer/20151208/14300.html" target="_blank" title="谁能从事最具幸福感的职业">谁能从事最具幸福感的职业</a></li>
+
+            </ul>
+         </div><div class="board-box">
+            <h3><a href="/webapp/" target="_blank" title="HTML5">HTML5</a></h3>
+            <ul>
+                <li class="m-b-hot">
+                    <a href="http://www.cocoachina.com/webapp/20151207/14579.html" target="_blank" title="2015年双11手机淘宝前端技术之H5性能最佳实践"><img src="http://cc.cocimg.com/api/uploads/151207/567ac240ece37669797b684300d9b366.jpg" alt="2015年双11手机淘宝前端技术之H5性能最佳实践" />
+                    <p><span>2015年双11手机淘宝前端技术之H5性能最佳实践</span></p></a>
+                </li>
+
+                <li><a href="http://www.cocoachina.com/webapp/20151202/14546.html" target="_blank" title="Adobe又革了自己一命，Flash Professional CC 将新增 HTML 5 开发工具">Adobe又革了自己一命，Flash Professional CC 将新增 HTML 5 开发工具</a></li>
+<li><a href="http://www.cocoachina.com/webapp/20151201/14521.html" target="_blank" title="【FAQ】AngularJS常见问题答疑">【FAQ】AngularJS常见问题答疑</a></li>
+<li><a href="http://www.cocoachina.com/webapp/20151130/14490.html" target="_blank" title="移动端开发小记——Flexbox">移动端开发小记——Flexbox</a></li>
+<li><a href="http://www.cocoachina.com/webapp/20151130/14487.html" target="_blank" title="移动Web开发之——viewport">移动Web开发之——viewport</a></li>
+
+            </ul>
+         </div><div class="board-box  b-box-4">
+            <h3><a href="/android/" target="_blank" title="Android相关">Android相关</a></h3>
+            <ul>
+                <li class="m-b-hot">
+                    <a href="http://www.cocoachina.com/android/20151208/14615.html" target="_blank" title="还要等到明年2月？谷歌或已借壳重回中国"><img src="http://cc.cocimg.com/api/uploads/151208/f98be18a5a21dedf011ace1f7130d615.jpg" alt="还要等到明年2月？谷歌或已借壳重回中国" />
+                    <p><span>还要等到明年2月？谷歌或已借壳重回中国</span></p></a>
+                </li>
+
+                <li><a href="http://www.cocoachina.com/android/20151203/14489.html" target="_blank" title="使用 JS 构建跨平台的原生应用（二）：React Native for Android 调试技术剖析">使用 JS 构建跨平台的原生应用（二）：React Native for Android 调试技术剖析</a></li>
+<li><a href="http://www.cocoachina.com/android/20151203/14558.html" target="_blank" title="Android 创始人要自己开公司做手机">Android 创始人要自己开公司做手机</a></li>
+<li><a href="http://www.cocoachina.com/android/20151203/14551.html" target="_blank" title="Android 总是内存不足，该怎么办啊？">Android 总是内存不足，该怎么办啊？</a></li>
+<li><a href="http://www.cocoachina.com/android/20151202/14488.html" target="_blank" title="使用 JS 构建跨平台的原生应用（一）：React Native for Android 初探">使用 JS 构建跨平台的原生应用（一）：React Native for Android 初探</a></li>
+
+            </ul>
+         </div>
+    </div>
+
+    <h2 class="rank-tit">社区排行榜</h2>
+    <div class="m-rank">
+        <div class="rank-l">
+            <h3>一周最火文章排行榜</h3>
+            <ol>
+                <li><a href="http://www.cocoachina.com/ios/20151210/14635.html" title="【资源集合】94个iOS开发资源推荐，帮你加速应用开发" target="_blank"><i class="top3">1</i><em>【资源集合】94个iOS开发资源推荐，帮你加速应用开发</em><span>8606</span></a></li><li><a href="http://www.cocoachina.com/programmer/20151211/14653.html" title="经验之谈！35岁程序员的独家面试经历" target="_blank"><i class="top3">2</i><em>经验之谈！35岁程序员的独家面试经历</em><span>5281</span></a></li><li><a href="http://www.cocoachina.com/swift/20151207/14584.html" title="Swift中编写单例的正确方式" target="_blank"><i class="top3">3</i><em>Swift中编写单例的正确方式</em><span>5274</span></a></li><li><a href="http://www.cocoachina.com/industry/20151208/14602.html" title="12月TIOBE排行榜：Java有望成为2015年年度编程语言" target="_blank"><i class="">4</i><em>12月TIOBE排行榜：Java有望成为2015年年度编程语言</em><span>4889</span></a></li><li><a href="http://www.cocoachina.com/ios/20151210/14636.html" title="Objective-C 引用计数：不讲用法，只说原理" target="_blank"><i class="">5</i><em>Objective-C 引用计数：不讲用法，只说原理</em><span>4417</span></a></li><li><a href="http://www.cocoachina.com/ios/20151208/14595.html" title="利用OC的消息转发机制实现多重代理" target="_blank"><i class="">6</i><em>利用OC的消息转发机制实现多重代理</em><span>4169</span></a></li><li><a href="http://www.cocoachina.com/ios/20151208/14581.html" title="【译】使用UIKit进行面向对象的编程" target="_blank"><i class="">7</i><em>【译】使用UIKit进行面向对象的编程</em><span>3918</span></a></li><li><a href="http://www.cocoachina.com/programmer/20151208/14580.html" title="实际经历告诉你，写一本技术书能赚多少钱" target="_blank"><i class="">8</i><em>实际经历告诉你，写一本技术书能赚多少钱</em><span>3498</span></a></li><li><a href="http://www.cocoachina.com/ios/20151209/14630.html" title="源码推荐(12.09)：超强 AFN 封装，一行搞定自适应label&适配iPhone" target="_blank"><i class="">9</i><em>源码推荐(12.09)：超强 AFN 封装，一行搞定自适应label&适配iPhone</em><span>2894</span></a></li><li><a href="http://www.cocoachina.com/ios/20151211/14655.html" title="换一个姿势写界面样式" target="_blank"><i class="">10</i><em>换一个姿势写界面样式</em><span>2885</span></a></li><li><a href="http://www.cocoachina.com/ios/20151211/14562.html" title="iOS微信安装包瘦身" target="_blank"><i class="">11</i><em>iOS微信安装包瘦身</em><span>2814</span></a></li><li><a href="http://www.cocoachina.com/ios/20151207/14589.html" title="源码推荐(12.07B)：导航条自定义下拉菜单，卡片式动画浏览图片" target="_blank"><i class="">12</i><em>源码推荐(12.07B)：导航条自定义下拉菜单，卡片式动画浏览图片</em><span>2216</span></a></li><li><a href="http://www.cocoachina.com/ios/20151208/14621.html" title="源码推荐(12.08B)：非常简单易用的自动布局（升级版），启动动画" target="_blank"><i class="">13</i><em>源码推荐(12.08B)：非常简单易用的自动布局（升级版），启动动画</em><span>2204</span></a></li><li><a href="http://www.cocoachina.com/ios/20151207/14586.html" title="iOS新建项目架构规范" target="_blank"><i class="">14</i><em>iOS新建项目架构规范</em><span>2196</span></a></li><li><a href="http://www.cocoachina.com/ios/20151208/14607.html" title="源码推荐(12.08)：仿苏宁强制更新，基于Masonry的封装" target="_blank"><i class="">15</i><em>源码推荐(12.08)：仿苏宁强制更新，基于Masonry的封装</em><span>2150</span></a></li>
+            </ol>
+        </div>
+        <div class="rank-m">
+            <h3>一周论坛热帖排行榜</h3>
+            <ol>
+                <li><a href="http://www.cocoachina.com/bbs/read.php?tid=334890" title="新浪微博ios面试吐槽一下，面试了3个小时，结果悲剧了" target="_blank"><i class="top3">1</i><em>新浪微博ios面试吐槽一下，面试了3个小时，结果悲剧了</em><span>4629</span></a></li><li><a href="http://www.cocoachina.com/bbs/read.php?tid=334764" title="是不是最近个人开发者大量退出或者很少了？" target="_blank"><i class="top3">2</i><em>是不是最近个人开发者大量退出或者很少了？</em><span>2352</span></a></li><li><a href="http://www.cocoachina.com/bbs/read.php?tid=335031" title="不仅看气质还要看内涵~《Cocos2d-x之Lua核心编程》答题送书，你值得拥有！" target="_blank"><i class="top3">3</i><em>不仅看气质还要看内涵~《Cocos2d-x之Lua核心编程》答题送书，你值得拥有！</em><span>2280</span></a></li><li><a href="http://www.cocoachina.com/bbs/read.php?tid=335133" title="最近iOS的下载量真的很差..." target="_blank"><i class="">4</i><em>最近iOS的下载量真的很差...</em><span>2256</span></a></li><li><a href="http://www.cocoachina.com/bbs/read.php?tid=334951" title="分享一下我的多次申请加急审核的成功经验" target="_blank"><i class="">5</i><em>分享一下我的多次申请加急审核的成功经验</em><span>1616</span></a></li><li><a href="http://www.cocoachina.com/bbs/read.php?tid=334855" title="刚刚提交圣诞节更新版本，希望一次过！" target="_blank"><i class="">6</i><em>刚刚提交圣诞节更新版本，希望一次过！</em><span>1213</span></a></li><li><a href="http://www.cocoachina.com/bbs/read.php?tid=334835" title="终于找来工作了，可以上班了，加油" target="_blank"><i class="">7</i><em>终于找来工作了，可以上班了，加油</em><span>1202</span></a></li><li><a href="http://www.cocoachina.com/bbs/read.php?tid=334932" title="ios菜鸟,第一次做支付" target="_blank"><i class="">8</i><em>ios菜鸟,第一次做支付</em><span>950</span></a></li><li><a href="http://www.cocoachina.com/bbs/read.php?tid=334952" title="今天提交了第一个游戏，一般审核要多久？" target="_blank"><i class="">9</i><em>今天提交了第一个游戏，一般审核要多久？</em><span>767</span></a></li><li><a href="http://www.cocoachina.com/bbs/read.php?tid=334668" title="整整两个礼拜了，还在等待审核！" target="_blank"><i class="">10</i><em>整整两个礼拜了，还在等待审核！</em><span>677</span></a></li><li><a href="http://www.cocoachina.com/bbs/read.php?tid=334730" title="懒人想生成常用控件" target="_blank"><i class="">11</i><em>懒人想生成常用控件</em><span>527</span></a></li><li><a href="http://www.cocoachina.com/bbs/read.php?tid=335023" title="新手是否应该精力放在swift上" target="_blank"><i class="">12</i><em>新手是否应该精力放在swift上</em><span>486</span></a></li><li><a href="http://www.cocoachina.com/bbs/read.php?tid=335085" title="那什么蒲公英的，滚粗这个论坛" target="_blank"><i class="">13</i><em>那什么蒲公英的，滚粗这个论坛</em><span>480</span></a></li><li><a href="http://www.cocoachina.com/bbs/read.php?tid=334927" title="手游更新的困境：游戏更新了，玩家流失了" target="_blank"><i class="">14</i><em>手游更新的困境：游戏更新了，玩家流失了</em><span>441</span></a></li><li><a href="http://www.cocoachina.com/bbs/read.php?tid=335137" title="苹果App Store促销码现已能全球通用" target="_blank"><i class="">15</i><em>苹果App Store促销码现已能全球通用</em><span>419</span></a></li>
+            </ol>
+        </div>
+        <div class="rank-r">
+            <h3>一周热门代码下载排行榜</h3>
+            <ol>
+                <li><a href="http://code.cocoachina.com/view/128541" title="ios mansory纯代码自动计算cell高度" target="_blank"><i class="top3">1</i><em>ios mansory纯代码自动计算cell高度</em><span>709</span></a></li><li><a href="http://code.cocoachina.com/view/128548" title="模仿QQ侧拉菜单" target="_blank"><i class="top3">2</i><em>模仿QQ侧拉菜单</em><span>618</span></a></li><li><a href="http://code.cocoachina.com/view/128499" title="超强 AFN 封装第二季-基于 AFNetworking3.0开发" target="_blank"><i class="top3">3</i><em>超强 AFN 封装第二季-基于 AFNetworking3.0开发</em><span>507</span></a></li><li><a href="http://code.cocoachina.com/view/128526" title="清除缓存" target="_blank"><i class="">4</i><em>清除缓存</em><span>462</span></a></li><li><a href="http://code.cocoachina.com/view/128539" title="视图动画" target="_blank"><i class="">5</i><em>视图动画</em><span>391</span></a></li><li><a href="http://code.cocoachina.com/view/128466" title="导航条自定义下拉菜单" target="_blank"><i class="">6</i><em>导航条自定义下拉菜单</em><span>370</span></a></li><li><a href="http://code.cocoachina.com/view/128445" title="动态瀑布流-展示网络图片" target="_blank"><i class="">7</i><em>动态瀑布流-展示网络图片</em><span>306</span></a></li><li><a href="http://code.cocoachina.com/view/128528" title="多种格式的collection流与scrollview联动结合demo" target="_blank"><i class="">8</i><em>多种格式的collection流与scrollview联动结合demo</em><span>258</span></a></li><li><a href="http://code.cocoachina.com/view/128246" title="参照斗鱼TV" target="_blank"><i class="">9</i><em>参照斗鱼TV</em><span>242</span></a></li><li><a href="http://code.cocoachina.com/view/128532" title="系统原生二维码扫描" target="_blank"><i class="">10</i><em>系统原生二维码扫描</em><span>223</span></a></li><li><a href="http://code.cocoachina.com/view/128494" title="启动动画" target="_blank"><i class="">11</i><em>启动动画</em><span>216</span></a></li><li><a href="http://code.cocoachina.com/view/128592" title="启动图动画，带广告，封装成UIView分类，直接使用" target="_blank"><i class="">12</i><em>启动图动画，带广告，封装成UIView分类，直接使用</em><span>203</span></a></li><li><a href="http://code.cocoachina.com/view/128534" title="仿SegmentFault" target="_blank"><i class="">13</i><em>仿SegmentFault</em><span>195</span></a></li><li><a href="http://code.cocoachina.com/view/128523" title="多边形按钮" target="_blank"><i class="">14</i><em>多边形按钮</em><span>183</span></a></li><li><a href="http://code.cocoachina.com/view/128501" title="一行搞定自适应label&适配iPhone" target="_blank"><i class="">15</i><em>一行搞定自适应label&适配iPhone</em><span>183</span></a></li>
+            </ol>
+        </div>
+
+    </div>
+
+    <div class="m-ad2" style="margin-top:20px;">
+        <div class="ad2-full">
+            <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+            <!-- CC首页底部横幅 -->
+            <ins class="adsbygoogle"
+                 style="display:inline-block;width:970px;height:90px"
+                 data-ad-client="ca-pub-1180518835303646"
+                 data-ad-slot="6396089961"></ins>
+            <script>
+            (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+        </div>
+        <!-- CC首页310x90 -->
+        <!--
+        <div class="ad2-r">
+            <script async src="http://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+            <ins class="adsbygoogle"
+                 style="display:inline-block;width:310px;height:90px"
+                 data-ad-client="ca-pub-1180518835303646"
+                 data-ad-slot="5288543965"></ins>
+            <script>
+            (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+        </div>
+        -->
+    </div>
+
+</div>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-68950821-1', 'auto', {'name': 'newTracker'});
+  ga('newTracker.send', 'pageview');
+
+</script>
+
+<!--右侧浮动-->
+<div class="r-bar">
+    <img src="http://cdn.cocimg.com/assets/images/coco_weixin.png?v=20150818" class="weixin">
+    <a href="http://weibo.com/cocoachina" target="_blank" title="" class="weibo">sina</a>
+    <a href="javascript:void(0);" target="_blank" title="" class="feedback">weixin</a>
+    <a href="mailto:support@cocoachina.com" title="" class="kefu">mail</a>
+    <a href="javascript:;" title="回到顶部" class="returntop">回到顶部</a>
+</div>
+
+<!--./cont-->
+<script type="text/javascript" src="http://cdn.cocimg.com/assets/js/cocos/index.js?v=20150818"></script>
+<script language="javascript" src="/cms/bbsauth_plus2015.php" type="text/javascript"></script>
+<script src="http://cdn.cocimg.com/assets/js/jquery.colorbox-min.js?v=20150818" type="text/javascript"></script>
+<script src="http://cdn.cocimg.com/assets/js/cocos/script.js?v=20150818" type="text/javascript"></script>
+
+<!--footer-->
+<div class="footer clearfix">
+    <!--<div class="footer-t">
+        <div class="friend-link">
+            <h4 class="rank-tit">友情链接</h4>
+            <ul>
+                <li><a href="https://www.youmi.net/" target="_blank">有米 | </a></li><li><a href="http://www.testin.cn/" target="_blank">Testin | </a></li><li><a href="http://www.apicloud.com/" target="_blank">APICloud | </a></li><li><a href="http://www.oneapm.com" target="_blank">OneAPM | </a></li><li><a href="http://www.jpush.cn" target="_blank">极光推送 | </a></li><li><a href="https://store.cocos.com" target="_blank">Cocos商店 | </a></li><li><a href="http://www.woshipm.com/" target="_blank">人人都是产品经理 | </a></li><li><a href="http://link.cocos.com" target="_blank">Cocos Link | </a></li><li><a href="http://www.tuicool.com/" target="_blank">推酷网 | </a></li><li><a href="http://www.youxituoluo.com/" target="_blank">游戏陀螺 | </a></li><li><a href="http://www.9miao.com" target="_blank">9秒社团 | </a></li><li><a href="http://segmentfault.com/" target="_blank">SegmentFault | </a></li><li><a href="http://www.sykong.com/" target="_blank">手游那点事 | </a></li><li><a href="https://developer.apple.com/" target="_blank">苹果开发者中心 | </a></li><li><a href="http://www.cocos2d-x.org/" target="_blank">cocos2d-x | </a></li><li><a href="http://gamerboom.com/" target="_blank">游戏邦 | </a></li><li><a href="http://www.nooidea.com/" target="_blank">Nooidea.com | </a></li><li><a href="http://www.iapps.im/" target="_blank">爱应用</a></li>
+            </ul>
+        </div>
+        <div class="two-code">
+            <div class="wx-code">
+                <img src="http://cdn.cocimg.com/assets/images/wx-code.jpg?v=20150818" alt="" />
+                <span>关注微信 每日推荐</span>
+            </div>
+            <div class="m-code">
+                <img src="http://cdn.cocimg.com/assets/images/mb-code.jpg?v=20150818" alt="" />
+                <span>扫一扫 浏览移动版</span>
+            </div>
+        </div>
+    </div>-->
+    <div class="footer-b">
+        <div>
+            <a href="/aboutus/index.html" target="_blank">关于我们</a>
+            <a href="/contactus/" target="_blank">商务合作</a>
+            <a target="_blank" href="mailto:support@cocoachina.com">联系我们</a>
+            <a href="/corps/" target="_blank">合作伙伴</a>
+        </div>
+        <p class="footer-b-p">北京触控科技有限公司版权所有</p>
+        <p>
+            &copy;2015 Chukong Technologies,Inc.
+            <i>
+                <a href="http://www.miibeian.gov.cn/" target="_blank">京ICP备 11006519号 　京ICP证 100954号</a> 京公网安备11010502020289
+                <a href="http://182.131.21.137/ccnt-apply/admin/business/preview/business-preview!lookUrlRFID.action?main_id=A580B24B1AE846CE9DA949026D63939F" target="_blank">
+                    <img src="http://cdn.cocimg.com/assets/images/jingwen.png?v=20150818" style="margin: -10px auto -14px -10px;" />
+                    京网文[2012]0426-138号
+                </a>
+            </i>
+        </p>
+    </div>
+</div>
+
+<!--./footer-->
+
+<script language="javascript" type="text/javascript" src="http://cdn.cocimg.com/assets/js/dedeajax2-min.js?v=20150818"></script>
+<script type="text/javascript">
+function subscribe()
+{
+    var email_address = $('#demail').val();
+    var preg_email = /^([\.a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+(\.[a-zA-Z0-9_-])+/;
+
+    if( email_address == '' )
+    {
+        alert('请输入邮箱');
+    }
+    else if( !preg_email.test(email_address) )
+    {
+        alert('邮箱格式错误');
+    }
+    else
+    {
+        $.post(
+            '/edm.php',
+            {
+                email: $('#demail').val()
+            },
+            function(data) {
+                alert(data);
+             });
+    }
+}
+function search_check()
+{
+    var search_keyword = $('#search_keyword').val();
+
+    if( search_keyword.length < 2 )
+    {
+        alert("搜索关键字不能少于2个字节，请重新输入。");
+    }
+    else
+    {
+        $('#searchform').submit();
+    }
+}
+
+$(document).ready(function(){
+    if (typeof(_user_info_html) != 'undefined' && _user_info_html)
+    {
+        $('.nav-user-login').hide();
+        $('.nav-user-name').html(_user_info_html).show();
+    }
+
+    var type = $('#type_name').html();
+    if(type)
+    {
+        switch( type )
+        {
+            case 'iOS开发':
+                $('#ios').addClass('light');
+                break;
+            case 'AppStore研究':
+                $('#app_store').addClass('light');
+                break;
+            case 'Mac开发':
+                $('#mac').addClass('light');
+                break;
+            case '产品设计':
+                $('#design').addClass('light');
+                break;
+            case 'Cocos引擎':
+                $('#cocos').addClass('light');
+                break;
+            case 'WebApp':
+                $('#webapp').addClass('light');
+                break;
+            case 'Swift':
+                $('#swift').addClass('light');
+                break;
+            case '游戏开发':
+                $('#game').addClass('light');
+                break;
+            case '苹果相关':
+                $('#apple').addClass('light');
+                break;
+            case '营销推广':
+                $('#market').addClass('light');
+                break;
+            case '业界动态':
+                $('#industry').addClass('light');
+                break;
+            case '程序人生':
+                $('#programmer').addClass('light');
+                break;
+        }
+    }
+
+    //更改文章来源
+    var source = $('#source a').html();
+    if( source == '未知' )
+        jQuery('#source a').html('CocoaChina');
+    if( jQuery('#source a').attr('href')=='')
+        jQuery('#source').html('来源：'+source);
+
+    //获取用户登录的id
+    var content = jQuery('.t-lid').attr("href");
+    var uid = 0;
+    if( content )
+    {
+        content = content.split('=');
+        uid = content[1];
+    }
+
+    var timestamp = new Date().getTime();
+    var uid_int = parseInt(uid);
+    if (uid_int == uid && uid_int != 0) {
+        uid = uid_int;
+    } else {
+        uid = parseInt($('#user-info').attr('data-uid'));
+    }
+    if ( uid )
+    {
+        uid = uid<<2;
+        uid = uid+''+timestamp;
+    } else {
+        uid = '';
+    }
+
+    var oIframe=document.getElementById("comiframe");
+    if(oIframe){
+        var oUrl=window.location.href;
+        oUrl = encodeURIComponent(oUrl);
+
+        oIframe.src="/comment.php?url="+oUrl+"&uid="+uid;
+    }
+
+});
+</script>
+<script>CNZZ_SLOT_RENDER('337970');</script>
+<div style="display:none"><a key="52df886aaf60041470116076" logo_size="83x30" logo_type="official" href="http://www.anquan.org">
+<script src="http://static.anquan.org/static/outer/js/aq_auth.js"></script></a></div>
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?88399e4c4cf744609c4fc8c3a8935691";
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-16940817-2', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+</body>
+</html>

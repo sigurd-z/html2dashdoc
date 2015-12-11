@@ -1,0 +1,240 @@
+<html><head prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# object: http://ogp.me/ns/object# article: http://ogp.me/ns/article# profile: http://ogp.me/ns/profile#">
+<meta charset="utf-8">
+<meta content="IE=edge" http-equiv="X-UA-Compatible">
+<meta content="en" http-equiv="Content-Language">
+<meta content="width=1020" name="viewport">
+<title>Pomelo 0.3 new features · NetEase/pomelo Wiki · GitHub</title>
+<link href="/opensearch.xml" rel="search" title="GitHub" type="application/opensearchdescription+xml">
+<link href="src/ad667adaa2cfe8f3caa4a41b7d0a79a1.png" rel="fluid-icon" title="GitHub">
+<link href="src/a10d19ff5f738940a7a5086be334f50b.png" rel="apple-touch-icon" sizes="57x57">
+<link href="src/a10d19ff5f738940a7a5086be334f50b.png" rel="apple-touch-icon" sizes="114x114">
+<link href="src/b4cd268bc600cc14d2cdd557de6da2fb.png" rel="apple-touch-icon" sizes="72x72">
+<link href="src/b4cd268bc600cc14d2cdd557de6da2fb.png" rel="apple-touch-icon" sizes="144x144">
+<meta content="1401488693436528" property="fb:app_id">
+<meta content="@github" name="twitter:site"/><meta content="summary" name="twitter:card"/><meta content="NetEase/pomelo" name="twitter:title"/><meta content="pomelo - A fast,scalable,distributed game server framework for Node.js." name="twitter:description"/><meta content="https://avatars0.githubusercontent.com/u/1460597?v=3&amp;s=400" name="twitter:image:src"/>
+<meta content="GitHub" property="og:site_name"/><meta content="object" property="og:type"/><meta content="https://avatars0.githubusercontent.com/u/1460597?v=3&amp;s=400" property="og:image"/><meta content="NetEase/pomelo" property="og:title"/><meta content="https://github.com/NetEase/pomelo" property="og:url"/><meta content="pomelo - A fast,scalable,distributed game server framework for Node.js." property="og:description"/>
+<meta content="https://api.github.com/_private/browser/stats" name="browser-stats-url">
+<meta content="https://api.github.com/_private/browser/errors" name="browser-errors-url">
+<link href="https://assets-cdn.github.com/" rel="assets">
+<meta content="1000" name="pjax-timeout">
+<meta content="/windows-tile.png" name="msapplication-TileImage">
+<meta content="#ffffff" name="msapplication-TileColor">
+<meta data-pjax-transient="" name="selected-link" value="repo_wiki">
+<meta content="KT5gs8h0wvaagLKAVWq8bbeNwnZZK1r1XQysX3xurLU" name="google-site-verification">
+<meta content="UA-3769691-2" name="google-analytics">
+<meta content="collector.githubapp.com" name="octolytics-host"/><meta content="github" name="octolytics-app-id"/><meta content="CA86616A:448A:12093290:5670C063" name="octolytics-dimension-request_id"/>
+<meta content="/&lt;user-name&gt;/&lt;repo-name&gt;/wiki/show" data-pjax-transient="true" name="analytics-location"/>
+<meta content="Rails, view, wiki#show" data-pjax-transient="true" name="analytics-event"/>
+<meta class="js-ga-set" content="Logged Out" name="dimension1">
+<meta content="github.com" name="hostname">
+<meta content="" name="user-login">
+<meta content="github.com" name="expected-hostname">
+<link color="#4078c0" href="https://assets-cdn.github.com/pinned-octocat.svg" rel="mask-icon">
+<link href="https://assets-cdn.github.com/favicon.ico" rel="icon" type="image/x-icon">
+<meta content="72dc6fcc9af23949e6d7fc7526034d24c961d6a4" name="form-nonce"/>
+<link crossorigin="anonymous" href="src/350888e1495e7af27e01faa9d8291dee.css" media="all" rel="stylesheet"/>
+<link crossorigin="anonymous" href="src/9fae9b7d8f0785d745a43c6465f74ae5.css" media="all" rel="stylesheet"/>
+<meta content="cd9958d45e48e8e3157a320e9c346eaa" http-equiv="x-pjax-version">
+<meta content="pomelo - A fast,scalable,distributed game server framework for Node.js." name="description">
+<meta content="github.com/NetEase/pomelo git https://github.com/NetEase/pomelo.git" name="go-import">
+<meta content="1460597" name="octolytics-dimension-user_id"/><meta content="NetEase" name="octolytics-dimension-user_login"/><meta content="5880912" name="octolytics-dimension-repository_id"/><meta content="NetEase/pomelo" name="octolytics-dimension-repository_nwo"/><meta content="true" name="octolytics-dimension-repository_public"/><meta content="false" name="octolytics-dimension-repository_is_fork"/><meta content="5880912" name="octolytics-dimension-repository_network_root_id"/><meta content="NetEase/pomelo" name="octolytics-dimension-repository_network_root_nwo"/>
+<link href="https://github.com/NetEase/pomelo/commits/master.atom" rel="alternate" title="Recent Commits to pomelo:master" type="application/atom+xml">
+</link></meta></meta></meta></link></link></meta></meta></meta></meta></meta></meta></meta></meta></meta></meta></link></meta></meta></meta></link></link></link></link></link></link></meta></meta></meta></meta></head><body style="padding:0 25px;"><div class="gollum-markdown-content instapaper_body" id="wiki-body">
+<div class="markdown-body">
+<h1>
+<a aria-hidden="true" class="anchor" href="#new-features-in-pomelo-03" id="user-content-new-features-in-pomelo-03"><span class="octicon octicon-link"></span></a>New features in Pomelo 0.3</h1>
+<p>Pomelo 0.3 improves the communication protocol between client and server for mobile enviroment. The new protocol uses compressive binary format and the size of the compressive package is only 20% of which in Pomelo 0.2.</p>
+<p>Pomelo 0.3 also provides new connector to communicate with clients based on socket or websocket for socket(websocket), protobuf and binary protocol are more suitable with mobile and PC clients. Pomelo 0.3 keeps the socket.io connector at the same time since it is good for the web development. That means Pomelo 0.3 now supports the web, mobile and desktop clients at the same time and make it more simple and efficiently.</p>
+<p>And dynamic scaling up servers is another important feature. It make Pomelo more suitable to the elastic computing system and online game, such as copy system.</p>
+<p>There are other new features in Pomelo 0.3, such as new broadcast interface and new client SDK and so on.</p>
+<h2>
+<a aria-hidden="true" class="anchor" href="#1-new-protocol" id="user-content-1-new-protocol"><span class="octicon octicon-link"></span></a>1 New protocol</h2>
+<p>We import a new binary protocol based on TCP or websocket in Pomelo 0.3 to support the route string compress and message body compress. And Pomelo 0.3 is also compatible with the older versions based on socket.io. Both the protocols can coexist in the same project only needing to make a little change on configure.</p>
+<p>Currently, Pomelo framework provides two kinds of connector: sioconnector which is based on socket.io and hybridconnector which runs on TCP and websocket.</p>
+<h3>
+<a aria-hidden="true" class="anchor" href="#11-sioconnector" id="user-content-11-sioconnector"><span class="octicon octicon-link"></span></a>1.1 sioconnector</h3>
+<p><code>sioconnector</code> is the default connector of Pomelo which is compatible with the older versions. So the older Pomelo project can be ported to Pomelo 0.3 without modifying their codes. </p>
+<h3>
+<a aria-hidden="true" class="anchor" href="#12-hybridconnector" id="user-content-12-hybridconnector"><span class="octicon octicon-link"></span></a>1.2 hybridconnector</h3>
+<p><code>hybridconnector</code> is the new connctor in Pomelo which is smaller in size and more efficient. To enable the <code>hybridconnector</code>, it only need add a little configure in the <code>app.js</code> as below.</p>
+<pre><code>app.configure('production|development', 'connector', function(){
+  app.set('connectorConfig', {
+    connector: pomelo.connectors.hybridconnector,
+    heartbeat: 3,
+    useDict: true,
+    useProtobuf: true,
+    checkClient: function(type, version) {
+        // check the client type and version then return true or false
+    },
+    handshake: function(msg, cb){
+      cb(null, {/* message pass to client in handshake phase */});
+    }
+  });
+});
+</code></pre>
+<p>First, the <code>app.set('connectorConfig', opts)</code> means customize the configuration of connector.</p>
+<ul>
+<li><p>connector - specify the connector. The buildin connectors of Pomelo are <code>pomelo.connectors.sioconnector</code> and <code>pomelo.connectors.hybridconnector</code>. And the developers could also implement their own connectors to support more protocols.</p></li>
+<li><p>heartbeat - heartbeat interval between client and server in second. Absence means no heartbeat. More details of heartbeat refers to <a href="#">Pomelo protocol</a>.</p></li>
+<li><p>useDict - whether compress the route string by dictionary. Default value is <code>false</code>. More defails of dicionary compression refers to  <a href="#">Pomelo compress</a>.</p></li>
+<li><p>useProtobuf - whether compress the message body with protobuf. Default value is <code>false</code>. More details of protobuf compresssion in Pomelo refers to <a href="#">Pomelo compress</a>.</p></li>
+<li><p>checkClient - optional client verification function. If specified, the client <em>must</em> pass the version and type of the client to the server. And the server should verfiy and return a boolean value to figure out that the client with this version and type whether is suitable to connect to current server.</p></li>
+<li><p>handshake - optional handshake function which would be fired in the handshake phace to let the server to pass some customized data to the client during handshake.</p></li>
+</ul>
+<h3>
+<a aria-hidden="true" class="anchor" href="#13-coexistence-of-connectors" id="user-content-13-coexistence-of-connectors"><span class="octicon octicon-link"></span></a>1.3 Coexistence of connectors</h3>
+<p>More than one kinds of connector could be enabled in the same project to support different protocols in different ports as following:</p>
+<pre><code>// frontend server based on socket.io
+app.configure('production|development', 'sio-connector', function(){
+  app.set('connectorConfig', {
+    connector: pomelo.connectors.sioconnector
+  });
+});
+
+// frontend server based on socket and websocket
+app.configure('production|development', 'hybrid-connector', function(){
+  app.set('connectorConfig', {
+    connector: pomelo.connectors.hybridconnector
+  });
+});
+
+</code></pre>
+<p>servers.json</p>
+<pre><code>{
+  "development": {
+    "sio-connector": [
+      {"id": "sio-server-1", "host": "127.0.0.1", "port": 3150, "clientPort": 3010, "frontend": true}
+    ],
+    "hybrid-connector": [
+      {"id": "hybrid-server-1", "host": "127.0.0.1", "port": 3250, "clientPort": 3020, "frontend": true}
+    ]
+  }
+}
+
+</code></pre>
+<h2>
+<a aria-hidden="true" class="anchor" href="#2-dynamic-server-extension" id="user-content-2-dynamic-server-extension"><span class="octicon octicon-link"></span></a>2 Dynamic server extension</h2>
+<p>Pomelo 0.3 supports add and remove server processes dynamically and provides the associated command line tools. </p>
+<p>Each server would register itself to the master server when it startup. Then the master server broadcasts the new server joined event to the other servers in the cluster. And then all the other servers response to the event.</p>
+<p>When a server process receives a new server joined event, it would add or update the new server information into the local app context. And then the other parts of the application could query the server information by <code>app.getServers</code> methods to make some changes, such as change the route searching.</p>
+<p>If the type of the new server has not existed in the app context, Pomelo would try to create a RPC proxy. And if the application wants to provide some RPC servies for this type of server, please make sure deploy the relative code under the convention path (servers/server-type/remote/).</p>
+<p>Remove a server process is similiar, the master detects a server disconnect event and broadcast to all the other servers. And the servers take response to the event.</p>
+<p><em>Notice</em>: Pomelo just provides the mechanism to add and remove server process dynamically. And the application should take the responsibility to take care status data during the processes changing.</p>
+<h3>
+<a aria-hidden="true" class="anchor" href="#command-line" id="user-content-command-line"><span class="octicon octicon-link"></span></a>Command line</h3>
+<p>Pomelo 0.3 provides a new <code>add</code> command and upgrades the <code>stop</code> command to support add and remove a server process on the fly.</p>
+<p><code>pomelo add</code> is used to add a server process dynamically. The usage of <code>pomelo add</code> is as below. The <code>host</code> is the hostname or address of server, <code>port</code> is the port that server listens to, <code>id</code> is the id of server and the <code>serverType</code> is the type of server.</p>
+<pre><code>pomelo add host=[host] port=[port] id=[id] serverType=[serverType]
+
+</code></pre>
+<p><code>pomelo stop</code> is used to stop one or a list of server processes. If no id specified, it would stop all the server processes by default.</p>
+<pre><code>pomelo stop [id]
+</code></pre>
+<h2>
+<a aria-hidden="true" class="anchor" href="#3-other-new-features" id="user-content-3-other-new-features"><span class="octicon octicon-link"></span></a>3 Other new features</h2>
+<h3>
+<a aria-hidden="true" class="anchor" href="#31-modification-fo-serverjson" id="user-content-31-modification-fo-serverjson"><span class="octicon octicon-link"></span></a>3.1 Modification fo server.json</h3>
+<p><code>wsPort</code> in <code>servers.json</code> is replaced with <code>clientPort</code> since the protocol supported in Pomelo is not only websocket yet and the <code>wsPort</code> which means 'websocket port' is not suitable anymore. </p>
+<p>And a new field <code>frontend</code> is imported to indicate a server is whether a frontend server or backend server which is checked by the <code>wsPort</code> whether is specified in the previous versions. So for the frontend servers <em>MUST</em> set the <code>frontend</code> to true while the backend servers could set it to false or leave it empty by default.</p>
+<p>For example, in <a href="https://github.com/NetEase/lordofpomelo">lordofpomelo</a>, the modification of <a href="https://github.com/NetEase/lordofpomelo/blob/master/game-server/config/servers.json">servers.js</a> is as below:</p>
+<p>connector server configuration：</p>
+<pre><code>"connector": [
+  {"id": "connector-server-1", "host": "127.0.0.1", "port": 3150, "clientPort": 3010, "frontend": true},
+  {"id": "connector-server-2", "host": "127.0.0.1", "port": 3151, "clientPort":3011, "frontend": true}
+]
+</code></pre>
+<p>gate server configuration：</p>
+<pre><code>"gate": [
+  {"id": "gate-server-1", "host": "127.0.0.1", "clientPort": 3014, "frontend": true}
+]
+</code></pre>
+<p>And remember to modify the dependecies of the <code>wsPort</code> in the codes. Such as replace the <code>res.wsPort</code> with <code>res.clientPort</code> in <a href="https://github.com/NetEase/lordofpomelo/blob/master/game-server/app/servers/gate/handler/gateHandler.js#L29">gateHandler</a>.</p>
+<h3>
+<a aria-hidden="true" class="anchor" href="#32-new-broadcast-method-for-channel" id="user-content-32-new-broadcast-method-for-channel"><span class="octicon octicon-link"></span></a>3.2 New broadcast method for channel</h3>
+<p><code>ChannelService</code> add a <code>broadcast</code> method for the global broadcast. This method would push the message to all the frontend servers with the specified type and the laters would push the message to all the connected client. More detail please refer to <a href="http://pomelo.netease.com/api.html">Pomelo API</a>.</p>
+<p>Usage:</p>
+<pre><code>var frontendType = 'connector';
+var route = 'test.hello';
+var msg = {msg: 'hello world'};
+var opts = {binded: true};
+app.get('channelService').broadcast(frontendType, route, msg, opts, function(err) {
+  // check the broadcast result
+});
+</code></pre>
+<h3>
+<a aria-hidden="true" class="anchor" href="#33-localsession-query-method" id="user-content-33-localsession-query-method"><span class="octicon octicon-link"></span></a>3.3 LocalSession query method</h3>
+<p><code>LocalSessionService</code> add new method to query the <code>loacalSession</code> instance by session id or by user id.</p>
+<p>Usage:</p>
+<pre><code>var frontendId = 'connector-server-1';
+var sid = 1;
+var uid = '123456';
+app.get('localSessionService').get(frontendId, sid, function(err, localSession) {
+  // do something with the local session
+});
+
+app.get('localSessionService').getByUid(frontendId, uid, function(err, localSession) {
+  // do something with the local session
+});
+
+</code></pre>
+<h3>
+<a aria-hidden="true" class="anchor" href="#34-javascript-clients" id="user-content-34-javascript-clients"><span class="octicon octicon-link"></span></a>3.4 Javascript clients</h3>
+<h4>
+<a aria-hidden="true" class="anchor" href="#341-types-of-javascript-client" id="user-content-341-types-of-javascript-client"><span class="octicon octicon-link"></span></a>3.4.1 Types of Javascript client</h4>
+<p>There are two kinds of Javascript client in Pomelo: socket.io and websocket.</p>
+<p>The socket.io version is good at compatible with all kinds of browsers and is suitable for the normal realtime web application, such chat room.</p>
+<p>And the websocket version make a great efforts on the data compression and optimization. It is very helpful for the HTML5 games. </p>
+<p>The respositories of the two kinds of client:</p>
+<ul>
+<li><a href="https://github.com/pomelonode/pomelo-jsclient-websocket">websocket client</a></li>
+<li><a href="https://github.com/pomelonode/pomelo-jsclient-socket.io">socket.io client</a></li>
+</ul>
+<h4>
+<a aria-hidden="true" class="anchor" href="#342-building-system-for-javascript-client" id="user-content-342-building-system-for-javascript-client"><span class="octicon octicon-link"></span></a>3.4.2 Building system for Javascript client</h4>
+<p>In Pomelo 0.3, we import the <a href="https://github.com/component/component">component</a> system to manage the client Javascript libraries. And the client Javascript codes would be downloaded from <code>github</code> repository directly when building the client system.</p>
+<p>The client building system is composed by the <code>component.json</code> description file and the <code>local/</code> directory under the <code>web-server/publilc/js/lib/</code>.</p>
+<p><code>component.json</code> in <code>public/js/lib/</code> describes the global component information of the client which points to the <code>local/</code> folder and contains a local component named <code>boot</code>.</p>
+<p>Contents of <code>public/js/lib/component.json</code></p>
+<pre><code>{
+  "name": "pomelo-client",
+  "description": "pomelo-client",
+  "local": [ "boot" ],
+  "paths": [ "local"]
+}
+</code></pre>
+<p>And the <code>loacl/</code> folder contains the local components description. These is only one local component in the client system which named <code>boot</code> and located in <code>public/js/lib/boot/</code>. And the <code>boot</code> local component mainly includes two files: <code>component.json</code> and <code>index.js</code>.</p>
+<p>The <code>boot/component.json</code> is a component description file like the one in <code>npm</code> and it mainly describes the base information and dependencies of the local component.</p>
+<p>The conents of <code>boot/component.json</code>:</p>
+<p><code>component.json</code> is used to describe </p>
+<pre><code>{  
+  "name": "boot",  
+  "description": "Main app boot component",  
+  "dependencies": {  
+    "component/emitter":"master",  
+    "NetEase/pomelo-protocol": "0.3.x",  
+    "pomelonode/pomelo-protobuf": "*",  
+    "pomelonode/pomelo-jsclient-websocket": "master",  
+    "component/jquery": "*"  
+  },  
+  "scripts": ["index.js"]  
+}    
+</code></pre>
+<p>There are several tools located in <code>web-server/bin/</code> to help to build the client system.</p>
+<p><code>bin/component.sh</code> - install and build the client codes. It would fetch the latest codes from github and build the client.</p>
+<p>Usage:</p>
+<p>Input the command below in the <code>web-server</code> directory.</p>
+<pre><code>sh bin/component.sh  
+</code></pre>
+<p><code>bin/build-component.sh</code> - build the client system. It would only build the client from the local files and would not fetch them from github.</p>
+<p>For development, developers can modify the local files and build the new client by typing the following command in the <code>web-server</code> directory.</p>
+<pre><code>sh bin/build-component.sh  
+</code></pre>
+<p>More detail about component system, please refer to <a href="https://github.com/component/component">component</a>.</p>
+<h3>
+<a aria-hidden="true" class="anchor" href="#35-other-clients-supporting" id="user-content-35-other-clients-supporting"><span class="octicon octicon-link"></span></a>3.5 Other clients supporting</h3>
+<ul>
+<li>New C language client, based on <code>libuv</code> and <code>jansson</code>, supporting route string and message compression.</li>
+<li>Other clients, such as flash, android, IOS and unity3d, are available for socket.io version. And the socket versions are coming soon.</li>
+</ul>
+</div>
+</div></body></html>

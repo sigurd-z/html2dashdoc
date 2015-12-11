@@ -1,0 +1,164 @@
+<html><head prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# object: http://ogp.me/ns/object# article: http://ogp.me/ns/article# profile: http://ogp.me/ns/profile#">
+<meta charset="utf-8">
+<meta content="IE=edge" http-equiv="X-UA-Compatible">
+<meta content="en" http-equiv="Content-Language">
+<meta content="width=1020" name="viewport">
+<title>术语解释 · NetEase/pomelo Wiki · GitHub</title>
+<link href="/opensearch.xml" rel="search" title="GitHub" type="application/opensearchdescription+xml">
+<link href="src/ad667adaa2cfe8f3caa4a41b7d0a79a1.png" rel="fluid-icon" title="GitHub">
+<link href="src/a10d19ff5f738940a7a5086be334f50b.png" rel="apple-touch-icon" sizes="57x57">
+<link href="src/a10d19ff5f738940a7a5086be334f50b.png" rel="apple-touch-icon" sizes="114x114">
+<link href="src/b4cd268bc600cc14d2cdd557de6da2fb.png" rel="apple-touch-icon" sizes="72x72">
+<link href="src/b4cd268bc600cc14d2cdd557de6da2fb.png" rel="apple-touch-icon" sizes="144x144">
+<meta content="1401488693436528" property="fb:app_id">
+<meta content="@github" name="twitter:site"/><meta content="summary" name="twitter:card"/><meta content="NetEase/pomelo" name="twitter:title"/><meta content="pomelo - A fast,scalable,distributed game server framework for Node.js." name="twitter:description"/><meta content="https://avatars0.githubusercontent.com/u/1460597?v=3&amp;s=400" name="twitter:image:src"/>
+<meta content="GitHub" property="og:site_name"/><meta content="object" property="og:type"/><meta content="https://avatars0.githubusercontent.com/u/1460597?v=3&amp;s=400" property="og:image"/><meta content="NetEase/pomelo" property="og:title"/><meta content="https://github.com/NetEase/pomelo" property="og:url"/><meta content="pomelo - A fast,scalable,distributed game server framework for Node.js." property="og:description"/>
+<meta content="https://api.github.com/_private/browser/stats" name="browser-stats-url">
+<meta content="https://api.github.com/_private/browser/errors" name="browser-errors-url">
+<link href="https://assets-cdn.github.com/" rel="assets">
+<meta content="1000" name="pjax-timeout">
+<meta content="/windows-tile.png" name="msapplication-TileImage">
+<meta content="#ffffff" name="msapplication-TileColor">
+<meta data-pjax-transient="" name="selected-link" value="repo_wiki">
+<meta content="KT5gs8h0wvaagLKAVWq8bbeNwnZZK1r1XQysX3xurLU" name="google-site-verification">
+<meta content="UA-3769691-2" name="google-analytics">
+<meta content="collector.githubapp.com" name="octolytics-host"/><meta content="github" name="octolytics-app-id"/><meta content="CA86616A:2F43:126E7C2D:5670C19C" name="octolytics-dimension-request_id"/>
+<meta content="/&lt;user-name&gt;/&lt;repo-name&gt;/wiki/show" data-pjax-transient="true" name="analytics-location"/>
+<meta content="Rails, view, wiki#show" data-pjax-transient="true" name="analytics-event"/>
+<meta class="js-ga-set" content="Logged Out" name="dimension1">
+<meta content="github.com" name="hostname">
+<meta content="" name="user-login">
+<meta content="github.com" name="expected-hostname">
+<link color="#4078c0" href="https://assets-cdn.github.com/pinned-octocat.svg" rel="mask-icon">
+<link href="https://assets-cdn.github.com/favicon.ico" rel="icon" type="image/x-icon">
+<meta content="f8fc637c2ba0260a76e863f3f85c6209eb83f24c" name="form-nonce"/>
+<link crossorigin="anonymous" href="src/350888e1495e7af27e01faa9d8291dee.css" media="all" rel="stylesheet"/>
+<link crossorigin="anonymous" href="src/9fae9b7d8f0785d745a43c6465f74ae5.css" media="all" rel="stylesheet"/>
+<meta content="cd9958d45e48e8e3157a320e9c346eaa" http-equiv="x-pjax-version">
+<meta content="pomelo - A fast,scalable,distributed game server framework for Node.js." name="description">
+<meta content="github.com/NetEase/pomelo git https://github.com/NetEase/pomelo.git" name="go-import">
+<meta content="1460597" name="octolytics-dimension-user_id"/><meta content="NetEase" name="octolytics-dimension-user_login"/><meta content="5880912" name="octolytics-dimension-repository_id"/><meta content="NetEase/pomelo" name="octolytics-dimension-repository_nwo"/><meta content="true" name="octolytics-dimension-repository_public"/><meta content="false" name="octolytics-dimension-repository_is_fork"/><meta content="5880912" name="octolytics-dimension-repository_network_root_id"/><meta content="NetEase/pomelo" name="octolytics-dimension-repository_network_root_nwo"/>
+<link href="https://github.com/NetEase/pomelo/commits/master.atom" rel="alternate" title="Recent Commits to pomelo:master" type="application/atom+xml">
+</link></meta></meta></meta></link></link></meta></meta></meta></meta></meta></meta></meta></meta></meta></meta></link></meta></meta></meta></link></link></link></link></link></link></meta></meta></meta></meta></head><body style="padding:0 25px;"><div class="gollum-markdown-content instapaper_body" id="wiki-body">
+<div class="markdown-body">
+<p>使用pomelo框架的话，有pomelo自己的术语，这里先对术语做一些简单的解释，给读者一个直观的概念，不至于看到相应术语时产生迷惑。</p>
+<h1>
+<a aria-hidden="true" class="anchor" href="#%E5%B8%B8%E8%A7%81%E6%9C%AF%E8%AF%AD" id="user-content-常见术语"><span class="octicon octicon-link"></span></a>常见术语</h1>
+<h3>
+<a aria-hidden="true" class="anchor" href="#gate%E6%9C%8D%E5%8A%A1%E5%99%A8" id="user-content-gate服务器"><span class="octicon octicon-link"></span></a>gate服务器</h3>
+<p>一个应用的gate服务器，一般不参与rpc调用，也就是说其配置项里可以没有port字段，仅仅有clientPort字段，它的作用是做前端的负载均衡。客户端往往首先向gate服务器发出请求，gate会给客户端分配具体的connector服务器。具体的分配策略一般是根据客户端的某一个key做hash得到connector的id，这样就可以实现各个connector服务器的负载均衡。</p>
+<h3>
+<a aria-hidden="true" class="anchor" href="#connector%E6%9C%8D%E5%8A%A1%E5%99%A8" id="user-content-connector服务器"><span class="octicon octicon-link"></span></a>connector服务器</h3>
+<p>connector服务器接收客户端的连接请求，创建与客户端的连接，维护客户端的session信息。同时，接收客户端对后端服务器的请求，按照用户配置的路由策略，将请求路由给具体的后端服务器。当后端服务器处理完请求或者需要给客户端推送消息的时候，connector服务器同样会扮演一个中间角色，完成对客户端的消息发送。connector服务器会同时拥有clientPort和port，其中clientPort用来监听客户端的连接，port端口用来给后端提供服务。</p>
+<h3>
+<a aria-hidden="true" class="anchor" href="#%E5%BA%94%E7%94%A8%E9%80%BB%E8%BE%91%E6%9C%8D%E5%8A%A1%E5%99%A8" id="user-content-应用逻辑服务器"><span class="octicon octicon-link"></span></a>应用逻辑服务器</h3>
+<p>gate服务器和connector服务器又都被称作前端服务器，应用逻辑服务器是后端服务器，它完成实际的应用逻辑，提供服务给客户端，当然客户端的请求是通过前端服务器路由过来的。后端服务器之间也会通过rpc调用而有相互之间的交互。由于后端服务器不会跟客户端直接有连接，因此后端服务器只需监听它提供服务的端口即可。</p>
+<h3>
+<a aria-hidden="true" class="anchor" href="#master%E6%9C%8D%E5%8A%A1%E5%99%A8" id="user-content-master服务器"><span class="octicon octicon-link"></span></a>master服务器</h3>
+<p>master服务器加载配置文件，通过读取配置文件，启动所配置的服务器集群，并对所有服务器进行管理。</p>
+<h3>
+<a aria-hidden="true" class="anchor" href="#rpc%E8%B0%83%E7%94%A8" id="user-content-rpc调用"><span class="octicon octicon-link"></span></a>rpc调用</h3>
+<p>pomelo中使用rpc调用进行进程间通信，在pomelo中rpc调用分为两大类，使用namespace进行区分，namespace为sys的为系统rpc调用，它对用户来说是透明的，目前pomelo中系统rpc调用有：</p>
+<ul>
+<li>后端服务器向前端服务器请求session信息</li>
+<li>后端服务器通过channel推送消息时对前端服务器发起的rpc调用</li>
+<li>前端服务器将用户请求路由给后端服务器时也是sys rpc调用</li>
+</ul>
+<p>除了系统rpc调用外，其余的由用户自定义的rpc调用属于user namespace的rpc调用，需要用户自己完成rpc服务端remote的handle代码，并由rpc客户端显式地发起调用</p>
+<h3>
+<a aria-hidden="true" class="anchor" href="#routerouter" id="user-content-routerouter"><span class="octicon octicon-link"></span></a>route,router</h3>
+<p>route用来标识一个具体服务或者客户端接受服务端推送消息的位置，对服务端来说，其形式一般是..,例如"chat.chatHandler.send", chat就是服务器类型，chatHandler是chat服务器中定义的一个Handler，send则为这个Handler中的一个handle方法。对客户端来说，其路由一般形式为onXXX，当服务端推送消息时，客户端会有相应的回调。
+一般来说具体的同类型应用服务器都会有多个，当客户端请求到达后，前端服务器会将用户客户端请求派发到后端服务器，这种派发需要一个路由函数router，可以粗略地认为router就是根据用户的session以及其请求内容，做一些运算后，将其映射到一个具体的应用服务器id。可以通过application的route调用给某一类型的服务器配置其router。如果不配置的话，pomelo框架会使用一个默认的router。pomelo默认的路由函数是使用session里面的uid字段，计算uid字段的crc32校验码，然后用这个校验码作为key，跟同类应用服务器数目取余，得到要路由到的服务器编号。注意这里有一个陷阱，就是如果session没有绑定uid的话，此时uid字段为undefined，可能会造成所有的请求都路由到同一台服务器。所以在实际开发中还是需要自己来配置router。</p>
+<h3>
+<a aria-hidden="true" class="anchor" href="#session-frontendsession-backendsession-sessionservice-backendsessionservice" id="user-content-session-frontendsession-backendsession-sessionservice-backendsessionservice"><span class="octicon octicon-link"></span></a>Session, FrontendSession, BackendSession， SessionService， BackendSessionService</h3>
+<p>在pomelo框架中，有这三个session的概念，同时又有两个service： <code>SessionService</code>和<code>BackendSessionService</code>，也是最令人迷惑的地方，这里尝试给出一些说明，让你的理解更清晰一些：
+Session的是一个客户端连接的抽象，它的大致字段如下：</p>
+<pre lang="javasript"><code>{
+    id : &lt;session id&gt; // readonly
+    frontendId : &lt;frontend server id&gt; // readonly
+    uid : &lt;bound uid&gt; // readonly
+    settings : &lt;key-value map&gt; // read and write  
+    __socket__ : &lt;raw_socket&gt;
+    __state__ : &lt;session state&gt;
+
+    // ...
+}
+</code></pre>
+<ul>
+<li>id是这个session的id，是全局唯一的，一般使用自增的方式来生成;</li>
+<li>frontendId是维护这个session的前端服务器的id；</li>
+<li>uid是这个session所绑定的用户id;</li>
+<li>__socket__是底层原生socket的引用;</li>
+<li>__state__用来指明当前session的生命周期状态。</li>
+<li>settings维护一个key-value map，用来描述session的一些自定义属性，比如聊天应用中的房间号就可以看作是session的一个自定义属性。</li>
+</ul>
+<p>从上面的分析看，一个session一旦建立，那么id， frontendId，__socket__, __state__, uid都是确定的，都应该是只可读不可写的。而settings也不应该被随意的修改。
+因此，在前端服务器中，引入了FrontendSession, 可以把它看作是一个内部session在前端服务器中的傀儡，FrontendSession的字段大致如下:</p>
+<div class="highlight highlight-source-js"><pre>{
+    id <span class="pl-k">:</span> <span class="pl-k">&lt;</span>session id<span class="pl-k">&gt;</span> <span class="pl-c">// readonly</span>
+    frontendId <span class="pl-k">:</span> <span class="pl-k">&lt;</span>frontend server id<span class="pl-k">&gt;</span> <span class="pl-c">// readonly</span>
+    uid <span class="pl-k">:</span> <span class="pl-k">&lt;</span>bound uid<span class="pl-k">&gt;</span> <span class="pl-c">// readonly</span>
+    settings <span class="pl-k">:</span> <span class="pl-k">&lt;</span>key<span class="pl-k">-</span>value map<span class="pl-k">&gt;</span> <span class="pl-c">// read and write  </span>
+}</pre></div>
+<p>其作用：</p>
+<ul>
+<li>通过FrontendSession可以对settings字段进行设置值，然后通过调用FrontendSession的push方法，将设置的settings的值同步到原始session中;</li>
+<li>通过FrontendSession的bind调用，还可以给session绑定uid;</li>
+<li>当然也可以通过FrontendSession访问session的只读字段，不过对FrontendSession中与session中相同的只读字段的修改并不会反映到原始的session中。</li>
+</ul>
+<p>SessionService维护所有的原始的session信息,包括不可访问的字段，绑定的uid以及用户自定义的字段。</p>
+<p>下面再说BackendSession，与FrontendSession类似，BackendSession是用于后端服务器的，可以看作是原始session的代理，其数据字段跟FrontendSession基本一致。</p>
+<p>BackendSession是由BackendSessionService创建并维护的，在后端服务器接收到请求后，由BackendSessionService根据前端服务器rpc的参数，进行创建。对BackendSessionService的每一次方法调用实际上都会生成一个远程调用，比如通过一个sid获取其BackendSession。同样，对于BackendSession中字段的修改也不会反映到原始的session中，不过与FrontendSession一样，BackendSession也有push，bind，unbind调用，它们的作用与FrontendSession的一样，都是用来修改原始session中的settings字段或者绑定/解绑uid的，不同的是BackendSession的这些调用实际上都是名字空间为sys的远程调用。</p>
+<h3>
+<a aria-hidden="true" class="anchor" href="#channel" id="user-content-channel"><span class="octicon octicon-link"></span></a>Channel</h3>
+<p>channel可以看作是一个玩家id的容器，主要用于需要广播推送消息的场景。可以把某个玩家加入到一个Channel中，当对这个Channel推送消息的时候，所有加入到这个Channel的玩家都会收到推送过来的消息。一个玩家的id可能会被加入到多个Channel中，这样玩家就会收到其加入的Channel推送过来的消息。需要注意的是Channel都是服务器本地的，应用服务器A和B并不会共享Channel，也就是说在服务器A上创建的Channel，只能由服务器A才能给它推送消息。</p>
+<h3>
+<a aria-hidden="true" class="anchor" href="#request-response-notify-push" id="user-content-request-response-notify-push"><span class="octicon octicon-link"></span></a>request, response, notify, push</h3>
+<p>pomelo中有四种消息类型的消息，分别是request，response，notify和push，客户端发起request到服务器端，服务器端处理后会给其返回响应response;notify是客户端发给服务端的通知，也就是不需要服务端给予回复的请求;push是服务端主动给客户端推送消息的类型。在后面的叙述中，将会使用这些术语而不再作解释。</p>
+<h3>
+<a aria-hidden="true" class="anchor" href="#filter" id="user-content-filter"><span class="octicon octicon-link"></span></a>filter</h3>
+<p>filter分为before和after两类，每类filter都可以注册多个，形成一个filter链，所有的客户端请求都会经过filter链进行一些处理。before filter会对请求做一些前置处理，如：检查当前玩家是否已登录，打印统计日志等。after filter是进行请求后置处理的地方，如：释放请求上下文的资源，记录请求总耗时等。after filter中不应该再出现修改响应内容的代码，因为在进入after filter前响应就已经被发送给客户端。</p>
+<h3>
+<a aria-hidden="true" class="anchor" href="#handler" id="user-content-handler"><span class="octicon octicon-link"></span></a>handler</h3>
+<p>handler是实现具体业务逻辑的地方，在请求处理流程中，它位于before filter和after filter之间，handler的接口声明如下：</p>
+<div class="highlight highlight-source-js"><pre><span class="pl-c1">handler</span>.<span class="pl-en">methodName</span> <span class="pl-k">=</span> <span class="pl-k">function</span>(<span class="pl-smi">msg</span>, <span class="pl-smi">session</span>, <span class="pl-smi">next</span>) {
+  <span class="pl-c">// ...</span>
+}</pre></div>
+<p>参数含义与before filter类似。handler处理完毕后，如有需要返回给客户端的响应，可以将返回结果封装成js对象，通过next传递给后面流程。</p>
+<h3>
+<a aria-hidden="true" class="anchor" href="#error-handler" id="user-content-error-handler"><span class="octicon octicon-link"></span></a>error handler</h3>
+<p>error handler是一个处理全局异常的地方，可以在error handler中对处理流程中发生的异常进行集中处理，如：统计错误信息，组织异常响应结果等。error handler函数是可选的，如果需要可以通过</p>
+<div class="highlight highlight-source-js"><pre><span class="pl-smi">app</span>.<span class="pl-en">set</span>(<span class="pl-s"><span class="pl-pds">'</span>errorHandler<span class="pl-pds">'</span></span>, handleFunc);</pre></div>
+<p>来向pomelo框架进行注册，函数声明如下：</p>
+<div class="highlight highlight-source-js"><pre><span class="pl-en">errorHandler</span> <span class="pl-k">=</span> <span class="pl-k">function</span>(<span class="pl-smi">err</span>, <span class="pl-smi">msg</span>, <span class="pl-smi">resp</span>, <span class="pl-smi">session</span>, <span class="pl-smi">next</span>) {
+  <span class="pl-c">// ...</span>
+}</pre></div>
+<p>其中，err是前面流程中发生的异常；resp是前面流程传递过来，需要返回给客户端的响应信息。其他参数与前面的handler一样。</p>
+<h3>
+<a aria-hidden="true" class="anchor" href="#component" id="user-content-component"><span class="octicon octicon-link"></span></a>component</h3>
+<p>pomelo 框架是由一些松散耦合的component组成的，每个component完成一些功能。整个pomelo框架可以看作是一个component容器，完成component的加载以及生命周期管理。pomelo的核心功能都是由component完成的，每个component往往有start，afterStart，stop等调用，用来完成生命周期管理。</p>
+<h3>
+<a aria-hidden="true" class="anchor" href="#admin-client-monitor-master" id="user-content-admin-client-monitor-master"><span class="octicon octicon-link"></span></a>admin client, monitor, master</h3>
+<p>在对pomelo服务器进行管理的时候，有三个概念admin client， monitor， master。</p>
+<ul>
+<li><p>monitor运行在各个应用服务器中，它会向master注册自己，向master上报其服务器的信息，当服务器群有变化时，接收master推送来的变化消息，更新其服务器上下文。</p></li>
+<li><p>master运行在应用服务器中，它会收集整个服务器群的信息，有变化时会将变化推送到各个monitor；同时，master还接受admin client的请求，按照client发出的命令，执行对应的操作，如查询整个服务器群的状态，增加一个服务器等。</p></li>
+<li><p>client独立运行自己的进程，它会发起到master的连接，然后通过对master发出请求或者命令，来管理整个服务器群。目前工具<a href="https://github.com/NetEase/pomelo-cli">pomleo-cli</a>就是这样的一个客户端。</p></li>
+</ul>
+<h3>
+<a aria-hidden="true" class="anchor" href="#admin-module" id="user-content-admin-module"><span class="octicon octicon-link"></span></a>admin module</h3>
+<p>在pomelo中，module特指服务器监控管理模块，与component类似，不过在module中实现的是监控逻辑，比如收集进程状态等。用户在使用时，可以通过<code>application</code>的<code>registerAdmin</code>注册管理模块，实现用户自己定制的监控管理功能。每一个module中都会定义下面四种回调函数，不过都是可选的：</p>
+<ul>
+<li>masterHandler(agent, msg, cb) 当有应用服务器给master发监控数据时，这个回调函数会由master进程进行回调，完成应用服务器的消息处理;</li>
+<li>monitorHandler(agent, msg, cb) 当有master请求应用服务器的一些监控信息时，由应用服务器进行回调，完成对master请求的处理;</li>
+<li>clientHandler(agent, msg, cb）当由管理客户端向master请求服务器群信息时，由master进程进行回调处理客户端的请求。</li>
+<li>start(cb) 当admin module，注册加载完成后，这个回调会被执行，在这里可以做一些初始化工作。</li>
+</ul>
+<h3>
+<a aria-hidden="true" class="anchor" href="#plugin" id="user-content-plugin"><span class="octicon octicon-link"></span></a>plugin</h3>
+<p>plugin是pomelo 0.6加入的全新的扩展机制，一个plugin由多个component以及一些事件响应处理器组成。它提供了一种很灵活的机制来扩展pomelo。不仅可以提供component的功能，还可以对整个框架的全局事件作出响应处理。</p>
+<h1>
+<a aria-hidden="true" class="anchor" href="#%E5%B0%8F%E7%BB%93" id="user-content-小结"><span class="octicon octicon-link"></span></a>小结</h1>
+<p>上面简要地介绍了pomelo中的一些术语，因为在下面的例子中，会涉及到这些术语，不至于当出现这些术语时一头雾水。下面我们就正式进入我们的例子，<a href="chat%E6%BA%90%E7%A0%81%E4%B8%8B%E8%BD%BD%E4%B8%8E%E5%AE%89%E8%A3%85" title="chat源码下载与安装">获取源码并安装我们的例子应用</a>。</p>
+</div>
+</div></body></html>

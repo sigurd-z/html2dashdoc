@@ -1,0 +1,91 @@
+<html><head prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# object: http://ogp.me/ns/object# article: http://ogp.me/ns/article# profile: http://ogp.me/ns/profile#">
+<meta charset="utf-8">
+<meta content="IE=edge" http-equiv="X-UA-Compatible">
+<meta content="en" http-equiv="Content-Language">
+<meta content="width=1020" name="viewport">
+<title>LordOfPomelo server introduction · NetEase/pomelo Wiki · GitHub</title>
+<link href="/opensearch.xml" rel="search" title="GitHub" type="application/opensearchdescription+xml">
+<link href="src/ad667adaa2cfe8f3caa4a41b7d0a79a1.png" rel="fluid-icon" title="GitHub">
+<link href="src/a10d19ff5f738940a7a5086be334f50b.png" rel="apple-touch-icon" sizes="57x57">
+<link href="src/a10d19ff5f738940a7a5086be334f50b.png" rel="apple-touch-icon" sizes="114x114">
+<link href="src/b4cd268bc600cc14d2cdd557de6da2fb.png" rel="apple-touch-icon" sizes="72x72">
+<link href="src/b4cd268bc600cc14d2cdd557de6da2fb.png" rel="apple-touch-icon" sizes="144x144">
+<meta content="1401488693436528" property="fb:app_id">
+<meta content="@github" name="twitter:site"/><meta content="summary" name="twitter:card"/><meta content="NetEase/pomelo" name="twitter:title"/><meta content="pomelo - A fast,scalable,distributed game server framework for Node.js." name="twitter:description"/><meta content="https://avatars0.githubusercontent.com/u/1460597?v=3&amp;s=400" name="twitter:image:src"/>
+<meta content="GitHub" property="og:site_name"/><meta content="object" property="og:type"/><meta content="https://avatars0.githubusercontent.com/u/1460597?v=3&amp;s=400" property="og:image"/><meta content="NetEase/pomelo" property="og:title"/><meta content="https://github.com/NetEase/pomelo" property="og:url"/><meta content="pomelo - A fast,scalable,distributed game server framework for Node.js." property="og:description"/>
+<meta content="https://api.github.com/_private/browser/stats" name="browser-stats-url">
+<meta content="https://api.github.com/_private/browser/errors" name="browser-errors-url">
+<link href="https://assets-cdn.github.com/" rel="assets">
+<meta content="1000" name="pjax-timeout">
+<meta content="/windows-tile.png" name="msapplication-TileImage">
+<meta content="#ffffff" name="msapplication-TileColor">
+<meta data-pjax-transient="" name="selected-link" value="repo_wiki">
+<meta content="KT5gs8h0wvaagLKAVWq8bbeNwnZZK1r1XQysX3xurLU" name="google-site-verification">
+<meta content="UA-3769691-2" name="google-analytics">
+<meta content="collector.githubapp.com" name="octolytics-host"/><meta content="github" name="octolytics-app-id"/><meta content="7250A4CA:6922:F403CD7:5670C044" name="octolytics-dimension-request_id"/>
+<meta content="/&lt;user-name&gt;/&lt;repo-name&gt;/wiki/show" data-pjax-transient="true" name="analytics-location"/>
+<meta content="Rails, view, wiki#show" data-pjax-transient="true" name="analytics-event"/>
+<meta class="js-ga-set" content="Logged Out" name="dimension1">
+<meta content="github.com" name="hostname">
+<meta content="" name="user-login">
+<meta content="github.com" name="expected-hostname">
+<link color="#4078c0" href="https://assets-cdn.github.com/pinned-octocat.svg" rel="mask-icon">
+<link href="https://assets-cdn.github.com/favicon.ico" rel="icon" type="image/x-icon">
+<meta content="363f76f133baa972462193f97279debc8252f96d" name="form-nonce"/>
+<link crossorigin="anonymous" href="src/350888e1495e7af27e01faa9d8291dee.css" media="all" rel="stylesheet"/>
+<link crossorigin="anonymous" href="src/9fae9b7d8f0785d745a43c6465f74ae5.css" media="all" rel="stylesheet"/>
+<meta content="cd9958d45e48e8e3157a320e9c346eaa" http-equiv="x-pjax-version">
+<meta content="pomelo - A fast,scalable,distributed game server framework for Node.js." name="description">
+<meta content="github.com/NetEase/pomelo git https://github.com/NetEase/pomelo.git" name="go-import">
+<meta content="1460597" name="octolytics-dimension-user_id"/><meta content="NetEase" name="octolytics-dimension-user_login"/><meta content="5880912" name="octolytics-dimension-repository_id"/><meta content="NetEase/pomelo" name="octolytics-dimension-repository_nwo"/><meta content="true" name="octolytics-dimension-repository_public"/><meta content="false" name="octolytics-dimension-repository_is_fork"/><meta content="5880912" name="octolytics-dimension-repository_network_root_id"/><meta content="NetEase/pomelo" name="octolytics-dimension-repository_network_root_nwo"/>
+<link href="https://github.com/NetEase/pomelo/commits/master.atom" rel="alternate" title="Recent Commits to pomelo:master" type="application/atom+xml">
+</link></meta></meta></meta></link></link></meta></meta></meta></meta></meta></meta></meta></meta></meta></meta></link></meta></meta></meta></link></link></link></link></link></link></meta></meta></meta></meta></head><body style="padding:0 25px;"><div class="gollum-markdown-content instapaper_body" id="wiki-body">
+<div class="markdown-body">
+<h2>
+<a aria-hidden="true" class="anchor" href="#introduction-of-various-types-of-server" id="user-content-introduction-of-various-types-of-server"><span class="octicon octicon-link"></span></a>Introduction of various types of server</h2>
+<p>LordOfPomelo adopts the distributed design. The service side is composed of a cluster of servers, including: many scene servers, one or more pathfinding servers, chat server, copy/team server, global server, long connection server, etc. </p>
+<p><img alt="backend server" data-canonical-src="http://pomelo.netease.com/resource/documentImage/lordofpomelo/servers.png" src="https://camo.githubusercontent.com/65e8947a811a64612b253fe9411a3b7c96aa0615/687474703a2f2f706f6d656c6f2e6e6574656173652e636f6d2f7265736f757263652f646f63756d656e74496d6167652f6c6f72646f66706f6d656c6f2f736572766572732e706e67"/></p>
+<h3>
+<a aria-hidden="true" class="anchor" href="#connector-server" id="user-content-connector-server"><span class="octicon octicon-link"></span></a>Connector server</h3>
+<p>Different from web server with short connections, the connections between the clients and servers are long connections in online games. The long connection itself needs certain resources to maintain. In LordOfPomelo, we use the websocket protocol to establish connection between the client and the server. The connector server is used to maintain the connections, and transfer messages between the clients and the servers. In LordOfPomelo, the connection state between client and server is maintained by an abstract session. The session is a client's passport on the service end, used to maintain the user's login status, the user's basic information, and the user's connection information. </p>
+<h3>
+<a aria-hidden="true" class="anchor" href="#gate-server" id="user-content-gate-server"><span class="octicon octicon-link"></span></a>Gate server</h3>
+<p>Gate server's main function is to provide a unified websocket entrance to users, and is responsible for user authentication and the distribution of the connector-servers. Unlike the connector-servers, there is only one gate-server in LordOfPomelo. Gate server will expose a fixed websocket interface to all the clients. When a user logs in, the user will connect to the gate-server firstly. After completing the verification, the user will obtain corresponding connector-server's information assigned by the gate-server. Later, the client will disconnect from the gate-server. The client will connect to the corresponding connector-server and obtain the corresponding services. </p>
+<h3>
+<a aria-hidden="true" class="anchor" href="#authentication-server" id="user-content-authentication-server"><span class="octicon octicon-link"></span></a>Authentication server</h3>
+<p>This server is responsible for user registration and authentication. It is the unified entrance of user authentication, providing remote call interface for user authentication to other servers. This server's main purpose is to shield the details of certification authentication, provide unified authentication interface to other servers. </p>
+<h3>
+<a aria-hidden="true" class="anchor" href="#area-server" id="user-content-area-server"><span class="octicon octicon-link"></span></a>Area server</h3>
+<p>In online games, for performance and load considerations, the big game world will always be divided into multiple regions. These different regions are areas. In LordOfPomelo, a game map is corresponding to a game area, and corresponding to a separate area-server. The area is the basic unit to constitute LordOfPomelo game world, it cannot be divided and extended in parallel. Scene-server is responsible for maintaining all entities in the scene, and driving entities' AI and running game logic. </p>
+<p>Area-server is responsible for handling almost all the game logic, at the same time, providing interfaces of area data manipulation to other servers. In LordOfPomelo, although the are itself can not be separated, you can add new area to distribute users, so as to improve the total load of the game-server. And some of the area related services can be extended by running independent services. </p>
+<h3>
+<a aria-hidden="true" class="anchor" href="#pathfinding-server" id="user-content-pathfinding-server"><span class="octicon octicon-link"></span></a>Pathfinding server</h3>
+<p>Pathfinding service is one of the basic game server service. Player movement, monster movement need pathfinding services to support. Its function is calculating an optimal path according to the starting point and end point in the map. Due to the pathfinding is a typical stateless, compute-intensive service, in LordOfPomelo, we separate the pathfinding logic from the area logic. We start a pathfinding server, so as to reduce the pressure of the scene-server. The pathfinding server can be extended in parallel according to necessity. LordOfPomelo uses A* pathfinding algorithm implementation, provides a common computing interface. The pathfinding algorithm is encapsulated as a module. Specific information, see <a href="https://github.com/NetEase/pomelo-pathfinding">pomelo-pathfinding</a>. </p>
+<h3>
+<a aria-hidden="true" class="anchor" href="#chat-server" id="user-content-chat-server"><span class="octicon octicon-link"></span></a>Chat server</h3>
+<p>Chat service is one of the basic services of online game. In LordOfPomelo, chat service is separated from area services. We start an independent chat server. Chat server maintains a list of all online users. Chat server communicates with connector-server by the list, so as to achieve instant communication between players. </p>
+<h3>
+<a aria-hidden="true" class="anchor" href="#team-server" id="user-content-team-server"><span class="octicon octicon-link"></span></a>Team server</h3>
+<p>Team server is one of the back-end server cluster members. It is responsible for managing the whole life cycle of copies and team related operations globally. The specific reference <a href="https://github.com/NetEase/pomelo/wiki/lordofpomelo-0.3%E6%96%B0%E7%89%B9%E6%80%A7">lordofpomelo 0.3 new features</a></p>
+<h2>
+<a aria-hidden="true" class="anchor" href="#area-management-and-introduction" id="user-content-area-management-and-introduction"><span class="octicon octicon-link"></span></a>Area management and introduction</h2>
+<p>LordOfPomelo's area service is responsible for managing all the entities and the game world. But for reasons of safety and consistency, all game logic validation is carried out on the back-end servers, so the area service also includes all game logic judgment and processing. LordOfPomelo's area service is the core of the game service, also the most complicated part of logic. </p>
+<h3>
+<a aria-hidden="true" class="anchor" href="#area-management-in-the-lordofpomelo" id="user-content-area-management-in-the-lordofpomelo"><span class="octicon octicon-link"></span></a>Area management in the LordOfPomelo</h3>
+<p>Each area in LordOfPomelo corresponds to a separate area server. All of the business logic is processed by the area server. A global server is responsible for operations across scenes. Below is the function of a single scene-server: </p>
+<p><img alt="area" data-canonical-src="http://pomelo.netease.com/resource/documentImage/lordofpomelo/area.png" src="https://camo.githubusercontent.com/37dbc81a5e45c7e9d0ae50a01cfd8adcfae65893/687474703a2f2f706f6d656c6f2e6e6574656173652e636f6d2f7265736f757263652f646f63756d656e74496d6167652f6c6f72646f66706f6d656c6f2f617265612e706e67"/></p>
+<h4>
+<a aria-hidden="true" class="anchor" href="#entity-management" id="user-content-entity-management"><span class="octicon octicon-link"></span></a>Entity management</h4>
+<p>All the entities in the game area will be loaded into memory when they enter the area. After that, all the changes of entities will take place in memory directly. The changes will be synchronized to the database by the data timing synchronization module. With this design, all data operations in the scene will be taken in memory directly. It improves the overall performance of LordOfPomelo and avoids the frequent slow IO operations. </p>
+<p>In LordOfPomelo, the code of entity definition is in the "domain/entity" folder. The definition adopts the object-oriented design thought. All entities are inherited from the entity class. Adding or deleting entities operations in the area are performed by the interfaces addEntity/removeEntity. It lightens the burden of management of the objects. </p>
+<h4>
+<a aria-hidden="true" class="anchor" href="#message-service" id="user-content-message-service"><span class="octicon octicon-link"></span></a>Message service</h4>
+<p>In LordOfPomelo, message service can be divided into two types: one-on-one RPC(request&lt;--&gt;response), as well as the one-to-many broadcast message. 
+In LordOfPomelo, since logic verification is performed on the server side. For most of the client's requests, the server will send a direct response. This is just similar to the "request/response" mode in the web. </p>
+<p>In LordOfPomelo, broadcasting is a service based on AOI area notification. After receiving broadcast messages, LordOfPomelo will get the players list who should be informed depending on the type of message by the AOI service. And LordOfPomelo will broadcast messages to the players on the list. This reduces the number of the message significantly.</p>
+<h4>
+<a aria-hidden="true" class="anchor" href="#aoi-service" id="user-content-aoi-service"><span class="octicon octicon-link"></span></a>AOI service</h4>
+<p>The player's field of vision is generally much smaller than the size of the area. For most of the messages in the area, broadcasting them simply to all of the entities in the area is not necessary and can't withstand. When a message needs to be sent, how to determine the players list who should to be informed is the function of the AOI module . </p>
+<p>LordOfPomelo's AOI service is implemented based on the tower model. The basic method is to divide the whole map into a number of same size towers. Each tower is responsible for maintaining a list of objects which contains all objects within the scope of the tower. Then we trigger various AOI events on the basis of the data structure.</p>
+</div>
+</div></body></html>

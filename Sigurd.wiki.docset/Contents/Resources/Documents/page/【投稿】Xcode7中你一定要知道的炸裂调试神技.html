@@ -1,0 +1,40 @@
+<html><head>
+<meta charset="utf-8">
+<title>【投稿】Xcode7中你一定要知道的炸裂调试神技 - CocoaChina_让移动开发更简单</title>
+<meta content="Xcode,Xcode调试iPhone开发,iOS开发,iPad开发,Mac开发,苹果开发中文站,iPhone开发中文站,CocoaChina首页, Mac OS开发, Cocoa介绍,移动互联网,触控科技,Cocoa,Apple,developer,iOS,iPhone,iPad,iMac,iPod Touch,iPhone5,iPhone4S,iPad3,招聘,iPhone程序员,Objective-c,iPhone应用外包,ios6,ios面试,Cocos2d-x,cocos2d,iTunes,App Store,苹果开发" name="keywords"/>
+<meta content="CocoaChina前身是全球成立最早规模最大的苹果开发中文站，现致力为所有移动开发者提供资讯服务、问答服务、代码下载、工具库及人才招聘服务" name="description"/>
+<meta content="IE=edge" http-equiv="X-UA-Compatible">
+<meta content="width=device-width, initial-scale=1" name="viewport">
+<meta content="3300a939a1098c27e94457b75a0bb8c1" name="baidu-tc-cerfication"/>
+<script type="text/javascript">
+        function gotoMobilePage() {
+            var sUserAgent = navigator.userAgent.toLowerCase();
+            var agent_iphone = /iphone/i;
+            var agent_android = /android/i;
+            //var agent_ipad = /ipad/i;
+            var agent_ipod = /ipod/i;
+            var agent_wphone = /windows phone/i;
+            if(agent_iphone.test(sUserAgent) || agent_android.test(sUserAgent) || agent_ipod.test(sUserAgent) || agent_wphone.test(sUserAgent)){
+                var re = /\/\w+\/\d+\/(\d+)\.html/, 
+                    result = re.exec(window.location.pathname);
+                if ( result )
+                {
+                    window.location.href = "http://www.cocoachina.com/cms/wap.php?action=article&id=" + result[1];
+                } else {
+                    window.location.href = "http://m.cocoachina.com/";
+                }
+            }
+        }
+        gotoMobilePage(); 
+    </script>
+<link href="src/a84898c7e6056d1260de02fbe818b59e.css" media="all" rel="stylesheet">
+<link href="src/fc35020aff41205c763aecda3951334a.css" media="all" rel="stylesheet">
+<link href="src/d489a5f4b1e2af09b4874b9d8d44c7a2.css" rel="stylesheet">
+<link href="src/b5f6d4d81287e6040d1271874f705098.css" rel="stylesheet">
+<link href="src/a1959dceb4a4550b81d1eaa35f644180.css" rel="stylesheet"/>
+<script src="src/a769fe53451c6abe32a2409f213c856c.js" type="text/javascript"></script>
+<script src="src/878a1f110abba9b87695d6713e2423f4.js" type="text/javascript"></script>
+<script src="src/78baea099161f999e575b28991cb48cf.js" type="text/javascript"></script>
+</link></link></link></link></meta></meta></meta></head><body><div class="field_body" id="detailbody">
+<p>本文是投稿文章，作者：<a href="http://www.jianshu.com/p/70ed36cf8a98" target="_blank">卓同学</a><br/></p><hr/>Xcode7中苹果为我们增加了两个重要的debug相关功能。了解之后觉得非常实用，介绍给大家。<p></p><p><strong>1.Address Sanitizer: 妈妈再也不用担心 EXC_BAD_ACCESS?</strong></p><p>EXC_BAD_ACCESS一直是很多开发者的噩梦，因为这个错误很不直观，出现后往往要花很长时间才能定位到错误。苹果这次带来了革命性的提升。</p><p>在项目的Scheme中Diagnostics下，选中enable address sanitizer（注意选中后Xcode会重新编译整个项目）。<br/></p><p style="text-align:center"><img alt="001.png" src="src/46ca7af3ebdc83a722f7f71307b3e416.png" style="width: 683px; height: 297px;" title="1444976192647675.png"/></p><p>这样设置后，如果再出现类似的错误会有更详细的错误信息提示，甚至会有内存使用情况的展示。<br/></p><p style="text-align:center"><img alt="002.png" src="src/669b308724ae489b638ebf7cc59a1a40.png" style="width: 659px; height: 448px;" title="1444976189970612.png"/></p><p><strong>2.发布后的crash跟踪，轻松定位崩溃代码</strong></p><p>在升级iOS9后，苹果会询问用户是否同意收集应用崩溃报告。这样在itunes connect的后台统计中就可以看到一些收集到的数据（通常会有相当一部分用户不同意，所以只是部分数据）。</p><p>2.1查看崩溃统计信息</p><p>在connect后台中选择app分析<br/></p><p style="text-align:center"><img alt="225849-ddf9b0c1f838191f.png" src="src/10b8e169613b4bf6cb546718a5a10691.png" style="width: 369px; height: 359px;" title="1444976228103318.png"/></p><p>进入分析页面后，tab中选择“指标”<br/></p><p style="text-align:center"><img alt="225849-22cfb8baf457e02d.png" src="src/a30c919960b85ad54225ba09f3809dc6.png" title="1444976240191562.png"/></p><p>然后在左侧的菜单中选择“崩溃”<br/></p><p style="text-align:center"><img alt="225849-62be4fc80d93df08.png" src="src/b0df989f32cccc90461a426f60ef3f9d.png" title="1444976267485694.png"/></p><p>这样就可以看到苹果收集到的崩溃统计，一定要注意这里只是一部分的数据，举例来说如果你看到的崩溃是10次，但是可能苹果只收集了20%的用户信息。所以你可以大概估计应该是10*5=50次崩溃。</p><p>2.2在Xcode中查看具体崩溃信息</p><p>在xcode中菜单的window下选择organizer,在打开的窗口中选择Crashes，这样Xcode会开始下载相关的崩溃信息到本地中（网络环境不好时可能要等待一些时间）。<br/></p><p style="text-align:center"><img alt="225849-86a09a7ec5a3b34d.png" src="src/9b5ffe2ba57ad79c10e388b7ea53e3bc.png" style="width: 373px; height: 75px;" title="1444976283531918.png"/></p><p style="text-align: center;">organizer窗口</p><p>可以在左侧选择你要查看崩溃信息的发布版本<br/></p><p style="text-align:center"><img alt="003.png" src="src/9516fc093f6810bb5c3573a62b756412.png" style="width: 543px; height: 218px;" title="1444976371601826.png"/></p><p style="text-align:center"><img alt="004.png" src="src/07fb9b78cab68e109def7bdbd8987a5f.png" style="width: 539px; height: 231px;" title="1444976377646578.png"/></p><p><span style="line-height: 1.8;">在崩溃信息这一栏苹果会按照崩溃数量排序，将崩溃数量最多的排在最前。右侧的详细信息会显示是崩溃时的调用堆栈，可以看到是哪行代码导致的崩溃。<br/></span></p><p style="text-align:center"><img alt="225849-42fd0216cff5889e.png" src="src/b86e95fcaee4f550b8abde2f1877ebf4.png" title="1444976525724945.png"/></p><p>选中要解决的崩溃后，可以在窗口右侧选择open in project。<br/></p><p style="text-align:center"><img alt="005.png" src="src/453715899793aa8f58bf9b313aa13c3a.png" title="1444976579322383.png"/></p><p>神奇的事情发生了！！！在打开的项目中，会直接定位到崩溃的那行代码。这大大提高了调试的效率！我已经的迫不及待要和开发安卓的同事分享这份喜悦了。</p><p>注意！注意！</p><p>因为之前的项目发布时没有用xcode7打包，所以猜测符号表可能没有上传到苹果服务器，所以以前的项目可能不能直接显示是哪行代码，而是显示调用时出错的内存地址。不过下个版本你用xcode发布后就可以正常看到啦。</p><p>在解决完这个crash后可以标记为已经解决。有两个地方可以标记。<br/></p><p style="text-align:center"><img alt="007.png" src="src/f09eee650bb41dfaf771b0ebff21ad3f.png" title="1444976650653298.png"/></p><p style="text-align:center"><img alt="008.png" src="src/2b37981cbea8f6dbb2b61c79e305af56.png" style="width: 548px; height: 392px;" title="1444976655633399.png"/></p><p><strong>相关链接：</strong></p><p><a href="https://developer.apple.com/videos/play/wwdc2015-104/" target="_blank">what's new in Xcode</a></p><p>所以没有升级xcode7的同学赶紧升吧。O(∩_∩)O~</p>
+</div></body></html>

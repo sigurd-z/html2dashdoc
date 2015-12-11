@@ -1,0 +1,128 @@
+<html><head prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# object: http://ogp.me/ns/object# article: http://ogp.me/ns/article# profile: http://ogp.me/ns/profile#">
+<meta charset="utf-8">
+<meta content="IE=edge" http-equiv="X-UA-Compatible">
+<meta content="en" http-equiv="Content-Language">
+<meta content="width=1020" name="viewport">
+<title>pomelo性能参考 · NetEase/pomelo Wiki · GitHub</title>
+<link href="/opensearch.xml" rel="search" title="GitHub" type="application/opensearchdescription+xml">
+<link href="src/ad667adaa2cfe8f3caa4a41b7d0a79a1.png" rel="fluid-icon" title="GitHub">
+<link href="src/a10d19ff5f738940a7a5086be334f50b.png" rel="apple-touch-icon" sizes="57x57">
+<link href="src/a10d19ff5f738940a7a5086be334f50b.png" rel="apple-touch-icon" sizes="114x114">
+<link href="src/b4cd268bc600cc14d2cdd557de6da2fb.png" rel="apple-touch-icon" sizes="72x72">
+<link href="src/b4cd268bc600cc14d2cdd557de6da2fb.png" rel="apple-touch-icon" sizes="144x144">
+<meta content="1401488693436528" property="fb:app_id">
+<meta content="@github" name="twitter:site"/><meta content="summary" name="twitter:card"/><meta content="NetEase/pomelo" name="twitter:title"/><meta content="pomelo - A fast,scalable,distributed game server framework for Node.js." name="twitter:description"/><meta content="https://avatars0.githubusercontent.com/u/1460597?v=3&amp;s=400" name="twitter:image:src"/>
+<meta content="GitHub" property="og:site_name"/><meta content="object" property="og:type"/><meta content="https://avatars0.githubusercontent.com/u/1460597?v=3&amp;s=400" property="og:image"/><meta content="NetEase/pomelo" property="og:title"/><meta content="https://github.com/NetEase/pomelo" property="og:url"/><meta content="pomelo - A fast,scalable,distributed game server framework for Node.js." property="og:description"/>
+<meta content="https://api.github.com/_private/browser/stats" name="browser-stats-url">
+<meta content="https://api.github.com/_private/browser/errors" name="browser-errors-url">
+<link href="https://assets-cdn.github.com/" rel="assets">
+<meta content="1000" name="pjax-timeout">
+<meta content="/windows-tile.png" name="msapplication-TileImage">
+<meta content="#ffffff" name="msapplication-TileColor">
+<meta data-pjax-transient="" name="selected-link" value="repo_wiki">
+<meta content="KT5gs8h0wvaagLKAVWq8bbeNwnZZK1r1XQysX3xurLU" name="google-site-verification">
+<meta content="UA-3769691-2" name="google-analytics">
+<meta content="collector.githubapp.com" name="octolytics-host"/><meta content="github" name="octolytics-app-id"/><meta content="CA86616A:2F43:126D74FE:5670C0FA" name="octolytics-dimension-request_id"/>
+<meta content="/&lt;user-name&gt;/&lt;repo-name&gt;/wiki/show" data-pjax-transient="true" name="analytics-location"/>
+<meta content="Rails, view, wiki#show" data-pjax-transient="true" name="analytics-event"/>
+<meta class="js-ga-set" content="Logged Out" name="dimension1">
+<meta content="github.com" name="hostname">
+<meta content="" name="user-login">
+<meta content="github.com" name="expected-hostname">
+<link color="#4078c0" href="https://assets-cdn.github.com/pinned-octocat.svg" rel="mask-icon">
+<link href="https://assets-cdn.github.com/favicon.ico" rel="icon" type="image/x-icon">
+<meta content="7f598f4fd1dae65590525a662a1645a96c13bf1e" name="form-nonce"/>
+<link crossorigin="anonymous" href="src/350888e1495e7af27e01faa9d8291dee.css" media="all" rel="stylesheet"/>
+<link crossorigin="anonymous" href="src/9fae9b7d8f0785d745a43c6465f74ae5.css" media="all" rel="stylesheet"/>
+<meta content="cd9958d45e48e8e3157a320e9c346eaa" http-equiv="x-pjax-version">
+<meta content="pomelo - A fast,scalable,distributed game server framework for Node.js." name="description">
+<meta content="github.com/NetEase/pomelo git https://github.com/NetEase/pomelo.git" name="go-import">
+<meta content="1460597" name="octolytics-dimension-user_id"/><meta content="NetEase" name="octolytics-dimension-user_login"/><meta content="5880912" name="octolytics-dimension-repository_id"/><meta content="NetEase/pomelo" name="octolytics-dimension-repository_nwo"/><meta content="true" name="octolytics-dimension-repository_public"/><meta content="false" name="octolytics-dimension-repository_is_fork"/><meta content="5880912" name="octolytics-dimension-repository_network_root_id"/><meta content="NetEase/pomelo" name="octolytics-dimension-repository_network_root_nwo"/>
+<link href="https://github.com/NetEase/pomelo/commits/master.atom" rel="alternate" title="Recent Commits to pomelo:master" type="application/atom+xml">
+</link></meta></meta></meta></link></link></meta></meta></meta></meta></meta></meta></meta></meta></meta></meta></link></meta></meta></meta></link></link></link></link></link></link></meta></meta></meta></meta></head><body style="padding:0 25px;"><div class="gollum-markdown-content instapaper_body" id="wiki-body">
+<div class="markdown-body">
+<h2>
+<a aria-hidden="true" class="anchor" href="#%E4%BB%8B%E7%BB%8D" id="user-content-介绍"><span class="octicon octicon-link"></span></a>介绍</h2>
+<p>在游戏开发中，服务器的性能与扩展性是开发者心中最关心的问题。其次，根据游戏的不同类型，开发者需要依赖于不同的底层基础服务来完成游戏开发。</p>
+<p>在更深入介绍游戏框架测试的性能数据之前，我们需要先简单定义游戏中场景及环境变量，这将使得游戏开发者能更好的评估我们的游戏框架的性能结果。在大型的多人游戏中，最关键的步骤之一就是在游戏上线前，通过性能测试查找到游戏的性能问题及框架瓶颈，这样也可以促使策划根据游戏的性能与部分限制更好的避开一些设计上的缺陷和热点问题。</p>
+<h2>
+<a aria-hidden="true" class="anchor" href="#%E5%85%B3%E6%B3%A8%E7%9A%84%E9%97%AE%E9%A2%98" id="user-content-关注的问题"><span class="octicon octicon-link"></span></a>关注的问题</h2>
+<ol>
+<li>最大并发用户数，即包括服务器的最大在线处理能力。<br>
+</br></li>
+<li>资源的最大利用率，即为了满足需求的最大并发用户数，需要采用硬件配置或者现存的硬件配置能支持的最大用户数。<br>
+</br></li>
+<li>服务器的可扩展性，即服务器能否方便地通过扩展来支撑更多的在线用户。<br>
+</br></li>
+<li>服务器的响应时间及吞吐率，即用户的最短服务时间。<br>
+</br></li>
+</ol>
+<p>一般来讲，对于上面的这些问题很难提供唯一的答案，还需要其他很多关键的信息，比如：游戏的类型（MMO,SLG等），硬件的参数，消息发送频率，游戏逻辑的复杂性，游戏代码的效率，服务器的适当配置及可使用的网络带宽等。</p>
+<p>在大型的多人在线游戏中，最重要的特性之一就是在线用户的并发数（简称CCU），它表明了服务器多人在线交互时的并发处理能力。并发在线用户的数量随着应用环境上下文改变而不同，即根据应用逻辑的复杂程度而不同。如果不考虑这些关键因素，并发用户数也是没有多大意义的。因此，可靠的性能数据需要提供相关的性能测试参数。</p>
+<h2>
+<a aria-hidden="true" class="anchor" href="#%E6%80%A7%E8%83%BD%E8%80%83%E8%99%91%E5%8F%82%E6%95%B0" id="user-content-性能考虑参数"><span class="octicon octicon-link"></span></a>性能考虑参数</h2>
+<p>CCU：游戏在线用户总数（包括现实和自动机器人）<br>
+消息到达率：每个用户消息的发送频率。<br>
+消息大小：用户发送的消息平均大小。<br>
+带宽使用率：服务器能处理消息的数量及相关开销。<br>
+资源的使用率：即测试服务器使用的资源。<br>
+硬件的环境：即测试所采用的服务器环境，包括CPU类型，内存，系统架构，操作系统类型等。<br>
+测试行为：即测试游戏的相关动作，也就是模拟用户的行为和测试的运行时间。<br/></br></br></br></br></br></br></p>
+<h2>
+<a aria-hidden="true" class="anchor" href="#%E6%80%A7%E8%83%BD%E6%B5%8B%E8%AF%95" id="user-content-性能测试"><span class="octicon octicon-link"></span></a>性能测试</h2>
+<h3>
+<a aria-hidden="true" class="anchor" href="#%E6%B5%8B%E8%AF%95%E7%8E%AF%E5%A2%83%E5%8F%8A%E6%96%B9%E6%B3%95" id="user-content-测试环境及方法"><span class="octicon octicon-link"></span></a>测试环境及方法</h3>
+<p>测试服务器运行在千兆网卡环境，客户端运行在9台debian 6的虚拟机上。游戏服务器的硬件环境如下表格所示</p>
+<table><tbody>
+<tr>
+<th> 操作系统 </th>
+<th> CPU </th>
+<th> 内存 </th>
+<th> 网络 </th>
+</tr>
+<tr>
+<td> Linux version 3.2.0-3-amd64 (Debian 3.2.23-1) (debian-kernel@lists.debian.org) </td>
+<td> CPU核心:24<br> </br></td>
+<td> 48394 MB<br> </br></td>
+<td> Broadcom NetXtreme II BCM5709 1000Base-SX (C0) PCI Express <br> </br></td>
+</tr>
+</tbody></table>
+<p>尽管上面的服务器配置还好，但是我们没有在所有的核上进行测试，只使用了6个进程（4个CONNECTOR,1个AREA，1个MASTER)来运行服务。CONNECTOR的服务器数据可以减少一半。因此也可以在4核的机器上完全运行。</p>
+<p>为了尽可能的模拟测试服务的真实性，首先我们需要对服务器进行简短的预热，然后每次测试运行时间在30分钟左右，重点观察的数据包括服务器的负载，内存增长，连接数据等。</p>
+<p>以下所有的测试数据基于nodejs-v0.8.8,socket.io-v0.9.6的版本，64位的debian操作系统。</p>
+<p>服务器的资源使用都是通过使用TOP及相关工具进行采样。</p>
+<h3>
+<a aria-hidden="true" class="anchor" href="#%E8%AF%B7%E6%B1%82%E5%93%8D%E5%BA%94%E6%B6%88%E6%81%AF" id="user-content-请求响应消息"><span class="octicon octicon-link"></span></a>请求响应消息</h3>
+<p>主要测试服务器的输入与输出网络阻塞性能即网络IO处理能力，客户端与服务端通过Hello-World的模式进行，类似游戏场景的私人聊天或者互不影响的用户操作行为。</p>
+<p>这个测试场景比较简单，服务器没有过多的逻辑处理，基本上属于抛球的方式来运行，客户端按每秒发送80字节大小的消息，基本可以达到25000在线并发用户。</p>
+<p>考虑到还有其他方面的开销，比如用户连接信息等，保守估计，可以支持的在线用户数据大概在20000左右，</p>
+<h3>
+<a aria-hidden="true" class="anchor" href="#%E5%B9%BF%E6%92%AD%E6%B6%88%E6%81%AF" id="user-content-广播消息"><span class="octicon octicon-link"></span></a>广播消息</h3>
+<p>完全模拟正常游戏的逻辑，包括登录，移动，打怪及抢宝等功能。这些操作发生时，每个用户的操作信息都需要发送给其他在线用户，属于广播的类型。
+每个在线的用户会每隔2秒发起一次清求，请求的数据大部分在30～240 byte 大小之间。</p>
+<p><img alt="boardcast result" data-canonical-src="http://pomelo.netease.com/resource/documentImage/perform/boardcast.png" src="https://camo.githubusercontent.com/7e96ab179c6a6a637a87e52183e6c2e1c68ac3be/687474703a2f2f706f6d656c6f2e6e6574656173652e636f6d2f7265736f757263652f646f63756d656e74496d6167652f706572666f726d2f626f617264636173742e706e67"> </img></p>
+<p>服务器运行一段时间后的占用资源如下：</p>
+<p><img alt="boardcast resource percent" data-canonical-src="http://pomelo.netease.com/resource/documentImage/perform/bdtop.png" src="https://camo.githubusercontent.com/29ec25ee690d0f7fbdadc2334b655a56ce959694/687474703a2f2f706f6d656c6f2e6e6574656173652e636f6d2f7265736f757263652f646f63756d656e74496d6167652f706572666f726d2f6264746f702e706e67"> </img></p>
+<h2>
+<a aria-hidden="true" class="anchor" href="#%E7%A8%B3%E5%AE%9A%E6%80%A7" id="user-content-稳定性"><span class="octicon octicon-link"></span></a>稳定性</h2>
+<p>最后，我们对服务器进行了用户为期三天的稳定性能测试，在线用户分别为400，600，800并发操作，运行基本正常。下面是运行400个并发操作的系统整体资源使用情况。</p>
+<h3>
+<a aria-hidden="true" class="anchor" href="#%E7%B3%BB%E7%BB%9Fcpu%E8%BF%90%E8%A1%8C%E6%83%85%E5%86%B5" id="user-content-系统cpu运行情况"><span class="octicon octicon-link"></span></a>系统CPU运行情况</h3>
+<p><img alt="boardcast resource percent" data-canonical-src="http://pomelo.netease.com/resource/documentImage/perform/scpu.png" src="https://camo.githubusercontent.com/0ca19184d4cd5ecbdf880ac0358645cac549df24/687474703a2f2f706f6d656c6f2e6e6574656173652e636f6d2f7265736f757263652f646f63756d656e74496d6167652f706572666f726d2f736370752e706e67"> </img></p>
+<h3>
+<a aria-hidden="true" class="anchor" href="#%E5%8D%95%E4%B8%AAcpu%E7%9A%84%E8%BF%90%E8%A1%8C%E6%95%B0%E6%8D%AE" id="user-content-单个cpu的运行数据"><span class="octicon octicon-link"></span></a>单个CPU的运行数据</h3>
+<p><img alt="single cpu percent" data-canonical-src="http://pomelo.netease.com/resource/documentImage/perform/sscpu.png" src="https://camo.githubusercontent.com/6a951cfcfa9236b73378a24f63bdb21e951ee312/687474703a2f2f706f6d656c6f2e6e6574656173652e636f6d2f7265736f757263652f646f63756d656e74496d6167652f706572666f726d2f73736370752e706e67"> </img></p>
+<h3>
+<a aria-hidden="true" class="anchor" href="#%E7%B3%BB%E7%BB%9F%E5%86%85%E5%AD%98%E8%BF%90%E8%A1%8C%E7%BB%93%E6%9E%9C" id="user-content-系统内存运行结果"><span class="octicon octicon-link"></span></a>系统内存运行结果</h3>
+<p><img alt="smemoryresource percent" data-canonical-src="http://pomelo.netease.com/resource/documentImage/perform/smemory.png" src="https://camo.githubusercontent.com/f0b96d3aed31a7c5a417ff9fd7980808b5bc793e/687474703a2f2f706f6d656c6f2e6e6574656173652e636f6d2f7265736f757263652f646f63756d656e74496d6167652f706572666f726d2f736d656d6f72792e706e67"> </img></p>
+<h3>
+<a aria-hidden="true" class="anchor" href="#%E7%B3%BB%E7%BB%9F%E8%B4%9F%E8%BD%BD%E8%BF%90%E8%A1%8C%E7%BB%93%E6%9E%9C" id="user-content-系统负载运行结果"><span class="octicon octicon-link"></span></a>系统负载运行结果</h3>
+<p><img alt="load percent" data-canonical-src="http://pomelo.netease.com/resource/documentImage/perform/sload.png" src="https://camo.githubusercontent.com/adb30663e2230e672f1c17935f6cb700fd7c2f10/687474703a2f2f706f6d656c6f2e6e6574656173652e636f6d2f7265736f757263652f646f63756d656e74496d6167652f706572666f726d2f736c6f61642e706e67"> </img></p>
+<h3>
+<a aria-hidden="true" class="anchor" href="#%E7%BD%91%E7%BB%9Cio%E8%BF%90%E8%A1%8C%E7%BB%93%E6%9E%9C" id="user-content-网络io运行结果"><span class="octicon octicon-link"></span></a>网络IO运行结果</h3>
+<p><img alt="io percent" data-canonical-src="http://pomelo.netease.com/resource/documentImage/perform/sio.png" src="https://camo.githubusercontent.com/b64cbfe93df391328ddc26b3f83cea9874a1d15c/687474703a2f2f706f6d656c6f2e6e6574656173652e636f6d2f7265736f757263652f646f63756d656e74496d6167652f706572666f726d2f73696f2e706e67"> </img></p>
+<h2>
+<a aria-hidden="true" class="anchor" href="#%E6%80%BB%E7%BB%93" id="user-content-总结"><span class="octicon octicon-link"></span></a>总结</h2>
+<p>尽管随着游戏的功能需求会与我们的测试用例不同，但是抽象后的业务逻辑基本上差不多，本游戏引擎从上面的测试结果完全可以满足大部分的游戏应用。当然，游戏的逻辑操作的性能会影响到整体的性能，从上面引擎的测试数据可以看出，引擎底层的性能表现稳定。用户只需要重点关注本业务的相关性能问题。</p>
+</div>
+</div></body></html>

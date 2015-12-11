@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	
+	>
+<channel>
+	<title>Comments for ArchBoy</title>
+	<atom:link href="http://archboy.org/comments/feed/" rel="self" type="application/rss+xml" />
+	<link>http://archboy.org</link>
+	<description>开源, 架构, 编程 相关的杂文</description>
+	<lastBuildDate>Mon, 14 Dec 2015 02:42:30 +0000</lastBuildDate>
+	<sy:updatePeriod>hourly</sy:updatePeriod>
+	<sy:updateFrequency>1</sy:updateFrequency>
+	<generator>http://wordpress.org/?v=4.3.1</generator>
+	<item>
+		<title>Comment on 使用 ffmpeg 缩放、裁剪、剪辑视频 by u2pgzr</title>
+		<link>http://archboy.org/2014/08/21/ffmpeg-scale-cut-crop-video/#comment-143831</link>
+		<dc:creator><![CDATA[u2pgzr]]></dc:creator>
+		<pubDate>Mon, 14 Dec 2015 02:42:30 +0000</pubDate>
+		<guid isPermaLink="false">http://archboy.org/?p=455#comment-143831</guid>
+		<description><![CDATA[我来看看，欢迎不欢迎？]]></description>
+		<content:encoded><![CDATA[<p>我来看看，欢迎不欢迎？</p>
+]]></content:encoded>
+	</item>
+	<item>
+		<title>Comment on 使用 ffmpeg 缩放、裁剪、剪辑视频 by bateer</title>
+		<link>http://archboy.org/2014/08/21/ffmpeg-scale-cut-crop-video/#comment-142691</link>
+		<dc:creator><![CDATA[bateer]]></dc:creator>
+		<pubDate>Tue, 10 Nov 2015 12:20:52 +0000</pubDate>
+		<guid isPermaLink="false">http://archboy.org/?p=455#comment-142691</guid>
+		<description><![CDATA[从百度点进来的，支持一下]]></description>
+		<content:encoded><![CDATA[<p>从百度点进来的，支持一下</p>
+]]></content:encoded>
+	</item>
+	<item>
+		<title>Comment on Apache Maven 使用 profile 和 filtering 实现多种环境下的资源配置管理 by Java 程序的发布流程 &#124; nosa.me</title>
+		<link>http://archboy.org/2012/05/21/apache-maven-profile-filtering-multiple-build-environments/#comment-129382</link>
+		<dc:creator><![CDATA[Java 程序的发布流程 &#124; nosa.me]]></dc:creator>
+		<pubDate>Sat, 25 Jul 2015 15:35:19 +0000</pubDate>
+		<guid isPermaLink="false">http://archboy.org/?p=202#comment-129382</guid>
+		<description><![CDATA[[&#8230;] http://archboy.org/2012/05/21/apache-maven-profile-filtering-multiple-build-environments/ [&#8230;]]]></description>
+		<content:encoded><![CDATA[<p>[&#8230;] <a href="http://archboy.org/2012/05/21/apache-maven-profile-filtering-multiple-build-environments/" rel="nofollow">http://archboy.org/2012/05/21/apache-maven-profile-filtering-multiple-build-environments/</a> [&#8230;]</p>
+]]></content:encoded>
+	</item>
+	<item>
+		<title>Comment on 使用 GnuPG 实现电子邮件加密和数字签名——PGP 30分钟简明教程(1) by 红白</title>
+		<link>http://archboy.org/2013/04/18/gnupg-pgp-encrypt-decrypt-message-and-email-and-digital-signing-easy-tutorial/#comment-111805</link>
+		<dc:creator><![CDATA[红白]]></dc:creator>
+		<pubDate>Sun, 05 Apr 2015 08:27:59 +0000</pubDate>
+		<guid isPermaLink="false">http://archboy.org/?p=285#comment-111805</guid>
+		<description><![CDATA[唉，我没有成功，总是提示：建立smtp会话时发生错误，请问我该怎么办呢？]]></description>
+		<content:encoded><![CDATA[<p>唉，我没有成功，总是提示：建立smtp会话时发生错误，请问我该怎么办呢？</p>
+]]></content:encoded>
+	</item>
+	<item>
+		<title>Comment on 使用 Netatalk 让 Linux 与 Mac OSX 共享文件，同时为 Mac 搭建 TimeMachine 备份服务器 by 基于Samba实现NAS系统 &#124; 王雷的博客 wanglei&#039;s blog</title>
+		<link>http://archboy.org/2011/08/18/netatalk-afp-linux-share-file-mac-osx-timemachine-backup-server/#comment-106726</link>
+		<dc:creator><![CDATA[基于Samba实现NAS系统 &#124; 王雷的博客 wanglei&#039;s blog]]></dc:creator>
+		<pubDate>Thu, 19 Mar 2015 01:41:38 +0000</pubDate>
+		<guid isPermaLink="false">http://archboy.org/?p=62#comment-106726</guid>
+		<description><![CDATA[[&#8230;] -e 用户名 激活用户。 [Netatalk 配置] /etc/netatalk/AppleVolumes.default 方法参考资料3。 [&#8230;]]]></description>
+		<content:encoded><![CDATA[<p>[&#8230;] -e 用户名 激活用户。 [Netatalk 配置] /etc/netatalk/AppleVolumes.default 方法参考资料3。 [&#8230;]</p>
+]]></content:encoded>
+	</item>
+	<item>
+		<title>Comment on 刷刷存在感 by f</title>
+		<link>http://archboy.org/2014/08/01/just-update-2014-08/#comment-101077</link>
+		<dc:creator><![CDATA[f]]></dc:creator>
+		<pubDate>Wed, 25 Feb 2015 05:33:16 +0000</pubDate>
+		<guid isPermaLink="false">http://archboy.org/?p=432#comment-101077</guid>
+		<description><![CDATA[您倒是更新呀。。。等着看您以前的成果呢]]></description>
+		<content:encoded><![CDATA[<p>您倒是更新呀。。。等着看您以前的成果呢</p>
+]]></content:encoded>
+	</item>
+	<item>
+		<title>Comment on 添加 GoDaddy SSL 证书到你的网站 by [Grails]在Tomcat環境下使用ssl憑證配置 &#124; 璟程資訊</title>
+		<link>http://archboy.org/2012/02/17/add-godaddy-ssl-certificate-to-your-website/#comment-96751</link>
+		<dc:creator><![CDATA[[Grails]在Tomcat環境下使用ssl憑證配置 &#124; 璟程資訊]]></dc:creator>
+		<pubDate>Thu, 29 Jan 2015 14:34:52 +0000</pubDate>
+		<guid isPermaLink="false">http://archboy.org/?p=159#comment-96751</guid>
+		<description><![CDATA[[&#8230;] [筆記] SSL 憑證購買記添加 GoDaddy SSL 证书到你的网站 [&#8230;]]]></description>
+		<content:encoded><![CDATA[<p>[&#8230;] [筆記] SSL 憑證購買記添加 GoDaddy SSL 证书到你的网站 [&#8230;]</p>
+]]></content:encoded>
+	</item>
+	<item>
+		<title>Comment on 使用 OTR 保护你的聊天隐私 by bnw</title>
+		<link>http://archboy.org/2013/07/01/protect-chat-privacy-with-pidgin-otr/#comment-94370</link>
+		<dc:creator><![CDATA[bnw]]></dc:creator>
+		<pubDate>Sat, 17 Jan 2015 06:27:38 +0000</pubDate>
+		<guid isPermaLink="false">http://archboy.org/?p=323#comment-94370</guid>
+		<description><![CDATA[对我来说看起来蛮简单的，但估计对老妈妈们来说还是挺麻烦的。虽然个人比较注重安全，不过需要这种强度加密的和我对话的人还没出现，哈哈。]]></description>
+		<content:encoded><![CDATA[<p>对我来说看起来蛮简单的，但估计对老妈妈们来说还是挺麻烦的。虽然个人比较注重安全，不过需要这种强度加密的和我对话的人还没出现，哈哈。</p>
+]]></content:encoded>
+	</item>
+	<item>
+		<title>Comment on 使用 GnuPG 实现电子邮件加密和数字签名——PGP 30分钟简明教程(1) by thunderbird 能夠使用OPENPGP 和 S/MIME &#124; jakku123</title>
+		<link>http://archboy.org/2013/04/18/gnupg-pgp-encrypt-decrypt-message-and-email-and-digital-signing-easy-tutorial/#comment-93210</link>
+		<dc:creator><![CDATA[thunderbird 能夠使用OPENPGP 和 S/MIME &#124; jakku123]]></dc:creator>
+		<pubDate>Tue, 06 Jan 2015 18:03:06 +0000</pubDate>
+		<guid isPermaLink="false">http://archboy.org/?p=285#comment-93210</guid>
+		<description><![CDATA[[&#8230;] http://archboy.org/2013/04/18/gnupg-pgp-encrypt-decrypt-message-and-email-and-digital-signing-easy-t&#8230; [&#8230;]]]></description>
+		<content:encoded><![CDATA[<p>[&#8230;] <a href="http://archboy.org/2013/04/18/gnupg-pgp-encrypt-decrypt-message-and-email-and-digital-signing-easy-t&#038;#8230" rel="nofollow">http://archboy.org/2013/04/18/gnupg-pgp-encrypt-decrypt-message-and-email-and-digital-signing-easy-t&#038;#8230</a>; [&#8230;]</p>
+]]></content:encoded>
+	</item>
+	<item>
+		<title>Comment on Raspberry Pi 初步体验 by Raspberry Pi 初步体验 &#124; 道客秀</title>
+		<link>http://archboy.org/2012/12/11/raspberry-pi-first-review/#comment-79246</link>
+		<dc:creator><![CDATA[Raspberry Pi 初步体验 &#124; 道客秀]]></dc:creator>
+		<pubDate>Wed, 10 Dec 2014 16:39:20 +0000</pubDate>
+		<guid isPermaLink="false">http://archboy.org/?p=257#comment-79246</guid>
+		<description><![CDATA[[&#8230;] 原文: ArchBoy, post Raspberry Pi 初步体验 [&#8230;]]]></description>
+		<content:encoded><![CDATA[<p>[&#8230;] 原文: ArchBoy, post Raspberry Pi 初步体验 [&#8230;]</p>
+]]></content:encoded>
+	</item>
+</channel>
+</rss>

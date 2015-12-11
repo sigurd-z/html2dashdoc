@@ -1,0 +1,2141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-stylesheet type="text/css" href="https://dn-linuxcn.qbox.me/static/css/rss.css" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title><![CDATA[Linux.中国 - 开源社区]]></title>
+    <link>http://linux.cn/</link>
+    <description><![CDATA[Linux.中国 - 开源社区]]></description>
+    <lastBuildDate>Mon, 14 Dec 2015 12:36:59 +0800</lastBuildDate>
+    <pubDate>Mon, 14 Dec 2015 12:36:59 +0800</pubDate>
+    <language>zh-CN</language>
+    <image>
+      <link>http://linux.cn/</link>
+      <url>https://dn-linuxcn.qbox.me/static/image/common/linuxcn_logo_64.gif</url>
+      <title><![CDATA[Linux.中国 - 开源社区]]></title>
+    </image>
+    <atom:link href="https://linux.cn/rss.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title><![CDATA[如何使用 pv 命令监控 linux 命令的执行进度]]></title>
+      <link>http://linux.cn/article-6734-1.html?utm_source=rss&amp;utm_medium=rss</link>
+      <guid>http://linux.cn/article-6734-1.html?utm_source=rss&amp;utm_medium=rss</guid>
+      <description><![CDATA[<p><img src="https://dn-linuxcn.qbox.me/data/attachment/album/201512/14/013807o7luu0pru0hjqtql.jpg" alt="" /></p>
+<p>如果你是一个 linux 系统管理员，那么毫无疑问你必须花费大量的工作时间在命令行上：安装和卸载软件，监视系统状态，复制、移动、删除文件，查错，等等。很多时候都是你输入一个命令，然后等待很长时间直到执行完成。也有的时候你执行的命令挂起了，而你只能猜测命令执行的实际情况。</p>
+<p>通常 linux 命令不提供和进度相关的信息，而这些信息特别重要，尤其当你只有有限的时间时。然而这并不意味着你是无助的&mdash;&mdash;现在有一个命令，pv，它会显示当前在命令行执行的命令的进度信息。在本文我们会讨论它并用几个简单的例子说明其特性。</p>
+<h3 id="toc_1">PV 命令</h3>
+<p><a href="http://linux.die.net/man/1/pv">PV</a> 由Andrew Wood 开发，是 Pipe Viewer 的简称，意思是通过管道显示数据处理进度的信息。这些信息包括已经耗费的时间，完成的百分比（通过进度条显示），当前的速度，全部传输的数据，以及估计剩余的时间。</p>
+<blockquote>
+<p>"要使用 PV，需要配合合适的选项，把它放置在两个进程之间的管道。命令的标准输入将会通过标准输出传进来的，而进度会被输出到标准错误输出。&rdquo;</p>
+</blockquote>
+<p>上述解释来自该命令的帮助页。</p>
+<h3 id="toc_2">下载和安装</h3>
+<p>Debian 系的操作系统，如 Ubuntu，可以简单的使用下面的命令安装 PV：</p>
+<pre class="prettyprint linenums"><code>sudo apt-get install pv
+</code></pre>
+<p>如果你使用了其他发行版本，你可以使用各自的包管理软件在你的系统上安装 PV。一旦 PV 安装好了你就可以在各种场合使用它（详见下文）。需要注意的是下面所有例子都使用的是 pv 1.2.0。</p>
+<h3 id="toc_3">特性和用法</h3>
+<p>我们（在 linux 上使用命令行的用户）的大多数使用场景都会用到的命令是从一个 USB 驱动器拷贝电影文件到你的电脑。如果你使用 cp 来完成上面的任务，你会什么情况都不清楚，直到整个复制过程结束或者出错。</p>
+<p>然而pv 命令在这种情景下很有帮助。比如：</p>
+<pre class="prettyprint linenums"><code>pv /media/himanshu/1AC2-A8E3/fNf.mkv &gt; ./Desktop/fnf.mkv
+</code></pre>
+<p>输出如下：</p>
+<p><img src="https://dn-linuxcn.qbox.me/data/attachment/album/201512/14/013807sr26nsfrrju37s6o.png" alt="pv-copy" /></p>
+<p>所以，如你所见，这个命令显示了很多和操作有关的有用信息，包括已经传输了的数据量，花费的时间，传输速率，进度条，进度的百分比，以及剩余的时间。</p>
+<p><code>pv</code> 命令提供了多种显示选项开关。比如，你可以使用<code>-p</code> 来显示百分比，<code>-t</code> 来显示时间，<code>-r</code> 表示传输速率，<code>-e</code> 代表eta（LCTT 译注：估计剩余的时间）。好事是你不必记住某一个选项，因为默认这几个选项都是启用的。但是，如果你只要其中某一个信息，那么可以通过控制这几个选项来完成任务。</p>
+<p>这里还有一个<code>-n</code> 选项来允许 pv 命令显示整数百分比，在标准错误输出上每行显示一个数字，用来替代通常的可视进度条。下面是一个例子：</p>
+<pre class="prettyprint linenums"><code>pv -n /media/himanshu/1AC2-A8E3/fNf.mkv &gt; ./Desktop/fnf.mkv
+</code></pre>
+<p><img src="https://dn-linuxcn.qbox.me/data/attachment/album/201512/14/013807vpmnllqlllllb7bt.png" alt="pv-numeric" /></p>
+<p>这个特殊的选项非常合适某些情境下的需求，如你想把用管道把输出传给<a href="http://linux.die.net/man/1/dialog">dialog</a> 命令。</p>
+<p>接下来还有一个命令行选项，<code>-L</code> 可以让你修改 pv 命令的传输速率。举个例子，使用 -L 选项来限制传输速率为2MB/s。</p>
+<pre class="prettyprint linenums"><code>pv -L 2m /media/himanshu/1AC2-A8E3/fNf.mkv &gt; ./Desktop/fnf.mkv
+</code></pre>
+<p><img src="https://dn-linuxcn.qbox.me/data/attachment/album/201512/14/013808o4xnu44qx4bxx8b4.png" alt="pv-ratelimit" /></p>
+<p>如上图所见，数据传输速度按照我们的要求被限制了。</p>
+<p>另一个pv 可以帮上忙的情景是压缩文件。这里有一个例子可以向你解释如何与压缩软件Gzip 一起工作。</p>
+<pre class="prettyprint linenums"><code>pv /media/himanshu/1AC2-A8E3/fnf.mkv | gzip &gt; ./Desktop/fnf.log.gz
+</code></pre>
+<p><img src="https://dn-linuxcn.qbox.me/data/attachment/album/201512/14/013808lz5t05uzutz5qqle.png" alt="pv-gzip" /></p>
+<h3 id="toc_4">结论</h3>
+<p>如上所述，pv 是一个非常有用的小工具，它可以在命令没有按照预期执行的情况下帮你节省你宝贵的时间。而且这些显示的信息还可以用在 shell 脚本里。我强烈的推荐你使用这个命令，它值得你一试。</p>
+<hr />
+<p>via: <a href="https://www.maketecheasier.com/monitor-progress-linux-command-line-operation/">https://www.maketecheasier.com/monitor-progress-linux-command-line-operation/</a></p>
+<p>作者：<a href="https://www.maketecheasier.com/author/himanshu/">Himanshu Arora</a> 译者：<a href="https://github.com/oska874">ezio</a> 校对：<a href="https://github.com/wxy">wxy</a></p>
+<p>本文由 <a href="https://github.com/LCTT/TranslateProject">LCTT</a> 原创编译，<a href="https://linux.cn/">Linux中国</a> 荣誉推出</p>]]></description>
+      <author><![CDATA[linux@linux.cn (linux)]]></author>
+      <pubDate>Mon, 14 Dec 2015 10:29:00 +0800</pubDate>
+      <comments>http://linux.cn/article-6734-1.html?utm_source=rss&amp;utm_medium=rss</comments>
+    </item>
+    <item>
+      <title><![CDATA[再论 golang 环境配置建议]]></title>
+      <link>http://linux.cn/article-6731-1.html?utm_source=rss&amp;utm_medium=rss</link>
+      <guid>http://linux.cn/article-6731-1.html?utm_source=rss&amp;utm_medium=rss</guid>
+      <description><![CDATA[<h3>摘要</h3>
+<p><img src="https://dn-linuxcn.qbox.me/data/attachment/album/201512/13/204120wcppiiviccki8rvk.jpg" alt="" /></p>
+<p><a href="https://linux.cn/article-4847-1.html">在之前的实践中</a>满足开发环境所有特征的情况下进行了大量方式上的升级。经过<code>8</code>次的版本升级，调整，爬坑，终于觉得这次版本升级足够有意义替代之前版本的建议。</p>
+<p>我总觉得花一少部分的时间调整开发工具让自己的工作效率更高是非常值得的。</p>
+<p>本次祭出大招<code>Docker</code>来作为项目开发的主要脚手架。</p>
+<p>并且我现在认为一个好的开发工具应该满足：</p>
+<ol>
+<li>项目管理</li>
+<li>快速文件跳转</li>
+<li>自动语法检查</li>
+<li>自动补全</li>
+<li>查找定义</li>
+<li>启动速度快</li>
+<li>如果自己有需求的话插件可以随便写</li>
+<li>灵活的运行配置</li>
+</ol>
+<p>但是根据10个月的开发实践，除了上面这些之外还需要兼顾：</p>
+<ol>
+<li>国内的网络环境</li>
+<li>升级方便</li>
+<li>随时随地快速部署自己的开发环境</li>
+<li>能在线上服务器进行开发，随时随地升级版本修改代码。</li>
+</ol>
+<h3>Docker Registry</h3>
+<pre class="prettyprint linenums"><code>docker pull index.tenxcloud.com/philo/golangdev:1.2.1
+
+docker pull lijianying10/golangdev:1.2.1</code></pre>
+<p>如果你还不会docker请参考<a href="http://www.philo.top/2015/04/01/docker-super-start/">这里</a>。</p>
+<h3>Dockerfile</h3>
+<p><a href="https://github.com/lijianying10/FixLinux/blob/master/golangdev/Dockerfile">点击这里查看Dockerfile</a>。</p>
+<h3>升级日志</h3>
+<h3>1.2.1</h3>
+<ul>
+<li>修复vim下escape有时间延迟（解决方法见.vimrc最后一行）</li>
+<li>Ctrl+s保存的时候添加代码格式检查（其实就是追加命令 :GoMetaLinter）</li>
+<li>更新golang到1.5.2 based on Debian 8</li>
+</ul>
+<h3>特征解释</h3>
+<h4>兼顾国内网络情况</h4>
+<ol>
+<li>使用Dockerfile从国外VPS构建，然后推送到时速云备用。这种构建方式适合调试</li>
+<li><strong>推荐！</strong>如果您在国外没有VPS推荐使用时速云TCE来构建，从香港节点自动化构建随时能看到日志。<a href="http://doc.tenxcloud.com/doc/v1/ci/client-download.html">参考文档</a>。</li>
+</ol>
+<h4>升级方便</h4>
+<ol>
+<li>直接修改Dockerfile完成升级，调整From就可以调整底层系统使用。</li>
+<li>可根据您的需要随时定制自己的版本。非常方便</li>
+</ol>
+<h4>随时能够快速部署</h4>
+<ol>
+<li>Docker启动速度非常快</li>
+<li>如果您没有Image在内网该Image也只有1GB大小可非常快速的传输到您的电脑。</li>
+<li>国内准备好了加速源，详细查看Docker Registry部分。时速云确实挺快的。</li>
+<li>如果您的工作站安装的是CoreOS or Rancher这种的Docker Linux 不但安装快，部署开发环境也是一瞬间完成。</li>
+</ol>
+<h4>能够在线上服务器进行线上代码调整</h4>
+<ol>
+<li>只要部署到线上服务器直接就可以使用。</li>
+<li>老板再也不用担心我的集成新功能速度太慢了。</li>
+</ol>
+<h3>使用方法</h3>
+<h4>文件跳转(<a href="https://wincent.com/products/command-t">Command-T</a>)</h4>
+<p>快捷键：&nbsp;<code>&lt;leader&gt;t</code></p>
+<p>注意：<code>&lt;leader&gt;</code>在我的vim配置里面是反斜杠,插件快捷键参考官方文档</p>
+<p><img src="http://7viiaq.com1.z0.glb.clouddn.com/QQ20151213-0@2x.png" alt="" /></p>
+<h4>项目管理(NERD_tree)</h4>
+<p>快捷键：&nbsp;<code>M-u</code></p>
+<p>注意： 插件快捷键参考官方文档</p>
+<p><img src="http://7viiaq.com1.z0.glb.clouddn.com/QQ20151213-1@2x.png" alt="" /></p>
+<h4>自动语法检查</h4>
+<p>触发： 每次保存文件</p>
+<p>命令：&nbsp;</p>
+<pre class="prettyprint linenums"><code>:GoMetaLinter, which invokes all possible linters (golint, vet, errcheck, deadcode, etc..) and shows the warnings/errors</code></pre>
+<p><img src="http://7viiaq.com1.z0.glb.clouddn.com/QQ20151213-2@2x.png" alt="" /></p>
+<p>例子中：Struct默认要求有注释，不然就会报警。对于常用的拼写比如说ID有严格的检查需要符合大众的拼写习惯。</p>
+<p>其他正确性检查这里不再赘述。</p>
+<h4>自动补全</h4>
+<p><img src="http://7viiaq.com1.z0.glb.clouddn.com/QQ20151213-3@2x.png" alt="" /></p>
+<p>注意：在最上面会显示API文档,想关闭文档快捷键：<code>M-c</code></p>
+<h4>查找定义位置</h4>
+<p>快捷键：<code>M-n</code></p>
+<h4>Outline 快速跳转(Tagbar)</h4>
+<p>快捷键：<code>M-p</code></p>
+<p><img src="http://7viiaq.com1.z0.glb.clouddn.com/QQ20151213-4@2x.png" alt="" /></p>
+<h4>快速关闭文件</h4>
+<p>快捷键：<code>C-c</code></p>
+<h4>文件标签切换</h4>
+<p>快捷键：&nbsp;<code>M-i</code>&nbsp;切换到上一个 快捷键：&nbsp;<code>M-o</code>&nbsp;切换到下一个</p>
+<h4>保存文件</h4>
+<p>快捷键&nbsp;<code>C-s</code></p>
+<p>注意： Stop tty已经被我关闭，不必担心tty被锁。</p>
+<h3>总结</h3>
+<p>在上面我总结的全部都是我加的快捷键用起来比较舒服的。如果您需要自己修改快捷键请fork<a href="https://github.com/lijianying10/FixLinux/blob/master/dotfile/.vimrc">我的github REPO</a>。</p>
+<p>如果您有任何改进意见请回复留言给我发Email。先谢过。</p>
+<p>vim还有很多默认的快捷键这里就不再多说，最好的学习方法是想到自己有什么习惯或者需要快捷键支持去google找找。</p>]]></description>
+      <author><![CDATA[linux@linux.cn (linux)]]></author>
+      <pubDate>Mon, 14 Dec 2015 09:30:00 +0800</pubDate>
+      <comments>http://linux.cn/article-6731-1.html?utm_source=rss&amp;utm_medium=rss</comments>
+    </item>
+    <item>
+      <title><![CDATA[使用 netcat [nc] 命令对 Linux 和 Unix 进行端口扫描]]></title>
+      <link>http://linux.cn/article-6733-1.html?utm_source=rss&amp;utm_medium=rss</link>
+      <guid>http://linux.cn/article-6733-1.html?utm_source=rss&amp;utm_medium=rss</guid>
+      <description><![CDATA[<p>我如何在自己的服务器上找出哪些端口是开放的？如何使用 nc 命令进行端口扫描来替换 <a href="https://linux.cn/article-2561-1.html">Linux 或类 Unix 中的 nmap 命令</a>？</p>
+<p>nmap (&ldquo;Network Mapper&rdquo;)是一个用于网络探测和安全审核的开源工具。如果 nmap 没有安装或者你不希望使用 nmap，那你可以用 netcat/nc 命令进行端口扫描。它对于查看目标计算机上哪些端口是开放的或者运行着服务是非常有用的。你也可以使用 <a href="https://linux.cn/article-2561-1.html">nmap 命令进行端口扫描</a> 。</p>
+<p><img src="https://dn-linuxcn.qbox.me/data/attachment/album/201512/14/011659z6zs4uu5s5jd4s5j.gif" alt="" /></p>
+<h3 id="toc_1">如何使用 nc 来扫描 Linux，UNIX 和 Windows 服务器的端口呢？</h3>
+<p>如果未安装 nmap，试试 nc/netcat 命令，如下所示。-z 参数用来告诉 nc 报告开放的端口，而不是启动连接。在 nc 命令中使用 -z 参数时，你需要在主机名/ip 后面限定端口的范围和加速其运行：</p>
+<pre class="prettyprint linenums"><code>### 语法 ###
+### nc -z -v {host-name-here} {port-range-here}
+nc -z -v host-name-here ssh
+nc -z -v host-name-here 22
+nc -w 1 -z -v server-name-here port-Number-her
+
+### 扫描 1 to 1023 端口 ###
+nc -zv vip-1.vsnl.nixcraft.in 1-1023
+</code></pre>
+<p>输出示例:</p>
+<pre class="prettyprint linenums"><code>Connection to localhost 25 port [tcp/smtp] succeeded!
+Connection to vip-1.vsnl.nixcraft.in 25 port [tcp/smtp] succeeded!
+Connection to vip-1.vsnl.nixcraft.in 80 port [tcp/http] succeeded!
+Connection to vip-1.vsnl.nixcraft.in 143 port [tcp/imap] succeeded!
+Connection to vip-1.vsnl.nixcraft.in 199 port [tcp/smux] succeeded!
+Connection to vip-1.vsnl.nixcraft.in 783 port [tcp/*] succeeded!
+Connection to vip-1.vsnl.nixcraft.in 904 port [tcp/vmware-authd] succeeded!
+Connection to vip-1.vsnl.nixcraft.in 993 port [tcp/imaps] succeeded!
+</code></pre>
+<p>你也可以扫描单个端口:</p>
+<pre class="prettyprint linenums"><code>nc -zv v.txvip1 443
+nc -zv v.txvip1 80
+nc -zv v.txvip1 22
+nc -zv v.txvip1 21
+nc -zv v.txvip1 smtp
+nc -zvn v.txvip1 ftp
+
+### 使用1秒的超时值来更快的扫描 ###
+netcat -v -z -n -w 1 v.txvip1 1-1023
+</code></pre>
+<p>输出示例:</p>
+<p><img src="https://dn-linuxcn.qbox.me/data/attachment/album/201512/14/011708lzqitmftbsqutf3g.jpg" alt="Fig.01: Linux/Unix: Use Netcat to Establish and Test TCP and UDP Connections on a Server" /></p>
+<p><em>图01：Linux/Unix：使用 Netcat 来测试 TCP 和 UDP 与服务器建立连接</em></p>
+<ol>
+<li>-z : 端口扫描模式即零 I/O 模式。</li>
+<li>-v : 显示详细信息 [使用 -vv 来输出更详细的信息]。</li>
+<li>-n : 使用纯数字 IP 地址，即不用 DNS 来解析 IP 地址。</li>
+<li>-w 1 : 设置超时值设置为1。</li>
+</ol>
+<p>更多例子:</p>
+<pre class="prettyprint linenums"><code>$ netcat -z -vv www.cyberciti.biz http
+www.cyberciti.biz [75.126.153.206] 80 (http) open
+ sent 0, rcvd 0
+$ netcat -z -vv google.com https
+DNS fwd/rev mismatch: google.com != maa03s16-in-f2.1e100.net
+DNS fwd/rev mismatch: google.com != maa03s16-in-f6.1e100.net
+DNS fwd/rev mismatch: google.com != maa03s16-in-f5.1e100.net
+DNS fwd/rev mismatch: google.com != maa03s16-in-f3.1e100.net
+DNS fwd/rev mismatch: google.com != maa03s16-in-f8.1e100.net
+DNS fwd/rev mismatch: google.com != maa03s16-in-f0.1e100.net
+DNS fwd/rev mismatch: google.com != maa03s16-in-f7.1e100.net
+DNS fwd/rev mismatch: google.com != maa03s16-in-f4.1e100.net
+google.com [74.125.236.162] 443 (https) open
+ sent 0, rcvd 0
+$ netcat -v -z -n -w 1 192.168.1.254 1-1023
+(UNKNOWN) [192.168.1.254] 989 (ftps-data) open
+(UNKNOWN) [192.168.1.254] 443 (https) open
+(UNKNOWN) [192.168.1.254] 53 (domain) open
+</code></pre>
+<p>也可以看看 ：</p>
+<ul>
+<li><a href="https://linux.cn/article-2561-1.html">使用 nmap 命令扫描网络中开放的端口</a>。</li>
+<li>手册页 - <a href="http://www.manpager.com/linux/man1/nc.1.html">nc(1)</a>, <a href="http://www.manpager.com/linux/man1/nmap.1.html">nmap(1)</a></li>
+</ul>
+<hr />
+<p>via: <a href="http://www.cyberciti.biz/faq/linux-port-scanning/">http://www.cyberciti.biz/faq/linux-port-scanning/</a></p>
+<p>作者：Vivek Gite 译者：<a href="https://github.com/strugglingyouth">strugglingyouth</a> 校对：<a href="https://github.com/wxy">wxy</a></p>
+<p>本文由 <a href="https://github.com/LCTT/TranslateProject">LCTT</a> 原创编译，<a href="https://linux.cn/">Linux中国</a> 荣誉推出</p>]]></description>
+      <author><![CDATA[linux@linux.cn (linux)]]></author>
+      <pubDate>Mon, 14 Dec 2015 08:14:00 +0800</pubDate>
+      <comments>http://linux.cn/article-6733-1.html?utm_source=rss&amp;utm_medium=rss</comments>
+    </item>
+    <item>
+      <title><![CDATA[PHP 7 已经发布，你会选择PHP 7吗？]]></title>
+      <link>http://linux.cn/article-6730-1.html?utm_source=rss&amp;utm_medium=rss</link>
+      <guid>http://linux.cn/article-6730-1.html?utm_source=rss&amp;utm_medium=rss</guid>
+      <description><![CDATA[<h3>PHP&nbsp;7简介</h3>
+<p><img src="https://dn-linuxcn.qbox.me/data/attachment/album/201512/13/183834m29506k0k2n5ngyn.jpg" alt="" /></p>
+<p>PHP&nbsp;7&nbsp;是11年来首次发布的PHP主版本，PHP上一次发布主版本是在2004年&nbsp;，当时发布的是PHP&nbsp;5.0.0。</p>
+<p>与这次PHP核心开发人员沉睡已久不同，PHP&nbsp;6&nbsp;曾立志要让PHP支持Unicode字符串。然而开发停滞不前，PHP&nbsp;6计划在2010年被取消了。</p>
+<p>自那以后虽然也有一些带着重要新特性的PHP版本发布，比如PHP&nbsp;5.4，但没有哪个真正称得上主版本。</p>
+<p>直到2010年Facebook为&nbsp;HipHop编译器揭开面纱。这款编译器可以将PHP转为C++代码，再转为本地机器码，用C++编译器编译。尽管这个想法很好，也改进了PHP的性能，但不实用，因为本地机器码编译PHP脚本耗时太久。</p>
+<p>之后Facebook换了另一种方法，他们开发了HHVM（HipHop&nbsp;Virtual&nbsp;Machine），通过JIT&nbsp;engine（Just&nbsp;In&nbsp;Time）将PHP代码转换为本地机器码。这使得所耗时间大大减少并且性能得到显著改进。</p>
+<p>很显然，Facebook不满意PHP的特性，于是在2014年启动Hack项目，它源于PHP语言却有着很多PHP没有的特性，比如对所有数据类型都进行更严格的类型检查，以及支持内置异步编程。</p>
+<p>不久后Zend的Dmitry&nbsp;Stogov&nbsp;发布了PHP的一个名为PHPNG的分支。</p>
+<h3>PHP&nbsp;7&nbsp;的主要新特性</h3>
+<p>PHPNG的初衷是做调查，调查JIT&nbsp;engine的引入将对基于PHP版本的Zend&nbsp;Engine有何影响。然而，随着进一步的研究他发现，其他方面的改进能让PHP代码运行得更快。</p>
+<p>PHPNG是PHP&nbsp;7的基础，起名叫PHPNG是为了避免与被取消的PHP&nbsp;6混淆。</p>
+<p>PHP7新增的其他功能包括：标量值的严格类型、匿名类、嵌套类、编译PHP引擎的可能性以及特定程序优化，好比Wordpress使用了Performance&nbsp;Guided&nbsp;Optimizations(PGO)。</p>
+<p>PHP&nbsp;7.0本来计划在10月发布，但是因为一些严重的bug所以推迟到了十二月。</p>
+<h3>PHP7&nbsp;接受程度调查结果分析</h3>
+<p>PHP&nbsp;7&nbsp;的发布是PHP世界近年来最令人激动的事之一，因为对其功能有太多的期待，比如上文提到的那些。</p>
+<p>许多开发者迫不及待地使用PHP7，但不是每个人都能正确地使用它。接下来这个调查就是用于评估PHP程序员是否愿意采用PHP&nbsp;7。</p>
+<p>调查主要围绕三个问题：</p>
+<ol>
+<li>你是否打算在你的生产中使用PHP&nbsp;7？</li>
+<li>你是否打算在你的开发环境中使用PHP&nbsp;7？</li>
+<li>你生产中所使用的最新版的PHP是哪个？</li>
+</ol>
+<p>526位开发者参与该调查，所以以下结果应该能代表许多PHP程序员的真实反应：</p>
+<h4>1.&nbsp;你是否打算在你的生产中使用PHP&nbsp;7？&nbsp;</h4>
+<p>&nbsp;</p>
+<table style="width: 500px;" border="1" cellpadding="4">
+<tbody>
+<tr>
+<td>
+<p><strong>是的，从7.0.0的第一个稳定版上线之前我就开始用了。</strong></p>
+</td>
+<td>
+<p><strong>21</strong></p>
+</td>
+<td>
+<p><strong>4%</strong></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><strong>是的，我打算在官方7.0.0版本发布后使用。</strong></p>
+</td>
+<td>
+<p><strong>104</strong></p>
+</td>
+<td>
+<p><strong>19.8%</strong></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><strong>是的，我将会在官方发布几周后使用。</strong></p>
+</td>
+<td>
+<p><strong>196</strong></p>
+</td>
+<td>
+<p><strong>37.3%</strong></p>
+</td>
+</tr>
+<tr>
+<td>
+<p>不一定，取决于我的客户。</p>
+</td>
+<td>
+<p>44</p>
+</td>
+<td>
+<p>8.4%</p>
+</td>
+</tr>
+<tr>
+<td>
+<p>不会，不会很快就用，因为迁移代码需要太多时间。</p>
+</td>
+<td>
+<p>58</p>
+</td>
+<td>
+<p>11%</p>
+</td>
+</tr>
+<tr>
+<td>
+<p>不会，我只打算在将来的项目中使用。</p>
+</td>
+<td>
+<p>64</p>
+</td>
+<td>
+<p>12.2%</p>
+</td>
+</tr>
+<tr>
+<td>
+<p>不会，除非我的公司强迫我使用，并且不再提供旧的版本。</p>
+</td>
+<td>
+<p>20</p>
+</td>
+<td>
+<p>3.8%</p>
+</td>
+</tr>
+<tr>
+<td>
+<p>其他</p>
+</td>
+<td>
+<p>19</p>
+</td>
+<td>
+<p>3.6%</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p>&nbsp;</p>
+<h4>2.&nbsp;你是否打算在你的开发环境中使用PHP&nbsp;7？&nbsp;</h4>
+<p>&nbsp;</p>
+<table style="width: 500px;" border="1" cellpadding="4">
+<tbody>
+<tr>
+<td>
+<p><strong>是的，我一直在使用着。</strong></p>
+</td>
+<td>
+<p><strong>41</strong></p>
+</td>
+<td>
+<p><strong>7.8%</strong></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><strong>是的，为了测试它的新特性，我试了几次。</strong></p>
+</td>
+<td>
+<p><strong>60</strong></p>
+</td>
+<td>
+<p><strong>11.4%</strong></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><strong>是的，只要官方7.0.0版本发布我就会开始使用。</strong></p>
+</td>
+<td>
+<p><strong>218</strong></p>
+</td>
+<td>
+<p><strong>41.4%</strong></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><strong>是的，我将会等待几周至几个月，直到我有更多的时间去检查它</strong></p>
+</td>
+<td>
+<p><strong>112</strong></p>
+</td>
+<td>
+<p><strong>21.3%</strong></p>
+</td>
+</tr>
+<tr>
+<td>
+<p>这取决于我的客户</p>
+</td>
+<td>
+<p>11</p>
+</td>
+<td>
+<p>2.1%</p>
+</td>
+</tr>
+<tr>
+<td>
+<p>不会，现在不会使用，我只计划在将来的项目中使用</p>
+</td>
+<td>
+<p>62</p>
+</td>
+<td>
+<p>11.8%</p>
+</td>
+</tr>
+<tr>
+<td>
+<p>不会，除非我的公司强迫我使用它，并且我需要修改我的代码</p>
+</td>
+<td>
+<p>13</p>
+</td>
+<td>
+<p>2.5%</p>
+</td>
+</tr>
+<tr>
+<td>
+<p>其他</p>
+</td>
+<td>
+<p>9</p>
+</td>
+<td>
+<p>2.7%</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p>&nbsp;</p>
+<h4>3.&nbsp;你生产中所使用的最新版PHP是哪个？&nbsp;</h4>
+<p>&nbsp;</p>
+<table style="width: 500px;" border="1" cellpadding="4">
+<tbody>
+<tr>
+<td>
+<p><strong>PHP&nbsp;7.0</strong></p>
+</td>
+<td>
+<p><strong>10</strong></p>
+</td>
+<td>
+<p><strong>1.9%</strong></p>
+</td>
+</tr>
+<tr>
+<td>
+<p>PHP&nbsp;5.6</p>
+</td>
+<td>
+<p>299</p>
+</td>
+<td>
+<p>56.8%</p>
+</td>
+</tr>
+<tr>
+<td>
+<p>PHP&nbsp;5.5</p>
+</td>
+<td>
+<p>111</p>
+</td>
+<td>
+<p>21.1%</p>
+</td>
+</tr>
+<tr>
+<td>
+<p>PHP&nbsp;5.4</p>
+</td>
+<td>
+<p>59</p>
+</td>
+<td>
+<p>11.2%</p>
+</td>
+</tr>
+<tr>
+<td>
+<p>PHP&nbsp;5.3</p>
+</td>
+<td>
+<p>38</p>
+</td>
+<td>
+<p>7.2%</p>
+</td>
+</tr>
+<tr>
+<td>
+<p>PHP&nbsp;5.2</p>
+</td>
+<td>
+<p>5</p>
+</td>
+<td>
+<p>1%</p>
+</td>
+</tr>
+<tr>
+<td>
+<p>PHP&nbsp;5.1</p>
+</td>
+<td>
+<p>0</p>
+</td>
+<td>
+<p>0%</p>
+</td>
+</tr>
+<tr>
+<td>
+<p>PHP&nbsp;5.0</p>
+</td>
+<td>
+<p>1</p>
+</td>
+<td>
+<p>0.2%</p>
+</td>
+</tr>
+<tr>
+<td>
+<p>PHP&nbsp;4</p>
+</td>
+<td>
+<p>0</p>
+</td>
+<td>
+<p>0%</p>
+</td>
+</tr>
+<tr>
+<td>
+<p>其他</p>
+</td>
+<td>
+<p>3</p>
+</td>
+<td>
+<p>0.6%</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>PHP&nbsp;7&nbsp;调查结果分析</h3>
+<p>从第一个问题可看出绝大多数程序员不是早期使用者。他们想使用PHP&nbsp;7&nbsp;但需要过一段时间等PHP7&nbsp;稳定后再用。</p>
+<p>尽管有8个候选发布版本，并且PHP测试小组评估PHP通过全部测试的可能性很大，但开发者也知道应该会有些bug和向后不兼容的更改存在，这些会导致程序员花费相当长的时间，用于PHP的最终修复或者基于开发者需要去修改代码。</p>
+<p>另外，还有一部分的程序员只想在新项目中使用PHP&nbsp;7，因为目前正在进行的这些项目非常重要，因此不能被PHP7&nbsp;可能出现的错误影响。</p>
+<p>第二个问题是关于PHP程序员对PHP&nbsp;7的好奇心有多重。结果显示大部分程序员愿意在开发环境中测试PHP&nbsp;7，因为这样更安全。</p>
+<p>程序员们已经能够想象一旦他们的代码出现问题，等待他们修复的工作量该是多么的惊人，尤其是那些自己拥有测试套件的程序员，因为他们可能已经看到有很多的测试显示失败。</p>
+<p>第三个即最后一个问题，显示了程序员们正在使用的PHP版本有多新。</p>
+<p>有一小部分的人正在勇敢地在生产中使用PHP&nbsp;7。虽然我认为他们不大可能在非常重要的项目中使用PHP&nbsp;7开发。</p>
+<p>数据显示了个好消息，绝大部分程序员已经开始使用PHP&nbsp;5.6了。而且在最坏的情况下他们仍然使用PHP&nbsp;5.3。这有可能是因为他们的公司不提供其他的版本，或者是因为新版本不适用于他们的代码。</p>
+<p>如今几乎每个人使用的版本都不低于PHP&nbsp;5.3.11，因为更老的版本里有致命的bug，这些可能会导致你的服务器崩溃。</p>
+<p>也许你很好奇那3位选择&ldquo;其他&rdquo;的开发者使用的是什么，事实上只有一位准确说了正在使用的是HHVM。为了使用HHVM你需要控制你的托管环境并且需要手工编译它。然而，绝大多数程序员不可能这么做或者没这技术。</p>
+<h3>PHP&nbsp;7的未来</h3>
+<p>现在PHP&nbsp;7&nbsp;已经正式发布了，你也许会很好奇下一步是什么。以下是一些已在计划内以及我们猜想的特性。</p>
+<p>一些新特性的计划我们已经在&ldquo;Lately&nbsp;in&nbsp<img src="https://dn-linuxcn.qbox.me/static/image/smiley/default/titter.gif" smilieid="9" border="0" alt="" />HP&nbsp<img src="https://dn-linuxcn.qbox.me/static/image/smiley/default/titter.gif" smilieid="9" border="0" alt="" />odcast&rdquo;中讨论过了。如果你很好奇，你可以追随博客音频或者订阅YouTube频道来获取关于PHP的最新功能的讨论。</p>
+<h4>1.&nbsp<img src="https://dn-linuxcn.qbox.me/static/image/smiley/default/titter.gif" smilieid="9" border="0" alt="" />CO是加密的PDO</h4>
+<p>我们已经知道的是会有一个抽象扩展，名为PCO，这个类似于PDO但是有密码。</p>
+<h4>2.&nbsp<img src="https://dn-linuxcn.qbox.me/static/image/smiley/default/titter.gif" smilieid="9" border="0" alt="" />HP静态代码分析器</h4>
+<p>Rasmus&nbsp;Lerdorf还开发了一个工具叫PHAN，这是个PHP静态代码分析器。目的是仅通过分析你的PHP代码而不去运行代码，就检测出可能存在的bug。该工具利用了PHP&nbsp;7中新的AST（抽象语法树）扩展。</p>
+<h4>3.&nbsp;带async&nbsp;and&nbsp;await的异步编程</h4>
+<p>另一种可能性是，PHP使用async&nbsp;and&nbsp;await构造，以提供更好的内置异步编程支持。这使你能够在同一个脚本中运行多并行任务，而不需要等一个任务执行一个任务。</p>
+<p>请不要将异步编程与多线程编程混淆。PHP已经可以使用pthreads&nbsp;extension.执行多线程编程了。</p>
+<p>Async&nbsp;and&nbsp;await构造最大的优势是不再需要你处理callback&nbsp;hell。这意味着如果你需要等待一些异步操作，比如访问文件系统、数据库或远程服务器，你只需要使用等待关键字，那么异步操作完成后，脚本将会继续操作下一个语句。</p>
+<p>Async&nbsp;and&nbsp;await构造关键字需要PHP有一些重要的改变，因为它需要处理内部事件循环。然而，PHP&nbsp;开发者已经开始讨论，实施async&nbsp;and&nbsp;await以及关键字的构造可能性，因为这些关键字应该在其他开发者开始使用之前被保存。</p>
+<p>此外，Facebook&nbsp;Hack语言也支持async&nbsp;and&nbsp;await。我猜测Facebook是想为PHP程序员带来具有async&nbsp;and&nbsp;await功能的PHP。</p>
+<p>也许你怀疑PHP需要这些构造的必要性，但是一旦你了解他们的优点后，你就会知道他们的重要性。</p>
+<p>很多程序员转移到Node.js，因为Node.js支持异步编程。Node.js目前还不支持async&nbsp;and&nbsp;await关键字，但也只是时间问题，因为async&nbsp;and&nbsp;await也是EcmaScript&nbsp;7的新特性之一，而且将来的Node.js将使用基于EcmaScript&nbsp;7的JavaScript。</p>
+<p>这样的开发被认为更加重要，特别是在Wordpress近期宣布尽可能多的将代码（从php）移植到JavaScript，包括在服务器端（从php）移植到Node.js和React框架。</p>
+<p>显然这是他们对服务器最大利用化的一步，该服务器托管着Wordpress.com&nbsp;blogs。我不知道WordPress社区是否会接受这项目，因为有成千上万的插件依赖于PHP。</p>
+<h4>4.&nbsp;独立的Web服务器</h4>
+<p>PHP有一个独立的Web服务器，但不推荐给生产环境。</p>
+<p>一旦PHP支持内置异步编程，那用它开发HTTP&nbsp;Web&nbsp;服务将更容易，哪怕用纯PHP编写，就像是在用Node.js一样。</p>
+<p>这使得PHP的功能更灵活，处理并行请求更高效使用更少内存，尤其是在合并异步编程和基于pthreads的多线程编程后之后。</p>
+<h3>总结</h3>
+<p>PHP&nbsp;7是巨大的飞跃，但世界在不停旋转，因此PHP也必须跟上新趋势，比如上文提到的那些。</p>
+<p>我们还是要祝贺所有付出时间和精力的开发者，因为是他们使PHP如此优秀，比如PHP&nbsp;7。</p>
+<p>如果你喜欢本文，或者想问一些和PHP&nbsp;7新特性有关的问题并收获回复，请在下方评论。</p>]]></description>
+      <author><![CDATA[linux@linux.cn (linux)]]></author>
+      <pubDate>Sun, 13 Dec 2015 18:47:00 +0800</pubDate>
+      <comments>http://linux.cn/article-6730-1.html?utm_source=rss&amp;utm_medium=rss</comments>
+    </item>
+    <item>
+      <title><![CDATA[近年来科技巨头们开源的十个产品，不只是.NET、Swift]]></title>
+      <link>http://linux.cn/article-6729-1.html?utm_source=rss&amp;utm_medium=rss</link>
+      <guid>http://linux.cn/article-6729-1.html?utm_source=rss&amp;utm_medium=rss</guid>
+      <description><![CDATA[<p><img src="https://dn-linuxcn.qbox.me/data/attachment/album/201512/13/181710o85eqr6des2n5326.jpg" alt="" width="620" height="465" /></p>
+<p>科技巨头将内部产品发布到开源社区，这可是相当时髦的举动，现在他们带着免费的午餐姗姗而来。</p>
+<p>开源软件正在崛起，虽然过程平淡甚至有几分隐晦。鉴于开源科技在各方面&mdash;&mdash;从容器化到云端均有突出表现，越来越多的人了解到开源软件在企业计算中所占据并日益增长的重要地位。结果很可能是主要科技公司更加频繁地向开源社区发布最新的免费代码。下面是10个最值得注意的产品。</p>
+<p><strong>Spinnaker</strong></p>
+<p><img style="max-width: 700px;" src="https://dn-linuxcn.qbox.me/data/attachment/album/201512/13/180002ociv2z134axby024.jpg" alt="" border="0" /></p>
+<p>Netflix使用持续交付平台Spinnaker来完成跨越庞大基础架构的快速软件更新，本周稍早前它在GitHub上发布了该项目的源代码。不仅能够在Nexflix的原生环境AWS上正常运行，还支持Google云平台。据说晚些时候还将支持微软的Azure平台。</p>
+<p><strong>TensorFlow</strong></p>
+<p>&nbsp;<img style="max-width: 700px;" src="https://dn-linuxcn.qbox.me/data/attachment/album/201512/13/174821sjmqhr9l9a2mqygq.jpg" alt="" border="0" /></p>
+<p>人工智能（AI）是Google的一大业务，大量的资源被投入其中，以扩展深度学习与大规模神经网络建设的范围。自从上周Google将其TensorFlow机器学习框架开源之后，现在相关的一些研究成果已经公诸于众了。</p>
+<p><strong>分布式机器学习工具</strong></p>
+<p>&nbsp;<img style="max-width: 700px;" src="https://dn-linuxcn.qbox.me/data/attachment/album/201512/13/180345vecv0k0xvqkvqkgm.jpg" alt="" border="0" /></p>
+<p>微软不甘示弱，前些天发布了分布式机器学习工具&mdash;&mdash;按照TensorFlow的方式在GitHub上运行的AI框架。在发布时，它特别宣传了现有的两个分布式机器学习的算法。</p>
+<p><strong>Flux</strong></p>
+<p>&nbsp;<img style="max-width: 700px;" src="https://dn-linuxcn.qbox.me/data/attachment/album/201512/13/175345ylzihhllbhhg110b.jpg" alt="" border="0" /></p>
+<p>2014年夏天，Facebook将Flux开源了，这个Web应用框架可用于构建客户端的应用界面。鉴于Facebook的第三方应用生态系统非常庞大，这样做意义巨大。</p>
+<p><strong>Kubernetes</strong></p>
+<p><img src="https://dn-linuxcn.qbox.me/data/attachment/album/201512/13/182016qjzeuzylxtoggeq7.jpg" alt="" width="650" height="339" /></p>
+<p>从Borg这个集群管理系统换到如今的开源Kubernetes容器框架，Google在其中投入了不少想法与人力，更使其成为了支持生态系统的重要组成部分。</p>
+<p><strong>.NET</strong></p>
+<p><img src="https://dn-linuxcn.qbox.me/data/attachment/album/201512/13/182206m6owpt6xzpwhqnnc.jpg" alt="" width="650" /></p>
+<p>2014年末，微软在将其强大的.NET框架开源时曾斩获报刊头条，其中很多媒体都用这条新闻来揭示微软这家之前极为讨厌开源的公司已经转变了。</p>
+<p><strong>Swift</strong></p>
+<p><img style="max-width: 700px;" src="https://dn-linuxcn.qbox.me/data/attachment/album/201512/13/175811qkzkuvtkjcrk0hyt.jpg" alt="" border="0" /></p>
+<p>甚至连苹果这样众所周知对其知识产权缄口不言的公司也逐渐融入了这种精神，在今年的WWDC上发布了开源编程语言Swift。</p>
+<p><strong>Presto</strong></p>
+<p><img style="max-width: 700px;" src="https://dn-linuxcn.qbox.me/data/attachment/album/201512/13/180556yz1ewz8exhe0g9x1.jpg" alt="" border="0" />&nbsp;</p>
+<p>Facebook在2013年11月在开源社区发布了在Hadoop上运行的交互SQL引擎Presto。Facebook依靠Presto所支持的分析工具来分析其多达数百PB的用户数据。</p>
+<p><strong>HHVM</strong></p>
+<p><img style="max-width: 700px;" src="https://dn-linuxcn.qbox.me/data/attachment/album/201512/13/180707j7bbm7ud7du4900g.jpg" alt="" border="0" /></p>
+<p>Facebook是开源世界中新项目的主要贡献者，HHVM（又称HipHop虚拟机）是为了运行PHP和Hack代码而设计的开源虚拟机。</p>
+<p><strong>Grommet</strong></p>
+<p><img src="https://dn-linuxcn.qbox.me/data/attachment/album/201512/13/182353zc45c5zpzeespvke.jpg" alt="" width="620" height="430" /></p>
+<p>HP的Grommet是一个很强大的开源用户界面设计框架，于去年夏天放出。本质上Grommet是相关工具与资源的集合，旨在帮助用户开发统一可用的界面。</p>]]></description>
+      <author><![CDATA[linux@linux.cn (linux)]]></author>
+      <pubDate>Sun, 13 Dec 2015 18:17:00 +0800</pubDate>
+      <comments>http://linux.cn/article-6729-1.html?utm_source=rss&amp;utm_medium=rss</comments>
+    </item>
+    <item>
+      <title><![CDATA[微软开源 .NET 一年后……]]></title>
+      <link>http://linux.cn/article-6727-1.html?utm_source=rss&amp;utm_medium=rss</link>
+      <guid>http://linux.cn/article-6727-1.html?utm_source=rss&amp;utm_medium=rss</guid>
+      <description><![CDATA[<p><img src="https://dn-linuxcn.qbox.me/data/attachment/album/201512/11/233709aavkkvzkz5awk5kk.jpg" alt="" /></p>
+<p>大约一年前，微软宣布<a href="https://linux.cn/article-4209-1.html">开源了 .NET 框架的大部分</a>。当时，Scott Hanselman 使用微软 Power BI&nbsp;<a href="http://www.hanselman.com/blog/TheNETCoreCLRIsNowOpenSourceSoIRanTheGitHubRepoThroughMicrosoftPowerBI.aspx" target="_blank">对代码库做了一个漂亮的分析</a>。 现在一年过去了，我想要试试对以下问题做个解答：</p>
+<blockquote>
+<p>微软开源了 .NET 框架的大部分之后，<strong>社区</strong>参与贡献了多少？</p>
+</blockquote>
+<p>我着眼于以下三个项目做了分析，它们是 .NET 生态系统中最主要部分之一，也是 .NET 基金会内&nbsp;<a href="https://github.com/dotnet/" target="_blank">最活跃/收藏/分支的项目</a>之一：</p>
+<ul>
+<li><a href="https://github.com/dotnet/roslyn/" target="_blank"><strong>Roslyn</strong></a>&nbsp;&ndash; .NET 编译器平台，提供了开源的 C# 和 Visual Basic 编译器，以及丰富的代码分析 API。</li>
+<li><a href="https://github.com/dotnet/coreclr/" target="_blank"><strong>CoreCLR</strong></a>&nbsp;&ndash; .NET Core 运行时环境和底层库（mscorlib），它包括垃圾回收、JIT 编译器、基本的 .NET 数据类型和许多底层类。</li>
+<li><a href="https://github.com/dotnet/corefx/" target="_blank"><strong>CoreFX</strong></a>&nbsp;&ndash; &nbsp;.NET Core 基础库，包括&nbsp;collections、文件系统、console、XML、异步以及其它方面的类。</li>
+</ul>
+<h3>数据来自哪里？</h3>
+<p>GitHub 自身已经内建了很多漂亮的图表了，你可以看看这一年来<strong>每月提交数</strong>的图表：</p>
+<p><a href="https://github.com/dotnet/roslyn/graphs/contributors" target="_blank"><img class="aligncenter" src="https://dn-linuxcn.qbox.me/data/attachment/album/201512/11/233737iowqnu2i63vw5ifu.png" alt="Commits Per Month" width="700" height="231" /></a></p>
+<p>还可以看看<strong>每月动态</strong>：</p>
+<p><a href="https://github.com/dotnet/roslyn/pulse/monthly" target="_blank"><img class="aligncenter" src="https://dn-linuxcn.qbox.me/data/attachment/album/201512/11/233738sj5da7uao5og2lp7.png" alt="github stats - monthly pulse" width="994" height="394" /></a></p>
+<p>但是要回答上面的问题，我需要更多的数据。幸运的是， GitHub 提供了<a href="https://developer.github.com/v3/" target="_blank">非常全面的 API</a>， 再配合上出色的&nbsp;<a href="https://github.com/octokit/octokit.net" target="_blank">Octokit.net 库</a>以及&nbsp;<a href="https://www.linqpad.net/" target="_blank">brilliant LINQPad</a>，我就很容易的得到了我所需的全部数据。如果你想要自己试试这些 API ，这儿有个<a href="https://gist.github.com/mattwarren/894aa5f46ca62a63764a" target="_blank">示例的 LINQPad 脚本</a>。</p>
+<p>然而，仅仅知道它的每月 &ldquo;<ruby>问题<rp>（</rp><rt>issue</rt><rp>）</rp></ruby>数量&rdquo; 或 &ldquo;接受的PR（&nbsp;<ruby>拉取请求<rp>（</rp><rt>Pull Request</rt><rp>）</rp></ruby>）&rdquo;并没有太大用处，这并不能告诉我们是谁提交了这些问题或 PR。&nbsp;幸运的是， GitHub 典型的用户是有分类的，比如下图来自&nbsp;<a href="https://github.com/dotnet/roslyn/issues/670" target="_blank">Roslyn 第 670 号问题</a>&nbsp;，我们可以看到是哪种类型的用户提交的备注：&ldquo;<ruby>拥有者<rp>（</rp><rt>Owner</rt><rp>）</rp></ruby>&rdquo;、 &ldquo;<ruby>协作者<rp>（</rp><rt>Collaborator</rt><rp>）</rp></ruby>&rdquo; 或者为空&mdash;&mdash;这就是&ldquo;社区&rdquo;成员，比如下面的某人（我觉得）并没有在微软工作。</p>
+<p><a href="https://cloud.githubusercontent.com/assets/157298/11634101/8abd7210-9d06-11e5-82b0-570f296cf433.png" target="_blank"><img class="aligncenter" src="https://dn-linuxcn.qbox.me/data/attachment/album/201512/11/233738tiztkdky54mutymk.png" alt="owner collaborator or community" width="773" height="370" /></a></p>
+<h3><strong>结果呢？</strong></h3>
+<p>现在我们可以得到我们所需的数据，也就可以生成结果了。</p>
+<h4><a name="TotalIssuesBySubmitter"></a><strong>全部问题 - 按提交者分组</strong></h4>
+<table border="1" cellpadding="4">
+<thead>
+<tr><th>项目</th><th><strong>拥有者</strong></th><th><strong>协作者</strong></th><th><strong>社区</strong></th><th><strong>全部</strong></th></tr>
+</thead>
+<tbody>
+<tr>
+<td>Roslyn</td>
+<td>481</td>
+<td>1867</td>
+<td>1596</td>
+<td>3944</td>
+</tr>
+<tr>
+<td>CoreCLR</td>
+<td>86</td>
+<td>298</td>
+<td>487</td>
+<td>871</td>
+</tr>
+<tr>
+<td>CoreFX</td>
+<td>334</td>
+<td>911</td>
+<td>735</td>
+<td>1980</td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td><strong>全部</strong></td>
+<td>901</td>
+<td>3076</td>
+<td>2818</td>
+<td>&nbsp;</td>
+</tr>
+</tbody>
+</table>
+<p>这里你可以看到拥有者和协作者在某些情况下占有主导地位，比如，在&nbsp;Roslyn 项目中 60% 的问题是他们汇报的。但是在另外的例子中社区非常活跃，特别是在 CoreCLR 项目中社区成员汇报的问题超过了拥有者/协作者之和。造成这种情况的部分原因是项目的不同， CoreCLR 是 .NET 框架中最引人注目的部分，因为它包含了 .NET 开发者日常使用的大部分库，所以并不用对社区提交了很多改进建议和错误修复的事情感到惊奇。 另外， CoreCLR 已经出现了较长时间，社区已经使用了一段时间，也能找到它的一些不足的部分。而 Roslyn 则相对较新一些，还没有被太多的使用过，而且找到一个编译器的 bug 显然会更难。</p>
+<h4>全部已接受的 PR - 按提交者分组</h4>
+<table border="1" cellpadding="4">
+<thead>
+<tr><th>项目</th><th><strong>拥有者</strong></th><th><strong>协作者</strong></th><th><strong>社区</strong></th><th><strong>全部</strong></th></tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Roslyn</strong></td>
+<td>465</td>
+<td>2093</td>
+<td>118</td>
+<td>2676</td>
+</tr>
+<tr>
+<td><strong>CoreCLR</strong></td>
+<td>378</td>
+<td>567</td>
+<td>201</td>
+<td>1146</td>
+</tr>
+<tr>
+<td><strong>CoreFX</strong></td>
+<td>516</td>
+<td>1409</td>
+<td>464</td>
+<td>2389</td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td><strong>全部</strong></td>
+<td>1359</td>
+<td>4069</td>
+<td>783</td>
+<td>&nbsp;</td>
+</tr>
+</tbody>
+</table>
+<p>但是，如果我们来看一下已接受的 PR ，可以看到在这三个项目中社区的贡献量非常低，仅仅只有 12% 左右。不过，这并不令人吃惊，因为 PR 需要达到相当高的水准才能被接受。如果项目采用这种机制，首先你必须找到一个<ruby><a href="https://github.com/dotnet/corefx/labels/up%20for%20grabs">&nbsp;&ldquo;需要解决&rdquo;</a><rp>（</rp><rt>up for grabs</rt><rp>）</rp></ruby>的问题，然后如果你<a href="http://blogs.msdn.com/b/dotnet/archive/2015/01/08/api-review-process-for-net-core.aspx" target="_blank">要改变 API 就必须通过代码审查</a>，最后你必须在代码审查中符合可比性/性能提升/正确性等。所以，实际上 12% 是个相当不错的结果，接受的 PR 解决了不少的问题，特别是考虑到大部分贡献都是社区成员在工作之余完成的。</p>
+<p><strong>更新：</strong>关于对&ldquo;需要解决&rdquo;的要求，参见&nbsp;<a href="https://github.com/davkean">David Kean</a>&nbsp;的<a href="http://mattwarren.org/2015/12/08/open-source-net-1-year-later/#comment-7091">这个评论</a>，以及<a href="https://twitter.com/leppie/status/674285812146675714">这条推</a>来了解更多信息。&ldquo;需要解决&rdquo;是一个准则，旨在帮助新手，但是并不是必需的，你可以提交一个解决问题的 PR 而不打上这个标签。</p>
+<p>最后，如果你看一下每月的数量（参见下面的两张图，点击放大），很难找到特定的趋势，或者说，社区肯定会随着时间的变化或多或少的做出贡献。不过，你也可以说，过去一年来社区一直在做贡献，而且看起来还会继续贡献下去。这不是仅仅出现在项目刚刚开源后的一次性喷发，而是一整年以来的贡献的持续水平。</p>
+<h4><strong>每月的问题数 - 按提交者分组</strong></h4>
+<p><a href="https://cloud.githubusercontent.com/assets/157298/11596712/ad28f518-9aae-11e5-81d9-42bc22903d09.png" target="_blank"><img class="aligncenter" src="https://dn-linuxcn.qbox.me/data/attachment/album/201512/11/233738j45uw7wzk4x3odo7.png" alt="Issues Per Month - By Submitter (Owner, Collaborator or Community)" width="800" height="487" /></a></p>
+<h4><strong>每月接受的 PR - 按提交者分组</strong></h4>
+<p><a href="https://cloud.githubusercontent.com/assets/157298/11652755/785d0d20-9d91-11e5-9802-834bb3955718.png" target="_blank"><img class="aligncenter" src="https://dn-linuxcn.qbox.me/data/attachment/album/201512/11/233738marnpgpzsel7zpiu.png" alt="Merged Pull Requests Per Month - By Submitter (Owner, Collaborator or Community)" width="800" height="487" /></a></p>
+<h3><strong>前 20 的问题标签</strong></h3>
+<p>最后一件我想对我拥有的这些数据所做的事情是找到那些最流行的问题标签，这可以揭示从三个项目开源以来哪种类型的工作不断出现。</p>
+<p><a href="https://cloud.githubusercontent.com/assets/157298/11633496/8505205a-9d03-11e5-89fd-33384b20306c.png" target="_blank"><img class="aligncenter" src="https://dn-linuxcn.qbox.me/data/attachment/album/201512/11/233739xzz2shrt1v8uqrh2.png" alt="Top 20 Issue Labels" width="614" height="645" /></a></p>
+<p>以下是关于这些结果的一些看法：</p>
+<ul>
+<li>列表中&nbsp;<strong><a href="https://github.com/dotnet/coreclr/labels/CodeGen" target="_blank">CodeGen</a></strong>&nbsp;排名如此之高没有什么好惊奇的，<a href="http://blogs.msdn.com/b/dotnet/archive/2013/09/30/ryujit-the-next-generation-jit-compiler.aspx" target="_blank">下一代的 .NET JIT 编译器 RyuJIT</a>&nbsp;才发布了仅仅两年而已。然而如此多的问题还是让人有一点点担心，特别是考虑到它们中的一些会带来<a href="https://github.com/dotnet/coreclr/issues/1296" target="_blank">严重的后果</a>，就如&nbsp;<a href="http://nickcraver.com/blog/2015/07/27/why-you-should-wait-on-dotnet-46/" target="_blank">Stack Overflow 的开发人员</a>发现的那样！题外话，如果你想要了解 JIT 的许多底层细节，可以看看&nbsp;<a href="https://github.com/dotnet/coreclr/issues?utf8=%E2%9C%93&amp;q=commenter%3Amikedn+type%3Aissue" target="_blank">@MikeDN 评论过的</a>这个问题，令人难以置信的是，有些掌握了很多知识的人却自己并不从事这方面工作，甚至是微软的另外团队的！</li>
+<li>这三个项目都有许多&ldquo;需要解决&rdquo;的问题：&nbsp;<a href="https://github.com/dotnet/roslyn/labels/Up%20for%20Grabs">Roslyn</a>、&nbsp;<a href="https://github.com/dotnet/coreclr/labels/up-for-grabs">CoreCLR</a>&nbsp;和&nbsp;<a href="https://github.com/dotnet/corefx/labels/up%20for%20grabs">CoreFX</a>，而且社区似乎也在<a href="https://github.com/dotnet/corefx/labels/grabbed%20by%20community" target="_blank">添加需要解决的问题</a>！</li>
+<li>最后，我很高兴的看到&nbsp;<a href="https://github.com/dotnet/corefx/labels/performance" target="_blank">性能</a>&nbsp; 和&nbsp;<a href="https://github.com/dotnet/coreCLR/labels/optimization" target="_blank">优化</a>&nbsp;日益得到了重视，毕竟<ruby><a href="http://mattwarren.org/speaking/">性能是王道！</a><rp>（</rp><rt>Performance is a Feature!!</rt><rp>）</rp></ruby></li>
+</ul>]]></description>
+      <author><![CDATA[linux@linux.cn (linux)]]></author>
+      <pubDate>Sat, 12 Dec 2015 09:51:00 +0800</pubDate>
+      <comments>http://linux.cn/article-6727-1.html?utm_source=rss&amp;utm_medium=rss</comments>
+    </item>
+    <item>
+      <title><![CDATA[谁能帮你猜 12306 验证码，就指望深度学习啦]]></title>
+      <link>http://linux.cn/article-6728-1.html?utm_source=rss&amp;utm_medium=rss</link>
+      <guid>http://linux.cn/article-6728-1.html?utm_source=rss&amp;utm_medium=rss</guid>
+      <description><![CDATA[<blockquote>
+<p>近段时间以来，大家纷纷被 12306 的神级图像验证码给击败了，网上吐槽一片。正好最近在深度学习方面的一项图像识别测试比赛中，各大科技公司又取得重大突破，微软还拿到了第一名。也许，将来我们可以指望微软小冰来帮你识别那些神级图像验证码了。</p>
+</blockquote>
+<p>据科技博客VentureBeat报道，在第六届ImageNet年度图像识别测试中，微软研究院的计算机图像识别系统在几个类别的测试中拔得头筹，击败了谷歌、英特尔、高通、腾讯以及一些创业公司和学术实验室的系统。ImageNet是全球最大的图像识别数据库。</p>
+<p class="detailPic"><img src="https://dn-linuxcn.qbox.me/data/attachment/album/201512/12/071435u9bvfh2926bf779s.jpg" alt="" width="500" height="178" /></p>
+<p class="picIntro"><em>ImageNet数据库中的iPod图片</em></p>
+<p>微软的获胜系统名为<ruby>&ldquo;图像识别的深度残差学习&rdquo;<rp>（</rp><rt>Deep Residual Learning for Image Recognition</rt><rp>）</rp></ruby>，由微软研究员何恺明、张祥雨、任少卿和孙剑组成的团队开发。微软称，公司将在未来发表的论文中详细介绍这一系统。</p>
+<p>考虑到这项技术的复杂性，它可以称得上一项了不起的成就。&ldquo;我们对神经网络的训练深度超过了150层，&rdquo;该团队称，&ldquo;我们提出了一个&lsquo;深度残差学习&rsquo;框架，它能够减少优化，整合极深度网络。当网络的深度在之前基础上显著加深时，我们的&rsquo;深度残差网络&rsquo;的准确率就会提升。这种准确率的提升是很多普通网络在加深时无法达到的。&rdquo;</p>
+<p>科技公司现在十分热衷于深度学习领域的研究，他们希望借此改进自主内部系统及其消费级产品。深度学习是高性能网络的核心，涉及在照片等大数据基础上训练人工智能神经网络，然后向它们提供新数据，获得推断结果。</p>
+<p>微软已经通过几款有趣的应用展示了公司在人工智能领域的实力，比如<ruby>&ldquo;我看起来有多大&rdquo;<rp>（</rp><rt>How Old Do I Look?</rt><rp>）</rp></ruby>、<ruby>&ldquo;我的胡子怎么样&rdquo;<rp>（</rp><rt>How&rsquo;s My Moustache Doing?</rt><rp>）</rp></ruby>。微软还建立了Project Oxford项目，以实现图像识别技术的商业化。</p>
+<p>ImageNet要求参赛系统对来自图片分享网站Flickr和搜索引擎的10万张照片进行精确定位，然后尽可能准确地将他们划分到1000种目标类别下，包括狼蛛、iPod、清真寺、玩具店、调制解调器等。</p>
+<p>微软获胜系统的分类错误率为3.5%，定位错误率为9%。过去几年，谷歌、创业公司larifai、NEC一直在图像分类准确率上占先。</p>
+<p>微软的系统今年还在ImageNet的目标侦测测试中占据第一位。&ldquo;甚至连我们自己都不相信这种单一想法能够取得这么好的效果，&rdquo;孙剑称。</p>
+<p>百度并未参与今年的ImageNet测试。去年，百度的测试存在违规行为，采用了密集测试的方法以提高成绩。百度随后道歉，并解雇了团队负责人。百度因此被禁止提交测试成绩1年。</p>
+<p>在这次测试中，IBM提供了SoftLayer公有云服务供参赛团队使用，使用的是英伟达的图形处理器。</p>]]></description>
+      <author><![CDATA[linux@linux.cn (linux)]]></author>
+      <pubDate>Sat, 12 Dec 2015 08:02:00 +0800</pubDate>
+      <comments>http://linux.cn/article-6728-1.html?utm_source=rss&amp;utm_medium=rss</comments>
+    </item>
+    <item>
+      <title><![CDATA[关注InfoQ微信，得华为荣耀7，就这么简单]]></title>
+      <link>http://linux.cn/article-6726-1.html?utm_source=rss&amp;utm_medium=rss</link>
+      <guid>http://linux.cn/article-6726-1.html?utm_source=rss&amp;utm_medium=rss</guid>
+      <description><![CDATA[<p>首先，这对整个<a href="http://www.geekbang.org/">极客邦科技</a>来说，都是一件重要的事情，不然的话也不是我来写新闻。重要的原因是，作为一家以关注技术趋势见长的媒体，我们终于意识到微信公众号对于我们的重要性了。根据我们的了解，现在很多技术人员，获取技术资讯，尤其是即时新闻，都倾向于通过移动端来获取。</p>
+<p>当然，InfoQ移动适配做得很好，但大家的注意力还是被微信吸引了。所谓用户在哪儿，我们就应该在哪儿。为了能更好地为我们亲爱的读者服务，更好地为一直相伴我们左右的技术人服务，我们决定想尽各种办法，让大家除了访问InfoQ网站，还要注意到我们InfoQ微信号的存在。</p>
+<p>为了让大家有关注微信号的动力，我们请出了自己认为技术人最爱的手机&ldquo;华为荣耀&rdquo;，而且是最新款，只要关注InfoQ微信号，并回复关键词&ldquo;荣耀&rdquo;，就每工作日送出一部，绝对没有猫腻。之所以选择&ldquo;荣耀7&rdquo;，一方面是因为我个人对华为和任正非老先生非常敬佩，在通信领域他们统治多年，现在在手机领域，他们也已经是王者，一个体量那么大的公司，转型能如此顺畅，团队保持如此旺盛的生命力，不是很让人惊讶吗，不是非常值得我们技术人学习吗？！</p>
+<p>另外一方面，是因为在我心目中，互联网那么发达，移动互联网那么发达，电商那么发达，背后无处不在我们技术人的耕耘和努力，无一不彰显我们技术人的&ldquo;荣耀&rdquo;，我们的技术人也绝对配得上高大上的&ldquo;荣耀7&rdquo;。</p>
+<p>上面说的是情怀，说多了会被打，接下来还是说点干的吧。之所以那么花血本请大家关注InfoQ的微信号，其实最重要的原因还是，我们编辑部在内容创作上也在逐渐往微信公众号倾斜。针对微信号订阅用户，我们会推出定制的栏目，比如技术评论什么的，这些&ldquo;干货&rdquo;会通过微信第一时间发送给大家。一些突发性的事件，比如鸟哥加盟链家网担任技术副总裁兼总架构师，InfoQ的编辑会第一时间联系采访并在微信公众号上发布。</p>
+<p>除了特别推送的内容，InfoQ微信号还会不定期做一些活动，比如优惠购买QCon全球软件开发大会、ArchSummit全球架构师峰会门票，比如免费参加一些线上的微信群论坛或者线下沙龙等，这些都是针对微信用户独享的。还是那句话，这不是说我们不重视网站了，而是更走近用户，以便提供贴身服务 <img src="https://dn-linuxcn.qbox.me/static/image/smiley/default/smile.gif" smilieid="1" border="0" alt="" /></p>
+<p>不说那么多了，决定权在你手中，是好哥们/姐们，就扫一下。</p>
+<center><img src="https://dn-linuxcn.qbox.me/data/attachment/album/201512/11/180757xy4yonn39366sg8x.jpg" alt="" /></center>
+<p>One more thing：如果你关注InfoQ网站，会发现2015年，极客邦科技（InfoQ的母公司）还推出了几个新的业务，包括面向技术初学者的极客邦教育StuQ，面向企业内部中层技术人员的极客邦培训GIT，面向高端技术管理人员的极客邦组织EGO，不知道有没有符合你需求的。据说，扫描他们的微信二维码，可以提高&ldquo;荣耀&rdquo;手机的中奖几率。好使不好使，你可以试试。</p>
+<center>
+<p><img src="https://dn-linuxcn.qbox.me/data/attachment/album/201512/11/180803pexig9cg2e25t2kk.jpg" alt="" width="250" /><img src="https://dn-linuxcn.qbox.me/data/attachment/album/201512/11/180807sw4204z00l2mzez8.jpg" alt="" width="250" /></p>
+</center>
+<p>明天注意浏览InfoQ微信，看看自己中奖了没！</p>
+<p>最后的最后，注意下参与规则，很Easy：关注InfoQ微信号，并回复关键词&ldquo;荣耀&rdquo;（如果是老用户，那么就直接回复关键词即可）</p>
+<p>最后的最后的最后，再啰嗦一句：如果没有中奖，别灰心，青山常在，绿水长流，咱们前文也说过，InfoQ微信号以后会经常举办类似的活动的，要相信每个人的运气都是均等的，下次说不定就是你。</p>]]></description>
+      <author><![CDATA[linux@linux.cn (linux)]]></author>
+      <pubDate>Fri, 11 Dec 2015 18:07:00 +0800</pubDate>
+      <comments>http://linux.cn/article-6726-1.html?utm_source=rss&amp;utm_medium=rss</comments>
+    </item>
+    <item>
+      <title><![CDATA[Python 程序员最常犯的十个错误]]></title>
+      <link>http://linux.cn/article-6722-1.html?utm_source=rss&amp;utm_medium=rss</link>
+      <guid>http://linux.cn/article-6722-1.html?utm_source=rss&amp;utm_medium=rss</guid>
+      <description><![CDATA[<p><img src="https://dn-linuxcn.qbox.me/data/attachment/album/201512/10/215730dkwagz88o8babukg.png" alt="" width="620" height="637" /></p>
+<h3>常见错误1：错误地将表达式作为函数的默认参数</h3>
+<p>在Python中，我们可以为函数的某个参数设置默认值，使该参数成为可选参数。虽然这是一个很好的语言特性，但是当默认值是可变类型时，也会导致一些令人困惑的情况。我们来看看下面这个Python函数定义：</p>
+<pre class="prettyprint linenums"><code>&gt;&gt;&gt; def foo(bar=[]):        # bar是可选参数，如果没有提供bar的值，则默认为[]，
+...    bar.append("baz")    # 但是稍后我们会看到这行代码会出现问题。
+...    return bar</code></pre>
+<p>Python程序员常犯的一个错误，就是想当然地认为：在每次调用函数时，如果没有为可选参数传入值，那么这个可选参数就会被设置为指定的默认值。在上面的代码中，你们可能觉得重复调用foo()函数应该会一直返回'baz'，因为你们默认每次<code>foo()</code>函数执行时（没有指定<code>bar</code>变量的值），<code>bar</code>变量都被设置为[]（也就是，一个新的空列表）。</p>
+<p>但是，实际运行结果却是这样的：</p>
+<pre class="prettyprint linenums"><code>&gt;&gt;&gt; foo()
+["baz"]
+&gt;&gt;&gt; foo()
+["baz", "baz"]
+&gt;&gt;&gt; foo()
+["baz", "baz", "baz"]</code></pre>
+<p>很奇怪吧？为什么每次调用<code>foo()</code>函数时，都会把"baz"这个默认值添加到已有的列表中，而不是重新创建一个新的空列表呢？</p>
+<p>答案就是，<strong>可选参数默认值的设置在Python中只会被执行一次</strong>，也就是定义该函数的时候。因此，只有当<code>foo()</code>函数被定义时，<code>bar</code>参数才会被初始化为默认值（也就是，一个空列表），但是之后每次<code>foo()</code>函数被调用时，都会继续使用<code>bar</code>参数原先初始化生成的那个列表。</p>
+<p>当然，一个常见的解决办法就是：</p>
+<pre class="prettyprint linenums"><code>&gt;&gt;&gt; def foo(bar=None):
+...    if bar is None:    # or if not bar:
+...        bar = []
+...    bar.append("baz")
+...    return bar
+...
+&gt;&gt;&gt; foo()
+["baz"]
+&gt;&gt;&gt; foo()
+["baz"]
+&gt;&gt;&gt; foo()
+["baz"]</code></pre>
+<h3 id="2">常见问题2：错误地使用类变量</h3>
+<p>我们来看下面这个例子：</p>
+<pre class="prettyprint linenums"><code>&gt;&gt;&gt; class A(object):
+...     x = 1
+...
+&gt;&gt;&gt; class B(A):
+...     pass
+...
+&gt;&gt;&gt; class C(A):
+...     pass
+...
+&gt;&gt;&gt; print A.x, B.x, C.x
+1 1 1</code></pre>
+<p>这个结果很正常。</p>
+<pre class="prettyprint linenums"><code>&gt;&gt;&gt; B.x = 2
+&gt;&gt;&gt; print A.x, B.x, C.x
+1 2 1
+</code></pre>
+<p>嗯，结果和预计的一样。</p>
+<pre class="prettyprint linenums"><code>&gt;&gt;&gt; A.x = 3
+&gt;&gt;&gt; print A.x, B.x, C.x
+3 2 3
+</code></pre>
+<p>在Python语言中，类变量是以字典的形式进行处理的，并且遵循方法解析顺序（Method Resolution Order，MRO）。因此，在上面的代码中，由于类C中并没有<code>x</code>这个属性，解释器将会查找它的基类（base class，尽管Python支持多重继承，但是在这个例子中，C的基类只有A）。换句话说，C并不没有独立于A、真正属于自己的<code>x</code>属性。所以，引用<code>C.x</code>实际上就是引用了<code>A.x</code>。如果没有处理好这里的关系，就会导致示例中出现的这个问题。</p>
+<h3 id="3exception-block">常见错误3：错误地指定<ruby>异常代码块<rp>（</rp><rt>exception block</rt><rp>）</rp></ruby>的参数</h3>
+<p>请看下面这段代码：</p>
+<pre class="prettyprint linenums"><code>&gt;&gt;&gt; try:
+...     l = ["a", "b"]
+...     int(l[2])
+... except ValueError, IndexError:  # To catch both exceptions, right?
+...     pass
+...
+Traceback (most recent call last):
+  File "&lt;stdin&gt;", line 3, in &lt;module&gt;
+IndexError: list index out of range
+</code></pre>
+<p>这段代码的问题在于，<code>except</code>语句并不支持以这种方式指定异常。在Python 2.x中，需要使用变量<code>e</code>将异常绑定至可选的第二个参数中，才能进一步查看异常的情况。因此，在上述代码中，<code>except</code>语句并没有捕获IndexError异常；而是将出现的异常绑定到了一个名为<code>IndexError</code>的参数中。</p>
+<p>要想在<code>except</code>语句中正确地捕获多个异常，则应将第一个参数指定为元组，然后在元组中写下希望捕获的异常类型。另外，为了提高可移植性，请使用<code>as</code>关键词，Python 2和Python 3均支持这种用法。</p>
+<pre class="prettyprint linenums"><code>&gt;&gt;&gt; try:
+...     l = ["a", "b"]
+...     int(l[2])
+... except (ValueError, IndexError) as e:  
+...     pass
+...
+&gt;&gt;&gt;
+</code></pre>
+<h3 id="4python">常见错误4：错误理解Python中的变量名解析</h3>
+<p>Python中的变量名解析遵循所谓的<code>LEGB</code>原则，也就是&ldquo;L：本地作用域；E：上一层结构中def或lambda的本地作用域；G：全局作用域；B：内置作用域&rdquo;（Local，Enclosing，Global，Builtin），按顺序查找。看上去是不是很简单？不过，事实上这个原则的生效方式还是有着一些特殊之处。说到这点，我们就不得不提下面这个常见的Python编程错误。请看下面的代码：</p>
+<pre class="prettyprint linenums"><code>&gt;&gt;&gt; x = 10
+&gt;&gt;&gt; def foo():
+...     x += 1
+...     print x
+...
+&gt;&gt;&gt; foo()
+Traceback (most recent call last):
+  File "&lt;stdin&gt;", line 1, in &lt;module&gt;
+  File "&lt;stdin&gt;", line 2, in foo
+UnboundLocalError: local variable 'x' referenced before assignment
+</code></pre>
+<p>出了什么问题？</p>
+<p>上述错误的出现，是因为当你在某个作用域内为变量赋值时，该变量被Python解释器自动视作该作用域的本地变量，并会取代任何上一层作用域中相同名称的变量。</p>
+<p>正是因为这样，才会出现一开始好好的代码，在某个函数内部添加了一个赋值语句之后却出现了<code>UnboundLocalError</code>，难怪会让许多人吃惊。</p>
+<p>在使用列表时，Python程序员尤其容易陷入这个圈套。</p>
+<p>请看下面这个代码示例：</p>
+<pre class="prettyprint linenums"><code>&gt;&gt;&gt; lst = [1, 2, 3]
+&gt;&gt;&gt; def foo1():
+...     lst.append(5)   # 这里没问题
+...
+&gt;&gt;&gt; foo1()
+&gt;&gt;&gt; lst
+[1, 2, 3, 5]
+
+&gt;&gt;&gt; lst = [1, 2, 3]
+&gt;&gt;&gt; def foo2():
+...     lst += [5]      # ... 但这里就不对了!
+...
+&gt;&gt;&gt; foo2()
+Traceback (most recent call last):
+  File "&lt;stdin&gt;", line 1, in &lt;module&gt;
+  File "&lt;stdin&gt;", line 2, in foo
+UnboundLocalError: local variable 'lst' referenced before assignment
+</code></pre>
+<p>呃？为什么函数<code>foo1</code>运行正常，<code>foo2</code>却出现了错误？</p>
+<p>答案与上一个示例相同，但是却更难捉摸清楚。<code>foo1</code>函数并没有为<code>lst</code>变量进行赋值，但是<code>foo2</code>却有赋值。我们知道，<code>lst += [5]</code>只是<code>lst = lst + [5]</code>的简写，从中我们就可以看出，<code>foo2</code>函数在尝试为<code>lst</code>赋值（因此，被Python解释器认为是函数本地作用域的变量）。但是，我们希望为<code>lst</code>赋的值却又是基于<code>lst</code>变量本身（这时，也被认为是函数本地作用域内的变量），也就是说该变量还没有被定义。这才出现了错误。</p>
+<h3 id="5">常见错误5：在遍历列表时更改列表</h3>
+<p>下面这段代码的问题应该算是十分明显：</p>
+<pre class="prettyprint linenums"><code>&gt;&gt;&gt; odd = lambda x : bool(x % 2)
+&gt;&gt;&gt; numbers = [n for n in range(10)]
+&gt;&gt;&gt; for i in range(len(numbers)):
+...     if odd(numbers<i>):
+...         del numbers<i>  # BAD: Deleting item from a list while iterating over it
+...
+Traceback (most recent call last):
+      File "&lt;stdin&gt;", line 2, in &lt;module&gt;
+IndexError: list index out of range
+</code></pre>
+<p>在遍历列表或数组的同时从中删除元素，是任何经验丰富的Python开发人员都会注意的问题。但是尽管上面的示例十分明显，资深开发人员在编写更为复杂代码的时候，也很可能会无意之下犯同样的错误。</p>
+<p>幸运的是，Python语言融合了许多优雅的编程范式，如果使用得当，可以极大地简化代码。简化代码还有一个好处，就是不容易出现在遍历列表时删除元素这个错误。能够做到这点的一个编程范式就是列表解析式。而且，列表解析式在避免这个问题方面尤其有用，下面用列表解析式重新实现上面代码的功能：</p>
+<pre class="prettyprint linenums"><code>&gt;&gt;&gt; odd = lambda x : bool(x % 2)
+&gt;&gt;&gt; numbers = [n for n in range(10)]
+&gt;&gt;&gt; numbers[:] = [n for n in numbers if not odd(n)]  # ahh, the beauty of it all
+&gt;&gt;&gt; numbers
+[0, 2, 4, 6, 8]
+</code></pre>
+<h3 id="6python">常见错误6：不理解Python在闭包中如何绑定变量</h3>
+<p>请看下面这段代码：</p>
+<pre class="prettyprint linenums"><code>&gt;&gt;&gt; def create_multipliers():
+...     return [lambda x : i * x for i in range(5)]
+&gt;&gt;&gt; for multiplier in create_multipliers():
+...     print multiplier(2)
+...
+</code></pre>
+<p>你可能觉得输出结果应该是这样的：</p>
+<pre class="prettyprint linenums"><code>0
+2
+4
+6
+8
+</code></pre>
+<p>但是，实际的输出结果却是：</p>
+<pre class="prettyprint linenums"><code>8
+8
+8
+8
+8
+</code></pre>
+<p>吓了一跳吧！</p>
+<p>这个结果的出现，主要是因为Python中的<ruby>迟绑定<rp>（</rp><rt>late binding </rt><rp>）</rp></ruby>机制，即闭包中变量的值只有在内部函数被调用时才会进行查询。因此，在上面的代码中，每次<code>create_multipliers()</code>所返回的函数被调用时，都会在附近的作用域中查询变量i的值（而到那时，循环已经结束，所以变量i最后被赋予的值为4）。</p>
+<p>要解决这个常见Python问题的方法中，需要使用一些hack技巧：</p>
+<pre class="prettyprint linenums"><code>&gt;&gt;&gt; def create_multipliers():
+...     return [lambda x, i=i : i * x for i in range(5)]
+...
+&gt;&gt;&gt; for multiplier in create_multipliers():
+...     print multiplier(2)
+...
+0
+2
+4
+6
+8
+</code></pre>
+<p>请注意！我们在这里利用了默认参数来实现这个lambda匿名函数。有人可能认为这样做很优雅，有人会觉得很巧妙，还有人会嗤之以鼻。但是，如果你是一名Python程序员，不管怎样你都应该要了解这种解决方法。</p>
+<h3 id="7circular-dependencies">常见错误7：模块之间出现<ruby>循环依赖<rp>（</rp><rt>circular dependencies</rt><rp>）</rp></ruby></h3>
+<p>假设你有两个文件，分别是<code>a.py</code>和<code>b.py</code>，二者相互引用，如下所示：</p>
+<p><code>a.py</code>文件中的代码:</p>
+<pre class="prettyprint linenums"><code>import b
+
+def f():
+    return b.x
+
+print f()
+</code></pre>
+<p><code>b.py</code>文件中的代码：</p>
+<pre class="prettyprint linenums"><code>import a
+
+x = 1
+
+def g():
+    print a.f()
+</code></pre>
+<p>首先，我们尝试导入<code>a.py</code>模块：</p>
+<pre class="prettyprint linenums"><code>&gt;&gt;&gt; import a
+1
+</code></pre>
+<p>代码运行正常。也许这出乎了你的意料。毕竟，我们这里存在循环引用这个问题，想必应该是会出现问题的，难道不是吗？</p>
+<p>答案是，仅仅存在循环引用的情况本身并不会导致问题。如果一个模块已经被引用了，Python可以做到不再次进行引用。但是如果每个模块试图访问其他模块定义的函数或变量的时机不对，那么你就很可能陷入困境。</p>
+<p>那么回到我们的示例，当我们导入<code>a.py</code>模块时，它在引用<code>b.py</code>模块时是不会出现问题的，因为<code>b.py</code>模块在被引用时，并不需要访问在<code>a.py</code>模块中定义的任何变量或函数。<code>b.py</code>模块中对a模块唯一的引用，就是调用了a模块的<code>foo()</code>函数。但是那个函数调用发生在<code>g()</code>函数当中，而<code>a.py</code>或<code>b.py</code>模块中都没有调用<code>g()</code>函数。所以，不会出现问题。</p>
+<p>但是，如果我们试着导入<code>b.py</code>模块呢（即之前没有引用<code>a.py</code>模块的前提下）：</p>
+<pre class="prettyprint linenums"><code>&gt;&gt;&gt; import b
+Traceback (most recent call last):
+      File "&lt;stdin&gt;", line 1, in &lt;module&gt;
+      File "b.py", line 1, in &lt;module&gt;
+    import a
+      File "a.py", line 6, in &lt;module&gt;
+  print f()
+      File "a.py", line 4, in f
+  return b.x
+AttributeError: 'module' object has no attribute 'x'
+</code></pre>
+<p>糟糕。情况不太妙！这里的问题是，在导入<code>b.py</code>的过程中，它试图引用<code>a.py</code>模块，而<code>a.py</code>模块接着又要调用<code>foo()</code>函数，这个<code>foo()</code>函数接着又试图去访问<code>b.x</code>变量。但是这个时候，<code>b.x</code>变量还没有被定义，所以才出现了AttributeError异常。</p>
+<p>解决这个问题有一种非常简单的方法，就是简单地修改下<code>b.py</code>模块，在<code>g()</code>函数内部才引用<code>a.py</code>：</p>
+<pre class="prettyprint linenums"><code>x = 1
+
+def g():
+    import a  # This will be evaluated only when g() is called
+    print a.f()
+</code></pre>
+<p>现在我们再导入<code>b.py</code>模块的话，就不会出现任何问题了：</p>
+<pre class="prettyprint linenums"><code>&gt;&gt;&gt; import b
+&gt;&gt;&gt; b.g()
+1 # Printed a first time since module 'a' calls 'print f()' at the end
+1 # Printed a second time, this one is our call to 'g'
+</code></pre>
+<h3 id="8python">常见错误8：模块命名与Python标准库模块名冲突</h3>
+<p>Python语言的一大优势，就是其本身自带的强大标准库。但是，正因为如此，如果你不去刻意注意的话，你也是有可能为自己的模块取一个和Python自带标准库模块相同的名字（例如，如果你的代码中有一个模块叫<code>email.py</code>，那么这就会与Python标准库中同名的模块相冲突。）</p>
+<p>这很可能会给你带来难缠的问题。举个例子，在导入模块A的时候，假如该模块A试图引用Python标准库中的模块B，但却因为你已经有了一个同名模块B，模块A会错误地引用你自己代码中的模块B，而不是Python标准库中的模块B。这也是导致一些严重错误的原因。</p>
+<p>因此，Python程序员要格外注意，避免使用与Python标准库模块相同的名称。毕竟，修改自己模块的名称比提出PEP提议修改上游模块名称且让提议通过，要来得容易的多。</p>
+<h3 id="9python-2python-3">常见错误9：未能解决Python 2与Python 3之间的差异</h3>
+<p>假设有下面这段代码：</p>
+<pre class="prettyprint linenums"><code>import sys
+
+def bar(i):
+    if i == 1:
+        raise KeyError(1)
+    if i == 2:
+        raise ValueError(2)
+
+def bad():
+    e = None
+    try:
+        bar(int(sys.argv[1]))
+    except KeyError as e:
+        print('key error')
+    except ValueError as e:
+        print('value error')
+    print(e)
+
+bad()
+</code></pre>
+<p>如果是Python 2，那么代码运行正常：</p>
+<pre class="prettyprint linenums"><code>$ python foo.py 1
+key error
+1
+$ python foo.py 2
+value error
+2
+</code></pre>
+<p>但是现在，我们换成Python 3再运行一遍：</p>
+<pre class="prettyprint linenums"><code>$ python3 foo.py 1
+key error
+Traceback (most recent call last):
+  File "foo.py", line 19, in &lt;module&gt;
+    bad()
+  File "foo.py", line 17, in bad
+    print(e)
+UnboundLocalError: local variable 'e' referenced before assignment
+</code></pre>
+<p>这到底是怎么回事？这里的&ldquo;问题&rdquo;是，在Python 3中，异常对象在<code>except</code>代码块作用域之外是无法访问的。（这么设计的原因在于，如果不这样的话，堆栈帧中就会一直保留它的引用循环，直到垃圾回收器运行，将引用从内存中清除。）</p>
+<p>避免这个问题的一种方法，就是在<code>except</code>代码块的作用域之外，维持一个对异常对象的<ruby>引用<rp>（</rp><rt>reference</rt><rp>）</rp></ruby>，这样异常对象就可以访问了。下面这段代码就使用了这种方法，因此在Python 2和Python 3中的输出结果是一致的：</p>
+<pre class="prettyprint linenums"><code>import sys
+
+def bar(i):
+    if i == 1:
+        raise KeyError(1)
+    if i == 2:
+        raise ValueError(2)
+
+def good():
+    exception = None
+    try:
+        bar(int(sys.argv[1]))
+    except KeyError as e:
+        exception = e
+        print('key error')
+    except ValueError as e:
+        exception = e
+        print('value error')
+    print(exception)
+
+good()
+</code></pre>
+<p>在Python 3下运行代码：</p>
+<pre class="prettyprint linenums"><code>$ python3 foo.py 1
+key error
+1
+$ python3 foo.py 2
+value error
+2
+</code></pre>
+<p>太棒了！</p>
+<h3 id="10del">常见错误10：错误使用<strong>del</strong>方法</h3>
+<p>假设你在<code>mod.py</code>的文件中编写了下面的代码：</p>
+<pre class="prettyprint linenums"><code>import foo
+
+class Bar(object):
+        ...
+    def __del__(self):
+        foo.cleanup(self.myhandle)
+</code></pre>
+<p>之后，你在<code>another_mod.py</code>文件中进行如下操作：</p>
+<pre class="prettyprint linenums"><code>import mod
+mybar = mod.Bar()
+</code></pre>
+<p>如果你运行<code>another_mod.py</code>模块的话，将会出现AttributeError异常。</p>
+<p>为什么？因为当解释器结束运行的时候，该模块的全局变量都会被设置为<code>None</code>。因此，在上述示例中，当<code>__del__</code>方法被调用之前，<code>foo</code>已经被设置成了<code>None</code>。</p>
+<p>要想解决这个有点棘手的Python编程问题，其中一个办法就是使用<code>atexit.register()</code>方法。这样的话，当你的程序执行完成之后（即正常退出程序的情况下），你所指定的处理程序就会在解释器关闭之前运行。</p>
+<p>应用了上面这种方法，修改后的<code>mod.py</code>文件可能会是这样子的：</p>
+<pre class="prettyprint linenums"><code>import foo
+import atexit
+
+def cleanup(handle):
+    foo.cleanup(handle)
+
+
+class Bar(object):
+    def __init__(self):
+        ...
+        atexit.register(cleanup, self.myhandle)
+</code></pre>
+<p>这种实现支持在程序正常终止时干净利落地调用任何必要的清理功能。很明显，上述示例中将会由<code>foo.cleanup</code>函数来决定如何处理<code>self.myhandle</code>所绑定的对象。</p>
+<h3 id="_1">综述</h3>
+<p>Python是一门强大而又灵活的编程语言，提供的许多编程机制和范式可以极大地提高工作效率。但是与任何软件工具或语言一样，如果对该语言的能力理解有限或无法欣赏，那么有时候自己反而会被阻碍，而不是受益了。正如一句谚语所说，<ruby>&ldquo;自以为知道够多，但实则会给自己或别人带来危险&rdquo;<rp>（</rp><rt>knowing enough to be dangerous</rt><rp>）</rp></ruby>。(译者注:这句谚语的意思是，自以为已经对某件事情了解足够，但在实际去执行或实施时，却会给自己和别人带来危险。)</p>
+<p>不断地熟悉Python语言的一些细微之处，尤其是本文中提到的10大常见错误，将会帮助你有效地使用这门语言，同时也能避免犯一些比较常见的错误。</p>]]></description>
+      <author><![CDATA[linux@linux.cn (linux)]]></author>
+      <pubDate>Fri, 11 Dec 2015 13:35:00 +0800</pubDate>
+      <comments>http://linux.cn/article-6722-1.html?utm_source=rss&amp;utm_medium=rss</comments>
+    </item>
+    <item>
+      <title><![CDATA[跑步进入全站 HTTPS ，这些经验值得你看看]]></title>
+      <link>http://linux.cn/article-6723-1.html?utm_source=rss&amp;utm_medium=rss</link>
+      <guid>http://linux.cn/article-6723-1.html?utm_source=rss&amp;utm_medium=rss</guid>
+      <description><![CDATA[<p>随着国内网络环境的持续恶化，各种篡改和劫持层出不穷，越来越多的网站选择了全站 HTTPS。就在前几天，免费提供证书服务的&nbsp;<a href="https://letsencrypt.org/">Let's Encrypt</a>&nbsp;项目也正式开放测试，HTTPS 很快就会成为 WEB 必选项。HTTPS 通过 TLS 层和证书机制提供了内容加密、身份认证和数据完整性三大功能，可以有效防止数据被查看或篡改，以及防止中间人冒充。本文分享一些启用 HTTPS 过程中的经验，重点是如何与一些新出的安全规范配合使用。至于 HTTPS 的部署及优化，之前写过很多，本文不重复了。</p>
+<p><img src="https://dn-linuxcn.qbox.me/data/attachment/album/201512/10/222757mwfuwacquqkc1l2q.jpg" alt="" width="548" height="250" /></p>
+<h3><a name="toc-0"></a>理解 Mixed Content</h3>
+<p>HTTPS 网页中加载的 HTTP 资源被称之为<ruby><a href="http://www.w3.org/TR/mixed-content/">混合内容</a><rp>（</rp><rt>Mixed Content</rt><rp>）</rp></ruby>，不同浏览器对混合内容有不一样的处理规则。</p>
+<h4><a name="toc-0-0"></a>早期的 IE</h4>
+<p>早期的 IE 在发现混合内容请求时，会弹出「是否只查看安全传送的网页内容？」这样一个模态对话框，一旦用户选择「是」，所有混合内容资源都不会加载；选择「否」，所有资源都加载。</p>
+<h4><a name="toc-0-1"></a>比较新的 IE</h4>
+<p>比较新的 IE 将模态对话框改为页面底部的提示条，没有之前那么干扰用户。而且默认会加载图片类混合内容，其它如 JavaScript、CSS 等资源还是会根据用户选择来决定是否加载。</p>
+<h4><a name="toc-0-2"></a>现代浏览器</h4>
+<p>现代浏览器（Chrome、Firefox、Safari、Microsoft Edge），基本上都遵守了 W3C 的<ruby><a href="http://www.w3.org/TR/mixed-content/">混合内容</a><rt>Mixed Content</rt></ruby>规范，将混合内容分为&nbsp;<strong>Optionally-blockable</strong>&nbsp;和&nbsp;<strong>Blockable</strong>&nbsp;两类：</p>
+<p><strong>Optionally-blockable</strong>&nbsp;类混合内容包含那些危险较小，即使被中间人篡改也无大碍的资源。现代浏览器默认会加载这类资源，同时会在控制台打印警告信息。这类资源包括：</p>
+<ul>
+<li>通过&nbsp;<code>&lt;img&gt;</code>&nbsp;标签加载的图片（包括 SVG 图片）；</li>
+<li>通过&nbsp;<code>&lt;video&gt;</code>&nbsp;/&nbsp;<code>&lt;audio&gt;</code>&nbsp;和&nbsp;<code>&lt;source&gt;</code>&nbsp;标签加载的视频或音频；</li>
+<li><ruby>预读的<rp>（</rp><rt>Prefetched</rt><rp>）</rp></ruby>资源；</li>
+</ul>
+<p>除此之外所有的混合内容都是&nbsp;<strong>Blockable</strong>，浏览器必须禁止加载这类资源。所以现代浏览器中，对于 HTTPS 页面中的 JavaScript、CSS 等 HTTP 资源，一律不加载，直接在控制台打印错误信息。</p>
+<h4><a name="toc-0-3"></a>移动浏览器</h4>
+<p>前面所说都是桌面浏览器的行为，移动端情况比较复杂，当前大部分移动浏览器默认允许加载所有混合内容。也就是说，对于移动浏览器来说，HTTPS 中的 HTTP 资源，无论是图片还是 JavaScript、CSS，默认都会加载。</p>
+<p>补充：上面这段结论源自于我大半年前的测试，本文评论中的 ayanamist 同学反馈现状已经有所变化。我又做了一些测试，果然随着操作系统的升级，移动浏览器都开始遵循混合内容规范了。最新测试表明，对于&nbsp;<strong>Blockable</strong>&nbsp;类混合内容：</p>
+<ul>
+<li>iOS 9 以下的 Safari，以及 Android 5 以下的 Webview，默认会加载；</li>
+<li>Android 各版本的 Chrome，iOS 9+ 的 Safari，Android 5+ 的 Webview，默认不会加载；</li>
+</ul>
+<p>一般选择了全站 HTTPS，就要避免出现混合内容，页面所有资源请求都走 HTTPS 协议才能保证所有平台所有浏览器下都没有问题。</p>
+<h3><a name="toc-1"></a>合理使用 CSP</h3>
+<p>CSP，全称是 Content Security Policy，它有非常多的指令，用来实现各种各样与页面内容安全相关的功能。这里只介绍两个与 HTTPS 相关的指令，更多内容可以看我之前写的《<a href="https://linux.cn/article-6502-1.html">Content Security Policy Level 2 介绍</a>》。</p>
+<h4><a name="toc-1-0"></a>block-all-mixed-content</h4>
+<p>前面说过，对于 HTTPS 中的图片等&nbsp;<strong>Optionally-blockable</strong>&nbsp;类 HTTP 资源，现代浏览器默认会加载。图片类资源被劫持，通常不会有太大的问题，但也有一些风险，例如很多网页按钮是用图片实现的，中间人把这些图片改掉，也会干扰用户使用。</p>
+<p>通过 CSP 的&nbsp;<strong>block-all-mixed-content</strong>&nbsp;指令，可以让页面进入<ruby>对混合内容的严格检测<rp>（</rp><rt>Strict Mixed Content Checking</rt><rp>）</rp></ruby>模式。在这种模式下，所有非 HTTPS 资源都不允许加载。跟其它所有 CSP 规则一样，可以通过以下两种方式启用这个指令：</p>
+<p>HTTP 响应头方式：</p>
+<pre class="prettyprint linenums"><code>Content-Security-Policy: block-all-mixed-content
+</code></pre>
+<p><code>&lt;meta&gt;</code>&nbsp;标签方式：</p>
+<pre class="prettyprint linenums"><code>&lt;meta http-equiv="Content-Security-Policy" content="block-all-mixed-content"&gt;
+</code></pre>
+<h4><a name="toc-1-1"></a>upgrade-insecure-requests</h4>
+<p>历史悠久的大站在往 HTTPS 迁移的过程中，工作量往往非常巨大，尤其是将所有资源都替换为 HTTPS 这一步，很容易产生疏漏。即使所有代码都确认没有问题，很可能某些从数据库读取的字段中还存在 HTTP 链接。</p>
+<p>而通过&nbsp;<strong>upgrade-insecure-requests</strong>&nbsp;这个 CSP 指令，可以让浏览器帮忙做这个转换。启用这个策略后，有两个变化：</p>
+<ul>
+<li>页面所有 HTTP 资源，会被替换为 HTTPS 地址再发起请求；</li>
+<li>页面所有站内链接，点击后会被替换为 HTTPS 地址再跳转；</li>
+</ul>
+<p>跟其它所有 CSP 规则一样，这个指令也有两种方式来启用，具体格式请参考上一节。需要注意的是&nbsp;<strong>upgrade-insecure-requests</strong>&nbsp;只替换协议部分，所以只适用于 HTTP/HTTPS 域名和路径完全一致的场景。</p>
+<h3><a name="toc-2"></a>合理使用 HSTS</h3>
+<p>在网站全站 HTTPS 后，如果用户手动敲入网站的 HTTP 地址，或者从其它地方点击了网站的 HTTP 链接，依赖于服务端 301/302 跳转才能使用 HTTPS 服务。而第一次的 HTTP 请求就有可能被劫持，导致请求无法到达服务器，从而构成 HTTPS 降级劫持。</p>
+<h4><a name="toc-2-0"></a>HSTS 基本使用</h4>
+<p>这个问题可以通过 HSTS（HTTP Strict Transport Security，<a href="https://tools.ietf.org/html/rfc6797">RFC6797</a>）来解决。HSTS 是一个响应头，格式如下：</p>
+<pre class="prettyprint linenums"><code>Strict-Transport-Security: max-age=expireTime [; includeSubDomains] [; preload]
+</code></pre>
+<ul>
+<li>max-age，单位是秒，用来告诉浏览器在指定时间内，这个网站必须通过 HTTPS 协议来访问。也就是对于这个网站的 HTTP 地址，浏览器需要先在本地替换为 HTTPS 之后再发送请求。</li>
+<li>includeSubDomains，可选参数，如果指定这个参数，表明这个网站所有子域名也必须通过 HTTPS 协议来访问。</li>
+<li>preload，可选参数，后面再介绍它的作用。</li>
+</ul>
+<p>HSTS 这个响应头只能用于 HTTPS 响应；网站必须使用默认的 443 端口；必须使用域名，不能是 IP。而且启用 HSTS 之后，一旦网站证书错误，用户无法选择忽略。</p>
+<h4><a name="toc-2-1"></a>HSTS Preload List</h4>
+<p>可以看到 HSTS 可以很好的解决 HTTPS 降级攻击，但是对于 HSTS 生效前的首次 HTTP 请求，依然无法避免被劫持。浏览器厂商们为了解决这个问题，提出了 HSTS Preload List 方案：内置一份列表，对于列表中的域名，即使用户之前没有访问过，也会使用 HTTPS 协议；列表可以定期更新。</p>
+<p>目前这个 Preload List 由 Google Chrome 维护，Chrome、Firefox、Safari、IE 11 和 Microsoft Edge 都在使用。如果要想把自己的域名加进这个列表，首先需要满足以下条件：</p>
+<ul>
+<li>拥有合法的证书（如果使用 SHA-1 证书，过期时间必须早于 2016 年）；</li>
+<li>将所有 HTTP 流量重定向到 HTTPS；</li>
+<li>确保所有子域名都启用了 HTTPS；</li>
+<li>输出 HSTS 响应头：
+<ul>
+<li>max-age 不能低于 18 周（10886400 秒）；</li>
+<li>必须指定 includeSubdomains 参数；</li>
+<li>必须指定 preload 参数；</li>
+</ul>
+</li>
+</ul>
+<p>即便满足了上述所有条件，也不一定能进入 HSTS Preload List，更多信息可以<a href="https://hstspreload.appspot.com/">看这里</a>。通过 Chrome 的&nbsp;<code>chrome://net-internals/#hsts</code>&nbsp;工具，可以查询某个网站是否在 Preload List 之中，还可以手动把某个域名加到本机 Preload List。</p>
+<p>对于 HSTS 以及 HSTS Preload List，<strong>我的建议是只要你不能确保永远提供 HTTPS 服务，就不要启用</strong>。因为一旦 HSTS 生效，你再想把网站重定向为 HTTP，之前的老用户会被无限重定向，唯一的办法是换新域名。</p>
+<h3><a name="toc-3"></a>CDN 安全</h3>
+<p>对于大站来说，全站迁移到 HTTPS 后还是得用 CDN，只是必须选择支持 HTTPS 的 CDN 了。如果使用第三方 CDN，安全方面有一些需要考虑的地方。</p>
+<h4><a name="toc-3-0"></a>合理使用 SRI</h4>
+<p>HTTPS 可以防止数据在传输中被篡改，合法的证书也可以起到验证服务器身份的作用，但是如果 CDN 服务器被入侵，导致静态文件在服务器上被篡改，HTTPS 也无能为力。</p>
+<p>W3C 的&nbsp;<a href="http://www.w3.org/TR/SRI/">SRI</a>（Subresource Integrity）规范可以用来解决这个问题。SRI 通过在页面引用资源时指定资源的摘要签名，来实现让浏览器验证资源是否被篡改的目的。只要页面不被篡改，SRI 策略就是可靠的。</p>
+<p>有关 SRI 的更多说明请看我之前写的《<a href="https://imququ.com/post/subresource-integrity.html">Subresource Integrity 介绍</a>》。SRI 并不是 HTTPS 专用，但如果主页面被劫持，攻击者可以轻松去掉资源摘要，从而失去浏览器的 SRI 校验机制。</p>
+<h4><a name="toc-3-1"></a>了解 Keyless SSL</h4>
+<p>另外一个问题是，在使用第三方 CDN 的 HTTPS 服务时，如果要使用自己的域名，需要把对应的证书私钥给第三方，这也是一件风险很高的事情。</p>
+<p>CloudFlare 公司针对这种场景研发了 Keyless SSL 技术。你可以不把证书私钥给第三方，改为提供一台实时计算的 Key Server 即可。CDN 要用到私钥时，通过加密通道将必要的参数传给 Key Server，由 Key Server 算出结果并返回即可。整个过程中，私钥都保管在自己的 Key Server 之中，不会暴露给第三方。</p>
+<p>CloudFlare 的这套机制已经开源，如需了解详情，可以查看他们官方博客的这篇文章：<a href="https://blog.cloudflare.com/keyless-ssl-the-nitty-gritty-technical-details/">Keyless SSL: The Nitty Gritty Technical Details</a>。</p>
+<p>好了，本文先就写到这里，需要注意的是本文提到的 CSP、HSTS 以及 SRI 等策略都只有最新的浏览器才支持，详细的支持度可以去&nbsp;<a href="http://caniuse.com/">CanIUse</a>&nbsp;查。切换到 HTTPS 之后，在性能优化上有很多新工作要做，这部分内容我在之前的博客中写过很多，这里不再重复，只说最重要的一点：</p>
+<blockquote>
+<p><strong>既然都 HTTPS 了，赶紧上 HTTP/2 才是正道。</strong></p>
+</blockquote>]]></description>
+      <author><![CDATA[linux@linux.cn (linux)]]></author>
+      <pubDate>Fri, 11 Dec 2015 09:59:00 +0800</pubDate>
+      <comments>http://linux.cn/article-6723-1.html?utm_source=rss&amp;utm_medium=rss</comments>
+    </item>
+    <item>
+      <title><![CDATA[如何在 Apache 中启用 HTTP/2]]></title>
+      <link>http://linux.cn/article-6720-1.html?utm_source=rss&amp;utm_medium=rss</link>
+      <guid>http://linux.cn/article-6720-1.html?utm_source=rss&amp;utm_medium=rss</guid>
+      <description><![CDATA[<p>Copyright (C) 2015 greenbytes GmbH</p>
+<p>刚发布的 Apache httpd 2.4.17 终于支持 HTTP/2 了。这个页面给出了一些如何构建/部署/配置的建议。目的是为了大家发现 bugs 时能升级它，或者给一些能更好工作的建议。</p>
+<p>最后，这会归并回到官方 Apache 文档，这里只会留下一个到那里的链接。暂时我们还没做到。</p>
+<p><img src="https://dn-linuxcn.qbox.me/data/attachment/album/201512/10/004228qw58toeoabwe2dpa.jpg" alt="" /></p>
+<h3 id="toc_1">源码</h3>
+<p>你可以从<a href="https://httpd.apache.org/download.cgi">这里</a>得到 Apache 版本。Apache 2.4.17 及其更高版本都支持 HTTP/2。我不会再重复介绍如何构建该服务器的指令。在很多地方有很好的指南，例如<a href="https://httpd.apache.org/docs/2.4/install.html">这里</a>。</p>
+<p>（有任何这个试验性软件包的相关链接？在 Twitter 上告诉我吧 @icing）</p>
+<h4 id="toc_2">编译支持 HTTP/2</h4>
+<p>在你编译版本之前，你要进行一些<strong>配置</strong>。这里有成千上万的选项。和 HTTP/2 相关的是：</p>
+<ul>
+<li>
+<p><strong>--enable-http2</strong></p>
+<p>启用在 Apache 服务器内部实现该协议的 &lsquo;http2&rsquo; 模块。</p>
+</li>
+<li>
+<p><strong>--with-nghttp2=&lt;dir&gt;</strong></p>
+<p>指定 http2 模块需要的 libnghttp2 模块的非默认位置。如果 nghttp2 是在默认的位置，配置过程会自动采用。</p>
+</li>
+<li>
+<p><strong>--enable-nghttp2-staticlib-deps</strong></p>
+<p>很少用到的选项，你可能想将 nghttp2 库静态链接到服务器里。在大部分平台上，只有在找不到共享 nghttp2 库时才有用。</p>
+</li>
+</ul>
+<p>如果你想自己编译 nghttp2，你可以到 <a href="https://nghttp2.org/">nghttp2.org</a> 查看文档。最新的 Fedora 以及其它版本已经附带了这个库。</p>
+<h4 id="toc_3">TLS 支持</h4>
+<p>大部分人想在浏览器上使用 HTTP/2， 而浏览器只在使用 TLS 连接（<strong>https:// 开头的 url</strong>）时才支持 HTTP/2。你需要一些我下面介绍的配置。但首先你需要的是支持 ALPN 扩展的 TLS 库。</p>
+<p>ALPN 用来<ruby>协商<rp>（</rp><rt>negotiate</rt><rp>）</rp></ruby>服务器和客户端之间的协议。如果你服务器上 TLS 库还没有实现 ALPN，客户端只能通过 HTTP/1.1 通信。那么，可以和 Apache 链接并支持它的是什么库呢？</p>
+<ul>
+<li><strong>OpenSSL 1.0.2</strong> 及其以后。</li>
+<li>??? （别的我也不知道了）</li>
+</ul>
+<p>如果你的 OpenSSL 库是 Linux 版本自带的，这里使用的版本号可能和官方 OpenSSL 版本的不同。如果不确定的话检查一下你的 Linux 版本吧。</p>
+<h3 id="toc_4">配置</h3>
+<p>另一个给服务器的好建议是为 http2 模块设置合适的日志等级。添加下面的配置：</p>
+<pre class="prettyprint linenums"><code># 放在某个地方的这样一行
+LoadModule http2_module modules/mod_http2.so
+
+&lt;IfModule http2_module&gt;
+    LogLevel http2:info
+&lt;/IfModule&gt;
+</code></pre>
+<p>当你启动服务器的时候，你可以在错误日志中看来类似的一行：</p>
+<pre class="prettyprint linenums"><code>[timestamp] [http2:info] [pid XXXXX:tid numbers] 
+  mod_http2 (v1.0.0, nghttp2 1.3.4), initializing...
+</code></pre>
+<h4 id="toc_5">协议</h4>
+<p>那么，假设你已经编译部署好了服务器， TLS 库也是最新的，你启动了你的服务器，打开了浏览器。。。你怎么知道它在工作呢？</p>
+<p>如果除此之外你没有添加其它的服务器配置，很可能它没有工作。</p>
+<p>你需要告诉服务器在哪里使用该协议。默认情况下，你的服务器并没有启动 HTTP/2 协议。因为这样比较安全，也许才能让你已有的部署可以继续工作。</p>
+<p>你可以用新的 <strong>Protocols</strong> 指令启用 HTTP/2 协议：</p>
+<pre class="prettyprint linenums"><code># 对于 https 服务器
+Protocols h2 http/1.1
+...
+
+# 对于 http 服务器
+Protocols h2c http/1.1
+</code></pre>
+<p>你可以给整个服务器或者指定的 <strong>vhosts</strong> 添加这个配置。</p>
+<h4 id="toc_6">SSL 参数</h4>
+<p>对于 TLS （SSL），HTTP/2 有一些特殊的要求。阅读下面的&ldquo; https:// 连接&rdquo;一节了解更详细的信息。</p>
+<h3 id="toc_7">http:// 连接 (h2c)</h3>
+<p>尽管现在还没有浏览器支持，但是 HTTP/2 协议也工作在 http:// 这样的 url 上， 而且 mod_h[ttp]2 也支持。启用它你唯一所要做的是在 Protocols 配置中启用它：</p>
+<pre class="prettyprint linenums"><code># 对于 http 服务器
+Protocols h2c http/1.1
+</code></pre>
+<p>这里有一些支持 <strong>h2c</strong> 的客户端（和客户端库）。我会在下面介绍：</p>
+<h4 id="toc_8">curl</h4>
+<p>Daniel Stenberg 维护的用于访问网络资源的命令行客户端 curl 当然支持。如果你的系统上有 curl，有一个简单的方法检查它是否支持 http/2：</p>
+<pre class="prettyprint linenums"><code>sh&gt; curl -V
+curl 7.43.0 (x86_64-apple-darwin15.0) libcurl/7.43.0 SecureTransport zlib/1.2.5
+Protocols: dict file ftp ftps gopher http https imap imaps ldap ldaps pop3 pop3s rtsp smb smbs smtp smtps telnet tftp 
+Features: AsynchDNS IPv6 Largefile GSS-API Kerberos SPNEGO NTLM NTLM_WB SSL libz UnixSockets 
+</code></pre>
+<p>不好了。这些功能中没有 'HTTP2'。你想要的是下面这样：</p>
+<pre class="prettyprint linenums"><code>sh&gt; curl -V
+url 7.45.0 (x86_64-apple-darwin15.0.0) libcurl/7.45.0 OpenSSL/1.0.2d zlib/1.2.8 nghttp2/1.3.4
+Protocols: dict file ftp ftps gopher http https imap imaps ldap ldaps pop3 pop3s rtsp smb smbs smtp smtps telnet tftp 
+Features: IPv6 Largefile NTLM NTLM_WB SSL libz TLS-SRP HTTP2 UnixSockets
+</code></pre>
+<p>如果你的 curl 支持 HTTP2 功能，你可以用一些简单的命令检查你的服务器：</p>
+<pre class="prettyprint linenums"><code>sh&gt; curl -v --http2 http://&lt;yourserver&gt;/
+...
+&gt; Connection: Upgrade, HTTP2-Settings
+&gt; Upgrade: h2c
+&gt; HTTP2-Settings: AAMAAABkAAQAAP__
+&gt; 
+&lt; HTTP/1.1 101 Switching Protocols
+&lt; Upgrade: h2c
+&lt; Connection: Upgrade
+* Received 101
+* Using HTTP2, server supports multi-use
+* Connection state changed (HTTP/2 confirmed)
+...
+&lt;the resource&gt;
+</code></pre>
+<p>恭喜，如果看到了有 <strong>...101 Switching...</strong> 的行就表示它正在工作！</p>
+<p>有一些情况不会发生 HTTP/2 的<ruby>升级切换<rp>（</rp><rt>Upgrade</rt><rp>）</rp></ruby>。如果你的第一个请求有<ruby>请求数据<rp>（</rp><rt>body</rt><rp>）</rp></ruby>，例如你上传一个文件时，就不会触发升级切换。<a href="https://icing.github.io/mod_h2/howto.html#h2c-restrictions">h2c 限制</a>部分有详细的解释。</p>
+<h4 id="toc_9">nghttp</h4>
+<p>nghttp2 可以一同编译它自己的客户端和服务器。如果你的系统中有该客户端，你可以简单地通过获取一个资源来验证你的安装：</p>
+<pre class="prettyprint linenums"><code>sh&gt; nghttp -uv http://&lt;yourserver&gt;/
+[  0.001] Connected
+[  0.001] HTTP Upgrade request
+...
+Connection: Upgrade, HTTP2-Settings
+Upgrade: h2c
+HTTP2-Settings: AAMAAABkAAQAAP__
+...
+[  0.005] HTTP Upgrade response
+HTTP/1.1 101 Switching Protocols
+Upgrade: h2c
+Connection: Upgrade
+
+[  0.006] HTTP Upgrade success
+...
+</code></pre>
+<p>这和我们上面 <strong>curl</strong> 例子中看到的 Upgrade 输出很相似。</p>
+<p>有另外一种在命令行参数中不用 <strong>-u</strong> 参数而使用 <strong>h2c</strong> 的方法。这个参数会指示 <strong>nghttp</strong> 进行 HTTP/1 升级切换过程。但如果我们不使用呢？</p>
+<pre class="prettyprint linenums"><code>sh&gt; nghttp -v http://&lt;yourserver&gt;/
+[  0.002] Connected
+[  0.002] send SETTINGS frame 
+...
+[  0.002] send HEADERS frame 
+          ; END_STREAM | END_HEADERS | PRIORITY
+          (padlen=0, dep_stream_id=11, weight=16, exclusive=0)
+          ; Open new stream
+          :method: GET
+          :path: /
+          :scheme: http
+...
+</code></pre>
+<p>连接马上使用了 HTTP/2！这就是协议中所谓的<ruby>直接<rp>（</rp><rt>direct</rt><rp>）</rp></ruby>模式，当客户端发送一些<a href="https://linux.cn/article-6670-1.html">特殊的 24 字节</a>到服务器时就会发生：</p>
+<pre><code>0x505249202a20485454502f322e300d0a0d0a534d0d0a0d0a
+</code></pre>
+<p><a href="https://linux.cn/article-6670-1.html">用 ASCII 表示是</a>:</p>
+<pre><code>PRI * HTTP/2.0\r\n\r\nSM\r\n\r\n
+</code></pre>
+<p>支持 <strong>h2c</strong> 的服务器在一个新的连接中看到这些信息就会马上切换到 HTTP/2。HTTP/1.1 服务器则认为是一个可笑的请求，响应并关闭连接。</p>
+<p>因此，<strong>直接</strong>模式只适合于那些确定服务器支持 HTTP/2 的客户端。例如，当前一个升级切换过程成功了的时候。</p>
+<p><strong>直接</strong>模式的魅力是零开销，它支持所有请求，即使带有请求数据部分（查看<a href="https://icing.github.io/mod_h2/howto.html#h2c-restrictions">h2c 限制</a>）。</p>
+<p>对于 2.4.17 版本，明文连接时默认启用 <strong>H2Direct</strong> 。但是有一些模块和这不兼容。因此，在下一版本中，默认会设置为<strong>off</strong>，如果你希望你的服务器支持它，你需要设置它为：</p>
+<pre class="prettyprint linenums"><code>H2Direct on
+</code></pre>
+<h3 id="toc_10">https:// 连接 (h2)</h3>
+<p>当你的 mod_h[ttp]2 可以支持 h2c 连接时，那就可以一同启用 <strong>h2</strong> 兄弟了，现在的浏览器仅支持它和 <strong>https:</strong> 一同使用。</p>
+<p>HTTP/2 标准对 https:（TLS）连接增加了一些额外的要求。上面已经提到了 ALNP 扩展。另外的一个要求是不能使用特定<a href="https://httpwg.github.io/specs/rfc7540.html#BadCipherSuites">黑名单</a>中的加密算法。</p>
+<p>尽管现在版本的 <strong>mod_h[ttp]2</strong> 不增强这些算法（以后可能会），但大部分客户端会这么做。如果让你的浏览器使用不恰当的算法打开 <strong>h2</strong> 服务器，你会看到不明确的警告&nbsp;<strong>INADEQUATE_SECURITY</strong>，浏览器会拒接连接。</p>
+<p>一个可行的 Apache SSL 配置类似：</p>
+<pre class="prettyprint linenums"><code>SSLCipherSuite ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-AES256-GCM-SHA384<img src="https://dn-linuxcn.qbox.me/static/image/smiley/default/biggrin.gif" smilieid="3" border="0" alt="" />HE-RSA-AES128-GCM-SHA256<img src="https://dn-linuxcn.qbox.me/static/image/smiley/default/biggrin.gif" smilieid="3" border="0" alt="" />HE-DSS-AES128-GCM-SHA256:kEDH+AESGCM:ECDHE-RSA-AES128-SHA256:ECDHE-ECDSA-AES128-SHA256:ECDHE-RSA-AES128-SHA:ECDHE-ECDSA-AES128-SHA:ECDHE-RSA-AES256-SHA384:ECDHE-ECDSA-AES256-SHA384:ECDHE-RSA-AES256-SHA:ECDHE-ECDSA-AES256-SHA<img src="https://dn-linuxcn.qbox.me/static/image/smiley/default/biggrin.gif" smilieid="3" border="0" alt="" />HE-RSA-AES128-SHA256<img src="https://dn-linuxcn.qbox.me/static/image/smiley/default/biggrin.gif" smilieid="3" border="0" alt="" />HE-RSA-AES128-SHA<img src="https://dn-linuxcn.qbox.me/static/image/smiley/default/biggrin.gif" smilieid="3" border="0" alt="" />HE-DSS-AES128-SHA256<img src="https://dn-linuxcn.qbox.me/static/image/smiley/default/biggrin.gif" smilieid="3" border="0" alt="" />HE-RSA-AES256-SHA256<img src="https://dn-linuxcn.qbox.me/static/image/smiley/default/biggrin.gif" smilieid="3" border="0" alt="" />HE-DSS-AES256-SHA<img src="https://dn-linuxcn.qbox.me/static/image/smiley/default/biggrin.gif" smilieid="3" border="0" alt="" />HE-RSA-AES256-SHA:!aNULL:!eNULL:!EXPORT:!DES:!RC4:!3DES:!MD5:!PSK
+SSLProtocol All -SSLv2 -SSLv3
+...
+</code></pre>
+<p>（是的，这确实很长。）</p>
+<p>这里还有一些应该调整，但不是必须调整的 SSL 配置参数：<strong>SSLSessionCache</strong>， <strong>SSLUseStapling</strong> 等，其它地方也有介绍这些。例如 Ilya Grigorik 写的一篇超赞的博客： <a href="http://chimera.labs.oreilly.com/books/1230000000545">高性能浏览器网络</a>。</p>
+<h4 id="toc_11">curl</h4>
+<p>再次回到 shell 使用 curl（查看上面的&ldquo;curl h2c&rdquo;章节了解要求），你也可以通过 curl 用简单的命令检测你的服务器：</p>
+<pre class="prettyprint linenums"><code>sh&gt; curl -v --http2 https://&lt;yourserver&gt;/
+...
+* ALPN, offering h2
+* ALPN, offering http/1.1
+...
+* ALPN, server accepted to use h2
+...
+&lt;the resource&gt;
+</code></pre>
+<p>恭喜你，能正常工作啦！如果还不能，可能原因是：</p>
+<ul>
+<li>你的 curl 不支持 HTTP/2。查看上面的&ldquo;检测 curl&rdquo;一节。</li>
+<li>你的 openssl 版本太低不支持 ALPN。</li>
+<li>不能验证你的证书，或者不接受你的算法配置。尝试添加命令行选项 -k 停用 curl 中的这些检查。如果可以工作，就重新配置你的 SSL 和证书。</li>
+</ul>
+<h4 id="toc_12">nghttp</h4>
+<p>我们已经在 <strong>h2c</strong> 讨论过 <strong>nghttp</strong>。如果你用它来进行 <strong>https:</strong> 连接，你会看到类似下面的信息：</p>
+<pre class="prettyprint linenums"><code>sh&gt; nghttp https://&lt;yourserver&gt;/
+[ERROR] HTTP/2 protocol was not selected. (nghttp2 expects h2)
+</code></pre>
+<p>这有两种可能，你可以通过添加 -v 来检查。如果是：</p>
+<pre class="prettyprint linenums"><code>sh&gt; nghttp -v https://&lt;yourserver&gt;/
+[  0.034] Connected
+[ERROR] HTTP/2 protocol was not selected. (nghttp2 expects h2)
+</code></pre>
+<p>这意味着你服务器使用的 TLS 库没有实现 ALPN。有时候正确安装有点困难。多看看 Stackoverflow 吧。</p>
+<p>你看到的也可能是：</p>
+<pre class="prettyprint linenums"><code>sh&gt; nghttp -v https://&lt;yourserver&gt;/
+[  0.034] Connected
+The negotiated protocol: http/1.1
+[ERROR] HTTP/2 protocol was not selected. (nghttp2 expects h2)
+</code></pre>
+<p>这表示 ALPN 能正常工作，但并没有用 h2 协议。你需要像上面介绍的那样检查你服务器上的 Protocols 配置。如果一开始在 vhost 部分设置不能正常工作，试着在通用部分设置它。</p>
+<h4 id="toc_13">Firefox</h4>
+<p>更新： <a href="https://www.apachelounge.com/">Apache Lounge</a> 的 Steffen Land 告诉我 <a href="https://addons.mozilla.org/en-US/firefox/addon/spdy-indicator/">Firefox 上有个 HTTP/2 指示插件</a>。你可以看到有多少地方用到了 h2（提示：Apache Lounge 用 h2 已经有一段时间了...）</p>
+<p>你可以在 Firefox 浏览器中打开开发者工具，在那里的网络标签页查看 HTTP/2 连接。当你打开了 HTTP/2 并重新刷新 html 页面时，你会看到类似下面的东西：</p>
+<p><img src="https://dn-linuxcn.qbox.me/data/attachment/album/201512/10/004340ipppm5kapdmc9m7i.png" alt="" /></p>
+<p>在响应头中，你可以看到奇怪的 <strong>X-Firefox-Spdy</strong> 条目中列出了 &ldquo;h2&rdquo;。这表示在这个 <strong>https:</strong> 连接中使用了 HTTP/2。</p>
+<h4 id="toc_14">Google Chrome</h4>
+<p>在 Google Chrome 中，你在开发者工具中看不到 HTTP/2 指示器。相反，Chrome 用特殊的地址 <strong>chrome://net-internals/#http2</strong> 给出了相关信息。（LCTT 译注：Chrome 已经有一个 &ldquo;HTTP/2 and SPDY indicator&rdquo; 可以很好的在地址栏识别 HTTP/2 连接）</p>
+<p>如果你打开了一个服务器的页面，可以在 Chrome 中查看那个 net-internals 页面，你可以看到类似下面这样：</p>
+<p><img src="https://dn-linuxcn.qbox.me/data/attachment/album/201512/10/004340c6x65tglpc6a5hwo.png" alt="" /></p>
+<p>如果你的服务器在上面的列表中，就表示它正在工作。</p>
+<h4 id="toc_15">Microsoft Edge</h4>
+<p>Windows 10 中 Internet Explorer 的继任者 Edge 也支持 HTTP/2。你也可以在开发者工具的网络标签页看到 HTTP/2 协议。</p>
+<p><img src="https://dn-linuxcn.qbox.me/data/attachment/album/201512/10/004341nuu5dgqrudm555nw.png" alt="" /></p>
+<h4 id="toc_16">Safari</h4>
+<p>在 Apple 的 Safari 中，打开开发者工具，那里有个网络标签页。重新加载你的服务器上的页面，并在开发者工具中选择显示了加载的那行。如果你启用了在右边显示详细视图，看 <strong>Status</strong> 部分。那里显示了 <strong>HTTP/2.0 200</strong>，像这样：</p>
+<p><img src="https://dn-linuxcn.qbox.me/data/attachment/album/201512/10/004341wb7gpjnc7cqnqmnb.png" alt="" /></p>
+<h4 id="toc_17">重新协商</h4>
+<p>https： 连接重新协商是指正在运行的连接中特定的 TLS 参数会发生变化。在 Apache httpd 中，你可以在 directory 配置中改变 TLS 参数。如果进来一个获取特定位置资源的请求，配置的 TLS 参数会和当前的 TLS 参数进行对比。如果它们不相同，就会触发重新协商。</p>
+<p>这种最常见的情形是算法变化和客户端证书。你可以要求客户访问特定位置时需要通过验证，或者对于特定资源，你可以使用更安全的、对 CPU 压力更大的算法。</p>
+<p>但不管你的想法有多么好，HTTP/2 中都<strong>不可以</strong>发生重新协商。在同一个连接上会有 100 多个请求，那么重新协商该什么时候做呢？</p>
+<p>对于这种配置，现有的 <strong>mod_h[ttp]2</strong> 还没有办法。如果你有一个站点使用了 TLS 重新协商，别在上面启用 h2！</p>
+<p>当然，我们会在后面的版本中解决这个问题，然后你就可以安全地启用了。</p>
+<h3 id="toc_18">限制</h3>
+<h4 id="toc_19">非 HTTP 协议</h4>
+<p>实现除 HTTP 之外协议的模块可能和 <strong>mod_http2</strong> 不兼容。这在其它协议要求服务器首先发送数据时无疑会发生。</p>
+<p><strong>NNTP</strong> 就是这种协议的一个例子。如果你在服务器中配置了 <strong>mod_nntp_like_ssl</strong>，那么就不要加载 mod_http2。等待下一个版本。</p>
+<h4 id="toc_20">h2c 限制</h4>
+<p><strong>h2c</strong> 的实现还有一些限制，你应该注意：</p>
+<h5 id="toc_21">在虚拟主机中拒绝 h2c</h5>
+<p>你不能对指定的虚拟主机拒绝 <strong>h2c 直连</strong>。连接建立而没有看到请求时会触发<strong>直连</strong>，这使得不可能预先知道 Apache 需要查找哪个虚拟主机。</p>
+<h5 id="toc_22">有请求数据时的升级切换</h5>
+<p>对于有数据的请求，<strong>h2c</strong> 升级切换不能正常工作。那些是 PUT 和 POST 请求（用于提交和上传）。如果你写了一个客户端，你可能会用一个简单的 GET 或者 OPTIONS * 来处理那些请求以触发升级切换。</p>
+<p>原因从技术层面来看显而易见，但如果你想知道：在升级切换过程中，连接处于半疯状态。请求按照 HTTP/1.1 的格式，而响应使用 HTTP/2 帧。如果请求有一个数据部分，服务器在发送响应之前需要读取整个数据。因为响应可能需要从客户端处得到应答用于流控制及其它东西。但如果仍在发送 HTTP/1.1 请求，客户端就仍然不能以 HTTP/2 连接。</p>
+<p>为了使行为可预测，几个服务器在实现上决定不在任何带有请求数据的请求中进行升级切换，即使请求数据很小。</p>
+<h5 id="toc_23">302 时的升级切换</h5>
+<p>有重定向发生时，当前的 h2c 升级切换也不能工作。看起来 mod_http2 之前的重写有可能发生。这当然不会导致断路，但你测试这样的站点也许会让你迷惑。</p>
+<h4 id="toc_24">h2 限制</h4>
+<p>这里有一些你应该意识到的 h2 实现限制：</p>
+<h5 id="toc_25">连接重用</h5>
+<p>HTTP/2 协议允许在特定条件下重用 TLS 连接：如果你有带通配符的证书或者多个 AltSubject 名称，浏览器可能会重用现有的连接。例如：</p>
+<p>你有一个 <strong>a.example.org</strong> 的证书，它还有另外一个名称 <strong>b.example.org</strong>。你在浏览器中打开 URL <strong>https://a.example.org/</strong>，用另一个标签页加载 <strong>https://b.example.org/</strong>。</p>
+<p>在重新打开一个新的连接之前，浏览器看到它有一个到 <strong>a.example.org</strong> 的连接并且证书对于 <strong>b.example.org</strong> 也可用。因此，它在第一个连接上面发送第二个标签页的请求。</p>
+<p>这种连接重用是刻意设计的，它使得使用了 HTTP/1 <ruby>切分<rp>（</rp><rt>sharding</rt><rp>）</rp></ruby>来提高效率的站点能够不需要太多变化就能利用 HTTP/2。</p>
+<p>Apache <strong>mod_h[ttp]2</strong> 还没有完全实现这点。如果 <strong>a.example.org</strong> 和 <strong>b.example.org</strong> 是不同的虚拟主机， Apache 不会允许这样的连接重用，并会告知浏览器状态码 <strong>421 Misdirected Request</strong>。浏览器会意识到它需要重新打开一个到 <strong>b.example.org</strong> 的连接。这仍然能工作，只是会降低一些效率。</p>
+<p>我们期望下一次的发布中能有合适的检查。</p>
+<p>M&uuml;nster, 12.10.2015,</p>
+<p>Stefan Eissing, greenbytes GmbH</p>
+<p>Copying and distribution of this file, with or without modification, are permitted in any medium without royalty provided the copyright notice and this notice are preserved. This file is offered as-is, without warranty of any kind. See LICENSE for details.</p>
+<hr />
+<p>该项目由 <a href="https://github.com/icing">icing</a> 维护。</p>
+<hr />
+<p>via: <a href="https://icing.github.io/mod_h2/howto.html">https://icing.github.io/mod_h2/howto.html</a></p>
+<p>作者：<a href="https://github.com/icing">icing</a> 译者：<a href="http://mutouxiaogui.cn/blog/">ictlyh</a> 校对：<a href="https://github.com/wxy">wxy</a></p>
+<p>本文由 <a href="https://github.com/LCTT/TranslateProject">LCTT</a> 原创编译，<a href="https://linux.cn/">Linux中国</a> 荣誉推出</p>]]></description>
+      <author><![CDATA[linux@linux.cn (linux)]]></author>
+      <pubDate>Fri, 11 Dec 2015 09:33:00 +0800</pubDate>
+      <comments>http://linux.cn/article-6720-1.html?utm_source=rss&amp;utm_medium=rss</comments>
+    </item>
+    <item>
+      <title><![CDATA[NetHack 3.6.0 发布]]></title>
+      <link>http://linux.cn/article-6725-1.html?utm_source=rss&amp;utm_medium=rss</link>
+      <guid>http://linux.cn/article-6725-1.html?utm_source=rss&amp;utm_medium=rss</guid>
+      <description><![CDATA[<p><img src="https://dn-linuxcn.qbox.me/data/attachment/album/201512/10/230322ulou5azj6lopp56p.gif" alt="" width="579" height="276" /></p>
+<p>NetHack 是80年代开始开发的地下城类游戏，以其复杂的系统和高难度著称，让许多地下城和 RPG 游戏相形见绌。</p>
+<p>但过去12年，它的版本号一直停留在3.4.3。</p>
+<p>12月7日，NetHack 开发团队<a href="http://www.nethack.org/v360/release.html" target="_blank"><u>宣布了最新版本3.6.0</u></a>。新的版本特别纪念了前不久去世的作家、同时也是游戏粉丝的特里&middot;普拉切特。游戏中的角色类Tourist就是受普拉切特的《碟形世界》系列启发而开发的，新版也将包含大量来自小说的语录。</p>
+<p>NetHack 的开发已经迁移到 GitHub，将Bugzilla 用于 bug 跟踪。</p>]]></description>
+      <author><![CDATA[linux@linux.cn (linux)]]></author>
+      <pubDate>Fri, 11 Dec 2015 08:59:00 +0800</pubDate>
+      <comments>http://linux.cn/article-6725-1.html?utm_source=rss&amp;utm_medium=rss</comments>
+    </item>
+    <item>
+      <title><![CDATA[微软和 Linux 基金会就 Linux on Azure 认证达成合作]]></title>
+      <link>http://linux.cn/article-6724-1.html?utm_source=rss&amp;utm_medium=rss</link>
+      <guid>http://linux.cn/article-6724-1.html?utm_source=rss&amp;utm_medium=rss</guid>
+      <description><![CDATA[<p>12月9日，微软在其官方网站发布公告称已经和非盈利机构Linux基金会就Linux on Azure认证达成合作，通过微软认证考试70-533（执行 Microsoft Azure 基础架构解决方案）和Linux 基金会认证系统管理员（LFCS）考试的个人可获得由微软颁发的Linux on Azure认证。Linux基金会的执行主席Jim Zemlin表示当前双方的初步合作已经成功，微软开始开源包括.NET框架、面向IE浏览器的Chakra JavaScript引擎和Visual Studio等部分产品的代码。</p>
+<p><img title="microsoft-and-linux-foundation-partnership-promises-great-things-for-sysadmins-497404-2.jpg" src="https://dn-linuxcn.qbox.me/data/attachment/album/201512/10/224826ggpfau0czmuk1vhw.jpg" alt="" /></p>
+<p>Jim Zemlin表示：&ldquo;Linux基金会和微软共同为那些愿意负责全球最重要最复杂IT系统的系统管理员一个承诺。当代的系统管理员需要同时熟知Windows和Linux系统。诸多专业人士和用人单位参与到培训中，而该证书能够充分证明TA具备充分利用复杂知识的能力。&rdquo;</p>
+<p>&ldquo;这两项测试结合了 Linux 管理以及 Microsoft Azure 的执行能力，用以表现受测者设计、执行和维护复杂的支持云的 Linux 解决方案的能力，其中支持云的 Linux 采用 Micrsoft Azure 的大量特性和功能。&rdquo;</p>
+<p>Jim Zemlin 表示：&ldquo;现如今的 IT 环境需要比过去更多的专业技能，通过专业认证，具备专业技能就能适应这样的环境。微软颁发的认证包含了 Linux 基金会认证系统管理员测试，获得这项认证的专业人士自然相比其他同事会更有优势，也有机会在我们最有趣的技术上做探索。&rdquo;</p>]]></description>
+      <author><![CDATA[linux@linux.cn (linux)]]></author>
+      <pubDate>Fri, 11 Dec 2015 07:45:00 +0800</pubDate>
+      <comments>http://linux.cn/article-6724-1.html?utm_source=rss&amp;utm_medium=rss</comments>
+    </item>
+    <item>
+      <title><![CDATA[如何在 CentOS 7 上安装 Redis 服务器]]></title>
+      <link>http://linux.cn/article-6719-1.html?utm_source=rss&amp;utm_medium=rss</link>
+      <guid>http://linux.cn/article-6719-1.html?utm_source=rss&amp;utm_medium=rss</guid>
+      <description><![CDATA[<p>大家好，本文的主题是 Redis，我们将要在 CentOS 7 上安装它。编译源代码，安装二进制文件，创建、安装文件。在安装了它的组件之后，我们还会配置 redis ，就像配置操作系统参数一样，目标就是让 redis 运行的更加可靠和快速。</p>
+<p><img src="https://dn-linuxcn.qbox.me/data/attachment/album/201512/09/224958pimc2elz4f88ikzt.jpg" alt="Runnins Redis" /></p>
+<p><em>Redis 服务器</em></p>
+<p>Redis 是一个开源的多平台数据存储软件，使用 ANSI C 编写，直接在内存使用数据集，这使得它得以实现非常高的效率。Redis 支持多种编程语言，包括 Lua, C, Java, Python, Perl, PHP 和其他很多语言。redis 的代码量很小，只有约3万行，它只做&ldquo;很少&rdquo;的事，但是做的很好。尽管是在内存里工作，但是数据持久化的保存还是有的，而redis 的可靠性就很高，同时也支持集群，这些可以很好的保证你的数据安全。</p>
+<h3 id="toc_1">构建 Redis</h3>
+<p>redis 目前没有官方 RPM 安装包，我们需要从源代码编译，而为了要编译就需要安装 Make 和 GCC。</p>
+<p>如果没有安装过 GCC 和 Make，那么就使用 yum 安装。</p>
+<pre class="prettyprint linenums"><code>yum install gcc make
+</code></pre>
+<p>从<a href="http://redis.io/download">官网</a>下载 tar 压缩包。</p>
+<pre class="prettyprint linenums"><code>curl http://download.redis.io/releases/redis-3.0.4.tar.gz -o redis-3.0.4.tar.gz
+</code></pre>
+<p>解压缩。</p>
+<pre class="prettyprint linenums"><code>tar zxvf redis-3.0.4.tar.gz
+</code></pre>
+<p>进入解压后的目录。</p>
+<pre class="prettyprint linenums"><code>cd redis-3.0.4
+</code></pre>
+<p>使用Make 编译源文件。</p>
+<pre class="prettyprint linenums"><code>make
+</code></pre>
+<h3 id="toc_2">安装</h3>
+<p>进入源文件的目录。</p>
+<pre class="prettyprint linenums"><code>cd src
+</code></pre>
+<p>复制 Redis 的服务器和客户端到 /usr/local/bin。</p>
+<pre class="prettyprint linenums"><code>cp redis-server redis-cli /usr/local/bin
+</code></pre>
+<p>最好也把 sentinel，benchmark 和 check 复制过去。</p>
+<pre class="prettyprint linenums"><code>cp redis-sentinel redis-benchmark redis-check-aof redis-check-dump /usr/local/bin
+</code></pre>
+<p>创建redis 配置文件夹。</p>
+<pre class="prettyprint linenums"><code>mkdir /etc/redis
+</code></pre>
+<p>在<code>/var/lib/redis</code> 下创建有效的保存数据的目录</p>
+<pre><code>mkdir -p /var/lib/redis/6379
+</code></pre>
+<h4 id="toc_3">系统参数</h4>
+<p>为了让 redis 正常工作需要配置一些内核参数。</p>
+<p>配置 <code>vm.overcommit_memory</code> 为1，这可以避免数据被截断，详情<a href="https://www.kernel.org/doc/Documentation/vm/overcommit-accounting">见此</a>。</p>
+<pre class="prettyprint linenums"><code>sysctl -w vm.overcommit_memory=1
+</code></pre>
+<p>修改 backlog 连接数的最大值超过 redis.conf 中的 <code>tcp-backlog</code> 值，即默认值511。你可以在<a href="https://www.kernel.org/doc/Documentation/networking/ip-sysctl.txt">kernel.org</a> 找到更多有关基于 sysctl 的 ip 网络隧道的信息。</p>
+<pre class="prettyprint linenums"><code>sysctl -w net.core.somaxconn=512
+</code></pre>
+<p>取消对透明巨页内存（transparent huge pages）的支持，因为这会造成 redis 使用过程产生延时和内存访问问题。</p>
+<pre class="prettyprint linenums"><code>echo never &gt; /sys/kernel/mm/transparent_hugepage/enabled
+</code></pre>
+<h3 id="toc_4">redis.conf</h3>
+<p>redis.conf 是 redis 的配置文件，然而你会看到这个文件的名字是 6379.conf ，而这个数字就是 redis 监听的网络端口。如果你想要运行超过一个的 redis 实例，推荐用这样的名字。</p>
+<p>复制示例的 redis.conf 到 <strong>/etc/redis/6379.conf</strong>。</p>
+<pre class="prettyprint linenums"><code>cp redis.conf /etc/redis/6379.conf
+</code></pre>
+<p>现在编辑这个文件并且配置参数。</p>
+<pre class="prettyprint linenums"><code>vi /etc/redis/6379.conf
+</code></pre>
+<h4 id="toc_5">daemonize</h4>
+<p>设置 <code>daemonize</code> 为 no，systemd 需要它运行在前台，否则 redis 会突然挂掉。</p>
+<pre class="prettyprint linenums"><code>daemonize no
+</code></pre>
+<h4 id="toc_6">pidfile</h4>
+<p>设置 <code>pidfile</code> 为 <code>/var/run/redis_6379.pid</code>。</p>
+<pre class="prettyprint linenums"><code>pidfile /var/run/redis_6379.pid
+</code></pre>
+<h4 id="toc_7">port</h4>
+<p>如果不准备用默认端口，可以修改。</p>
+<pre class="prettyprint linenums"><code>port 6379
+</code></pre>
+<h4 id="toc_8">loglevel</h4>
+<p>设置日志级别。</p>
+<pre class="prettyprint linenums"><code>loglevel notice
+</code></pre>
+<h4 id="toc_9">logfile</h4>
+<p>修改日志文件路径。</p>
+<pre class="prettyprint linenums"><code>logfile /var/log/redis_6379.log
+</code></pre>
+<h4 id="toc_10">dir</h4>
+<p>设置目录为 /var/lib/redis/6379</p>
+<pre class="prettyprint linenums"><code>dir /var/lib/redis/6379
+</code></pre>
+<h3 id="toc_11">安全</h3>
+<p>下面有几个可以提高安全性的操作。</p>
+<h4 id="toc_12">Unix sockets</h4>
+<p>在很多情况下，客户端程序和服务器端程序运行在同一个机器上，所以不需要监听网络上的 socket。如果这和你的使用情况类似，你就可以使用 unix socket 替代网络 socket，为此你需要配置 <code>port</code> 为0，然后配置下面的选项来启用 unix socket。</p>
+<p>设置 unix socket 的套接字文件。</p>
+<pre class="prettyprint linenums"><code> unixsocket /tmp/redis.sock
+</code></pre>
+<p>限制 socket 文件的权限。</p>
+<pre class="prettyprint linenums"><code>unixsocketperm 700
+</code></pre>
+<p>现在为了让 redis-cli 可以访问，应该使用 -s 参数指向该 socket 文件。</p>
+<pre class="prettyprint linenums"><code>redis-cli -s /tmp/redis.sock
+</code></pre>
+<h4 id="toc_13">requirepass</h4>
+<p>你可能需要远程访问，如果是，那么你应该设置密码，这样子每次操作之前要求输入密码。</p>
+<pre class="prettyprint linenums"><code>requirepass "bTFBx1NYYWRMTUEyNHhsCg"
+</code></pre>
+<h4 id="toc_14">rename-command</h4>
+<p>想象一下如下指令的输出。是的，这会输出服务器的配置，所以你应该在任何可能的情况下拒绝这种访问。</p>
+<pre class="prettyprint linenums"><code>CONFIG GET *
+</code></pre>
+<p>为了限制甚至禁止这条或者其他指令可以使用 <code>rename-command</code> 命令。你必须提供一个命令名和替代的名字。要禁止的话需要设置替代的名字为空字符串，这样禁止任何人猜测命令的名字会比较安全。</p>
+<pre class="prettyprint linenums"><code>rename-command FLUSHDB "FLUSHDB_MY_SALT_G0ES_HERE09u09u"
+rename-command FLUSHALL ""
+rename-command CONFIG "CONFIG_MY_S4LT_GO3S_HERE09u09u"
+</code></pre>
+<p><img src="https://dn-linuxcn.qbox.me/data/attachment/album/201512/09/225002ylmz8o4s41s86kq6.jpg" alt="Access Redis through unix with password and command changes" /></p>
+<p><em>使用密码通过 unix socket 访问，和修改命令</em></p>
+<h4 id="toc_15">快照</h4>
+<p>默认情况下，redis 会周期性的将数据集转储到我们设置的目录下的 <strong>dump.rdb</strong> 文件。你可以使用 <code>save</code> 命令配置转储的频率，它的第一个参数是以秒为单位的时间帧，第二个参数是在数据文件上进行修改的数量。</p>
+<p>每隔15分钟并且最少修改过一次键。</p>
+<pre class="prettyprint linenums"><code>save 900 1
+</code></pre>
+<p>每隔5分钟并且最少修改过10次键。</p>
+<pre class="prettyprint linenums"><code>save 300 10
+</code></pre>
+<p>每隔1分钟并且最少修改过10000次键。</p>
+<pre class="prettyprint linenums"><code>save 60 10000
+</code></pre>
+<p>文件 <code>/var/lib/redis/6379/dump.rdb</code> 包含了从上次保存以来内存里数据集的转储数据。因为它先创建临时文件然后替换之前的转储文件，这里不存在数据破坏的问题，你不用担心，可以直接复制这个文件。</p>
+<h3 id="toc_16">开机时启动</h3>
+<p>你可以使用 systemd 将 redis 添加到系统开机启动列表。</p>
+<p>复制示例的 init_script 文件到 <code>/etc/init.d</code>，注意脚本名所代表的端口号。</p>
+<pre class="prettyprint linenums"><code>cp utils/redis_init_script /etc/init.d/redis_6379
+</code></pre>
+<p>现在我们要使用 systemd，所以在 <code>/etc/systems/system</code> 下创建一个单位文件名字为 <code>redis_6379.service</code>。</p>
+<pre class="prettyprint linenums"><code>vi /etc/systemd/system/redis_6379.service
+</code></pre>
+<p>填写下面的内容，详情可见 systemd.service。</p>
+<pre class="prettyprint linenums"><code>[Unit]
+Description=Redis on port 6379
+
+[Service]
+Type=forking
+ExecStart=/etc/init.d/redis_6379 start
+ExecStop=/etc/init.d/redis_6379 stop
+
+[Install]
+WantedBy=multi-user.target
+</code></pre>
+<p>现在添加我之前在 <code>/etc/sysctl.conf</code> 里面修改过的内存过量使用和 backlog 最大值的选项。</p>
+<pre class="prettyprint linenums"><code>vm.overcommit_memory = 1
+
+net.core.somaxconn=512
+</code></pre>
+<p>对于透明巨页内存支持，并没有直接 sysctl 命令可以控制，所以需要将下面的命令放到 <code>/etc/rc.local</code> 的结尾。</p>
+<pre class="prettyprint linenums"><code>echo never &gt; /sys/kernel/mm/transparent_hugepage/enabled
+</code></pre>
+<h3 id="toc_17">总结</h3>
+<p>这样就可以启动了，通过设置这些选项你就可以部署 redis 服务到很多简单的场景，然而在 redis.conf 还有很多为复杂环境准备的 redis 选项。在一些情况下，你可以使用 <a href="http://redis.io/topics/replication">replication</a> 和 <a href="http://redis.io/topics/sentinel">Sentinel</a> 来提高可用性，或者<a href="http://redis.io/topics/partitioning">将数据分散</a>在多个服务器上，创建服务器集群。</p>
+<p>谢谢阅读。</p>
+<hr />
+<p>via: <a href="http://linoxide.com/storage/install-redis-server-centos-7/">http://linoxide.com/storage/install-redis-server-centos-7/</a></p>
+<p>作者：<a href="http://linoxide.com/author/carlosal/">Carlos Alberto</a> 译者：<a href="https://github.com/oska874">ezio</a> 校对：<a href="https://github.com/wxy">wxy</a></p>
+<p>本文由 <a href="https://github.com/LCTT/TranslateProject">LCTT</a> 原创编译，<a href="https://linux.cn/">Linux中国</a> 荣誉推出</p>]]></description>
+      <author><![CDATA[linux@linux.cn (linux)]]></author>
+      <pubDate>Thu, 10 Dec 2015 13:45:00 +0800</pubDate>
+      <comments>http://linux.cn/article-6719-1.html?utm_source=rss&amp;utm_medium=rss</comments>
+    </item>
+    <item>
+      <title><![CDATA[Facebook 想要继续支持 SHA-1 证书]]></title>
+      <link>http://linux.cn/article-6721-1.html?utm_source=rss&amp;utm_medium=rss</link>
+      <guid>http://linux.cn/article-6721-1.html?utm_source=rss&amp;utm_medium=rss</guid>
+      <description><![CDATA[<p><a href="http://www.cnbeta.com/articles/21480.htm" target="_blank">2005年由中国数学家王小云领导的研究小组</a>成功破解了当前广泛使用的密码算法MD5和SHA-1，而其中SHA-1所面临的情况最为严重；<a href="http://www.cnbeta.com/articles/21480.htm" target="_blank">2012年Jesse Walker预估找到SHA-1碰撞需要200万美元</a>，但这费用在2017年会下降至17.3万美元；<a href="http://www.cnbeta.com/articles/326601.htm" target="_self">2014年谷歌宣布降低SHA-1的安全指示</a>；2015年包括<a href="http://www.cnbeta.com/articles/445653.htm" target="_self">Mozilla、微软在内</a>的诸多科技厂商纷纷宣布放弃SHA-1签署的数字证书。不过在这场更新换代的浪潮中，以Facebook和Cloudfare（网站安全管理提供商）为代表的科技企业站在另一面。</p>
+<p><img title="facebook-cloudfare-want-to-continue-using-sha-1-certificates-in-older-browsers-497392-2.jpg" src="https://dn-linuxcn.qbox.me/data/attachment/album/201512/10/131118xb7vvxtgx2x5gk9q.jpg" alt="" /></p>
+<p>Cloudfare公司表示这种过渡对于那些老设备用户来说可能是非常糟糕的决定。根据大量CDN和服务器网络的调查数据显示，全球至少还有3700万用户使用无法兼容支持新版SHA-2的老款浏览器，如果网站迁移到SHA-2，一旦完成过渡则意味着这些用户无法再访问HTTPS网站。</p>
+<p><img title="facebook-cloudfare-want-to-continue-using-sha-1-certificates-in-older-browsers-497392-3.jpg" src="https://dn-linuxcn.qbox.me/data/attachment/album/201512/10/131118p41dcc4uewdrere8.jpg" alt="" /></p>
+<p>尽管根据Cloudfare公司的预估报告显示已经有98.31%的互联网用户使用支持SHA-2的浏览器，但是公司暂时不会放弃这3700万用户。而这个观点得到了Facebook首席安全官Alex Stamos的支持。</p>]]></description>
+      <author><![CDATA[linux@linux.cn (linux)]]></author>
+      <pubDate>Thu, 10 Dec 2015 13:11:17 +0800</pubDate>
+      <comments>http://linux.cn/article-6721-1.html?utm_source=rss&amp;utm_medium=rss</comments>
+    </item>
+    <item>
+      <title><![CDATA[王垠：数学和编程]]></title>
+      <link>http://linux.cn/article-6714-1.html?utm_source=rss&amp;utm_medium=rss</link>
+      <guid>http://linux.cn/article-6714-1.html?utm_source=rss&amp;utm_medium=rss</guid>
+      <description><![CDATA[<p>好些人来信问我，要成为一个好的程序员，数学基础要达到什么样的程度？十八年前，当我成为大学计算机系新生的时候，也为同样的问题所困扰。面对学数学，物理等学科的同学，我感到自卑。经常有人说那些专业的知识更加精华一些，难度更高一些，那些专业的人毕业之后如果做编程工作，水平其实比计算机系毕业的还要高。直到几年前深入研究程序语言之后，对这个问题我才得到了答案和解脱。由于好多编程新手遇到同样的困扰，所以我想在这里把这个问题详细的阐述一下。</p>
+<p><img src="https://dn-linuxcn.qbox.me/data/attachment/album/201512/09/173527juvzgiugumltkpgu.jpg" alt="" /></p>
+<p>（配图来自 wallchan.com）</p>
+<h3>数学并不是计算机科学的基础</h3>
+<p>很多人都盲目的认为，计算机科学是数学的一个分支，数学是计算机科学的基础，数学是更加博大精深的科学。这些人以为只要学会了数学，编程的事情全都不在话下，然而事实却并非如此。</p>
+<p>事实其实是这样的：</p>
+<ul>
+<li>计算机科学其实根本不是数学，它只不过借用了非常少，非常基础的数学，比高中数学还要容易一点。所谓&ldquo;高等数学&rdquo;，在计算机科学里面基本用不上。</li>
+<li>计算机是比数学更加基础的工具，就像纸和笔一样。计算机可以用来解决数学的问题，也可以用来解决不是数学的问题，比如工程的问题，艺术的问题，经济的问题，社会的问题等等。</li>
+<li>计算机科学是完全独立的学科。学习了数学和物理，并不能代替对计算机科学的学习。你必须针对计算机科学进行学习，才有可能成为好的程序员。</li>
+<li>数学家所用的语言，比起常见的程序语言（比如C++，Java）来说，其实是非常落后而糟糕的设计。所谓&ldquo;数学的美感&rdquo;，其实大部分是夜郎自大。</li>
+<li>99%的数学家都写不出像样的代码。</li>
+</ul>
+<h3>数学是异常糟糕的语言</h3>
+<p>这并不是危言耸听。如果你深入研究过程序语言的理论，就会发现其实数学家们使用的那些符号，只不过是一种非常糟糕的程序语言。数学的理论很多是有用的，然而数学家门用于描述这些理论所用的语言，却是纷繁复杂，缺乏一致性，<ruby>可组合性<rp>（</rp><rt>composability</rt><rp>）</rp></ruby>，简单性，可用性。这也就是为什么大部分人看到数学就头痛。这不是他们不够聪明，而是数学语言的&ldquo;<a href="http://www.yinwang.org/blog-cn/2015/03/17/design">设计</a>&rdquo;有问题。人们学习数学的时候，其实只有少部分时间在思考它的精髓，而大部分时间是在折腾它的语法。</p>
+<p>举一个非常简单的例子。如果你说<code>cos<sup>2</sup>&theta;</code>表示<code>(cos &theta;)<sup>2</sup></code>，那么理所当然，<code>cos<sup>-1</sup>&theta;</code>就应该表示<code>1/(cos &theta;)</code>了？可它偏偏不是！别被数学老师们的教条和借口欺骗啦，他们总是告诉你：&ldquo;你应该记住这些！&rdquo; 可是你想过吗：&ldquo;凭什么？&rdquo; <code>cos<sup>2</sup>&theta;</code>表示<code>(cos &theta;)<sup>2</sup></code>，而<code>cos<sup>-1</sup>&theta;</code>，明明是一模一样的形式，表示的却是<code>arccos &theta;</code>。一个是求幂，一个是调用反函数，风马不及，却写成一个样子。这样的语言设计混淆不堪，却喜欢以&ldquo;约定俗成&rdquo;作为借口。</p>
+<p>如果你再多看一些数学书，就会发现这只是数学语言几百年累积下来的糟粕的冰山一角。数学书里尽是各种上标下标，带括号的上标下标，x，y，z，a，b，c，f，g，h，各种扭来扭去的希腊字母，希伯来字母&hellip;&hellip; 斜体，黑体，花体，双影体，&hellip;&hellip;用不同的字体来表示不同的&ldquo;类型&rdquo;。很多符号的含义，在不同的子领域里面都不一样。有些人上一门数学课，到最后还没明白那些符号是什么意思。</p>
+<p>直到今天，数学家们写书仍然非常不严谨。他们常犯的一个错误是把x<sup>2</sup>这样的东西叫做<ruby>&ldquo;函数&rdquo;<rp>（</rp><rt>function</rt><rp>）</rp></ruby>。其实<code>x<sup>2</sup></code>根本不是一个函数，它只是一个表达式。你必须同时指明&ldquo;x是参数&rdquo;，加上<code>x<sup>2</sup></code>，才会成为一个函数。所以正确的函数写法其实看起来像这样：<code>f(x) = x<sup>2</sup></code>。或者如果你不想给它一个名字，可以借用lambda calculus的写法，写成：<code>&lambda;x.x<sup>2</sup></code>。</p>
+<p>可是数学家们灰常的喜欢&ldquo;约定俗成&rdquo;。他们定了一些不成文的规矩是这样：凡是叫&ldquo;x&rdquo;的，都是函数的参数，凡是叫&ldquo;y&rdquo;的，都可能是一个函数&hellip;&hellip; 所以你写<code>x<sup>2</sup></code>就可以表示<code>&lambda;x.x<sup>2</sup></code>，而不需要显式的写出&ldquo;<code>&lambda;x</code>&rdquo;。殊不知这些约定俗成，看起来貌似可以让你少写几个字，却造成了许许多多的混淆和麻烦。比如，你在Mathematica里面可以对&nbsp;<a href="http://www.wolframalpha.com/input/?i=D%5Bx%5E2%2By%2Cx%5D">x<sup>2</sup>+y</a>&nbsp;求关于<code>x</code>的导数，而且会得到&nbsp;<code>y'(x) + 2x</code>&nbsp;这样蹊跷的结果，因为它认为<code>y</code>可能是一个函数。更奇怪的是，如果你在后面多加一个<code>a</code>，也就是对<a href="http://www.wolframalpha.com/input/?i=D%5Bx%5E2%2By%2Ba%2Cx%5D">x<sup>2</sup>+y+a</a>求导，你会得到&nbsp;<code>2x</code>！那么&nbsp;<code>y'(x)</code>&nbsp;到哪里去了？莫名其妙&hellip;&hellip;</p>
+<p>相对而言，程序语言就严谨很多，所有的程序语言都要求你必须指出函数的参数叫什么名字。像x<sup>2</sup>这样的东西，在程序语言里面不是一个<ruby>函数<rp>（</rp><rt>function</rt><rp>）</rp></ruby>，而只是一个<ruby>表达式<rp>（</rp><rt>expression</rt><rp>）</rp></ruby>。即使 JavaScript 这样毛病众多的语言都是这样。比如，你必须写：</p>
+<pre><code class="javascript">function (x) { return x * x }
+</code></pre>
+<p>那个括号里的<code>(x)</code>，显式的声明了变量的名字，避免了可能出现的混淆。我不是第一个指出这些问题的人。其实现代逻辑学的鼻祖Gottlob Frege在一百多年以前就在他的论文&ldquo;<a href="http://www.olimon.org/uan/frege-writings.pdf">Function and Concept</a>&rdquo;里批评了数学家们的这种做法。可是数学界的表达方式直到今天还是一样的混乱。</p>
+<p>很多人学习微积分都觉得困难，其实问题不在他们，而在于<ruby>莱布尼兹<rp>（</rp><rt>Leibniz</rt><rp>）</rp></ruby>。莱布尼兹设计来描述微积分的语言（&int;，dx, dy, ...），从现代语言设计的角度来看，其实非常之糟糕，可以说是一塌糊涂。我不能怪莱布尼兹，他毕竟是几百年前的人了，他不知道我们现在知道的很多东西。然而古人的设计，现在还不考虑改进，反而当成教条灌输给学生，那就是不思进取了。</p>
+<p>数学的语言不像程序语言，它的历史太久，没有经过系统的，考虑周全的，统一的设计。各种数学符号的出现，往往是历史上某个数学家有天在黑板上随手画出一些古怪的符号，说这代表什么，那代表什么，&hellip;&hellip; 然后就定下来了。很多数学家只关心自己那块狭窄的子领域，为自己的理论随便设计出一套符号，完全不管这些是否跟其它子领域的符号相冲突。这就是为什么不同的数学子领域里写出同样的符号，却可以表示完全不同的涵义。在这种意义上，数学的语言跟Perl（一种非常糟糕的程序语言）有些类似。Perl把各种人需要的各种功能，不加选择地加进了语言里面，造成语言繁复不堪，甚至连Perl的创造者自己都不能理解它所有的功能。</p>
+<p>数学的证明，使用的其实也是极其不严格的语言&mdash;&mdash;古怪的符号，加上含糊不清，容易误解的人类语言。如果你知道什么是<a href="https://en.wikipedia.org/wiki/Curry%E2%80%93Howard_correspondence">Curry-Howard Correspondence</a>就会明白，其实每一个数学证明都不过是一段代码。同样的定理，可以有许多不同版本的证明（代码）。这些证明有的简短优雅，有的却冗长繁复，像面条一样绕来绕去，没法看懂。你经常在数学证明里面看到&ldquo;未定义的变量&rdquo;，证明的逻辑也包含着各种隐含知识，思维跳跃，非常难以理解。很多数学证明，从程序的观点来看，连编译都不会通过，就别提运行了。</p>
+<p>数学家们往往不在乎证明的优雅性。他们认为只要能证明出定理，你管我的证明简不简单，容不容易看懂呢。你越是看不懂，就越是觉得我高深莫测，越是感觉你自己笨！这种思潮到了编程的时候就显出弊端了。数学家写代码，往往忽视代码的优雅性，简单性，模块化，可读性，性能，数据结构等重要因素，认为代码只要能算出结果就行。他们把代码当成跟证明一样，一次性的东西，所以他们的代码往往不能满足实际工程的严格要求。</p>
+<p>数学里最在乎语言设计的分支，莫过于逻辑学了。很多人（包括很多程序语言专家）都盲目的崇拜逻辑学家，盲目的相信数理逻辑是优雅美好的语言。在程序语言界，数理逻辑已经成为一种灾害，明明很容易就能解释清楚的语义，非得写成一堆稀奇古怪，含义混淆的逻辑公式。殊不知其实数理逻辑也是有很大的历史遗留问题和误区的。研究逻辑学的人经常遇到各种<ruby>&ldquo;不可判定&rdquo;<rp>（</rp><rt>undecidable</rt><rp>）</rp></ruby>问题和所谓<ruby>&ldquo;悖论&rdquo;<rp>（</rp><rt>paradox</rt><rp>）</rp></ruby>，研究几十年也没搞清楚，而其实那些问题都是他们自己造出来的。你只需要把语言改一下，去掉一些不必要的功能，问题就没了。但逻辑学家们总喜欢跟你说，那是某天才老祖宗想出来的，多么多么的了不起啊，不能改！</p>
+<p>用<ruby>一阶逻辑<rp>（</rp><rt>first-order logic</rt><rp>）</rp></ruby>这样的东西，你可以写出一些毫无意义的语句。逻辑老师们会告诉你，记住啦，这些是没有意义的，如果写出来这些东西，是你的问题！他们没有意识到，如果一个人可以用一个语言写出毫无意义的东西，那么这问题在于这个语言，而不在于这个人。一阶逻辑号称可以&ldquo;表达所有数学&rdquo;，结果事实却是，没有几个数学家真的可以用它表达很有用的知识。到后来，稍微明智一点的逻辑学家们开始研究这些老古董语言到底出了什么毛病，于是他们创造了Model Theory这样的理论。写出一些长篇大部头，用于&ldquo;验证&rdquo;这些逻辑语言的合理性。这些问题在我看来都是显而易见的，因为很多逻辑的语言根本就不是很好很有用的东西。去研究它们&ldquo;为什么有毛病&rdquo;，其实是白费力气。自己另外设计一个更好语言就完事了。</p>
+<p>在我看来，除了现代逻辑学的鼻祖<a href="https://en.wikipedia.org/wiki/Gottlob_Frege">Gottlob Frege</a>理解了逻辑的精髓，其它逻辑学家基本都是照本宣科，一知半解。他们喜欢把简单的问题搞复杂，制造一些新名词，说得玄乎其玄灵丹妙药似的。如果你想了解逻辑学的精华，建议你看看<a href="http://www.olimon.org/uan/frege-writings.pdf">Frege的文集</a>。看了之后你也许会发现，Frege思想的精华，其实已经融入在几乎所有的程序语言里了。</p>
+<h3>编程是一门艺术</h3>
+<p>从上面你也许已经明白了，普通程序员使用的编程语言，就算是C++这样毛病众多的语言，其实也已经比数学家使用的语言好很多。用数学的语言可以写出含糊复杂的证明，在期刊或者学术会议上蒙混过关，用程序语言写出来的代码却无法混过计算机这道严格的关卡。因为计算机不是人，它不会迷迷糊糊的点点头让你混过去，或者因为你是大师就不懂装懂。代码是需要经过现实的检验的。如果你的代码有问题，它迟早会导致出问题。</p>
+<p>计算机科学并不是数学的一个分支，它在很大程度上是优于数学，高于数学的。有些数学的基本理论可以被计算机科学所用，然而计算机科学并不是数学的一部分。数学在语言方面带有太多的历史遗留糟粕，它其实是泥菩萨过河，自身难保，它根本解决不了编程中遇到的实际问题。</p>
+<p>编程真的是一门艺术，因为它符合艺术的各种特征。艺术可以利用科学提供的工具，然而它却不是科学的一部分，它的地位也并不低于科学。和所有的艺术一样，编程能解决科学没法解决的问题，满足人们新的需求，开拓新的世界。所以亲爱的程序员们，别再为自己不懂很多数学而烦恼了。数学并不能帮助你写出好的程序，然而能写出好程序的人，却能更好的理解数学。我建议你们先学编程，再去看数学。</p>
+<p>如果你想了解更多关于数学语言的弊病以及程序语言对它们的改进，我建议你看看这个Gerald Susman的<a href="http://www.infoq.com/presentations/Expression-of-Ideas">讲座</a>。</p>]]></description>
+      <author><![CDATA[linux@linux.cn (linux)]]></author>
+      <pubDate>Thu, 10 Dec 2015 10:26:00 +0800</pubDate>
+      <comments>http://linux.cn/article-6714-1.html?utm_source=rss&amp;utm_medium=rss</comments>
+    </item>
+    <item>
+      <title><![CDATA[为何 Linux 桌面应该按任务来组织管理？]]></title>
+      <link>http://linux.cn/article-6709-1.html?utm_source=rss&amp;utm_medium=rss</link>
+      <guid>http://linux.cn/article-6709-1.html?utm_source=rss&amp;utm_medium=rss</guid>
+      <description><![CDATA[<p><img class="fit-image" src="https://dn-linuxcn.qbox.me/data/attachment/album/201512/08/214627n78dsdl0d022sps7.jpg" alt="" width="498" height="376" border="0" /></p>
+<p>眼下不是对桌面环境方面进行大胆创新的时候。用户反对 KDE、GNOME 和 Unity 的一幕还历历在目，开发人员不会试图对桌面环境作出重大变化。相反，更偏爱那些不会让人心烦意乱的功能方面的调整和细小改进。但我仍然认为，桌面早就该换成基于任务的设计了。</p>
+<p>在过去，桌面按应用程序来组织管理。这种方法在个人计算的早期很适用，那时候应用程序数量不多。而如今，至少从两个方面来看，这种方法完全过时了。</p>
+<p><strong>首先，应用程序的名称往往很少体现功能。</strong></p>
+<p>Amarok、K3B（哪怕使用完整的写法 Burn Baby， Burn）和 Shotwell 都是一流的应用程序，但是没有人能从它们的名称中猜出其功能。连 Libreoffice 的名称也只是含糊地表明了用途。像 Pysol（Python Solitaire）或 digiKam（数码相机）这些应用程序的名称在普通菜单的应用程序中只占三分之一，连这样的名称，意思都不太明了。</p>
+<p>应用程序名称含糊的这种情况，通常归因于基于任务的顶层菜单。比如说，当 Scribus 和 Xsane 都列在 Graphics 下方时，引导作用极其有限。</p>
+<p><strong>其次，也是更重要的是，普通的现代电脑有太多的应用程序，按名称来显示它们已变得越来越不切实际。</strong></p>
+<p>经典菜单不是对屏幕来说太长，就是子菜单溢出屏幕，直到它们几乎不被使用。替代办法也不是特别成功。只显示一小部分应用程序有可能让用户不知道已安装的全部程序，哪怕添加上搜索栏也是如此。</p>
+<p>同样，虽然由于缺少空间，独立的菜单屏幕在移动设备上可以接受，但是在工作站上，只会让人分心。经典菜单的替代方法一直追求的设计是：尽量减少鼠标点击次数，让用户可以尽快回去处理工作。</p>
+<h3><strong>基于任务的替代方法</strong></h3>
+<p>想解决这个设计问题，最快捷的办法很可能是基于任务的设计。可问题是，基于任务的设计只是偶尔在桌面环境中合情合理。除了在顶层菜单中以外，如果用户选择，它可以与虚拟工作区一起有限地实施；比如说，一个工作区专门用于上网冲浪，另一个工作区用于收阅电子邮件。</p>
+<p>除此之外，实施基于任务的桌面的一大举措就是 KDE Activities――它们似乎太激进了，缺乏详细的解释，未能流行起来。</p>
+<p>然而，你设置好 Activities 后，最先一目了然的一点是，相比任何一种菜单，每个 Activity 需要的桌面图标比较少。即使工作区上有文档和 URL，KDE Activity 也很少需要十多个图标，常常五六个图标就可以了。因而，所有必要的资源都只要点击一下鼠标就能获取，极少需要搜索就能找到这些资源。</p>
+<p>换句话说，你在使用某个特定的任务时，可以像个人计算的早期那样临时回到原来的情形，那时候应用程序数量不多，不至于让人无所适从。或者，换一种方式说，你使用一种更有针对性的 Favorites（最喜爱的程式）菜单。</p>
+<p>就个人而言，我很喜欢 Activities；如果我使用除 KDE 之外的任何桌面，要是没有 Activities 就会觉得无计可施。不过，我很想知道它们能不能再迈进一步。</p>
+<p>具体来说，何不让任务成为一直贯彻到菜单的组织原则？GNOME 菜单中已经倾向于采用这种组织，&ldquo;Document Viewer&rdquo; 取代了 &ldquo;Evince&rdquo;，&ldquo;Movie Player&rdquo; 取代了 &ldquo;Totem&rdquo;。从各方面来考虑的话，把 &ldquo;LibreOffice Cals&rdquo; 换成 &ldquo;Spreadsheets&rdquo; 或者把 &ldquo;Firefox&rdquo; 换成 &ldquo;Web Browser&rdquo; 不会是多大的变化。许多桌面图标用户已经进行了这种变化，几个次要的发行版也是如此。</p>
+<p>这种解决办法有望消除应用程序名称与功能毫无关系的问题。让菜单项可以编辑，它们还会减少菜单的长度，让它们可以在单页上全部显示。</p>
+<p>按名称组织的视图可能仍会留下来，完全用于参考，但在普通环境下，菜单只会显示任务；如果是替代方法，可能会显示子菜单。一些应用程序安装时已经为它们分配了任务，而额外的任务可以由用户来添加。</p>
+<p>结果就是立即易于理解、高效、个性化，而这些都是Linux桌面用户所偏爱的。</p>
+<h3><strong>改变的意愿</strong></h3>
+<p>当然，我认识到，在当前情况下，不可能实现这种变化。在科幻作家 Harlan Ellison 笔下的世界里，我不仅在搭建空中楼阁，还打算头一个月就搬进去。</p>
+<p>不过，变化不会很大，适应变化也不会很难。大多数桌面环境已经允许选择默认的常用应用程序来打开文件。让整个菜单都基于任务只需要更多的同一选择，随之而来的高效很快会证明有必要花这番力气。</p>
+<p>最重要的是，围绕任务构建桌面可以消除所有精心制作但常常很烦人的基本菜单的替代方法，让用户可以更快速地浏览。其实只要愿意实施变化，但假设这一幕果真出现的话，也不太可能会在几年内出现。</p>]]></description>
+      <author><![CDATA[linux@linux.cn (linux)]]></author>
+      <pubDate>Thu, 10 Dec 2015 10:24:00 +0800</pubDate>
+      <comments>http://linux.cn/article-6709-1.html?utm_source=rss&amp;utm_medium=rss</comments>
+    </item>
+    <item>
+      <title><![CDATA[Mozilla 正式“枪毙”小众手机操作系统火狐 OS]]></title>
+      <link>http://linux.cn/article-6716-1.html?utm_source=rss&amp;utm_medium=rss</link>
+      <guid>http://linux.cn/article-6716-1.html?utm_source=rss&amp;utm_medium=rss</guid>
+      <description><![CDATA[<p><img src="https://dn-linuxcn.qbox.me/data/attachment/album/201512/09/202327ltoof2sskikskzz1.jpg" alt="Mozilla正式&ldquo;枪毙&rdquo;小众手机操作系统火狐OS" /></p>
+<p>在若干年前，智能手机操作系统市场热火朝天，老牌浏览器火狐的开发商 Mozilla 公司，也对外推出了一款手机操作系统&ldquo;火狐OS&rdquo;，希望能够打入低价手机市场，中国的华为、中兴等公司，也推出了火狐手机。</p>
+<p>不过日前，Mozilla 公司对外宣布，已经不再开发火狐 OS 系统和其他的硬件，这意味着至少在手机市场，火狐 OS 已经走到了生命的尽头。</p>
+<p>据一家美国科技新闻网站报道，Mozilla 公司之前曾经在内部开发者大会上散发类似消息，而在日前，该公司正式对媒体证实了消息，即终止火狐 OS 操作系统的开发。</p>
+<p>2013年初，火狐 OS 操作系统正式对外发布。这种操作系统基于 HTML5 技术，可以大大简化手机应用软件的开发。Mozilla 意识到操作系统市场的高度竞争，因此将这一系统定位于发展中国家的廉价手机，Mozilla 甚至希望把智能手机的最低价格拉到25美元。</p>
+<p>火狐手机系统，的确获得了一些手机厂商的支持，尤其是希望占领发展中国家低价手机的中国企业，其中包括华为、中兴以及TCL 旗下的阿尔卡特品牌。</p>
+<p>多款火狐手机后来相继上市，但是并未获得了消费者的认可，另外<span class="infoMblog">三星电子</span>、HTC等全球一线的手机厂商也并未接纳火狐系统。</p>
+<p>众所周知的是，在手机操作系统市场，谷歌开发的开源系统安卓，以及苹果 iOS 系统成为两家垄断者，份额持续扩大，其中安卓的全球份额已经达到了85%。与此同时，其他的操作系统份额继续下滑，其中曾经保留一丝希望的微软 WP 系统，目前份额已经跌到了接近消失的1.7%，而黑莓公司的&ldquo;黑莓10&rdquo;系统，基本上已经从市场上蒸发（公司推出了安卓手机）。</p>
+<p>在 WP 和黑莓都难以自保的背景下，&ldquo;后台&rdquo;更加弱小的火狐系统要想求生，难度可想而知。</p>
+<p>Mozilla 对媒体表示，火狐 OS 系统失败的原因之一，是未能够在智能手机上提供良好的用户体验。</p>
+<p>有业内人士表示，在移动互联网技术发展中，WEB 和 HTML5 的地位越来越下滑，原生 APP 因为用户体验流畅，获得用户认可，这种用户体验和流畅度的差异，可能导致了火狐系统的失败。</p>
+<p>不过，Mozilla 仅仅是宣布了火狐 OS 在智能手机市场的失败，该公司的高级副总裁<ruby>贾克斯<rp>（</rp><rt>Ari Jaaksi</rt><rp>）</rp></ruby>通过推特表示，他们还将继续在手机之外的其他联网设备上使用火狐系统，这将开创一个新的未来。</p>
+<p>火狐OS能够兼容其他硬件设备，而在今年年中，日本的松下公司第一次推出了搭载火狐系统的智能电视机。据媒体报道，这种电视机能够较好支持网页服务和应用。</p>
+<p>在 Mozilla 宣布项目失败之后，松下是否会继续在新机型中采用火狐系统，尚不得而知。</p>
+<p>在火狐 OS 之前，另外一个小众操作系统&mdash;&mdash;LG 电子从惠普公司收购的 webOS 系统，也已经在手机市场败走麦城。LG 如今已经把这款操作系统转移到了智能电视、智能手表等设备上。</p>
+<p>另外几乎和火狐 OS 同时，三星电子也推出了基于自有操作系统 Tizen 的智能手机，仍然瞄准发展中国家廉价机市场。据报道，在印度等国家，Tizen 手机销售不错，三星计划推出更多的机型，甚至推出价格更高的中端机型。三星也已经召集了一些第三方开发者，为 Tizen 开发客户端。</p>
+<p>不过业内普遍认为，三星的 Tizen 要想突破安卓和 iOS 的垄断，成为拥有实质性份额的&ldquo;第三名&rdquo;，难度极大。</p>]]></description>
+      <author><![CDATA[linux@linux.cn (linux)]]></author>
+      <pubDate>Thu, 10 Dec 2015 10:11:00 +0800</pubDate>
+      <comments>http://linux.cn/article-6716-1.html?utm_source=rss&amp;utm_medium=rss</comments>
+    </item>
+    <item>
+      <title><![CDATA[如何在 CentOS 7.x 上安装 Zephyr 测试管理工具]]></title>
+      <link>http://linux.cn/article-6715-1.html?utm_source=rss&amp;utm_medium=rss</link>
+      <guid>http://linux.cn/article-6715-1.html?utm_source=rss&amp;utm_medium=rss</guid>
+      <description><![CDATA[<p><ruby>测试管理<rp>（</rp><rt>Test Management</rt><rp>）</rp></ruby>指测试人员所需要的任何的所有东西。测试管理工具用来记录测试执行的结果、计划测试活动以及汇报质量控制活动的情况。在这篇文章中我们会向你介绍如何配置 Zephyr 测试管理工具，它包括了管理测试活动需要的所有东西，不需要单独安装测试活动所需要的应用程序从而降低测试人员不必要的麻烦。一旦你安装完它，你就看可以用它跟踪 bug 和缺陷，和你的团队成员协作项目任务，因为你可以轻松地共享和访问测试过程中多个项目团队的数据。</p>
+<p><img src="https://dn-linuxcn.qbox.me/data/attachment/album/201512/09/200618siq8kr5n5oc5rwvr.png" alt="" width="605" height="358" /></p>
+<h3 id="toc_1">Zephyr 要求</h3>
+<p>安装和运行 Zephyr 要求满足以下最低条件。可以根据你的基础设施提高资源。我们会在 64 位 CentOS-7 系统上安装 Zephyr，几乎在所有的 Linux 操作系统中都有可用的 Zephyr 二进制发行版。</p>
+<p>注：表格</p>
+<table border="1" width="669" cellpadding="4">
+<tbody>
+<tr>
+<td colspan="3" width="660"><strong>Zephyr test management tool</strong></td>
+</tr>
+<tr>
+<td width="140"><strong>Linux OS</strong></td>
+<td width="312">CentOS Linux 7 (Core), 64-bit</td>
+<td width="209">&nbsp;</td>
+</tr>
+<tr>
+<td width="140"><strong>Packages</strong></td>
+<td width="312">JDK 7 或更高 ,&nbsp; Oracle JDK 6 update</td>
+<td width="209">没有事先安装的 Tomcat 和 MySQL</td>
+</tr>
+<tr>
+<td width="140"><strong>RAM</strong></td>
+<td width="312">4 GB</td>
+<td width="209">推荐 8 GB</td>
+</tr>
+<tr>
+<td width="140"><strong>CPU</strong></td>
+<td colspan="2" width="521">2.0 GHZ 或更高</td>
+</tr>
+<tr>
+<td width="140"><strong>Hard Disk</strong></td>
+<td colspan="2" width="521">30 GB , 至少 5GB</td>
+</tr>
+</tbody>
+</table>
+<p>安装 Zephyr 要求你有超级用户（root）权限，并确保你已经正确配置了网络的静态 IP ，默认端口必须可用并允许通过防火墙。其中 tomcat 会使用 80/443、 8005、 8009、 8010 端口， Zephyr 内部使用 RTMP 协议的 flex 会使用 443 和 2099 号端口。</p>
+<h3 id="toc_2">安装 Java JDK 7</h3>
+<p>安装 Zephyr 首先需要安装 Java JDK 7，如果你的系统上还没有安装，可以按照下面的方法安装 Java 并设置 JAVA_HOME 环境变量。</p>
+<p>输入以下的命令安装 Java JDK 7。</p>
+<pre class="prettyprint linenums"><code>[root@centos-007 ~]# yum install java-1.7.0-openjdk-1.7.0.79-2.5.5.2.el7_1
+
+[root@centos-007 ~]# yum install java-1.7.0-openjdk-devel-1.7.0.85-2.6.1.2.el7_1.x86_64
+</code></pre>
+<p>安装完 java 和它的所有依赖后，运行下面的命令设置 JAVA_HOME 环境变量。</p>
+<pre class="prettyprint linenums"><code>[root@centos-007 ~]# export JAVA_HOME=/usr/java/default
+[root@centos-007 ~]# export PATH=/usr/java/default/bin<img src="https://dn-linuxcn.qbox.me/static/image/smiley/default/shy.gif" smilieid="8" border="0" alt="" />PATH
+</code></pre>
+<p>用下面的命令检查 java 版本以验证安装。</p>
+<pre class="prettyprint linenums"><code>[root@centos-007 ~]# java &ndash;version
+
+java version "1.7.0_79"
+OpenJDK Runtime Environment (rhel-2.5.5.2.el7_1-x86_64 u79-b14)
+OpenJDK 64-Bit Server VM (build 24.79-b02, mixed mode)
+</code></pre>
+<p>输出显示我们已经正确安装了 1.7.0_79 版本的 OpenJDK Java。</p>
+<h3 id="toc_3">安装 MySQL 5.6.x</h3>
+<p>如果的机器上有其它的 MySQL，建议你先卸载它们并安装这个版本，或者升级它们的<ruby>模式<rp>（</rp><rt>schemas</rt><rp>）</rp></ruby>到指定的版本。因为 Zephyr 前提要求这个指定的 5.6.x 版本的 MySQL ，要有 root 用户名。</p>
+<p>可以按照下面的步骤在 CentOS-7.1 上安装 MySQL 5.6 ：</p>
+<p>下载 rpm 软件包，它会为安装 MySQL 服务器创建一个 yum 库文件。</p>
+<pre class="prettyprint linenums"><code>[root@centos-007 ~]# yum install wget
+[root@centos-007 ~]# wget http://repo.mysql.com/mysql-community-release-el7-5.noarch.rpm
+</code></pre>
+<p>然后用 rpm 命令安装下载下来的 rpm 软件包。</p>
+<pre class="prettyprint linenums"><code>[root@centos-007 ~]# rpm -ivh mysql-community-release-el7-5.noarch.rpm
+</code></pre>
+<p>安装完这个软件包后你会有两个和 MySQL 相关的新的 yum 库。然后使用 yum 命令安装 MySQL Server 5.6，它会自动安装所有需要的依赖。</p>
+<pre class="prettyprint linenums"><code>[root@centos-007 ~]# yum install mysql-server
+</code></pre>
+<p>安装过程完成之后，运行下面的命令启动 mysqld 服务并检查它的状态是否激活。</p>
+<pre class="prettyprint linenums"><code>[root@centos-007 ~]# service mysqld start
+[root@centos-007 ~]# service mysqld status
+</code></pre>
+<p>对于全新安装的 MySQL 服务器，MySQL root 用户的密码为空。为了安全起见，我们应该重置 MySQL root 用户的密码。用自动生成的空密码连接到 MySQL 并更改 root 用户密码。</p>
+<pre class="prettyprint linenums"><code>[root@centos-007 ~]# mysql
+mysql&gt; SET PASSWORD FOR 'root'@'localhost' = PASSWORD('your_password');
+mysql&gt; flush privileges;
+mysql&gt; quit;
+</code></pre>
+<p>现在我们需要在 MySQL 默认的配置文件中配置所需的数据库参数。打开 "/etc/" 目录中的文件并按照下面那样更新。</p>
+<pre class="prettyprint linenums"><code>[root@centos-007 ~]# vi /etc/my.cnf
+</code></pre>
+<hr />
+<pre class="prettyprint linenums"><code>[mysqld]
+datadir=/var/lib/mysql
+socket=/var/lib/mysql/mysql.sock
+symbolic-links=0
+
+sql_mode=NO_ENGINE_SUBSTITUTION,STRICT_TRANS_TABLES
+max_allowed_packet=150M
+max_connections=600
+default-storage-engine=INNODB
+character-set-server=utf8
+collation-server=utf8_unicode_ci
+
+[mysqld_safe]
+log-error=/var/log/mysqld.log
+pid-file=/var/run/mysqld/mysqld.pid
+default-storage-engine=INNODB
+character-set-server=utf8
+collation-server=utf8_unicode_ci
+
+[mysql]
+max_allowed_packet = 150M
+[mysqldump]
+quick
+</code></pre>
+<p>保存配置文件中的更新并重启 mysql 服务。</p>
+<pre class="prettyprint linenums"><code>[root@centos-007 ~]# service mysqld restart
+</code></pre>
+<h3 id="toc_4">下载 Zephyr 安装包</h3>
+<p>我们已经安装完了安装 Zephyr 所需要的软件包。现在我们需要获取 Zephyr 二进制发布包和它的许可证密钥。到 Zephyr 官方下载链接 <a href="http://download.yourzephyr.com/linux/download.php">http://download.yourzephyr.com/linux/download.php</a> 输入你的电子邮件 ID 并点击下载。</p>
+<p><img src="https://dn-linuxcn.qbox.me/data/attachment/album/201512/09/200130ti00kxkb0xwxi0hh.png" alt="下载 Zephyr" /></p>
+<p>然后确认你的电子邮件地址，你会获得 Zephyr 下载链接和它的许可证密钥链接。点击提供的链接从服务器中选择和你操作系统合适的版本下载二进制安装包以及许可证文件。</p>
+<p>我们把它下载到 home 目录并更改它的权限为可执行。</p>
+<p><img src="https://dn-linuxcn.qbox.me/data/attachment/album/201512/09/200132cb5wxgj2by82je2e.png" alt="Zephyr 二进制包" /></p>
+<h3 id="toc_5">开始安装和配置 Zephyr</h3>
+<p>现在我们通过执行它的二进制安装脚本开始安装 Zephyr。</p>
+<pre class="prettyprint linenums"><code>[root@centos-007 ~]# ./zephyr_4_7_9213_linux_setup.sh &ndash;c
+</code></pre>
+<p>一旦你运行了上面的命令，它会检查是否正确配置了 Java 环境变量。如果配置不正确，你可能会看到类似下面的错误。</p>
+<pre class="prettyprint linenums"><code>testing JVM in /usr ...
+Starting Installer ...
+Error : Either JDK is not found at expected locations or JDK version is mismatched.
+Zephyr requires Oracle Java Development Kit (JDK) version 1.7 or higher.
+</code></pre>
+<p>如果你正确配置了 Java，它会开始安装 Zephyr 并要求你输入 &ldquo;o&rdquo; 继续或者输入 &ldquo;c&rdquo; 取消安装。让我们敲击 &ldquo;o&rdquo; 并输入回车键开始安装。</p>
+<p><img src="https://dn-linuxcn.qbox.me/data/attachment/album/201512/09/200133clj4u1fl2aae2fzu.png" alt="安装 zephyr" /></p>
+<p>下一个选项是检查安装 Zephyr 所有的要求，输入回车进入下一个选项。</p>
+<p><img src="https://dn-linuxcn.qbox.me/data/attachment/album/201512/09/200135nz87zvtf8b1hdn3v.png" alt="zephyr 要求" /></p>
+<p>输入 &ldquo;1&rdquo; 并回车同意许可证协议。</p>
+<pre class="prettyprint linenums"><code>I accept the terms of this license agreement [1], I do not accept the terms of this license agreement [2, Enter]
+</code></pre>
+<p>我们需要选择安装 Zephyr 合适的目标位置以及默认端口，如果你想用默认端口之外的其它端口，也可以在这里配置。</p>
+<p><img src="https://dn-linuxcn.qbox.me/data/attachment/album/201512/09/200137rccz8xm6ljd656o5.png" alt="installation folder" /></p>
+<p>然后自定义 mysql 数据库参数并给出配置文件的正确路径。在这一步你可能看到类似下面的错误。</p>
+<pre class="prettyprint linenums"><code>Please update MySQL configuration. Configuration parameter max_connection should be at least 500 (max_connection = 500) and max_allowed_packet should be at least 50MB (max_allowed_packet = 50M).
+</code></pre>
+<p>要消除这个错误，你要确保在 mysql 配置文件中正确配置了 "max_connection" 和 "max_allowed_packet" 参数。运行所示的命令连接到数据库确认这些设置。</p>
+<p><img src="https://dn-linuxcn.qbox.me/data/attachment/album/201512/09/200139ha66l48qpzqpnngx.png" alt="连接 mysql" /></p>
+<p>当你正确配置了 mysql 数据库，它会提取配置文件并完成安装。</p>
+<p><img src="https://dn-linuxcn.qbox.me/data/attachment/album/201512/09/200141r4spskksijslzupk.png" alt="配置 mysql" /></p>
+<p>安装过程在你的计算机上成功的安装了 Zephyr 4.7。要启动 Zephyr 桌面，输入 &ldquo;y&rdquo; 完成 Zephyr 安装。</p>
+<p><img src="https://dn-linuxcn.qbox.me/data/attachment/album/201512/09/200142ikgml92tt89m97d7.png" alt="启动 zephyr" /></p>
+<h3 id="toc_6">启动 Zephyr 桌面</h3>
+<p>打开你的 web 浏览器并用你的本机 IP 地址启动 Zephyr 桌面，你会被导向 Zephyr 桌面。</p>
+<pre class="prettyprint linenums"><code>http://your_server_IP/zephyr/desktop/
+</code></pre>
+<p><img src="https://dn-linuxcn.qbox.me/data/attachment/album/201512/09/200149mjsbyfli810oi1zl.png" alt="Zephyr 桌面" /></p>
+<p>从 Zephyr 仪表盘点击 "Test Manager" 并用默认的用户名和密码 "test.manager" 登录。</p>
+<p><img src="https://dn-linuxcn.qbox.me/data/attachment/album/201512/09/200158j7j17krff7y7ys7a.png" alt="Test Manage 登录" /></p>
+<p>你登录进去后你就可以配置你的管理设置了。根据你的环境选择你想要的设置。</p>
+<p><img src="https://dn-linuxcn.qbox.me/data/attachment/album/201512/09/200206nid5nk5gyi2dnjng.png" alt="Test Manage 管理" /></p>
+<p>完成管理设置后保存设置，资源管理和项目配置也类似，然后开始使用 Zephyr 作为你的测试管理工具吧。如图所示在 Department Dashboard Management 中检查和编辑管理设置状态。</p>
+<p><img src="https://dn-linuxcn.qbox.me/data/attachment/album/201512/09/200215qaj5e952bqe25neo.png" alt="zephyr 仪表盘" /></p>
+<h3 id="toc_7">总结</h3>
+<p>好了！ 我们已经在 CentOS 7.1 上安装完了 Zephyr。我们希望你能更加深入了解 Zephyr 测试管理工具，它提供简化测试流程、允许快速访问数据分析、协作工具以及多个项目成员之间交流。如果在你的环境中遇到任何问题，欢迎和我们联系。</p>
+<hr />
+<p>via: <a href="http://linoxide.com/linux-how-to/setup-zephyr-tool-centos-7-x/">http://linoxide.com/linux-how-to/setup-zephyr-tool-centos-7-x/</a></p>
+<p>作者：<a href="http://linoxide.com/author/kashifs/">Kashif Siddique</a> 译者：<a href="http://mutouxiaogui.cn/blog/">ictlyh</a> 校对：<a href="https://github.com/wxy">wxy</a></p>
+<p>本文由 <a href="https://github.com/LCTT/TranslateProject">LCTT</a> 原创翻译，<a href="https://linux.cn/">Linux中国</a> 荣誉推出</p>]]></description>
+      <author><![CDATA[linux@linux.cn (linux)]]></author>
+      <pubDate>Thu, 10 Dec 2015 09:05:00 +0800</pubDate>
+      <comments>http://linux.cn/article-6715-1.html?utm_source=rss&amp;utm_medium=rss</comments>
+    </item>
+    <item>
+      <title><![CDATA[开源开发者提交不安全代码，遭 Linus 炮轰]]></title>
+      <link>http://linux.cn/article-6717-1.html?utm_source=rss&amp;utm_medium=rss</link>
+      <guid>http://linux.cn/article-6717-1.html?utm_source=rss&amp;utm_medium=rss</guid>
+      <description><![CDATA[<p><img src="https://dn-linuxcn.qbox.me/data/attachment/album/201512/09/203933dxz84v3gjj3h1x8j.jpg" alt="" /></p>
+<p>Linus 上个月骂了一个 Linux 开发者，原因是他向 kernel 提交了一份不安全的代码。</p>
+<p>Linus 是个 Linux 内核项目非官方的&ldquo;<ruby>仁慈的独裁者<rp>（</rp><rt>benevolent dictator</rt><rp>）</rp></ruby>&rdquo;（LCTT译注：英国《卫报》曾将乔布斯评价为&lsquo;仁慈的独裁者&rsquo;），这意味着他有权决定将哪些代码合入内核，哪些代码直接丢掉。</p>
+<p>在10月28号，一个开源开发者提交的代码未能符合 Torvalds 的要求，于是遭来了<a href="http://lkml.iu.edu/hypermail/linux/kernel/1510.3/02866.html">一顿臭骂</a>。Torvalds 在他提交的代码下评论道：&ldquo;你提交的是什么东西。&rdquo;</p>
+<p>接着他说这个开发者是&ldquo;毫无能力的神经病&rdquo;。</p>
+<p>Torvalds 为什么会这么生气？他觉得那段代码可以写得更有效率一点，可读性更强一点，编译器编译后跑得更好一点（编译器的作用就是将让人看的代码翻译成让电脑看的代码）。</p>
+<p>Torvalds 重新写了一版代码将原来的那份替换掉，并建议所有开发者应该像他那种风格来写代码。</p>
+<p>Torvalds 一直在嘲讽那些不符合他观点的人。早在1991年他就攻击过 <a href="https://en.wikipedia.org/wiki/Tanenbaum%E2%80%93Torvalds_debate">Andrew Tanenbaum</a>&mdash;&mdash;那个 Minix 操作系统的作者，而那个 Minix 操作系统被 Torvalds 描述为&ldquo;脑残&rdquo;。</p>
+<p>但是 Torvalds 在这次嘲讽中表现得更有战略性了：&ldquo;我想让<em>每个人</em>都知道，像他这种代码是完全不能被接收的。&rdquo;他说他的目的是提醒每个 Linux 开发者，而不是针对那个开发者。</p>
+<p>Torvalds 也用这个机会强调了烂代码的安全问题。现在的企业对安全问题很重视，所以安全问题需要在开源开发者心中得到足够重视，甚至需要在代码中表现为最高等级（LCTT 译注：操作系统必须权衡许多因素：安全、处理速度、灵活性、易用性等，而这里 Torvalds 将安全提升为最高优先级了）。骂一下那些提交不安全代码的开发者可以帮助提高 Linux 系统的安全性。</p>
+<hr />
+<p>via: <a href="http://thevarguy.com/open-source-application-software-companies/110415/linus-torvalds-lambasts-open-source-programmers-over-inse">http://thevarguy.com/open-source-application-software-companies/110415/linus-torvalds-lambasts-open-source-programmers-over-inse</a></p>
+<p>作者：<a href="http://thevarguy.com/author/christopher-tozzi">Christopher Tozzi</a> 译者：<a href="https://github.com/bazz2">bazz2</a> 校对：<a href="https://github.com/wxy">wxy</a></p>
+<p>本文由 <a href="https://github.com/LCTT/TranslateProject">LCTT</a> 原创编译，<a href="https://linux.cn/">Linux中国</a> 荣誉推出</p>]]></description>
+      <author><![CDATA[linux@linux.cn (linux)]]></author>
+      <pubDate>Thu, 10 Dec 2015 08:37:00 +0800</pubDate>
+      <comments>http://linux.cn/article-6717-1.html?utm_source=rss&amp;utm_medium=rss</comments>
+    </item>
+    <item>
+      <title><![CDATA[如何在 CentOS 6/7 上移除被 Fail2ban 禁止的 IP]]></title>
+      <link>http://linux.cn/article-6718-1.html?utm_source=rss&amp;utm_medium=rss</link>
+      <guid>http://linux.cn/article-6718-1.html?utm_source=rss&amp;utm_medium=rss</guid>
+      <description><![CDATA[<p><img src="https://dn-linuxcn.qbox.me/data/attachment/album/201512/09/205158hmcfzi9qf61o15q5.jpg" alt="" /></p>
+<p><a href="http://www.fail2ban.org/wiki/index.php/Main_Page">fail2ban</a> 是一款用于保护你的服务器免于暴力攻击的入侵保护软件。fail2ban 用 python 写成，并广泛用于很多服务器上。fail2ban 会扫描日志文件和 IP 黑名单来显示恶意软件、过多的密码失败尝试、web 服务器利用、wordpress 插件攻击和其他漏洞。如果你已经安装并使用了 fail2ban 来保护你的 web 服务器，你也许会想知道如何在 CentOS 6、CentOS 7、RHEL 6、RHEL 7 和 Oracle Linux 6/7 中找到被 fail2ban 阻止的 IP，或者你想将 ip 从 fail2ban 监狱中移除。</p>
+<h3 id="toc_1">如何列出被禁止的 IP</h3>
+<p>要查看所有被禁止的 ip 地址，运行下面的命令：</p>
+<pre class="prettyprint linenums"><code># iptables -L
+Chain INPUT (policy ACCEPT)
+target     prot opt source               destination
+f2b-AccessForbidden  tcp  --  anywhere             anywhere            tcp dpt:http
+f2b-WPLogin  tcp  --  anywhere             anywhere            tcp dpt:http
+f2b-ConnLimit  tcp  --  anywhere             anywhere            tcp dpt:http
+f2b-ReqLimit  tcp  --  anywhere             anywhere            tcp dpt:http
+f2b-NoAuthFailures  tcp  --  anywhere             anywhere            tcp dpt:http
+f2b-SSH    tcp  --  anywhere             anywhere            tcp dpt:ssh
+f2b-php-url-open  tcp  --  anywhere             anywhere            tcp dpt:http
+f2b-nginx-http-auth  tcp  --  anywhere             anywhere            multiport dports http,https
+ACCEPT     all  --  anywhere             anywhere            state RELATED,ESTABLISHED
+ACCEPT     icmp --  anywhere             anywhere
+ACCEPT     all  --  anywhere             anywhere
+ACCEPT     tcp  --  anywhere             anywhere            tcp dpt:EtherNet/IP-1
+ACCEPT     tcp  --  anywhere             anywhere            tcp dpt:http
+REJECT     all  --  anywhere             anywhere            reject-with icmp-host-prohibited
+
+Chain FORWARD (policy ACCEPT)
+target     prot opt source               destination
+REJECT     all  --  anywhere             anywhere            reject-with icmp-host-prohibited
+
+Chain OUTPUT (policy ACCEPT)
+target     prot opt source               destination
+
+
+Chain f2b-NoAuthFailures (1 references)
+target     prot opt source               destination
+REJECT     all  --  64.68.50.128         anywhere            reject-with icmp-port-unreachable
+REJECT     all  --  104.194.26.205       anywhere            reject-with icmp-port-unreachable
+RETURN     all  --  anywhere             anywhere
+</code></pre>
+<h3 id="toc_2">如何从 Fail2ban 中移除 IP</h3>
+<pre class="prettyprint linenums"><code># iptables -D f2b-NoAuthFailures -s banned_ip -j REJECT
+</code></pre>
+<p>我希望这篇教程可以给你在 CentOS 6、CentOS 7、RHEL 6、RHEL 7 和 Oracle Linux 6/7 中移除被禁止的 ip 一些指导。</p>
+<hr />
+<p>via: <a href="http://www.ehowstuff.com/how-to-remove-banned-ip-from-fail2ban-on-centos/">http://www.ehowstuff.com/how-to-remove-banned-ip-from-fail2ban-on-centos/</a></p>
+<p>作者：<a href="http://www.ehowstuff.com/author/skytech/">skytech</a> 译者：<a href="https://github.com/geekpi">geekpi</a> 校对：<a href="https://github.com/wxy">wxy</a></p>
+<p>本文由 <a href="https://github.com/LCTT/TranslateProject">LCTT</a> 原创编译，<a href="https://linux.cn/">Linux中国</a> 荣誉推出</p>]]></description>
+      <author><![CDATA[linux@linux.cn (linux)]]></author>
+      <pubDate>Wed, 09 Dec 2015 20:51:21 +0800</pubDate>
+      <comments>http://linux.cn/article-6718-1.html?utm_source=rss&amp;utm_medium=rss</comments>
+    </item>
+    <item>
+      <title><![CDATA[透过现象看本质—戏说12306验证码]]></title>
+      <link>http://linux.cn/article-6713-1.html?utm_source=rss&amp;utm_medium=rss</link>
+      <guid>http://linux.cn/article-6713-1.html?utm_source=rss&amp;utm_medium=rss</guid>
+      <description><![CDATA[<p>年关将至，一场世界级的社会壮举又将上演，那就是咱们的春运，短短的十几天将搬运30亿人次的客流，让国外的记者和看客们都不得不佩服咱们伟大祖国的交通运输能力。为了准备这场&ldquo;大戏&rdquo;，抢票这种全民级现象已经提前上演，虽然买票难的问题已经逐年好转，但在抢票过程中仍然槽点不断，其中的明星当属验证码了，这两天12306的验证码已经被大家各种吐槽各种调侃，那么这次和大家一起来研究一下关于这个验证码背后的问题。</p>
+<p><strong>验证码的由来</strong></p>
+<p>其实一开始，互联网上是没有验证码的。那时想要在论坛上发帖，只需轻轻敲一下回车键。然而，当时的黑客也十分猖狂，他们编写了一种能够大量、重复编写信息的程序，伪装成人类用户，肆无忌惮地朝网络上倾倒大量的、无意义的&ldquo;僵尸&rdquo;信息，垃圾邮件、垃圾广告、垃圾评论到处乱飞。这时出现了一个人，他的名字叫路易斯&middot;冯&middot;安，他在研究过程序机器人的&ldquo;工作手法&rdquo;之后，给出了一个独特的方案，就是在用户进行操作之前，就将那些机器人从正常用户里揪出来。通常人类可以用肉眼很轻易地识别图片里的文字信息，而机器就不能，并且当时的计算机辨识技术还很落后，对于那些镶嵌在图片中的、被扭曲过的文字无法辨识，而人类只需要稍稍皱眉就可以识别出来，所以验证码就诞生了</p>
+<p>（验证码的作用：防止有人利用机器人自动批量注册、对特定的注册用户用特定程序暴力破解方式进行不断的登陆、灌水等）。</p>
+<p><img src="https://dn-linuxcn.qbox.me/data/attachment/album/201512/09/154539o61z6se4dmronf2c.jpg" alt="" /></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (2015年，时年36岁的路易斯)</p>
+<p><strong>时过近迁，原来的配方，熟悉的味道</strong></p>
+<p>就像那句广告词&ldquo;原来的配方，熟悉的味道&rdquo;，从验证码发明到现在的15年间，这种针对于网站的探测式攻击呈逐年增长的态势（据安全狗2014年发布的《中国互联网服务器安全分析报告》提供的数据，全年的探测试攻击已经超过2.5亿次），正所谓一攻一防，一防一攻，大家在打打闹闹中无形的为网络安全的发展做出了贡献。同样的经过这些年的发展，普通的验证码早已难不倒那些黑客了，为了应对这种情况，也就迸发出了无数千奇百怪的验证码。</p>
+<p><strong>令人惊叹的验证码艺术</strong></p>
+<p>在这里把验证码称为艺术可能有一些过了，可是发展至今验证码已经深入到每个人的生活中了，手机短信验证、图片验证码、字母验证码、语音验证码、拼图验证码、选择题验证码、问答验证码&hellip;&hellip;.等等各式各样花样百出，如果把验证码当成一件作品，相信每年还可以搞一次评选，如&ldquo;年度最佳验证码奖&rdquo;&ldquo;年度最难验证码奖&ldquo;&ldquo;年度最具创意验证码&rdquo;等等。在这里不得不佩服验证码设计师的脑洞。</p>
+<p>&nbsp;<img src="https://dn-linuxcn.qbox.me/data/attachment/album/201512/09/154624echhmttdauei4dsc.jpg" alt="" /><img src="https://dn-linuxcn.qbox.me/data/attachment/album/201512/09/154634ubzp53tyb3rj5bzg.jpg" alt="" /></p>
+<p><img src="https://dn-linuxcn.qbox.me/data/attachment/album/201512/09/154649ae98ypwweipek2ko.jpg" alt="" /><img src="https://dn-linuxcn.qbox.me/data/attachment/album/201512/09/154656ypx31r11roqjr3qr.jpg" alt="" /></p>
+<p>为什么会产生这些天才般的验证码设计？因为许多数字和字母组成的二维码，黑客可以用OCR（光学字符识别）技术识别，12306之前的验证码被抢票软件轻易破解了。而据某些专家认为，采取图片技术之后，就很难有黑客能破解了，就算图像识别技术能识别图片，也很难识别出问题，更别说将两者对应起来了。</p>
+<p>但实际测试表明，借助于Google等巨头的智能识图技术，能够识别大部分图片的涵义，准确率85%。于是聪明的12306工程师开始琢磨着让验证码变得更加复杂、图片变得更难认、并且经常更新，这是一场浩大的技术攻防持久战，为了保证百姓能买到回家的车票，为了提防抢票软件和背后的黄牛党，在这里不得不赞叹一下工程师们的劳苦用心。</p>
+<p><strong>互联网</strong><strong>+</strong><strong>思维与</strong><strong>12306</strong><strong>的激情碰撞</strong></p>
+<p>12306的工程师们为了打好这场防御战不得不说是做足了功课，要设计出足够复杂又要让人类可以辨识的验证码，真得要上知天文，下知地理，娱乐、动漫、网络热点须无一不通。</p>
+<p><img src="https://dn-linuxcn.qbox.me/data/attachment/album/201512/09/154903yt2xlbegltclk58y.jpg" alt="" /><img src="https://dn-linuxcn.qbox.me/data/attachment/album/201512/09/154939lmp4m2ggk1wwd66h.jpg" alt="" /><img src="https://dn-linuxcn.qbox.me/data/attachment/album/201512/09/154954lfzivrf0o7p7gjvk.jpg" alt="" /><img src="https://dn-linuxcn.qbox.me/data/attachment/album/201512/09/154953l9me63qyj2008q26.jpg" alt="" /></p>
+<p>&nbsp;小编相信这种图片验证码还能起到科普作用（亮点自寻）。</p>
+<p><strong>&nbsp;</strong>看到这种强大到连自己都怕的验证码，一股浓浓互联网味道扑面而来，不得不说互联网+思维成功的和铁路局来一次完美的融合，而小编刚有更棒的点子，那就是：广告植入。</p>
+<p>&ldquo;请选出下面哪款洗发水是沙宣、请选出下图中的超薄款Durex、以下哪位明星代言了宝洁的广告、请选出奔跑吧兄弟的冠名赞助商&hellip;&hellip;&rdquo;</p>
+<p>这，就是互联网思维，互联网+12306，激发巨大的想象空间，中国铁路未来扭亏为盈不是梦。（其实图片验证码广告技术是国内一位大学生的创意，现在这技术被铁路局发扬光大了。PS：办公室的某位小伙伴，今天中午一直在抢票，最后红着眼告诉我说：终于订了张火车票）</p>
+<p><strong>验证码辛酸的背后是反黑技术不够聪明</strong></p>
+<p>人类一直在与机器就验证码展开拉锯战，网页和App上验证码出现的原因只有一个：确保你是活人，而不是机器代码。最初验证码是数字，后来被破解了；所以验证码加入了字母，还是被破解了，而更复杂的数字和图片，继续被破解，就以这次12306的强大验证码而言，近日已经有互联网公司宣称攻破了12306的图形验证码，并首次公布一组验证码大数据。数据显示图形码的数量已经多达581种，按照要输入两个关键词的登录规则，用户将有机会尝试336980道不同验证码题目的机会，而一次性输入正确的仅为8%。强大的验证码虽然挡住了一部份黑客和黄牛，但同时也挡住了用户，杀敌一千自损八百，需要有更为聪明的防御方法。</p>
+<p>不妨借鉴一下某些安全行业的方式，像知名的云安全厂商安全狗，在之前的互联网安全大会上就发布了全新的安全防御理念，通过云端收集客户端上的被攻击数据，对用大数据对攻击方式、来源等进行分析后再匹配相应的防御策略进行下发，这种方式就相当的聪明和智能。</p>
+<p>最后，其实票难抢，是因为票少人多，主要的原因并不是验证码，在这一场持久战中铁路局已经竭尽所能，建议大家更予更多的理解和支持。</p>
+<p>&nbsp;</p>]]></description>
+      <author><![CDATA[caroline@linux.cn (caroline)]]></author>
+      <pubDate>Wed, 09 Dec 2015 15:51:00 +0800</pubDate>
+      <comments>http://linux.cn/article-6713-1.html?utm_source=rss&amp;utm_medium=rss</comments>
+    </item>
+    <item>
+      <title><![CDATA[为现在和未来改善 Docker 安全]]></title>
+      <link>http://linux.cn/article-6708-1.html?utm_source=rss&amp;utm_medium=rss</link>
+      <guid>http://linux.cn/article-6708-1.html?utm_source=rss&amp;utm_medium=rss</guid>
+      <description><![CDATA[<p>安全似乎落后于Docker阵营在其他方面的发展步伐。虽然越来越多的企业在数据中心使用Docker，但管理员们用来保护容器的技术却完全是慢慢站稳脚跟。在许多情况下，正是当初让Docker大受欢迎的功能特性恰恰也暴露了安全漏洞。</p>
+<p><img class="fit-image" src="https://dn-linuxcn.qbox.me/data/attachment/album/201512/08/212411gr1ioit7wrhhwgoo.png" alt="" width="600" height="258" border="0" /></p>
+<p><em>Docker网站称赞其容器是即刻奏效的解决方案</em></p>
+<h3><strong>什么是没有隔离的内核?</strong></h3>
+<p>Docker依赖Linux内核的功能：建立相互隔离的环境（应用程序在里面运行）。这些容器很精简，因为它们共享同一内核，却在不同的运行时环境中执行，这归功于<ruby>控制组<rp>（</rp><rt>cgroup</rt><rp>）</rp></ruby>和命名空间，它们定义了容器可以使用哪些资源。与此同时，容器本身只能看到某些进程和网络功能。</p>
+<p>虽然攻击者难以从一个被劫持的虚拟机与主机的内核进行交互，但容器隔离并不提供同样的防御。除了/sys和/proc外，攻击者还照样可以进入内核的关键子系统，比如SELinux和控制组，这意味着攻击者有可能避开主机的安全功能特性。与此同时，容器使用与主机系统同样的用户命名空间。换句话说，如果进程以根权限在容器中运行，它与内核或挂载的文件系统交互时，保留这些权限。因而，管理员还是别以根权限在容器中运行软件为妙;实际上，很少需要这样。</p>
+<h3><strong>风险：Docker的守护进程</strong></h3>
+<p>然而，Docker守护进程需要根权限。它管理主机上的容器，需要与提供隔离环境的内核进行对话。与守护进程进行交互的用户因而被授予了访问系统的权限。如果主机托管服务提供商通过Web界面将容器作为一个自助服务选项来提供，这种情形会来得尤其严重。</p>
+<p>虽然使用docker群组是个办法，但不太可能改善安全，因为群组成员可以构建容器;而在容器中，首先可以运行根外壳，其次可以挂载主机的根文件系统。这里的唯一办法就是，严格监管对Docker服务的访问，避免不需要的权限升级。</p>
+<p>此外，Docker的守护进程可以通过HTTP(S)，借助REST API进行联系。如果你使用这项功能，就需要限制只由可信赖网络才可以访问API，或者通过SSL客户端证书或之类的机制来限制访问。</p>
+<h3><strong>对策</strong></h3>
+<p>新版本的Docker随带减小上述攻击场景带来的影响的功能特性。Docker以只读方式挂载/sys文件系统和/proc中的重要文件。容器无法写入到它们，因而防止容器中的权限进程操纵主机系统。</p>
+<p>内核将根权限细分成了几项功能，然后将这些功能逐个分配给了进程。默认情况下，Docker阻止重要功能，防止容器中的权限进程为非作歹。这些功能包括网络配置、装入内核模块的功能或者访问音频子系统。如果某个特殊的应用程序需要被阻止的功能，Docker允许这些功能供某个容器使用。</p>
+<h3><strong>SELinux局限性</strong></h3>
+<p>SELinux是一种安全框架，它给每个文件和每个进程分配了<ruby>多部分标签<rp>（</rp><rt>multipart label</rt><rp>）</rp></ruby>。策略定义了哪个进程标签可以访问哪个文件标签。Docker支持两个变种：<ruby>类型强制<rp>（</rp><rt>type enforcement</rt><rp>）</rp></ruby>和多类别安全（MCS）。</p>
+<p>类型强制限制了容器对主机文件系统的访问。所有容器进程都以同一种类型来运行，这样就可以访问容器中的文件和许多主机系统文件，但是又可以防止访问主机上的大多数文件夹（即/var、/root和/home）。</p>
+<p>如果只使用类型强制，容器就能够轻松访问其他容器中的数据。归功于MCS，容器启动时，SELinux为容器分配了随机的MCS标签;Docker守护进程用这个标签标记容器中的所有文件，而内核可防止使用不同MCS标签的进程访问容器中的文件。</p>
+<p>在许多企业，SELinux已被认为是一项不需要的功能特性，也是管理员们喜欢禁用的一项特性。然而，Docker容器的安全依赖<ruby>安全虚拟化<rp>（</rp><rt>sVirt</rt><rp>）</rp></ruby>之类的功能特性。在几乎没有其他应用程序帮助的情况下，单单sVirt就足以防止来自其他容器的用户读取你的文件。</p>
+<h3><strong>未来</strong></h3>
+<p>就未来而言，Docker开发人员在计划增强容器的安全性和隔离性。三项功能特性会助一臂之力，包括用户命名空间、Seccomp，以及基于角色的访问控制（RBAC），加强对Docker守护进程的访问。</p>
+<p>用户命名空间获得了优先权。Docker将来自容器的用户ID与其他主机的ID对应起来。其想法是大大限制攻击属于根目录的文件的能力。</p>
+<p>由于所有容器都与同一个内核对话，内核功能方面的一个错误对主机和容器之间的边界以及对容器本身之间的边界来说都是致命的。来自谷歌的Seccomp可防止进程对特定系统调用的访问。虽然进程使用系统调用来访问内核，但在600个可用调用中大多数很少用到。要是没有这些调用，有望减小潜在的攻击面。Daniel Walsh在红帽公司从事容器安全工作。他认为，开发人员有望将可调用系统调用的数量最多减少50%。</p>
+<p>此外，开发人员在期望完善对Docker服务的访问，补充验证选项。这么做意味着，并没有根授权以访问主机的用户可以使用这项服务。如果开发人员另外引入RBAC，Docker管理员就能为用户分配不同的角色，因而为他们提供与守护进程进行交互的受限制权限。在这些方案的帮助下，应该可以在未来进一步限制对容器或功能的访问。</p>
+<h3><strong>结束语</strong></h3>
+<p>Docker开发人员已经在许多方面积极响应，加强容器的安全，他们在继续添加新的功能特性，保持这个势头。最近为版本1.8中的Docker映像推出了一种验证系统，那就是<ruby>内容信任<rp>（</rp><rt>Content Trust</rt><rp>）</rp></ruby>。此外，<ruby>开放容器计划<rp>（</rp><rt>Open Container Initiative</rt><rp>）</rp></ruby>正考虑将更多的精力投入到安全方面上。</p>
+<p>未来仍需要做大量工作。比如说，需要定义容器管理方面可持续的最佳实践，以促进容器在企业得到更广泛的使用。</p>]]></description>
+      <author><![CDATA[linux@linux.cn (linux)]]></author>
+      <pubDate>Wed, 09 Dec 2015 14:15:00 +0800</pubDate>
+      <comments>http://linux.cn/article-6708-1.html?utm_source=rss&amp;utm_medium=rss</comments>
+    </item>  </channel>
+</rss>

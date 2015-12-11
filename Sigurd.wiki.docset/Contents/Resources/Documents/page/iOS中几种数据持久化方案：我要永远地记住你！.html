@@ -1,0 +1,195 @@
+<html><head>
+<meta charset="utf-8">
+<title>iOS中几种数据持久化方案：我要永远地记住你！ - CocoaChina_让移动开发更简单</title>
+<meta content="iOS,数据持久化iPhone开发,iOS开发,iPad开发,Mac开发,苹果开发中文站,iPhone开发中文站,CocoaChina首页, Mac OS开发, Cocoa介绍,移动互联网,触控科技,Cocoa,Apple,developer,iOS,iPhone,iPad,iMac,iPod Touch,iPhone5,iPhone4S,iPad3,招聘,iPhone程序员,Objective-c,iPhone应用外包,ios6,ios面试,Cocos2d-x,cocos2d,iTunes,App Store,苹果开发" name="keywords"/>
+<meta content="CocoaChina前身是全球成立最早规模最大的苹果开发中文站，现致力为所有移动开发者提供资讯服务、问答服务、代码下载、工具库及人才招聘服务" name="description"/>
+<meta content="IE=edge" http-equiv="X-UA-Compatible">
+<meta content="width=device-width, initial-scale=1" name="viewport">
+<meta content="3300a939a1098c27e94457b75a0bb8c1" name="baidu-tc-cerfication"/>
+<script type="text/javascript">
+        function gotoMobilePage() {
+            var sUserAgent = navigator.userAgent.toLowerCase();
+            var agent_iphone = /iphone/i;
+            var agent_android = /android/i;
+            //var agent_ipad = /ipad/i;
+            var agent_ipod = /ipod/i;
+            var agent_wphone = /windows phone/i;
+            if(agent_iphone.test(sUserAgent) || agent_android.test(sUserAgent) || agent_ipod.test(sUserAgent) || agent_wphone.test(sUserAgent)){
+                var re = /\/\w+\/\d+\/(\d+)\.html/, 
+                    result = re.exec(window.location.pathname);
+                if ( result )
+                {
+                    window.location.href = "http://www.cocoachina.com/cms/wap.php?action=article&id=" + result[1];
+                } else {
+                    window.location.href = "http://m.cocoachina.com/";
+                }
+            }
+        }
+        gotoMobilePage(); 
+    </script>
+<link href="src/a84898c7e6056d1260de02fbe818b59e.css" media="all" rel="stylesheet">
+<link href="src/fc35020aff41205c763aecda3951334a.css" media="all" rel="stylesheet">
+<link href="src/d489a5f4b1e2af09b4874b9d8d44c7a2.css" rel="stylesheet">
+<link href="src/b5f6d4d81287e6040d1271874f705098.css" rel="stylesheet">
+<link href="src/a1959dceb4a4550b81d1eaa35f644180.css" rel="stylesheet"/>
+<script src="src/a769fe53451c6abe32a2409f213c856c.js" type="text/javascript"></script>
+<script src="src/878a1f110abba9b87695d6713e2423f4.js" type="text/javascript"></script>
+<script src="src/78baea099161f999e575b28991cb48cf.js" type="text/javascript"></script>
+</link></link></link></link></meta></meta></meta></head><body><div class="field_body" id="detailbody">
+<p><span style="color: rgb(0, 176, 80);"></span></p><p style="text-align:center"><img alt="hard-disk-drive-838665_640.jpg" src="src/a15c073d5700534f8b9f4f1d993a3b97.jpg" title="1436945827780655.jpg"/></p><p>作者：<a href="http://weibo.com/wengyawei" target="_self">@翁呀伟呀</a> 授权本站转载</p><p><span style="color: rgb(0, 176, 80);"><strong>概论</strong></span><br/></p><p>所谓的持久化，就是将数据保存到硬盘中，使得在应用程序或机器重启后可以继续访问之前保存的数据。在iOS开发中，有很多数据持久化的方案，接下来我将尝试着介绍一下5种方案：</p><ul class=" list-paddingleft-2" style="list-style-type: disc;"><li><p><strong>plist文件（属性列表）</strong></p></li><li><p><strong>preference（偏好设置）</strong></p></li><li><p><strong>NSKeyedArchiver（归档）</strong></p></li><li><p><strong>SQLite 3</strong></p></li><li><p><strong>CoreData</strong></p></li></ul><p><span style="color: rgb(0, 176, 80);"><strong>沙盒</strong></span></p><p>在介绍各种存储方法之前，有必要说明以下沙盒机制。iOS程序默认情况下只能访问程序自己的目录，这个目录被称为“沙盒”。</p><p><span style="color: rgb(192, 0, 0);"><strong>1.结构</strong></span></p><p>既然沙盒就是一个文件夹，那就看看里面有什么吧。沙盒的目录结构如下：</p><pre class="brush:js;toolbar:false">"应用程序包"
+Documents
+Library
+    Caches
+    Preferences
+tmp</pre><p><span style="color: rgb(192, 0, 0);"><strong>2.目录特性</strong></span></p><p>虽然沙盒中有这么多文件夹，但是没有文件夹都不尽相同，都有各自的特性。所以在选择存放目录时，一定要认真选择适合的目录。</p><p>"应用程序包": 这里面存放的是应用程序的源文件，包括资源文件和可执行文件。</p><pre class="brush:js;toolbar:false">  NSString *path = [[NSBundle mainBundle] bundlePath];
+  NSLog(@"%@", path);</pre><p>Documents: 最常用的目录，iTunes同步该应用时会同步此文件夹中的内容，适合存储重要数据。</p><pre class="brush:js;toolbar:false">  NSString *path = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES).firstObject;
+  NSLog(@"%@", path);</pre><p>Library/Caches: iTunes不会同步此文件夹，适合存储体积大，不需要备份的非重要数据。</p><pre class="brush:js;toolbar:false">  NSString *path = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES).firstObject;
+  NSLog(@"%@", path);</pre><p>Library/Preferences: iTunes同步该应用时会同步此文件夹中的内容，通常保存应用的设置信息。</p><p>tmp: iTunes不会同步此文件夹，系统可能在应用没运行时就删除该目录下的文件，所以此目录适合保存应用中的一些临时文件，用完就删除。</p><pre class="brush:js;toolbar:false">  NSString *path = NSTemporaryDirectory();
+  NSLog(@"%@", path);</pre><p><span style="color: rgb(0, 176, 80);"><strong>plist文件</strong></span></p><p>plist文件是将某些特定的类，通过XML文件的方式保存在目录中。</p><p>可以被序列化的类型只有如下几种：</p><pre class="brush:js;toolbar:false">NSArray;
+NSMutableArray;
+NSDictionary;
+NSMutableDictionary;
+NSData;
+NSMutableData;
+NSString;
+NSMutableString;
+NSNumber;
+NSDate;</pre><p><span style="color: rgb(192, 0, 0);"><strong>1.获得文件路径</strong></span></p><pre class="brush:js;toolbar:false">    NSString *path = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES).firstObject;
+    NSString *fileName = [path stringByAppendingPathComponent:@"123.plist"];</pre><p><span style="color: rgb(192, 0, 0);"><strong>2.存储</strong></span></p><pre class="brush:js;toolbar:false">NSArray *array = @[@"123", @"456", @"789"];
+[array writeToFile:fileName atomically:YES];</pre><p><span style="color: rgb(192, 0, 0);"><strong>3.读取</strong></span></p><pre class="brush:js;toolbar:false">NSArray *result = [NSArray arrayWithContentsOfFile:fileName];
+NSLog(@"%@", result);</pre><p><span style="color: rgb(192, 0, 0);"><strong>4.注意</strong></span></p><ul class=" list-paddingleft-2" style="list-style-type: disc;"><li><p>只有以上列出的类型才能使用plist文件存储。</p></li><li><p>存储时使用writeToFile: atomically:方法。 其中atomically表示是否需要先写入一个辅助文件，再把辅助文件拷贝到目标文件地址。这是更安全的写入文件方法，一般都写YES。</p></li><li><p>读取时使用arrayWithContentsOfFile:方法。</p></li></ul><p><span style="color: rgb(0, 176, 80);"><strong>Preference</strong></span></p><p><span style="color: rgb(192, 0, 0);"><strong>1.使用方法</strong></span></p><pre class="brush:js;toolbar:false">//1.获得NSUserDefaults文件
+NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+//2.向文件中写入内容
+[userDefaults setObject:@"AAA" forKey:@"a"];
+[userDefaults setBool:YES forKey:@"sex"];
+[userDefaults setInteger:21 forKey:@"age"];
+//2.1立即同步
+[userDefaults synchronize];
+//3.读取文件
+NSString *name = [userDefaults objectForKey:@"a"];
+BOOL sex = [userDefaults boolForKey:@"sex"];
+NSInteger age = [userDefaults integerForKey:@"age"];
+NSLog(@"%@, %d, %ld", name, sex, age);</pre><p><span style="color: rgb(192, 0, 0);"><strong>2.注意</strong></span></p><ul class=" list-paddingleft-2" style="list-style-type: disc;"><li><p>偏好设置是专门用来保存应用程序的配置信息的，一般不要在偏好设置中保存其他数据。</p></li><li><p>如果没有调用synchronize方法，系统会根据I/O情况不定时刻地保存到文件中。所以如果需要立即写入文件的就必须调用synchronize方法。</p></li><li><p>偏好设置会将所有数据保存到同一个文件中。即preference目录下的一个以此应用包名来命名的plist文件。</p></li></ul><p><span style="color: rgb(0, 176, 80);"><strong>NSKeyedArchiver</strong></span></p><p>归档在iOS中是另一种形式的序列化，只要遵循了NSCoding协议的对象都可以通过它实现序列化。由于决大多数支持存储数据的Foundation和Cocoa Touch类都遵循了NSCoding协议，因此，对于大多数类来说，归档相对而言还是比较容易实现的。</p><p><span style="color: rgb(192, 0, 0);"><strong>1.遵循NSCoding协议</strong></span></p><p>NSCoding协议声明了两个方法，这两个方法都是必须实现的。一个用来说明如何将对象编码到归档中，另一个说明如何进行解档来获取一个新对象。</p><ul class=" list-paddingleft-2" style="list-style-type: disc;"><li><p>遵循协议和设置属性</p></li></ul><pre class="brush:js;toolbar:false">  //1.遵循NSCoding协议 
+  @interface Person : NSObject   //2.设置属性
+  @property (strong, nonatomic) UIImage *avatar;
+  @property (copy, nonatomic) NSString *name;
+  @property (assign, nonatomic) NSInteger age;
+  @end</pre><ul class=" list-paddingleft-2" style="list-style-type: disc;"><li><p>实现协议方法</p></li></ul><pre class="brush:js;toolbar:false">  //解档
+  - (id)initWithCoder:(NSCoder *)aDecoder {
+      if ([super init]) {
+          self.avatar = [aDecoder decodeObjectForKey:@"avatar"];
+          self.name = [aDecoder decodeObjectForKey:@"name"];
+          self.age = [aDecoder decodeIntegerForKey:@"age"];
+      }
+      return self;
+  }
+  //归档
+  - (void)encodeWithCoder:(NSCoder *)aCoder {
+      [aCoder encodeObject:self.avatar forKey:@"avatar"];
+      [aCoder encodeObject:self.name forKey:@"name"];
+      [aCoder encodeInteger:self.age forKey:@"age"];
+  }</pre><ul class=" list-paddingleft-2" style="list-style-type: disc;"><li><p>特别注意</p></li></ul><p>如果需要归档的类是某个自定义类的子类时，就需要在归档和解档之前先实现父类的归档和解档方法。即 [super encodeWithCoder:aCoder] 和 [super initWithCoder:aDecoder] 方法;</p><p><span style="color: rgb(192, 0, 0);"><strong>2.使用</strong></span></p><p>需要把对象归档是调用NSKeyedArchiver的工厂方法 archiveRootObject: toFile: 方法。</p><pre class="brush:js;toolbar:false">  NSString *file = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES).firstObject stringByAppendingPathComponent:@"person.data"];
+  Person *person = [[Person alloc] init];
+  person.avatar = self.avatarView.image;
+  person.name = self.nameField.text;
+  person.age = [self.ageField.text integerValue];
+  [NSKeyedArchiver archiveRootObject:person toFile:file];</pre><p>需要从文件中解档对象就调用NSKeyedUnarchiver的一个工厂方法 unarchiveObjectWithFile: 即可。</p><pre class="brush:js;toolbar:false">  NSString *file = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES).firstObject stringByAppendingPathComponent:@"person.data"];
+  Person *person = [NSKeyedUnarchiver unarchiveObjectWithFile:file];
+  if (person) {
+     self.avatarView.image = person.avatar;
+     self.nameField.text = person.name;
+     self.ageField.text = [NSString stringWithFormat:@"%ld", person.age];
+  }</pre><p>3.注意</p><ul class=" list-paddingleft-2" style="list-style-type: disc;"><li><p>必须遵循并实现NSCoding协议</p></li><li><p>保存文件的扩展名可以任意指定</p></li><li><p>继承时必须先调用父类的归档解档方法</p></li></ul><p><span style="color: rgb(0, 176, 80);"><strong>SQLite3</strong></span></p><p>之前的所有存储方法，都是覆盖存储。如果想要增加一条数据就必须把整个文件读出来，然后修改数据后再把整个内容覆盖写入文件。所以它们都不适合存储大量的内容。</p><p><span style="color: rgb(192, 0, 0);"><strong>1.字段类型</strong></span></p><p>表面上SQLite将数据分为以下几种类型：</p><ul class=" list-paddingleft-2" style="list-style-type: disc;"><li><p>integer : 整数</p></li><li><p>real : 实数（浮点数）</p></li><li><p>text : 文本字符串</p></li><li><p>blob : 二进制数据，比如文件，图片之类的</p></li></ul><p>实际上SQLite是无类型的。即不管你在创表时指定的字段类型是什么，存储是依然可以存储任意类型的数据。而且在创表时也可以不指定字段类型。SQLite之所以什么类型就是为了良好的编程规范和方便开发人员交流，所以平时在使用时最好设置正确的字段类型！<strong>主键必须设置成integer</strong></p><p><span style="color: rgb(192, 0, 0);"><strong>2. 准备工作</strong></span></p><p>准备工作就是导入依赖库啦，在iOS中要使用SQLite3，需要添加库文件：libsqlite3.dylib并导入主头文件，这是一个C语言的库，所以直接使用SQLite3还是比较麻烦的。</p><p><span style="color: rgb(192, 0, 0);"><strong>3.使用</strong></span></p><ul class=" list-paddingleft-2" style="list-style-type: disc;"><li><p>创建数据库并打开</p></li></ul><p>操作数据库之前必须先指定数据库文件和要操作的表，所以使用SQLite3，首先要打开数据库文件，然后指定或创建一张表。</p><pre class="brush:js;toolbar:false">/**
+*  打开数据库并创建一个表
+*/
+- (void)openDatabase {
+   //1.设置文件名
+   NSString *filename = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES).firstObject stringByAppendingPathComponent:@"person.db"];
+   //2.打开数据库文件，如果没有会自动创建一个文件
+   NSInteger result = sqlite3_open(filename.UTF8String, &amp;_sqlite3);
+   if (result == SQLITE_OK) {
+       NSLog(@"打开数据库成功！");
+       //3.创建一个数据库表
+       char *errmsg = NULL;
+       sqlite3_exec(_sqlite3, "CREATE TABLE IF NOT EXISTS t_person(id integer primary key autoincrement, name text, age integer)", NULL, NULL, &amp;errmsg;);
+       if (errmsg) {
+           NSLog(@"错误：%s", errmsg);
+       } else {
+           NSLog(@"创表成功！");
+       }
+   } else {
+       NSLog(@"打开数据库失败！");
+   }
+}</pre><ul class=" list-paddingleft-2" style="list-style-type: disc;"><li><p>执行指令</p></li></ul><p>使用 sqlite3_exec() 方法可以执行任何SQL语句，比如创表、更新、插入和删除操作。但是一般不用它执行查询语句，因为它不会返回查询到的数据。</p><pre class="brush:js;toolbar:false">/**
+*  往表中插入1000条数据
+*/
+- (void)insertData {
+NSString *nameStr;
+NSInteger age;
+for (NSInteger i = 0; i &lt; 1000; i++) {
+  nameStr = [NSString stringWithFormat:@"Bourne-%d", arc4random_uniform(10000)];
+  age = arc4random_uniform(80) + 20;
+  NSString *sql = [NSString stringWithFormat:@"INSERT INTO t_person (name, age) VALUES('%@', '%ld')", nameStr, age];
+  char *errmsg = NULL;
+  sqlite3_exec(_sqlite3, sql.UTF8String, NULL, NULL, &amp;errmsg;);
+  if (errmsg) {
+      NSLog(@"错误：%s", errmsg);
+  }
+}
+NSLog(@"插入完毕！");
+}</pre><ul class=" list-paddingleft-2" style="list-style-type: disc;"><li><p>查询指令</p></li></ul><p>前面说过一般不使用 sqlite3_exec() 方法查询数据。因为查询数据必须要获得查询结果，所以查询相对比较麻烦。示例代码如下：</p><ul class=" list-paddingleft-2" style="list-style-type: disc;"><ul class=" list-paddingleft-2" style="list-style-type: square;"><li><p>sqlite3_prepare_v2() : 检查sql的合法性</p></li><li><p>sqlite3_step() : 逐行获取查询结果，不断重复，直到最后一条记录</p></li><li><p>sqlite3_coloum_xxx() : 获取对应类型的内容，iCol对应的就是SQL语句中字段的顺序，从0开始。根据实际查询字段的属性，使用sqlite3_column_xxx取得对应的内容即可。</p></li><li><p>sqlite3_finalize() : 释放stmt</p></li></ul></ul><pre class="brush:js;toolbar:false">/**
+*  从表中读取数据到数组中
+*/
+- (void)readData {
+   NSMutableArray *mArray = [NSMutableArray arrayWithCapacity:1000];
+   char *sql = "select name, age from t_person;";
+   sqlite3_stmt *stmt;
+   NSInteger result = sqlite3_prepare_v2(_sqlite3, sql, -1, &amp;stmt;, NULL);
+   if (result == SQLITE_OK) {
+       while (sqlite3_step(stmt) == SQLITE_ROW) {
+           char *name = (char *)sqlite3_column_text(stmt, 0);
+           NSInteger age = sqlite3_column_int(stmt, 1);
+           //创建对象
+           Person *person = [Person personWithName:[NSString stringWithUTF8String:name] Age:age];
+           [mArray addObject:person];
+       }
+       self.dataList = mArray;
+   }
+   sqlite3_finalize(stmt);
+}</pre><p><span style="color: rgb(192, 0, 0);"><strong>4.总结</strong></span></p><p>总得来说，SQLite3的使用还是比较麻烦的，因为都是些c语言的函数，理解起来有些困难。不过在一般开发过程中，使用的都是第三方开源库 FMDB，封装了这些基本的c语言方法，使得我们在使用时更加容易理解，提高开发效率。</p><p><span style="color: rgb(0, 176, 80);"><strong>FMDB</strong></span></p><p><span style="color: rgb(192, 0, 0);"><strong>1.简介</strong></span></p><p>FMDB是iOS平台的SQLite数据库框架，它是以OC的方式封装了SQLite的C语言API，它相对于cocoa自带的C语言框架有如下的优点:</p><p>使用起来更加面向对象，省去了很多麻烦、冗余的C语言代码</p><p>对比苹果自带的Core Data框架，更加轻量级和灵活</p><p>提供了多线程安全的数据库操作方法，有效地防止数据混乱</p><p>注：<a href="https://github.com/ccgus/fmdb" target="_self">FMDB的gitHub地址</a></p><p><span style="color: rgb(192, 0, 0);"><strong>2.核心类</strong></span></p><p>FMDB有三个主要的类：</p><ul class=" list-paddingleft-2" style="list-style-type: disc;"><li><p>FMDatabase</p></li></ul><p>一个FMDatabase对象就代表一个单独的SQLite数据库，用来执行SQL语句</p><ul class=" list-paddingleft-2" style="list-style-type: disc;"><li><p>FMResultSet</p></li></ul><p>使用FMDatabase执行查询后的结果集</p><ul class=" list-paddingleft-2" style="list-style-type: disc;"><li><p>FMDatabaseQueue</p></li></ul><p>用于在多线程中执行多个查询或更新，它是线程安全的</p><p><span style="color: rgb(192, 0, 0);"><strong>3.打开数据库</strong></span></p><p>和c语言框架一样，FMDB通过指定SQLite数据库文件路径来创建FMDatabase对象，但FMDB更加容易理解，使用起来更容易，使用之前一样需要导入sqlite3.dylib。打开数据库方法如下：</p><pre class="brush:js;toolbar:false">NSString *path = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES).firstObject stringByAppendingPathComponent:@"person.db"];
+FMDatabase *database = [FMDatabase databaseWithPath:path];    
+if (![database open]) {
+    NSLog(@"数据库打开失败！");
+}</pre><p>值得注意的是，Path的值可以传入以下三种情况：</p><ul class=" list-paddingleft-2" style="list-style-type: disc;"><li><p>具体文件路径，如果不存在会自动创建</p></li><li><p>空字符串@""，会在临时目录创建一个空的数据库，当FMDatabase连接关闭时，数据库文件也被删除</p></li><li><p>nil，会创建一个内存中临时数据库，当FMDatabase连接关闭时，数据库会被销毁</p></li></ul><p><span style="color: rgb(192, 0, 0);"><strong>4.更新</strong></span></p><p>在FMDB中，除查询以外的所有操作，都称为“更新”, 如：create、drop、insert、update、delete等操作，使用executeUpdate:方法执行更新：</p><pre class="brush:js;toolbar:false">//常用方法有以下3种：   
+- (BOOL)executeUpdate:(NSString*)sql, ...
+- (BOOL)executeUpdateWithFormat:(NSString*)format, ...
+- (BOOL)executeUpdate:(NSString*)sql withArgumentsInArray:(NSArray *)arguments
+//示例
+[database executeUpdate:@"CREATE TABLE IF NOT EXISTS t_person(id integer primary key autoincrement, name text, age integer)"];   
+//或者  
+[database executeUpdate:@"INSERT INTO t_person(name, age) VALUES(?, ?)", @"Bourne", [NSNumber numberWithInt:42]];</pre><p><span style="color: rgb(192, 0, 0);"><strong>5.查询</strong></span></p><p>查询方法也有3种，使用起来相当简单：</p><pre class="brush:js;toolbar:false">- (FMResultSet *)executeQuery:(NSString*)sql, ...
+- (FMResultSet *)executeQueryWithFormat:(NSString*)format, ...
+- (FMResultSet *)executeQuery:(NSString *)sql withArgumentsInArray:(NSArray *)arguments</pre><p>查询示例：</p><pre class="brush:js;toolbar:false">//1.执行查询
+FMResultSet *result = [database executeQuery:@"SELECT * FROM t_person"];
+//2.遍历结果集
+while ([result next]) {
+    NSString *name = [result stringForColumn:@"name"];
+    int age = [result intForColumn:@"age"];
+}</pre><p><span style="color: rgb(192, 0, 0);"><strong>6.线程安全</strong></span></p><p>在多个线程中同时使用一个FMDatabase实例是不明智的。不要让多个线程分享同一个FMDatabase实例，它无法在多个线程中同时使用。 如果在多个线程中同时使用一个FMDatabase实例，会造成数据混乱等问题。所以，请使用 FMDatabaseQueue，它是线程安全的。以下是使用方法：</p><ul class=" list-paddingleft-2" style="list-style-type: disc;"><li><p>创建队列。</p></li></ul><pre class="brush:js;toolbar:false">FMDatabaseQueue *queue = [FMDatabaseQueue databaseQueueWithPath:aPath];</pre><ul class=" list-paddingleft-2" style="list-style-type: disc;"><li><p>使用队列</p></li></ul><pre class="brush:js;toolbar:false">[queue inDatabase:^(FMDatabase *database) {    
+          [database executeUpdate:@"INSERT INTO t_person(name, age) VALUES (?, ?)", @"Bourne_1", [NSNumber numberWithInt:1]];    
+          [database executeUpdate:@"INSERT INTO t_person(name, age) VALUES (?, ?)", @"Bourne_2", [NSNumber numberWithInt:2]];    
+          [database executeUpdate:@"INSERT INTO t_person(name, age) VALUES (?, ?)", @"Bourne_3", [NSNumber numberWithInt:3]];      
+          FMResultSet *result = [database executeQuery:@"select * from t_person"];    
+         while([result next]) {   
+         }    
+}];</pre><p>而且可以轻松地把简单任务包装到事务里：</p><pre class="brush:js;toolbar:false">[queue inTransaction:^(FMDatabase *database, BOOL *rollback) {    
+          [database executeUpdate:@"INSERT INTO t_person(name, age) VALUES (?, ?)", @"Bourne_1", [NSNumber numberWithInt:1]];    
+          [database executeUpdate:@"INSERT INTO t_person(name, age) VALUES (?, ?)", @"Bourne_2", [NSNumber numberWithInt:2]];    
+          [database executeUpdate:@"INSERT INTO t_person(name, age) VALUES (?, ?)", @"Bourne_3", [NSNumber numberWithInt:3]];      
+          FMResultSet *result = [database executeQuery:@"select * from t_person"];    
+             while([result next]) {   
+             }   
+           //回滚
+           *rollback = YES;  
+    }];</pre><p>FMDatabaseQueue 后台会建立系列化的G-C-D队列，并执行你传给G-C-D队列的块。这意味着 你从多线程同时调用调用方法，GDC也会按它接收的块的顺序来执行。</p><p><span style="color: rgb(0, 176, 80);"><strong>CoreData</strong></span></p><p>详见我的另一篇笔记：<a href="http://www.jianshu.com/p/6e048f7c5812" target="_self">我要娶你做我的CoreData！</a></p><p><span style="color: rgb(0, 176, 80);"><strong>声明：</strong></span></p><ol class=" list-paddingleft-2" style="list-style-type: decimal;"><li><p>以上内容属于本人整理的笔记，如有错误的地方希望能告诉我，大家共同进步。</p></li><li><p>以上内容有些段落或语句可能是本人从其他地方Copy而来，如有侵权，请及时告诉我。</p></li></ol>
+</div></body></html>

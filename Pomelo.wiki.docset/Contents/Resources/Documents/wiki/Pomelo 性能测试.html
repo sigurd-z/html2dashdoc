@@ -1,0 +1,197 @@
+<html><head prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# object: http://ogp.me/ns/object# article: http://ogp.me/ns/article# profile: http://ogp.me/ns/profile#">
+<meta charset="utf-8">
+<meta content="IE=edge" http-equiv="X-UA-Compatible">
+<meta content="en" http-equiv="Content-Language">
+<meta content="width=1020" name="viewport">
+<title>Pomelo 性能测试 · NetEase/pomelo Wiki · GitHub</title>
+<link href="/opensearch.xml" rel="search" title="GitHub" type="application/opensearchdescription+xml">
+<link href="src/ad667adaa2cfe8f3caa4a41b7d0a79a1.png" rel="fluid-icon" title="GitHub">
+<link href="src/a10d19ff5f738940a7a5086be334f50b.png" rel="apple-touch-icon" sizes="57x57">
+<link href="src/a10d19ff5f738940a7a5086be334f50b.png" rel="apple-touch-icon" sizes="114x114">
+<link href="src/b4cd268bc600cc14d2cdd557de6da2fb.png" rel="apple-touch-icon" sizes="72x72">
+<link href="src/b4cd268bc600cc14d2cdd557de6da2fb.png" rel="apple-touch-icon" sizes="144x144">
+<meta content="1401488693436528" property="fb:app_id">
+<meta content="@github" name="twitter:site"/><meta content="summary" name="twitter:card"/><meta content="NetEase/pomelo" name="twitter:title"/><meta content="pomelo - A fast,scalable,distributed game server framework for Node.js." name="twitter:description"/><meta content="https://avatars0.githubusercontent.com/u/1460597?v=3&amp;s=400" name="twitter:image:src"/>
+<meta content="GitHub" property="og:site_name"/><meta content="object" property="og:type"/><meta content="https://avatars0.githubusercontent.com/u/1460597?v=3&amp;s=400" property="og:image"/><meta content="NetEase/pomelo" property="og:title"/><meta content="https://github.com/NetEase/pomelo" property="og:url"/><meta content="pomelo - A fast,scalable,distributed game server framework for Node.js." property="og:description"/>
+<meta content="https://api.github.com/_private/browser/stats" name="browser-stats-url">
+<meta content="https://api.github.com/_private/browser/errors" name="browser-errors-url">
+<link href="https://assets-cdn.github.com/" rel="assets">
+<meta content="1000" name="pjax-timeout">
+<meta content="/windows-tile.png" name="msapplication-TileImage">
+<meta content="#ffffff" name="msapplication-TileColor">
+<meta data-pjax-transient="" name="selected-link" value="repo_wiki">
+<meta content="KT5gs8h0wvaagLKAVWq8bbeNwnZZK1r1XQysX3xurLU" name="google-site-verification">
+<meta content="UA-3769691-2" name="google-analytics">
+<meta content="collector.githubapp.com" name="octolytics-host"/><meta content="github" name="octolytics-app-id"/><meta content="7250A4CA:6922:F4118EB:5670C0CE" name="octolytics-dimension-request_id"/>
+<meta content="/&lt;user-name&gt;/&lt;repo-name&gt;/wiki/show" data-pjax-transient="true" name="analytics-location"/>
+<meta content="Rails, view, wiki#show" data-pjax-transient="true" name="analytics-event"/>
+<meta class="js-ga-set" content="Logged Out" name="dimension1">
+<meta content="github.com" name="hostname">
+<meta content="" name="user-login">
+<meta content="github.com" name="expected-hostname">
+<link color="#4078c0" href="https://assets-cdn.github.com/pinned-octocat.svg" rel="mask-icon">
+<link href="https://assets-cdn.github.com/favicon.ico" rel="icon" type="image/x-icon">
+<meta content="84aadb17c76f40b637accf2291965db4e5a492f8" name="form-nonce"/>
+<link crossorigin="anonymous" href="src/350888e1495e7af27e01faa9d8291dee.css" media="all" rel="stylesheet"/>
+<link crossorigin="anonymous" href="src/9fae9b7d8f0785d745a43c6465f74ae5.css" media="all" rel="stylesheet"/>
+<meta content="cd9958d45e48e8e3157a320e9c346eaa" http-equiv="x-pjax-version">
+<meta content="pomelo - A fast,scalable,distributed game server framework for Node.js." name="description">
+<meta content="github.com/NetEase/pomelo git https://github.com/NetEase/pomelo.git" name="go-import">
+<meta content="1460597" name="octolytics-dimension-user_id"/><meta content="NetEase" name="octolytics-dimension-user_login"/><meta content="5880912" name="octolytics-dimension-repository_id"/><meta content="NetEase/pomelo" name="octolytics-dimension-repository_nwo"/><meta content="true" name="octolytics-dimension-repository_public"/><meta content="false" name="octolytics-dimension-repository_is_fork"/><meta content="5880912" name="octolytics-dimension-repository_network_root_id"/><meta content="NetEase/pomelo" name="octolytics-dimension-repository_network_root_nwo"/>
+<link href="https://github.com/NetEase/pomelo/commits/master.atom" rel="alternate" title="Recent Commits to pomelo:master" type="application/atom+xml">
+</link></meta></meta></meta></link></link></meta></meta></meta></meta></meta></meta></meta></meta></meta></meta></link></meta></meta></meta></link></link></link></link></link></link></meta></meta></meta></meta></head><body style="padding:0 25px;"><div class="gollum-markdown-content instapaper_body" id="wiki-body">
+<div class="markdown-body">
+<h1>
+<a aria-hidden="true" class="anchor" href="#pomelo-%E6%80%A7%E8%83%BD%E6%B5%8B%E8%AF%95%E4%BB%A5lordofpomelo%E4%B8%BA%E6%B5%8B%E8%AF%95%E5%AF%B9%E8%B1%A1" id="user-content-pomelo-性能测试以lordofpomelo为测试对象"><span class="octicon octicon-link"></span></a>Pomelo-性能测试(以LordOfPomelo为测试对象)</h1>
+<h3>
+<a aria-hidden="true" class="anchor" href="#%E7%9B%AE-%E5%BD%95" id="user-content-目-录"><span class="octicon octicon-link"></span></a>目 录</h3>
+<h5>
+<a aria-hidden="true" class="anchor" href="#%E6%B5%8B%E8%AF%95%E7%8E%AF%E5%A2%83" id="user-content-测试环境"><span class="octicon octicon-link"></span></a>测试环境</h5>
+<ol>
+<li>服务端测试环境</li>
+<li>客户端测试环境</li>
+</ol>
+<h5>
+<a aria-hidden="true" class="anchor" href="#%E6%B5%8B%E8%AF%95%E7%BB%93%E6%9E%9C" id="user-content-测试结果"><span class="octicon octicon-link"></span></a>测试结果</h5>
+<ol>
+<li>多进程多角色同时战斗场景(最多486个角色)</li>
+<li>多进程多角色同时行走场景(最多800个角色)</li>
+<li>多进程多角色同时战斗/行走场景(最多558个角色)</li>
+</ol>
+<h3>
+<a aria-hidden="true" class="anchor" href="#%E6%B5%8B%E8%AF%95%E7%8E%AF%E5%A2%83-1" id="user-content-测试环境-1"><span class="octicon octicon-link"></span></a>测试环境</h3>
+<h5>
+<a aria-hidden="true" class="anchor" href="#11-%E6%9C%8D%E5%8A%A1%E7%AB%AF%E6%B5%8B%E8%AF%95%E7%8E%AF%E5%A2%83" id="user-content-11-服务端测试环境"><span class="octicon octicon-link"></span></a>1.1 服务端测试环境</h5>
+<table>
+<th width="15%">服务</th>
+<th width="30%">机器</th>
+<th width="55%">硬件配置</th>
+<tr>
+<td>GameServer<br>
+      &amp;<br>
+      WebServer
+    </br></br></td>
+<td>pomelo3.server.163.org</td>
+<td>
+      云主机<br>
+      1CPU 8核心<br>
+      CPU型号 GenuineIntel QEMU Virtual CPU version 1.1.2@2.0GHz<br>
+      16G 内存<br>
+      1网卡<br>
+      linux/64位 OS<br>
+</br></br></br></br></br></br></td>
+</tr>
+</table>
+<h6>
+<a aria-hidden="true" class="anchor" href="#%E8%AF%B4%E6%98%8E" id="user-content-说明"><span class="octicon octicon-link"></span></a>说明:</h6>
+<ul>
+<li>服务端采用Node.js开发, 磁盘IO主要为log写入, 所有game-server服务器均配置toobusy(MAXLAG为默认的70ms), 出现瓶颈的部分在CPU.</li>
+</ul>
+<h5>
+<a aria-hidden="true" class="anchor" href="#12-%E5%AE%A2%E6%88%B7%E7%AB%AF%E6%B5%8B%E8%AF%95%E7%8E%AF%E5%A2%83" id="user-content-12-客户端测试环境"><span class="octicon octicon-link"></span></a>1.2 客户端测试环境</h5>
+<table>
+<th width="15%">服务</th>
+<th width="30%">机器</th>
+<th width="55%">硬件配置</th>
+<tr>
+<td>Clients</td>
+<td>pomelo16~25.server.163.org</td>
+<td>
+      云主机<br>
+      1CPU 1核心<br>
+      CPU型号 GenuineIntel Westmere E56xx/L56xx/X56xx (Nehalem-C)@2.6GHz<br>
+      1G 内存<br>
+      1网卡<br>
+      linux/64位 OS<br>
+</br></br></br></br></br></br></td>
+</tr>
+</table>
+<h6>
+<a aria-hidden="true" class="anchor" href="#%E8%AF%B4%E6%98%8E-1" id="user-content-说明-1"><span class="octicon octicon-link"></span></a>说明:</h6>
+<ul>
+<li>客户端是全部走内网的。</li>
+</ul>
+<h3>
+<a aria-hidden="true" class="anchor" href="#%E6%B5%8B%E8%AF%95%E7%BB%93%E6%9E%9C-1" id="user-content-测试结果-1"><span class="octicon octicon-link"></span></a>测试结果</h3>
+<h5>
+<a aria-hidden="true" class="anchor" href="#1-%E5%A4%9A%E8%BF%9B%E7%A8%8B%E5%A4%9A%E8%A7%92%E8%89%B2%E5%90%8C%E6%97%B6%E6%88%98%E6%96%97%E5%9C%BA%E6%99%AF%E6%9C%80%E5%A4%9A486%E4%B8%AA%E8%A7%92%E8%89%B2%E5%90%8C%E6%97%B6%E5%A4%84%E4%BA%8Earea3%E5%9C%BA%E6%99%AF" id="user-content-1-多进程多角色同时战斗场景最多486个角色同时处于area3场景"><span class="octicon octicon-link"></span></a>1. 多进程多角色同时战斗场景(最多486个角色同时处于area3场景)</h5>
+<ul>
+<li>9台云主机上各启动1个客户端进程, 每个客户端进程上运行1个代理, 每个代理负责55个角色, 这样会有495个角色登录游戏. 9个客户端代理并发, 每2秒发起一次角色登录操作, 最终会有486个角色同时处于area3场景, 登录成功的角色每隔2~5秒发起一次攻击(攻击对象为附近的其他角色或者怪物)或者捡道具操作. 攻击的成功率为98.29%. 如下图:</li>
+</ul>
+<p><img alt="attack-1" data-canonical-src="http://pomelo.netease.com/resource/documentImage/lordofpomelo/performanceTest/attackJpg/1.jpg" src="https://camo.githubusercontent.com/38b7d1013da9d335e4070176a4ac82ed12479066/687474703a2f2f706f6d656c6f2e6e6574656173652e636f6d2f7265736f757263652f646f63756d656e74496d6167652f6c6f72646f66706f6d656c6f2f706572666f726d616e6365546573742f61747461636b4a70672f312e6a7067">
+<img alt="attack-2" data-canonical-src="http://pomelo.netease.com/resource/documentImage/lordofpomelo/performanceTest/attackJpg/2.jpg" src="https://camo.githubusercontent.com/4d72f6eae15ca7153782e6246f6dd40514034e6c/687474703a2f2f706f6d656c6f2e6e6574656173652e636f6d2f7265736f757263652f646f63756d656e74496d6167652f6c6f72646f66706f6d656c6f2f706572666f726d616e6365546573742f61747461636b4a70672f322e6a7067"/></img></p>
+<ul>
+<li>每个角色的出生点随机分布于15个点上, 如下图:</li>
+</ul>
+<p><img alt="attack-3" data-canonical-src="http://pomelo.netease.com/resource/documentImage/lordofpomelo/performanceTest/attackJpg/3.jpg" src="https://camo.githubusercontent.com/33c694d1026f63742bd196aa113005365a267fba/687474703a2f2f706f6d656c6f2e6e6574656173652e636f6d2f7265736f757263652f646f63756d656e74496d6167652f6c6f72646f66706f6d656c6f2f706572666f726d616e6365546573742f61747461636b4a70672f332e6a7067">
+<img alt="attack-4" data-canonical-src="http://pomelo.netease.com/resource/documentImage/lordofpomelo/performanceTest/attackJpg/4.jpg" src="https://camo.githubusercontent.com/e7c7daf92ff26200f14be511feb71610f654a27f/687474703a2f2f706f6d656c6f2e6e6574656173652e636f6d2f7265736f757263652f646f63756d656e74496d6167652f6c6f72646f66706f6d656c6f2f706572666f726d616e6365546573742f61747461636b4a70672f342e6a7067"/></img></p>
+<ul>
+<li>486个角色都登录成功并开始发起攻击时, 服务器和pomelo16客户端的top:</li>
+</ul>
+<p><img alt="attack-5" data-canonical-src="http://pomelo.netease.com/resource/documentImage/lordofpomelo/performanceTest/attackJpg/5.jpg" src="https://camo.githubusercontent.com/99dcd161bde78fcc1c476f96292d5a22522dbc93/687474703a2f2f706f6d656c6f2e6e6574656173652e636f6d2f7265736f757263652f646f63756d656e74496d6167652f6c6f72646f66706f6d656c6f2f706572666f726d616e6365546573742f61747461636b4a70672f352e6a7067"/></p>
+<ul>
+<li>测试完毕时服务器和pomelo16客户端的top:</li>
+</ul>
+<p><img alt="attack-6" data-canonical-src="http://pomelo.netease.com/resource/documentImage/lordofpomelo/performanceTest/attackJpg/6.jpg" src="https://camo.githubusercontent.com/8a784ab6e171aff0b0c6e421d29612e388233453/687474703a2f2f706f6d656c6f2e6e6574656173652e636f6d2f7265736f757263652f646f63756d656e74496d6167652f6c6f72646f66706f6d656c6f2f706572666f726d616e6365546573742f61747461636b4a70672f362e6a7067"/></p>
+<ul>
+<li>测试过程中服务器状态:</li>
+</ul>
+<p><img alt="attack-7" data-canonical-src="http://pomelo.netease.com/resource/documentImage/lordofpomelo/performanceTest/attackJpg/7.jpg" src="https://camo.githubusercontent.com/9a1fe62418bb713b8aa25f4723ac7416e452e9c9/687474703a2f2f706f6d656c6f2e6e6574656173652e636f6d2f7265736f757263652f646f63756d656e74496d6167652f6c6f72646f66706f6d656c6f2f706572666f726d616e6365546573742f61747461636b4a70672f372e6a7067">
+<img alt="attack-8" data-canonical-src="http://pomelo.netease.com/resource/documentImage/lordofpomelo/performanceTest/attackJpg/8.jpg" src="https://camo.githubusercontent.com/83432b3e7f20ae49c67d2a64f8191d91305ca557/687474703a2f2f706f6d656c6f2e6e6574656173652e636f6d2f7265736f757263652f646f63756d656e74496d6167652f6c6f72646f66706f6d656c6f2f706572666f726d616e6365546573742f61747461636b4a70672f382e6a7067">
+<img alt="attack-9" data-canonical-src="http://pomelo.netease.com/resource/documentImage/lordofpomelo/performanceTest/attackJpg/9.jpg" src="https://camo.githubusercontent.com/808609b26b924bbfe65eb18846560b2ac0d437d1/687474703a2f2f706f6d656c6f2e6e6574656173652e636f6d2f7265736f757263652f646f63756d656e74496d6167652f6c6f72646f66706f6d656c6f2f706572666f726d616e6365546573742f61747461636b4a70672f392e6a7067">
+<img alt="attack-10" data-canonical-src="http://pomelo.netease.com/resource/documentImage/lordofpomelo/performanceTest/attackJpg/10.jpg" src="https://camo.githubusercontent.com/ecb0f5d8d059487db3bcccfd9900d61b7cba6ed5/687474703a2f2f706f6d656c6f2e6e6574656173652e636f6d2f7265736f757263652f646f63756d656e74496d6167652f6c6f72646f66706f6d656c6f2f706572666f726d616e6365546573742f61747461636b4a70672f31302e6a7067"/></img></img></img></p>
+<ul>
+<li>9台云主机上各启动1个客户端进程, 每个客户端进程上运行1个代理, 每个代理负责90个角色, 这样会有810个角色登录游戏. 9个客户端代理并发, 每2秒发起一次角色登录操作, 最终会有800个角色同时处于area3场景, 登录成功的角色每隔2~5秒发起一次移动操作. 移动的成功率为99.95%. 如下图:</li>
+</ul>
+<p><img alt="move-1" data-canonical-src="http://pomelo.netease.com/resource/documentImage/lordofpomelo/performanceTest/moveJpg/1.jpg" src="https://camo.githubusercontent.com/609eb1de0728146c59129d17b5ae12493345f363/687474703a2f2f706f6d656c6f2e6e6574656173652e636f6d2f7265736f757263652f646f63756d656e74496d6167652f6c6f72646f66706f6d656c6f2f706572666f726d616e6365546573742f6d6f76654a70672f312e6a7067">
+<img alt="move-2" data-canonical-src="http://pomelo.netease.com/resource/documentImage/lordofpomelo/performanceTest/moveJpg/2.jpg" src="https://camo.githubusercontent.com/7d306ff1f68e1f200760ecb37d04c83f35884478/687474703a2f2f706f6d656c6f2e6e6574656173652e636f6d2f7265736f757263652f646f63756d656e74496d6167652f6c6f72646f66706f6d656c6f2f706572666f726d616e6365546573742f6d6f76654a70672f322e6a7067"/></img></p>
+<ul>
+<li>这800个角色随机出生于地图上的15个点. 每一个角色的移动操作都是有规律的, 8次移动为一轮动作循环, 每次的步长为随机值(1~walkSpeed), 8次移动后该角色大致可以回到起点. 这么做的目的是尽量将角色限定在其出生点附近, 以使得所有角色尽量均匀分布于整张地图. 如下图:</li>
+</ul>
+<p><img alt="move-3" data-canonical-src="http://pomelo.netease.com/resource/documentImage/lordofpomelo/performanceTest/moveJpg/3.jpg" src="https://camo.githubusercontent.com/c5565b8416f63d6831ab17a809261813b73917c2/687474703a2f2f706f6d656c6f2e6e6574656173652e636f6d2f7265736f757263652f646f63756d656e74496d6167652f6c6f72646f66706f6d656c6f2f706572666f726d616e6365546573742f6d6f76654a70672f332e6a7067">
+<img alt="move-4" data-canonical-src="http://pomelo.netease.com/resource/documentImage/lordofpomelo/performanceTest/moveJpg/4.jpg" src="https://camo.githubusercontent.com/c3b2fbb364a5fee10e005b939b4bf15ad2d3b698/687474703a2f2f706f6d656c6f2e6e6574656173652e636f6d2f7265736f757263652f646f63756d656e74496d6167652f6c6f72646f66706f6d656c6f2f706572666f726d616e6365546573742f6d6f76654a70672f342e6a7067"/></img></p>
+<ul>
+<li>800个角色都登录成功并开始移动时, 服务器和pomelo16客户端的top:</li>
+</ul>
+<p><img alt="move-5" data-canonical-src="http://pomelo.netease.com/resource/documentImage/lordofpomelo/performanceTest/moveJpg/5.jpg" src="https://camo.githubusercontent.com/580d3fbc4d7079456ee839467e66013a8104a8be/687474703a2f2f706f6d656c6f2e6e6574656173652e636f6d2f7265736f757263652f646f63756d656e74496d6167652f6c6f72646f66706f6d656c6f2f706572666f726d616e6365546573742f6d6f76654a70672f352e6a7067"/></p>
+<ul>
+<li>测试完毕时服务器和pomelo16客户端的top:</li>
+</ul>
+<p><img alt="move-6" data-canonical-src="http://pomelo.netease.com/resource/documentImage/lordofpomelo/performanceTest/moveJpg/6.jpg" src="https://camo.githubusercontent.com/62cd9e63faf3cf4f00b042eff89c7d88eaa36224/687474703a2f2f706f6d656c6f2e6e6574656173652e636f6d2f7265736f757263652f646f63756d656e74496d6167652f6c6f72646f66706f6d656c6f2f706572666f726d616e6365546573742f6d6f76654a70672f362e6a7067"/></p>
+<ul>
+<li>测试过程中服务器状态:</li>
+</ul>
+<p><img alt="move-7" data-canonical-src="http://pomelo.netease.com/resource/documentImage/lordofpomelo/performanceTest/moveJpg/7.jpg" src="https://camo.githubusercontent.com/a99a603cb1ae400e90aec81427679388184e800e/687474703a2f2f706f6d656c6f2e6e6574656173652e636f6d2f7265736f757263652f646f63756d656e74496d6167652f6c6f72646f66706f6d656c6f2f706572666f726d616e6365546573742f6d6f76654a70672f372e6a7067">
+<img alt="move-8" data-canonical-src="http://pomelo.netease.com/resource/documentImage/lordofpomelo/performanceTest/moveJpg/8.jpg" src="https://camo.githubusercontent.com/ddea424bb8ac168a826ecb20d5aba6d1841fa39d/687474703a2f2f706f6d656c6f2e6e6574656173652e636f6d2f7265736f757263652f646f63756d656e74496d6167652f6c6f72646f66706f6d656c6f2f706572666f726d616e6365546573742f6d6f76654a70672f382e6a7067">
+<img alt="move-9" data-canonical-src="http://pomelo.netease.com/resource/documentImage/lordofpomelo/performanceTest/moveJpg/9.jpg" src="https://camo.githubusercontent.com/f365374de44cc179e03ff2a913684888162637ac/687474703a2f2f706f6d656c6f2e6e6574656173652e636f6d2f7265736f757263652f646f63756d656e74496d6167652f6c6f72646f66706f6d656c6f2f706572666f726d616e6365546573742f6d6f76654a70672f392e6a7067">
+<img alt="move-10" data-canonical-src="http://pomelo.netease.com/resource/documentImage/lordofpomelo/performanceTest/moveJpg/10.jpg" src="https://camo.githubusercontent.com/a4dbe7fe7054f974bdc73dabf8c450bf16f8f807/687474703a2f2f706f6d656c6f2e6e6574656173652e636f6d2f7265736f757263652f646f63756d656e74496d6167652f6c6f72646f66706f6d656c6f2f706572666f726d616e6365546573742f6d6f76654a70672f31302e6a7067"/></img></img></img></p>
+<h5>
+<a aria-hidden="true" class="anchor" href="#3-%E5%A4%9A%E8%BF%9B%E7%A8%8B%E5%A4%9A%E8%A7%92%E8%89%B2%E5%90%8C%E6%97%B6%E6%88%98%E6%96%97%E8%A1%8C%E8%B5%B0%E5%9C%BA%E6%99%AF%E6%9C%80%E5%A4%9A558%E4%B8%AA%E8%A7%92%E8%89%B2" id="user-content-3-多进程多角色同时战斗行走场景最多558个角色"><span class="octicon octicon-link"></span></a>3. 多进程多角色同时战斗/行走场景(最多558个角色)</h5>
+<ul>
+<li>9台云主机上各启动1个客户端进程, 每个客户端进程上运行1个代理, 每个代理负责63个角色, 这样会有567个角色登录游戏. 9个客户端代理并发, 每2秒发起一次角色登录操作, 最终会有558个角色同时处于area3场景, 登录成功的角色每隔2~5秒发起一次攻击(50%)或者移动(50%)操作. 攻击的成功率为99.50%. 移动的成功率为99.57%.  如下图:</li>
+</ul>
+<p><img alt="both-1" data-canonical-src="http://pomelo.netease.com/resource/documentImage/lordofpomelo/performanceTest/bothJpg/1.jpg" src="https://camo.githubusercontent.com/0cd5e2cdef01c201f6a97ffac241cb31e81493ae/687474703a2f2f706f6d656c6f2e6e6574656173652e636f6d2f7265736f757263652f646f63756d656e74496d6167652f6c6f72646f66706f6d656c6f2f706572666f726d616e6365546573742f626f74684a70672f312e6a7067">
+<img alt="both-2" data-canonical-src="http://pomelo.netease.com/resource/documentImage/lordofpomelo/performanceTest/bothJpg/2.jpg" src="https://camo.githubusercontent.com/0f6221000cb1abc051221b6f1e7923e84fa73b06/687474703a2f2f706f6d656c6f2e6e6574656173652e636f6d2f7265736f757263652f646f63756d656e74496d6167652f6c6f72646f66706f6d656c6f2f706572666f726d616e6365546573742f626f74684a70672f322e6a7067">
+<img alt="both-3" data-canonical-src="http://pomelo.netease.com/resource/documentImage/lordofpomelo/performanceTest/bothJpg/3.jpg" src="https://camo.githubusercontent.com/b765a7af8fb03876e85b8a95d87fefc52ada007f/687474703a2f2f706f6d656c6f2e6e6574656173652e636f6d2f7265736f757263652f646f63756d656e74496d6167652f6c6f72646f66706f6d656c6f2f706572666f726d616e6365546573742f626f74684a70672f332e6a7067"/></img></img></p>
+<ul>
+<li>这558个角色随机出生于地图上的15个点. 角色攻击时的对象为附近的其他角色或者怪物. 角色的移动操作都是有规律的, 8次移动为一轮动作循环, 每次的步长为随机值(1~walkSpeed), 8次移动后该角色大致可以回到起点. 这么做的目的是尽量将角色限定在其出生点附近, 以使得所有角色尽量均匀分布于整张地图. 如下图:</li>
+</ul>
+<p><img alt="both-4" data-canonical-src="http://pomelo.netease.com/resource/documentImage/lordofpomelo/performanceTest/bothJpg/4.jpg" src="https://camo.githubusercontent.com/b97ce07ea4500090adb7fc53dcf9b13889fe82bc/687474703a2f2f706f6d656c6f2e6e6574656173652e636f6d2f7265736f757263652f646f63756d656e74496d6167652f6c6f72646f66706f6d656c6f2f706572666f726d616e6365546573742f626f74684a70672f342e6a7067">
+<img alt="both-3" data-canonical-src="http://pomelo.netease.com/resource/documentImage/lordofpomelo/performanceTest/bothJpg/5.jpg" src="https://camo.githubusercontent.com/cc1f811f4ad362dd483d9d992cf7f71e5595c24e/687474703a2f2f706f6d656c6f2e6e6574656173652e636f6d2f7265736f757263652f646f63756d656e74496d6167652f6c6f72646f66706f6d656c6f2f706572666f726d616e6365546573742f626f74684a70672f352e6a7067"/></img></p>
+<ul>
+<li>558个角色都登录成功并开始攻击/移动时, 服务器和pomelo16客户端的top:</li>
+</ul>
+<p><img alt="both-5" data-canonical-src="http://pomelo.netease.com/resource/documentImage/lordofpomelo/performanceTest/bothJpg/6.jpg" src="https://camo.githubusercontent.com/a6062cfe77babc3f1a0ec1433a8eff365a72a45c/687474703a2f2f706f6d656c6f2e6e6574656173652e636f6d2f7265736f757263652f646f63756d656e74496d6167652f6c6f72646f66706f6d656c6f2f706572666f726d616e6365546573742f626f74684a70672f362e6a7067"/></p>
+<ul>
+<li>测试完毕时服务器和pomelo16客户端的top:</li>
+</ul>
+<p><img alt="both-7" data-canonical-src="http://pomelo.netease.com/resource/documentImage/lordofpomelo/performanceTest/bothJpg/7.jpg" src="https://camo.githubusercontent.com/1ae12d9280e486f97aa01e1a637ee2204e761a9c/687474703a2f2f706f6d656c6f2e6e6574656173652e636f6d2f7265736f757263652f646f63756d656e74496d6167652f6c6f72646f66706f6d656c6f2f706572666f726d616e6365546573742f626f74684a70672f372e6a7067"/></p>
+<ul>
+<li>测试过程中服务器状态:</li>
+</ul>
+<p><img alt="both-8" data-canonical-src="http://pomelo.netease.com/resource/documentImage/lordofpomelo/performanceTest/bothJpg/8.jpg" src="https://camo.githubusercontent.com/97969e0e1f6c11ee06cc11528ba244459292658a/687474703a2f2f706f6d656c6f2e6e6574656173652e636f6d2f7265736f757263652f646f63756d656e74496d6167652f6c6f72646f66706f6d656c6f2f706572666f726d616e6365546573742f626f74684a70672f382e6a7067">
+<img alt="both-9" data-canonical-src="http://pomelo.netease.com/resource/documentImage/lordofpomelo/performanceTest/bothJpg/9.jpg" src="https://camo.githubusercontent.com/6da9db0b92de41b854f473bc9a386320dd0b95f9/687474703a2f2f706f6d656c6f2e6e6574656173652e636f6d2f7265736f757263652f646f63756d656e74496d6167652f6c6f72646f66706f6d656c6f2f706572666f726d616e6365546573742f626f74684a70672f392e6a7067">
+<img alt="both-10" data-canonical-src="http://pomelo.netease.com/resource/documentImage/lordofpomelo/performanceTest/bothJpg/10.jpg" src="https://camo.githubusercontent.com/338b7037454ab0d4661de714b0c578beb11a69fa/687474703a2f2f706f6d656c6f2e6e6574656173652e636f6d2f7265736f757263652f646f63756d656e74496d6167652f6c6f72646f66706f6d656c6f2f706572666f726d616e6365546573742f626f74684a70672f31302e6a7067">
+<img alt="both-11" data-canonical-src="http://pomelo.netease.com/resource/documentImage/lordofpomelo/performanceTest/bothJpg/11.jpg" src="https://camo.githubusercontent.com/7a0498b5e814f615d30c5578c4c5636c046db0ec/687474703a2f2f706f6d656c6f2e6e6574656173652e636f6d2f7265736f757263652f646f63756d656e74496d6167652f6c6f72646f66706f6d656c6f2f706572666f726d616e6365546573742f626f74684a70672f31312e6a7067"/></img></img></img></p>
+</div>
+</div></body></html>

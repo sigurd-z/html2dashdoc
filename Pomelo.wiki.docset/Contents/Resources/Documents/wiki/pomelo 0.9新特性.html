@@ -1,0 +1,301 @@
+<html><head prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# object: http://ogp.me/ns/object# article: http://ogp.me/ns/article# profile: http://ogp.me/ns/profile#">
+<meta charset="utf-8">
+<meta content="IE=edge" http-equiv="X-UA-Compatible">
+<meta content="en" http-equiv="Content-Language">
+<meta content="width=1020" name="viewport">
+<title>pomelo 0.9新特性 · NetEase/pomelo Wiki · GitHub</title>
+<link href="/opensearch.xml" rel="search" title="GitHub" type="application/opensearchdescription+xml">
+<link href="src/ad667adaa2cfe8f3caa4a41b7d0a79a1.png" rel="fluid-icon" title="GitHub">
+<link href="src/a10d19ff5f738940a7a5086be334f50b.png" rel="apple-touch-icon" sizes="57x57">
+<link href="src/a10d19ff5f738940a7a5086be334f50b.png" rel="apple-touch-icon" sizes="114x114">
+<link href="src/b4cd268bc600cc14d2cdd557de6da2fb.png" rel="apple-touch-icon" sizes="72x72">
+<link href="src/b4cd268bc600cc14d2cdd557de6da2fb.png" rel="apple-touch-icon" sizes="144x144">
+<meta content="1401488693436528" property="fb:app_id">
+<meta content="@github" name="twitter:site"/><meta content="summary" name="twitter:card"/><meta content="NetEase/pomelo" name="twitter:title"/><meta content="pomelo - A fast,scalable,distributed game server framework for Node.js." name="twitter:description"/><meta content="https://avatars0.githubusercontent.com/u/1460597?v=3&amp;s=400" name="twitter:image:src"/>
+<meta content="GitHub" property="og:site_name"/><meta content="object" property="og:type"/><meta content="https://avatars0.githubusercontent.com/u/1460597?v=3&amp;s=400" property="og:image"/><meta content="NetEase/pomelo" property="og:title"/><meta content="https://github.com/NetEase/pomelo" property="og:url"/><meta content="pomelo - A fast,scalable,distributed game server framework for Node.js." property="og:description"/>
+<meta content="https://api.github.com/_private/browser/stats" name="browser-stats-url">
+<meta content="https://api.github.com/_private/browser/errors" name="browser-errors-url">
+<link href="https://assets-cdn.github.com/" rel="assets">
+<meta content="1000" name="pjax-timeout">
+<meta content="/windows-tile.png" name="msapplication-TileImage">
+<meta content="#ffffff" name="msapplication-TileColor">
+<meta data-pjax-transient="" name="selected-link" value="repo_wiki">
+<meta content="KT5gs8h0wvaagLKAVWq8bbeNwnZZK1r1XQysX3xurLU" name="google-site-verification">
+<meta content="UA-3769691-2" name="google-analytics">
+<meta content="collector.githubapp.com" name="octolytics-host"/><meta content="github" name="octolytics-app-id"/><meta content="CA86616A:4489:F5865AA:5670C073" name="octolytics-dimension-request_id"/>
+<meta content="/&lt;user-name&gt;/&lt;repo-name&gt;/wiki/show" data-pjax-transient="true" name="analytics-location"/>
+<meta content="Rails, view, wiki#show" data-pjax-transient="true" name="analytics-event"/>
+<meta class="js-ga-set" content="Logged Out" name="dimension1">
+<meta content="github.com" name="hostname">
+<meta content="" name="user-login">
+<meta content="github.com" name="expected-hostname">
+<link color="#4078c0" href="https://assets-cdn.github.com/pinned-octocat.svg" rel="mask-icon">
+<link href="https://assets-cdn.github.com/favicon.ico" rel="icon" type="image/x-icon">
+<meta content="2de24d84067effbefde89f284ea1bab12bf6d602" name="form-nonce"/>
+<link crossorigin="anonymous" href="src/350888e1495e7af27e01faa9d8291dee.css" media="all" rel="stylesheet"/>
+<link crossorigin="anonymous" href="src/9fae9b7d8f0785d745a43c6465f74ae5.css" media="all" rel="stylesheet"/>
+<meta content="cd9958d45e48e8e3157a320e9c346eaa" http-equiv="x-pjax-version">
+<meta content="pomelo - A fast,scalable,distributed game server framework for Node.js." name="description">
+<meta content="github.com/NetEase/pomelo git https://github.com/NetEase/pomelo.git" name="go-import">
+<meta content="1460597" name="octolytics-dimension-user_id"/><meta content="NetEase" name="octolytics-dimension-user_login"/><meta content="5880912" name="octolytics-dimension-repository_id"/><meta content="NetEase/pomelo" name="octolytics-dimension-repository_nwo"/><meta content="true" name="octolytics-dimension-repository_public"/><meta content="false" name="octolytics-dimension-repository_is_fork"/><meta content="5880912" name="octolytics-dimension-repository_network_root_id"/><meta content="NetEase/pomelo" name="octolytics-dimension-repository_network_root_nwo"/>
+<link href="https://github.com/NetEase/pomelo/commits/master.atom" rel="alternate" title="Recent Commits to pomelo:master" type="application/atom+xml">
+</link></meta></meta></meta></link></link></meta></meta></meta></meta></meta></meta></meta></meta></meta></meta></link></meta></meta></meta></link></link></link></link></link></link></meta></meta></meta></meta></head><body style="padding:0 25px;"><div class="gollum-markdown-content instapaper_body" id="wiki-body">
+<div class="markdown-body">
+<h2>
+<a aria-hidden="true" class="anchor" href="#pomelo-rpc%E6%94%AF%E6%8C%81zeromq%E9%80%9A%E4%BF%A1" id="user-content-pomelo-rpc支持zeromq通信"><span class="octicon octicon-link"></span></a>pomelo rpc支持zeromq通信</h2>
+<p>在pomelo 0.9中提供了基于zmq的rpc调用，开发者可以根据需要选择原有的pomelo-rpc或者pomelo-rpc-zeromq。基于zeromq和原有的pomelo-rpc的性能对比测试结果可以参考：</p>
+<p>具体使用方法：</p>
+<ol>
+<li><p>安装zeromq</p></li>
+<li><p>在app.js中进行配置，具体配置如下所示：</p></li>
+</ol>
+<pre><code>
+var zmq = require('pomelo-rpc-zeromq');
+
+app.configure('production|development', function() {
+
+    app.set('proxyConfig', {
+        rpcClient: zmq.client
+    });
+
+    app.set('remoteConfig', {
+        rpcServer: zmq.server
+    });
+
+});
+
+</code></pre>
+<p>具体使用示例可以参考 <a href="https://github.com/NetEase/chatofpomelo/tree/zmq">chatofpomelo</a> zmq分支</p>
+<p><a href="https://github.com/NetEase/pomelo/wiki/pomelo-rpc-zeromq%E6%80%A7%E8%83%BD%E6%B5%8B%E8%AF%95%E6%8A%A5%E5%91%8A">pomelo-rpc-zeromq性能测试报告</a>与原有的<a href="https://github.com/NetEase/pomelo/wiki/pomelo-rpc%E6%80%A7%E8%83%BD%E6%B5%8B%E8%AF%95%E6%8A%A5%E5%91%8A">pomelo-rpc的性能测试报告</a>可以参考。</p>
+<h2>
+<a aria-hidden="true" class="anchor" href="#pomelo%E5%91%BD%E4%BB%A4%E8%A1%8C%E6%94%B9%E8%BF%9B" id="user-content-pomelo命令行改进"><span class="octicon octicon-link"></span></a>pomelo命令行改进</h2>
+<p>根据网友的建议，在pomelo 0.9版本中增加了重启的命令和服务器单独启动的命令；具体命令如下：</p>
+<p>pomelo start -t [server type] 启动某类型的服务器，如果需要分开启动不同类型服务器时候使用，首先必须启动master服务器，例如：</p>
+<pre><code>
+pomelo start -t master
+pomelo start -t connector
+
+</code></pre>
+<p>pomelo start -i [server id] 启动具体某个服务器，同上首先需要启动master，master服务器无需提供具体id, 例如：</p>
+<pre><code>
+pomelo start -i master
+pomelo start -i chat-server-1
+
+</code></pre>
+<p>pomelo restart 重启除了master以为的其它服务器，可能会出现重启失败的情况。</p>
+<p>pomelo restart -t [server type] 重启某类型的服务器，不包括master服务器</p>
+<p>pomelo restart -i [server id] 重启具体某个服务器，不包括master服务器</p>
+<pre><code>
+pomelo restart -t connector
+pomelo restart -i chat-server-1
+
+</code></pre>
+<h2>
+<a aria-hidden="true" class="anchor" href="#pomelo-rpc%E5%A2%9E%E5%8A%A0%E5%9B%9E%E8%B0%83%E8%B6%85%E6%97%B6%E6%9C%BA%E5%88%B6" id="user-content-pomelo-rpc增加回调超时机制"><span class="octicon octicon-link"></span></a>pomelo rpc增加回调超时机制</h2>
+<p>针对之前网友提出的<a href="http://nodejs.netease.com/topic/52b2d8470a516e1851b256e4">rpc回调函数积压问题</a>, 在新版本的pomelo-rpc中通过增加了回调函数的超时机制解决，rpc客户端在记录应用层的回调函数的同时添加对应的定时器，如果rpc服务端收到对应的消息则将定时器清除，如果定时器超时则将对应的回调函数清除。定时器的超时时间开发者可以进行设置，默认是10s， 具体使用如下：</p>
+<pre><code>
+app.set('proxyConfig', {
+    timeout: 1000 * 20
+});
+
+</code></pre>
+<h2>
+<a aria-hidden="true" class="anchor" href="#pomelo%E6%94%AF%E6%8C%81%E8%BF%9E%E6%8E%A5%E9%BB%91%E5%90%8D%E5%8D%95%E6%9C%BA%E5%88%B6" id="user-content-pomelo支持连接黑名单机制"><span class="octicon octicon-link"></span></a>pomelo支持连接黑名单机制</h2>
+<p>在新版本的pomelo中连接服务器支持静态或者动态添加ip黑名单功能，服务端可以在连接服务器中增加黑名单对攻击的ip进行屏蔽。</p>
+<h3>
+<a aria-hidden="true" class="anchor" href="#%E5%8E%9F%E7%90%86" id="user-content-原理"><span class="octicon octicon-link"></span></a>原理</h3>
+<p>connector每接受一个连接都会抛出一个连接事件, 这个事件中含有该连接的客户端IP. connector会捕获该连接事件, 并调用用户传入的获取IP黑名单的函数, 如果该客户端IP在黑名单中, 则立刻将对应的socket断开. 以此来实现连接服务器的黑名单过滤功能.</p>
+<h3>
+<a aria-hidden="true" class="anchor" href="#%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95" id="user-content-使用方法"><span class="octicon octicon-link"></span></a>使用方法</h3>
+<h4>
+<a aria-hidden="true" class="anchor" href="#%E9%9D%99%E6%80%81%E6%B7%BB%E5%8A%A0%E9%BB%91%E5%90%8D%E5%8D%95" id="user-content-静态添加黑名单"><span class="octicon octicon-link"></span></a>静态添加黑名单</h4>
+<p>使用时只需要向在connector的connectionConfig配置中传入一个获取IP黑名单的函数即可, 这个函数需要接受一个回调函数作为其参数, 该回调函数形如<code>function(err, list) {...}</code>. 在获取IP黑名单的函数内, 拿到IP黑名单时(该黑名单应为一维<code>JS Array</code>), 以类似于<code>cb(null, self.list)</code>的形式调用IP过滤回调函数，具体使用方法如下：</p>
+<pre><code>./game-server/app/util/blackList.js
+... ...
+var self = this;
+self.blackList = ['192.168.100.1', '192.168.100.2'];
+module.exports.blackListFun = function(cb) {
+  cb(null, self.blackList);
+};
+... ...
+</code></pre>
+<pre><code>./game-server/app.js
+var blackList = require('./app/util/blackList');
+... ...
+app.configure('production|development', function() {
+... ...
+  app.set('connectorConfig', {
+    blacklistFun: blackList.blackListFun
+  });
+... ...
+}
+</code></pre>
+<h4>
+<a aria-hidden="true" class="anchor" href="#%E5%8A%A8%E6%80%81%E6%B7%BB%E5%8A%A0%E9%BB%91%E5%90%8D%E5%8D%95" id="user-content-动态添加黑名单"><span class="octicon octicon-link"></span></a>动态添加黑名单</h4>
+<p>动态添加黑名单可以通过pomelo-cli完成，其中运行输入具体ip或者正则表达式，具体命令如下：</p>
+<pre><code>
+blacklist 192.168.100.1
+blacklist (([01]?d?d|2[0-4]d|25[0-5]).){3}([01]?d?d|2[0-4]d|25[0-5])
+
+</code></pre>
+<h2>
+<a aria-hidden="true" class="anchor" href="#channel-%E5%BA%8F%E5%88%97%E5%8C%96%E6%8E%A5%E5%8F%A3" id="user-content-channel-序列化接口"><span class="octicon octicon-link"></span></a>channel 序列化接口</h2>
+<p>在新版本的pomelo中提供channel的序列化接口，开发者可以通过实现该接口将系统中创建的channel进行保存；同时当服务器重新启动后，系统会将之前保存的channel恢复到系统中。开发者需要实现如下四个接口：</p>
+<h4>
+<a aria-hidden="true" class="anchor" href="#addkey-value-cb" id="user-content-addkey-value-cb"><span class="octicon octicon-link"></span></a>add(key, value, cb)</h4>
+<p>add key value pairs</p>
+<h4>
+<a aria-hidden="true" class="anchor" href="#removekey-value-cb" id="user-content-removekey-value-cb"><span class="octicon octicon-link"></span></a>remove(key, value, cb)</h4>
+<p>remove key value pairs</p>
+<h4>
+<a aria-hidden="true" class="anchor" href="#loadkey-cb" id="user-content-loadkey-cb"><span class="octicon octicon-link"></span></a>load(key, cb)</h4>
+<p>load all values</p>
+<h4>
+<a aria-hidden="true" class="anchor" href="#removeallkey-cb" id="user-content-removeallkey-cb"><span class="octicon octicon-link"></span></a>removeAll(key, cb)</h4>
+<p>remove all values</p>
+<p>具体的使用方法如下所示：</p>
+<pre><code>
+var store = require('./store');
+
+app.set('channelConfig', {
+            store : store,
+            prefix : 'pomelo'
+        });
+
+</code></pre>
+<pre><code>//store.js
+
+var redis = require('redis');
+
+var StoreManager = function() {
+  this.redis = redis.createClient(6379, '127.0.0.1', {});
+};
+
+module.exports = new StoreManager();
+
+StoreManager.prototype.add = function(key, value, cb) {
+  this.redis.sadd(key, value, function(err) {
+    cb(err);
+  });
+};
+
+StoreManager.prototype.remove = function(key, value, cb) {
+  this.redis.srem(key, value, function(err) {
+    cb(err);
+  });
+};
+
+StoreManager.prototype.load = function(key, cb) {
+    this.redis.smembers(key, function(err, list) {
+        cb(err, list);
+    });
+};
+
+StoreManager.prototype.removeAll = function(key, cb) {
+  this.redis.del(key, function(err) {
+    cb(err);
+  });
+};
+
+</code></pre>
+<h2>
+<a aria-hidden="true" class="anchor" href="#%E7%83%AD%E9%87%8D%E5%90%AF%E7%9A%84%E9%83%A8%E5%88%86%E6%94%AF%E6%8C%81" id="user-content-热重启的部分支持"><span class="octicon octicon-link"></span></a>热重启的部分支持</h2>
+<p>在新版本的pomelo中对rpc模块进行了改进，在rpc服务端断开连接后，上层应用的rpc请求会在rpc客户端缓存；当rpc服务端恢复后，再次发起rpc请求时，会把之前的rpc请求一起发到rpc服务端。</p>
+<p>在系统中如果是rpc单向依赖，也就是说系统中只有A类服务器发送rpc请求到B类服务器，没有B类服务器发送rpc请求到A类服务器，同时B类服务器是没有任何状态信息和实例化信息，这样B类服务器就可以在pomelo 0.9版本中重启，且不会影响系统的正常运行。</p>
+<p>具体可以参考<a href="https://github.com/NetEase/chatofpomelo">chatofpomelo</a> store分支。在chatofpomelo中只有connector到chat服务器的单向rpc依赖，对于chat服务器有channel的实例存在，所以使用channel序列化接口将channel存储，所以需要使用到redis。</p>
+<p>操作步骤如下：</p>
+<ol>
+<li>在不同的命令行界面分别执行 pomelo start -t master， pomelo start -t connector, pomelo start -t gate, pomelo start -t chat;</li>
+<li>打开web服务器，运行chatofpomelo;</li>
+<li>关闭chat服务器，并重新启动；</li>
+</ol>
+<h2>
+<a aria-hidden="true" class="anchor" href="#pomelo%E6%94%AF%E6%8C%81decodeio-protobuf" id="user-content-pomelo支持decodeio-protobuf"><span class="octicon octicon-link"></span></a>pomelo支持decodeIO protobuf</h2>
+<p>在pomelo 0.9版本中提供了对decodeIO的protobuf的支持，对于decodeIO的protobuf的介绍可以参考<a href="https://github.com/dcodeIO/ProtoBuf.js">decodeIO-protobufjs</a>.</p>
+<h3>
+<a aria-hidden="true" class="anchor" href="#%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95-1" id="user-content-使用方法-1"><span class="octicon octicon-link"></span></a>使用方法</h3>
+<h4>
+<a aria-hidden="true" class="anchor" href="#%E5%AE%A2%E6%88%B7%E7%AB%AF" id="user-content-客户端"><span class="octicon octicon-link"></span></a>客户端</h4>
+<p>使用最新的pomelo-jsclient-websocket, 同时在客户端添加命名为pomelo-decodeIO-protobuf的component，并将其挂载到window对象下。对应的component.js如下所示：</p>
+<pre><code>
+{
+  "name": "boot",
+  "description": "Main app boot component",
+  "dependencies": {
+    "component/emitter":"master",
+    "NetEase/pomelo-protocol": "master",
+    "pomelonode/pomelo-decodeIO-protobuf": "master",
+    "pomelonode/pomelo-jsclient-websocket": "master",
+    "component/jquery": "*"
+  },
+  "scripts": ["index.js"]
+}
+
+
+</code></pre>
+<p>对应的index.js如下所示：</p>
+<pre><code>
+  var Emitter = require('emitter');
+  window.EventEmitter = Emitter;
+
+  var protocol = require('pomelo-protocol');
+  window.Protocol = protocol;
+
+  var protobuf = require('pomelo-decodeIO-protobuf');
+  window.decodeIO_protobuf = protobuf; 
+
+  var pomelo = require('pomelo-jsclient-websocket');
+  window.pomelo = pomelo;
+
+  var jquery = require('jquery');
+  window.$ = jquery;
+
+
+</code></pre>
+<h4>
+<a aria-hidden="true" class="anchor" href="#%E6%9C%8D%E5%8A%A1%E7%AB%AF" id="user-content-服务端"><span class="octicon octicon-link"></span></a>服务端</h4>
+<p>在服务端需要使用pomelo-protobuf-plugin，并在app.js中使用对应的插件，具体配置如下：</p>
+<pre><code>
+app.configure('production|development', function() {
+    app.use(protobuf, {
+        protobuf: {
+        }
+    });
+});
+
+</code></pre>
+<h4>
+<a aria-hidden="true" class="anchor" href="#%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9" id="user-content-注意事项"><span class="octicon octicon-link"></span></a>注意事项</h4>
+<p>pomelo原有的protobuf和decodeIO-protobufjs不能同时使用，即不能同时使用pomelo-protobuf-plugin插件并在前端服务器开启useProtobuf。</p>
+<p>考虑到与原有的protobuf保持一致，pomelo 0.9版本中支持的decodeIO-protobuf同样采用serverProtos.json和clientProtos.json，不支持decodeIO-protobufjs中的<em>.proto格式，对于</em>.proto格式可以采用decodeIO-protobufjs提供的命令行工具转换成json格式。</p>
+<p>具体的使用示例可以参考<a href="https://github.com/NetEase/lordofpomelo/tree/decodeIO_protobuf">lordofpomelo</a> decodeIO-protobuf分支。</p>
+<h2>
+<a aria-hidden="true" class="anchor" href="#pomelo-websocket%E6%94%AF%E6%8C%81%E8%87%AA%E5%8A%A8%E9%87%8D%E8%BF%9E" id="user-content-pomelo-websocket支持自动重连"><span class="octicon octicon-link"></span></a>pomelo websocket支持自动重连</h2>
+<p>在pomelo 0.9版本中，pomelo-jsclient-websocket 支持自动重连。重连发生在连接断开后的5s后，在重连失败后下次重连的时间将是上次重连时间的2倍；所以重连时间依次为5s, 10s，20s,依次类推。默认最大的重连次数是10次，该参数可以在连接初始化过程中进行配置。</p>
+<pre><code>
+//设置客户端重连
+
+pomelo.init({
+        host: 127.0.0.1,
+        port: 3050,
+        reconnect: true
+    }, function() {
+
+});
+
+
+//设置客户端重连最大次数
+
+pomelo.init({
+        host: 127.0.0.1,
+        port: 3050,
+        reconnect: true，
+        maxReconnectAttempts： 20
+    }, function() {
+
+});
+
+
+</code></pre>
+</div>
+</div></body></html>

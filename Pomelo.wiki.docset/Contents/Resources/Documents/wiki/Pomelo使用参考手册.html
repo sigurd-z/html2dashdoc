@@ -1,0 +1,825 @@
+<html><head prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# object: http://ogp.me/ns/object# article: http://ogp.me/ns/article# profile: http://ogp.me/ns/profile#">
+<meta charset="utf-8">
+<meta content="IE=edge" http-equiv="X-UA-Compatible">
+<meta content="en" http-equiv="Content-Language">
+<meta content="width=1020" name="viewport">
+<title>Pomelo使用参考手册 · NetEase/pomelo Wiki · GitHub</title>
+<link href="/opensearch.xml" rel="search" title="GitHub" type="application/opensearchdescription+xml">
+<link href="src/ad667adaa2cfe8f3caa4a41b7d0a79a1.png" rel="fluid-icon" title="GitHub">
+<link href="src/a10d19ff5f738940a7a5086be334f50b.png" rel="apple-touch-icon" sizes="57x57">
+<link href="src/a10d19ff5f738940a7a5086be334f50b.png" rel="apple-touch-icon" sizes="114x114">
+<link href="src/b4cd268bc600cc14d2cdd557de6da2fb.png" rel="apple-touch-icon" sizes="72x72">
+<link href="src/b4cd268bc600cc14d2cdd557de6da2fb.png" rel="apple-touch-icon" sizes="144x144">
+<meta content="1401488693436528" property="fb:app_id">
+<meta content="@github" name="twitter:site"/><meta content="summary" name="twitter:card"/><meta content="NetEase/pomelo" name="twitter:title"/><meta content="pomelo - A fast,scalable,distributed game server framework for Node.js." name="twitter:description"/><meta content="https://avatars0.githubusercontent.com/u/1460597?v=3&amp;s=400" name="twitter:image:src"/>
+<meta content="GitHub" property="og:site_name"/><meta content="object" property="og:type"/><meta content="https://avatars0.githubusercontent.com/u/1460597?v=3&amp;s=400" property="og:image"/><meta content="NetEase/pomelo" property="og:title"/><meta content="https://github.com/NetEase/pomelo" property="og:url"/><meta content="pomelo - A fast,scalable,distributed game server framework for Node.js." property="og:description"/>
+<meta content="https://api.github.com/_private/browser/stats" name="browser-stats-url">
+<meta content="https://api.github.com/_private/browser/errors" name="browser-errors-url">
+<link href="https://assets-cdn.github.com/" rel="assets">
+<meta content="1000" name="pjax-timeout">
+<meta content="/windows-tile.png" name="msapplication-TileImage">
+<meta content="#ffffff" name="msapplication-TileColor">
+<meta data-pjax-transient="" name="selected-link" value="repo_wiki">
+<meta content="KT5gs8h0wvaagLKAVWq8bbeNwnZZK1r1XQysX3xurLU" name="google-site-verification">
+<meta content="UA-3769691-2" name="google-analytics">
+<meta content="collector.githubapp.com" name="octolytics-host"/><meta content="github" name="octolytics-app-id"/><meta content="CA86616A:2F46:EF6CD7F:5670C0EC" name="octolytics-dimension-request_id"/>
+<meta content="/&lt;user-name&gt;/&lt;repo-name&gt;/wiki/show" data-pjax-transient="true" name="analytics-location"/>
+<meta content="Rails, view, wiki#show" data-pjax-transient="true" name="analytics-event"/>
+<meta class="js-ga-set" content="Logged Out" name="dimension1">
+<meta content="github.com" name="hostname">
+<meta content="" name="user-login">
+<meta content="github.com" name="expected-hostname">
+<link color="#4078c0" href="https://assets-cdn.github.com/pinned-octocat.svg" rel="mask-icon">
+<link href="https://assets-cdn.github.com/favicon.ico" rel="icon" type="image/x-icon">
+<meta content="eb8b7b15fb1645b2c9b5f3b398774a16e194b7a9" name="form-nonce"/>
+<link crossorigin="anonymous" href="src/350888e1495e7af27e01faa9d8291dee.css" media="all" rel="stylesheet"/>
+<link crossorigin="anonymous" href="src/9fae9b7d8f0785d745a43c6465f74ae5.css" media="all" rel="stylesheet"/>
+<meta content="cd9958d45e48e8e3157a320e9c346eaa" http-equiv="x-pjax-version">
+<meta content="pomelo - A fast,scalable,distributed game server framework for Node.js." name="description">
+<meta content="github.com/NetEase/pomelo git https://github.com/NetEase/pomelo.git" name="go-import">
+<meta content="1460597" name="octolytics-dimension-user_id"/><meta content="NetEase" name="octolytics-dimension-user_login"/><meta content="5880912" name="octolytics-dimension-repository_id"/><meta content="NetEase/pomelo" name="octolytics-dimension-repository_nwo"/><meta content="true" name="octolytics-dimension-repository_public"/><meta content="false" name="octolytics-dimension-repository_is_fork"/><meta content="5880912" name="octolytics-dimension-repository_network_root_id"/><meta content="NetEase/pomelo" name="octolytics-dimension-repository_network_root_nwo"/>
+<link href="https://github.com/NetEase/pomelo/commits/master.atom" rel="alternate" title="Recent Commits to pomelo:master" type="application/atom+xml">
+</link></meta></meta></meta></link></link></meta></meta></meta></meta></meta></meta></meta></meta></meta></meta></link></meta></meta></meta></link></link></link></link></link></link></meta></meta></meta></meta></head><body style="padding:0 25px;"><div class="gollum-markdown-content instapaper_body" id="wiki-body">
+<div class="markdown-body">
+<h1>
+<a aria-hidden="true" class="anchor" href="#%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8" id="user-content-基本使用"><span class="octicon octicon-link"></span></a>基本使用</h1>
+<h2>
+<a aria-hidden="true" class="anchor" href="#rpc%E8%B0%83%E7%94%A8%E6%96%B9%E6%B3%95" id="user-content-rpc调用方法"><span class="octicon octicon-link"></span></a>rpc调用方法</h2>
+<h2>
+<a aria-hidden="true" class="anchor" href="#handler%E8%B0%83%E7%94%A8" id="user-content-handler调用"><span class="octicon octicon-link"></span></a>handler调用</h2>
+<h2>
+<a aria-hidden="true" class="anchor" href="#session%E7%BB%91%E5%AE%9A" id="user-content-session绑定"><span class="octicon octicon-link"></span></a>session绑定</h2>
+<h2>
+<a aria-hidden="true" class="anchor" href="#%E6%B6%88%E6%81%AF%E5%9B%9E%E5%A4%8Dnext%E8%B0%83%E7%94%A8" id="user-content-消息回复next调用"><span class="octicon octicon-link"></span></a>消息回复(next调用)</h2>
+<h2>
+<a aria-hidden="true" class="anchor" href="#%E6%B6%88%E6%81%AF%E5%8F%91%E9%80%81channelservice%E7%9A%84%E4%BD%BF%E7%94%A8" id="user-content-消息发送channelservice的使用"><span class="octicon octicon-link"></span></a>消息发送（channelservice的使用）</h2>
+<h2>
+<a aria-hidden="true" class="anchor" href="#%E5%A2%9E%E5%8A%A0%E4%B8%8D%E5%90%8C%E7%B1%BB%E5%9E%8B%E7%9A%84%E6%9C%8D%E5%8A%A1%E5%99%A8" id="user-content-增加不同类型的服务器"><span class="octicon octicon-link"></span></a>增加不同类型的服务器</h2>
+<h2>
+<a aria-hidden="true" class="anchor" href="#protobuf%E4%BD%BF%E7%94%A8" id="user-content-protobuf使用"><span class="octicon octicon-link"></span></a>protobuf使用</h2>
+<h2>
+<a aria-hidden="true" class="anchor" href="#%E5%AD%97%E5%85%B8%E5%8E%8B%E7%BC%A9%E4%BD%BF%E7%94%A8" id="user-content-字典压缩使用"><span class="octicon octicon-link"></span></a>字典压缩使用</h2>
+<h1>
+<a aria-hidden="true" class="anchor" href="#%E7%BB%84%E4%BB%B6%E5%8A%9F%E8%83%BD%E5%8F%8A%E9%85%8D%E7%BD%AE%E8%AF%B4%E6%98%8E" id="user-content-组件功能及配置说明"><span class="octicon octicon-link"></span></a>组件功能及配置说明</h1>
+<h2>
+<a aria-hidden="true" class="anchor" href="#connector" id="user-content-connector"><span class="octicon octicon-link"></span></a>connector</h2>
+<h4>
+<a aria-hidden="true" class="anchor" href="#connector-1" id="user-content-connector-1"><span class="octicon octicon-link"></span></a>connector</h4>
+<h4>
+<a aria-hidden="true" class="anchor" href="#encode" id="user-content-encode"><span class="octicon octicon-link"></span></a>encode</h4>
+<h4>
+<a aria-hidden="true" class="anchor" href="#decode" id="user-content-decode"><span class="octicon octicon-link"></span></a>decode</h4>
+<h4>
+<a aria-hidden="true" class="anchor" href="#usecrypto" id="user-content-usecrypto"><span class="octicon octicon-link"></span></a>useCrypto</h4>
+<h4>
+<a aria-hidden="true" class="anchor" href="#blacklistfun" id="user-content-blacklistfun"><span class="octicon octicon-link"></span></a>blacklistFun</h4>
+<h4>
+<a aria-hidden="true" class="anchor" href="#usedict" id="user-content-usedict"><span class="octicon octicon-link"></span></a>useDict</h4>
+<h4>
+<a aria-hidden="true" class="anchor" href="#useprotobuf" id="user-content-useprotobuf"><span class="octicon octicon-link"></span></a>useProtobuf</h4>
+<h4>
+<a aria-hidden="true" class="anchor" href="#ssl" id="user-content-ssl"><span class="octicon octicon-link"></span></a>ssl</h4>
+<h4>
+<a aria-hidden="true" class="anchor" href="#disconnectontimeout" id="user-content-disconnectontimeout"><span class="octicon octicon-link"></span></a>disconnectOnTimeout</h4>
+<h4>
+<a aria-hidden="true" class="anchor" href="#%E5%9B%9B%E7%A7%8Dconnector%E5%88%86%E5%88%AB%E5%AF%B9%E5%BA%94%E7%9A%84%E5%8F%82%E6%95%B0" id="user-content-四种connector分别对应的参数"><span class="octicon octicon-link"></span></a>四种connector分别对应的参数</h4>
+<h2>
+<a aria-hidden="true" class="anchor" href="#pushscheduler" id="user-content-pushscheduler"><span class="octicon octicon-link"></span></a>pushScheduler</h2>
+<h4>
+<a aria-hidden="true" class="anchor" href="#scheduler" id="user-content-scheduler"><span class="octicon octicon-link"></span></a>scheduler</h4>
+<h4>
+<a aria-hidden="true" class="anchor" href="#selector" id="user-content-selector"><span class="octicon octicon-link"></span></a>selector</h4>
+<h2>
+<a aria-hidden="true" class="anchor" href="#proxy" id="user-content-proxy"><span class="octicon octicon-link"></span></a>proxy</h2>
+<h4>
+<a aria-hidden="true" class="anchor" href="#router" id="user-content-router"><span class="octicon octicon-link"></span></a>router</h4>
+<h4>
+<a aria-hidden="true" class="anchor" href="#buffermsgcachemsg" id="user-content-buffermsgcachemsg"><span class="octicon octicon-link"></span></a>bufferMsg|cacheMsg</h4>
+<h4>
+<a aria-hidden="true" class="anchor" href="#interval" id="user-content-interval"><span class="octicon octicon-link"></span></a>interval</h4>
+<h4>
+<a aria-hidden="true" class="anchor" href="#router-1" id="user-content-router-1"><span class="octicon octicon-link"></span></a>router</h4>
+<h4>
+<a aria-hidden="true" class="anchor" href="#rpcdebuglog" id="user-content-rpcdebuglog"><span class="octicon octicon-link"></span></a>rpcDebugLog</h4>
+<h2>
+<a aria-hidden="true" class="anchor" href="#remote" id="user-content-remote"><span class="octicon octicon-link"></span></a>remote</h2>
+<h4>
+<a aria-hidden="true" class="anchor" href="#router-2" id="user-content-router-2"><span class="octicon octicon-link"></span></a>router</h4>
+<h4>
+<a aria-hidden="true" class="anchor" href="#buffermsgcachemsg-1" id="user-content-buffermsgcachemsg-1"><span class="octicon octicon-link"></span></a>bufferMsg|cacheMsg</h4>
+<h4>
+<a aria-hidden="true" class="anchor" href="#interval-1" id="user-content-interval-1"><span class="octicon octicon-link"></span></a>interval</h4>
+<h4>
+<a aria-hidden="true" class="anchor" href="#rpcdebuglog-1" id="user-content-rpcdebuglog-1"><span class="octicon octicon-link"></span></a>rpcDebugLog</h4>
+<h1>
+<a aria-hidden="true" class="anchor" href="#%E6%8F%92%E4%BB%B6%E5%8A%9F%E8%83%BD%E5%8F%8A%E9%85%8D%E7%BD%AE%E8%AF%B4%E6%98%8E" id="user-content-插件功能及配置说明"><span class="octicon octicon-link"></span></a>插件功能及配置说明</h1>
+<h2>
+<a aria-hidden="true" class="anchor" href="#pomelo-globalchannel-plugin" id="user-content-pomelo-globalchannel-plugin"><span class="octicon octicon-link"></span></a>pomelo-globalchannel-plugin</h2>
+<p>pomelo中提供channel服务，主要用在具体服务器中保存用户信息，并提供消息发送服务；但是channel只能在具体服务器中进行存储，不能提供全局服务器中用户信息存储的功能。pomelo-globalchannel-plugin主要功能就是提供全局用户信息的存储。</p>
+<h3>
+<a aria-hidden="true" class="anchor" href="#%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95" id="user-content-使用方法"><span class="octicon octicon-link"></span></a>使用方法</h3>
+<p>在app.js中配置</p>
+<pre><code>var globalChannel = require('pomelo-globalchannel-plugin');
+app.use(globalChannel, {globalChannel: {
+  host: '127.0.0.1',
+  port: 6379,
+  db: '0'       // optinal, from 0 to 15 with default redis configure
+}});
+</code></pre>
+<p>获取及使用方法</p>
+<pre><code>var globalChannelService = app.get('globalChannelService');
+
+globalChannelService.add(name, uid, sid, function() {});
+
+globalChannelService.pushMessage(stype, route, msg, name, opts, function() {});
+</code></pre>
+<h3>
+<a aria-hidden="true" class="anchor" href="#api" id="user-content-api"><span class="octicon octicon-link"></span></a>API</h3>
+<h4>
+<a aria-hidden="true" class="anchor" href="#addname-uid-sid-cb" id="user-content-addname-uid-sid-cb"><span class="octicon octicon-link"></span></a>add(name, uid, sid, cb)</h4>
+<p>add a member into channel</p>
+<h5>
+<a aria-hidden="true" class="anchor" href="#arguments" id="user-content-arguments"><span class="octicon octicon-link"></span></a>Arguments</h5>
+<ul>
+<li>name - channel name.</li>
+<li>uid - user id.</li>
+<li>sid - frontend server id</li>
+<li>cb - callback function</li>
+</ul>
+<h4>
+<a aria-hidden="true" class="anchor" href="#leavename-uid-sid-cb" id="user-content-leavename-uid-sid-cb"><span class="octicon octicon-link"></span></a>leave(name, uid, sid, cb)</h4>
+<p>remove user from channel</p>
+<h5>
+<a aria-hidden="true" class="anchor" href="#arguments-1" id="user-content-arguments-1"><span class="octicon octicon-link"></span></a>Arguments</h5>
+<ul>
+<li>name - channel name.</li>
+<li>uid - user id.</li>
+<li>sid - frontend server id</li>
+<li>cb - callback function</li>
+</ul>
+<h4>
+<a aria-hidden="true" class="anchor" href="#getmembersbysidname-sid-cb" id="user-content-getmembersbysidname-sid-cb"><span class="octicon octicon-link"></span></a>getMembersBySid(name, sid, cb)</h4>
+<p>get members by frontend server id</p>
+<h5>
+<a aria-hidden="true" class="anchor" href="#arguments-2" id="user-content-arguments-2"><span class="octicon octicon-link"></span></a>Arguments</h5>
+<ul>
+<li>name - channel name</li>
+<li>sid - frontend server id</li>
+<li>cb - callback function</li>
+</ul>
+<h4>
+<a aria-hidden="true" class="anchor" href="#getmembersbychannelnamestype-name-cb" id="user-content-getmembersbychannelnamestype-name-cb"><span class="octicon octicon-link"></span></a>getMembersByChannelName(stype, name, cb)</h4>
+<p>get members by channel name</p>
+<h5>
+<a aria-hidden="true" class="anchor" href="#arguments-3" id="user-content-arguments-3"><span class="octicon octicon-link"></span></a>Arguments</h5>
+<ul>
+<li>stype - frontend server type string</li>
+<li>name - channel name</li>
+<li>cb callback function</li>
+</ul>
+<h4>
+<a aria-hidden="true" class="anchor" href="#pushmessagestype-route-msg-name-opts-cb" id="user-content-pushmessagestype-route-msg-name-opts-cb"><span class="octicon octicon-link"></span></a>pushMessage(stype, route, msg, name, opts, cb)</h4>
+<p>send message by global channel</p>
+<h5>
+<a aria-hidden="true" class="anchor" href="#arguments-4" id="user-content-arguments-4"><span class="octicon octicon-link"></span></a>Arguments</h5>
+<ul>
+<li>stype - frontend server type string</li>
+<li>route - route string</li>
+<li>msg - message would be sent to clients</li>
+<li>name - channel name</li>
+<li>opts - optional parameters</li>
+<li>cb - callback function</li>
+</ul>
+<h4>
+<a aria-hidden="true" class="anchor" href="#destroychannelname-cb" id="user-content-destroychannelname-cb"><span class="octicon octicon-link"></span></a>destroyChannel(name, cb)</h4>
+<p>destroy a global channel</p>
+<h5>
+<a aria-hidden="true" class="anchor" href="#arguments-5" id="user-content-arguments-5"><span class="octicon octicon-link"></span></a>Arguments</h5>
+<ul>
+<li>name - channel name</li>
+<li>cb - callback function</li>
+</ul>
+<h2>
+<a aria-hidden="true" class="anchor" href="#pomelo-zookeeper-plugin" id="user-content-pomelo-zookeeper-plugin"><span class="octicon octicon-link"></span></a>pomelo-zookeeper-plugin</h2>
+<p>pomelo-zookeeper-plugin是为pomelo的集群管理提供zookeeper服务，pomelo默认的集群管理方式为master-slaves；对于集群较小的情况这种管理模式会非常灵活方便，但是在集群较大的情况下可能会出现一定的问题。zookeeper是一个常用的服务器集群管理的框架，pomelo-zookeeper-plugin通过引入zookeeper为pomelo集群提供基于zookeeper的集群管理方法。如果使用pomelo-zookeeper-plugin，就需要关闭原有的pomelo的集群管理模式。</p>
+<h3>
+<a aria-hidden="true" class="anchor" href="#%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95-1" id="user-content-使用方法-1"><span class="octicon octicon-link"></span></a>使用方法</h3>
+<pre><code>var zookeeper = require('pomelo-zookeeper-plugin');
+app.configure('production|development', function() {
+
+ // close master cluster management
+    app.set('masterConfig', {
+        closeWatcher: true
+    });
+
+// close master cluster management
+    app.set('monitorConfig', {
+        closeWatcher: true
+    });
+
+    app.use(zookeeper, {
+        zookeeper: {
+            server: '127.0.0.1:2181',
+            path: '/pomelo/servers',
+            username: 'pomelo',
+            password: 'pomelo'
+        }
+    });
+});
+
+</code></pre>
+<h2>
+<a aria-hidden="true" class="anchor" href="#pomelo-masterha-plugin" id="user-content-pomelo-masterha-plugin"><span class="octicon octicon-link"></span></a>pomelo-masterha-plugin</h2>
+<h2>
+<a aria-hidden="true" class="anchor" href="#pomelo-status-plugin" id="user-content-pomelo-status-plugin"><span class="octicon octicon-link"></span></a>pomelo-status-plugin</h2>
+<p>pomelo-status-plugin是一个全局的用户状态存储的插件，使用该插件可以对用户所在前端服务器进行查询，同时还能在全局范围内给具体用户进行消息推送。</p>
+<h3>
+<a aria-hidden="true" class="anchor" href="#%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95-2" id="user-content-使用方法-2"><span class="octicon octicon-link"></span></a>使用方法</h3>
+<p>app.js中配置</p>
+<pre><code>var status = require('pomelo-status-plugin');
+
+app.use(status, {status: {
+  host: '127.0.0.1',
+  port: 6379
+}});
+
+</code></pre>
+<p>获取及使用方法</p>
+<pre><code>var statusService = app.get('statusService');
+
+statusService.getSidsByUid(uid, function(err, list) {});
+
+statusService.pushByUids(uids, route, msg, function(err, fails) {});
+
+</code></pre>
+<h3>
+<a aria-hidden="true" class="anchor" href="#api-1" id="user-content-api-1"><span class="octicon octicon-link"></span></a>API</h3>
+<h4>
+<a aria-hidden="true" class="anchor" href="#getsidsbyuiduid-cb" id="user-content-getsidsbyuiduid-cb"><span class="octicon octicon-link"></span></a>getSidsByUid(uid, cb)</h4>
+<p>get frontend server id by user id</p>
+<h5>
+<a aria-hidden="true" class="anchor" href="#arguments-6" id="user-content-arguments-6"><span class="octicon octicon-link"></span></a>Arguments</h5>
+<ul>
+<li>uid - user id</li>
+<li>cb - callback function</li>
+</ul>
+<h5>
+<a aria-hidden="true" class="anchor" href="#return" id="user-content-return"><span class="octicon octicon-link"></span></a>Return</h5>
+<ul>
+<li>err - error</li>
+<li>list - array of frontend server ids</li>
+</ul>
+<h4>
+<a aria-hidden="true" class="anchor" href="#pushbyuidsuids-route-msg-cb" id="user-content-pushbyuidsuids-route-msg-cb"><span class="octicon octicon-link"></span></a>pushByUids(uids, route, msg, cb)</h4>
+<h5>
+<a aria-hidden="true" class="anchor" href="#arguments-7" id="user-content-arguments-7"><span class="octicon octicon-link"></span></a>Arguments</h5>
+<ul>
+<li>uids - array of user ids</li>
+<li>route - route string</li>
+<li>msg - messages would be sent to clients</li>
+<li>cb - callback function</li>
+</ul>
+<h5>
+<a aria-hidden="true" class="anchor" href="#return-1" id="user-content-return-1"><span class="octicon octicon-link"></span></a>Return</h5>
+<ul>
+<li>err - error</li>
+<li>fails - array of failed to send user ids</li>
+</ul>
+<h2>
+<a aria-hidden="true" class="anchor" href="#pomelo-scale-plugin" id="user-content-pomelo-scale-plugin"><span class="octicon octicon-link"></span></a>pomelo-scale-plugin</h2>
+<p>在pomelo1.0里提供了一个服务器自动扩展的插件，其主要原理是监控某一类型的服务器，监控的指标现在暂时提供cpu和memory，当这一类型的服务器的某项监控指标超过之前设置的阈值时，服务器就自动扩展，扩展服务器的数量可以由用户进行配置。</p>
+<p>使用方法：</p>
+<pre><code>//app.js配置方法
+
+app.configure('production|development', 'master', function() {
+    app.use(scale, {
+        scale: {
+            cpu: {
+                chat: 5,
+                interval: 10 * 1000,
+                increasement: 1
+            },
+            memory: {
+                connector: 5,
+                interval: 15 * 1000,
+                increasement: 1
+          },
+          backup: 'config/development/backupServers.json'
+        }
+    });
+});
+
+</code></pre>
+<pre><code>//backupServer.json配置
+
+{
+    "connector":[
+             {"id":"backup-connector-server-1", "host":"127.0.0.1", "port":4053, "clientPort": 3053, "frontend": true},
+             {"id":"backup-connector-server-2", "host":"127.0.0.1", "port":4054, "clientPort": 3054, "frontend": true},
+             {"id":"backup-connector-server-3", "host":"127.0.0.1", "port":4055, "clientPort": 3055, "frontend": true}
+         ],
+        "chat":[
+             {"id":"backup-chat-server-1", "host":"127.0.0.1", "port":6053},
+             {"id":"backup-chat-server-2", "host":"127.0.0.1", "port":6054},
+             {"id":"backup-chat-server-3", "host":"127.0.0.1", "port":6055}
+        ]
+}
+
+</code></pre>
+<p>配置参数说明：</p>
+<p>现在监控指标包括cpu和memory两项，在每一个监控指标内可以有监控的服务器类型，例如chat：5，这样就表示chat类型的服务器的阈值为5%，当chat类型的服务器cpu的平均值超过5%后，系统将自动扩展服务器，服务器一次扩展的数量由increasement参数决定，例如increasement参数为1，则表示每次超过阈值后扩展1个服务器，扩展服务器的列表由用户指定，backup参数就是扩展的服务器列表；另外interval参数表示系统检测时间，单位是秒，例如interval: 15 * 1000表示系统每15秒检测一次相应的指标，如果超过该指标则进行相应的扩展。</p>
+<p>github地址： <a href="https://github.com/NetEase/pomelo-scale-plugin">pomelo-scale-plugin</a></p>
+<h2>
+<a aria-hidden="true" class="anchor" href="#pomelo-sync-plugin" id="user-content-pomelo-sync-plugin"><span class="octicon octicon-link"></span></a>pomelo-sync-plugin</h2>
+<h2>
+<a aria-hidden="true" class="anchor" href="#pomelo-data-plugin" id="user-content-pomelo-data-plugin"><span class="octicon octicon-link"></span></a>pomelo-data-plugin</h2>
+<p>该插件可以监控指定目录下的所有csv格式的配置文件, 并在某个文件被改变时自动地将其热加载进入Pomelo. </p>
+<h6>
+<a aria-hidden="true" class="anchor" href="#%E5%8E%9F%E7%90%86" id="user-content-原理"><span class="octicon octicon-link"></span></a>原理</h6>
+<p>该插件主要使用<a href="https://npmjs.org/package/csv">csv模块</a>来解析csv配置文件, 使用<code>fs.watchFile</code>函数来监控文件变化事件. 当Pomelo框架启动该插件中的组件时, 组件会加载给定文件夹中的所有csv配置文件, 并为每个文件加一个watcher. 以此来实现csv配置文件自动热加载的功能.</p>
+<h6>
+<a aria-hidden="true" class="anchor" href="#%E5%AE%89%E8%A3%85" id="user-content-安装"><span class="octicon octicon-link"></span></a>安装</h6>
+<pre><code>npm install pomelo-data-plugin
+</code></pre>
+<h6>
+<a aria-hidden="true" class="anchor" href="#%E4%BD%BF%E7%94%A8" id="user-content-使用"><span class="octicon octicon-link"></span></a>使用</h6>
+<pre><code>./pomelo-data-plugin-demo/config/data/team.csv
+# 队伍名称配置表
+# 队名编号, 队名
+id,teamName
+5,The Lord of the Rings
+6,The Fast and the Furious
+</code></pre>
+<p>上面的csv配置文件中, 以<code>#</code>开头的行是注释语句, 正文的第一行应为列名(<code>id</code>为该文件的主键列名, 为必须列), 下面的行是对应列名的具体数据.</p>
+<pre><code>var dataPlugin = require('pomelo-data-plugin');
+... ...
+app.configure('production|development', function() {
+  ...
+  app.use(dataPlugin, {
+    watcher: {
+      dir: __dirname + '/config/data',
+      idx: 'id',
+      interval: 3000
+    }
+  });
+  ...
+});
+... ...
+... ...
+var teamConf = app.get('dataService').get('team');
+... ...
+... ...
+</code></pre>
+<p>上面代码中的<code>dir</code>即为需要监控的配置文件夹; <code>idx</code>为<code>所有</code>csv配置文件的主键列名(如:<code>team.csv</code>所示的<code>id</code>); <code>interval</code>为<code>fs.watchFile</code>函数测试其所监控文件改变的时间间隔, 单位为毫秒. </p>
+<ul>
+<li>具体请参考<a href="https://github.com/NetEase/pomelo-data-plugin">pomelo-data-plugin</a>和<a href="https://github.com/NetEase/pomelo-data-plugin-demo">pomelo-data-plugin-demo</a>
+</li>
+</ul>
+<h2>
+<a aria-hidden="true" class="anchor" href="#pomelo-protobuf-plugin" id="user-content-pomelo-protobuf-plugin"><span class="octicon octicon-link"></span></a>pomelo-protobuf-plugin</h2>
+<p>pomelo自身支持自定义的protobuf,后来根据网友的需求希望能够支持<a href="https://github.com/dcodeIO/ProtoBuf.js">protobuf.js</a>。</p>
+<p>ProtoBuf.js本身支持json和proto两种格式的配置，考虑到之前pomelo自身使用的protobuf是json格式，所以现在对于使用pomelo-protobuf-plugin只支持json格式的protos定义。</p>
+<h3>
+<a aria-hidden="true" class="anchor" href="#%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95-3" id="user-content-使用方法-3"><span class="octicon octicon-link"></span></a>使用方法</h3>
+<h4>
+<a aria-hidden="true" class="anchor" href="#%E5%AE%A2%E6%88%B7%E7%AB%AF" id="user-content-客户端"><span class="octicon octicon-link"></span></a>客户端</h4>
+<p>使用最新的pomelo-jsclient-websocket, 同时在客户端添加命名为pomelo-decodeIO-protobuf的component，并将其挂载到window对象下。对应的component.js如下所示：</p>
+<pre><code>
+{
+  "name": "boot",
+  "description": "Main app boot component",
+  "dependencies": {
+    "component/emitter":"master",
+    "NetEase/pomelo-protocol": "master",
+    "pomelonode/pomelo-decodeIO-protobuf": "master",
+    "pomelonode/pomelo-jsclient-websocket": "master",
+    "component/jquery": "*"
+  },
+  "scripts": ["index.js"]
+}
+
+
+</code></pre>
+<p>对应的index.js如下所示：</p>
+<pre><code>  var Emitter = require('emitter');
+  window.EventEmitter = Emitter;
+
+  var protocol = require('pomelo-protocol');
+  window.Protocol = protocol;
+
+  var protobuf = require('pomelo-decodeIO-protobuf');
+  window.decodeIO_protobuf = protobuf; 
+
+  var pomelo = require('pomelo-jsclient-websocket');
+  window.pomelo = pomelo;
+
+  var jquery = require('jquery');
+  window.$ = jquery;
+</code></pre>
+<h4>
+<a aria-hidden="true" class="anchor" href="#%E6%9C%8D%E5%8A%A1%E7%AB%AF" id="user-content-服务端"><span class="octicon octicon-link"></span></a>服务端</h4>
+<p>在服务端需要使用pomelo-protobuf-plugin，并在app.js中使用对应的插件，具体配置如下：</p>
+<pre><code>app.configure('production|development', function() {
+    app.use(protobuf, {
+        protobuf: {
+        }
+    });
+});
+</code></pre>
+<h4>
+<a aria-hidden="true" class="anchor" href="#%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9" id="user-content-注意事项"><span class="octicon octicon-link"></span></a>注意事项</h4>
+<p>pomelo原有的protobuf和decodeIO-protobufjs不能同时使用，即不能同时使用pomelo-protobuf-plugin插件并在前端服务器开启useProtobuf。</p>
+<p>考虑到与原有的protobuf保持一致，pomelo 0.9版本中支持的decodeIO-protobuf同样采用serverProtos.json和clientProtos.json，不支持decodeIO-protobufjs中的<em>.proto格式，对于</em>.proto格式可以采用decodeIO-protobufjs提供的命令行工具转换成json格式。</p>
+<p>具体的使用示例可以参考<a href="https://github.com/NetEase/lordofpomelo/tree/decodeIO_protobuf">lordofpomelo</a> decodeIO-protobuf分支。</p>
+<h1>
+<a aria-hidden="true" class="anchor" href="#%E5%9F%BA%E6%9C%AC%E4%BE%9D%E8%B5%96%E5%BA%93%E8%AF%B4%E6%98%8E" id="user-content-基本依赖库说明"><span class="octicon octicon-link"></span></a>基本依赖库说明</h1>
+<h2>
+<a aria-hidden="true" class="anchor" href="#pomelo-admin" id="user-content-pomelo-admin"><span class="octicon octicon-link"></span></a>pomelo-admin</h2>
+<h2>
+<a aria-hidden="true" class="anchor" href="#pomelo-logger" id="user-content-pomelo-logger"><span class="octicon octicon-link"></span></a>pomelo-logger</h2>
+<h2>
+<a aria-hidden="true" class="anchor" href="#pomelo-rpc" id="user-content-pomelo-rpc"><span class="octicon octicon-link"></span></a>pomelo-rpc</h2>
+<h2>
+<a aria-hidden="true" class="anchor" href="#pomelo-loader" id="user-content-pomelo-loader"><span class="octicon octicon-link"></span></a>pomelo-loader</h2>
+<h2>
+<a aria-hidden="true" class="anchor" href="#pomelo-monitor" id="user-content-pomelo-monitor"><span class="octicon octicon-link"></span></a>pomelo-monitor</h2>
+<h2>
+<a aria-hidden="true" class="anchor" href="#pomelo-protocol" id="user-content-pomelo-protocol"><span class="octicon octicon-link"></span></a>pomelo-protocol</h2>
+<h2>
+<a aria-hidden="true" class="anchor" href="#pomelo-zmq-rpc" id="user-content-pomelo-zmq-rpc"><span class="octicon octicon-link"></span></a>pomelo-zmq-rpc</h2>
+<h2>
+<a aria-hidden="true" class="anchor" href="#pomelo-admin-web" id="user-content-pomelo-admin-web"><span class="octicon octicon-link"></span></a>pomelo-admin-web</h2>
+<h1>
+<a aria-hidden="true" class="anchor" href="#%E5%AE%A2%E6%88%B7%E7%AB%AF%E4%BD%BF%E7%94%A8" id="user-content-客户端使用"><span class="octicon octicon-link"></span></a>客户端使用</h1>
+<h2>
+<a aria-hidden="true" class="anchor" href="#js%E5%AE%A2%E6%88%B7%E7%AB%AFsocketiowebsocket" id="user-content-js客户端socketiowebsocket"><span class="octicon octicon-link"></span></a>Js客户端（socket.io&amp;websocket）</h2>
+<p>对于浏览器来说，HTML5中已经支持了websocket，因此使用支持websocket的浏览器可以直接与服务端的hybridconnector建立通信。而对于比较旧的浏览器来说，还没有支持websocket的，可以使用基于socket.io的方式进行与服务端建立连接。因此，对于Web端，pomelo提供了两套开发库，分别适用于支持websocket的浏览器和不支持websocket的浏览器，这两套开发库的链接如下，适用于socket.io的<a href="https://github.com/gloomyzerg/pomelo-jsclient-socket.io-bower">pomelo-jsclient-socket.io</a>以及适用于websocket的<a href="https://github.com/gloomyzerg/pomelo-jsclient-websocket-bower">pomelo-jsclient-websocket</a>。</p>
+<h4>
+<a aria-hidden="true" class="anchor" href="#socketio%E7%9A%84%E5%AE%A2%E6%88%B7%E7%AB%AF%E5%BC%80%E5%8F%91%E5%BA%93" id="user-content-socketio的客户端开发库"><span class="octicon octicon-link"></span></a>socket.io的客户端开发库</h4>
+<p>对于使用socket.io的客户端SDK来说，其依赖<a href="https://github.com/learnboost/socket.io-client/">socket.io-client</a>, 需要在引入<a href="https://github.com/gloomyzerg/pomelo-jsclient-socket.io-bower/blob/master/lib/pomelo-client.js">pomelo-client.js</a>之前引入<a href="https://github.com/LearnBoost/socket.io-client/blob/master/socket.io-client.js">socket.io-client.js</a>文件.</p>
+<div class="highlight highlight-text-html-basic"><pre><span class="pl-s1">    &lt;<span class="pl-ent">script</span> <span class="pl-e">src</span>=<span class="pl-s"><span class="pl-pds">"</span>$PATH/socket.io-client.js<span class="pl-pds">"</span></span>&gt;&lt;/<span class="pl-ent">script</span>&gt;</span>
+<span class="pl-s1">    &lt;<span class="pl-ent">script</span> <span class="pl-e">src</span>=<span class="pl-s"><span class="pl-pds">"</span>$PATH/pomelo-client.js<span class="pl-pds">"</span></span>&gt;&lt;/<span class="pl-ent">script</span>&gt;</span></pre></div>
+<p>或者可以使用<a href="https://github.com/bower/bower">bower</a>来进行管理.</p>
+<pre><code>    bower install pomelo-jsclient-socket.io
+</code></pre>
+<p><strong>注意</strong>:关于低版本IE浏览器(如IE6,7,8),因为浏览器并不支持Uint16Array对象,所以无法使用<a href="https://github.com/NetEase/pomelo-protocol">pomelo-protocol</a>.可以直接使用JSON进行通讯.
+  需要使用<a href="https://github.com/gloomyzerg/pomelo-jsclient-socket.io-bower">pomelo-jsclient-socket.io</a>中的<a href="https://github.com/gloomyzerg/pomelo-jsclient-socket.io-bower/blob/master/lib/pomelo-client-ie.js">pomelo-client-ie.js</a></p>
+<div class="highlight highlight-text-html-basic"><pre><span class="pl-s1">    &lt;<span class="pl-ent">script</span> <span class="pl-e">src</span>=<span class="pl-s"><span class="pl-pds">"</span>$PATH/socket.io-client.js<span class="pl-pds">"</span></span>&gt;&lt;/<span class="pl-ent">script</span>&gt;</span>
+<span class="pl-s1">    &lt;<span class="pl-ent">script</span> <span class="pl-e">src</span>=<span class="pl-s"><span class="pl-pds">"</span>$PATH/pomelo-client-ie.js<span class="pl-pds">"</span></span>&gt;&lt;/<span class="pl-ent">script</span>&gt;</span></pre></div>
+<p>另外还需要修改<code>game-server/app.js</code>文件</p>
+<div class="highlight highlight-source-js"><pre>    <span class="pl-k">var</span> <span class="pl-en">encode</span> <span class="pl-k">=</span> <span class="pl-k">function</span>(<span class="pl-smi">reqId</span>, <span class="pl-smi">route</span>, <span class="pl-smi">msg</span>) {
+        <span class="pl-k">if</span> (<span class="pl-k">!!</span>reqId) {
+            <span class="pl-k">return</span>{
+                id<span class="pl-k">:</span> reqId,
+                body<span class="pl-k">:</span> msg
+            };
+        } <span class="pl-k">else</span> {
+            <span class="pl-k">var</span> m <span class="pl-k">=</span> {
+                route<span class="pl-k">:</span> route,
+                body<span class="pl-k">:</span> msg
+            };
+            <span class="pl-k">return</span> <span class="pl-smi">JSON</span>.<span class="pl-en">stringify</span>(m);
+        }
+    };
+
+    <span class="pl-k">var</span> <span class="pl-en">decode</span> <span class="pl-k">=</span> <span class="pl-k">function</span>(<span class="pl-smi">data</span>) {
+        data <span class="pl-k">=</span> <span class="pl-smi">JSON</span>.<span class="pl-c1">parse</span>(data);
+        <span class="pl-k">return</span> {
+            id<span class="pl-k">:</span> <span class="pl-smi">data</span>.<span class="pl-c1">id</span>,
+            route<span class="pl-k">:</span> <span class="pl-smi">data</span>.<span class="pl-smi">route</span>,
+            body<span class="pl-k">:</span> <span class="pl-smi">data</span>.<span class="pl-smi">msg</span>
+        };
+    };
+
+    <span class="pl-smi">app</span>.<span class="pl-en">configure</span>(<span class="pl-s"><span class="pl-pds">'</span>production|development<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>connector|gate<span class="pl-pds">'</span></span>, <span class="pl-k">function</span>() {
+        <span class="pl-smi">app</span>.<span class="pl-en">set</span>(<span class="pl-s"><span class="pl-pds">'</span>connectorConfig<span class="pl-pds">'</span></span>, {
+            connector<span class="pl-k">:</span> <span class="pl-smi">pomelo</span>.<span class="pl-smi">connectors</span>.<span class="pl-smi">sioconnector</span>,
+            encode<span class="pl-k">:</span> encode,
+            decode<span class="pl-k">:</span> decode
+        });
+    });</pre></div>
+<h2>
+<a aria-hidden="true" class="anchor" href="#ie5-6-7%E4%B8%8D%E6%94%AF%E6%8C%81jsonstringify%E6%96%B9%E6%B3%95%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95" id="user-content-ie5-6-7不支持jsonstringify方法的解决方法"><span class="octicon octicon-link"></span></a>IE5 6 7不支持JSON.stringify()方法的解决方法</h2>
+<p>&lt;**&gt;IE5 6 7不支持JSON.stringify()方法，可以引入json2.js这个文件，json2.js提供了json的序列化和反序列化方法，可以将一个  json对象转换成json字符串，也可以将一个json字符串转换成一个json对象。json2.js下载可以查找一下百度，不太会上传，呵呵。</p>
+<h2>
+<a aria-hidden="true" class="anchor" href="#ie8%E5%92%8C%E4%BB%A5%E4%B8%8B%E5%AE%A2%E6%88%B7%E7%AB%AFpomeloinit%E5%88%9D%E5%A7%8B%E5%8C%96%E7%9A%84%E6%97%B6%E5%80%99%E5%80%BC%E4%B8%BAundefined%E7%9A%84%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95" id="user-content-ie8和以下客户端pomeloinit初始化的时候值为undefined的解决办法"><span class="octicon octicon-link"></span></a>IE8和以下客户端pomelo.init初始化的时候值为‘undefined’的解决办法</h2>
+<p>在IE8和以下客户端pomelo.init初始化的时候值为‘undefined’，找到了一个解决的办法，就是在最前面不引用“var pomelo = window.pomelo;”这条语句，经测试IE5 6 7 8和其他浏览器，都通过，不报错，编程学得太烂，只找到了方法，不知道原理。</p>
+<h4>
+<a aria-hidden="true" class="anchor" href="#websocket%E7%9A%84%E5%AE%A2%E6%88%B7%E7%AB%AF%E5%BC%80%E5%8F%91%E5%BA%93" id="user-content-websocket的客户端开发库"><span class="octicon octicon-link"></span></a>websocket的客户端开发库</h4>
+<p>对于使用websocket的客户端SDK来说,可直接引入<a href="https://github.com/gloomyzerg/pomelo-jsclient-websocket-bower">pomelo-jsclient-websocket</a>中的<a href="https://github.com/gloomyzerg/pomelo-jsclient-websocket-bower/blob/master/lib/pomelo-client.js">pomelo-client.js</a>文件即可  </p>
+<div class="highlight highlight-text-html-basic"><pre><span class="pl-s1">    &lt;<span class="pl-ent">script</span> <span class="pl-e">src</span>=<span class="pl-s"><span class="pl-pds">"</span>$PATH/pomelo-client.js<span class="pl-pds">"</span></span>&gt;&lt;/<span class="pl-ent">script</span>&gt;</span></pre></div>
+<p>或者可以使用<a href="https://github.com/bower/bower">bower</a>来进行管理.</p>
+<pre><code>    bower install pomelo-jsclient-websocket
+</code></pre>
+<h4>
+<a aria-hidden="true" class="anchor" href="#web%E7%AB%AFapi%E7%AE%80%E4%BB%8B" id="user-content-web端api简介"><span class="octicon octicon-link"></span></a>web端API简介</h4>
+<p>无论是socket.io的还是websocket的，都提供了统一的API，下面对这些API进行简单的介绍。</p>
+<div class="highlight highlight-source-js"><pre>  <span class="pl-smi">pomelo</span>.<span class="pl-en">init</span>(params, cb)
+
+  <span class="pl-c">//example</span>
+  <span class="pl-smi">pomelo</span>.<span class="pl-en">init</span>({
+    host<span class="pl-k">:</span> host,
+    port<span class="pl-k">:</span> port
+  }, <span class="pl-k">function</span>() {
+    <span class="pl-c">//callback</span>
+  });</pre></div>
+<p>这是往往是客户端的第一次调用，params中应该指出要连接的服务器的ip和端口号，cb会在连接成功后进行回调;</p>
+<div class="highlight highlight-source-js"><pre>  <span class="pl-smi">pomelo</span>.<span class="pl-en">request</span>(route, msg, cb)
+
+  <span class="pl-c">//example</span>
+  <span class="pl-smi">pomelo</span>.<span class="pl-en">request</span>(route, {
+    rid<span class="pl-k">:</span> rid
+  }, <span class="pl-k">function</span>(<span class="pl-smi">data</span>) {  
+    <span class="pl-en">console</span>.<span class="pl-c1">log</span>(data);   
+  });</pre></div>
+<p>请求服务，route为服务端的路由，格式为"ServerType.HandlerName.MethodName", msg为请求的内容，cb会响应回来后的回调;</p>
+<div class="highlight highlight-source-js"><pre>  <span class="pl-smi">pomelo</span>.<span class="pl-en">notify</span>(route, msg)</pre></div>
+<p>发送notify，不需要服务器回响应的，因此没有对响应的回调，其他参数含义同request;</p>
+<div class="highlight highlight-source-js"><pre>  <span class="pl-smi">pomelo</span>.<span class="pl-en">on</span>(route, cb)</pre></div>
+<p>这个是从EventEmmiter继承过来的方法，用来对服务端的推送作出响应的。route会用户自定义的，格式一般为"onXXX";</p>
+<div class="highlight highlight-source-js"><pre>  <span class="pl-smi">pomelo</span>.<span class="pl-en">disconnect</span>()</pre></div>
+<p>这个是pomelo主动断开连接的方法。</p>
+<h2>
+<a aria-hidden="true" class="anchor" href="#libpomelo%E5%AE%A2%E6%88%B7%E7%AB%AF" id="user-content-libpomelo客户端"><span class="octicon octicon-link"></span></a>libpomelo客户端</h2>
+<h2>
+<a aria-hidden="true" class="anchor" href="#cocos2d-js%E5%AE%A2%E6%88%B7%E7%AB%AF" id="user-content-cocos2d-js客户端"><span class="octicon octicon-link"></span></a>cocos2d-js客户端</h2>
+<h2>
+<a aria-hidden="true" class="anchor" href="#android-socketio%E5%AE%A2%E6%88%B7%E7%AB%AF" id="user-content-android-socketio客户端"><span class="octicon octicon-link"></span></a>android-socket.io客户端</h2>
+<h2>
+<a aria-hidden="true" class="anchor" href="#unity3d%E5%AE%A2%E6%88%B7%E7%AB%AF" id="user-content-unity3d客户端"><span class="octicon octicon-link"></span></a>unity3d客户端</h2>
+<h1>
+<a aria-hidden="true" class="anchor" href="#%E5%91%BD%E4%BB%A4%E8%A1%8C" id="user-content-命令行"><span class="octicon octicon-link"></span></a>命令行</h1>
+<h2>
+<a aria-hidden="true" class="anchor" href="#%E6%99%AE%E9%80%9A%E5%91%BD%E4%BB%A4%E8%A1%8C" id="user-content-普通命令行"><span class="octicon octicon-link"></span></a>普通命令行</h2>
+<h2>
+<a aria-hidden="true" class="anchor" href="#%E4%BA%A4%E4%BA%92%E5%BC%8F%E5%91%BD%E4%BB%A4%E8%A1%8C" id="user-content-交互式命令行"><span class="octicon octicon-link"></span></a>交互式命令行</h2>
+<h1>
+<a aria-hidden="true" class="anchor" href="#filtermodule%E7%9A%84%E9%85%8D%E7%BD%AE%E5%92%8C%E4%BD%BF%E7%94%A8" id="user-content-filtermodule的配置和使用"><span class="octicon octicon-link"></span></a>Filter&amp;Module的配置和使用</h1>
+<h2>
+<a aria-hidden="true" class="anchor" href="#%E5%85%A8%E5%B1%80filter" id="user-content-全局filter"><span class="octicon octicon-link"></span></a>全局Filter</h2>
+<h2>
+<a aria-hidden="true" class="anchor" href="#%E6%9C%8D%E5%8A%A1%E5%99%A8filter" id="user-content-服务器filter"><span class="octicon octicon-link"></span></a>服务器filter</h2>
+<h2>
+<a aria-hidden="true" class="anchor" href="#module" id="user-content-module"><span class="octicon octicon-link"></span></a>Module</h2>
+<h1>
+<a aria-hidden="true" class="anchor" href="#%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6" id="user-content-配置文件"><span class="octicon octicon-link"></span></a>配置文件</h1>
+<h2>
+<a aria-hidden="true" class="anchor" href="#serversjson" id="user-content-serversjson"><span class="octicon octicon-link"></span></a>servers.json</h2>
+<h2>
+<a aria-hidden="true" class="anchor" href="#log4jsjson" id="user-content-log4jsjson"><span class="octicon octicon-link"></span></a>log4js.json</h2>
+<h1>
+<a aria-hidden="true" class="anchor" href="#%E5%85%B6%E5%AE%83" id="user-content-其它"><span class="octicon octicon-link"></span></a>其它</h1>
+<h2>
+<a aria-hidden="true" class="anchor" href="#%E5%AE%9A%E6%97%B6%E4%BB%BB%E5%8A%A1" id="user-content-定时任务"><span class="octicon octicon-link"></span></a>定时任务</h2>
+<p>用户能够通过配置文件或者<a href="https://github.com/NetEase/pomelo-cli">pomelo-cli</a>的命令addCron和removeCron对定时任务进行动态调度。
+定时任务是针对具体服务器而言，例如需要在chat服务器中配置定时任务：</p>
+<p>首先在game-server/app/servers/chat目录下增加cron目录，在game-server/app/servers/chat/cron目录下编写具体的执行的任务的代码chatCron.js，例如：</p>
+<pre><code>module.exports = function(app) {
+  return new Cron(app);
+};
+var Cron = function(app) {
+  this.app = app;
+};
+var cron = Cron.prototype;
+
+cron.sendMoney = function() {
+  console.log('%s server is sending money now!', this.app.serverId);
+};
+</code></pre>
+<p>然后在game-server/config/目录下增加定时任务配置文件crons.json，具体配置文件如下所示：</p>
+<pre><code>{
+   "development":{
+        "chat":[
+             {"id":1, "time": "0 30 10 * * *", "action": "chatCron.sendMoney"},
+             {"id":2, "serverId":"chat-server-1", "time": "0 30 10 * * *", "action": "chatCron.sendMoney"}
+        ]
+    },
+    "production":{
+        "chat":[
+             {"id":1, "time": "0 30 10 * * *", "action": "chatCron.sendMoney"},
+             {"id":2, "serverId":"chat-server-1", "time": "0 30 10 * * *", "action": "chatCron.sendMoney"}
+        ]
+  }
+}
+</code></pre>
+<p>在配置文件crons.json中，id是定时任务在具体服务器的唯一标识，且不能在同一服务器中重复；time是定时任务执行的具体时间，时间的定义跟linux的定时任务类似，一共包括7个字段，每个字段的具体定义如下：</p>
+<pre>
+*     *     *     *   *    *        command to be executed
+-     -     -     -   -    -
+|     |     |     |   |    |
+|     |     |     |   |    +----- day of week (0 - 6) (Sunday=0)
+|     |     |     |   +------- month (0 - 11)
+|     |     |     +--------- day of month (1 - 31)
+|     |     +----------- hour (0 - 23)
+|     +------------- min (0 - 59)
++------------- second (0 - 59)
+</pre>
+<p>0 30 10 * * * 这就代表每天10:30执行相应任务；serverId是一个可选字段，如果有写该字段则该任务只在该服务器下执行，如果没有该字段则该定时任务在所有同类服务器中执行；action是具体执行任务方法，chatCron.sendMoney则代表执行game-server/app/servers/chat/cron/chatCron.js中的sendMoney方法。</p>
+<p>通过<a href="https://github.com/NetEase/pomelo-cli">pomelo-cli</a>的addCron和removeCron命令可以动态地增加和删除定时任务，其中addCron的必要参数包括：id,action,time；removeCron的必要参数包括：id；serverId和serverType是两者选其一即可。例如：</p>
+<pre><code>
+addCron id=8 'time=0 30 11 * * *' action=chatCron.sendMoney serverId=chat-server-3
+
+removeCron id=8
+
+</code></pre>
+<h2>
+<a aria-hidden="true" class="anchor" href="#%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E5%9B%9E%E8%B0%83" id="user-content-生命周期回调"><span class="octicon octicon-link"></span></a>生命周期回调</h2>
+<p>生命周期回调能够让开发者在不同类型的服务器生命周期中进行具体操作。提供的生命周期回调函数包括：beforeStartup，afterStartup，beforeShutdown，afterStartAll。其具体的功能说明如下：</p>
+<h3>
+<a aria-hidden="true" class="anchor" href="#beforestartupapp-cb" id="user-content-beforestartupapp-cb"><span class="octicon octicon-link"></span></a>beforeStartup(app, cb)</h3>
+<p>before application start components callback</p>
+<h4>
+<a aria-hidden="true" class="anchor" href="#arguments-8" id="user-content-arguments-8"><span class="octicon octicon-link"></span></a>Arguments</h4>
+<ul>
+<li>app - application object</li>
+<li>cb - callback function</li>
+</ul>
+<h3>
+<a aria-hidden="true" class="anchor" href="#afterstartupapp-cb" id="user-content-afterstartupapp-cb"><span class="octicon octicon-link"></span></a>afterStartup(app, cb)</h3>
+<p>after application start components callback</p>
+<h4>
+<a aria-hidden="true" class="anchor" href="#arguments-9" id="user-content-arguments-9"><span class="octicon octicon-link"></span></a>Arguments</h4>
+<ul>
+<li>app - application object</li>
+<li>cb - callback function</li>
+</ul>
+<h3>
+<a aria-hidden="true" class="anchor" href="#beforeshutdownapp-cb" id="user-content-beforeshutdownapp-cb"><span class="octicon octicon-link"></span></a>beforeShutdown(app, cb)</h3>
+<p>before application stop components callback</p>
+<h4>
+<a aria-hidden="true" class="anchor" href="#arguments-10" id="user-content-arguments-10"><span class="octicon octicon-link"></span></a>Arguments</h4>
+<ul>
+<li>app - application object</li>
+<li>cb - callback function</li>
+</ul>
+<h3>
+<a aria-hidden="true" class="anchor" href="#afterstartallapp" id="user-content-afterstartallapp"><span class="octicon octicon-link"></span></a>afterStartAll(app)</h3>
+<p>after all applications started callback</p>
+<h4>
+<a aria-hidden="true" class="anchor" href="#arguments-11" id="user-content-arguments-11"><span class="octicon octicon-link"></span></a>Arguments</h4>
+<ul>
+<li>app - application object</li>
+</ul>
+<p>具体使用方法：在game-server/app/servers/某一类型服务器/  目录下添加lifecycle.js文件，具体文件内容如下：</p>
+<pre><code>module.exports.beforeStartup = function(app, cb) {
+    // do some operations before application start up
+    cb();
+};
+
+module.exports.afterStartup = function(app, cb) {
+    // do some operations after application start up
+    cb();
+};
+
+module.exports.beforeShutdown = function(app, cb) {
+    // do some operations before application shutdown down
+    cb();
+};
+
+module.exports.afterStartAll = function(app) {
+    // do some operations after all applications start up
+};
+</code></pre>
+<h2>
+<a aria-hidden="true" class="anchor" href="#%E6%99%AE%E9%80%9Afilter%E5%85%A8%E5%B1%80filter" id="user-content-普通filter全局filter"><span class="octicon octicon-link"></span></a>普通filter&amp;全局filter</h2>
+<h2>
+<a aria-hidden="true" class="anchor" href="#%E7%83%AD%E6%9B%B4%E6%96%B0" id="user-content-热更新"><span class="octicon octicon-link"></span></a>热更新</h2>
+<h2>
+<a aria-hidden="true" class="anchor" href="#%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%BF%9E%E6%8E%A5%E8%AE%A4%E8%AF%81%E6%9C%BA%E5%88%B6" id="user-content-服务器连接认证机制"><span class="octicon octicon-link"></span></a>服务器连接认证机制</h2>
+<p>服务器与master之间的连接需要进行认证以提高服务的安全性，目前在pomelo-admin中提供了一个简单的服务器认证，可以看 <a href="https://github.com/NetEase/pomelo-admin/blob/master/lib/util/utils.js#L117">admin auth</a><br>
+使用连接认证，需要在 config 目录下添加 adminServer.json 的文件  </br></p>
+<pre><code>[{
+    "type": "connector",
+    "token": "agarxhqb98rpajloaxn34ga8xrunpagkjwlaw3ruxnpaagl29w4rxn"
+}, {
+    "type": "chat",
+    "token": "agarxhqb98rpajloaxn34ga8xrunpagkjwlaw3ruxnpaagl29w4rxn"
+},{
+    "type": "gate",
+    "token": "agarxhqb98rpajloaxn34ga8xrunpagkjwlaw3ruxnpaagl29w4rxn"
+}
+]
+</code></pre>
+<p><strong>type</strong> 是serverType, <strong>token</strong> 是一个字符串，你可以自己生成<br>
+你可以通过自己定义的认证还是来完成认证的工作<br>
+具体情况可以参考 <a href="https://github.com/NetEase/pomelo-admin#server-master-auth">admin auth server</a> </br></br></p>
+<h2>
+<a aria-hidden="true" class="anchor" href="#ssl%E6%94%AF%E6%8C%81" id="user-content-ssl支持"><span class="octicon octicon-link"></span></a>ssl支持</h2>
+<p>考虑到安全性方面的问题，pomelo 1.0版本中增加了对tls及wss协议的支持；在之前的pomelo版本中，提供了hybridconnector和sioconnector；对于sioconnector,其底层使用的是socket.io，socket.io提供了包括websocket和长轮询等几种传输方式，其中websocket默认采用的ws协议，现在pomelo支持wss协议，即用户可以在sioconnector中配置基于wss协议的websocket的通信方式；对于hybridconnector,提供包括原生socket的支持和websocket的支持，针对这两种方式，在pomelo 1.0中提供了两种连接的安全版本即tls和wss,用户可以在使用hybridconnector时，采用安全级别较高的tls或者wss。</p>
+<p>使用方法：</p>
+<p>支持tls客户端，pomelo现在提供的tls客户端有libpomelo.</p>
+<pre><code>app.configure('production|development', 'connector', function() {
+  app.set('connectorConfig',
+    {
+      connector : pomelo.connectors.hybridconnector,
+      heartbeat : 3,
+      useDict : true,
+      useProtobuf : true,
+      ssl: {
+        type: 'tls',
+        key: fs.readFileSync('./keys/server.key'),
+    cert: fs.readFileSync('./keys/server.crt'),
+      }
+    });
+});
+
+</code></pre>
+<p>支持wss客户端, pomelo提供的wss客户端有js客户端.</p>
+<pre><code>app.configure('production|development', 'connector', function() {
+  app.set('connectorConfig',
+    {
+      connector : pomelo.connectors.hybridconnector,
+      heartbeat : 3,
+      useDict : true,
+      useProtobuf : true,
+      ssl: {
+        type: 'wss',
+        key: fs.readFileSync('./keys/server.key'),
+        cert: fs.readFileSync('./keys/server.crt'),
+      }
+    });
+});
+</code></pre>
+<p>支持socket.io的wss客户端, pomelo提供的socket.io的wss客户端有js客户端.</p>
+<pre><code>app.configure('production|development', 'connector', function() {
+  app.set('connectorConfig',
+    {
+      connector : pomelo.connectors.sioconnector,
+      key: fs.readFileSync('./keys/server.key'),
+      cert: fs.readFileSync('./keys/server.crt')
+    });
+});
+
+</code></pre>
+<p>在pomelo 1.0中增加了通过pomelo init 获取wss和socket.io的wss两种客户端及服务端的初始化项目，同时初始化的项目中提供了相应的密钥及证书。注意由于证书是和域名绑定的，所以在打开客户端的时候输入的ip地址为  <a href="https://127.0.0.1:3001">https://127.0.0.1:3001</a></p>
+<h2>
+<a aria-hidden="true" class="anchor" href="#%E6%8C%89%E7%8E%AF%E5%A2%83%E7%9B%AE%E5%BD%95%E9%85%8D%E7%BD%AE" id="user-content-按环境目录配置"><span class="octicon octicon-link"></span></a>按环境目录配置</h2>
+<p>在pomelo1.0中支持按照目录结构进行配置相关的配置文件，在之前的版本中pomelo的配置文件如下图所示：</p>
+<p><img src="src/fbb47a3c854e42eda0239b212dafdb97.bmp"/></p>
+<p>不同环境是根据具体配置文件里的key进行区分，例如：</p>
+<pre><code>// servers.json配置
+{
+    "development":{
+
+        "connector":[
+             {"id":"connector-server-1", "host":"127.0.0.1", "port":4050, "clientPort": 3050, "frontend": true}
+         ]
+    },
+    "production":{
+           "connector":[
+             {"id":"connector-server-1", "host":"127.0.0.1", "port":4050, "clientPort": 3050, "frontend": true}
+         ]
+  }
+}
+</code></pre>
+<p>在pomelo1.0支持根据目录进行配置，如下图所示：</p>
+<p><img src="src/02328c9653c19dd5d3c2ee7c86878e49.bmp"/></p>
+<p>config 目录下是根据环境进行文件配置， 在启动过程中选择不同的环境就会根据相应的环境名称目录加载该目录下的所有配置文件。例如 pomelo start env=online 这样就会加载config/online目录下的所有配置文件。默认会加载development下面的配置文件。在这种情况下，对应的servers.json就不需要根据环境配置，具体配置如下：</p>
+<pre><code>{
+   "connector":[
+    {"id":"connector-server-1", "host":"127.0.0.1", "port":4050, "clientPort": 3050, "frontend": true}
+    ]
+}
+</code></pre>
+<p>PS: 默认还是会直接加载config目录下的配置文件，当config目录下面没有对应的文件系统将才会加载环境名称对应的目录下的配置文件；所以要使用根据环境名称目录进行配置时需要先将config目录下之前的配置文件删除。</p>
+<h2>
+<a aria-hidden="true" class="anchor" href="#rpc%E8%B0%83%E7%94%A8%E6%96%B9%E5%BC%8F" id="user-content-rpc调用方式"><span class="octicon octicon-link"></span></a>rpc调用方式</h2>
+<h2>
+<a aria-hidden="true" class="anchor" href="#transcation%E6%94%AF%E6%8C%81" id="user-content-transcation支持"><span class="octicon octicon-link"></span></a>Transcation支持</h2>
+<p>开发者可以设置相应的事务处理条件和实际事务处理的方法，同时开发还可以定义事务处理的重试次数。事务的具体执行过程是先执行开发者定义的事务处理条件，如果条件报错则直接终止整个事务，如果条件执行通过，再开始执行相应的事务处理方法，当在事务处理方法执行的过程中出现错误则根据开发者定义的重试次数进行执行重试，默认重试次数为1；所有的事务处理的结果都会在相应的日志文件中进行详细记录，开发者可以根据错误日志对失败的事务进行相应处理；相应的API如下所示：</p>
+<h4>
+<a aria-hidden="true" class="anchor" href="#transactionname-conditions-handlers-retry" id="user-content-transactionname-conditions-handlers-retry"><span class="octicon octicon-link"></span></a>transaction(name, conditions, handlers, retry)</h4>
+<p>事务处理方法</p>
+<h5>
+<a aria-hidden="true" class="anchor" href="#arguments-12" id="user-content-arguments-12"><span class="octicon octicon-link"></span></a>Arguments</h5>
+<ul>
+<li>name - transaction name</li>
+<li>conditions - transaction conditions</li>
+<li>handlers - transaction handlers</li>
+<li>retry - retry times of handlers if error occurs in handlers</li>
+</ul>
+<p>具体的使用示例如下：</p>
+<pre><code> var conditions = {
+        test1: function(cb) {
+          console.log('condition1');
+          cb();
+        },
+        test2: function(cb) {
+          console.log('condition2');
+          cb();
+        }
+      };
+      var handlers = {
+        do1: function(cb) {
+          console.log('handler1');
+          cb();
+        },
+        do2: function(cb) {
+          console.log('handler2');
+          cb();
+        }
+      };
+   app.transaction('test', conditions, handlers, 3);
+</code></pre>
+</div>
+</div></body></html>

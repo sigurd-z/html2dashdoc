@@ -1,0 +1,302 @@
+<html><head prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# object: http://ogp.me/ns/object# article: http://ogp.me/ns/article# profile: http://ogp.me/ns/profile#">
+<meta charset="utf-8">
+<meta content="IE=edge" http-equiv="X-UA-Compatible">
+<meta content="en" http-equiv="Content-Language">
+<meta content="width=1020" name="viewport">
+<title>tutorial1  分布式聊天 · NetEase/pomelo Wiki · GitHub</title>
+<link href="/opensearch.xml" rel="search" title="GitHub" type="application/opensearchdescription+xml">
+<link href="src/ad667adaa2cfe8f3caa4a41b7d0a79a1.png" rel="fluid-icon" title="GitHub">
+<link href="src/a10d19ff5f738940a7a5086be334f50b.png" rel="apple-touch-icon" sizes="57x57">
+<link href="src/a10d19ff5f738940a7a5086be334f50b.png" rel="apple-touch-icon" sizes="114x114">
+<link href="src/b4cd268bc600cc14d2cdd557de6da2fb.png" rel="apple-touch-icon" sizes="72x72">
+<link href="src/b4cd268bc600cc14d2cdd557de6da2fb.png" rel="apple-touch-icon" sizes="144x144">
+<meta content="1401488693436528" property="fb:app_id">
+<meta content="@github" name="twitter:site"/><meta content="summary" name="twitter:card"/><meta content="NetEase/pomelo" name="twitter:title"/><meta content="pomelo - A fast,scalable,distributed game server framework for Node.js." name="twitter:description"/><meta content="https://avatars0.githubusercontent.com/u/1460597?v=3&amp;s=400" name="twitter:image:src"/>
+<meta content="GitHub" property="og:site_name"/><meta content="object" property="og:type"/><meta content="https://avatars0.githubusercontent.com/u/1460597?v=3&amp;s=400" property="og:image"/><meta content="NetEase/pomelo" property="og:title"/><meta content="https://github.com/NetEase/pomelo" property="og:url"/><meta content="pomelo - A fast,scalable,distributed game server framework for Node.js." property="og:description"/>
+<meta content="https://api.github.com/_private/browser/stats" name="browser-stats-url">
+<meta content="https://api.github.com/_private/browser/errors" name="browser-errors-url">
+<link href="https://assets-cdn.github.com/" rel="assets">
+<meta content="1000" name="pjax-timeout">
+<meta content="/windows-tile.png" name="msapplication-TileImage">
+<meta content="#ffffff" name="msapplication-TileColor">
+<meta data-pjax-transient="" name="selected-link" value="repo_wiki">
+<meta content="KT5gs8h0wvaagLKAVWq8bbeNwnZZK1r1XQysX3xurLU" name="google-site-verification">
+<meta content="UA-3769691-2" name="google-analytics">
+<meta content="collector.githubapp.com" name="octolytics-host"/><meta content="github" name="octolytics-app-id"/><meta content="CA86616A:35CC:11DA6DFA:5670C163" name="octolytics-dimension-request_id"/>
+<meta content="/&lt;user-name&gt;/&lt;repo-name&gt;/wiki/show" data-pjax-transient="true" name="analytics-location"/>
+<meta content="Rails, view, wiki#show" data-pjax-transient="true" name="analytics-event"/>
+<meta class="js-ga-set" content="Logged Out" name="dimension1">
+<meta content="github.com" name="hostname">
+<meta content="" name="user-login">
+<meta content="github.com" name="expected-hostname">
+<link color="#4078c0" href="https://assets-cdn.github.com/pinned-octocat.svg" rel="mask-icon">
+<link href="https://assets-cdn.github.com/favicon.ico" rel="icon" type="image/x-icon">
+<meta content="10c1bff09acb9c65f75e2e53b0cb579751cd2f0e" name="form-nonce"/>
+<link crossorigin="anonymous" href="src/350888e1495e7af27e01faa9d8291dee.css" media="all" rel="stylesheet"/>
+<link crossorigin="anonymous" href="src/9fae9b7d8f0785d745a43c6465f74ae5.css" media="all" rel="stylesheet"/>
+<meta content="cd9958d45e48e8e3157a320e9c346eaa" http-equiv="x-pjax-version">
+<meta content="pomelo - A fast,scalable,distributed game server framework for Node.js." name="description">
+<meta content="github.com/NetEase/pomelo git https://github.com/NetEase/pomelo.git" name="go-import">
+<meta content="1460597" name="octolytics-dimension-user_id"/><meta content="NetEase" name="octolytics-dimension-user_login"/><meta content="5880912" name="octolytics-dimension-repository_id"/><meta content="NetEase/pomelo" name="octolytics-dimension-repository_nwo"/><meta content="true" name="octolytics-dimension-repository_public"/><meta content="false" name="octolytics-dimension-repository_is_fork"/><meta content="5880912" name="octolytics-dimension-repository_network_root_id"/><meta content="NetEase/pomelo" name="octolytics-dimension-repository_network_root_nwo"/>
+<link href="https://github.com/NetEase/pomelo/commits/master.atom" rel="alternate" title="Recent Commits to pomelo:master" type="application/atom+xml">
+</link></meta></meta></meta></link></link></meta></meta></meta></meta></meta></meta></meta></meta></meta></meta></link></meta></meta></meta></link></link></link></link></link></link></meta></meta></meta></meta></head><body style="padding:0 25px;"><div class="gollum-markdown-content instapaper_body" id="wiki-body">
+<div class="markdown-body">
+<h1>
+<a aria-hidden="true" class="anchor" href="#tutorial----%E5%88%86%E5%B8%83%E5%BC%8F%E8%81%8A%E5%A4%A9%E6%9C%8D%E5%8A%A1%E5%99%A8" id="user-content-tutorial----分布式聊天服务器"><span class="octicon octicon-link"></span></a>Tutorial----分布式聊天服务器</h1>
+<h2>
+<a aria-hidden="true" class="anchor" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E6%98%AF%E8%81%8A%E5%A4%A9" id="user-content-为什么是聊天"><span class="octicon octicon-link"></span></a>为什么是聊天？</h2>
+<p>Pomelo是一款游戏服务器框架， 为什么tutorial会从聊天开始?</p>
+<p>Pomelo是游戏服务器框架，本质上也是高实时、可扩展、多进程的应用框架。除了在library部分有一部分游戏专用的库，其余部分框架完全可用于开发高实时web应用。而且与现在有的node.js高实时应用框架如derby、socketstream、meteor等比起来有更好的可伸缩性。</p>
+<p>由于游戏在场景管理、客户端动画等方面有一定的复杂性，并不适合作为pomelo的入门应用。聊天应用通常是node.js入门接触的第一个应用，因此更适合做tutorial。</p>
+<p>对于大多数开发者而言，node.js的入门应用都是一个基于socket.io开发的普通聊天室， 由于它是基于单进程的node.js开发的， 在可扩展性上打了一定折扣。例如要扩展到类似irc那样的多频道聊天室， 频道数量的增多必然会导致单进程的node.js支撑不住。</p>
+<p>而基于pomelo框架开发的聊天应用天生就是多进程的，可以非常容易地扩展服务器类型和数量。</p>
+<h2>
+<a aria-hidden="true" class="anchor" href="#%E4%BB%8E%E5%8D%95%E8%BF%9B%E7%A8%8B%E5%88%B0%E5%A4%9A%E8%BF%9B%E7%A8%8B%E4%BB%8Esocketio%E5%88%B0pomelo" id="user-content-从单进程到多进程从socketio到pomelo"><span class="octicon octicon-link"></span></a>从单进程到多进程，从socket.io到pomelo</h2>
+<p>一个基于socket.io的原生聊天室应用架构， 以<a href="http://github.com/joshmarshall/uberchat">uberchat</a>为例。 </p>
+<p>它的应用架构如下图所示：</p>
+<p><img alt="uberchat" data-canonical-src="http://pomelo.netease.com/resource/documentImage/uberchat.png" src="https://camo.githubusercontent.com/7d29c6c5ee66abe7f39c0a8defcc2138bc0603ea/687474703a2f2f706f6d656c6f2e6e6574656173652e636f6d2f7265736f757263652f646f63756d656e74496d6167652f75626572636861742e706e67"/></p>
+<p>服务端由单个node.js进程组成的chat server来接收websocket请求。</p>
+<p>它有以下缺点：</p>
+<ol>
+<li><p>可扩展性差：只支持单进程的node.js， 无法根据room/channel分区， 也无法将广播的压力与处理逻辑的压力分开。</p></li>
+<li><p>代码量多：基于socket.io做了简单封装，服务端就写了约430行代码。</p></li>
+</ol>
+<p>用pomelo来写这个框架可完全克服以上缺点。</p>
+<p>我们要搭建的pomelo聊天室具有如下的运行架构：</p>
+<p><img alt="multi chat" data-canonical-src="http://pomelo.netease.com/resource/documentImage/multi_chat.png" src="https://camo.githubusercontent.com/da1170cd20d5264ccfd6f3ff755aab3d81002252/687474703a2f2f706f6d656c6f2e6e6574656173652e636f6d2f7265736f757263652f646f63756d656e74496d6167652f6d756c74695f636861742e706e67"/></p>
+<p>在这个架构里， 前端服务器也就是connector专门负责承载连接， 后端的聊天服务器则是处理具体逻辑的地方。
+这样扩展的运行架构具有如下优势：</p>
+<ul>
+<li><p>负载分离：这种架构将承载连接的逻辑与后端的业务处理逻辑完全分离，这样做是非常必要的， 尤其是广播密集型应用（例如游戏和聊天）。密集的广播与网络通讯会占掉大量的资源，经过分离后业务逻辑的处理能力就不再受广播的影响。</p></li>
+<li><p>切换简便：因为有了前、后端两层的架构，用户可以任意切换频道或房间都不需要重连前端的websocket。</p></li>
+<li><p>扩展性好：用户数的扩展可以通过增加connector进程的数量来支撑。频道的扩展可以通过哈希分区等算法负载均衡到多台聊天服务器上。理论上这个架构可以实现频道和用户的无限扩展。</p></li>
+</ul>
+<p>下文我们将开始用pomelo搭建这个架构，我们将发现搭建如此复杂的架构竟然不到100行代码。</p>
+<h2>
+<a aria-hidden="true" class="anchor" href="#%E5%88%9D%E5%A7%8B%E5%8C%96%E4%BB%A3%E7%A0%81%E7%BB%93%E6%9E%84" id="user-content-初始化代码结构"><span class="octicon octicon-link"></span></a>初始化代码结构</h2>
+<p>在开始之前，首先确保在你的机器上已经安装了pomelo，具体安装步骤可参考：<a href="https://github.com/NetEase/pomelo/wiki/pomelo%E5%BF%AB%E9%80%9F%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97">pomelo快速使用指南</a></p>
+<p>通过以下命令可初始化应用的代码结构：</p>
+<blockquote>
+<p>pomelo init chatofpomelo</p>
+</blockquote>
+<p>代码结构图如下：</p>
+<p><img alt="chat directory" data-canonical-src="http://pomelo.netease.com/resource/documentImage/chatDir.png" src="https://camo.githubusercontent.com/d9a45f06e69f2e0486add1a8d99e58ec667563a6/687474703a2f2f706f6d656c6f2e6e6574656173652e636f6d2f7265736f757263652f646f63756d656e74496d6167652f636861744469722e706e67"/></p>
+<p>说明：</p>
+<ul>
+<li><p>game-server: 游戏服务器，所有的游戏服务器逻辑都放在这个目录下,以文件app.js作为入口，运行游戏的所有逻辑和功能。</p></li>
+<li><p>web-server：游戏用到的web服务器（包括登录逻辑）、客户端的js、css和静态资源等。</p></li>
+<li><p>config: 游戏服务器的所有配置信息。配置信息以JSON格式定义，包含有日志、master服务器和其他服务器的配置信息。该目录还可以放置其它配置信息，包括对数据库配置信息、地图信息和数值表等信息进行定义。</p></li>
+<li><p>logs: 存放游戏服务器所有日志信息。</p></li>
+<li><p>shared: 存放game-server与web-server共用代码。</p></li>
+</ul>
+<p>初始化&amp;&amp;测试：</p>
+<p>安装npm包</p>
+<blockquote>
+<p>sh npm-install.sh</p>
+</blockquote>
+<p>启动游戏服务器：</p>
+<blockquote>
+<p>cd game-server &amp;&amp; pomelo start</p>
+</blockquote>
+<p>启动web服务器：</p>
+<blockquote>
+<p>cd web-server &amp;&amp; node app.js</p>
+</blockquote>
+<p>web服务器中包含pomelo客户端，当web服务器启动后，客户端自动加载到浏览器中。客户端通过websocket向游戏服务器发送请求，连接成功后服务端通过pomelo向客户端推送消息。</p>
+<p>测试是否运行成功：</p>
+<p>在浏览器中输入 http://localhost:3001，如果web服务器运行成功，将出现如下页面：</p>
+<p><img alt="welcome page" data-canonical-src="http://pomelo.netease.com/resource/documentImage/welcome.png" src="https://camo.githubusercontent.com/aeee01d08ae08c0fd2f16a460a2d9e2f3945f631/687474703a2f2f706f6d656c6f2e6e6574656173652e636f6d2f7265736f757263652f646f63756d656e74496d6167652f77656c636f6d652e706e67"/></p>
+<p>点击'Test game server'按钮如果显示'game server is ok',pomelo弹出则证明客户端与服务端的通信成功。</p>
+<h2>
+<a aria-hidden="true" class="anchor" href="#%E5%BC%80%E5%A7%8B%E8%81%8A%E5%A4%A9%E9%80%BB%E8%BE%91%E4%BB%A3%E7%A0%81%E7%BC%96%E5%86%99" id="user-content-开始聊天逻辑代码编写"><span class="octicon octicon-link"></span></a>开始聊天逻辑代码编写</h2>
+<p>聊天室的逻辑包括以下几个部分：</p>
+<ul>
+<li><p>用户进入聊天室：这部分逻辑负责把用户信息注册到session，并让用户加入聊天室的channel。</p></li>
+<li><p>用户发起聊天： 这部分包括了用户从客户端发起请求，服务端接收请求等功能。</p></li>
+<li><p>广播用户的聊天： 所有在同一个聊天室的客户端收到请求并显示聊天内容。</p></li>
+<li><p>用户退出： 这部分需要做一些清理工作，包括session和channel的清理。</p></li>
+</ul>
+<h3>
+<a aria-hidden="true" class="anchor" href="#%E7%94%A8%E6%88%B7%E8%BF%9B%E5%85%A5%E8%81%8A%E5%A4%A9%E5%AE%A4" id="user-content-用户进入聊天室"><span class="octicon octicon-link"></span></a>用户进入聊天室</h3>
+<p>实现的功能效果如下图：
+用户输入用户名、聊天室名，加入聊天室</p>
+<p><img alt="login" data-canonical-src="http://pomelo.netease.com/resource/documentImage/login.png" src="https://camo.githubusercontent.com/74c399ab310d68051dcad46cf5407b448a47d498/687474703a2f2f706f6d656c6f2e6e6574656173652e636f6d2f7265736f757263652f646f63756d656e74496d6167652f6c6f67696e2e706e67"/></p>
+<h4>
+<a aria-hidden="true" class="anchor" href="#%E5%AE%A2%E6%88%B7%E7%AB%AF" id="user-content-客户端"><span class="octicon octicon-link"></span></a>客户端</h4>
+<p>客户端需要发请求给服务端， 第一次请求要给connector进程，因为首次进入时需要把session信息注册上去（此tutorial中页面相关代码、布局等略去）。</p>
+<div class="highlight highlight-source-js"><pre><span class="pl-smi">pomelo</span>.<span class="pl-en">request</span>(<span class="pl-s"><span class="pl-pds">'</span>connector.entryHandler.enter<span class="pl-pds">'</span></span>, {username<span class="pl-k">:</span> username}, <span class="pl-k">function</span>(){
+}); </pre></div>
+<p>以上请求字符串’connector.entryHandler.enter’分别代表了服务器类型、服务端相应的文件名及对应的方法名。</p>
+<h4>
+<a aria-hidden="true" class="anchor" href="#%E6%9C%8D%E5%8A%A1%E7%AB%AF" id="user-content-服务端"><span class="octicon octicon-link"></span></a>服务端</h4>
+<p>connector接收消息无需任何配置，只要在connector/handler/ 下新建文件entryHandler.js。我们只需实现enter方法，服务端自动会执行对应的handler，以下是handler的代码：</p>
+<div class="highlight highlight-source-js"><pre><span class="pl-c1">handler</span>.<span class="pl-en">enter</span> <span class="pl-k">=</span> <span class="pl-k">function</span>(<span class="pl-smi">msg</span>, <span class="pl-smi">session</span>, <span class="pl-smi">next</span>) {
+    <span class="pl-smi">session</span>.<span class="pl-en">bind</span>(uid);
+    <span class="pl-smi">session</span>.<span class="pl-en">on</span>(<span class="pl-s"><span class="pl-pds">'</span>closed<span class="pl-pds">'</span></span>, <span class="pl-smi">onUserLeave</span>.<span class="pl-en">bind</span>(<span class="pl-c1">null</span>, <span class="pl-smi">this</span>.<span class="pl-smi">app</span>));
+};</pre></div>
+<h4>
+<a aria-hidden="true" class="anchor" href="#%E6%9C%8D%E5%8A%A1%E7%AB%AF%E5%B0%86%E7%94%A8%E6%88%B7%E5%8A%A0%E5%88%B0channel" id="user-content-服务端将用户加到channel"><span class="octicon octicon-link"></span></a>服务端将用户加到channel</h4>
+<p>通过调用rpc方法，将登录的用户加入到channel中。</p>
+<div class="highlight highlight-source-js"><pre><span class="pl-smi">app</span>.<span class="pl-smi">rpc</span>.<span class="pl-smi">chat</span>.<span class="pl-smi">chatRemote</span>.<span class="pl-c1">add</span>(session, uid, <span class="pl-smi">app</span>.<span class="pl-en">get</span>(<span class="pl-s"><span class="pl-pds">'</span>serverId<span class="pl-pds">'</span></span>), <span class="pl-k">function</span>(<span class="pl-smi">data</span>){});</pre></div>
+<p>其中app是pomelo的应用对象，app.rpc表明了是前后台服务器的Remote rpc调用，后面的参数分别代表服务器的名称、对应的文件名称及方法名。为了实现这个rpc调用，则只需要在对应的chat/remote/中新建文件chatRemote.js，并实现add方法。</p>
+<div class="highlight highlight-source-js"><pre><span class="pl-c1">remote</span>.<span class="pl-en">add</span> <span class="pl-k">=</span> <span class="pl-k">function</span>(<span class="pl-smi">uid</span>, <span class="pl-smi">sid</span>, <span class="pl-smi">cb</span>){
+    <span class="pl-k">var</span> channel <span class="pl-k">=</span> <span class="pl-smi">channelService</span>.<span class="pl-en">getChannel</span>(<span class="pl-s"><span class="pl-pds">'</span>pomelo<span class="pl-pds">'</span></span>, <span class="pl-c1">true</span>); 
+    <span class="pl-k">if</span>(<span class="pl-k">!!</span>channel)
+        <span class="pl-smi">channel</span>.<span class="pl-c1">add</span>(uid, sid);
+};</pre></div>
+<p>在add方法中，首先从pomelo提供的channelService中取出channel,然后将用户加入到channel中即可。这样就完成了一个完整的rpc调用，在pomelo里复杂的rpc调用就是这么简单。</p>
+<h4>
+<a aria-hidden="true" class="anchor" href="#%E7%94%A8%E6%88%B7%E5%8F%91%E8%B5%B7%E8%81%8A%E5%A4%A9%E5%B9%B6%E7%94%B1%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%8E%A5%E6%94%B6" id="user-content-用户发起聊天并由服务器接收"><span class="octicon octicon-link"></span></a>用户发起聊天并由服务器接收</h4>
+<p>客户端代码：</p>
+<div class="highlight highlight-source-js"><pre><span class="pl-smi">pomelo</span>.<span class="pl-en">request</span>(<span class="pl-s"><span class="pl-pds">'</span>chat.chatHandler.send<span class="pl-pds">'</span></span>, {content<span class="pl-k">:</span> msg, from<span class="pl-k">:</span> username, target<span class="pl-k">:</span> target}, <span class="pl-k">function</span>(){});</pre></div>
+<p>服务端代码：</p>
+<div class="highlight highlight-source-js"><pre><span class="pl-c1">handler</span>.<span class="pl-en">send</span> <span class="pl-k">=</span> <span class="pl-k">function</span>(<span class="pl-smi">msg</span>, <span class="pl-smi">session</span>, <span class="pl-smi">next</span>) {
+   <span class="pl-k">var</span> param <span class="pl-k">=</span> {route<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>onChat<span class="pl-pds">'</span></span>, msg<span class="pl-k">:</span> <span class="pl-smi">msg</span>.<span class="pl-c1">content</span>, from<span class="pl-k">:</span> <span class="pl-smi">msg</span>.<span class="pl-smi">from</span>, target<span class="pl-k">:</span> <span class="pl-smi">msg</span>.<span class="pl-c1">target</span>};
+   <span class="pl-c">// send messages</span>
+};</pre></div>
+<h4>
+<a aria-hidden="true" class="anchor" href="#%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%AB%AF%E5%B9%BF%E6%92%AD%E6%B6%88%E6%81%AF%E5%B9%B6%E7%94%B1%E5%AE%A2%E6%88%B7%E7%AB%AF%E6%8E%A5%E6%94%B6" id="user-content-服务器端广播消息并由客户端接收"><span class="octicon octicon-link"></span></a>服务器端广播消息，并由客户端接收</h4>
+<p>服务端，在上述的send方法中加入广播代码：</p>
+<div class="highlight highlight-source-js"><pre><span class="pl-k">var</span> channel <span class="pl-k">=</span> <span class="pl-smi">channelService</span>.<span class="pl-en">getChannel</span>(<span class="pl-s"><span class="pl-pds">'</span>pomelo<span class="pl-pds">'</span></span>, <span class="pl-c1">false</span>);
+<span class="pl-smi">channel</span>.<span class="pl-en">pushMessage</span>(param);</pre></div>
+<p>客户端，所有频道的内的用户收到消息并显示：</p>
+<div class="highlight highlight-source-js"><pre><span class="pl-smi">pomelo</span>.<span class="pl-en">on</span>(<span class="pl-s"><span class="pl-pds">'</span>onChat<span class="pl-pds">'</span></span>, <span class="pl-k">function</span>() {
+   <span class="pl-en">addMessage</span>(<span class="pl-smi">data</span>.<span class="pl-smi">from</span>, <span class="pl-smi">data</span>.<span class="pl-c1">target</span>, <span class="pl-smi">data</span>.<span class="pl-smi">msg</span>);
+   $(<span class="pl-s"><span class="pl-pds">"</span>#chatHistory<span class="pl-pds">"</span></span>).<span class="pl-en">show</span>();
+};</pre></div>
+<h3>
+<a aria-hidden="true" class="anchor" href="#%E9%80%80%E5%87%BA%E6%88%BF%E9%97%B4" id="user-content-退出房间"><span class="octicon octicon-link"></span></a>退出房间</h3>
+<p>session断开时，通过rpc调用将用户从channel中移除。</p>
+<div class="highlight highlight-source-js"><pre><span class="pl-smi">app</span>.<span class="pl-smi">rpc</span>.<span class="pl-smi">chat</span>.<span class="pl-smi">chatRemote</span>.<span class="pl-en">kick</span>(session, <span class="pl-smi">session</span>.<span class="pl-smi">uid</span>, <span class="pl-smi">app</span>.<span class="pl-en">get</span>(<span class="pl-s"><span class="pl-pds">'</span>serverId<span class="pl-pds">'</span></span>), <span class="pl-s"><span class="pl-pds">'</span>pomelo<span class="pl-pds">'</span></span>, <span class="pl-c1">null</span>);</pre></div>
+<p>跟用户进入房间一样，在chatRemote中加入对应的kick方法就能够实现用户退出房间的功能。</p>
+<div class="highlight highlight-source-js"><pre><span class="pl-c1">handler</span>.<span class="pl-en">kick</span> <span class="pl-k">=</span> <span class="pl-k">function</span>(<span class="pl-smi">uid</span>, <span class="pl-smi">sid</span>, <span class="pl-smi">name</span>){
+    <span class="pl-k">var</span> channel <span class="pl-k">=</span> <span class="pl-smi">channelService</span>.<span class="pl-en">getChannel</span>(name, <span class="pl-c1">false</span>);
+    <span class="pl-k">if</span> (<span class="pl-k">!!</span>channel) {
+        <span class="pl-smi">channel</span>.<span class="pl-en">leave</span>(uid,sid);
+    }
+};</pre></div>
+<h2>
+<a aria-hidden="true" class="anchor" href="#%E8%B7%91%E8%B5%B7%E6%9D%A5" id="user-content-跑起来"><span class="octicon octicon-link"></span></a>跑起来</h2>
+<h3>
+<a aria-hidden="true" class="anchor" href="#%E9%85%8D%E7%BD%AEserversjson" id="user-content-配置serversjson"><span class="octicon octicon-link"></span></a>配置servers.json</h3>
+<p>具体配置文件如下：</p>
+<div class="highlight highlight-source-json"><pre>{
+  <span class="pl-s"><span class="pl-pds">"</span>development<span class="pl-pds">"</span></span>:{
+       <span class="pl-s"><span class="pl-pds">"</span>connector<span class="pl-pds">"</span></span>:[
+            { <span class="pl-s"><span class="pl-pds">"</span>id<span class="pl-pds">"</span></span>:<span class="pl-s"><span class="pl-pds">"</span>connector-server-1<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>host<span class="pl-pds">"</span></span>:<span class="pl-s"><span class="pl-pds">"</span>127.0.0.1<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>clientPort<span class="pl-pds">"</span></span>:<span class="pl-c1">3050</span>, <span class="pl-s"><span class="pl-pds">"</span>frontend<span class="pl-pds">"</span></span>: <span class="pl-c1">true</span> }
+        ],
+       <span class="pl-s"><span class="pl-pds">"</span>chat<span class="pl-pds">"</span></span>:[
+            { <span class="pl-s"><span class="pl-pds">"</span>id<span class="pl-pds">"</span></span>:<span class="pl-s"><span class="pl-pds">"</span>chat-server-1<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>host<span class="pl-pds">"</span></span>:<span class="pl-s"><span class="pl-pds">"</span>127.0.0.1<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>port<span class="pl-pds">"</span></span>:<span class="pl-c1">6050</span> }
+        ]
+   },
+  <span class="pl-s"><span class="pl-pds">"</span>production<span class="pl-pds">"</span></span>:{
+       <span class="pl-s"><span class="pl-pds">"</span>connector<span class="pl-pds">"</span></span>:[
+            { <span class="pl-s"><span class="pl-pds">"</span>id<span class="pl-pds">"</span></span>:<span class="pl-s"><span class="pl-pds">"</span>connector-server-1<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>host<span class="pl-pds">"</span></span>:<span class="pl-s"><span class="pl-pds">"</span>127.0.0.1<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>clientPort<span class="pl-pds">"</span></span>:<span class="pl-c1">3050</span>, <span class="pl-s"><span class="pl-pds">"</span>frontend<span class="pl-pds">"</span></span>: <span class="pl-c1">true</span> }
+        ],
+       <span class="pl-s"><span class="pl-pds">"</span>chat<span class="pl-pds">"</span></span>:[
+            { <span class="pl-s"><span class="pl-pds">"</span>id<span class="pl-pds">"</span></span>:<span class="pl-s"><span class="pl-pds">"</span>chat-server-1<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>host<span class="pl-pds">"</span></span>:<span class="pl-s"><span class="pl-pds">"</span>127.0.0.1<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>port<span class="pl-pds">"</span></span>:<span class="pl-c1">6050</span> }
+        ]
+   }
+}</pre></div>
+<p>服务器的数量开发者可以根据用户的数量来确定，如果需要增加某个类型的服务器只需要在配置文件中相应的位置增加一行配置指定id、host及端口号即可。</p>
+<h3>
+<a aria-hidden="true" class="anchor" href="#%E8%BF%90%E8%A1%8C" id="user-content-运行"><span class="octicon octicon-link"></span></a>运行</h3>
+<blockquote>
+<p>pomelo start</p>
+</blockquote>
+<h2>
+<a aria-hidden="true" class="anchor" href="#scale-up" id="user-content-scale-up"><span class="octicon octicon-link"></span></a>scale up</h2>
+<p>这里我们可以看到在pomelo中扩展服务器的数量是如此的easy。</p>
+<p>现在的运行架构如下图：</p>
+<p><img alt="single chat" data-canonical-src="http://pomelo.netease.com/resource/documentImage/single_chat.png" src="https://camo.githubusercontent.com/4f1aa6fbc14b61752ee7b393dcac55cf00bb44ca/687474703a2f2f706f6d656c6f2e6e6574656173652e636f6d2f7265736f757263652f646f63756d656e74496d6167652f73696e676c655f636861742e706e67"/></p>
+<p>扩展成更多服务器，只要修改配置文件servers.json。</p>
+<div class="highlight highlight-source-json"><pre>{
+  <span class="pl-s"><span class="pl-pds">"</span>development<span class="pl-pds">"</span></span>:{
+       <span class="pl-s"><span class="pl-pds">"</span>gate<span class="pl-pds">"</span></span>:[
+            { <span class="pl-s"><span class="pl-pds">"</span>id<span class="pl-pds">"</span></span>:<span class="pl-s"><span class="pl-pds">"</span>gate-server-1<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>host<span class="pl-pds">"</span></span>:<span class="pl-s"><span class="pl-pds">"</span>127.0.0.1<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>clientPort<span class="pl-pds">"</span></span>:<span class="pl-c1">3014</span>, <span class="pl-s"><span class="pl-pds">"</span>frontend<span class="pl-pds">"</span></span>: <span class="pl-c1">true</span> }
+        ],
+       <span class="pl-s"><span class="pl-pds">"</span>connector<span class="pl-pds">"</span></span>:[
+            { <span class="pl-s"><span class="pl-pds">"</span>id<span class="pl-pds">"</span></span>:<span class="pl-s"><span class="pl-pds">"</span>connector-server-1<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>host<span class="pl-pds">"</span></span>:<span class="pl-s"><span class="pl-pds">"</span>127.0.0.1<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>clientPort<span class="pl-pds">"</span></span>:<span class="pl-c1">3050</span>, <span class="pl-s"><span class="pl-pds">"</span>frontend<span class="pl-pds">"</span></span>: <span class="pl-c1">true</span> },
+            { <span class="pl-s"><span class="pl-pds">"</span>id<span class="pl-pds">"</span></span>:<span class="pl-s"><span class="pl-pds">"</span>connector-server-2<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>host<span class="pl-pds">"</span></span>:<span class="pl-s"><span class="pl-pds">"</span>127.0.0.1<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>clientPort<span class="pl-pds">"</span></span>:<span class="pl-c1">3051</span>, <span class="pl-s"><span class="pl-pds">"</span>frontend<span class="pl-pds">"</span></span>: <span class="pl-c1">true</span> },
+            { <span class="pl-s"><span class="pl-pds">"</span>id<span class="pl-pds">"</span></span>:<span class="pl-s"><span class="pl-pds">"</span>connector-server-3<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>host<span class="pl-pds">"</span></span>:<span class="pl-s"><span class="pl-pds">"</span>127.0.0.1<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>clientPort<span class="pl-pds">"</span></span>:<span class="pl-c1">3052</span>, <span class="pl-s"><span class="pl-pds">"</span>frontend<span class="pl-pds">"</span></span>: <span class="pl-c1">true</span> }
+        ],
+       <span class="pl-s"><span class="pl-pds">"</span>chat<span class="pl-pds">"</span></span>:[
+            { <span class="pl-s"><span class="pl-pds">"</span>id<span class="pl-pds">"</span></span>:<span class="pl-s"><span class="pl-pds">"</span>chat-server-1<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>host<span class="pl-pds">"</span></span>:<span class="pl-s"><span class="pl-pds">"</span>127.0.0.1<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>port<span class="pl-pds">"</span></span>:<span class="pl-c1">6050</span> }, 
+            { <span class="pl-s"><span class="pl-pds">"</span>id<span class="pl-pds">"</span></span>:<span class="pl-s"><span class="pl-pds">"</span>chat-server-2<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>host<span class="pl-pds">"</span></span>:<span class="pl-s"><span class="pl-pds">"</span>127.0.0.1<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>port<span class="pl-pds">"</span></span>:<span class="pl-c1">6051</span> },
+            { <span class="pl-s"><span class="pl-pds">"</span>id<span class="pl-pds">"</span></span>:<span class="pl-s"><span class="pl-pds">"</span>chat-server-3<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>host<span class="pl-pds">"</span></span>:<span class="pl-s"><span class="pl-pds">"</span>127.0.0.1<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>port<span class="pl-pds">"</span></span>:<span class="pl-c1">6052</span> }
+        ]
+   },
+ <span class="pl-s"><span class="pl-pds">"</span>production<span class="pl-pds">"</span></span>:{
+       <span class="pl-s"><span class="pl-pds">"</span>gate<span class="pl-pds">"</span></span>:[
+            { <span class="pl-s"><span class="pl-pds">"</span>id<span class="pl-pds">"</span></span>:<span class="pl-s"><span class="pl-pds">"</span>gate-server-1<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>host<span class="pl-pds">"</span></span>:<span class="pl-s"><span class="pl-pds">"</span>127.0.0.1<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>clientPort<span class="pl-pds">"</span></span>:<span class="pl-c1">3014</span>, <span class="pl-s"><span class="pl-pds">"</span>frontend<span class="pl-pds">"</span></span>: <span class="pl-c1">true</span> }
+        ],
+       <span class="pl-s"><span class="pl-pds">"</span>connector<span class="pl-pds">"</span></span>:[
+            { <span class="pl-s"><span class="pl-pds">"</span>id<span class="pl-pds">"</span></span>:<span class="pl-s"><span class="pl-pds">"</span>connector-server-1<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>host<span class="pl-pds">"</span></span>:<span class="pl-s"><span class="pl-pds">"</span>127.0.0.1<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>clientPort<span class="pl-pds">"</span></span>:<span class="pl-c1">3050</span>, <span class="pl-s"><span class="pl-pds">"</span>frontend<span class="pl-pds">"</span></span>: <span class="pl-c1">true</span> },
+            { <span class="pl-s"><span class="pl-pds">"</span>id<span class="pl-pds">"</span></span>:<span class="pl-s"><span class="pl-pds">"</span>connector-server-2<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>host<span class="pl-pds">"</span></span>:<span class="pl-s"><span class="pl-pds">"</span>127.0.0.1<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>clientPort<span class="pl-pds">"</span></span>:<span class="pl-c1">3051</span>, <span class="pl-s"><span class="pl-pds">"</span>frontend<span class="pl-pds">"</span></span>: <span class="pl-c1">true</span> },
+            { <span class="pl-s"><span class="pl-pds">"</span>id<span class="pl-pds">"</span></span>:<span class="pl-s"><span class="pl-pds">"</span>connector-server-3<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>host<span class="pl-pds">"</span></span>:<span class="pl-s"><span class="pl-pds">"</span>127.0.0.1<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>clientPort<span class="pl-pds">"</span></span>:<span class="pl-c1">3052</span>, <span class="pl-s"><span class="pl-pds">"</span>frontend<span class="pl-pds">"</span></span>: <span class="pl-c1">true</span> }
+        ],
+       <span class="pl-s"><span class="pl-pds">"</span>chat<span class="pl-pds">"</span></span>:[
+            { <span class="pl-s"><span class="pl-pds">"</span>id<span class="pl-pds">"</span></span>:<span class="pl-s"><span class="pl-pds">"</span>chat-server-1<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>host<span class="pl-pds">"</span></span>:<span class="pl-s"><span class="pl-pds">"</span>127.0.0.1<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>port<span class="pl-pds">"</span></span>:<span class="pl-c1">6050</span> }, 
+            { <span class="pl-s"><span class="pl-pds">"</span>id<span class="pl-pds">"</span></span>:<span class="pl-s"><span class="pl-pds">"</span>chat-server-2<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>host<span class="pl-pds">"</span></span>:<span class="pl-s"><span class="pl-pds">"</span>127.0.0.1<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>port<span class="pl-pds">"</span></span>:<span class="pl-c1">6051</span> },
+            { <span class="pl-s"><span class="pl-pds">"</span>id<span class="pl-pds">"</span></span>:<span class="pl-s"><span class="pl-pds">"</span>chat-server-3<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>host<span class="pl-pds">"</span></span>:<span class="pl-s"><span class="pl-pds">"</span>127.0.0.1<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>port<span class="pl-pds">"</span></span>:<span class="pl-c1">6052</span> }
+        ]
+   }
+}</pre></div>
+<p>这样我们就轻松地由之前的单台connector、chat服务器扩展成多台connector、chat服务器的架构。扩展后前端存在多个connector服务器，为了平衡不同connector服务器的负载，我们增加了一个gate服务器。gate服务器主要负责为用户分配connector服务器，在这里我们直接根据用户名进行hash处理从而选择用户登录的connector服务器。</p>
+<p>扩展后的运行架构如下图：</p>
+<p><img alt="multi chat" data-canonical-src="http://pomelo.netease.com/resource/documentImage/multi_chat.png" src="https://camo.githubusercontent.com/da1170cd20d5264ccfd6f3ff755aab3d81002252/687474703a2f2f706f6d656c6f2e6e6574656173652e636f6d2f7265736f757263652f646f63756d656e74496d6167652f6d756c74695f636861742e706e67"/></p>
+<h3>
+<a aria-hidden="true" class="anchor" href="#%E9%85%8D%E7%BD%AErouter" id="user-content-配置router"><span class="octicon octicon-link"></span></a>配置router</h3>
+<p>当扩展成多台服务器后,需要为不同类型的服务器添加不同的路由配置。这里主要是chat服务器的路由配置，为了减少应用复杂度，我们根据房间名进行hash处理，详细的配置说明可以参考<a href="https://github.com/NetEase/pomelo/wiki/%E6%B8%B8%E6%88%8F%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%9A%84app.js%E9%85%8D%E7%BD%AE%E5%8F%82%E8%80%83">app.js配置说明</a>。具体代码如下：</p>
+<div class="highlight highlight-source-js"><pre><span class="pl-c">//routeUtil.js</span>
+<span class="pl-c1">exp</span>.<span class="pl-en">chat</span> <span class="pl-k">=</span> <span class="pl-k">function</span>(<span class="pl-smi">session</span>, <span class="pl-smi">msg</span>, <span class="pl-smi">app</span>, <span class="pl-smi">cb</span>) {
+    <span class="pl-k">var</span> chatServers <span class="pl-k">=</span> <span class="pl-smi">app</span>.<span class="pl-en">getServersByType</span>(<span class="pl-s"><span class="pl-pds">'</span>chat<span class="pl-pds">'</span></span>); 
+    <span class="pl-k">if</span> (<span class="pl-k">!</span>chatServers) {
+        <span class="pl-en">cb</span>(<span class="pl-k">new</span> <span class="pl-en">Error</span>(<span class="pl-s"><span class="pl-pds">'</span>can not find chat servers.<span class="pl-pds">'</span></span>));
+        <span class="pl-k">return</span>;
+    }
+    <span class="pl-k">var</span> res <span class="pl-k">=</span> <span class="pl-smi">dispatcher</span>.<span class="pl-en">dispatch</span>(<span class="pl-smi">session</span>.<span class="pl-en">get</span>(<span class="pl-s"><span class="pl-pds">'</span>rid<span class="pl-pds">'</span></span>), chatServers);
+    <span class="pl-en">cb</span>(<span class="pl-c1">null</span>, <span class="pl-smi">res</span>.<span class="pl-c1">id</span>);
+};</pre></div>
+<div class="highlight highlight-source-js"><pre><span class="pl-c">//app.js</span>
+<span class="pl-smi">app</span>.<span class="pl-en">configure</span>(<span class="pl-s"><span class="pl-pds">'</span>production|development<span class="pl-pds">'</span></span>, <span class="pl-k">function</span>() {
+       <span class="pl-smi">app</span>.<span class="pl-en">route</span>(<span class="pl-s"><span class="pl-pds">'</span>chat<span class="pl-pds">'</span></span>, <span class="pl-smi">routeUtil</span>.<span class="pl-smi">chat</span>);
+});</pre></div>
+<h3>
+<a aria-hidden="true" class="anchor" href="#%E5%85%B6%E5%AE%83%E9%85%8D%E7%BD%AE" id="user-content-其它配置"><span class="octicon octicon-link"></span></a>其它配置</h3>
+<p>最新的chatofpomelo是基于pomelo的0.3版本，0.3版Pomelo开始支持二进制协议，并支持对请求route的字典压缩和请求内容进行protobuf压缩。0.3版同时兼容以前版本基于socket.io的通讯协议。通过在应用中配置不同的connector component来实现协议的切换或共存。针对pomelo 0.3版本的两种不同的通信方式，chatofpomelo也分别有兼容之前的socket.io版本（chatofpomelo）和websocket版本(chatofpomelo-websocket)。socket.io版本的配置兼容之前版本，只是在servers.json中对connector的配置稍有修改，上文已经给出最新的servers.json的配置说明。对于websocket.io版本需要在app.js中对connector进行配置，具体配置如下：</p>
+<div class="highlight highlight-source-js"><pre><span class="pl-c">// app configuration</span>
+<span class="pl-smi">app</span>.<span class="pl-en">configure</span>(<span class="pl-s"><span class="pl-pds">'</span>production|development<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>connector<span class="pl-pds">'</span></span>, <span class="pl-k">function</span>(){
+    <span class="pl-smi">app</span>.<span class="pl-en">set</span>(<span class="pl-s"><span class="pl-pds">'</span>connectorConfig<span class="pl-pds">'</span></span>,
+        {
+                connector <span class="pl-k">:</span> <span class="pl-smi">pomelo</span>.<span class="pl-smi">connectors</span>.<span class="pl-smi">hybridconnector</span>,
+            heartbeat <span class="pl-k">:</span> <span class="pl-c1">3</span>,
+            useDict <span class="pl-k">:</span> <span class="pl-c1">true</span>,
+            useProtobuf <span class="pl-k">:</span> <span class="pl-c1">true</span>
+        });
+});
+
+<span class="pl-smi">app</span>.<span class="pl-en">configure</span>(<span class="pl-s"><span class="pl-pds">'</span>production|development<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>gate<span class="pl-pds">'</span></span>, <span class="pl-k">function</span>(){
+    <span class="pl-smi">app</span>.<span class="pl-en">set</span>(<span class="pl-s"><span class="pl-pds">'</span>connectorConfig<span class="pl-pds">'</span></span>,
+        {
+            connector <span class="pl-k">:</span> <span class="pl-smi">pomelo</span>.<span class="pl-smi">connectors</span>.<span class="pl-smi">hybridconnector</span>,
+        });
+
+});</pre></div>
+<p>上述配置是分别对connector和gate服务器进行websocket的配置，heartbeat是客户端与服务端的心跳时间，单位是秒；useDict是配置是否打开handler字典压缩；useProtobuf是配置是否开启protobuf的压缩；具体可以参考<a href="https://github.com/NetEase/pomelo/wiki/Pomelo-%E6%95%B0%E6%8D%AE%E5%8E%8B%E7%BC%A9%E5%8D%8F%E8%AE%AE">pomelo 数据压缩协议</a>。</p>
+<h1>
+<a aria-hidden="true" class="anchor" href="#tutorial%E6%BA%90%E7%A0%81%E8%8E%B7%E5%8F%96" id="user-content-tutorial源码获取"><span class="octicon octicon-link"></span></a>tutorial源码获取</h1>
+<p>当前chatofpomelo有两个版本，一种是底层基于socket.io的版本，git地址如下：</p>
+<blockquote>
+<p>git clone <a href="https://github.com/NetEase/chatofpomelo.git">https://github.com/NetEase/chatofpomelo.git</a></p>
+</blockquote>
+<p>另一种是底层基于websocket的版本，git地址如下：</p>
+<blockquote>
+<p>git clone <a href="https://github.com/NetEase/chatofpomelo-websocket.git">https://github.com/NetEase/chatofpomelo-websocket.git</a></p>
+</blockquote>
+<p>基于Flash客户端的Demo地址如下：</p>
+<blockquote>
+<p><a href="https://github.com/mani95lisa/PomeloFlashDemo">https://github.com/mani95lisa/PomeloFlashDemo</a></p>
+</blockquote>
+</div>
+</div></body></html>

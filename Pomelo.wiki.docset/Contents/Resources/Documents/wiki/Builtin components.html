@@ -1,0 +1,170 @@
+<html><head prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# object: http://ogp.me/ns/object# article: http://ogp.me/ns/article# profile: http://ogp.me/ns/profile#">
+<meta charset="utf-8">
+<meta content="IE=edge" http-equiv="X-UA-Compatible">
+<meta content="en" http-equiv="Content-Language">
+<meta content="width=1020" name="viewport">
+<title>Builtin components · NetEase/pomelo Wiki · GitHub</title>
+<link href="/opensearch.xml" rel="search" title="GitHub" type="application/opensearchdescription+xml">
+<link href="src/ad667adaa2cfe8f3caa4a41b7d0a79a1.png" rel="fluid-icon" title="GitHub">
+<link href="src/a10d19ff5f738940a7a5086be334f50b.png" rel="apple-touch-icon" sizes="57x57">
+<link href="src/a10d19ff5f738940a7a5086be334f50b.png" rel="apple-touch-icon" sizes="114x114">
+<link href="src/b4cd268bc600cc14d2cdd557de6da2fb.png" rel="apple-touch-icon" sizes="72x72">
+<link href="src/b4cd268bc600cc14d2cdd557de6da2fb.png" rel="apple-touch-icon" sizes="144x144">
+<meta content="1401488693436528" property="fb:app_id">
+<meta content="@github" name="twitter:site"/><meta content="summary" name="twitter:card"/><meta content="NetEase/pomelo" name="twitter:title"/><meta content="pomelo - A fast,scalable,distributed game server framework for Node.js." name="twitter:description"/><meta content="https://avatars0.githubusercontent.com/u/1460597?v=3&amp;s=400" name="twitter:image:src"/>
+<meta content="GitHub" property="og:site_name"/><meta content="object" property="og:type"/><meta content="https://avatars0.githubusercontent.com/u/1460597?v=3&amp;s=400" property="og:image"/><meta content="NetEase/pomelo" property="og:title"/><meta content="https://github.com/NetEase/pomelo" property="og:url"/><meta content="pomelo - A fast,scalable,distributed game server framework for Node.js." property="og:description"/>
+<meta content="https://api.github.com/_private/browser/stats" name="browser-stats-url">
+<meta content="https://api.github.com/_private/browser/errors" name="browser-errors-url">
+<link href="https://assets-cdn.github.com/" rel="assets">
+<meta content="1000" name="pjax-timeout">
+<meta content="/windows-tile.png" name="msapplication-TileImage">
+<meta content="#ffffff" name="msapplication-TileColor">
+<meta data-pjax-transient="" name="selected-link" value="repo_wiki">
+<meta content="KT5gs8h0wvaagLKAVWq8bbeNwnZZK1r1XQysX3xurLU" name="google-site-verification">
+<meta content="UA-3769691-2" name="google-analytics">
+<meta content="collector.githubapp.com" name="octolytics-host"/><meta content="github" name="octolytics-app-id"/><meta content="7250A4CA:6921:C8BA855:5670BFBB" name="octolytics-dimension-request_id"/>
+<meta content="/&lt;user-name&gt;/&lt;repo-name&gt;/wiki/show" data-pjax-transient="true" name="analytics-location"/>
+<meta content="Rails, view, wiki#show" data-pjax-transient="true" name="analytics-event"/>
+<meta class="js-ga-set" content="Logged Out" name="dimension1">
+<meta content="github.com" name="hostname">
+<meta content="" name="user-login">
+<meta content="github.com" name="expected-hostname">
+<link color="#4078c0" href="https://assets-cdn.github.com/pinned-octocat.svg" rel="mask-icon">
+<link href="https://assets-cdn.github.com/favicon.ico" rel="icon" type="image/x-icon">
+<meta content="ca105ecb16611a9a2a2eb8b0afbc6b4d9a415bc7" name="form-nonce"/>
+<link crossorigin="anonymous" href="src/350888e1495e7af27e01faa9d8291dee.css" media="all" rel="stylesheet"/>
+<link crossorigin="anonymous" href="src/9fae9b7d8f0785d745a43c6465f74ae5.css" media="all" rel="stylesheet"/>
+<meta content="cd9958d45e48e8e3157a320e9c346eaa" http-equiv="x-pjax-version">
+<meta content="pomelo - A fast,scalable,distributed game server framework for Node.js." name="description">
+<meta content="github.com/NetEase/pomelo git https://github.com/NetEase/pomelo.git" name="go-import">
+<meta content="1460597" name="octolytics-dimension-user_id"/><meta content="NetEase" name="octolytics-dimension-user_login"/><meta content="5880912" name="octolytics-dimension-repository_id"/><meta content="NetEase/pomelo" name="octolytics-dimension-repository_nwo"/><meta content="true" name="octolytics-dimension-repository_public"/><meta content="false" name="octolytics-dimension-repository_is_fork"/><meta content="5880912" name="octolytics-dimension-repository_network_root_id"/><meta content="NetEase/pomelo" name="octolytics-dimension-repository_network_root_nwo"/>
+<link href="https://github.com/NetEase/pomelo/commits/master.atom" rel="alternate" title="Recent Commits to pomelo:master" type="application/atom+xml">
+</link></meta></meta></meta></link></link></meta></meta></meta></meta></meta></meta></meta></meta></meta></meta></link></meta></meta></meta></link></link></link></link></link></link></meta></meta></meta></meta></head><body style="padding:0 25px;"><div class="gollum-markdown-content instapaper_body" id="wiki-body">
+<div class="markdown-body">
+<p>As we know, the work has been done by a game server based on pomelo is to manage life-cycle of the components game server reloads, which provide all the functionalities of the server. There are more than ten builtin components provided by the framework, and these components are loaded by various servers, and provide various functionalities. Here we will introduce all the builtin components by presenting their functionalities.</p>
+<h3>
+<a aria-hidden="true" class="anchor" href="#master" id="user-content-master"><span class="octicon octicon-link"></span></a>Master</h3>
+<p>Master componenent is only loaded by master server, its main functionalities include starting all application servers, manage and monitor all the application servers and respond to the requests from a management client.</p>
+<p>In "start" method of the master component, it will spawn all the application servers according to the servers configuration infomation that user supplies. </p>
+<p>After "start" method invocation done, it will listen on configured port to accept connection and registration from the application servers, and then it can be used to collect monitoring information reported by the application servers, send commands to the application servers, and handle requests from management client, such as <a href="Pomelo-cli%20use">pomelo-cli</a>, which may request viewing a particular server's status , adding a server, turning off a server, etc.. Taking adding a server as a example, when management client sends a request to master for adding a server , it will offer some server parameters, such as server type, host ip, listening port, etc.. And then, master component will handle this request, it will spawn a new server based on the parameters offered, and then broadcasts the newly added server's information to other servers that have been spawned.</p>
+<p><strong>Configuration Options</strong>: None.</p>
+<h3>
+<a aria-hidden="true" class="anchor" href="#monitor" id="user-content-monitor"><span class="octicon octicon-link"></span></a>Monitor</h3>
+<p>Monitor component will be loaded by all the servers, of course including the master server as well. Its main functionality is to establish a connection to the master, and does some management and monitoring work together with master component. Master server itself will load monitor component because master server also collects its own monitoring information.</p>
+<p>It can be said monitor component is opposite to the master component, Servers will get some commands from master server and handle it via its monitor component. For some periodic monitoring information, pomelo provides two collecting mode, pull mode and push mode. The pull mode requires master server periodically to send the monitoring commands to monitored servers for getting monitoring infomation, while push mode does this by monitored servers periodically report their own monitoring information to master servers initiatively.</p>
+<p><strong>Configuration Options</strong>: None.</p>
+<h3>
+<a aria-hidden="true" class="anchor" href="#connector" id="user-content-connector"><span class="octicon octicon-link"></span></a>Connector</h3>
+<p>Connector component is a heavyweight component, which has dependencies on session component, server component, pushscheduler component and connection component. Connector component can only be loaded by the frontend servers, which is mainly used to manage client connections. Connector component will create underlying transport connector, listen on the clientPort that frontend servers being configured, bind the events related to client request to corresponding handlers. </p>
+<p>When a client establishes a connection or send a request, connector component will accept it and requires session component to maintain its session, connector component also reports it to the connection component the information for statistical use, finally, connector component will deliver the session obtained from session component. </p>
+<p>After finishing the handling of the request by server component, the response will be returned to the connector component and then connector component deliver it to clients. When responding to clients, there is a buffer approach used to increase bandwidth utilization, and this buffer approach depends on pushscheduler component, that means connector component will not deliver the responses to appropriate clients directly, instead, all the response will be delivered to pushscheduler component, and pushscheduler component will deliver the response to clients according to its scheduling policy, it may be bufferred and timely flush or on time.</p>
+<p><strong>Configuration Options</strong>:</p>
+<ul>
+<li>connector: the underlying transport connector used, default is sioconnector;</li>
+<li>useProtobuf: currently supported only if connector option set to use hybridconnector, default is false, set it to true will enable using protobuf to pack message ;</li>
+<li>useDict: currently supported only if connector option set to use hybridconnector, default is false, set to true will enable the dictionary-based routing message compression ;</li>
+<li>useCrypto: currently supported only if connector option set to use hybridconnector, default is false, set to true will enable digital signature functionality while communicating;</li>
+<li>encode/decode: message encoding and decoding methods, if not configured, it will use encode/decode the underlying connector provides.</li>
+<li>transports: currently supported only if connector option set to use sioconnector(socket.io), it can be websocket, xhr-polling and so on. With this option you can choose the desired mode.</li>
+</ul>
+<p>Configure connector component by:</p>
+<pre><code>app.set ('connectorConfig', opts);
+</code></pre>
+<h3>
+<a aria-hidden="true" class="anchor" href="#session" id="user-content-session"><span class="octicon octicon-link"></span></a>Session</h3>
+<p>Session component is related to connector component and it is only loaded by frontend servers, it provides a component wrapper for sessionService. After loading session component, it will add "sessionService" property to context app, and can be gotten using <code>app.get ('sessionService')</code>. It is mainly used to maintain the client's connection, and create and maintain sessions. If making an analogy with classical TCP, then the connection infomation maintained by session corresponds to "socket returned by TCP server accept call". One session for one connection. Session also maintains other info about the connection, such as the user bind to the connection and other application-specific information. A user can login from multiple clients, that means a user can be bind to several sessions. When pushing/responding messages to clients, it must get the session first and do it via the session.</p>
+<p><strong>Configuration Options</strong>:</p>
+<ul>
+<li>singleSession: set to true will enable forbidden on multiple logins for a particular user simultaneously, default is false. </li>
+</ul>
+<p>Configure session component by:</p>
+<pre><code>app.set ('sessionConfig', opts);
+</code></pre>
+<h3>
+<a aria-hidden="true" class="anchor" href="#connection" id="user-content-connection"><span class="octicon octicon-link"></span></a>Connection</h3>
+<p>Connection component is a simple component relatively, and it is also only loaded by frontend servers, it is a component wrapper for connectionService, which mainly does some statistical work for connections. connector component will report connection information to connection component while accepting a connection or a client goes offline.</p>
+<p><strong>Configuration Options</strong> : None.</p>
+<h3>
+<a aria-hidden="true" class="anchor" href="#server" id="user-content-server"><span class="octicon octicon-link"></span></a>Server</h3>
+<p>Server component is a complex component, which is loaded by all the servers except master server. Server component loads and maintains its Handlers and Filters. Server component accepts requests from connector component, then uses its own before-filter-chain to filter the requests and use its corresponding Handler to handle the requests, and finally responds results to connector component. At last use after-filter-chain to do some cleanup.</p>
+<p>Of course, for a request to backend server, it will also be accepted by the server component of the frontend server, and frontend server is not able to handle it, so it will forward the request to backend server via RPC invocation. For backend servers, request is not directly from clients but sys RPC invocation invoked by frontend servers, and then use its filter-handler chain to handle the request. After finishing the handling, backend server will respond the result to frontend server as a return of RPC invocation. This RPC invocation is based on builtin "msgRemote" pomelo provides.</p>
+<p>While dispatching requests to backend servers, as there are more than one backend servers of the same type, so it needs a rout policy that called router configured  in frontend servers, it can be achived by Application.route call to configure router.</p>
+<p><strong>Configuration Options</strong>: None.</p>
+<h3>
+<a aria-hidden="true" class="anchor" href="#pushscheduler" id="user-content-pushscheduler"><span class="octicon octicon-link"></span></a>Pushscheduler</h3>
+<p>The functionality of pushscheduler component is relatively simple components, it is only loaded by frontend servers, and it is related to connector component closely. When connector component receives responses or pushing messages from server component, connector does not directly respond/push it to clients, but schedule it to pushscheduler component. Pushscheduler component will complete the final work to send the responses to clients based on its scheduling policy. Pomelo has implemented two scheduling policies, one is without any buffer, sends the responses directly to the clients, and another is with buffer and periodically sends the buffered responses/pushing-messages to clients.</p>
+<p><strong>Configuration Options</strong> :</p>
+<ul>
+<li>scheduler: scheduling strategy, the default is to directly send to clients, user can implement their own scheduling strategy.</li>
+</ul>
+<p>Configure pushScheduler component by:</p>
+<pre><code>app.set ('pushSchedulerConfig', opts);
+</code></pre>
+<p>If you want to enable buffered scheduler, you can do this by:</p>
+<pre><code>app.set('pushSchedulerConfig', {scheduler: pomelo.pushSchedulers.buffer, flushInterval: 20});
+</code></pre>
+<p>Here, flushInterval is refresh cycle, default is 20 milliseconds.</p>
+<h3>
+<a aria-hidden="true" class="anchor" href="#proxy" id="user-content-proxy"><span class="octicon octicon-link"></span></a>Proxy</h3>
+<p>Proxy component is a heavyweight component, it is loaded by all the servers except master server. Proxy component will scan specific application server directory, due to the dynamic nature of javascript language, the meta-information about remotes can easily be obtained, and then use them to generate stubs, put them under global context app. When RPC invoking, proxy component will check whether the invocation is valid using the stub information. Meanwhile, proxy will create a RpcClient while launching a RPC, it is responsible for communicating with the remote server, and get results from RPC invocation. The router configuration is required so there are more than one servers that provide same remote services.</p>
+<p><strong>Configuration Options</strong> :</p>
+<ul>
+<li>bufferMsg, set to true will enable RPC invocation cache, that means it will not directly launch a RPC as long as a RPC invocation presented, default is false.</li>
+<li>interval, if bufferMsg is set to true, interval indicates flush cycle. Otherwise, it does nothing.</li>
+<li>mailBoxFactory, it is used to communicate between RPC invoker and invoked, it can be treated as underlying networking transport abstraction. Developers can customize their own mailBoxFactory, default is wsBoxFactory, which uses websocket as its transport. </li>
+</ul>
+<p>In addition, you can enable RPC invocation log by:</p>
+<pre><code>app.enable('rpcDebugLog');
+</code></pre>
+<p>Configure proxy component by:</p>
+<pre><code>app.set('proxyConfig', opts);
+</code></pre>
+<h3>
+<a aria-hidden="true" class="anchor" href="#remote" id="user-content-remote"><span class="octicon octicon-link"></span></a>Remote</h3>
+<p>Remote component is a component opposite to proxy component, it is loaded by all the servers except master server. It is used to provide RPC remote services. Remote component will load all remote handlers defined in current server, and listen on configured port, then wait for RPC invocation from RPC clients. When a invocation is accepted, it will dispatch the invocation to corresponding loaded remote hander based on information described inside the invocation, and then return result to RPC client. RPC remote-side also supports the filter on invocations, that is similar to request/response that server component does. </p>
+<p><strong>Configuration Options</strong> :</p>
+<ul>
+<li>BufferMsg, same as proxy component</li>
+<li>Interval, same as proxy component</li>
+<li>acceptorFactory, it is opposite to mailBoxFactory option for proxy component, it is also used to do networking commumication.</li>
+</ul>
+<p>Same as proxy component, users can enable rpcDebugLog for remote component too.</p>
+<p>Configure remote component by:</p>
+<pre><code>app.set ('remoteConfig', opts);
+</code></pre>
+<h3>
+<a aria-hidden="true" class="anchor" href="#dictionary" id="user-content-dictionary"><span class="octicon octicon-link"></span></a>Dictionary</h3>
+<p>Dictionary component is an optional component that is not loaded by default, it will be loaded only when connector component is configured to enable "useDict" option. This component will traverse all handler route strings that current server provides and routes strings from file config/dictionary.json that are used at client-side, and then assign each route to a unique small integer to compress route when encoding/decoding messages. Client will negotiate the dictionary during handshaking when establishing connection, and after that, it will use small integer rather than the original route string to communicate for information compression.</p>
+<p><strong>Configuration Options</strong> :</p>
+<ul>
+<li>dict, the file that holds client route strings, default is config/dictionary.json.</li>
+</ul>
+<p>Configure dictionary component by:</p>
+<pre><code>app.set ('dictionaryConfig', opts);
+</code></pre>
+<h3>
+<a aria-hidden="true" class="anchor" href="#protobuf" id="user-content-protobuf"><span class="octicon octicon-link"></span></a>Protobuf</h3>
+<p>Protobuf component is an optional component that is not loaded by default, it will be loaded only when connector component is configured to enable "useProtobuf" option. This component will load the corresponding proto files and do encoding/decoding messages using protobuf. The configuration file it uses is config/serverProtos.json and config/clientProtos.json.</p>
+<p><strong>Configuration Options</strong> : None.</p>
+<h3>
+<a aria-hidden="true" class="anchor" href="#channel" id="user-content-channel"><span class="octicon octicon-link"></span></a>Channel</h3>
+<p>Channel component maintains the channel information that is loaded by all the servers except master server, it is a component wrapper for channelService, you can get channelService by "app.get ('channelService')" after loading channel component. Channel can be treated as a collection of users that have logined in, each user is corresponding to one or more sessions in frontend servers, developers can push message to a channel by channel component, which will push messages to all users contained by the channel. </p>
+<p><strong>Configuration Options</strong> :</p>
+<ul>
+<li>
+<p>broadcastFilter, filter for broadcast. when broadcasting, it will filter the messages before sending messages to client in frontend servers. Its function signature is:</p>
+<p>broadcastFilter(session, msg, filterParam);</p>
+</li>
+</ul>
+<p>Here filterParam parameter is passed via call to broadcast in channelService, as follows:</p>
+<pre><code>channelService.broadcast(type, route, {filterParam: param}, cb)
+</code></pre>
+<p>Configure channel component by:</p>
+<pre><code>app.set('channelConfig', opts)
+</code></pre>
+<h3>
+<a aria-hidden="true" class="anchor" href="#backendsession" id="user-content-backendsession"><span class="octicon octicon-link"></span></a>BackendSession</h3>
+<p>BackendSession component is loaded by all the servers except master server, it is a component wrapper for BackendSessionService, you can get backendSessionService by "app.get ('backendSessionService')" after loading backendSession component. It generates and maintains backendSessions for backend servers, also it can be used to operate raw sessions that maintained by frontend servers by RPC invocation.</p>
+<p><strong>Configuration Options</strong>: None.</p>
+</div>
+</div></body></html>

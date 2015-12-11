@@ -1,0 +1,154 @@
+<html><head prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# object: http://ogp.me/ns/object# article: http://ogp.me/ns/article# profile: http://ogp.me/ns/profile#">
+<meta charset="utf-8">
+<meta content="IE=edge" http-equiv="X-UA-Compatible">
+<meta content="en" http-equiv="Content-Language">
+<meta content="width=1020" name="viewport">
+<title>Pomelo command line tool · NetEase/pomelo Wiki · GitHub</title>
+<link href="/opensearch.xml" rel="search" title="GitHub" type="application/opensearchdescription+xml">
+<link href="src/ad667adaa2cfe8f3caa4a41b7d0a79a1.png" rel="fluid-icon" title="GitHub">
+<link href="src/a10d19ff5f738940a7a5086be334f50b.png" rel="apple-touch-icon" sizes="57x57">
+<link href="src/a10d19ff5f738940a7a5086be334f50b.png" rel="apple-touch-icon" sizes="114x114">
+<link href="src/b4cd268bc600cc14d2cdd557de6da2fb.png" rel="apple-touch-icon" sizes="72x72">
+<link href="src/b4cd268bc600cc14d2cdd557de6da2fb.png" rel="apple-touch-icon" sizes="144x144">
+<meta content="1401488693436528" property="fb:app_id">
+<meta content="@github" name="twitter:site"/><meta content="summary" name="twitter:card"/><meta content="NetEase/pomelo" name="twitter:title"/><meta content="pomelo - A fast,scalable,distributed game server framework for Node.js." name="twitter:description"/><meta content="https://avatars0.githubusercontent.com/u/1460597?v=3&amp;s=400" name="twitter:image:src"/>
+<meta content="GitHub" property="og:site_name"/><meta content="object" property="og:type"/><meta content="https://avatars0.githubusercontent.com/u/1460597?v=3&amp;s=400" property="og:image"/><meta content="NetEase/pomelo" property="og:title"/><meta content="https://github.com/NetEase/pomelo" property="og:url"/><meta content="pomelo - A fast,scalable,distributed game server framework for Node.js." property="og:description"/>
+<meta content="https://api.github.com/_private/browser/stats" name="browser-stats-url">
+<meta content="https://api.github.com/_private/browser/errors" name="browser-errors-url">
+<link href="https://assets-cdn.github.com/" rel="assets">
+<meta content="1000" name="pjax-timeout">
+<meta content="/windows-tile.png" name="msapplication-TileImage">
+<meta content="#ffffff" name="msapplication-TileColor">
+<meta data-pjax-transient="" name="selected-link" value="repo_wiki">
+<meta content="KT5gs8h0wvaagLKAVWq8bbeNwnZZK1r1XQysX3xurLU" name="google-site-verification">
+<meta content="UA-3769691-2" name="google-analytics">
+<meta content="collector.githubapp.com" name="octolytics-host"/><meta content="github" name="octolytics-app-id"/><meta content="CA86616A:448C:146BB239:5670C088" name="octolytics-dimension-request_id"/>
+<meta content="/&lt;user-name&gt;/&lt;repo-name&gt;/wiki/show" data-pjax-transient="true" name="analytics-location"/>
+<meta content="Rails, view, wiki#show" data-pjax-transient="true" name="analytics-event"/>
+<meta class="js-ga-set" content="Logged Out" name="dimension1">
+<meta content="github.com" name="hostname">
+<meta content="" name="user-login">
+<meta content="github.com" name="expected-hostname">
+<link color="#4078c0" href="https://assets-cdn.github.com/pinned-octocat.svg" rel="mask-icon">
+<link href="https://assets-cdn.github.com/favicon.ico" rel="icon" type="image/x-icon">
+<meta content="d1069987b62930936f4985c126030f3695ae6725" name="form-nonce"/>
+<link crossorigin="anonymous" href="src/350888e1495e7af27e01faa9d8291dee.css" media="all" rel="stylesheet"/>
+<link crossorigin="anonymous" href="src/9fae9b7d8f0785d745a43c6465f74ae5.css" media="all" rel="stylesheet"/>
+<meta content="cd9958d45e48e8e3157a320e9c346eaa" http-equiv="x-pjax-version">
+<meta content="pomelo - A fast,scalable,distributed game server framework for Node.js." name="description">
+<meta content="github.com/NetEase/pomelo git https://github.com/NetEase/pomelo.git" name="go-import">
+<meta content="1460597" name="octolytics-dimension-user_id"/><meta content="NetEase" name="octolytics-dimension-user_login"/><meta content="5880912" name="octolytics-dimension-repository_id"/><meta content="NetEase/pomelo" name="octolytics-dimension-repository_nwo"/><meta content="true" name="octolytics-dimension-repository_public"/><meta content="false" name="octolytics-dimension-repository_is_fork"/><meta content="5880912" name="octolytics-dimension-repository_network_root_id"/><meta content="NetEase/pomelo" name="octolytics-dimension-repository_network_root_nwo"/>
+<link href="https://github.com/NetEase/pomelo/commits/master.atom" rel="alternate" title="Recent Commits to pomelo:master" type="application/atom+xml">
+</link></meta></meta></meta></link></link></meta></meta></meta></meta></meta></meta></meta></meta></meta></meta></link></meta></meta></meta></link></link></link></link></link></link></meta></meta></meta></meta></head><body style="padding:0 25px;"><div class="gollum-markdown-content instapaper_body" id="wiki-body">
+<div class="markdown-body">
+<p>Pomelo provides command line tool that can help developers build applications  more conveniently and more efficiently. The tool can be used for various development operations, including creating project, starting application, debugging application, stopping application, etc..</p>
+<h1>
+<a aria-hidden="true" class="anchor" href="#tool-installation" id="user-content-tool-installation"><span class="octicon octicon-link"></span></a>Tool Installation</h1>
+<p>Pomelo command line tool will be automatically installed when installing pomelo framework using following command:</p>
+<pre><code>$ npm install pomelo -g
+</code></pre>
+<h1>
+<a aria-hidden="true" class="anchor" href="#commands" id="user-content-commands"><span class="octicon octicon-link"></span></a>Commands</h1>
+<p>Currently pomelo supports the following commands:</p>
+<ul>
+<li>init: Create a new project that contains basic files with which can build pomelo-based applications;</li>
+<li>start: Launch the application and the server;</li>
+<li>list: List information of all servers that the application is running on, including serverId, serverType, pid, heap usage and uptime.</li>
+<li>stop: Stop all or specified running server of the application.</li>
+<li>kill: Kill the application immediately in a rude way.</li>
+<li>add: Dynamicly add an application server at runtime.</li>
+<li>--version: Show version of pomelo framework.</li>
+<li>--help: Show information of all commands and instructions supported by pomelo framework.</li>
+</ul>
+<h1>
+<a aria-hidden="true" class="anchor" href="#command-usage-" id="user-content-command-usage-"><span class="octicon octicon-link"></span></a>Command Usage </h1>
+<ul>
+<li>init</li>
+</ul>
+<p>It is used to create a new project at the path given by user, and it supports relative and absolute paths. The default path is the current work directory and the default project name is the name of the current work directiory:</p>
+<pre><code>pomelo init [dirname]
+</code></pre>
+<p><strong>Note</strong>: When creating a new project, you need to choose which connector to use when communicating with the client, 1 for Websocket(native socket), 2 for socket.io. </p>
+<ul>
+<li>start</li>
+</ul>
+<p>The command is to launch pomelo application:</p>
+<pre><code>pomelo start [-e, --env &lt;env&gt;] [-d, --directory &lt;code directory&gt;]
+             [-D, --daemon]
+</code></pre>
+<p>Where, option <code>-e, --env</code> is used to specify environment and it would be <code>development</code> by default; <code>-D, --daemon</code> is to enable daemon mode, if it is enabled, then the application would run in background; <code>-d, --directory</code> is used to specify where the source code places and it would be current work directory by default.</p>
+<p><strong>Note</strong>: Prior to version 0.8, <code>pomelo start</code> does not support <code>-e, --env</code> option, and it use the way below to specify the env:</p>
+<pre><code>pomelo start production
+</code></pre>
+<p><code>forever</code> is not requireed in version 0.8 if starting pomelo appliction in daemon mode.</p>
+<p>Users can add parameters for different type of servers by modifying server configuration file /game-server/config/servers.json. The parameter for v8/node is also supported while launching servers. For example, when debugging a server is required, we can configure the server starting parameters shown as follows:</p>
+<div class="highlight highlight-source-json"><pre>{
+  <span class="pl-s"><span class="pl-pds">"</span>connector<span class="pl-pds">"</span></span>: [
+    {
+      <span class="pl-s"><span class="pl-pds">"</span>id<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>connector-server-1<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>host<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>127.0.0.1<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>port<span class="pl-pds">"</span></span>: <span class="pl-c1">4050</span>,
+      <span class="pl-s"><span class="pl-pds">"</span>clientPort<span class="pl-pds">"</span></span>: <span class="pl-c1">3050</span>, <span class="pl-s"><span class="pl-pds">"</span>args<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>--debug=[port]<span class="pl-pds">"</span></span>
+    }
+  ]
+}</pre></div>
+<ul>
+<li>list</li>
+</ul>
+<p>This command can list information of all running servers. When doing this, the tool is as a client for server administration framework, so username/password is required to register to master server. For the default generated project by <code>pomelo init</code>, there is a default user named <code>admin</code>, whose password is also <code>admin</code>. So that if username/password is not specified, the default username/password will be both <code>admin</code>. The following <code>stop</code> command and <code>kill</code> command require username/password too, and the default is the same as <code>list</code> here. Developers can modify file config/adminUser.json to configure the admin users, and the generated project has a sample for that.</p>
+<p>It is also required to specify the host:port of master server, so that this command can be executed everywhere, and so does <code>pomelo stop/kill/add</code>.  The default is 127.0.0.1:3005.</p>
+<pre><code>pomelo list [-u, --username &lt;username&gt;] [-p, --password &lt;password&gt;]
+            [-h, --host &lt;master-host&gt;] [-P, --port &lt;master-port&gt;]
+</code></pre>
+<ul>
+<li>stop</li>
+</ul>
+<p>This command can stop the application gracefully. Being different from <code>pomelo kill</code> command, it will first close the client connections between clients and the server, and then terminate all servers one by one. You can also stop only a server not all servers by specifying a serverId.Being similar as <code>list</code> command, this command requires username/password and master's host:port  specified too. </p>
+<pre><code>pomelo stop [-u, --username &lt;username&gt;] [-p, --password &lt;password&gt;]
+            [-h, --host &lt;master-host&gt;] [-P, --port &lt;master-port&gt;]
+            [&lt;serverIds&gt;...]
+</code></pre>
+<p>Example:</p>
+<pre><code>pomelo stop                     # stop all the servers
+pomelo stop server-1 server-2   # just stop server-1 server-2
+</code></pre>
+<ul>
+<li>kill</li>
+</ul>
+<p>This command can teminate the application forcefully. If the application is running locally in development environment, you can use <code>pomelo kill --force</code> to kill all the node processes, which is quite violent and it may result in data loss and other bad effects. You can use this command when developing and debugging, it is not recommended to use this command in production environment. The command also requires authentication same as <code>list</code> and <code>stop</code>.</p>
+<pre><code>pomelo kill [-u, --username &lt;username&gt;] [-p, --password &lt;password&gt;]
+            [-h, --host &lt;master-host&gt;] [-P, --port &lt;master-port&gt;]
+            [-f, --force]
+</code></pre>
+<ul>
+<li>add</li>
+</ul>
+<p>This command can add server dynamicly at runtime. Being similar to <code>pomelo list</code>, it also requires authentication and master server host:port specified.</p>
+<pre><code>pomelo add [-u, --username &lt;username&gt;] [-p, --password &lt;password&gt;]
+            [-h, --host &lt;master-host&gt;] [-P, --port &lt;master-port&gt;]
+            [&lt;server-args&gt;...]
+</code></pre>
+<p>Example:</p>
+<pre><code>pomelo add host=127.0.0.1 port=8000 clientPort=90000 frontend=true serverType=connector id=added-connector-server-1
+</code></pre>
+<ul>
+<li>masterha</li>
+</ul>
+<p>If master HA is enabled, this command can start the slaves of the master server, it needs the configuration file masterha.json placed into game-server/config. <code>-d, --directory</code> for code directory and by default it would be current work directory:</p>
+<pre><code>pomelo masterha [-d, --directory &lt;code directory&gt;]
+</code></pre>
+<p>Example:</p>
+<pre><code>pomelo masterha 
+pomelo masterha -d /home/my/project/game-server
+</code></pre>
+<ul>
+<li>other</li>
+</ul>
+<p>To view the current version of pomelo:</p>
+<pre><code>pomelo --version
+</code></pre>
+<p>Help info:</p>
+<pre><code>pomelo --help
+pomelo add --help
+pomelo kill --help
+</code></pre>
+</div>
+</div></body></html>

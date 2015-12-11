@@ -1,0 +1,622 @@
+<html><head>
+<title>深入浅出node.js游戏服务器开发——基于Pomelo的MMO RPG开发</title>
+<meta content="no-cache" http-equiv="pragma"/>
+<meta content="no-cache" http-equiv="cache-control"/>
+<meta content="0" http-equiv="expires"/>
+<meta content="text/html; charset=utf-8" http-equiv="content-type"/>
+<meta content="© 2006 C4Media" name="copyright"/>
+<meta content="0qInQx_1WYOeIIbxnh7DnXlw1XOxNgAYakO2k4GhNnY" name="google-site-verification"/>
+<meta content="#ffffff" name="msapplication-TileColor"/>
+<meta content="/styles/i/logo.jpg" name="msapplication-TileImage"/>
+<meta content="3eac1729a8bbe046" property="wb:webmaster"/>
+<link href="http://fonts.useso.com/css?family=Gentium+Book+Basic" rel="stylesheet" type="text/css"/>
+<link href="src/b6af0e04b364f2f10b3e3064dd77457a.css" media="screen" rel="stylesheet" type="text/css"/>
+<link href="src/e948095038e2595f5333fa32752ff502.css" media="screen" rel="stylesheet" type="text/css"/>
+<link href="http://cdn2.infoqstatic.com/statics_s2_20151215-0056/favicon.ico" rel="shortcut icon" type="image/x-icon"/>
+<link href="src/26b0306c28f1b994d2349373aaeb53c5.png" rel="apple-touch-icon"/>
+<link href="src/44fbd2a44f3b544cc404e4da45e2a9f9.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript">
+        	var device="desktop";
+            var InfoQConstants = {};
+            InfoQConstants.language = 'zh';
+            InfoQConstants.countryCode = '/cn';
+            
+        </script>
+<script src="src/802199c49f781cf2230c507513e4c58f.js" type="text/javascript"></script>
+<script type="text/javascript">
+            
+                var JSi18n = JSi18n || {}; // define only if not already defined
+                JSi18n.error='错误';
+                JSi18n.login_unverifiedAccount='未验证的账号';
+                JSi18n.contentSummary_showPresentations_1='整理准备中，敬请期待';
+                JSi18n.contentSummary_showPresentations_2='我们致力于为您提供来自全球业界及中国本土社区顶尖技术大会精彩的中英文专家演讲的视频，目前资料正在编辑整理中，将于近期发布。';
+                JSi18n.contentSummary_showPresentations_3='感谢您的支持与耐心等待！';
+                JSi18n.contentSummary_showInterviews_1='';
+                JSi18n.contentSummary_showInterviews_2='';
+                JSi18n.contentSummary_showInterviews_3='';
+                JSi18n.contentSummary_showMinibooks_1='';
+                JSi18n.contentSummary_showMinibooks_2='';
+                JSi18n.login_sendingRequest='发送请求……';
+                JSi18n.bookmark_saved='<q>&nbsp;&nbsp;&nbsp;已保存&nbsp;&nbsp;&nbsp;&nbsp;</q>';
+                JSi18n.bookmark_error='<q style=color:black;>&nbsp;&nbsp;&nbsp;出错&nbsp;&nbsp;&nbsp;&nbsp;</q>';
+                JSi18n.categoryManagement_showpopup_viewAllLink_viewAllPrefix='显示所有“';
+                JSi18n.categoryManagement_showpopup_viewAllLink_viewAllSuffix='”内容';
+                JSi18n.categoryManagement_showpopup_includeExcludeLink_Exclude='过滤';
+                JSi18n.categoryManagement_showpopup_includeExcludeLink_Include='取消过滤';
+                JSi18n.login_invalid_email='请填写有效的电子邮箱';
+                JSi18n.login_email_not_found = '这个邮箱好像没在这儿注册过';
+            
+
+            var loggedIn=false;
+        </script>
+<script type="text/javascript">
+            function createOverFunction(i) {
+                var pixels = i * 129;
+                return function() {
+                    $('#personas_' + i).addClass('selected');
+                    $('ul.menu > li .top_submenu.c' + i).css('left','-' + pixels + 'px');
+                }
+            };
+            function createOutFunction(i) {
+                return function() {
+                    $('ul.menu > li .top_submenu.c' + i).css('left','-999em');
+                    $('#personas_' + i).removeClass('selected');
+                }
+            }
+            $(function() {
+                for (var i = 0; i < 5; i++) {
+                    $('ul.menu > li').has('.top_submenu.c' + i).hoverIntent({
+                        sensitivity: 15,
+                        interval: 150,
+                        timeout:200,
+                        over: createOverFunction(i),
+                        out: createOutFunction(i)
+                    });
+                }
+            });
+        </script>
+<script src="src/c2270b956f149abcb03ae2bf0f78f015.js"></script>
+<script type="text/javascript">
+var googletag = googletag || {};
+googletag.cmd = googletag.cmd || [];
+(function() {
+	var gads = document.createElement('script');
+	gads.async = true;
+	gads.type = 'text/javascript';
+	var useSSL = 'https:' == document.location.protocol;
+	gads.src = (useSSL ? 'https:' : 'http:') + '//www.googletagservices.com/tag/js/gpt.js';
+	var node = document.getElementsByTagName('script')[0];
+	node.parentNode.insertBefore(gads, node);
+})();
+
+
+googletag.cmd.push(function() {
+	googletag.defineSlot('/5286733/zh_geo_banner_bottom', [728, 90], 'id_geo_banner_ad').addService(googletag.pubads());
+	googletag.defineSlot('/5286733/zh_300x250_banner_top', [300, 250], 'id_300x250_banner_top').addService(googletag.pubads());
+	googletag.defineSlot('/5286733/zh_300x250_banner_bottom', [300, 250], 'id_300x250_banner_bottom').addService(googletag.pubads());
+	googletag.defineSlot('/5286733/zh_textlink1', [250, 60], 'id_ad_textlink1').addService(googletag.pubads());
+	googletag.defineSlot('/5286733/zh_textlink2', [250, 60], 'id_ad_textlink2').addService(googletag.pubads());
+	googletag.defineSlot('/5286733/zh_textlink3', [250, 60], 'id_ad_textlink3').addService(googletag.pubads());
+/*	googletag.defineSlot('/5286733/zh_textlink4', [120, 100], 'id_ad_textlink4').addService(googletag.pubads());
+	googletag.defineSlot('/5286733/zh_textlink5', [120, 100], 'id_ad_textlink5').addService(googletag.pubads());*/
+	googletag.defineSlot('/5286733/zh_300x250_category', [300, 250], 'id_300x250_category').addService(googletag.pubads());
+	googletag.defineSlot('/5286733/zh_300x250_banner_searchResults', [300, 250], 'id_300x250_banner_searchResults').addService(googletag.pubads());
+	googletag.pubads().enableSingleRequest();       
+    
+	// central function used for checking the GAM slots for displayed/not displayed ads 
+    googletag.pubads().addEventListener('slotRenderEnded', function(event) {
+	  	// on slot rendered we need to check multiple events for multiple elements defined in multiple places
+       	// ( text links, optional vcr, related rightbar native vcr box)
+        	
+       	 
+	       	// check the optional vcr box on slot rendered (defined in vcr_optional.jsp)
+	       	if (typeof(optionalVcrBoxSlotRendered) == typeof(Function)){        		
+	       		optionalVcrBoxSlotRendered(event);
+	       	}
+       		
+       	// check the sponsored links (defined in see sponsoredLinks.jsp)
+       	if (typeof(sponsoredLinksSlotRendered) == typeof(Function)){
+       		sponsoredLinksSlotRendered(event);
+       	}
+       	
+       	// see the related rightbar optional vcr box(defined in rightbarOptionalVcrBox.js)
+       	if (optionalVcrBox && typeof(optionalVcrBox.relatedRightbarNativeVcrSlotRendered) == typeof(Function)){
+       		optionalVcrBox.relatedRightbarNativeVcrSlotRendered(event);
+       	}
+	});
+        
+   	googletag.pubads().collapseEmptyDivs();
+	googletag.enableServices();
+});
+
+function isAdBlocked(){
+    return ( window.noAdblocker === undefined );
+}
+</script>
+<script type="text/javascript">window.NREUM||(NREUM={}),__nr_require=function(e,n,t){function r(t){if(!n[t]){var o=n[t]={exports:{}};e[t][0].call(o.exports,function(n){var o=e[t][1][n];return r(o||n)},o,o.exports)}return n[t].exports}if("function"==typeof __nr_require)return __nr_require;for(var o=0;o<t.length;o++)r(t[o]);return r}({QJf3ax:[function(e,n){function t(e){function n(n,t,a){e&&e(n,t,a),a||(a={});for(var u=c(n),f=u.length,s=i(a,o,r),p=0;f>p;p++)u[p].apply(s,t);return s}function a(e,n){f[e]=c(e).concat(n)}function c(e){return f[e]||[]}function u(){return t(n)}var f={};return{on:a,emit:n,create:u,listeners:c,_events:f}}function r(){return{}}var o="nr@context",i=e("gos");n.exports=t()},{gos:"7eSDFh"}],ee:[function(e,n){n.exports=e("QJf3ax")},{}],3:[function(e,n){function t(e){return function(){r(e,[(new Date).getTime()].concat(i(arguments)))}}var r=e("handle"),o=e(1),i=e(2);"undefined"==typeof window.newrelic&&(newrelic=window.NREUM);var a=["setPageViewName","addPageAction","setCustomAttribute","finished","addToTrace","inlineHit","noticeError"];o(a,function(e,n){window.NREUM[n]=t("api-"+n)}),n.exports=window.NREUM},{1:12,2:13,handle:"D5DuLP"}],gos:[function(e,n){n.exports=e("7eSDFh")},{}],"7eSDFh":[function(e,n){function t(e,n,t){if(r.call(e,n))return e[n];var o=t();if(Object.defineProperty&&Object.keys)try{return Object.defineProperty(e,n,{value:o,writable:!0,enumerable:!1}),o}catch(i){}return e[n]=o,o}var r=Object.prototype.hasOwnProperty;n.exports=t},{}],D5DuLP:[function(e,n){function t(e,n,t){return r.listeners(e).length?r.emit(e,n,t):void(r.q&&(r.q[e]||(r.q[e]=[]),r.q[e].push(n)))}var r=e("ee").create();n.exports=t,t.ee=r,r.q={}},{ee:"QJf3ax"}],handle:[function(e,n){n.exports=e("D5DuLP")},{}],XL7HBI:[function(e,n){function t(e){var n=typeof e;return!e||"object"!==n&&"function"!==n?-1:e===window?0:i(e,o,function(){return r++})}var r=1,o="nr@id",i=e("gos");n.exports=t},{gos:"7eSDFh"}],id:[function(e,n){n.exports=e("XL7HBI")},{}],G9z0Bl:[function(e,n){function t(){var e=d.info=NREUM.info,n=f.getElementsByTagName("script")[0];if(e&&e.licenseKey&&e.applicationID&&n){c(p,function(n,t){n in e||(e[n]=t)});var t="https"===s.split(":")[0]||e.sslForHttp;d.proto=t?"https://":"http://",a("mark",["onload",i()]);var r=f.createElement("script");r.src=d.proto+e.agent,n.parentNode.insertBefore(r,n)}}function r(){"complete"===f.readyState&&o()}function o(){a("mark",["domContent",i()])}function i(){return(new Date).getTime()}var a=e("handle"),c=e(1),u=window,f=u.document;e(2);var s=(""+location).split("?")[0],p={beacon:"bam.nr-data.net",errorBeacon:"bam.nr-data.net",agent:"js-agent.newrelic.com/nr-768.min.js"},d=n.exports={offset:i(),origin:s,features:{}};f.addEventListener?(f.addEventListener("DOMContentLoaded",o,!1),u.addEventListener("load",t,!1)):(f.attachEvent("onreadystatechange",r),u.attachEvent("onload",t)),a("mark",["firstbyte",i()])},{1:12,2:3,handle:"D5DuLP"}],loader:[function(e,n){n.exports=e("G9z0Bl")},{}],12:[function(e,n){function t(e,n){var t=[],o="",i=0;for(o in e)r.call(e,o)&&(t[i]=n(o,e[o]),i+=1);return t}var r=Object.prototype.hasOwnProperty;n.exports=t},{}],13:[function(e,n){function t(e,n,t){n||(n=0),"undefined"==typeof t&&(t=e?e.length:0);for(var r=-1,o=t-n||0,i=Array(0>o?0:o);++r<o;)i[r]=e[n+r];return i}n.exports=t},{}]},{},["G9z0Bl"]);</script><script src="src/4b2975adfbf6175e4ddfcf9b7286dcfa.js" type="text/javascript"></script>
+<meta content="website" property="og:type"/>
+<meta content="https://www.infoq.com/resource/articles/game-server-development-3/zh/smallimage/pomelo.png" property="og:image"/>
+<meta content="深入浅出node.js游戏服务器开发——基于Pomelo的MMO RPG开发 " property="og:title"/>
+<meta content="" property="og:description"/>
+<meta content="InfoQ" property="og:site_name"/>
+<link href="src/6894d14cc26c182674137420b54a76c2.png" rel="image_src"/>
+<link href="src/e6f1b60bdb938b2a89451a422bd0db48.css" rel="stylesheet"/>
+<meta content="game server development 3,架构 &amp; 设计,语言 &amp; 开发,游戏开发,深入浅出Node.js,Node.js,游戏服务器,游戏," name="keywords"/>
+<meta content="" name="description"/>
+<meta content="1364337420000" name="tprox"/>
+<script type="text/javascript">
+	            $(function() {
+	                var box = $('.related_sponsors.visible.stacked');
+	                if (box.length === 0) {
+	                    return;
+	                }
+	                var nextSibling = $(box).next();
+	                
+	                if ($('#lowerFullwidthVCR').length === 0) {
+	                    moveLowerInThePage(box);
+	                    return;
+	                }
+	                
+	                if (blockElement(nextSibling)) {
+	                    moveLowerInThePage(box);
+	                    return;
+	                }
+	                
+	                while (!blockElement($(nextSibling).next())) {
+	                        nextSibling = $(nextSibling).next();
+	                        if (firstLowerThanSecond(nextSibling, box)) {
+	                            return;
+	                        }
+	                }
+	                moveLowerInThePage(box);
+	
+	                function blockElement(elem) {
+	                    if ($(elem).prop('tagName') === 'BLOCKQUOTE'
+	                        || $(elem).prop('tagName') === 'IMG'
+	                        || $(elem).prop('tagName') === 'PRE'
+	                        || ($(elem).prop('tagName') === 'P' && $(elem).children().length === 1 && $(elem).children('img').length === 1)) {
+	                        return true;
+	                    }
+	                    return false;
+	                }
+	
+	                function firstLowerThanSecond(elem1, elem2) {
+	                    var elem1BottomYCoordinate = $(elem1).offset().top + $(elem1).height()
+	                    var elem2BottomYCoordinate = $(elem2).offset().top + $(elem2).height();
+	                    if (elem1BottomYCoordinate > elem2BottomYCoordinate) {
+	                        return true;
+	                    }
+	                    return false;
+	                }
+	
+	                function moveLowerInThePage(box) {
+	                    if ($('#lowerFullwidthVCR').length !== 0) {
+	                        $('#lowerFullwidthVCR').replaceWith(box);
+	                    }
+	                    $(box).removeClass('stacked');
+	                }
+	            });
+	        </script>
+<link href="src/ee6c1d24a23f3be608da4b9cd76d01ae.jpg" rel="image_src"/>
+<meta content="http://cdn3.infoqstatic.com/statics_s2_20151215-0056/styles/i/logo-big.jpg" property="og:image"/>
+</head><body><div class="article_page_left text_content_container">
+<div class="text_info text_info_article">
+<p>在上一篇文章中，我们介绍了如何使用Pomelo来搭建聊天服务器。在这篇文章中，我们为大家介绍如何使用Pomelo框架来搭建MMO RPG服务器，并分析其设计思路和实现方法。以此来帮助大家更好的理解和使用Pomelo框架，理解Pomelo框架游戏开发的基础流程，使用方法和设计理念。</p>
+<p>本文中的游戏服务端架构，只是为了说明Pomelo的开发理念和设计思路，并不是基于Pomelo开发的唯一方案，开发者完全可以根据自己的实际应用环境设计不同的服务端架构。</p>
+<h2>开始之前</h2>
+<h3>Pomelo框架与MMO RPG</h3>
+<p>我们曾在本系列<a href="http://www.infoq.com/cn/articles/game-server-development-1">第一篇文章</a>曾介绍过pomelo的架构。我们先简单回顾一下Pomelo为我们的游戏开发提供了什么：</p>
+<div class="clear"></div>
+<div class="related_sponsors visible stacked">
+<div class="gray_section_related only1 fullWidth">
+<div class="related_editorial sponsored only2">
+<p class="title">相关厂商内容</p>
+<div class="links">
+<h3 class="entrypdf" title="">
+<a href="/infoq/url.action?i=8455&amp;t=f" target="_blank">
+	                                    看Scala如何颠覆传统金融企业
+	                                </a>
+</h3>
+<h3 class="entrypdf" title="">
+<a href="/infoq/url.action?i=8657&amp;t=f" target="_blank">
+	                                    在容器时代，云计算下一步将如何发展？
+	                                </a>
+</h3>
+<h3 class="entrypdf" title="">
+<a href="/infoq/url.action?i=8457&amp;t=f" target="_blank">
+	                                    微众架构首秀--基于自主可控技术的分布式架构实践
+	                                </a>
+</h3>
+<h3 class="entrypdf" title="">
+<a href="/infoq/url.action?i=8458&amp;t=f" target="_blank">
+	                                    企业级SaaS应用平台--钉钉技术历程之路
+	                                </a>
+</h3>
+<h3 class="entrypdf" title="">
+<a href="/infoq/url.action?i=8733&amp;t=f" target="_blank">
+	                                    看一号店如何直击电商系统痛点！
+	                                </a>
+</h3>
+<div class="clear"></div>
+</div>
+</div>
+</div>
+<div class="s only2">
+<p class="title">相关赞助商</p>
+<img border="0" src="src/407474695a38e6e3a7fc43e7c3fb0bb7.jpg" style="margin: 0 0 5px 5px; float:right;"/>
+<div class="links">
+<p>全球架构师峰会，12月18-19日，北京·国际会议中心，<a href="/infoq/url.action?i=8849&amp;t=f" target="_blank">精彩内容</a>邀您参与！</p>
+</div>
+</div>
+<div class="clear"></div>
+</div>
+<ul>
+<li>可扩展的服务器架构。Pomelo中对服务器端进行了抽象，将服务器分为承载链连接的前端服务器和负责业务逻辑的后端服务器，并提供了便利，高效的分布式扩展支持，让使用者可以在少改甚至不改的前提下实现对服务端的扩展。</li>
+<li>完整的通信框架：Pomelo对客户端与服务器之间，服务器与服务器之间的通信进行了完整的封装。开发者只需要按照默认规则来填写服务代码就可以完成接口的发布和调用，而不用考虑内部实现。</li>
+<li>大量游戏开发基础库：除了基本的服务器框架之外，Pomelo还提供了很多游戏开发需要用到的基础库，如任务调度，AI控制，寻路等，而这些库还会随着Pomelo的发展进一步完善。</li>
+<li>基于Node.JS轻量级的开发环境，以及大量的模块。相对于传统的开发语言，Node.JS有着轻量，快捷的特性（0.3版中启动一个包括10几个服务器集成的服务端只需要不到4S）。而活跃的开源社区也提供了大量的第三方模块。</li>
+</ul>
+<p>作为Pomelo游戏开发的入门导引，本文的重点将放在游戏基础架构的搭建上，因此本文将主要介绍下面三个方面的内容：游戏服务端的构建，与客户端的通讯，服务器的扩展。</p>
+<h3>本文的参考示例</h3>
+<p>我们使用demo Treasures作为本文的参考示例，游戏的截图如下：</p>
+<p><img _href="img://null" _p="true" alt="" src="src/c3c2dc7f15ea7bb7540cf282646c6d10.png" width="500px"/></p>
+<div id="lowerFullwidthVCR"></div>
+<p>从上图可以看出，在treasures中，玩家会进入一张遍布宝物的地图中，通过拾取宝物来获得积分。所有玩家的积分在右上角会有一个排名。下面是这个demo的关键点：</p>
+<ul>
+<li>每个玩家的行动对其他玩家来看都是实时的。</li>
+<li>在获取宝物时积分会更新积分榜，这个更新对所有玩家实时可见。</li>
+<li>宝物会定时刷新。</li>
+</ul>
+<p>相对于一般的的MMO RPG，这个demo显得十分简陋：没有持久化，没有战斗，没有AI。。。但是，其中实现了MMO RPG中最核心的亮点功能：一个可以容纳多个在线玩家的游戏场景，以及玩家之间的实时互动。那些功能的确实可以让系统的结构更加清晰明确，成为一个非常好的项目导引。</p>
+<h2>搭建游戏服务端</h2>
+<p>由于游戏逻辑十分简单，我们后端采用一台单独的场景服务器来运行整个游戏逻辑，同时加入一台连接服务器来承载用户连接，系统的设计如下：</p>
+<p><img _href="img://null" _p="true" alt="" src="src/cb2c74069a8b3d53b9c34b59d2febd8c.png"/></p>
+<p>下面，我们就按照这个设计来搭建游戏服务端。</p>
+<h3>编写场景服务</h3>
+<p>游戏场景是玩家所处的虚拟环境，而场景服务器就是游戏场景在服务端的抽象，根据游戏类型和内容的不同，场景服务器的复杂程度也会千差万别。在我们的例子中，场景的构成十分简单：一张开放的游戏地图，地图中的玩家，以及定时刷新的宝物。</p>
+<p>首先，作为一个场景服务器，需要能够储存用户和宝物的信息，这里我们直接使用一个放在内存中的map来储存场景中的所有实体，同时，我们将所有场景中的实体都抽象为一个Entity对象，放在这个map中。</p>
+<p>为了能够操纵这些数据，还需要暴露出对外接口，我们使用的接口有下面三种：</p>
+<ul>
+<li>初始化的接口:我们在init方法中会设置场景信息，配置参数等,并启动场景中的时钟循环。</li>
+<li>实体访问接口：如AddEntity和RemoveEntity接口等，我们使用这些接口来访问和修改场景中的实体。</li>
+<li>刷新场景中的宝物：当满足条件时，外部事件会调用该接口来刷新地图中的宝物。</li>
+</ul>
+<p>我们通过一个无限循环的tick来驱动场景服务，在每一个tick中会更新场景中所有实体的状态信息，我们最终设计如下：</p>
+<p><img _href="img://null" _p="true" alt="" src="src/9c46588ef6386d6556868e7009e3dd63.png" width="500px"/></p>
+<h3>搭建场景服务器</h3>
+<p>在完成场景服务的代码之后，我们还需要提供一个场景服务运行的平台，在Pomelo中，我们通过搭建一个场景服务器来实现。</p>
+<p>Pomelo中的服务器分为两类，负责承载用户连接的前端服务器和运行逻辑的后端服务器。作为负责核心逻辑的场景服务器，自然是属于后端服务器，因此，我们在/game-sever/config/server.json中加入以下配置：</p>
+<p><code>     "area": [       {"id": "area-server-1", "host": "127.0.0.1", "port": 3250, "areaId": 1}     ] </code></p>
+<p>其中的“area”是我们为场景服务器类型所起的名称，其对应的内容就是场景服务器的列表，可以看出，现在我们只加入了单台场景服务器。与聊天服务器相比，场景服务器的配置并没有明显区别，只是多了一个areaId的属性。我们使用这一属性来标明这个场景服务器对应的场景id，我们的建议设计是<strong>一个游戏服务器对应一个独立的游戏场景</strong>，这样可以大大减少场景管理的开销，并提高单场景的负载能力。Pomelo中每一个服务器就是一个独立的进程，相对于一个场景服务的开销，单独的服务器造成的开销是可以接受的。当然，这只是建议设计，框架本身完全支持一个游戏服务器对应多个游戏场景的设计。开发者可以根据具体的应用情况调整场景服务器的配置，通过加入场景管理逻辑，实现一个场景服务器和场景之间的自由配置。</p>
+<h3>启动场景服务</h3>
+<p>在加入场景服务器之后，我们还需要对服务端的运行环境进行配置，在场景服务器启动时运行对应的场景服务。为了实现这一目标，我们需要在app.js中加入如下配置：</p>
+<p><code>     app.configure('production|development', 'area', function(){       var areaId = app.get('curServer').areaId;       area.init(dataApi.area.findById(areaId));     }); </code></p>
+<p>app.configure方法用来对指定的服务器进行配置，包括三个参数，前两个参数分别是运行环境和服务器类型的filter，第三个参数是在满足前面两个filter的情况下需要运行的代码。在上面的配置中，第一个参数"production|development"表示是针对线上和开发两种环境，之后的‘area’参数表示的是针对area服务器类型。 关于app.js初始化的更多内容，见<a href="https://github.com/NetEase/pomelo/wiki/pomelo%E5%90%AF%E5%8A%A8%E6%B5%81%E7%A8%8B">Pomelo启动流程</a>。</p>
+<h2>与客户端通讯</h2>
+<h3>建立连接服务器</h3>
+<p>要与客户端通信，我们需要建立一个前端服务器，用来维护与客户端之间的连接。server.json中的配置如下:</p>
+<p><code>     "connector": [       {"id": "connector-server-1", "host": "127.0.0.1", "port": 3150, "clientPort": 3010, "frontend": true}     ] </code> 其中的标志位“frontend：true”表示这是一个前端服务器，“clientPort：3010”则表示该服务器对外暴露前端。对于前端服务器，在启动时就会默认加载连接组件，因此我们不需要在app.js中进行额外的配置。在pomelo 0.3中，如果需要使用原生websocket等非默认的连接方式，则需要在app.js中加入相应配置。在客户端，我们在启动时连接对应的接口，就可以建立起与服务端的连接。</p>
+<h3>处理客户端请求</h3>
+<p>Pomelo中，我们提供了两种客户端向服务端发送请求的方法，request/response模式和notify模式。</p>
+<p>request/response 模式与web中的请求模式相似，是标准的请求/响应模式，对于客户端的一个请求，服务端会给出一个响应。以玩家的移动为例，当需要移动时，会发送一个请求给服务端，服务端会验证客户端的请求，并返回结果客户端，下图是具体请求流程：</p>
+<p><img _href="img://null" _p="true" alt="" src="src/45a572a624a5089313171559d7d0b5a6.png" width="500px"/></p>
+<p>最上面的是客户端代码，在这里，我们向服务端发送一个移动请求。 之后，服务端会根据请求的route（area.playerHandler.move）找到对应的处理方法（/game-server/area/handler/playerHander.move），然后调用该方法来处理客户端的请求。当处理完成之后，会并在next方法中传入处理结果，结果会发回客户端，并作为回调函数的参数传回。</p>
+<p>notify模式的运行流程与request/response类似，只是当服务端处理请求后不会发送任何响应。客户端通过pomelo.notify方法来发出notify请求，notify请求的参数与pomelo.request相似，只是不需回调函数，notify方法的实例如下：</p>
+<pre><code>``` pomelo.notify('area.playerHandler.pick', params); ``` </code></pre>
+<h3>服务端消息推送</h3>
+<p>与web服务不同，game服务端会有大量的推送消息，要实现这一功能，我们使用pomelo中的push模式来实现。下图以“move”为例，展示了服务端的推送流程：</p>
+<p><img _href="img://null" _p="true" alt="" src="src/9175d1ace36194c7a25b44eecd97cae2.png" width="500px"/></p>
+<p>Treasures中的广播功能是通过一个全局的channel来实现的，在游戏中的所有玩家在加入游戏后都会加入一个全局的channel中。当需要广播消失时，服务端就会调用这个全局的channel来对所有用户进行消息推送。</p>
+<h2>扩展游戏服务端</h2>
+<p>在前面两节中，我们使用pomelo搭建了一个单节点的游戏服务器。在这一节中，将介绍如何使用Pomelo来对服务端进行扩展，搭建分布式的游戏服务。</p>
+<p>由于游戏服务器的复杂性，像web服务器简单的水平扩展是不现实的，而根据业务逻辑的不同，不同的服务器也有着不同的扩展方案。因此我们分别以前面介绍的连接服务器和场景服务器为例，来对他们进行扩展。</p>
+<h3>连接服务器的扩展</h3>
+<p>连接服务器作用是负责维护所有客户端的连接，负责客户端消息的接受和推送，在MMO RPG中，连接服务器往往是性能的热点之一，因此对连接服务器的扩展对于提高系统负载有很重要的现实意义。 在例子treasures中，我们通过加入一个负载均衡服务器（gate服务器），来实现连接服务器的扩展：当客户端登录时，会首先连接gate服务器，来分配一个连接服务器，之后，客户端会断开与gate服务器的连接，在与其对应的连接服务器建立连接，如下图所示：</p>
+<p><img _href="img://null" _p="true" alt="" src="src/c5d85426bbd49e9b0c188f6cdd86ad94.png"/></p>
+<p>要实现这一功能，在服务端，我们首先要在server.config中加入新的前端服务器，代码如下：</p>
+<pre><code>``` "gate": [   {"id": "gate-server-1", "host": "127.0.0.1", "clientPort": 3014, "frontend": true} ] ``` </code></pre>
+<p>之后，在gate服务器上编写对应的负载均衡接口，在例子中，我们采用了使用uid的crc值对服务器数目取模的方式,代码如下:</p>
+<pre><code>``` module.exports.dispatch = function(uid, connectors) {     var index = Math.abs(crc.crc32(uid)) % connectors.length;     return connectors[index]; }; ``` </code></pre>
+<p>最后，在客户端加入对应的连接代码，就完成了对连接服务器的扩展。 在我们的例子中只用到了两台连接服务器，而在实际应用中，可以根据实际环境，编写自己的负载均衡算法，加入更多的连接服务器。</p>
+<h3>场景服务器的扩展</h3>
+<p>与连接服务器不同，场景服务器中包含着大量的状态信息，如果对单一的场景进行扩展，需要复杂的同步机制和大量远程调用。因此，在Pomelo中，我们的场景扩展是通过加入新的场景来进行的。 在设计游戏时，整个世界就被分为多个不同的场景。而在服务器端，一个场景则与一个独立的场景服务器相对应，场景服务的扩展可以通过加入新的场景来完成。下面，就以treasure为例，介绍一下场景服务的的扩展方法： 因为场景扩展是通过加入新的场景来完成的，所以首先要在server.json中加入新的场景服务器：</p>
+<p>在加入场景服务器之后，我们还要保证发往场景服务器的请求可以被分发到正确的场景去。而Pomelo中，对于同一类型的服务器，默认的分法方法是采用随机分配的方式，这是不能满足我们要求的。因此，我们需要加入自己的路由算法，流程如下：</p>
+<p><img _href="img://null" _p="true" alt="" src="src/548fc8a087d2ccfeb820a672b02b7890.png" width="500px"/></p>
+<p>首先，我们编写了新的路由算法：根据用户所属的场景id进行投递。之后，我们在app.js中使用app.route方法来将我们的路由算法配置为针对area服务器的默认方法。app.route方法接受两个参数，第一个是需要自定义route的服务器类型，第二个参数就是具体的路由算法。我们分别将‘area’服务类型和我们编写的算法传入，就可以实现自定义的路由功能了。</p>
+<h3>跨平台客户端</h3>
+<p>除了原有的JS客户端之外，pomelo还提供了多种其他的客户端，而不同的客户端可能会对应着不同的长连接协议。但是经过pomelo封装之后，在Pomelo服务端，不同客户端在连接上连接上是完全对等的。因此，你可以使用pomelo框架实现跨平台联机对战的（前提是你开发了针对多个平台的游戏客户端）。</p>
+<h3>最终架构</h3>
+<p>经过扩展后，我们的最终服务器架构如图所示：</p>
+<p><img _href="img://null" _p="true" alt="" src="src/dd6b0f343a61e04b99df9d2d6f9b3411.png" width="500px"/></p>
+<h2>总结</h2>
+<p>在本文中，我们介绍了如何使用Pomelo框架来构建了一个包括连接服务器和场景服务器的MMO RPG服务端。并介绍了如何使用pomelo特性，来对游戏服务端进行扩展，并构建出了一个分布式的MMO RPG服务。 但是，这只是游戏服务端开发中最为基础的部分，MMO RPG中很多基础功能在这里都没有实现，如数据持久化，AI控制，寻路系统等。在下面的文章中，我们会进一步介绍Pomelo在游戏开发中的应用。</p>
+<h2>参考示例</h2>
+<p><a href="https://github.com/NetEase/treasures" title="捡宝demo">捡宝demo</a></p>
+<p><a href="https://github.com/NetEase/pomelo/wiki/pomelo%E5%90%AF%E5%8A%A8%E6%B5%81%E7%A8%8B">Pomelo启动流程</a></p>
+<p><a href="https://github.com/NetEase/pomelo">Pomelo框架</a></p>
+<div class="clear"></div>
+<div class="random_links">
+<ul>
+<li><a><span class="gray_color">领域</span></a></li>
+<li><a class="f_taxonomy" href="/cn/architecture-design" id="6,821" name="architecture-design"><b>架构 &amp; 设计</b></a></li> <li><a class="f_taxonomy" href="/cn/development" id="6,820" name="development"><b>语言 &amp; 开发</b></a></li>
+<li><a><span class="gray_color">专栏</span></a></li>
+<li><a class="f_taxonomy" href="/cn/nodejs" id="6,757" name="nodejs">Node.js</a></li> <li><a class="f_taxonomy" href="/cn/game_development" id="828" name="game_development">游戏开发</a></li> <li><a class="f_taxonomy" href="/cn/master-nodejs" id="6,978" name="master-nodejs">深入浅出Node.js</a></li> <li><a class="f_taxonomy" href="/cn/game-server" id="7,507" name="game-server">游戏服务器</a></li> <li><a class="f_taxonomy" href="/cn/Game" id="4,648" name="Game">游戏</a></li>
+</ul>
+</div>
+<div class="related_sponsors relEdRelRes">
+<div class="gray_section_related only1 fullWidth">
+<div class="related_editorial recommended only1">
+<p class="title">相关内容</p>
+<div class="links" id="editorial_links">
+<div class="clear"></div>
+</div>
+</div>
+</div>
+<div class="clear"></div>
+<div class="related_research"></div>
+</div>
+<script type="text/javascript">
+    $.ajax({
+        url: "/api/recommendationlinks.action",
+        contentType: "application/x-www-form-urlencoded; charset=utf-8",
+        type: 'POST',
+        data: {"topicIds": "2559,2007,159,2983,1317", "title": "深入浅出node.js游戏服务器开发——基于Pomelo的MMO RPG开发", "contentPath": "/articles/game-server-development-3", "language": "zh"},
+        success: displayRelatedEditorial,
+        async: false
+    });
+    
+    function displayRelatedEditorial(data) {
+        var trackingCode = "?utm_source=infoq&utm_medium=related_content_link&utm_campaign=relatedContent_articles_clk";
+        if (data.length > 0) {
+            for (var i = 0; i < data.length; i++) {
+                if (i === 5) {
+                    break;
+                }
+                var link = $('<h3 title="" class="' + data[i].contentType + '">\n\
+                                    <a title="" href="' + data[i].url + trackingCode +
+                        '">' + data[i].title + '</a></h3>');
+                $('#editorial_links').append(link);
+            }
+            $('.gray_section_related > .related_editorial.recommended').css('display', 'block');
+        }
+    }
+</script>
+<script type="text/javascript">
+    
+        $(function() {
+        	var grayBox = $('.gray_section_related');
+            var recommendedColumn = $('.gray_section_related > .related_editorial.recommended');
+            var recommendedExists = $(recommendedColumn).css('display') === 'block';
+            var researchRow = $('.related_research');
+            var researchExists = $(researchRow).css('display') === 'block';
+
+            if (recommendedExists || researchExists) {
+                $('.related_sponsors.relEdRelRes').show(); // show the big related box
+            }
+
+            // in case all three available, leave now
+            if (recommendedExists) {
+            	$(grayBox).show(); // show the gray box for vcr and recommendations
+                return;
+            }
+        });
+</script>
+<div class="clear"></div>
+<div class="clear"></div>
+<script type="text/javascript">
+
+    var JSi18n = JSi18n || {}; // define only if not already defined
+    JSi18n.re='Re:';
+    JSi18n.errorSubject='Please enter a subject.';
+    JSi18n.errorBody='You can not post a blank message. Please type your message and try again.';
+    JSi18n.errorInvalidLinks='您的回复中包含无效的链接，请检查后重试';
+    JSi18n.stopWatchText='Stop Watching Thread';
+    JSi18n.startWatchText='Watch Thread';
+    JSi18n.timeExpiredMessage='已超出允许的5分钟编辑时长，我们为给您带来的不便深表抱歉。';
+    JSi18n.repostButtonFormat='重新发送 ($m 剩余)';
+    JSi18n.timeExpiredButton='超时';
+    JSi18n.sessionExpiredMessage='您的会话已超时，请登录后重新提交';
+    JSi18n.editLinkFormat='编辑 ($m 分钟剩余)';
+    JSi18n.enter_subject='请输入主题';
+    JSi18n.enter_message='信息';
+    JSi18n.content_datetime_format='yyyy年M月d日';
+
+var forumID=1;
+var threadID=28925;
+var ctxPath= '';
+var postAddress= ctxPath + '/forum/post!post.action?language=' + 'zh';
+var repostAddress= ctxPath + '/forum/repost.action?language=' + 'zh';
+var postAddWatches= ctxPath + '/forum/watches!add.action';
+var postRemoveWatches= ctxPath + '/forum/watches!remove.action';
+var threadWatched=false;
+var forumNotificationDefault=true;
+var commentEditPeriod=5;
+</script>
+<script src="src/238ce704d3437c5828c2b330a3de60f9.js" type="text/javascript"></script>
+<script src="src/3b4f74b5250a6481746ae3f52465470a.js" type="text/javascript"></script>
+<script src="src/08ada11c3afe9de576f5eb45c41f4b58.js" type="text/javascript"></script>
+<div class="comment_here" id="comment_here">
+<div id="postFormDeck">
+<div id="deckText">
+<h2>您好，朋友！</h2>
+                您需要 <a href="/cn/reginit.action">注册一个InfoQ账号</a> 或者
+                <a class="login" href="javascript:;">登录</a> 才能进行评论。在您完成注册后还需要进行一些设置。<br/>
+<div id="getMost"><h2>获得来自InfoQ的更多体验。</h2></div>
+</div>
+</div>
+<a id="theCommentsSection"></a>
+<h3>告诉我们您的想法</h3>
+<form action="" enctype="multipart/form-data" method="post" name="" onsubmit="return false;" target="">
+<div class="area" name="comments">
+<input id="subject" type="text" value=""/>
+<textarea id="body"></textarea>
+</div>
+<div class="clear"></div>
+<p class="allowed">允许的HTML标签: a,b,br,blockquote,i,li,pre,u,ul,p</p>
+<input class="checkReply" id="emailMe" name="emailMe" type="checkbox">
+<span class="tocheck">当有人回复此评论时请E-mail通知我</span>
+<div class="clear"></div>
+<input class="submit" id="subButton" type="button" value="发送信息">
+</input></input></form>
+<div class="clear"></div>
+</div>
+<div class="comments">
+<div class="comments_title">社区评论 
+                <span id="watch">
+<a class="watch_thread" href="javascript:void(0)"></a>
+</span>
+</div>
+<div class="clear"></div>
+<div class="comment_title lvl0" id="com96581">
+<a href="#anch96581" title="">
+<strong>NB！</strong>
+<span>
+                            by
+                            刘 卫军
+                            Posted
+                            <span class="treeRelativeTime"></span>
+</span>
+</a>
+</div>
+<div class="comment_title lvl0" id="com106398">
+<a href="#anch106398" title="">
+<strong>封装过了</strong>
+<span>
+                            by
+                            xiang yan
+                            Posted
+                            <span class="treeRelativeTime"></span>
+</span>
+</a>
+</div>
+</div>
+<div class="all_comments">
+<div class="answers" id="ans96581">
+<a name="anch96581"></a>
+<p>
+<b class="title">NB！</b>
+<span>
+<span class="bodyRelativeTime"></span>
+                            by
+                            <q>刘 卫军</q>
+</span>
+</p>
+<div class="flat_comment_body">
+                        NB，NB！
+                    </div>
+<div class="clear"></div>
+<ul class="help_links">
+<li><a class="reply_flat" href="javascript:;" title="">回复</a></li>
+<li><a class="backtop" href="#" title="">回到顶部</a></li>
+</ul>
+<div class="clear"></div>
+<input name="tmstmp" type="hidden" value="1365513350220"/>
+<input name="createdOn" type="hidden" value="2013年4月9日"/>
+<input name="isNotificationOn" type="hidden" value="true"/>
+</div>
+<div class="answers" id="ans106398">
+<a name="anch106398"></a>
+<p>
+<b class="title">封装过了</b>
+<span>
+<span class="bodyRelativeTime"></span>
+                            by
+                            <q>xiang yan</q>
+</span>
+</p>
+<div class="flat_comment_body">
+                        客户端和服务器之间的底层通讯协议都封装了，有点过了吧。
+                    </div>
+<div class="clear"></div>
+<ul class="help_links">
+<li><a class="reply_flat" href="javascript:;" title="">回复</a></li>
+<li><a class="backtop" href="#" title="">回到顶部</a></li>
+</ul>
+<div class="clear"></div>
+<input name="tmstmp" type="hidden" value="1390449833924"/>
+<input name="createdOn" type="hidden" value="2014年1月22日"/>
+<input name="isNotificationOn" type="hidden" value="true"/>
+</div>
+</div>
+<!-- overlay -->
+<div id="overlay_comments">
+<a class="close_comment" href="javascript:;" title="">关闭</a>
+<h4><strong></strong> by <span id="author"></span> <span id="timepast"></span></h4>
+<p id="body"></p>
+<div class="alt">
+<span>发布于 <span id="timestamp"></span></span>
+</div>
+<div class="clear"></div>
+<ul class="help_links">
+<li><a class="view" title="">查看</a></li>
+<li><a class="reply" href="javascript:;" title="">回复</a></li>
+<li><a class="backtop" href="#" title="">回到顶部</a></li>
+</ul>
+<div class="clear"></div>
+</div>
+<!-- reply box -->
+<div class="popupLoginComments" id="replyPopup">
+<a class="close_login_popup" href="javascript:;" title="">关闭</a>
+<form action="" method="post" name="tpopup-reply" onsubmit="return false;" target="">
+<label class="label_login">主题</label>
+<input class="login_text subject" name="subject" type="text">
+<label class="label_login">
+            	您的回复
+            	<a href="#" onclick="CommentsHandler.quoteOriginalMessage();return false;" style="float: right; text-decoration: underline; font-weight: normal; color: grey;">
+            		引用原消息
+            	</a>
+</label>
+<textarea class="commentsReply" name="commentsReply"></textarea>
+<div class="clear"></div>
+<p class="error allowed"></p>
+<div class="clear"></div>
+<p class="allowed">允许的HTML标签: a,b,br,blockquote,i,li,pre,u,ul,p</p>
+<input class="checkReply emailMe" id="emailMe" name="emailMe" type="checkbox">
+<span class="tocheck">当有人回复此评论时请E-mail通知我</span>
+<div class="clear"></div>
+<input id="submit-reply" name="submit-reply" type="button" value="发送信息">
+<input class="reset-reply" name="reset-reply" type="reset" value="取消">
+</input></input></input></input></form>
+</div>
+<!-- edit comment box -->
+<div class="popupLoginComments" id="editCommentPopup">
+<a class="close_login_popup" href="javascript:;" title="">关闭</a>
+<form action="" method="post" name="tpopup-reply" onsubmit="return false;" target="">
+<label class="label_login">主题</label>
+<input class="login_text subject" name="subject" type="text">
+<label class="label_login">您的回复</label>
+<textarea class="commentsReply" name="commentsReply"></textarea>
+<div class="clear"></div>
+<p class="error allowed"></p>
+<div class="clear"></div>
+<p class="allowed">允许的HTML标签: a,b,br,blockquote,i,li,pre,u,ul,p</p>
+<input class="checkReply emailMe" id="emailMe" name="emailMe" type="checkbox">
+<span class="tocheck">当有人回复此评论时请E-mail通知我</span>
+<div class="clear"></div>
+<p class="time_expired allowed"></p>
+<input id="resubmit-reply" name="submit-reply" type="button" value="">
+<input class="reset-reply" name="reset-reply" type="reset" value="取消">
+</input></input></input></input></form>
+</div>
+<!-- notification popup -->
+<div class="popupLoginComments" id="messagePopup">
+<a class="close_login_popup" href="javascript:;" title="">关闭</a>
+<div class="clear"></div>
+<p class="allowed"></p>
+<div class="clear"></div>
+<input class="reset-reply" name="reset-reply" type="reset" value="OK">
+</input></div>
+<div id="responseContent"></div>
+<a class="comments_like" href="#theCommentsSection" id="noOfComments" title="">
+<span class="comments_counts">
+<span class="nr">
+	        		2
+	        	</span>
+</span>
+			讨论
+	    
+	    
+	</a>
+</div>
+<div class="clear"></div>
+</div></body></html>

@@ -1,0 +1,463 @@
+<html><head>
+<title>十个常见的缓存使用误区及建议</title>
+<meta content="no-cache" http-equiv="pragma"/>
+<meta content="no-cache" http-equiv="cache-control"/>
+<meta content="0" http-equiv="expires"/>
+<meta content="text/html; charset=utf-8" http-equiv="content-type"/>
+<meta content="© 2006 C4Media" name="copyright"/>
+<meta content="0qInQx_1WYOeIIbxnh7DnXlw1XOxNgAYakO2k4GhNnY" name="google-site-verification"/>
+<meta content="#ffffff" name="msapplication-TileColor"/>
+<meta content="/styles/i/logo.jpg" name="msapplication-TileImage"/>
+<meta content="3eac1729a8bbe046" property="wb:webmaster"/>
+<link href="http://fonts.useso.com/css?family=Gentium+Book+Basic" rel="stylesheet" type="text/css"/>
+<link href="src/a58c4e5d88bb047c73d33d67a359e6ab.css" media="screen" rel="stylesheet" type="text/css"/>
+<link href="src/f02d481897003da0a2b362b8070034cb.css" media="screen" rel="stylesheet" type="text/css"/>
+<link href="http://cdn1.infoqstatic.com/statics_s2_20151215-0056/favicon.ico" rel="shortcut icon" type="image/x-icon"/>
+<link href="src/a1ebbad38a753ec580d76b8764704678.png" rel="apple-touch-icon"/>
+<link href="src/0ac55517a7185e595d239c7ea156c645.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript">
+        	var device="desktop";
+            var InfoQConstants = {};
+            InfoQConstants.language = 'zh';
+            InfoQConstants.countryCode = '/cn';
+            
+        </script>
+<script src="src/4f19a0e7fb45da9e7f160526d453272e.js" type="text/javascript"></script>
+<script type="text/javascript">
+            
+                var JSi18n = JSi18n || {}; // define only if not already defined
+                JSi18n.error='错误';
+                JSi18n.login_unverifiedAccount='未验证的账号';
+                JSi18n.contentSummary_showPresentations_1='整理准备中，敬请期待';
+                JSi18n.contentSummary_showPresentations_2='我们致力于为您提供来自全球业界及中国本土社区顶尖技术大会精彩的中英文专家演讲的视频，目前资料正在编辑整理中，将于近期发布。';
+                JSi18n.contentSummary_showPresentations_3='感谢您的支持与耐心等待！';
+                JSi18n.contentSummary_showInterviews_1='';
+                JSi18n.contentSummary_showInterviews_2='';
+                JSi18n.contentSummary_showInterviews_3='';
+                JSi18n.contentSummary_showMinibooks_1='';
+                JSi18n.contentSummary_showMinibooks_2='';
+                JSi18n.login_sendingRequest='发送请求……';
+                JSi18n.bookmark_saved='<q>&nbsp;&nbsp;&nbsp;已保存&nbsp;&nbsp;&nbsp;&nbsp;</q>';
+                JSi18n.bookmark_error='<q style=color:black;>&nbsp;&nbsp;&nbsp;出错&nbsp;&nbsp;&nbsp;&nbsp;</q>';
+                JSi18n.categoryManagement_showpopup_viewAllLink_viewAllPrefix='显示所有“';
+                JSi18n.categoryManagement_showpopup_viewAllLink_viewAllSuffix='”内容';
+                JSi18n.categoryManagement_showpopup_includeExcludeLink_Exclude='过滤';
+                JSi18n.categoryManagement_showpopup_includeExcludeLink_Include='取消过滤';
+                JSi18n.login_invalid_email='请填写有效的电子邮箱';
+                JSi18n.login_email_not_found = '这个邮箱好像没在这儿注册过';
+            
+
+            var loggedIn=false;
+        </script>
+<script type="text/javascript">
+            function createOverFunction(i) {
+                var pixels = i * 129;
+                return function() {
+                    $('#personas_' + i).addClass('selected');
+                    $('ul.menu > li .top_submenu.c' + i).css('left','-' + pixels + 'px');
+                }
+            };
+            function createOutFunction(i) {
+                return function() {
+                    $('ul.menu > li .top_submenu.c' + i).css('left','-999em');
+                    $('#personas_' + i).removeClass('selected');
+                }
+            }
+            $(function() {
+                for (var i = 0; i < 5; i++) {
+                    $('ul.menu > li').has('.top_submenu.c' + i).hoverIntent({
+                        sensitivity: 15,
+                        interval: 150,
+                        timeout:200,
+                        over: createOverFunction(i),
+                        out: createOutFunction(i)
+                    });
+                }
+            });
+        </script>
+<script src="src/c2270b956f149abcb03ae2bf0f78f015.js"></script>
+<script type="text/javascript">
+var googletag = googletag || {};
+googletag.cmd = googletag.cmd || [];
+(function() {
+	var gads = document.createElement('script');
+	gads.async = true;
+	gads.type = 'text/javascript';
+	var useSSL = 'https:' == document.location.protocol;
+	gads.src = (useSSL ? 'https:' : 'http:') + '//www.googletagservices.com/tag/js/gpt.js';
+	var node = document.getElementsByTagName('script')[0];
+	node.parentNode.insertBefore(gads, node);
+})();
+
+
+googletag.cmd.push(function() {
+	googletag.defineSlot('/5286733/zh_geo_banner_bottom', [728, 90], 'id_geo_banner_ad').addService(googletag.pubads());
+	googletag.defineSlot('/5286733/zh_300x250_banner_top', [300, 250], 'id_300x250_banner_top').addService(googletag.pubads());
+	googletag.defineSlot('/5286733/zh_300x250_banner_bottom', [300, 250], 'id_300x250_banner_bottom').addService(googletag.pubads());
+	googletag.defineSlot('/5286733/zh_textlink1', [250, 60], 'id_ad_textlink1').addService(googletag.pubads());
+	googletag.defineSlot('/5286733/zh_textlink2', [250, 60], 'id_ad_textlink2').addService(googletag.pubads());
+	googletag.defineSlot('/5286733/zh_textlink3', [250, 60], 'id_ad_textlink3').addService(googletag.pubads());
+/*	googletag.defineSlot('/5286733/zh_textlink4', [120, 100], 'id_ad_textlink4').addService(googletag.pubads());
+	googletag.defineSlot('/5286733/zh_textlink5', [120, 100], 'id_ad_textlink5').addService(googletag.pubads());*/
+	googletag.defineSlot('/5286733/zh_300x250_category', [300, 250], 'id_300x250_category').addService(googletag.pubads());
+	googletag.defineSlot('/5286733/zh_300x250_banner_searchResults', [300, 250], 'id_300x250_banner_searchResults').addService(googletag.pubads());
+	googletag.pubads().enableSingleRequest();       
+    
+	// central function used for checking the GAM slots for displayed/not displayed ads 
+    googletag.pubads().addEventListener('slotRenderEnded', function(event) {
+	  	// on slot rendered we need to check multiple events for multiple elements defined in multiple places
+       	// ( text links, optional vcr, related rightbar native vcr box)
+        	
+       	 
+	       	// check the optional vcr box on slot rendered (defined in vcr_optional.jsp)
+	       	if (typeof(optionalVcrBoxSlotRendered) == typeof(Function)){        		
+	       		optionalVcrBoxSlotRendered(event);
+	       	}
+       		
+       	// check the sponsored links (defined in see sponsoredLinks.jsp)
+       	if (typeof(sponsoredLinksSlotRendered) == typeof(Function)){
+       		sponsoredLinksSlotRendered(event);
+       	}
+       	
+       	// see the related rightbar optional vcr box(defined in rightbarOptionalVcrBox.js)
+       	if (optionalVcrBox && typeof(optionalVcrBox.relatedRightbarNativeVcrSlotRendered) == typeof(Function)){
+       		optionalVcrBox.relatedRightbarNativeVcrSlotRendered(event);
+       	}
+	});
+        
+   	googletag.pubads().collapseEmptyDivs();
+	googletag.enableServices();
+});
+
+function isAdBlocked(){
+    return ( window.noAdblocker === undefined );
+}
+</script>
+<script type="text/javascript">window.NREUM||(NREUM={}),__nr_require=function(e,n,t){function r(t){if(!n[t]){var o=n[t]={exports:{}};e[t][0].call(o.exports,function(n){var o=e[t][1][n];return r(o||n)},o,o.exports)}return n[t].exports}if("function"==typeof __nr_require)return __nr_require;for(var o=0;o<t.length;o++)r(t[o]);return r}({QJf3ax:[function(e,n){function t(e){function n(n,t,a){e&&e(n,t,a),a||(a={});for(var u=c(n),f=u.length,s=i(a,o,r),p=0;f>p;p++)u[p].apply(s,t);return s}function a(e,n){f[e]=c(e).concat(n)}function c(e){return f[e]||[]}function u(){return t(n)}var f={};return{on:a,emit:n,create:u,listeners:c,_events:f}}function r(){return{}}var o="nr@context",i=e("gos");n.exports=t()},{gos:"7eSDFh"}],ee:[function(e,n){n.exports=e("QJf3ax")},{}],3:[function(e,n){function t(e){return function(){r(e,[(new Date).getTime()].concat(i(arguments)))}}var r=e("handle"),o=e(1),i=e(2);"undefined"==typeof window.newrelic&&(newrelic=window.NREUM);var a=["setPageViewName","addPageAction","setCustomAttribute","finished","addToTrace","inlineHit","noticeError"];o(a,function(e,n){window.NREUM[n]=t("api-"+n)}),n.exports=window.NREUM},{1:12,2:13,handle:"D5DuLP"}],gos:[function(e,n){n.exports=e("7eSDFh")},{}],"7eSDFh":[function(e,n){function t(e,n,t){if(r.call(e,n))return e[n];var o=t();if(Object.defineProperty&&Object.keys)try{return Object.defineProperty(e,n,{value:o,writable:!0,enumerable:!1}),o}catch(i){}return e[n]=o,o}var r=Object.prototype.hasOwnProperty;n.exports=t},{}],D5DuLP:[function(e,n){function t(e,n,t){return r.listeners(e).length?r.emit(e,n,t):void(r.q&&(r.q[e]||(r.q[e]=[]),r.q[e].push(n)))}var r=e("ee").create();n.exports=t,t.ee=r,r.q={}},{ee:"QJf3ax"}],handle:[function(e,n){n.exports=e("D5DuLP")},{}],XL7HBI:[function(e,n){function t(e){var n=typeof e;return!e||"object"!==n&&"function"!==n?-1:e===window?0:i(e,o,function(){return r++})}var r=1,o="nr@id",i=e("gos");n.exports=t},{gos:"7eSDFh"}],id:[function(e,n){n.exports=e("XL7HBI")},{}],G9z0Bl:[function(e,n){function t(){var e=d.info=NREUM.info,n=f.getElementsByTagName("script")[0];if(e&&e.licenseKey&&e.applicationID&&n){c(p,function(n,t){n in e||(e[n]=t)});var t="https"===s.split(":")[0]||e.sslForHttp;d.proto=t?"https://":"http://",a("mark",["onload",i()]);var r=f.createElement("script");r.src=d.proto+e.agent,n.parentNode.insertBefore(r,n)}}function r(){"complete"===f.readyState&&o()}function o(){a("mark",["domContent",i()])}function i(){return(new Date).getTime()}var a=e("handle"),c=e(1),u=window,f=u.document;e(2);var s=(""+location).split("?")[0],p={beacon:"bam.nr-data.net",errorBeacon:"bam.nr-data.net",agent:"js-agent.newrelic.com/nr-768.min.js"},d=n.exports={offset:i(),origin:s,features:{}};f.addEventListener?(f.addEventListener("DOMContentLoaded",o,!1),u.addEventListener("load",t,!1)):(f.attachEvent("onreadystatechange",r),u.attachEvent("onload",t)),a("mark",["firstbyte",i()])},{1:12,2:3,handle:"D5DuLP"}],loader:[function(e,n){n.exports=e("G9z0Bl")},{}],12:[function(e,n){function t(e,n){var t=[],o="",i=0;for(o in e)r.call(e,o)&&(t[i]=n(o,e[o]),i+=1);return t}var r=Object.prototype.hasOwnProperty;n.exports=t},{}],13:[function(e,n){function t(e,n,t){n||(n=0),"undefined"==typeof t&&(t=e?e.length:0);for(var r=-1,o=t-n||0,i=Array(0>o?0:o);++r<o;)i[r]=e[n+r];return i}n.exports=t},{}]},{},["G9z0Bl"]);</script><script src="src/533930da1eef7ea5ca462e151487a084.js" type="text/javascript"></script>
+<link href="src/208c556ae30162faf2e2fbbcbb4651f4.css" rel="stylesheet"/>
+<meta content="ten cache misunderstanding,架构 &amp; 设计,语言 &amp; 开发,缓存,集群与缓存,缓存系统,Performance," name="keywords"/>
+<meta content="在日常工作中，开发者经常利用缓存来优化站点或应用程序，然而在实际应用中，使用缓存时，总会存在或多或少的误区，反而影响了站点或者应用程序的性能。" name="description"/>
+<meta content="1410316320000" name="tprox"/>
+<meta content="website" property="og:type"/>
+<meta content="十个常见的缓存使用误区及建议 " property="og:title"/>
+<meta content="在日常工作中，开发者经常利用缓存来优化站点或应用程序，然而在实际应用中，使用缓存时，总会存在或多或少的误区，反而影响了站点或者应用程序的性能。" property="og:description"/>
+<meta content="InfoQ" property="og:site_name"/>
+<link href="src/277b334ecf78f1d71c25c3623b7620c6.jpg" rel="image_src"/>
+<meta content="http://cdn4.infoqstatic.com/statics_s2_20151215-0056/styles/i/logo-big.jpg" property="og:image"/>
+</head><body><div class="article_page_left news_container text_content_container">
+<div class="text_info">
+<p>Omar Al Zabir的<a href="http://www.codeproject.com/KB/web-cache/cachingmistakes.aspx?azid=74">《Ten Caching Mistakes that Break your App》</a>这篇文章已经发表好多年了，但是它仍然指导着大家如何合理、高效的使用缓存。在日常工作中，开发者经常利用缓存来优化站点或应用程序，然而在实际应用中，大家使用缓存时，总会存在或多或少的误区，反而影响了站点或应用程序的正常运行。近日，<a href="http://highscalability.com/blog/2014/7/16/10-program-busting-caching-mistakes.html">highscalability</a>上的一篇文章总结了<a href="http://highscalability.com/blog/2014/7/16/10-program-busting-caching-mistakes.html">十大使用缓存的误区和建议</a>。</p>
+<p>现就对这十大缓存误区以及使用建议进行一个全面的梳理：</p>
+<p><strong>1</strong><strong>、依赖默认的序列化方式</strong></p>
+<p>使用默认的序列化处理方式可能会消耗大量的CPU资源，尤其是处理复杂类型数据时。所以建议大家一定要根据所使用语言和环境的情况，采用最合理、有效的序列化和反序列化方式。</p>
+<p><strong>2</strong><strong>、在单一缓存中存储大对象数据</strong></p>
+<p>由于序列化和反序列化需要一定的资源开销，当处于高并发高负载的情况下，对大对象数据的频繁读取有可能会使得服务器的CPU崩溃，所以建议大家把大对象数据分成为较小的子对象，然后再各自进行缓存。</p>
+<p><strong>3</strong><strong>、在不同线程间使用缓存共享对象</strong></p>
+<p>在竞态条件(Race conditions)条件下，当写线程对缓存进行写入操作时，如果这是读线程刚好也要访问同一缓冲对象，就有可能读取脏数据，所以在实际开发中要根据实际情况采取外部锁机制，以保证缓存数据的正确读写。</p>
+<p><strong>4</strong><strong>、认为存储数据操作后，数据即刻就能存储到缓存中</strong></p>
+<p>刚进行写入缓存操作的数据并不一定能够马上写入缓存，这是因为当缓存空间不足时，刚写入的缓存有可能被刷新掉。所以在编写程序时，应该首先对获得缓存的值作空值检测。</p>
+<p><strong>5</strong><strong>、使用嵌套对象存储整个集合</strong></p>
+<p>如果将整个集合对象数据进行嵌套缓存的话，获得其中某个具体元素的性能将会严重受到影响，这是因为整个集合存储意味着对整个嵌套对象进行序列化。有鉴于此，建议单独对每个元素进行缓存，这样就可以做到对每个对象分别更新和读取，以减少序列化的影响。</p>
+<p><strong>6</strong><strong>、对父子对象采取统一与单独混用的存储方式</strong></p>
+<p>有时候一个对象可能拥有两个或更多的父对象，同一对象存储在不同地方，这样就会造成缓存的浪费。为了不让同一对象存储于不同地方，这就需要根据统一对象本身的键进行缓存，这样父对象就能够根据需要访问子对象。</p>
+<p><strong>7</strong><strong>、对配置信息进行缓存</strong></p>
+<p>缓存数据的访问是有代价的，所以要尽可能把影响减到最低，所以建议使用本地静态变量代替缓存对配置数据进行存储。</p>
+<p><strong>8</strong><strong>、对实时对象进行缓存</strong></p>
+<p>如果对实时对象（例如：流、文件、注册信息或者网络情况）的引用进行缓存的话，当缓存数据被删除后，之前缓存的实时对象不被删除，这样会造成系统资源泄漏，所以不要对实时对象进行存储。</p>
+<p><strong>9</strong><strong>、使用多个键存储同一对象</strong></p>
+<p>尽管使用多个键存储同一对象就使得使用一个键和索引号来进行访问时带来便利，但是当缓存是基于远程缓存的话，任何关于对象改变都是不可见的，这样会导致缓存数据同步问题的发生，所以不建议使用多个键存储同一对象。</p>
+<h6><strong>10</strong><strong>、在连续存储中进行更新或删除后不及时更新相应缓存对象</strong></h6>
+<p>由于在一个远程缓存中，数据以拷贝方式存储，所以当更新对象时，缓存不会被同步更新。所以更新对象时，缓存必须被明确地进行更新。然而在基于内存的缓存中，当删除一个对象时，在缓存中不会被同步删除，所以建议通过程序确保缓存对象被正确删除。</p>
+<hr/>
+<p>感谢<a href="http://www.infoq.com/cn/author/郭蕾">郭蕾</a>对本文的审校。</p>
+<p>给InfoQ中文站投稿或者参与内容翻译工作，请邮件至<a href="mailto:editors@cn.infoq.com">editors@cn.infoq.com</a>。也欢迎大家通过新浪微博（<a href="http://www.weibo.com/infoqchina">@InfoQ</a>）或者腾讯微博（<a href="http://t.qq.com/infoqchina">@InfoQ</a>）关注我们，并与我们的编辑和其他读者朋友交流。</p>
+<div class="random_links">
+<ul>
+<li><a><span class="gray_color">领域</span></a></li>
+<li><a class="f_taxonomy" href="/cn/architecture-design" id="6,821" name="architecture-design"><b>架构 &amp; 设计</b></a></li> <li><a class="f_taxonomy" href="/cn/development" id="6,820" name="development"><b>语言 &amp; 开发</b></a></li>
+<li><a><span class="gray_color">专栏</span></a></li>
+<li><a class="f_taxonomy" href="/cn/cache-system" id="14,771" name="cache-system">缓存系统</a></li> <li><a class="f_taxonomy" href="/cn/Caching" id="3,607" name="Caching">缓存</a></li> <li><a class="f_taxonomy" href="/cn/performance" id="7,711" name="performance">Performance</a></li> <li><a class="f_taxonomy" href="/cn/clustering" id="815" name="clustering">集群与缓存</a></li>
+</ul>
+</div>
+<div class="clear"></div>
+<div class="related_sponsors wholething">
+<div class="gray_section_related">
+<div class="related_editorial recommended">
+<p class="title">相关内容</p>
+<div class="links" id="editorial_links">
+<div class="clear"></div>
+</div>
+</div>
+<div class="related_editorial sponsored">
+<p class="title">相关厂商内容</p>
+<div class="links">
+<h3 class="entrypdf" title="">
+<a href="/infoq/url.action?i=8519&amp;t=f" target="_blank">
+	                                    手机百度APS深度剖析
+	                                </a>
+</h3>
+<h3 class="entrypdf" title="">
+<a href="/infoq/url.action?i=8697&amp;t=f" target="_blank">
+	                                    手淘如何从无到有的Hybrid App框架创建历程。
+	                                </a>
+</h3>
+<h3 class="entrypdf" title="">
+<a href="/infoq/url.action?i=8521&amp;t=f" target="_blank">
+	                                    万人在线直播教室如何搭建？
+	                                </a>
+</h3>
+<h3 class="entrypdf" title="">
+<a href="/infoq/url.action?i=8522&amp;t=f" target="_blank">
+	                                    公司高速发展，研发团队如何调优
+	                                </a>
+</h3>
+<h3 class="entrypdf" title="">
+<a href="/infoq/url.action?i=8749&amp;t=f" target="_blank">
+	                                    支付宝红包瞬时支付量挑战双十一零点峰值！
+	                                </a>
+</h3>
+<div class="clear"></div>
+</div>
+</div>
+</div>
+<div class="s">
+<p class="title">相关赞助商</p>
+<a href="/infoq/url.action?i=7936&amp;t=f" target="_blank">
+<img border="0" src="src/44029a9cacc58de4501077b68658a4c9.jpg" style="margin: 0 0 5px 5px; float:right;"/>
+</a>
+<div class="links">
+<p>全球架构师峰会，12月18-19日，北京·国际会议中心，<a href="/infoq/url.action?i=8865&amp;t=f" target="_blank">精彩内容</a>邀您参与！</p>
+</div>
+</div>
+<div class="clear"></div>
+<div class="related_research"></div>
+</div>
+<script type="text/javascript">
+    $.ajax({
+        url: "/api/recommendationlinks.action",
+        contentType: "application/x-www-form-urlencoded; charset=utf-8",
+        type: 'POST',
+        data: {"topicIds": "3494,360", "title": "十个常见的缓存使用误区及建议", "contentPath": "/news/2014/09/ten-cache-misunderstanding", "language": "zh"},
+        success: displayRelatedEditorial,
+        async: false
+    });
+    
+    function displayRelatedEditorial(data) {
+        var trackingCode = "?utm_source=infoq&utm_medium=related_content_link&utm_campaign=relatedContent_news_clk";
+        if (data.length > 0) {
+            for (var i = 0; i < data.length; i++) {
+                if (i === 5) {
+                    break;
+                }
+                var link = $('<h3 title="" class="' + data[i].contentType + '">\n\
+                                    <a title="" href="' + data[i].url + trackingCode +
+                        '">' + data[i].title + '</a></h3>');
+                $('#editorial_links').append(link);
+            }
+            $('.gray_section_related > .related_editorial.recommended').css('display', 'block');
+        }
+    }
+</script>
+<script type="text/javascript">
+    
+        $(function() {
+        	var grayBox = $('.gray_section_related');
+            var recommendedColumn = $('.gray_section_related > .related_editorial.recommended');
+            var recommendedExists = $(recommendedColumn).css('display') === 'block';
+            var vcrColumn = $('.gray_section_related > .related_editorial.sponsored');
+            var vcrExists = $(vcrColumn).length === 1;
+            var sponsorshipColumn = $('.related_sponsors > .s')
+            var sponsorshipExists = $(sponsorshipColumn).length === 1;
+            var researchRow = $('.related_research');
+            var researchExists = $(researchRow).css('display') === 'block';
+
+            if (recommendedExists || vcrExists || sponsorshipExists || researchExists) {
+                $('.related_sponsors.wholething').show(); // show the big related box
+            }
+			
+            if(recommendedExists || vcrExists){
+            	$('.gray_section_related').show(); // show the gray box for vcr and recommendations
+            }
+            
+            // in case all three available, leave now
+            if (recommendedExists && vcrExists && sponsorshipExists) {
+                return;
+            }
+            // in case only two of them available
+            if (recommendedExists && vcrExists && !sponsorshipExists) {
+                $(recommendedColumn).addClass('only2');
+                $(vcrColumn).addClass('only2last');
+                $(grayBox).addClass('only2 fullWidth');                
+            } else if (recommendedExists && sponsorshipExists && !vcrExists) {
+                $(recommendedColumn).addClass('only2');
+                $(sponsorshipColumn).addClass('only2last');
+                $(grayBox).addClass('only1');
+            } else if (vcrExists && sponsorshipExists && !recommendedExists) {
+                $(vcrColumn).addClass('only2');
+                $(sponsorshipColumn).addClass('only2last');
+                $(grayBox).addClass('only1');
+            }
+            // in case only one is available
+            else if (recommendedExists && !vcrExists && !sponsorshipExists) {
+                $(recommendedColumn).addClass('only1');
+                $(grayBox).addClass('only1 fullWidth');
+            } else if (vcrExists && !recommendedExists && !sponsorshipExists) {
+                $(vcrColumn).addClass('only1');
+                $(grayBox).addClass('only1 fullWidth');
+            } else if (sponsorshipExists && !recommendedExists && !vcrExists) {
+                $(sponsorshipColumn).addClass('only1');
+            }
+            // in case none is available, do not display upper border for the research category if any
+            else if (researchExists) {
+                $(researchRow).addClass('only1');
+            }
+        });
+</script>
+<div class="clear"></div>
+<div class="clear"></div>
+<script type="text/javascript">
+
+    var JSi18n = JSi18n || {}; // define only if not already defined
+    JSi18n.re='Re:';
+    JSi18n.errorSubject='Please enter a subject.';
+    JSi18n.errorBody='You can not post a blank message. Please type your message and try again.';
+    JSi18n.errorInvalidLinks='您的回复中包含无效的链接，请检查后重试';
+    JSi18n.stopWatchText='Stop Watching Thread';
+    JSi18n.startWatchText='Watch Thread';
+    JSi18n.timeExpiredMessage='已超出允许的5分钟编辑时长，我们为给您带来的不便深表抱歉。';
+    JSi18n.repostButtonFormat='重新发送 ($m 剩余)';
+    JSi18n.timeExpiredButton='超时';
+    JSi18n.sessionExpiredMessage='您的会话已超时，请登录后重新提交';
+    JSi18n.editLinkFormat='编辑 ($m 分钟剩余)';
+    JSi18n.enter_subject='请输入主题';
+    JSi18n.enter_message='信息';
+    JSi18n.content_datetime_format='yyyy年M月d日';
+
+var forumID=1;
+var threadID=38681;
+var ctxPath= '';
+var postAddress= ctxPath + '/forum/post!post.action?language=' + 'zh';
+var repostAddress= ctxPath + '/forum/repost.action?language=' + 'zh';
+var postAddWatches= ctxPath + '/forum/watches!add.action';
+var postRemoveWatches= ctxPath + '/forum/watches!remove.action';
+var threadWatched=false;
+var forumNotificationDefault=true;
+var commentEditPeriod=5;
+</script>
+<script src="src/238ce704d3437c5828c2b330a3de60f9.js" type="text/javascript"></script>
+<script src="src/9b01db8a70b3ba9370e68d85ef6b9454.js" type="text/javascript"></script>
+<script src="src/c51fb6f1077af5f820800b3a56bb8347.js" type="text/javascript"></script>
+<div class="comment_here" id="comment_here">
+<div id="postFormDeck">
+<div id="deckText">
+<h2>您好，朋友！</h2>
+                您需要 <a href="/cn/reginit.action">注册一个InfoQ账号</a> 或者
+                <a class="login" href="javascript:;">登录</a> 才能进行评论。在您完成注册后还需要进行一些设置。<br/>
+<div id="getMost"><h2>获得来自InfoQ的更多体验。</h2></div>
+</div>
+</div>
+<a id="theCommentsSection"></a>
+<h3>告诉我们您的想法</h3>
+<form action="" enctype="multipart/form-data" method="post" name="" onsubmit="return false;" target="">
+<div class="area" name="comments">
+<input id="subject" type="text" value=""/>
+<textarea id="body"></textarea>
+</div>
+<div class="clear"></div>
+<p class="allowed">允许的HTML标签: a,b,br,blockquote,i,li,pre,u,ul,p</p>
+<input class="checkReply" id="emailMe" name="emailMe" type="checkbox">
+<span class="tocheck">当有人回复此评论时请E-mail通知我</span>
+<div class="clear"></div>
+<input class="submit" id="subButton" type="button" value="发送信息">
+</input></input></form>
+<div class="clear"></div>
+</div>
+<div class="comments">
+<div class="comments_title">社区评论 
+                <span id="watch">
+<a class="watch_thread" href="javascript:void(0)"></a>
+</span>
+</div>
+<div class="clear"></div>
+</div>
+<div class="all_comments">
+</div>
+<!-- overlay -->
+<div id="overlay_comments">
+<a class="close_comment" href="javascript:;" title="">关闭</a>
+<h4><strong></strong> by <span id="author"></span> <span id="timepast"></span></h4>
+<p id="body"></p>
+<div class="alt">
+<span>发布于 <span id="timestamp"></span></span>
+</div>
+<div class="clear"></div>
+<ul class="help_links">
+<li><a class="view" title="">查看</a></li>
+<li><a class="reply" href="javascript:;" title="">回复</a></li>
+<li><a class="backtop" href="#" title="">回到顶部</a></li>
+</ul>
+<div class="clear"></div>
+</div>
+<!-- reply box -->
+<div class="popupLoginComments" id="replyPopup">
+<a class="close_login_popup" href="javascript:;" title="">关闭</a>
+<form action="" method="post" name="tpopup-reply" onsubmit="return false;" target="">
+<label class="label_login">主题</label>
+<input class="login_text subject" name="subject" type="text">
+<label class="label_login">
+            	您的回复
+            	<a href="#" onclick="CommentsHandler.quoteOriginalMessage();return false;" style="float: right; text-decoration: underline; font-weight: normal; color: grey;">
+            		引用原消息
+            	</a>
+</label>
+<textarea class="commentsReply" name="commentsReply"></textarea>
+<div class="clear"></div>
+<p class="error allowed"></p>
+<div class="clear"></div>
+<p class="allowed">允许的HTML标签: a,b,br,blockquote,i,li,pre,u,ul,p</p>
+<input class="checkReply emailMe" id="emailMe" name="emailMe" type="checkbox">
+<span class="tocheck">当有人回复此评论时请E-mail通知我</span>
+<div class="clear"></div>
+<input id="submit-reply" name="submit-reply" type="button" value="发送信息">
+<input class="reset-reply" name="reset-reply" type="reset" value="取消">
+</input></input></input></input></form>
+</div>
+<!-- edit comment box -->
+<div class="popupLoginComments" id="editCommentPopup">
+<a class="close_login_popup" href="javascript:;" title="">关闭</a>
+<form action="" method="post" name="tpopup-reply" onsubmit="return false;" target="">
+<label class="label_login">主题</label>
+<input class="login_text subject" name="subject" type="text">
+<label class="label_login">您的回复</label>
+<textarea class="commentsReply" name="commentsReply"></textarea>
+<div class="clear"></div>
+<p class="error allowed"></p>
+<div class="clear"></div>
+<p class="allowed">允许的HTML标签: a,b,br,blockquote,i,li,pre,u,ul,p</p>
+<input class="checkReply emailMe" id="emailMe" name="emailMe" type="checkbox">
+<span class="tocheck">当有人回复此评论时请E-mail通知我</span>
+<div class="clear"></div>
+<p class="time_expired allowed"></p>
+<input id="resubmit-reply" name="submit-reply" type="button" value="">
+<input class="reset-reply" name="reset-reply" type="reset" value="取消">
+</input></input></input></input></form>
+</div>
+<!-- notification popup -->
+<div class="popupLoginComments" id="messagePopup">
+<a class="close_login_popup" href="javascript:;" title="">关闭</a>
+<div class="clear"></div>
+<p class="allowed"></p>
+<div class="clear"></div>
+<input class="reset-reply" name="reset-reply" type="reset" value="OK">
+</input></div>
+<div id="responseContent"></div>
+<a class="comments_like" href="#theCommentsSection" id="noOfComments" title="">
+<span class="comments_counts">
+<span class="nr">
+					讨论
+	        	</span>
+</span>
+</a>
+</div>
+<div class="clear"></div>
+</div></body></html>

@@ -1,0 +1,16 @@
+/* 清除浮动 */
+.m-community li:after{clear:both;content:'.';display:block;height:0;visibility:hidden;}
+.m-community li{zoom:1;}
+
+/* community模块 */
+.m-community{}
+.m-community li .des{float:left;display:inline;width:auto;height:55px;line-height:55px;padding:12px 30px;font-size:25px;font-family:"arial";color:#333;}
+.m-community li .des h2{font-size:14px;font-weight:bold;}
+.m-community li .des a{color:#2B72B3;}
+.m-community li .des p{line-height: 22px;}
+.m-community li .logo-0{background-position:0 0;}
+.m-community li .logo-1{background-position:-148px 0;}
+.m-community li .logo-2{background-position:-296px 0;}
+.m-community li .logo-3{background-position:-444px 0;}
+.m-community li .logo-4{background-position:-592px 0;}
+.m-community li .logo-5{background-position:-748px 0;}

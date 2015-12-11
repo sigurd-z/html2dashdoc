@@ -1,0 +1,315 @@
+<html><head prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# object: http://ogp.me/ns/object# article: http://ogp.me/ns/article# profile: http://ogp.me/ns/profile#">
+<meta charset="utf-8">
+<meta content="IE=edge" http-equiv="X-UA-Compatible">
+<meta content="en" http-equiv="Content-Language">
+<meta content="width=1020" name="viewport">
+<title>Architecture overview of pomelo 포멜로 아키텍처 개요 · NetEase/pomelo Wiki · GitHub</title>
+<link href="/opensearch.xml" rel="search" title="GitHub" type="application/opensearchdescription+xml">
+<link href="src/ad667adaa2cfe8f3caa4a41b7d0a79a1.png" rel="fluid-icon" title="GitHub">
+<link href="src/a10d19ff5f738940a7a5086be334f50b.png" rel="apple-touch-icon" sizes="57x57">
+<link href="src/a10d19ff5f738940a7a5086be334f50b.png" rel="apple-touch-icon" sizes="114x114">
+<link href="src/b4cd268bc600cc14d2cdd557de6da2fb.png" rel="apple-touch-icon" sizes="72x72">
+<link href="src/b4cd268bc600cc14d2cdd557de6da2fb.png" rel="apple-touch-icon" sizes="144x144">
+<meta content="1401488693436528" property="fb:app_id">
+<meta content="@github" name="twitter:site"/><meta content="summary" name="twitter:card"/><meta content="NetEase/pomelo" name="twitter:title"/><meta content="pomelo - A fast,scalable,distributed game server framework for Node.js." name="twitter:description"/><meta content="https://avatars0.githubusercontent.com/u/1460597?v=3&amp;s=400" name="twitter:image:src"/>
+<meta content="GitHub" property="og:site_name"/><meta content="object" property="og:type"/><meta content="https://avatars0.githubusercontent.com/u/1460597?v=3&amp;s=400" property="og:image"/><meta content="NetEase/pomelo" property="og:title"/><meta content="https://github.com/NetEase/pomelo" property="og:url"/><meta content="pomelo - A fast,scalable,distributed game server framework for Node.js." property="og:description"/>
+<meta content="https://api.github.com/_private/browser/stats" name="browser-stats-url">
+<meta content="https://api.github.com/_private/browser/errors" name="browser-errors-url">
+<link href="https://assets-cdn.github.com/" rel="assets">
+<meta content="1000" name="pjax-timeout">
+<meta content="/windows-tile.png" name="msapplication-TileImage">
+<meta content="#ffffff" name="msapplication-TileColor">
+<meta data-pjax-transient="" name="selected-link" value="repo_wiki">
+<meta content="KT5gs8h0wvaagLKAVWq8bbeNwnZZK1r1XQysX3xurLU" name="google-site-verification">
+<meta content="UA-3769691-2" name="google-analytics">
+<meta content="collector.githubapp.com" name="octolytics-host"/><meta content="github" name="octolytics-app-id"/><meta content="7250A4CA:6925:144B2447:5670BFB6" name="octolytics-dimension-request_id"/>
+<meta content="/&lt;user-name&gt;/&lt;repo-name&gt;/wiki/show" data-pjax-transient="true" name="analytics-location"/>
+<meta content="Rails, view, wiki#show" data-pjax-transient="true" name="analytics-event"/>
+<meta class="js-ga-set" content="Logged Out" name="dimension1">
+<meta content="github.com" name="hostname">
+<meta content="" name="user-login">
+<meta content="github.com" name="expected-hostname">
+<link color="#4078c0" href="https://assets-cdn.github.com/pinned-octocat.svg" rel="mask-icon">
+<link href="https://assets-cdn.github.com/favicon.ico" rel="icon" type="image/x-icon">
+<meta content="1c0e46f09d3c5c0ad3123381fef6fda277b72ecd" name="form-nonce"/>
+<link crossorigin="anonymous" href="src/350888e1495e7af27e01faa9d8291dee.css" media="all" rel="stylesheet"/>
+<link crossorigin="anonymous" href="src/9fae9b7d8f0785d745a43c6465f74ae5.css" media="all" rel="stylesheet"/>
+<meta content="cd9958d45e48e8e3157a320e9c346eaa" http-equiv="x-pjax-version">
+<meta content="pomelo - A fast,scalable,distributed game server framework for Node.js." name="description">
+<meta content="github.com/NetEase/pomelo git https://github.com/NetEase/pomelo.git" name="go-import">
+<meta content="1460597" name="octolytics-dimension-user_id"/><meta content="NetEase" name="octolytics-dimension-user_login"/><meta content="5880912" name="octolytics-dimension-repository_id"/><meta content="NetEase/pomelo" name="octolytics-dimension-repository_nwo"/><meta content="true" name="octolytics-dimension-repository_public"/><meta content="false" name="octolytics-dimension-repository_is_fork"/><meta content="5880912" name="octolytics-dimension-repository_network_root_id"/><meta content="NetEase/pomelo" name="octolytics-dimension-repository_network_root_nwo"/>
+<link href="https://github.com/NetEase/pomelo/commits/master.atom" rel="alternate" title="Recent Commits to pomelo:master" type="application/atom+xml">
+</link></meta></meta></meta></link></link></meta></meta></meta></meta></meta></meta></meta></meta></meta></meta></link></meta></meta></meta></link></link></link></link></link></link></meta></meta></meta></meta></head><body style="padding:0 25px;"><div class="gollum-markdown-content instapaper_body" id="wiki-body">
+<div class="markdown-body">
+<h1>
+<a aria-hidden="true" class="anchor" href="#the-architecture-overview-of-pomelo" id="user-content-the-architecture-overview-of-pomelo"><span class="octicon octicon-link"></span></a>The architecture overview of pomelo</h1>
+<p>This article is about the design and technical choice of pomelo. 
+Why we choose node.js, why we use this architecture and why we design in this way. It is based on our experience of game development and a lot of studies on previous game server solutions.</p>
+<p>이 문서는 포멜로의 디자인과 기술적인 선택에 관한 것 입니다. 우리가 왜 Node.js를 선택했는지, 왜 이 기술을 사용했는지, 그리고 왜 이러한 방식을 구상했는지. 그것은 우리의 게임 개발의 경험과 이전의 게임 서버 솔루션에 대한 많은 연구에 기반을 두고 있습니다.</p>
+<h2>
+<a aria-hidden="true" class="anchor" href="#why-do-we-choose-nodejs" id="user-content-why-do-we-choose-nodejs"><span class="octicon octicon-link"></span></a>Why do we choose node.js?</h2>
+<p>Node.js is astonishingly suitable for game server development.
+In the definition of node.js, fast, scalable, realtime, network, all these features are quite suitable for game server. </p>
+<p>Game server is a high density real time network application, the network io advantage makes node.js and game server a perfect match.
+But IO is not the only reason for us to choose node.js, here is all the reasons why we choose node.js:</p>
+<ul>
+<li>Network IO and scalability. Perfect match for game servers, which requires realtime, scalability, high density network IO.</li>
+<li>The node.js thread model. Single thread is quite suitable for game server, it helps us to handle all the troubles about concurrency, lock and other annoying questions. Multi-process, single thread is ideal for game server.</li>
+<li>The language advantages. Javascript is powerful, popular and performance good. Further more, if you choose HTML 5 for client, you can reuse a lot of code logic between server and client.</li>
+</ul>
+<h2>
+<a aria-hidden="true" class="anchor" href="#%EC%99%9C-nodejs%EB%A5%BC-%EC%84%A0%ED%83%9D%ED%95%B4%EC%95%BC-%ED%95%98%EB%82%98%EC%9A%94" id="user-content-왜-nodejs를-선택해야-하나요"><span class="octicon octicon-link"></span></a>왜 Node.js를 선택해야 하나요?</h2>
+<p>Node.js는 게임 서버 개발에 놀라울 정도로 적합합니다. Node.js에 정의된 고속, 규모 가변적, 리얼타임, 네트워크등의 이러한 모든 기능들은 게임 서버 개발에 굉장히 적합합니다. </p>
+<p>게임 서버는 고밀도 리얼타임 네트워크 어플리케이션인데, 이 네트워크 IO의 장점은 Node.js와 게임 서버를 완벽하게 매치되게 합니다. 그러나 IO는 우리가 node.js를 선택하게된 유일한 이유는 아니고, 다음에 우리가 왜 node.js를 선택하게 된 모든 이유가 있습니다:</p>
+<ul>
+<li>네트워크 IO 및 확장 성. 실시간, 확장성, 고밀도 네트워크 IO가 요구되는 게임 서버와 완벽한 일치.</li>
+<li>Node.js 스레드 모델입니다. 싱글 스레드는 게임 서버에 대한 매우 적합한데, 우리가 병렬처리(concurrency), 자원고정(lock) 그리고 다른 성가신 의문에 대한 모든 문제를 처리하는 데 도움이됩니다. 멀티 프로세스, 싱글 스레드는 게임 서버에 이상적입니다.</li>
+<li>언어의 장점. 자바 스크립트는 강력하고 인기있으며 성능이 좋습니다. 뿐만아니라 당신이 클라이언트로 HTML5를 선택한다면, 서버와 클라이언트의 많은 코드 로직을 재사용 할 수 있습니다.</li>
+</ul>
+<h3>
+<a aria-hidden="true" class="anchor" href="#the-game-server-runtime-architecture" id="user-content-the-game-server-runtime-architecture"><span class="octicon octicon-link"></span></a>The game server runtime architecture</h3>
+<p>A scalable game server runtime architecture must be multi-process, single process does not scale, even node.js. <a href="http://code.google.com/p/gritsgame">gritsgame</a> from google and <a href="https://github.com/mozilla/BrowserQuest">browserquest</a> from mozilla all use node.js as game server, but only single process, which means their online users are limited.</p>
+<h3>
+<a aria-hidden="true" class="anchor" href="#%EA%B2%8C%EC%9E%84-%EC%84%9C%EB%B2%84-%EB%9F%B0%ED%83%80%EC%9E%84-%EC%95%84%ED%82%A4%ED%85%8D%EC%B2%98" id="user-content-게임-서버-런타임-아키텍처"><span class="octicon octicon-link"></span></a>게임 서버 런타임 아키텍처</h3>
+<p>규모 가변적인 게임 서버 런타임 아키텍처는 반드시 멀티 프로세스여야 합니다. 싱글 프로세스는 가변적이지 않습니다. 구글의 gritsgame과 mozilla의 browerquest는 모두 Node.js를 게임 서버로 씁니다. 오직 싱글 프로세스라면 이것은 온라인 유저의 제한을 뜻합니다.</p>
+<h3>
+<a aria-hidden="true" class="anchor" href="#a-typical-multi-process-mmo-runtime-is-following" id="user-content-a-typical-multi-process-mmo-runtime-is-following"><span class="octicon octicon-link"></span></a>A typical multi-process MMO runtime is following:</h3>
+<h3>
+<a aria-hidden="true" class="anchor" href="#%EC%A0%84%ED%98%95%EC%A0%81%EC%9D%B8-%EB%A9%80%ED%8B%B0-%ED%94%84%EB%A1%9C%EC%84%B8%EC%8A%A4-mmo-%EB%9F%B0%ED%83%80%EC%9E%84%EC%9D%80-%EB%8B%A4%EC%9D%8C%EA%B3%BC-%EA%B0%99%EC%8A%B5%EB%8B%88%EB%8B%A4" id="user-content-전형적인-멀티-프로세스-mmo-런타임은-다음과-같습니다"><span class="octicon octicon-link"></span></a>전형적인 멀티-프로세스 MMO 런타임은 다음과 같습니다:</h3>
+<p><img alt="runtime architecture of MMO" data-canonical-src="http://pomelo.netease.com/resource/documentImage/mmoArchitecture.png" src="https://camo.githubusercontent.com/8f6a9b8343b9f4240548718647340eaaf870a133/687474703a2f2f706f6d656c6f2e6e6574656173652e636f6d2f7265736f757263652f646f63756d656e74496d6167652f6d6d6f4172636869746563747572652e706e67"/></p>
+<h4>
+<a aria-hidden="true" class="anchor" href="#memo-of-runtime-architecture" id="user-content-memo-of-runtime-architecture"><span class="octicon octicon-link"></span></a>Memo of runtime architecture</h4>
+<ul>
+<li>Clients connect to the servers through websocket</li>
+<li>Connectors do not handle logic, it just forward the messages to backend server</li>
+<li>The backend servers include area, chat, status and other type servers, they all handle logic. Most of the game related logics are handled in area servers.</li>
+<li>The backend servers will send back the result to connector, connector then broadcast to related clients.</li>
+<li>Master manages all these servers, including startup, monitor, close etc.</li>
+</ul>
+<h4>
+<a aria-hidden="true" class="anchor" href="#%EB%9F%B0%ED%83%80%EC%9E%84-%EC%95%84%ED%82%A4%ED%85%8D%EC%B2%98%EC%9D%98-%EC%9A%94%EC%A0%90" id="user-content-런타임-아키텍처의-요점"><span class="octicon octicon-link"></span></a>런타임 아키텍처의 요점</h4>
+<ul>
+<li>클라이언트는 웹소켓(websocket)을 통해 서버에 연결</li>
+<li>커넥터(Connectors)는 로직을 처리하지 않고, 그냥 백엔드 서버(backend server)로 메시지를 전달</li>
+<li>백엔드 서버는 area, chat, status 그리고 다른 타입의 서버들 포함하고 그것들이 로직을 처리합니다. 게임과 관련되 대부분의 로직은 area 서버에서 처리됩니다.</li>
+<li>백엔드 서버가 커넥터에 결과를 다시 보내고, 그 다음 커넥터는 관련 고객에게 전파 합니다.</li>
+<li>마스터(Master)는 시작, 모니터, 종료등을 포함해서 이러한 서버들을 관리합니다.</li>
+</ul>
+<h3>
+<a aria-hidden="true" class="anchor" href="#the-difference-between-game-servers-and-web-servers" id="user-content-the-difference-between-game-servers-and-web-servers"><span class="octicon octicon-link"></span></a>The difference between game servers and web servers</h3>
+<p>It looks like web servers and game servers are similar, but actually it's not:</p>
+<ul>
+<li>Long connection VS short connection. The game servers must connect with socket, which is critical for realtime network application. Long connection architecture makes it all different, since all the servers are tightly coupled.</li>
+<li>Difference partition strategies. Game server is based on area based partition strategy, because it can minimize cross process invocation. But web servers can be partitioned based on any load balance strategies, which makes web app more scalable.</li>
+<li>Stateful VS stateless. Because of the partition strategy, the game server is stateful, which limits game server's scalability.</li>
+<li>Broadcast VS request/response. Not like web, Game servers need a lot of broadcasts, even a small action must be notified to related players. These broadcasts make network communication a big burden.</li>
+</ul>
+<h3>
+<a aria-hidden="true" class="anchor" href="#%EA%B2%8C%EC%9E%84-%EC%84%9C%EB%B2%84%EC%99%80-%EC%9B%B9-%EC%84%9C%EB%B2%84%EC%9D%98-%EC%B0%A8%EC%9D%B4%EC%A0%90" id="user-content-게임-서버와-웹-서버의-차이점"><span class="octicon octicon-link"></span></a>게임 서버와 웹 서버의 차이점</h3>
+<p>웹 서버와 게임 서버는 유사한 것처럼 보이지만 실제로는 그렇지 않습니다:</p>
+<ul>
+<li>롱 커넥션 대 숏 커넥션. 게임 서버는 실시간 네트워크 응용 프로그램에 중요한 소켓과 연결해야합니다. 모든 서버가 긴밀하게 결합되어 있기 때문에 롱 커넥션 아키텍처는 모든게 다릅니다.</li>
+<li>파티션 전략 차이. 크로스 프로세스 호출을 최소화 할 수 있기 때문에 게임 서버는 에어리어 파티션 전략을 기반으로 합니다. 그러나 웹 서버는 웹 응용 프로그램을 더욱 확장하는 로드 밸런싱 전략을 바탕으로 분할 될 수 있습니다.</li>
+<li>상태 유지 대 상태 비유지. 분할 전략으로, 게임 서버는 확장을 막도록 상태를 유지 합니다.</li>
+<li>전파 대 요청/응답. 웹과 달리, 게임 서버는 많은 전파를 필요로 하는데, ​​심지어 작은 액션도 관련 플레이어들에게 통지 되어야 해야합니다.</li>
+</ul>
+<h3>
+<a aria-hidden="true" class="anchor" href="#the-runtime-architecture-of-a-game-is-so-complicated-that-we-need-a-framework-to-simplify-it" id="user-content-the-runtime-architecture-of-a-game-is-so-complicated-that-we-need-a-framework-to-simplify-it"><span class="octicon octicon-link"></span></a>The runtime architecture of a game is so complicated that we need a framework to simplify it.</h3>
+<p>Not like web, there are not so much open source game frameworks, not event this architecture.
+Pomelo is a rescue, it let you write as little code as possible to support this complicated runtime architecture.</p>
+<h3>
+<a aria-hidden="true" class="anchor" href="#%EA%B2%8C%EC%9E%84%EC%9D%98-%EB%9F%B0%ED%83%80%EC%9E%84-%EC%95%84%ED%82%A4%ED%85%8D%EC%B2%98%EB%8A%94-%EB%A7%A4%EC%9A%B0-%EB%B3%B5%EC%9E%A1%ED%95%B4%EC%84%9C-%EC%9A%B0%EB%A6%AC%EB%8A%94-%EA%B7%B8%EA%B2%83%EC%9D%84-%EB%8B%A8%EC%88%9C%ED%99%94%ED%95%98%EB%8A%94-%ED%94%84%EB%A0%88%EC%9E%84%EC%9B%8C%ED%81%AC%EB%A5%BC-%ED%95%84%EC%9A%94%EB%A1%9C-%ED%95%A9%EB%8B%88%EB%8B%A4" id="user-content-게임의-런타임-아키텍처는-매우-복잡해서-우리는-그것을-단순화하는-프레임워크를-필요로-합니다"><span class="octicon octicon-link"></span></a>게임의 런타임 아키텍처는 매우 복잡해서 우리는 그것을 단순화하는 프레임워크를 필요로 합니다.</h3>
+<p>웹과 달리, 오픈소스 게임프레임워크는 많지 않으며, 이러한 아키텍터도 아닙니다.
+포멜로는 구제이며, 아주 적은 코드로 복잡한 런타임 아키텍처를 지원하도록 합니다.</p>
+<h2>
+<a aria-hidden="true" class="anchor" href="#introduction-to-pomelo-framework" id="user-content-introduction-to-pomelo-framework"><span class="octicon octicon-link"></span></a>Introduction to pomelo framework</h2>
+<p>The following is components of pomelo framework:</p>
+<h2>
+<a aria-hidden="true" class="anchor" href="#%ED%8F%AC%EB%A9%9C%EB%A1%9C-%ED%94%84%EB%A0%88%EC%9E%84%EC%9B%8C%ED%81%AC-%EC%86%8C%EA%B0%9C" id="user-content-포멜로-프레임워크-소개"><span class="octicon octicon-link"></span></a>포멜로 프레임워크 소개</h2>
+<p>다음은 포멜로 프레임워크의 구성 요소입니다</p>
+<p><img alt="pomelo framework" data-canonical-src="http://pomelo.netease.com/resource/documentImage/pomelo-arch.png" src="https://camo.githubusercontent.com/1c88f142423bed8f67b19a71689e6360ce6c1ebc/687474703a2f2f706f6d656c6f2e6e6574656173652e636f6d2f7265736f757263652f646f63756d656e74496d6167652f706f6d656c6f2d617263682e706e67"/></p>
+<ul>
+<li>server management, it is especially important in this multi-process, distributed architecture.</li>
+<li>network, request/response, broadcast, RPC, session, all these construct the game logic flow.</li>
+<li><p>application, this is crucial for loosely coupled architecture, app DSL, component, context makes pomelo pluggable and easy to extend.</p></li>
+<li><p>서버 관리, 그것은 분산 아키텍처, 멀티 프로세스에 특히 중요합니다.</p></li>
+<li>네트워크, 요청/응답, 전파, RPC, 세션, 이러한 모든 것들은 게임 로직 흐름을 구성합니다.</li>
+<li>어플리케이션, 이것은 느슨한 결합 아키텍처에 매우 중요하고, app DSL, 컨포넌트, 콘텍스트는 포멜로가 플러그 가능하게 쉽게 확장하록 합니다.</li>
+</ul>
+<h3>
+<a aria-hidden="true" class="anchor" href="#the-design-goal-of-pomelo" id="user-content-the-design-goal-of-pomelo"><span class="octicon octicon-link"></span></a>The design goal of pomelo</h3>
+<ul>
+<li>Servers abstraction and extension.</li>
+</ul>
+<p>In web app, servers are stateless, loosely coupled, so there is 
+no need for a framework to manager all these servers.
+Game apps, however, are different. All these servers work tightly together, and there are a lot of server types. We need to support all these server types and servers extension.</p>
+<ul>
+<li>Request/response, broadcast abstraction</li>
+</ul>
+<p>We need a request, response mechanism, or more specifically, a request/broadcast mechanism. Since broadcast is the most usual action in game servers, and potentially a performance bottleneck.</p>
+<ul>
+<li>Servers rpc communication</li>
+</ul>
+<p>Servers need to talk to each other, although we try to avoid it.We need a rpc framework as simple as possible.</p>
+<h3>
+<a aria-hidden="true" class="anchor" href="#%ED%8F%AC%EB%A9%9C%EB%A1%9C%EC%9D%98-%EB%94%94%EC%9E%90%EC%9D%B8-%EB%AA%A9%ED%91%9C" id="user-content-포멜로의-디자인-목표"><span class="octicon octicon-link"></span></a>포멜로의 디자인 목표</h3>
+<ul>
+<li>서버 추상과 확장.</li>
+</ul>
+<p>웹 어플리케이션에서는 서버 상태가 유지되지 않고, 느슨하게 결합되기 때문에, 이러한 서버들은 관리할 프레임워크가 필요없습니다. 그러나 게임 어플리케이션은 다릅니다. 모든 서버는 밀접하게 작동하고, 다양한 서버 종류가 있습니다. 우리는 모든 서버 종류 및 서버 확장을 지원해야합니다. 이러한 서버 종류들과 서버 확장을 지원해야 할 필요가 있습니다.</p>
+<ul>
+<li>요청/응답, 전파 추상화</li>
+</ul>
+<p>우리는 요청, 응답 메커니즘, 또는 좀 더 특별한 요청/전파 메커니즘이 필요합니다. 전파는 게임 서버에서 일반적으로 쓰이고, 병목 현상 처리에 가능성이 있기 때문입니다.</p>
+<ul>
+<li>서버 RPC 통신</li>
+</ul>
+<p>우리가 피하려 해도, 서버는 서로 대화 할 수 있어야 합니다. 간단하게 가능한 rpc 프레임워크가 필요합니다. </p>
+<h3>
+<a aria-hidden="true" class="anchor" href="#introduction-to-server-abstraction-and-extenstion" id="user-content-introduction-to-server-abstraction-and-extenstion"><span class="octicon octicon-link"></span></a>Introduction to server abstraction and extenstion</h3>
+<h4>
+<a aria-hidden="true" class="anchor" href="#servers-types" id="user-content-servers-types"><span class="octicon octicon-link"></span></a>Servers types</h4>
+<p>Pomelo divides servers in two types: frontend and backend, here it is:</p>
+<h3>
+<a aria-hidden="true" class="anchor" href="#%EC%84%9C%EB%B2%84%EC%9D%98-%EC%B6%94%EC%83%81%ED%99%94%EC%99%80-%ED%99%95%EC%9E%A5%EC%84%B1-%EC%86%8C%EA%B0%9C" id="user-content-서버의-추상화와-확장성-소개"><span class="octicon octicon-link"></span></a>서버의 추상화와 확장성 소개</h3>
+<h4>
+<a aria-hidden="true" class="anchor" href="#%EC%84%9C%EB%B2%84%EB%93%A4%EC%9D%98-%EC%A2%85%EB%A5%98" id="user-content-서버들의-종류"><span class="octicon octicon-link"></span></a>서버들의 종류</h4>
+<p>포멜로는 두 종류의 서버로 나눕니다. 프론트엔드와 백엔드 이와같이:</p>
+<p><img alt="server abstractions" data-canonical-src="http://pomelo.netease.com/resource/documentImage/serverAbstraction.png" src="https://camo.githubusercontent.com/12413f0e7e9a85ac3e844cc077fbaa0bb4c7ae0a/687474703a2f2f706f6d656c6f2e6e6574656173652e636f6d2f7265736f757263652f646f63756d656e74496d6167652f7365727665724162737472616374696f6e2e706e67"/></p>
+<p>The responsibility of frontend servers :</p>
+<ul>
+<li>handle client connection</li>
+<li>maintain session information</li>
+<li>forward request to backend</li>
+<li>broadcast messages to clients</li>
+</ul>
+<p>The responsibility of backend servers :</p>
+<ul>
+<li>handle logic, including rpc and frontend logic</li>
+<li>push result back to fronend</li>
+</ul>
+<p>프런트 엔드 서버의 책임 :</p>
+<ul>
+<li>클라이언트 연결 처리</li>
+<li>세션 정보 유지</li>
+<li>백엔드에 요청을 전달</li>
+<li>클라이언트에게 메시지 전파</li>
+</ul>
+<p>백엔드 서버의 책임 :</p>
+<ul>
+<li>rpc와 프론트엔드을 포함한 로직 처리</li>
+<li>결과를 프론트엔드로 다시 푸쉬하기</li>
+</ul>
+<h4>
+<a aria-hidden="true" class="anchor" href="#the-server-duck-type" id="user-content-the-server-duck-type"><span class="octicon octicon-link"></span></a>The server duck type</h4>
+<p>Duck type is commonly used in OOP of dynamic language.
+Servers, however can also use duck type idea. There are only two types of interfaces for a server:</p>
+<ul>
+<li>handle client request, we call it handler</li>
+<li>handle rpc call, we call it remote</li>
+</ul>
+<p>All we have to do is to define handler and remote, which can define what the server looks like.</p>
+<h4>
+<a aria-hidden="true" class="anchor" href="#%EC%84%9C%EB%B2%84-%EB%8D%95-%ED%83%80%EC%9E%85" id="user-content-서버-덕-타입"><span class="octicon octicon-link"></span></a>서버 덕 타입</h4>
+<p>덕 타입은 동적 언어의 OOP에서 일반적으로 쓰입니다. 그렇지만 서버들도 덕타입 사상을 이용할 수 있습니다. 서버에 대한 두 종류의 인터페이스가 있습니다 :</p>
+<ul>
+<li>핸들러에게 호출한 클라이언트 요청 처리</li>
+<li>리모트에게 호출한 rpc 콜 처리</li>
+</ul>
+<p>우리가 해야할 일은 서버가 무엇과 같이 보일지 정할 수 있는 핸들러와 리모트를 정의 하는 것입니다.</p>
+<h4>
+<a aria-hidden="true" class="anchor" href="#the-implementation-of-server-abstraction" id="user-content-the-implementation-of-server-abstraction"><span class="octicon octicon-link"></span></a>The implementation of server abstraction</h4>
+<p>The simplest way is to corresponding directory structure with server.  </p>
+<p>Here is the example:</p>
+<p>We just design a server called 'area', the behavior of the server is determined by the code in 'handler' and 'remote'.
+All we need to do is to fill the code in handler and remote.
+To make the server run, we need a small config file called servers.json. Here is the example file:</p>
+<div class="highlight highlight-source-json"><pre>{
+  <span class="pl-s"><span class="pl-pds">"</span>development<span class="pl-pds">"</span></span>:{
+    <span class="pl-s"><span class="pl-pds">"</span>connector<span class="pl-pds">"</span></span>: [
+      {<span class="pl-s"><span class="pl-pds">"</span>id<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>connector-server-1<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>host<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>127.0.0.1<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>port<span class="pl-pds">"</span></span>: <span class="pl-c1">3150</span>, <span class="pl-s"><span class="pl-pds">"</span>wsPort<span class="pl-pds">"</span></span>:<span class="pl-c1">3010</span>},
+      {<span class="pl-s"><span class="pl-pds">"</span>id<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>connector-server-2<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>host<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>127.0.0.1<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>port<span class="pl-pds">"</span></span>: <span class="pl-c1">3151</span>, <span class="pl-s"><span class="pl-pds">"</span>wsPort<span class="pl-pds">"</span></span>:<span class="pl-c1">3011</span>}
+    ],
+    <span class="pl-s"><span class="pl-pds">"</span>area<span class="pl-pds">"</span></span>: [
+      {<span class="pl-s"><span class="pl-pds">"</span>id<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>area-server-1<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>host<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>127.0.0.1<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>port<span class="pl-pds">"</span></span>: <span class="pl-c1">3250</span>, <span class="pl-s"><span class="pl-pds">"</span>area<span class="pl-pds">"</span></span>: <span class="pl-c1">1</span>},
+      {<span class="pl-s"><span class="pl-pds">"</span>id<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>area-server-2<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>host<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>127.0.0.1<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>port<span class="pl-pds">"</span></span>: <span class="pl-c1">3251</span>, <span class="pl-s"><span class="pl-pds">"</span>area<span class="pl-pds">"</span></span>: <span class="pl-c1">2</span>},
+      {<span class="pl-s"><span class="pl-pds">"</span>id<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>area-server-3<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>host<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>127.0.0.1<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>port<span class="pl-pds">"</span></span>: <span class="pl-c1">3252</span>, <span class="pl-s"><span class="pl-pds">"</span>area<span class="pl-pds">"</span></span>: <span class="pl-c1">3</span>}
+    ],
+    <span class="pl-s"><span class="pl-pds">"</span>chat<span class="pl-pds">"</span></span>:[
+      {<span class="pl-s"><span class="pl-pds">"</span>id<span class="pl-pds">"</span></span>:<span class="pl-s"><span class="pl-pds">"</span>chat-server-1<span class="pl-pds">"</span></span>,<span class="pl-s"><span class="pl-pds">"</span>host<span class="pl-pds">"</span></span>:<span class="pl-s"><span class="pl-pds">"</span>127.0.0.1<span class="pl-pds">"</span></span>,<span class="pl-s"><span class="pl-pds">"</span>port<span class="pl-pds">"</span></span>:<span class="pl-c1">3450</span>}
+    ]
+  }
+}</pre></div>
+<h4>
+<a aria-hidden="true" class="anchor" href="#%EC%84%9C%EB%B2%84-%EC%B6%94%EC%83%81%ED%99%94%EC%9D%98-%EA%B5%AC%ED%98%84" id="user-content-서버-추상화의-구현"><span class="octicon octicon-link"></span></a>서버 추상화의 구현</h4>
+<p>가장 단순한 방법은 디렉토리 구조를 서버와 일치시키는 것 입니다.</p>
+<p>여기 예제가 있습니다:
+<img alt="directory structure" data-canonical-src="http://pomelo.netease.com/resource/documentImage/directory.png" src="https://camo.githubusercontent.com/556355253c70413053c21933a75b076f57ab1d80/687474703a2f2f706f6d656c6f2e6e6574656173652e636f6d2f7265736f757263652f646f63756d656e74496d6167652f6469726563746f72792e706e67"/></p>
+<p>우리는 '핸들러'와 '리모트'의 코드에 의해 행동이 결정되는 '에어리어(area)'라는 서버를 단지 설계 합니다. 우리가 해야할 일은 핸들러와 리모트에 코드를 채우는 것입니다. 서버를 실행하려면 servers.json 파일명의 조금만 설정 파일이 필요합니다.
+예제 파일은 다음과 같습니다 :</p>
+<pre><code>{
+  "development":{
+    "connector": [
+      {"id": "connector-server-1", "host": "127.0.0.1", "port": 3150, "wsPort":3010},
+      {"id": "connector-server-2", "host": "127.0.0.1", "port": 3151, "wsPort":3011}
+    ],
+    "area": [
+      {"id": "area-server-1", "host": "127.0.0.1", "port": 3250, "area": 1},
+      {"id": "area-server-2", "host": "127.0.0.1", "port": 3251, "area": 2},
+      {"id": "area-server-3", "host": "127.0.0.1", "port": 3252, "area": 3}
+    ],
+    "chat":[
+      {"id":"chat-server-1","host":"127.0.0.1","port":3450}
+    ]
+  }
+}
+</code></pre>
+<h3>
+<a aria-hidden="true" class="anchor" href="#client-request-response-broadcast" id="user-content-client-request-response-broadcast"><span class="octicon octicon-link"></span></a>Client request, response, broadcast</h3>
+<p>Although we use long connection, but the request/response api looks like web. Here is the example:</p>
+<h3>
+<a aria-hidden="true" class="anchor" href="#%ED%81%B4%EB%9D%BC%EC%9D%B4%EC%96%B8%ED%8A%B8-%EC%9A%94%EC%B2%AD-%EC%9D%91%EB%8B%B5-%EC%A0%84%ED%8C%8Cbroadcast" id="user-content-클라이언트-요청-응답-전파broadcast"><span class="octicon octicon-link"></span></a>클라이언트 요청, 응답, 전파(broadcast)</h3>
+<p>우리는 롱 커넥션을 사용하지만, 요청/응답 API는 웹과 같아 보입니다. 예제:</p>
+<p><img alt="request example" data-canonical-src="http://pomelo.netease.com/resource/documentImage/request.png" src="https://camo.githubusercontent.com/d59f4d8e89f7432ab36525f6cc4d59cbaa20fd83/687474703a2f2f706f6d656c6f2e6e6574656173652e636f6d2f7265736f757263652f646f63756d656e74496d6167652f726571756573742e706e67"/></p>
+<p>The api looks like ajax request, although it's actually a long connection cross server request. Based on convention over configuration rules, there is no config.
+Pomelo also have filter, broadcast and other mechanisms, you make see the details in <a href="https://github.com/NetEase/pomelo/wiki/Pomelo-Framework">pomelo framework reference</a></p>
+<p>api는 ajax 요청처럼 보이는데, 실제로는 롱 커넥션 크로스 서버 요청입니다. 환경 설정보다는 관례를 따르고 있습니다.
+포멜로는 필터, 브로드캐스트, 그리고 다른 메커니즘을 가지고 있으며, 포멜로 프레임워크 레퍼런스에서 세부사항을 볼 수 있습니다.</p>
+<h3>
+<a aria-hidden="true" class="anchor" href="#rpc-abstraction" id="user-content-rpc-abstraction"><span class="octicon octicon-link"></span></a>rpc abstraction</h3>
+<p>The rpc framework is really simple, it can automatically choose route strategy and route to the target server with no configuration.Here is the picture:</p>
+<h3>
+<a aria-hidden="true" class="anchor" href="#rpc-%EC%B6%94%EC%83%81%ED%99%94" id="user-content-rpc-추상화"><span class="octicon octicon-link"></span></a>RPC 추상화</h3>
+<p>RPC 프레임워크는 정말 간단한데, 설정 없이도 자동으로 경로 전략(route strategy)과 타켓 서버의 경로를 선택할 수 있습니다. 여기 그림이 있습니다.</p>
+<p><img alt="rpc invocation" data-canonical-src="http://pomelo.netease.com/resource/documentImage/rpcInterface.png" src="https://camo.githubusercontent.com/b38b55ed9aab3299e0bf3085d9e73f594483b8bc/687474703a2f2f706f6d656c6f2e6e6574656173652e636f6d2f7265736f757263652f646f63756d656e74496d6167652f727063496e746572666163652e706e67"/></p>
+<p>The picture above defined a rpc interface in chatRemotejs, the definition is following:</p>
+<p>위 그림은 chatRemote.js의 rpc 인터페이스를 정의합니다.</p>
+<pre><code>chatRemote.kick = function(uid, player, cb) {
+}
+</code></pre>
+<p>The rpc client just invoke like this:</p>
+<p>RPC 클라이언트는 다음과 같이 호출하면 됨:</p>
+<pre><code>app.rpc.chat.chatRemote.kick(session, uid, player, function(data){
+});
+</code></pre>
+<p>Notice the session parameter, it's crucial for router. The framework will help you send the message to certain server.</p>
+<p>세션 파라메터를 공지하는 것은 라우터에게 중요합니다. 프레임워크는 특정 서버로 메시지를 보내는데 도움이 될 것입니다.</p>
+<h3>
+<a aria-hidden="true" class="anchor" href="#the-pluggable-component-architecture" id="user-content-the-pluggable-component-architecture"><span class="octicon octicon-link"></span></a>The pluggable component architecture</h3>
+<p>Component is pluggable module in pomelo, developers can implement their own component, and just load it. The <a href="https://github.com/NetEase/pomelo/wiki/Framework-reference-of-pomelo">framework reference of pomelo</a> will discuss it detail. Following are the life cycle of components:</p>
+<h3>
+<a aria-hidden="true" class="anchor" href="#%ED%94%8C%EB%9F%AC%EA%B7%B8-%EC%BB%B4%ED%8F%AC%EB%84%8C%ED%8A%B8-%EC%95%84%ED%82%A4%ED%85%8D%EC%B2%98" id="user-content-플러그-컴포넌트-아키텍처"><span class="octicon octicon-link"></span></a>플러그 컴포넌트 아키텍처</h3>
+<p>포멜로에서 플러그처럼 사용 가능한 모듈은 컴포넌트 이며, 개발자는 자신의 컴포넌트를 가질 수 있고 로드 할 수도 있습니다. 포멜로 프레임워크 레퍼런스는 세부사항을 다룹니다. 컴포넌트의 라이프 사이클은 다음과 같습니다.</p>
+<img alt="components" data-canonical-src="http://pomelo.netease.com/resource/documentImage/components.png" src="https://camo.githubusercontent.com/cc8061f334e3d953f731be4c9327b275abc84e4d/687474703a2f2f706f6d656c6f2e6e6574656173652e636f6d2f7265736f757263652f646f63756d656e74496d6167652f636f6d706f6e656e74732e706e67">
+<p>All user have to do is implementing all these interfaces: start, afterStart, stop, and then we can load it in app.js:</p>
+<p>모든 사용자가 할일은 다음의 인터페이스를 구현하는 것입니다: start, afterStart, stop, 그 다음에는 app.js에 로드 할 수 있습니다. </p>
+<div class="highlight highlight-source-js"><pre><span class="pl-smi">app</span>.<span class="pl-c1">load</span>([name], comp, [opts])</pre></div>
+<h2>
+<a aria-hidden="true" class="anchor" href="#conclusion" id="user-content-conclusion"><span class="octicon octicon-link"></span></a>conclusion</h2>
+<p>The above framework mechanisms construct the base of pomelo framework.  Above these, we can construct libraries and tools, or framework in another abstract level. The following <a href="https://github.com/NetEase/pomelo/wiki/Tutorial">tutorial</a> will help us use it in real cases. </p>
+<h2>
+<a aria-hidden="true" class="anchor" href="#%EA%B2%B0%EB%A1%A0" id="user-content-결론"><span class="octicon octicon-link"></span></a>결론</h2>
+<p>위의 프레임워크 메커니즘은 포멜로 프레임워크를 기반으로 구성합니다. 우리는 위와 같이 라이브러리와 툴로 또는 다른 추상 레벨의 프로임워크를 구성할 수 있습니다. 이어지는 학습은 실제 사례에서 사용하는 것을 돕습니다.</p>
+</img></div>
+</div></body></html>

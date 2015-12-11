@@ -1,0 +1,137 @@
+<html><head prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# object: http://ogp.me/ns/object# article: http://ogp.me/ns/article# profile: http://ogp.me/ns/profile#">
+<meta charset="utf-8">
+<meta content="IE=edge" http-equiv="X-UA-Compatible">
+<meta content="en" http-equiv="Content-Language">
+<meta content="width=1020" name="viewport">
+<title>使用 WebStorm IDE 调试 Pomelo 应用程序 · NetEase/pomelo Wiki · GitHub</title>
+<link href="/opensearch.xml" rel="search" title="GitHub" type="application/opensearchdescription+xml">
+<link href="src/ad667adaa2cfe8f3caa4a41b7d0a79a1.png" rel="fluid-icon" title="GitHub">
+<link href="src/a10d19ff5f738940a7a5086be334f50b.png" rel="apple-touch-icon" sizes="57x57">
+<link href="src/a10d19ff5f738940a7a5086be334f50b.png" rel="apple-touch-icon" sizes="114x114">
+<link href="src/b4cd268bc600cc14d2cdd557de6da2fb.png" rel="apple-touch-icon" sizes="72x72">
+<link href="src/b4cd268bc600cc14d2cdd557de6da2fb.png" rel="apple-touch-icon" sizes="144x144">
+<meta content="1401488693436528" property="fb:app_id">
+<meta content="@github" name="twitter:site"/><meta content="summary" name="twitter:card"/><meta content="NetEase/pomelo" name="twitter:title"/><meta content="pomelo - A fast,scalable,distributed game server framework for Node.js." name="twitter:description"/><meta content="https://avatars0.githubusercontent.com/u/1460597?v=3&amp;s=400" name="twitter:image:src"/>
+<meta content="GitHub" property="og:site_name"/><meta content="object" property="og:type"/><meta content="https://avatars0.githubusercontent.com/u/1460597?v=3&amp;s=400" property="og:image"/><meta content="NetEase/pomelo" property="og:title"/><meta content="https://github.com/NetEase/pomelo" property="og:url"/><meta content="pomelo - A fast,scalable,distributed game server framework for Node.js." property="og:description"/>
+<meta content="https://api.github.com/_private/browser/stats" name="browser-stats-url">
+<meta content="https://api.github.com/_private/browser/errors" name="browser-errors-url">
+<link href="https://assets-cdn.github.com/" rel="assets">
+<meta content="1000" name="pjax-timeout">
+<meta content="/windows-tile.png" name="msapplication-TileImage">
+<meta content="#ffffff" name="msapplication-TileColor">
+<meta data-pjax-transient="" name="selected-link" value="repo_wiki">
+<meta content="KT5gs8h0wvaagLKAVWq8bbeNwnZZK1r1XQysX3xurLU" name="google-site-verification">
+<meta content="UA-3769691-2" name="google-analytics">
+<meta content="collector.githubapp.com" name="octolytics-host"/><meta content="github" name="octolytics-app-id"/><meta content="CA86616A:448A:120B3B8D:5670C174" name="octolytics-dimension-request_id"/>
+<meta content="/&lt;user-name&gt;/&lt;repo-name&gt;/wiki/show" data-pjax-transient="true" name="analytics-location"/>
+<meta content="Rails, view, wiki#show" data-pjax-transient="true" name="analytics-event"/>
+<meta class="js-ga-set" content="Logged Out" name="dimension1">
+<meta content="github.com" name="hostname">
+<meta content="" name="user-login">
+<meta content="github.com" name="expected-hostname">
+<link color="#4078c0" href="https://assets-cdn.github.com/pinned-octocat.svg" rel="mask-icon">
+<link href="https://assets-cdn.github.com/favicon.ico" rel="icon" type="image/x-icon">
+<meta content="8e1c64edceeabd8ca67f645212aa5c298db6f950" name="form-nonce"/>
+<link crossorigin="anonymous" href="src/350888e1495e7af27e01faa9d8291dee.css" media="all" rel="stylesheet"/>
+<link crossorigin="anonymous" href="src/9fae9b7d8f0785d745a43c6465f74ae5.css" media="all" rel="stylesheet"/>
+<meta content="cd9958d45e48e8e3157a320e9c346eaa" http-equiv="x-pjax-version">
+<meta content="pomelo - A fast,scalable,distributed game server framework for Node.js." name="description">
+<meta content="github.com/NetEase/pomelo git https://github.com/NetEase/pomelo.git" name="go-import">
+<meta content="1460597" name="octolytics-dimension-user_id"/><meta content="NetEase" name="octolytics-dimension-user_login"/><meta content="5880912" name="octolytics-dimension-repository_id"/><meta content="NetEase/pomelo" name="octolytics-dimension-repository_nwo"/><meta content="true" name="octolytics-dimension-repository_public"/><meta content="false" name="octolytics-dimension-repository_is_fork"/><meta content="5880912" name="octolytics-dimension-repository_network_root_id"/><meta content="NetEase/pomelo" name="octolytics-dimension-repository_network_root_nwo"/>
+<link href="https://github.com/NetEase/pomelo/commits/master.atom" rel="alternate" title="Recent Commits to pomelo:master" type="application/atom+xml">
+</link></meta></meta></meta></link></link></meta></meta></meta></meta></meta></meta></meta></meta></meta></meta></link></meta></meta></meta></link></link></link></link></link></link></meta></meta></meta></meta></head><body style="padding:0 25px;"><div class="gollum-markdown-content instapaper_body" id="wiki-body">
+<div class="markdown-body">
+<p>使用得心应手的IDE来开发应用程序，可以使我们的工作事半功倍。而调试则更可以让我们准确的定位BUG，发现问题。<br>
+本文讲述如何使用 <a href="http://www.jetbrains.com/webstorm/">WebStorm</a> 这个怪兽级JavaScript IDE来调试 <a href="https://github.com/NetEase/chatofpomelo">Chat of Pomelo</a>。<br>
+如果你更喜欢 <a href="http://www.eclipse.org/">Eclipse</a> 等其他IDE，希望本文也可以有一些帮助。</br></br></p>
+<h2>
+<a aria-hidden="true" class="anchor" href="#%E5%89%8D%E8%A8%80" id="user-content-前言"><span class="octicon octicon-link"></span></a>前言</h2>
+<ul>
+<li><p>首先我们需要知道，NodeJS应用程序可以在运行命令中加入<code>--debug=5858</code>参数，可以使得NodeJS程序监听本地<code>5858</code>端口，并开启调试模式。</p></li>
+<li><p>其次，Pomelo的运行原理是：<code>pomelo start</code>时，启动了<code>master</code>服务器，然后其先读取配置文件，再启动由<code>game-server/config/servers.json</code>文件中经过配置的各个服务器进程。其中，你看到的<code>id</code>、<code>host</code>、<code>port</code>等等都是子服务器的启动参数，这些参数都会放到启动命令行中<code>app.js</code>的后面。</p></li>
+<li><p>再次，Pomelo的设计人员最初已经考虑到了直接在<code>node</code>后<code>app.js</code>前添加参数的简便方法：在服务器配置文件中，配置条目中插入<code>"args": " 你想要的参数 "</code>后，便可以你指定的参数运行<code>node</code>。</p></li>
+</ul>
+<h2>
+<a aria-hidden="true" class="anchor" href="#%E4%BF%AE%E6%94%B9%E9%85%8D%E7%BD%AE%E4%BB%A5%E5%90%AF%E5%8A%A8%E5%B8%A6%E6%9C%89%E8%B0%83%E8%AF%95%E6%A8%A1%E5%BC%8F%E7%9A%84%E6%9C%8D%E5%8A%A1%E5%99%A8" id="user-content-修改配置以启动带有调试模式的服务器"><span class="octicon octicon-link"></span></a>修改配置以启动带有调试模式的服务器</h2>
+<h3>
+<a aria-hidden="true" class="anchor" href="#%E4%B8%80%E6%89%93%E5%BC%80%E6%96%87%E4%BB%B6" id="user-content-一打开文件"><span class="octicon octicon-link"></span></a>一、打开文件</h3>
+<p>打开<code>game-server/config/servers.json</code>。为了便于便于开发，我们将服务器数目缩减至每功能1个运行实例。这样你就会看到：</p>
+<p><img alt="精简过的默认服务器配置" data-canonical-src="https://f.cloud.github.com/assets/1926860/305880/bfc0d546-9666-11e2-8092-9a4f15766c21.png" src="https://camo.githubusercontent.com/e01f3d8c4d09603855e13a41c4d61e99abc9e544/68747470733a2f2f662e636c6f75642e6769746875622e636f6d2f6173736574732f313932363836302f3330353838302f62666330643534362d393636362d313165322d383039322d3961346631353736366332312e706e67"/></p>
+<h3>
+<a aria-hidden="true" class="anchor" href="#%E4%BA%8C%E4%BF%AE%E6%94%B9%E5%B9%B6%E4%BF%9D%E5%AD%98" id="user-content-二修改并保存"><span class="octicon octicon-link"></span></a>二、修改并保存</h3>
+<p>我们对<code>gate</code>服务器的负载分配原理产生了兴趣，想要调试它。这时，我们只需要在<code>{"id": "gate-server-1", ...</code>的行末，花括号<code>}</code>前，插入下面代码<code>, "args": " --debug=32312 "</code>。使<code>gate</code>服务器的配置组变成这样：</p>
+<p><img alt="gate服务器调试配置" data-canonical-src="https://f.cloud.github.com/assets/1926860/305916/f19cfd00-9667-11e2-8e93-9f490d181eab.png" src="https://camo.githubusercontent.com/3a12ad456cb78417db6773194d8e3969bfe0d4c8/68747470733a2f2f662e636c6f75642e6769746875622e636f6d2f6173736574732f313932363836302f3330353931362f66313963666430302d393636372d313165322d386539332d3966343930643138316561622e706e67"/></p>
+<p>当再次启动服务器时，<code>master</code>服务器会读取新的配置，并以这个配置运行<code>gate-server-1</code>服务器。</p>
+<p>而该服务器的进程，会监听<code>32312</code>端口，以便调试器连接。将端口设置的偏高是为了减少端口冲突的可能性。开发过程中，如果启动后发现有报<code>ADDRINUSE</code>（端口已被占用）的错误，请使用<code>pomelo kill --force</code>杀光Pomelo程序，并调整此处的端口值。</p>
+<h2>
+<a aria-hidden="true" class="anchor" href="#%E9%85%8D%E7%BD%AEide%E7%9A%84%E8%B0%83%E8%AF%95%E5%99%A8" id="user-content-配置ide的调试器"><span class="octicon octicon-link"></span></a>配置IDE的调试器</h2>
+<h3>
+<a aria-hidden="true" class="anchor" href="#%E4%B8%80%E6%89%93%E5%BC%80edit-configurations%E5%AF%B9%E8%AF%9D%E6%A1%86" id="user-content-一打开edit-configurations对话框"><span class="octicon octicon-link"></span></a>一、打开<code>Edit Configurations...</code>对话框</h3>
+<p>可以从运行、调试按钮前面的小三角进入，或者从工具栏中选择<code>Run</code> - <code>Edit Configurations...</code>。</p>
+<p><img alt="打开Edit Configurations对话框" data-canonical-src="https://f.cloud.github.com/assets/1926860/306059/748e320c-966c-11e2-848e-fbbe6e04532d.png" src="https://camo.githubusercontent.com/068536e73fc81ac36f50524fdb8a8369f3d0bf9a/68747470733a2f2f662e636c6f75642e6769746875622e636f6d2f6173736574732f313932363836302f3330363035392f37343865333230632d393636632d313165322d383438652d6662626536653034353332642e706e67"/></p>
+<h3>
+<a aria-hidden="true" class="anchor" href="#%E4%BA%8C%E6%96%B0%E5%A2%9E%E4%B8%80%E6%9D%A1nodejs-remote-debug" id="user-content-二新增一条nodejs-remote-debug"><span class="octicon octicon-link"></span></a>二、新增一条<code>Node.js Remote Debug</code>
+</h3>
+<p><img alt="增加 Node.js Remote Debug 配置" data-canonical-src="https://f.cloud.github.com/assets/1926860/306064/b3366cf4-966c-11e2-892f-f19f558a6243.png" src="https://camo.githubusercontent.com/14bd9fb68d9c3afa6ed3ccf327065fc1f100cba5/68747470733a2f2f662e636c6f75642e6769746875622e636f6d2f6173736574732f313932363836302f3330363036342f62333336366366342d393636632d313165322d383932662d6631396635353861363234332e706e67"/></p>
+<p><img alt="gate study 调试器配置" data-canonical-src="https://f.cloud.github.com/assets/1926860/306070/1197fcfe-966d-11e2-9a3b-e6bf86d1f029.png" src="https://camo.githubusercontent.com/1e76ecee756c9af804f63373c8e638f9f2936e29/68747470733a2f2f662e636c6f75642e6769746875622e636f6d2f6173736574732f313932363836302f3330363037302f31313937666366652d393636642d313165322d396133622d6536626638366431663032392e706e67"/></p>
+<p><code>Name</code>栏名字可以随意起，但最好选择明确易懂的。然后选中<code>Single instance only</code>，这样只会启动一个调试器。而不会有很多相同的调试器都连到后面指定的调试端口。</p>
+<p>下面的<code>Host</code>写<b>本地<code>127.0.0.1</code></b>，<code>Debug Port</code>填入刚刚上面指定的端口号，我这里用<code>32312</code>，与前面配置文件中的完全一致。<code>Local directory</code>指定当前的<code>game-server/app.js</code>目录所在目录。[<strong>补充：在webstorm 8 里面 没有 local directory 选项了，不设置页可以调试</strong>]</p>
+<h3>
+<a aria-hidden="true" class="anchor" href="#%E9%99%84%E8%BF%90%E8%A1%8C%E9%85%8D%E7%BD%AE" id="user-content-附运行配置"><span class="octicon octicon-link"></span></a>附：运行配置</h3>
+<p>当然你可能已经注意到了，这里的<code>Configurations</code>不仅包含调试，还包括运行配置。运行配置方法跟一般的NodeJS程序配置方法相同。NodeJS新人可以参考图片中配置。注意被框的内容。</p>
+<p><a href="https://f.cloud.github.com/assets/1926860/306139/b7fa3a74-966f-11e2-9a26-666f9f011d4e.png"><img alt="game-server 及 web-server 运行配置举例" data-canonical-src="https://f.cloud.github.com/assets/1926860/306139/b7fa3a74-966f-11e2-9a26-666f9f011d4e.png" src="https://camo.githubusercontent.com/a0933bc9d229796cb93f9867f6332dbe7235537c/68747470733a2f2f662e636c6f75642e6769746875622e636f6d2f6173736574732f313932363836302f3330363133392f62376661336137342d393636662d313165322d396132362d3636366639663031316434652e706e67"/></a></p>
+<h2>
+<a aria-hidden="true" class="anchor" href="#%E5%87%86%E5%A4%87%E8%B0%83%E8%AF%95" id="user-content-准备调试"><span class="octicon octicon-link"></span></a>准备调试</h2>
+<h3>
+<a aria-hidden="true" class="anchor" href="#%E4%B8%80%E5%88%86%E5%88%AB%E5%90%AF%E5%8A%A8webchat%E6%9C%8D%E5%8A%A1%E5%99%A8" id="user-content-一分别启动webchat服务器"><span class="octicon octicon-link"></span></a>一、分别启动Web、Chat服务器</h3>
+<p>如果你有做过运行Chat和Web服务器的配置，现在就可以从运行、调试按钮前面的配置下拉菜单中，分别选择<code>Chat</code>以及<code>Web</code>后，点击[►]运行按钮。运行后，可以从IDE下方的控制台输出中查看日志输出，可以检查一下这两个服务器的启动是否成功。如果出现红字，多半表示启动失败。你可以根据提示的报错信息Google或者 <a href="https://github.com/NetEase/pomelo-cn/issues/new">提交Issue</a> ，以查找解决方案。</p>
+<p><img alt="运行、调试配置选择" data-canonical-src="https://f.cloud.github.com/assets/1926860/306179/2d03b5e6-9672-11e2-929e-df99fc90104c.png" src="https://camo.githubusercontent.com/f5ea35f878131e9de3805201ea044f8965611991/68747470733a2f2f662e636c6f75642e6769746875622e636f6d2f6173736574732f313932363836302f3330363137392f32643033623565362d393637322d313165322d393239652d6466393966633930313034632e706e67"/></p>
+<h3>
+<a aria-hidden="true" class="anchor" href="#%E4%BA%8C%E8%BF%9E%E6%8E%A5%E8%B0%83%E8%AF%95%E5%99%A8" id="user-content-二连接调试器"><span class="octicon octicon-link"></span></a>二、连接调试器</h3>
+<p>再从配置下拉菜单中选择刚刚的调试配置<code>gate study</code>，之后点击[☼]调试按钮。检查窗口下方的<code>Debugger</code>，可以看到有提示说<code>Connected to 127.0.0.1:32312</code>。</p>
+<p><img alt="调试器已连接" data-canonical-src="https://f.cloud.github.com/assets/1926860/306250/2c299dd6-9675-11e2-9861-b5096dcee5d2.png" src="https://camo.githubusercontent.com/6a680a2fb792b23f6025a3682a009f5f2818fec2/68747470733a2f2f662e636c6f75642e6769746875622e636f6d2f6173736574732f313932363836302f3330363235302f32633239396464362d393637352d313165322d393836312d6235303936646365653564322e706e67"/></p>
+<h3>
+<a aria-hidden="true" class="anchor" href="#%E4%B8%89%E8%AE%BE%E7%BD%AE%E6%96%AD%E7%82%B9" id="user-content-三设置断点"><span class="octicon octicon-link"></span></a>三、设置断点</h3>
+<p>由于我们想调试<code>gate</code>服务器中，与connector分配相关的代码，所以在IDE中，打开<code>app/servers/gate/handler/gateHandler.js</code>。定位到 <a href="https://github.com/NetEase/chatofpomelo/blob/master/game-server/app/servers/gate/handler/gateHandler.js#L30">第30行</a> ，在此处下一个断点。</p>
+<p><img alt="gateHandler.js 中的断点" data-canonical-src="https://f.cloud.github.com/assets/1926860/306168/b6d2c916-9671-11e2-93fe-99634c124810.png" src="https://camo.githubusercontent.com/a5d74e5082edbd89bf92a4ca61162139ec10a675/68747470733a2f2f662e636c6f75642e6769746875622e636f6d2f6173736574732f313932363836302f3330363136382f62366432633931362d393637312d313165322d393366652d3939363334633132343831302e706e67"/></p>
+<h2>
+<a aria-hidden="true" class="anchor" href="#%E5%AE%9E%E8%B7%B5" id="user-content-实践"><span class="octicon octicon-link"></span></a>实践</h2>
+<p>浏览器中打开 <a href="http://127.0.0.1:3001/index.html">http://127.0.0.1:3001/index.html</a> 会看到 <code>Chat of Pomelo</code>标题的登录页面。填入两栏表单后，点击【JOIN】按钮。</p>
+<p><img alt="Chat Of Pomelo 登录页" data-canonical-src="https://f.cloud.github.com/assets/1926860/306261/c8ecac3a-9675-11e2-8338-1ac33ea60736.png" src="https://camo.githubusercontent.com/b7d5748b0d0a8e4466c069473bf117c1d8916f68/68747470733a2f2f662e636c6f75642e6769746875622e636f6d2f6173736574732f313932363836302f3330363236312f63386563616333612d393637352d313165322d383333382d3161633333656136303733362e706e67"/></p>
+<p>此时，页面将不会做出任何反应，是因为服务器端的代码被断点拦下了。而IDE会因为调试器而被激活：</p>
+<p><img alt="开始调试" data-canonical-src="https://f.cloud.github.com/assets/1926860/306292/b829e8a8-9676-11e2-9879-d33996890224.png" src="https://camo.githubusercontent.com/88d69fa83d683c1cb9e439fa9cfffa8003c725f4/68747470733a2f2f662e636c6f75642e6769746875622e636f6d2f6173736574732f313932363836302f3330363239322f62383239653861382d393637362d313165322d393837392d6433333939363839303232342e706e67"/></p>
+<p>下方窗口中，除了常规调试用到的StepOver、StepInto、StepOut等必须功能外，有很多好用的工具，比如即时表达式求值、切换异常发生时自动中断……这里就不深入探讨了。</p>
+<h2>
+<a aria-hidden="true" class="anchor" href="#%E5%8F%AF%E7%94%A8%E7%9A%84%E8%81%8A%E5%A4%A9%E5%BA%94%E7%94%A8" id="user-content-可用的聊天应用"><span class="octicon octicon-link"></span></a>可用的聊天应用</h2>
+<h3>
+<a aria-hidden="true" class="anchor" href="#%E5%B8%B8%E8%AF%86" id="user-content-常识"><span class="octicon octicon-link"></span></a>常识</h3>
+<p>Web服务器启动成功后我们可以看到它提示说可以访问<code>http://127.0.0.1:3001/index.html</code>了。但我们都知道127.0.0.1是本机IP地址，如果真正要跟其他人“聊天”的话，这样是不行的。因为别人不一定能打开127.0.0.1:3001，即便打开了，也无法跟你在一起聊天。</p>
+<p>所以将这里的127.0.0.1换成你自己电脑的可被网络上其他成员访问到的地址，我这里的地址是<code>192.168.1.61</code>。OK，我可以在浏览器里打开<code>http://192.168.1.61:3001/index.html</code>，因为本机调试没有任何问题，所以我也信心满满的将这个地址告诉了与我同一网络的同事。</p>
+<h3>
+<a aria-hidden="true" class="anchor" href="#%E5%8F%91%E7%8E%B0%E9%97%AE%E9%A2%98" id="user-content-发现问题"><span class="octicon octicon-link"></span></a>发现问题</h3>
+<p><b>这时出现了一个问题，我自己可以登录到聊天界面，而其他任何人都无法登录。</b></p>
+<p>根据其他人的浏览器Console输出，可以看到他们都连接一下<code>192.168.1.61:3014</code>端口后，又去连接<code>127.0.0.1:3050</code>，所以他们才无法登录的。</p>
+<p>而<code>3014</code>端口刚好是<code>gate</code>服务器，问题就出在这里，还是继续调试一下吧。</p>
+<p>在经过一番断点切换后，可以发现<code>gateHandler.queryEntry</code>最后跑到了 <a href="https://github.com/NetEase/chatofpomelo/blob/master/game-server/app/servers/gate/handler/gateHandler.js#L39">第39行</a> 的 <code>next</code>函数上。</p>
+<pre><code>var res = dispatcher.dispatch(uid, connectors);
+next(null, {
+    code: 200,
+    host: res.host,
+    port: res.clientPort
+});
+</code></pre>
+<p>可以看到，返回内容的 <code>host</code> 使用了<code>res.host</code>，<code>res</code>又来自<code>connectors</code>，<code>connectors</code>来自配置文件。</p>
+<p>而<code>game-server/config/servers.json</code>下<code>connector</code>服务器的 <a href="https://github.com/NetEase/chatofpomelo/blob/master/game-server/config/servers.json#L4L6">配置条目</a> ，可以清楚的看见<code>"host":"127.0.0.1"</code>。</p>
+<h3>
+<a aria-hidden="true" class="anchor" href="#%E8%A7%A3%E5%86%B3%E9%97%AE%E9%A2%98" id="user-content-解决问题"><span class="octicon octicon-link"></span></a>解决问题</h3>
+<p>源头找到了，立刻将这里的<code>127.0.0.1</code>全部替换成我本机<code>192.168.1.61</code>。并且重启<code>Chat</code>服务器。</p>
+<p>同事再刷新访问的时候，便可以登录进来了。</p>
+<h2>
+<a aria-hidden="true" class="anchor" href="#%E5%86%99%E5%9C%A8%E5%90%8E%E9%9D%A2" id="user-content-写在后面"><span class="octicon octicon-link"></span></a>写在后面</h2>
+<p>细心的人或许发现，调试器连接的IP地址，是<b>127.0.0.1</b>，但你或许在想，既然是叫"Remote Deubgger"，应该可以连接除<code>127.0.0.1</code>以外的IP吧？
+我也是这么想的。但是，在不借助其他工具的情况下，不能办到。</p>
+<p>就是说，不借助一个代理工具，是没办法连接到除了<code>127.0.0.1</code>地址的调试端口的。</p>
+<p>你可以借助NodeJS官方 <a href="https://github.com/joyent/node/wiki/using-eclipse-as-node-applications-debugger">Wiki</a> 文章结尾（Ctrl-F后，搜索"You probably noticed"）的方法及代码，来完成一个代理工具。以便调试部署在远端服务器上运行的代码。</p>
+<p>同时这篇文章也是 Eclipse 的调试指导文章。</p>
+</div>
+</div></body></html>

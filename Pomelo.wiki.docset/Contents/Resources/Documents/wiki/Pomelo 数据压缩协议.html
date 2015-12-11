@@ -1,0 +1,156 @@
+<html><head prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# object: http://ogp.me/ns/object# article: http://ogp.me/ns/article# profile: http://ogp.me/ns/profile#">
+<meta charset="utf-8">
+<meta content="IE=edge" http-equiv="X-UA-Compatible">
+<meta content="en" http-equiv="Content-Language">
+<meta content="width=1020" name="viewport">
+<title>Pomelo 数据压缩协议 · NetEase/pomelo Wiki · GitHub</title>
+<link href="/opensearch.xml" rel="search" title="GitHub" type="application/opensearchdescription+xml">
+<link href="src/ad667adaa2cfe8f3caa4a41b7d0a79a1.png" rel="fluid-icon" title="GitHub">
+<link href="src/a10d19ff5f738940a7a5086be334f50b.png" rel="apple-touch-icon" sizes="57x57">
+<link href="src/a10d19ff5f738940a7a5086be334f50b.png" rel="apple-touch-icon" sizes="114x114">
+<link href="src/b4cd268bc600cc14d2cdd557de6da2fb.png" rel="apple-touch-icon" sizes="72x72">
+<link href="src/b4cd268bc600cc14d2cdd557de6da2fb.png" rel="apple-touch-icon" sizes="144x144">
+<meta content="1401488693436528" property="fb:app_id">
+<meta content="@github" name="twitter:site"/><meta content="summary" name="twitter:card"/><meta content="NetEase/pomelo" name="twitter:title"/><meta content="pomelo - A fast,scalable,distributed game server framework for Node.js." name="twitter:description"/><meta content="https://avatars0.githubusercontent.com/u/1460597?v=3&amp;s=400" name="twitter:image:src"/>
+<meta content="GitHub" property="og:site_name"/><meta content="object" property="og:type"/><meta content="https://avatars0.githubusercontent.com/u/1460597?v=3&amp;s=400" property="og:image"/><meta content="NetEase/pomelo" property="og:title"/><meta content="https://github.com/NetEase/pomelo" property="og:url"/><meta content="pomelo - A fast,scalable,distributed game server framework for Node.js." property="og:description"/>
+<meta content="https://api.github.com/_private/browser/stats" name="browser-stats-url">
+<meta content="https://api.github.com/_private/browser/errors" name="browser-errors-url">
+<link href="https://assets-cdn.github.com/" rel="assets">
+<meta content="1000" name="pjax-timeout">
+<meta content="/windows-tile.png" name="msapplication-TileImage">
+<meta content="#ffffff" name="msapplication-TileColor">
+<meta data-pjax-transient="" name="selected-link" value="repo_wiki">
+<meta content="KT5gs8h0wvaagLKAVWq8bbeNwnZZK1r1XQysX3xurLU" name="google-site-verification">
+<meta content="UA-3769691-2" name="google-analytics">
+<meta content="collector.githubapp.com" name="octolytics-host"/><meta content="github" name="octolytics-app-id"/><meta content="CA86616A:448A:1209F643:5670C0D2" name="octolytics-dimension-request_id"/>
+<meta content="/&lt;user-name&gt;/&lt;repo-name&gt;/wiki/show" data-pjax-transient="true" name="analytics-location"/>
+<meta content="Rails, view, wiki#show" data-pjax-transient="true" name="analytics-event"/>
+<meta class="js-ga-set" content="Logged Out" name="dimension1">
+<meta content="github.com" name="hostname">
+<meta content="" name="user-login">
+<meta content="github.com" name="expected-hostname">
+<link color="#4078c0" href="https://assets-cdn.github.com/pinned-octocat.svg" rel="mask-icon">
+<link href="https://assets-cdn.github.com/favicon.ico" rel="icon" type="image/x-icon">
+<meta content="08faee11e4deb79a856e5b5c6fa102a704ec1358" name="form-nonce"/>
+<link crossorigin="anonymous" href="src/350888e1495e7af27e01faa9d8291dee.css" media="all" rel="stylesheet"/>
+<link crossorigin="anonymous" href="src/9fae9b7d8f0785d745a43c6465f74ae5.css" media="all" rel="stylesheet"/>
+<meta content="cd9958d45e48e8e3157a320e9c346eaa" http-equiv="x-pjax-version">
+<meta content="pomelo - A fast,scalable,distributed game server framework for Node.js." name="description">
+<meta content="github.com/NetEase/pomelo git https://github.com/NetEase/pomelo.git" name="go-import">
+<meta content="1460597" name="octolytics-dimension-user_id"/><meta content="NetEase" name="octolytics-dimension-user_login"/><meta content="5880912" name="octolytics-dimension-repository_id"/><meta content="NetEase/pomelo" name="octolytics-dimension-repository_nwo"/><meta content="true" name="octolytics-dimension-repository_public"/><meta content="false" name="octolytics-dimension-repository_is_fork"/><meta content="5880912" name="octolytics-dimension-repository_network_root_id"/><meta content="NetEase/pomelo" name="octolytics-dimension-repository_network_root_nwo"/>
+<link href="https://github.com/NetEase/pomelo/commits/master.atom" rel="alternate" title="Recent Commits to pomelo:master" type="application/atom+xml">
+</link></meta></meta></meta></link></link></meta></meta></meta></meta></meta></meta></meta></meta></meta></meta></link></meta></meta></meta></link></link></link></link></link></link></meta></meta></meta></meta></head><body style="padding:0 25px;"><div class="gollum-markdown-content instapaper_body" id="wiki-body">
+<div class="markdown-body">
+<h1>
+<a aria-hidden="true" class="anchor" href="#pomelo-%E6%95%B0%E6%8D%AE%E5%8E%8B%E7%BC%A9%E5%8D%8F%E8%AE%AE" id="user-content-pomelo-数据压缩协议"><span class="octicon octicon-link"></span></a>Pomelo 数据压缩协议</h1>
+<p>在pomelo 0.3中，为了减少数据传输带宽，提高传输效率，我们支持了基于字典的route压缩和基于protobuf的传输数据压缩。</p>
+<h2>
+<a aria-hidden="true" class="anchor" href="#%E5%9F%BA%E4%BA%8E%E5%AD%97%E5%85%B8%E7%9A%84route%E5%8E%8B%E7%BC%A9" id="user-content-基于字典的route压缩"><span class="octicon octicon-link"></span></a>基于字典的route压缩</h2>
+<h3>
+<a aria-hidden="true" class="anchor" href="#route%E5%AD%97%E6%AE%B5%E5%88%86%E6%9E%90" id="user-content-route字段分析"><span class="octicon octicon-link"></span></a>route字段分析</h3>
+<p>pomelo中的route是用来确定消息的分发路径，将其交给相应的服务器和服务处理的。route分为两类，由客户端发给服务端消息时使用的route和服务端向客户端广播时使用的route。</p>
+<ul>
+<li>前一种route是由服务器自动生成的，其中的字段就代表了对应的方法在服务端的位置。如“area.playerHandler.attack”则表示在“area”服务器上的“playerHandler”接口中提供的“attack”方法。</li>
+<li>后一种route是服务端向客户端推送消息时使用，如“onMove”，“onAttack”等，这些字段是由用户自己定义的。
+在一般的web应用等带宽不敏感的环境中，route字段的开销是可以接受的。而在一些移动应用中，带宽～money的情况下，精简route字段就变得有必要了。</li>
+</ul>
+<h3>
+<a aria-hidden="true" class="anchor" href="#pomelo%E4%B8%ADroute%E5%8E%8B%E7%BC%A9%E7%9A%84%E9%97%AE%E9%A2%98" id="user-content-pomelo中route压缩的问题"><span class="octicon octicon-link"></span></a>Pomelo中route压缩的问题</h3>
+<p>原有的route模式不能支持方便的数据压缩；</p>
+<ul>
+<li>对pomelo生成的route来说，如“area.playerHandler.attack”,其中的每一个都表示系统中的路径，因此除非修改目录和方法名称，否则无法进行精简。</li>
+<li>用户自定义的route，如“onMove”，“onAttack“等可以较方便的进行精简。但是用户直接可对内容修改会导致route名与实际的语义脱离，从而降低代码的可读性，而简化后的route也增加了路由冲突的可能性，更整个项目的管理带来困难。</li>
+</ul>
+<h3>
+<a aria-hidden="true" class="anchor" href="#pomelo-%E4%B8%AD%E7%9A%84route%E5%8E%8B%E7%BC%A9" id="user-content-pomelo-中的route压缩"><span class="octicon octicon-link"></span></a>Pomelo 中的route压缩</h3>
+<p>Pomelo 0.3版中实现了基于字典的route压缩，其实现如下：</p>
+<ul>
+<li>对于系统生成的route，如“area.playerHandler.attack"，在系统启动时会对每一个route生成唯一的字典（16位的short int）。</li>
+<li>对于用户自定义的route，如“onMove”，“onAttack”，则需要用户提供一个自定义的route列表，pomelo会根据这一个列表对每个用户自定义的route生成一个字典项。
+在开启字典功能的状态下，当有消息传递时，其中的route在发送时会被替换为在字典项（16bit short int），而接收端会自动还原，这一过程对于用户而言是完全透明的。要使用这一功能，只需要在app.js中配置开启就可以了，具体示例如下：</li>
+</ul>
+<pre><code>    app.set('connectorConfig',
+        {
+            connector : pomelo.connectors.hybridconnector,
+            heartbeat : 3,
+            useDict : true,
+            handshake : function(msg, cb){
+                cb(null, {});
+            }
+        });
+</code></pre>
+<p>其中的userDic：true就表示打开字典压缩。默认字典包括所有系统自动生成的route，如"area.playerHandler.move"等。用户自定义的route则需要用户自己指定，具体方式是在项目的/game-server/config/dictionary.json文件中列出需要压缩的自定义route，其内容示例如下：</p>
+<pre><code>[
+    "onDropItem",
+    "onAttack",
+    "onDied",
+    "onMove",
+    "onUpgrade",
+    "onPickItem",
+    "onRevive",
+    "addEntities",
+    "onRemoveEntities",
+    "onPathCheckout"
+]
+</code></pre>
+<p>可以看到，dictionary.json的内容就是一个string的数组，其中的内容是需要压缩的route。Pomelo在启动时会自动读取其中的内容，生成数据字典，并在数据传输时进行替换/还原。</p>
+<h2>
+<a aria-hidden="true" class="anchor" href="#%E5%9F%BA%E4%BA%8Eprotobuf%E7%9A%84%E6%95%B0%E6%8D%AE%E7%BC%96%E7%A0%81%E5%8D%8F%E8%AE%AE" id="user-content-基于protobuf的数据编码协议"><span class="octicon octicon-link"></span></a>基于protobuf的数据编码协议</h2>
+<p>在Pomelo 0.3中，我们实现了基于protobuf的数据编码协议，与其他的编码协议如xml，json相比，protobuf有着更好的传输效率和压缩比率。在我们的lordofpomelo项目中，使用protobuf进行数据编码后的消息大小只有基于Json的编码的20%左右。</p>
+<h3>
+<a aria-hidden="true" class="anchor" href="#protobuf%E5%8D%8F%E8%AE%AE%E4%BB%8B%E7%BB%8D" id="user-content-protobuf协议介绍"><span class="octicon octicon-link"></span></a>protobuf协议介绍</h3>
+<p>protobuf协议是由Google制定的，主要用于其内部的rpc调用和文件编码。原生的protobuf包括两部分内容：基于二进制的数据编码协议和基于proto元数据的代码生成器。首先，需要根据每条消息来编写对应的proto文件，然后使用google提供的代码生成器，基于proto文件来生成相应的编码器和解码器，然后使用生成的编/解码器来进行编/解码操作，对应的流程如下图：</p>
+<p><img alt="原生protobuf" data-canonical-src="http://pomelo.netease.com/resource/documentImage/protocol/Protobuf_origin.png" src="https://camo.githubusercontent.com/ed5ea88ff3d2592c1857e2c517b8f4d4616244ff/687474703a2f2f706f6d656c6f2e6e6574656173652e636f6d2f7265736f757263652f646f63756d656e74496d6167652f70726f746f636f6c2f50726f746f6275665f6f726967696e2e706e67"/></p>
+<p>这种方式的优势是代码静态生成，运行时不需要proto文件信息，而且可以根据具体的信息内容对代码进行优化。但缺点也十分明显：使用复杂（涉及到代码生成，编译，部署），改动成本高昂（需要重新生成，编译代码，并对代码进行部署），需要生成大量新代码（每个消息都需要一个独立的编码/解码器）。
+关于protobuf协议的更多内容，可以参见其官网<a href="https://code.google.com/p/protobuf/">Protobuf项目</a>。</p>
+<h3>
+<a aria-hidden="true" class="anchor" href="#pomelo-%E4%B8%AD%E7%9A%84protobuf" id="user-content-pomelo-中的protobuf"><span class="octicon octicon-link"></span></a>Pomelo 中的protobuf</h3>
+<p>原生的带有代码生成器的protobuf过于重量级，缺乏灵活性，任何消息的修改都会是一个非常重量级的操作，而这个在pomelo中应该是经常发生的。而随之带来的大量的代码生成会大大增加客户端的体积和部署难度。因此，我们没有采用生成代码的方式，而是根据proto文件的定义，对消息进行即时的解析。</p>
+<h4>
+<a aria-hidden="true" class="anchor" href="#pomelo-protobuf%E5%AE%9E%E7%8E%B0" id="user-content-pomelo-protobuf实现"><span class="octicon octicon-link"></span></a>Pomelo protobuf实现</h4>
+<p>在pomelo中，我们实现了一个通用的protobuf编/解码器，以及一个proto文件解析器。通过分析proto文件内容，实现了对消息的编码/解码。这样，当修改/添加消息类型时，只需要修改对应的proto文件就可以了。具体的运行流程如下图：</p>
+<p><img alt="pomelo protobuf" data-canonical-src="http://pomelo.netease.com/resource/documentImage/protocol/Protobuf_pomelo.png" src="https://camo.githubusercontent.com/4224e6a9aae6f551bae9b634778dc8a0590a9d42/687474703a2f2f706f6d656c6f2e6e6574656173652e636f6d2f7265736f757263652f646f63756d656e74496d6167652f70726f746f636f6c2f50726f746f6275665f706f6d656c6f2e706e67"/></p>
+<p>从上图可以看出，与原生的protobuf生成代码的方式相比，pomelo中的解决方案要更将灵活，轻量。不需要生成任何代码，在运行时通过proto文件中对消息的定义，实现对消息的动态编码/解码功能。</p>
+<h4>
+<a aria-hidden="true" class="anchor" href="#proto-%E6%96%87%E4%BB%B6%E5%AE%9A%E4%B9%89" id="user-content-proto-文件定义"><span class="octicon octicon-link"></span></a>Proto 文件定义</h4>
+<p>原生的protobuf中，每一个消息与一个proto文件对应，而在生成编码/解码器之后，这个proto文件就不再被使用。
+而在pomelo中，因为我们需要proto的内容来动态的对消息进行编码/解码，因此需要维护一个完整的protos信息表，一一对应的方式不但管理困难，也没有必要。因此将所有的proto定义放在一个json文件中，通过一个独立的key来进行区分，在pomelo中，key就是消息的route，我们的protos文件格式如下：</p>
+<pre><code>"onMove" : {
+    "required uInt32 entityId" : 1,
+    "message Path": {
+      "required uInt32 x" : 1,
+      "required uInt32 y" : 2
+    },
+    "repeated Path path" : 2,
+    "required uInt32 speed" : 3
+  },
+  "onAttack" : {
+    "required uInt32 attacker" : 1,
+    "required uInt32 target" : 2
+  }
+</code></pre>
+<p>这里的key就相当于原生protobuf中的proto文件中的消息名称，proto定义具体的语法也是按照protobuf标准来实现的，只是采用了对于js更容易解析的json形式。</p>
+<p>在pomelo中，对于同样route的消息，如‘area.playerHander.attack'，在客户端和服务端的格式可能完全不同，这就意味着对于客户端的编码器和解码器对于同样route的消息需要不同的定义。因此，我们需要两套protos文件，server protos和client protos，具体的关系如下图：
+<img alt="pomelo protobuf protos" data-canonical-src="http://pomelo.netease.com/resource/documentImage/protocol/Server_Client_Protos.png" src="https://camo.githubusercontent.com/0b7be87796a627c1502bb4b4235d4aa658a97610/687474703a2f2f706f6d656c6f2e6e6574656173652e636f6d2f7265736f757263652f646f63756d656e74496d6167652f70726f746f636f6c2f5365727665725f436c69656e745f50726f746f732e706e67"/></p>
+<h4>
+<a aria-hidden="true" class="anchor" href="#%E4%BD%BF%E7%94%A8protobuf" id="user-content-使用protobuf"><span class="octicon octicon-link"></span></a>使用Protobuf</h4>
+<p>虽然protobuf的实现看上去十分复杂，但由于这一层对用户是完全透明的，使用会非常简单。用户只需要通过简单的两步定义就可以在原有的项目中开启protobuf功能。
+首先，需要在connector组件上打开protobuf开关，在app.js中的配置如下：</p>
+<pre><code>    app.set('connectorConfig',
+        {
+            connector : pomelo.connectors.hybridconnector,
+            heartbeat : 3,
+            useProtobuf : true,
+            handshake : function(msg, cb){
+                cb(null, {});
+            }
+        });
+</code></pre>
+<p>实际上需要加入的就是“useProtobuf：true”这一项。当设置这一标识后，pomelo会在客户端握手时将protos内容同步到客户端，并默认开启protobuf压缩功能。
+在protobuf功能开启用，用户还需要加入protos定义来实现对具体消息的编码/解码。protos文件默认在/game-server/config目录下，包括两个文件：serverProtos.json和clientProtos.json，分别表示服务端-&gt;客户端消息的protos和 客户端-&gt;服务端消息的protos。只要在其中加入有效的proto定义，就可以开启对应消息的protobuf编码功能。</p>
+<h4>
+<a aria-hidden="true" class="anchor" href="#%E4%B8%8E%E8%80%81%E9%A1%B9%E7%9B%AE%E7%9A%84%E5%85%BC%E5%AE%B9%E6%80%A7" id="user-content-与老项目的兼容性"><span class="octicon octicon-link"></span></a>与老项目的兼容性</h4>
+<p>Pomelo中的protobuf实现对原有项目是完全兼容的，你可以直接在老的项目中打开protobuf开关而不会引起任何问题。只是当proto定义是空的，默认所有的消息都不会经过protobuf压缩，而是采用默认的二进制编码进行传输。
+当你相对某个消息进行protobuf编码时，只需要在对应的protos文件（serverProtos.json或clientProtos）中加入对应的protobuf项，pomelo在启动时就会自动识别并对消息进行压缩，而不会对其他未定义的消息产生任何影响。</p>
+</div>
+</div></body></html>

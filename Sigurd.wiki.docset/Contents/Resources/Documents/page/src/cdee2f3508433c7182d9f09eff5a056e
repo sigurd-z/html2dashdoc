@@ -1,0 +1,1117 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	>
+
+<channel>
+	<title>ArchBoy</title>
+	<atom:link href="http://archboy.org/feed/" rel="self" type="application/rss+xml" />
+	<link>http://archboy.org</link>
+	<description>开源, 架构, 编程 相关的杂文</description>
+	<lastBuildDate>Thu, 21 Aug 2014 14:24:37 +0000</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>hourly</sy:updatePeriod>
+	<sy:updateFrequency>1</sy:updateFrequency>
+	<generator>http://wordpress.org/?v=4.3.1</generator>
+	<item>
+		<title>使用 ffmpeg 缩放、裁剪、剪辑视频</title>
+		<link>http://archboy.org/2014/08/21/ffmpeg-scale-cut-crop-video/</link>
+		<comments>http://archboy.org/2014/08/21/ffmpeg-scale-cut-crop-video/#comments</comments>
+		<pubDate>Thu, 21 Aug 2014 14:24:37 +0000</pubDate>
+		<dc:creator><![CDATA[ivarptr]]></dc:creator>
+				<category><![CDATA[Linux]]></category>
+		<category><![CDATA[aac]]></category>
+		<category><![CDATA[ffmpeg]]></category>
+		<category><![CDATA[h264]]></category>
+		<category><![CDATA[mov]]></category>
+		<category><![CDATA[mp4]]></category>
+
+		<guid isPermaLink="false">http://archboy.org/?p=455</guid>
+		<description><![CDATA[我们平时使用手机拍摄的视频一般都在1080p及以上，在实际应用中，比如共享给朋友等，可能需要处理一下会比较方便。下面列出几个 ffmpeg 常用的处理视频方法（如果只需要格式转换，可以参考我之前的一篇文章《使用H264编码转换视频》） 缩小视频 假设原始视频尺寸是 1080p（即 1920&#215;1080 px，16:9），使用下面命令可以缩小到 480p： $ ffmpeg -i a.mov -vf scale=853:480 -acodec aac -vcodec h264 out.mp4 各个参数的含义： -i a.mov 指定待处理视频的文件名 -vf scale=853:480 vf 参数用于指定视频滤镜，其中 scale 表示缩放，后面的数字表示缩放至 853&#215;480 px，其中的 853px 是计算而得，因为原始视频的宽高比为 16:9，所以为了让目标视频的高度为 480px，则宽度 = 480 x 9 / 16 = 853 -acodec aac 指定音频使用 aac 编码。注：因为 ffmpeg 的内置 aac 编码目前（写这篇文章时）还是试验阶段，故会提示添加参数 “-strict -2” &#8230; <a href="http://archboy.org/2014/08/21/ffmpeg-scale-cut-crop-video/" class="more-link">Continue reading <span class="screen-reader-text">使用 ffmpeg 缩放、裁剪、剪辑视频</span> <span class="meta-nav">&#8594;</span></a>]]></description>
+				<content:encoded><![CDATA[<p>我们平时使用手机拍摄的视频一般都在1080p及以上，在实际应用中，比如共享给朋友等，可能需要处理一下会比较方便。下面列出几个 ffmpeg 常用的处理视频方法（如果只需要格式转换，可以参考我之前的一篇文章<a href="http://archboy.org/2011/08/17/h264-encode-mpeg2-to-mp4/">《使用H264编码转换视频》</a>）</p>
+<h2>缩小视频</h2>
+<p>假设原始视频尺寸是 1080p（即 1920&#215;1080 px，16:9），使用下面命令可以缩小到 480p：</p>
+<pre lang="bash" escaped="true">$ ffmpeg -i a.mov -vf scale=853:480 -acodec aac -vcodec h264 out.mp4</pre>
+<p>各个参数的含义：</p>
+<ul>
+<li>-i a.mov 指定待处理视频的文件名</li>
+<li>-vf scale=853:480 vf 参数用于指定视频滤镜，其中 scale 表示缩放，后面的数字表示缩放至 853&#215;480 px，其中的 853px 是计算而得，因为原始视频的宽高比为 16:9，所以为了让目标视频的高度为 480px，则宽度 = 480 x 9 / 16 = 853</li>
+<li>-acodec aac 指定音频使用 aac 编码。注：因为 ffmpeg 的内置 aac 编码目前（写这篇文章时）还是试验阶段，故会提示添加参数 “-strict -2” 才能继续，尽管添加即可。又或者使用外部的 libfaac（需要重新编译 ffmpeg）。</li>
+<li>-vcodec h264 指定视频使用 h264 编码。注：目前手机一般视频拍摄的格式（封装格式、文件格式）为 mov 或者 mp4，这两者的音频编码都是 aac，视频都是 h264。</li>
+<li>out.mp4 指定输出文件名</li>
+</ul>
+<p>上面的参数 scale=853:480 当中的宽度和高度实际应用场景中通常只需指定一个，比如指定高度为 480 或者 720，至于宽度则可以传入 “-1” 表示由原始视频的宽高比自动计算而得。即参数可以写为：scale=-1:480，当然也可以 scale=480:-1</p>
+<h2> 裁剪视频</h2>
+<p>有时可能只需要视频的正中一块，而两头的内容不需要，这时可以对视频进行裁剪（crop），比如有一个竖向的视频 1080 x 1920，如果指向保留中间 1080&#215;1080 部分，可以使用下面的命令：</p>
+<pre lang="bash" escaped="true">$ ffmpeg -i a.mov -strict -2 -vf crop=1080:1080:0:420 out.mp4</pre>
+<p>其中的 crop=1080:1080:0:420 才裁剪参数，具体含义是 crop=width:height:x:y，其中 width 和 height 表示裁剪后的尺寸，x:y 表示裁剪区域的左上角坐标。比如当前这个示例，我们只需要保留竖向视频的中间部分，所以 x 不用偏移，故传入0，而 y 则需要向下偏移：(1920 &#8211; 1080) / 2 = 420</p>
+<p>视频缩放和裁剪是可以同时进行的，如下命令则为将视频缩小至 853&#215;480，然后裁剪保留横向中间部分：</p>
+<pre lang="bash" escaped="true">$ ffmpeg -i IMG_4940.MOV -strict -2 -vf scale=853:480,crop=480:480:186:0 out.mp4</pre>
+<h2>剪辑视频</h2>
+<p>如果有一段很长的视频只需保留其中的一段，可以使用下面命令对视频进行剪辑。</p>
+<pre lang="bash" escaped="true">$ ffmpeg -i a.mov -ss 00:00:21 -t 00:00:10 -acodec aac -vcodec h264 -strict -2 out.mp4</pre>
+<p>其中 -ss 00:00:21 表示开始剪辑的位置（时间点），-t 00:00:10 表示剪辑的长度，即 10 秒钟。</p>
+<p>当然一段视频是可以在一个命令里同时进行剪辑、缩放、裁剪的，只需把相关的参数合在一起即可。</p>
+]]></content:encoded>
+			<wfw:commentRss>http://archboy.org/2014/08/21/ffmpeg-scale-cut-crop-video/feed/</wfw:commentRss>
+		<slash:comments>4</slash:comments>
+		</item>
+		<item>
+		<title>简单搭建 https proxy 服务器</title>
+		<link>http://archboy.org/2014/08/02/https-proxy-server-the-easy-way/</link>
+		<comments>http://archboy.org/2014/08/02/https-proxy-server-the-easy-way/#comments</comments>
+		<pubDate>Sat, 02 Aug 2014 04:33:52 +0000</pubDate>
+		<dc:creator><![CDATA[ivarptr]]></dc:creator>
+				<category><![CDATA[Server]]></category>
+		<category><![CDATA[https]]></category>
+		<category><![CDATA[proxy]]></category>
+		<category><![CDATA[spdy]]></category>
+		<category><![CDATA[ssl]]></category>
+		<category><![CDATA[stunnel]]></category>
+
+		<guid isPermaLink="false">http://archboy.org/?p=439</guid>
+		<description><![CDATA[在各种上网的方法当中，https proxy 可能是最简单、方便、快速的，它免去了 vpn 各种拨号连接的麻烦，也免去了安装各种客户端的麻烦，同时搭建所用的软件也是历史悠久的非常稳定。 吐槽：如果问为什么这么好的方式却很少人用，答案可能是因为它需要较多的￥money，而且可能需要一张双币/多币种信用卡来购买这些东西：一个虚拟服务器 vps，一个域名，一个 SSL 证书。vps 我比较推荐 linode，并不是因为你戳一下这个链接并成功购买后能返回一点零钱给我，而是 linode 相当厚道，它会跟随主流免费为你升级 CPU、内存、硬盘、带宽等等。域名和 SSL 证书大家可以参考我的前一篇《如何购买廉价 SSL 证书》。全部扔上购物车一年大概 $150 以上，捉襟见肘的可以考虑多人合购。 好了说回正题，用于实现 https proxy 的服务端软件很多，可以用老掉牙但很稳定的 squid，也可以随便用一个轻量级的 http proxy 程序搭配老掉牙的 stunnel，或者试试新秀 node-spdyproxy 也可以。 下面介绍一下比较简单的方案：轻量级 http proxy 程序 tinyproxy + stunnel 。 1、安装 tinyproxy 和 stunnel 首先使用各个 Linux 发行版的包管理器安装 tinyproxy 和 stunnel，比如： $ sudo yum install tinyproxy stunnel // 对于 &#8230; <a href="http://archboy.org/2014/08/02/https-proxy-server-the-easy-way/" class="more-link">Continue reading <span class="screen-reader-text">简单搭建 https proxy 服务器</span> <span class="meta-nav">&#8594;</span></a>]]></description>
+				<content:encoded><![CDATA[<p>在各种上网的方法当中，https proxy 可能是最简单、方便、快速的，它免去了 vpn 各种拨号连接的麻烦，也免去了安装各种客户端的麻烦，同时搭建所用的软件也是历史悠久的非常稳定。</p>
+<p>吐槽：如果问为什么这么好的方式却很少人用，答案可能是因为它需要较多的￥money，而且可能需要一张双币/多币种信用卡来购买这些东西：一个虚拟服务器 vps，一个域名，一个 SSL 证书。vps 我比较推荐 <a href="http://www.linode.com/?r=015bb87e20b23347b3247dd2137d8a00ea4df3ce">linode</a>，并不是因为你戳一下这个链接并成功购买后能返回一点零钱给我，而是 linode 相当厚道，它会跟随主流免费为你升级 CPU、内存、硬盘、带宽等等。域名和 SSL 证书大家可以参考我的前一篇<a href="http://archboy.org/2014/08/02/how-to-buy-the-cheap-ssl-certificates/">《如何购买廉价 SSL 证书》</a>。全部扔上购物车一年大概 $150 以上，捉襟见肘的可以考虑多人合购。</p>
+<p>好了说回正题，用于实现 https proxy 的服务端软件很多，可以用老掉牙但很稳定的 squid，也可以随便用一个轻量级的 http proxy 程序搭配老掉牙的 stunnel，或者试试新秀 node-spdyproxy 也可以。</p>
+<p>下面介绍一下比较简单的方案：轻量级 http proxy 程序 tinyproxy + stunnel 。</p>
+<h2>1、安装 tinyproxy 和 stunnel</h2>
+<p>首先使用各个 Linux 发行版的包管理器安装 tinyproxy 和 stunnel，比如：</p>
+<pre lang="bash" escaped="true">$ sudo yum install tinyproxy stunnel // 对于 centos linux
+
+$ sudo pacman -S tinyproxy stunnel // 对于 arch linux</pre>
+<p>&nbsp;</p>
+<p>安装完成后顺便设置它们随开机启动（可选）。</p>
+<h2>2、设置 stunnel</h2>
+<p>把你证书私钥和购买的证书扔到 /etc/stunnel 里，然后编辑文件 stunnel.conf，先指定私钥和证书文件名：</p>
+<p>cert = /etc/stunnel/mycert.pem<br />
+key = /etc/stunnel/mykey.pem</p>
+<p>需要注意的是从证书服务商购买回来的证书通常是几个小文件，大概有是：一个你的域名证书，一个证书链证书，一个root证书。把它们用文本编辑器打开，然后按照上述的顺序复制粘贴成一个文件，这个文件就是上面 ”cert=“ 这行所需的文件。</p>
+<p>然后指定端口转换，比如将端口 443 （https 的默认端口）绑定并转换到 tinyproxy 的默认端口 8888：</p>
+<p>[https]<br />
+accept = 443<br />
+connect = 127.0.0.1:8888</p>
+<p>其中 https 这个一项绑定的名称，可以随便起，accept 表示本机监听的端口，connect 表示转换到哪里。完整的意思就是为 127.0.0.1:8888 添加 SSL 加密层，然后通过 443 端口对外服务。</p>
+<p>&nbsp;</p>
+<h2>3、客户端设置</h2>
+<p>目前默认支持 https/spdy 代理的只有 google chrome 浏览器（其他浏览器需要在客户端运行 stunnel 把 https 翻译为 http 才能使用）。而且很诡异的是 chrome 没有自己独立设置 proxy 的地方，使用系统全局的那个 https 设置是不行的（因为系统那个 https 代理指的是当你访问 https 的网站时所走的 http 代理通道，跟我们这篇说的 https proxy 是两码事），所以你还得在 chrome 浏览器里安装插件  TunnelSwitch，然后在这个插件里设置 https 代理为：“你的网站域名:443”，这样所有工作都完成可以直接上网了。</p>
+<h3>4、一个给爱折腾的人的省钱方案</h3>
+<p>如果想节省购买 SSL 证书的花费，那么自己生成一个“自签名”的证书也是可以的，不过如果你的 proxy 想共享给其他人使用的话，要慎重考虑这种方式，因为它会让不爱折腾的人觉得很折腾。</p>
+<p>用下面命令即可生成一个自签名证书：</p>
+<pre lang="bash" escaped="true">openssl genrsa -out key.pem 1024
+openssl req -new -key key.pem -subj "/CN=localhost" -out req.pem
+openssl x509 -req -days 365 -in req.pem -signkey key.pem -out cert.pem</pre>
+<p>注意要将上面的 localhost 更改为你的域名，最终有用的分别是私钥文件 key.pem 和证书文件 cert.pem，把这两个文件替换上面第二步所提到的位置即可。</p>
+<p>然后在客户端需要导入这个 cert.pem 才能顺利使用你所搭建的 https proxy 服务。各个操作系统的导入证书方法都不太相同。</p>
+<ul>
+<li>在 linux 里比较麻烦，需要用 libnss3 工具 certutil 来完成，命令如下：</li>
+</ul>
+<pre lang="bash" escaped="true">$ certutil -d "sql:$HOME/.pki/nssdb" -A -n dummy -i cert.pem -t C</pre>
+<ul>
+<li>在 mac osx 里使用 keychain 工具，把证书拖进”证书“一栏里。</li>
+<li>在 windows 里双击证书文件，在选择“导入到位置&#8221;那一步选择”根信任“。</li>
+</ul>
+<p>然后重启你的 chrome 浏览器就可以了。</p>
+<p>&nbsp;</p>
+]]></content:encoded>
+			<wfw:commentRss>http://archboy.org/2014/08/02/https-proxy-server-the-easy-way/feed/</wfw:commentRss>
+		<slash:comments>5</slash:comments>
+		</item>
+		<item>
+		<title>如何购买廉价 SSL 证书</title>
+		<link>http://archboy.org/2014/08/02/how-to-buy-the-cheap-ssl-certificates/</link>
+		<comments>http://archboy.org/2014/08/02/how-to-buy-the-cheap-ssl-certificates/#comments</comments>
+		<pubDate>Sat, 02 Aug 2014 03:31:27 +0000</pubDate>
+		<dc:creator><![CDATA[ivarptr]]></dc:creator>
+				<category><![CDATA[Linux]]></category>
+		<category><![CDATA[Security]]></category>
+		<category><![CDATA[Server]]></category>
+		<category><![CDATA[Apache]]></category>
+		<category><![CDATA[ssl]]></category>
+		<category><![CDATA[tomcat]]></category>
+
+		<guid isPermaLink="false">http://archboy.org/?p=436</guid>
+		<description><![CDATA[之前的一篇《添加 GoDaddy SSL 证书到你的网站》提到如何从 GoDaddy 购买 SSL 证书并添加到 Tomcat Web Server，这里补充一下购买廉价 SSL 的过程。 网上有不少廉价甚至免费的 SSL 证书服务商，而比较方便快捷的应该是通过 namecheap.com 购买 Comodo Positive SSL 和 RapidSSL，两者都是 $10 左右一年，一般在 10 来分钟之内就能完成。下面是购买的详细步骤： 1、首先确定你 Web Server 的类型 一般来说，除了 Java Tomcat Web Server 之外的其他 Web Server（比如 Apache Httpd）都是使用 OpenSSL 实现其加密层的，所以在购买证书时先选定你的 Web Server 加密程序为 OpenSSL。（注：Tomcat 结合 APR 使用的话也是用 OpenSSL 的哦，如果你需要为 Tomcat 购买 SSL 证书，则转到本文第一段提到的那篇旧文。） 2、生成私钥和签名请求文件 使用如下命令可以产生一个私钥以及一个签名请求文件 &#8230; <a href="http://archboy.org/2014/08/02/how-to-buy-the-cheap-ssl-certificates/" class="more-link">Continue reading <span class="screen-reader-text">如何购买廉价 SSL 证书</span> <span class="meta-nav">&#8594;</span></a>]]></description>
+				<content:encoded><![CDATA[<p>之前的一篇<a href="http://archboy.org/2012/02/17/add-godaddy-ssl-certificate-to-your-website/">《添加 GoDaddy SSL 证书到你的网站》</a>提到如何从 GoDaddy 购买 SSL 证书并添加到 Tomcat Web Server，这里补充一下购买廉价 SSL 的过程。</p>
+<p>网上有不少廉价甚至免费的 SSL 证书服务商，而比较方便快捷的应该是通过 namecheap.com 购买 Comodo Positive SSL 和 RapidSSL，两者都是 $10 左右一年，一般在 10 来分钟之内就能完成。下面是购买的详细步骤：</p>
+<h3>1、首先确定你 Web Server 的类型</h3>
+<p>一般来说，除了 Java Tomcat Web Server 之外的其他 Web Server（比如 Apache Httpd）都是使用 OpenSSL 实现其加密层的，所以在购买证书时先选定你的 Web Server 加密程序为 OpenSSL。（注：Tomcat 结合 APR 使用的话也是用 OpenSSL 的哦，如果你需要为 Tomcat 购买 SSL 证书，则转到本文第一段提到的那篇旧文。）</p>
+<h3>2、生成私钥和签名请求文件</h3>
+<p>使用如下命令可以产生一个私钥以及一个签名请求文件</p>
+<pre lang="bash" escaped="true">$ openssl req -nodes -newkey rsa:2048 -keyout my.key -out my-request.csr</pre>
+<p>这条命令的 rsa:2048 用于指定加密算法的名称以及密钥的长度，最终生成的 my.key 为私钥（要保管好）和一个签名请求文件。</p>
+<p>运行这个命令时会询问关你的网站的信息，如果是个人网站，那么大部分资料都是可以随便填的，只要 “Common Name” 这一项准确填写你的域名即可，比如 abc.com，xyz.org，注意不用加 www 前缀，namecheap 代理销售的 SSL 证书会自动额外签名你的 www 二级域名，即付一份价钱，可以同时认证 abc.com 和 www.abc.com。</p>
+<h3>3、检查一下你域名登记的 email 地址</h3>
+<p>因为证书服务商会验证你的域名，而验证方法则是发送一封 email 到你域名注册时所填写的联系 email 地址，如果你注册域名时是乱填的，记得现在要更正过来了。</p>
+<h3>4、把签名请求文件发送给证书服务商</h3>
+<p>根据购买流程当中的指引，把第 2 步产生的 my-request.csr 发送给证书服务商。大概等十几分钟（也有时要几个小时）服务商会发送一封 email 给你，一般来说里面包含一个验证码，把这个验证码输入购买流程的页面当中就完成域名验证了。</p>
+<h3>5、获取签名证书</h3>
+<p>上一步完成之后，大概再等几分钟，你就会收到一封邮件（或者出现在购买流程当中），里面包含有你的证书和证书链。具体来说可能会有这 3 个证书文件：</p>
+<ul>
+<li>yourDomainName.crt</li>
+<li>PositiveSSLCA2.crt</li>
+<li>AddTrustExternalCARoot.crt</li>
+</ul>
+<p>一般来说我们要把后两者合并为一个文件，用记事本打开然后复制粘贴形成一个新文件即可，需要注意 *Root.crt 这个文件的内容要放在最后，对于 linux 系统用户，用这行搞定：</p>
+<pre lang="bash" escaped="true">$ cat PositiveSSLCA2.crt AddTrustExternalCARoot.crt &gt; yourDomainName.ca-bundle.crt</pre>
+<h3>6、使用证书</h3>
+<p>这里以 Apache Httpd 为例，一般的设置如下：</p>
+<pre lang="conf" escaped="true">SSLEngine on
+SSLCertificateKeyFile /etc/ssl/ssl.key/my.key
+SSLCertificateFile /etc/ssl/ssl.crt/yourDomainName.crt
+SSLCertificateChainFile /etc/ssl/ssl.crt/yourDomainName.ca-bundle</pre>
+<p>如果你的 apache 配置了多个虚拟主机，则配置如下：</p>
+<pre lang="conf" escaped="true"># make sure add these lines in somewhere else
+#NameVirtualHost *:80
+#NameVirtualHost *:443
+
+&lt;VirtualHost *:80&gt;
+  ServerName www.your-domain.com
+  DocumentRoot /var/www/your-domain
+  ServerAlias your-domain.com
+&lt;VirtualHost&gt;
+&lt;VirtualHost *:443&gt;
+  SSLEngine on
+  SSLCertificateKeyFile /etc/ssl/ssl.key/my.key
+  SSLCertificateFile /etc/ssl/ssl.crt/yourDomainName.crt
+  SSLCertificateChainFile /etc/ssl/ssl.crt/yourDomainName.ca-bundle
+  ServerName www.your-domain.com  
+  DocumentRoot /var/www/your-domain
+  ServerName your-domain.com
+&lt;VirtualHost&gt;</pre>
+<p>对于使用了 APR 的 Tomcat 服务器，配置如下：</p>
+<pre lang="conf" escaped="true">&lt;Connector port="443" protocol="HTTP/1.1"
+address="198.74.59.36"
+SSLEnabled="true"
+scheme="https" secure="true"
+enableLookups="false"
+SSLCertificateFile="/etc/ssl/my/yourDomainName.crt"
+SSLCertificateChainFile="/etc/ssl/my/yourDomainName.ca-bundle.crt"
+SSLCertificateKeyFile="/etc/ssl/my/my.key"/&gt;</pre>
+<p>证书设置完毕。</p>
+<h3>7、补：SSL 证书的格式转换</h3>
+<p>如果你已经根据上面的流程购买了一个 SSL 证书，而碰巧使用的时候要求是 Java Keystore 格式，那么需要将 OpenSSL 的证书转换一下：</p>
+<p>首先将密钥和证书转为 pkcs12 格式：</p>
+<pre lang="bash" escaped="true">$ openssl pkcs12 -export -in yourDomainName.crt -inkey my.key &gt; my.p12</pre>
+<p>然后将 pkcs12 格式转换为 Java keystore 格式：</p>
+<pre lang="bash" escaped="true">$ keytool -importkeystore -srckeystore my.p12 -destkeystore my.jks -srcstoretype pkcs12</pre>
+<p>.</p>
+<p>&nbsp;</p>
+]]></content:encoded>
+			<wfw:commentRss>http://archboy.org/2014/08/02/how-to-buy-the-cheap-ssl-certificates/feed/</wfw:commentRss>
+		<slash:comments>2</slash:comments>
+		</item>
+		<item>
+		<title>刷刷存在感</title>
+		<link>http://archboy.org/2014/08/01/just-update-2014-08/</link>
+		<comments>http://archboy.org/2014/08/01/just-update-2014-08/#comments</comments>
+		<pubDate>Fri, 01 Aug 2014 10:30:16 +0000</pubDate>
+		<dc:creator><![CDATA[ivarptr]]></dc:creator>
+				<category><![CDATA[Linux]]></category>
+		<category><![CDATA[吐槽]]></category>
+
+		<guid isPermaLink="false">http://archboy.org/?p=432</guid>
+		<description><![CDATA[正如首页的帖子列表显示所示，这里已经快一年没有更新了。因为最近实在是太忙了，原先有几篇文章提到的后续文章，现在看来遥遥无期的样子，所以就不写后续了（其实也因为时间隔太久，之前在脑海里组织的文字都忘记了）。 最近我回忆起早6，7年我喜欢的是网络通信（tcp/udp之上的应用层）、数据处理（加密、分布储存）、分布计算这些领域，记得当时折腾起这些东西时不亦乐乎，可能由于当时是出于兴趣而不是工作任务。后来就开始主要做 web 应用开发了，那么之前学的东西，包括经验呀代码呀什么的还没来得及分享就已经荒废了。 所以下半年要想办法挤一点时间出来，然后把之前玩得最开心的那些经验和积累写成一篇篇简简单单的教程，这样也算是没有枉费之前的辛苦所得。]]></description>
+				<content:encoded><![CDATA[<p>正如首页的帖子列表显示所示，这里已经快一年没有更新了。因为最近实在是太忙了，原先有几篇文章提到的后续文章，现在看来遥遥无期的样子，所以就不写后续了（其实也因为时间隔太久，之前在脑海里组织的文字都忘记了）。</p>
+<p>最近我回忆起早6，7年我喜欢的是网络通信（tcp/udp之上的应用层）、数据处理（加密、分布储存）、分布计算这些领域，记得当时折腾起这些东西时不亦乐乎，可能由于当时是出于兴趣而不是工作任务。后来就开始主要做 web 应用开发了，那么之前学的东西，包括经验呀代码呀什么的还没来得及分享就已经荒废了。</p>
+<p>所以下半年要想办法挤一点时间出来，然后把之前玩得最开心的那些经验和积累写成一篇篇简简单单的教程，这样也算是没有枉费之前的辛苦所得。</p>
+]]></content:encoded>
+			<wfw:commentRss>http://archboy.org/2014/08/01/just-update-2014-08/feed/</wfw:commentRss>
+		<slash:comments>3</slash:comments>
+		</item>
+		<item>
+		<title>体验 HP Chromebook 11</title>
+		<link>http://archboy.org/2013/11/03/hp-chromebook-11-2013-review/</link>
+		<comments>http://archboy.org/2013/11/03/hp-chromebook-11-2013-review/#comments</comments>
+		<pubDate>Sun, 03 Nov 2013 15:07:53 +0000</pubDate>
+		<dc:creator><![CDATA[ivarptr]]></dc:creator>
+				<category><![CDATA[ARM Device]]></category>
+		<category><![CDATA[ARM]]></category>
+		<category><![CDATA[Chrome]]></category>
+		<category><![CDATA[Chromebook]]></category>
+
+		<guid isPermaLink="false">http://archboy.org/?p=397</guid>
+		<description><![CDATA[因为基于ARM架构CPU的电脑功耗很低，同时在尺寸上可以做到比较小巧，而且不需要诸如散热风扇等会发出噪音的机械部件，所以很早就对这种设备很感兴趣。 之前尝试过在实验板树莓派（详细见旧文《Raspberry Pi 初步体验》）上运行 Arch Linux ARM，发现体验非常好，可以很低的能耗长时间运行一些程序（如文件同步、服务监控等），不过由于树莓派的 CPU 性能相对比较低，不能运行一些比较重的任务如Linux桌面以及编译程序，所以这次当 Google 推出 HP Chromebook 11 时，看到硬件配置不错而且价格只需 $279，就立即拍了一台。经过二十天的等待今天终于拿到手了，简单体验了一下之后，下面说说体会。 @ivarptr 硬件篇 HP Chromebook 11 的包装非常好，我拿到的包裹有一个角因长途运输而被撞到凹陷进去，幸好里面有两个厚厚的弹性泡沫防撞垫架空，内层的包装盒完好无损。 内层包装盒里面的内容非常简单，只有一部 Chromebook 主机以及一个USB接口的电源（变压器），另外还有一两张简单的说明纸。 HP Chromebook 11 的尺寸（不算厚度）跟 Macbook Air 11差不多，跟 iPad 比较只是长度多了约4厘米，所以它非常小巧的，而大约2斤左右重量也显得非常轻。 下面是 HP Chromebook 11 的一些主要硬件规格： 显示屏：11.6" IPS 接口：2 x USB 2.0；microUSB 用于充电以及 SlimPort 视频输出 CPU：Samsung Exynos 5 Dual （1.7 GHz 双核 Exynos 5250） &#8230; <a href="http://archboy.org/2013/11/03/hp-chromebook-11-2013-review/" class="more-link">Continue reading <span class="screen-reader-text">体验 HP Chromebook 11</span> <span class="meta-nav">&#8594;</span></a>]]></description>
+				<content:encoded><![CDATA[<p>因为基于ARM架构CPU的电脑功耗很低，同时在尺寸上可以做到比较小巧，而且不需要诸如散热风扇等会发出噪音的机械部件，所以很早就对这种设备很感兴趣。</p>
+<p>之前尝试过在实验板树莓派（详细见旧文<a href="http://archboy.org/2012/12/11/raspberry-pi-first-review/">《Raspberry Pi 初步体验》</a>）上运行 <a href="http://archlinuxarm.org/">Arch Linux ARM</a>，发现体验非常好，可以很低的能耗长时间运行一些程序（如文件同步、服务监控等），不过由于树莓派的 CPU 性能相对比较低，不能运行一些比较重的任务如Linux桌面以及编译程序，所以这次当 Google 推出 <a href="https://play.google.com/store/devices/details?id=chromebook_hp_11_whiteblue_wifi&amp;hl=en">HP Chromebook 11</a> 时，看到硬件配置不错而且价格只需 $279，就立即拍了一台。经过二十天的等待今天终于拿到手了，简单体验了一下之后，下面说说体会。 <a href="http://twitter.com/ivarptr">@ivarptr</a></p>
+<h2>硬件篇</h2>
+<p><a href="http://archboy.org/wp-content/uploads/2013/11/HP-chromebook-11-package.jpg"><img class="alignnone size-medium wp-image-403" alt="HP-chromebook-11-package" src="http://archboy.org/wp-content/uploads/2013/11/HP-chromebook-11-package-600x450.jpg" width="600" height="450" /></a></p>
+<p>HP Chromebook 11 的包装非常好，我拿到的包裹有一个角因长途运输而被撞到凹陷进去，幸好里面有两个厚厚的弹性泡沫防撞垫架空，内层的包装盒完好无损。</p>
+<p><a href="http://archboy.org/wp-content/uploads/2013/11/HP-chromebook-11-box.jpg"><img class="alignnone size-medium wp-image-402" alt="HP-chromebook-11-box" src="http://archboy.org/wp-content/uploads/2013/11/HP-chromebook-11-box-600x450.jpg" width="600" height="450" /></a></p>
+<p>内层包装盒里面的内容非常简单，只有一部 Chromebook 主机以及一个USB接口的电源（变压器），另外还有一两张简单的说明纸。</p>
+<p><a href="http://archboy.org/wp-content/uploads/2013/11/HP-chromebook-11-unbox.jpg"><img class="alignnone size-medium wp-image-401" alt="HP-chromebook-11-unbox" src="http://archboy.org/wp-content/uploads/2013/11/HP-chromebook-11-unbox-600x450.jpg" width="600" height="450" /></a></p>
+<p>HP Chromebook 11 的尺寸（不算厚度）跟 Macbook Air 11差不多，跟 iPad 比较只是长度多了约4厘米，所以它非常小巧的，而大约2斤左右重量也显得非常轻。</p>
+<p><a href="http://archboy.org/wp-content/uploads/2013/11/HP-chromebook-11-body.jpg"><img class="alignnone size-medium wp-image-400" alt="HP-chromebook-11-body" src="http://archboy.org/wp-content/uploads/2013/11/HP-chromebook-11-body-600x450.jpg" width="600" height="450" /></a></p>
+<p>下面是 HP Chromebook 11 的一些主要硬件规格：</p>
+<pre lang="" escaped="true">显示屏：11.6" IPS
+接口：2 x USB 2.0；microUSB 用于充电以及 SlimPort 视频输出
+CPU：Samsung Exynos 5 Dual （1.7 GHz 双核 Exynos 5250）
+内存：2GB
+硬盘：16GB eMMC</pre>
+<p>HP Chromebook 11 的外壳是光面的塑料，底部有两块防滑胶垫，抓上手很舒适。键盘用的是磨砂按键，键程比较充足打字比较舒适。屏幕边框是磨砂塑料，略显得用料不足，不过如果把这些电子设备看作工作的工具的话，这些外在细节就没所谓了，毕竟平时绝大部分时间是眼看屏幕手敲键盘。</p>
+<p>HP Chromebook 11 的屏幕采用IPS材质，色彩饱和亮度高视角大，在观看硬盘和图片时效果不错，不过看文字的话稍微有点轻微的颗粒感（好吧，应该是眼睛看惯高清屏幕了），所以浏览网页有时要放大页面（Ctrl+加号键）才比较舒适。</p>
+<p>HP Chromebook 11 的CPU略显“低端”，毕竟现在的安卓手机都有八核四核的ARM CPU，而这台电脑配的是双核 1.7G。不过在实际使用过程中感觉完全不会慢，开机时间大概在5秒左右，然后我尝试同时打开多个比较复杂的网页，浏览效果依然很流畅。而且，我想这个配置应该能胜任日常任务所需的。</p>
+<p><a href="http://archboy.org/wp-content/uploads/2013/11/HP-chromebook-11-keyboard.jpg"><img class="alignnone size-medium wp-image-399" alt="HP-chromebook-11-keyboard" src="http://archboy.org/wp-content/uploads/2013/11/HP-chromebook-11-keyboard-600x450.jpg" width="600" height="450" /></a></p>
+<p>对这台电脑不够满意的是触摸板，它的加速度感觉跟普通的触摸板不太一样，不过用了一段时间之后已经基本适应了。</p>
+<p>总而言之，就硬件而言，HP Chromebook 11 是不错的，考虑到它的白菜价格，应该给5颗星也不算过分。</p>
+<h2>系统篇</h2>
+<p>HP Chromebook 11 采用的是 Google Chrome OS 系统（当然咯，所有Chromebook都是用这个系统的），之前虽然简单看过资料，不过对这个系统的实际使用效果一直很好奇。</p>
+<p>正如大家所了解的，所谓的 Chrome OS 就是一个只有 Chrome 浏览器的操作系统，所以我们是没法安装平常看到的 for Windows/Mac/Linux 的软件，能安装的只有 Chrome 浏览器支持的插件和 Chrome 应用商店里面的应用。除此之外，我们只能用来浏览网页。情况更为糟糕的是在国内有些Google服务（比如 Google Drive）不是总能访问到，不过我想对于死技术宅来说，要顺畅无障碍地访问这些优质的服务应该不是什么难事。</p>
+<p><a href="http://archboy.org/wp-content/uploads/2013/11/chromeos-desktop.png"><img class="alignnone size-medium wp-image-410" alt="chromeos-desktop" src="http://archboy.org/wp-content/uploads/2013/11/chromeos-desktop-600x337.png" width="600" height="337" /></a></p>
+<p><span style="line-height: 1.5;">不过好消息是，对于部分人来说，平时使用电脑的大部分任务都是在浏览器里完成的，比如我日常浏览网页、处理文档和邮件、网购、观看在线视频和听音乐等。</span>而且只有浏览器的操作系统能够让你免除维护系统的麻烦，因为它够简单，开机即用，所有资料都同步在云端。</p>
+<p>进入Chrome OS系统之后，底部左侧是一些常用的“应用”列表，点击应用图标之后实际上是在Chrome浏览器上打开相应的网页，比如点击 Dropbox 应用图标会打开网页 https://wwww.dropbox.com 而已。而有些应用则是一些 Chrome 插件（扩展），比如计算器和Hangouts。</p>
+<p>屏幕右下角有一个消息通知栏和诸如网络设置、音量调节的小功能区，在这里你可以设置网络Proxy和VPN（只支持L2TP和OpenVPN）。</p>
+<p><a href="http://archboy.org/wp-content/uploads/2013/11/chromeos-wallpaper.png"><img class="alignnone size-medium wp-image-406" alt="chromeos-wallpaper" src="http://archboy.org/wp-content/uploads/2013/11/chromeos-wallpaper-600x337.png" width="600" height="337" /></a></p>
+<p>Chrome OS 的桌面是不能摆放文件和应用程序图标的，只能保持空白，不过壁纸倒是可以随意设置。</p>
+<p><a href="http://archboy.org/wp-content/uploads/2013/11/chromeos-files.png"><img class="alignnone size-medium wp-image-405" alt="chromeos-files" src="http://archboy.org/wp-content/uploads/2013/11/chromeos-files-600x337.png" width="600" height="337" /></a></p>
+<p>Chrome OS 只有一个很简单的文件管理器，在这里只能进行基本的文件操作，比如重命名、删除、复制和移动等以及预览图片、播放音乐等。而用户可使用的内部储存空间只有一个名字为“Downloads”的文件夹，当插入USB硬盘或者SD卡时，这里会自动显示里面的文件。</p>
+<p>同时作为 Chrome OS 的“主要储存器”的 Google Drive 也是在这里管理的，因为 HP Chromebook 11 的内置储存器容量很小，所以大部分个人数据都应该拖进 Google Drive。比如电子文档和电子表格等。然后再使用 Google Doc （相当于 MS Office）进行编辑和查看/打印等操作。</p>
+<p><a href="http://archboy.org/wp-content/uploads/2013/11/chromeos-doc.png"><img class="alignnone size-medium wp-image-409" alt="chromeos-doc" src="http://archboy.org/wp-content/uploads/2013/11/chromeos-doc-600x337.png" width="600" height="337" /></a></p>
+<p><span style="line-height: 1.5;">Chrome OS 内置了中文字体和中文输入法，包括拼音和五笔，所以处理中文资料并不需要额外的设置。</span></p>
+<p><a href="http://archboy.org/wp-content/uploads/2013/11/chromeos-movie.png"><img class="alignnone size-medium wp-image-408" alt="chromeos-movie" src="http://archboy.org/wp-content/uploads/2013/11/chromeos-movie-600x337.png" width="600" height="337" /></a></p>
+<p>Chrome OS 内置了 Flash 插件，所以观看在线视频也是没问题的，当然观看 HTML5 视频更加没问题。</p>
+<p>Chrome OS 也有“窗口”的概念（虽然都是 Chrome 浏览器），平时大部分情况下都是最大化一个浏览器，然后不同的“应用”在不同的标签页当中运行。除此也可以同时打开多个浏览器窗口，或者把某个窗口全屏显示。在播放视频以及观看图片时，全屏显示是一个常用的操作。</p>
+<p><a href="http://archboy.org/wp-content/uploads/2013/11/chromeos-music.png"><img class="alignnone size-medium wp-image-407" alt="chromeos-music" src="http://archboy.org/wp-content/uploads/2013/11/chromeos-music-600x337.png" width="600" height="337" /></a></p>
+<p>Chrome OS 没有内置的音乐库管理应用，所以比较简单的做法是把音乐同步到 Google Music，相信使用 Android 设备的都不陌生，然后再到 Chrome OS 里打开 Google Music 就可以播放自己的音乐库了。</p>
+<h2>小结</h2>
+<p>通过简单的体验之后，发现其实HP Chromebook 11 是满足日常大部分任务需求的，而且配合低功耗以及超廉价的硬件，Chrome OS 系统给人的体验非常好。比如这篇文章都是在这台机器上完成的，过程非常顺利。机器的耗电情况也非常理想，从中午到下午一直开机以及运行下载任务电池仍然有余。考虑到机器使用的是标准的 microUSB 充电接口，出门在外想充电也都不一定需要带上充电器。</p>
+<p>另外Chrome OS 加上一些插件之后可以做一些浏览器以外的功能，比如使用 Hangouts 服务可以打开 HP Chromebook 11 的摄像头进行网络视频对话，另外可以通过快捷键 Ctrl + 窗口切换键 进行截图等等。</p>
+<p><a href="http://archboy.org/wp-content/uploads/2013/11/chromeos-term.png"><img class="alignnone size-medium wp-image-404" alt="chromeos-term" src="http://archboy.org/wp-content/uploads/2013/11/chromeos-term-600x337.png" width="600" height="337" /></a></p>
+<p>如果你是 Linux 粉丝，那么你可以进一步发掘 Chromebook 的功能，比如使用 Ctrl + Alt + T 组合键打开控制台，对于解锁了开发者模式的机器，你可以安装完整的 Linux 系统，然后使用 chroot 切换过去。刚才尝试了安装 Ubuntu Linux，然后运行 LibreOffice 以及使用 OpenJDK 编译我的一个程序 <a href="https://github.com/ivarptr/clobaframe">Clobaframe</a>，发现这台机器的性能是完全可以流畅运行一个完整的 Linux 以及一些稍微重一点的任务，关于这方面的内容我会在另一篇文章再详细介绍。</p>
+<p>PS：下面附带一篇写得非常详细的测评文章，对 HP Chromebook 11 感兴趣的可以跳转 http://liliputing.com/2013/10/hp-chromebook-11-review.html</p>
+]]></content:encoded>
+			<wfw:commentRss>http://archboy.org/2013/11/03/hp-chromebook-11-2013-review/feed/</wfw:commentRss>
+		<slash:comments>9</slash:comments>
+		</item>
+		<item>
+		<title>一种开放式安全ID的设计</title>
+		<link>http://archboy.org/2013/10/23/open-secure-id-draft/</link>
+		<comments>http://archboy.org/2013/10/23/open-secure-id-draft/#comments</comments>
+		<pubDate>Tue, 22 Oct 2013 19:17:48 +0000</pubDate>
+		<dc:creator><![CDATA[ivarptr]]></dc:creator>
+				<category><![CDATA[Security]]></category>
+		<category><![CDATA[OpenPGP]]></category>
+		<category><![CDATA[OpenSecureId]]></category>
+		<category><![CDATA[security]]></category>
+
+		<guid isPermaLink="false">http://archboy.org/?p=376</guid>
+		<description><![CDATA[随着基于web的应用以及移动终端的普及，越来越多的私人资料/数据在网络上储存和处理，比如个人通讯录、照片、日程安排表、备忘，甚至还有业务文档、合同、报表等。一般情况下这些数据是明文或服务端加密后储存于应用服务提供商（有些应用服务提供商把数据托管于第三方云服务商），理论上应用服务提供商、云服务商、已成功入侵服务器的黑客等均可以获得用户的私人数据。经过实践可知，只有在技术层面上——而不是依赖服务商的承诺、信誉或者商业道德——对用户的私人数据提供充分的隐私保障，用户才拥有对自己数据的控制能力。@ivarptr OpenPGP 在保障隐私的各种技术当中，对数据先加密再传送到网络（即客户端加密/端对端加密）是比较简单而有效的方式。其中 OpenPGP 是一套成熟的数据加密和数字签名标准（RFC4880）。 不过 OpenPGP 在实际应用中有一定难度，OpenPGP依赖非对称加密技术（如RSA、DSA非对称算法），要求每位用户都要有一个钥匙对（注：一般情况下需要两个钥匙对，一个用于数字签名，另一个用于加密数据，这里做了适度简化），钥匙对包含一个公钥和一个私钥。（有关OpenPGP更多的使用方法可以参考这篇文章《使用 GnuPG 实现电子邮件加密和数字签名》）。加密信息或者核对一个数字签名都必须先取得对方的公钥，因此当联系人不断增多时，用户需要手动管理大量的钥匙对，虽然现有很多免费的公钥服务器解决了公钥分发问题，不过取回的公钥仍然需要用户手动维护。除此之外，当用户有多个终端设备如手机或平板电脑，要在不同的设备里同步维护钥匙对也是一件不太容易的事情。 OSID 为了解决上诉的钥匙对维护问题以及实现如下目标： 简化用户加密数据的操作步骤； 简化应用程序实现加密数据的流程。 这里设计了一种开放式的安全用户 ID 系统（Open Secure ID，以下简写为 OSID）。OSID 的主要任务是让加密数据操作在复杂度以及方便性之间取得一个均衡。一个 OSID 系统包括如下几个部分： 用户Public Key 列表； 用户Public Profile； （可选）管理工具； OAuth； （可选）用户Private Key 列表； （可选）通讯录； （可选）Public 信任列表。 图1：Open Secure ID 系统的组成部分 排除可选部分之后，实际上OSID系统是一个很简单的系统，大致可以认为它是一个升级版的 key server，用于管理用户的钥匙对。而具体的数据加密和签名则由应用程序在客户端使用OpenPGP或者相似的技术实现。 OSID系统是去中心化的，即任何实现了OSID标准的站点都可以作为OSID的服务提供者（以下简称 OSID provider）。用户可以在一个OSID provider 创建一个帐号，也可以在一个OSID provider 导出帐号然后再导入到其他OSID provider。下面将对各个部分详细说明。 用户 Public Key 列表 &#8230; <a href="http://archboy.org/2013/10/23/open-secure-id-draft/" class="more-link">Continue reading <span class="screen-reader-text">一种开放式安全ID的设计</span> <span class="meta-nav">&#8594;</span></a>]]></description>
+				<content:encoded><![CDATA[<p>随着基于web的应用以及移动终端的普及，越来越多的私人资料/数据在网络上储存和处理，比如个人通讯录、照片、日程安排表、备忘，甚至还有业务文档、合同、报表等。一般情况下这些数据是明文或服务端加密后储存于应用服务提供商（有些应用服务提供商把数据托管于第三方云服务商），理论上应用服务提供商、云服务商、已成功入侵服务器的黑客等均可以获得用户的私人数据。经过实践可知，只有在技术层面上——而不是依赖服务商的承诺、信誉或者商业道德——对用户的私人数据提供充分的隐私保障，用户才拥有对自己数据的控制能力。<a href="https://twitter.com/ivarptr">@ivarptr</a></p>
+<h2>OpenPGP</h2>
+<p>在保障隐私的各种技术当中，对数据先加密再传送到网络（即客户端加密/端对端加密）是比较简单而有效的方式。其中 <a href="http://www.openpgp.org/">OpenPGP</a> 是一套成熟的数据加密和数字签名标准（<a href="http://www.ietf.org/rfc/rfc4880.txt">RFC4880</a>）。</p>
+<p>不过 OpenPGP 在实际应用中有一定难度，OpenPGP依赖非对称加密技术（如RSA、DSA非对称算法），要求每位用户都要有一个钥匙对（注：一般情况下需要两个钥匙对，一个用于数字签名，另一个用于加密数据，这里做了适度简化），钥匙对包含一个公钥和一个私钥。（有关OpenPGP更多的使用方法可以参考这篇文章<a href="http://archboy.org/2013/04/18/gnupg-pgp-encrypt-decrypt-message-and-email-and-digital-signing-easy-tutorial/">《使用 GnuPG 实现电子邮件加密和数字签名》</a>）。加密信息或者核对一个数字签名都必须先取得对方的公钥，因此当联系人不断增多时，用户需要手动管理大量的钥匙对，虽然现有很多<a href="http://en.wikipedia.org/wiki/Key_server_%28cryptographic%29">免费的公钥服务器</a>解决了公钥分发问题，不过取回的公钥仍然需要用户手动维护。除此之外，当用户有多个终端设备如手机或平板电脑，要在不同的设备里同步维护钥匙对也是一件不太容易的事情。</p>
+<h2>OSID</h2>
+<p>为了解决上诉的钥匙对维护问题以及实现如下目标：</p>
+<ul>
+<li>简化用户加密数据的操作步骤；</li>
+<li>简化应用程序实现加密数据的流程。</li>
+</ul>
+<p>这里设计了一种开放式的安全用户 ID 系统（Open Secure ID，以下简写为 OSID）。OSID 的主要任务是让加密数据操作在复杂度以及方便性之间取得一个均衡。一个 OSID 系统包括如下几个部分：</p>
+<ul>
+<li>用户Public Key 列表；</li>
+<li>用户Public Profile；</li>
+<li>（可选）管理工具；</li>
+<li>OAuth；</li>
+<li>（可选）用户Private Key 列表；</li>
+<li>（可选）通讯录；</li>
+<li>（可选）Public 信任列表。</li>
+</ul>
+<p><a href="http://archboy.org/wp-content/uploads/2013/10/003-osid-struct.png"><img class="alignnone size-medium wp-image-394" alt="003-osid-struct" src="http://archboy.org/wp-content/uploads/2013/10/003-osid-struct-600x210.png" width="600" height="210" /></a></p>
+<p>图1：Open Secure ID 系统的组成部分</p>
+<p>排除可选部分之后，实际上OSID系统是一个很简单的系统，大致可以认为它是一个升级版的 key server，用于管理用户的钥匙对。而具体的数据加密和签名则由应用程序在客户端使用OpenPGP或者相似的技术实现。</p>
+<p>OSID系统是去中心化的，即任何实现了OSID标准的站点都可以作为OSID的服务提供者（以下简称 OSID provider）。用户可以在一个OSID provider 创建一个帐号，也可以在一个OSID provider 导出帐号然后再导入到其他OSID provider。下面将对各个部分详细说明。</p>
+<h3>用户 Public Key 列表</h3>
+<p>OSID 系统的每位用户都有一个 Public Key 列表，Public Key 用于储存用户自己的钥匙对当中的公钥部分。每个 Public Key 列表有两个默认公钥：</p>
+<ul>
+<li>用于数字签名的公钥；</li>
+<li>用于数据加密的公钥。</li>
+</ul>
+<p>这两个公钥是在用户创建帐号时由客户端产生并提交的。其中用于数字签名的公钥除了可以签名一般的信息之外，同时也用于签名用户的帐号信息，比如签名姓名、头像，以确保这些信息是该用户提供的。另外也用于签名用户的其他公钥，以确保这些公钥是该用户所拥有，所以这个公钥称为Master Key。</p>
+<p>列表允许用户添加公钥，也允许应用程序添加公钥。应用程序通过OAuth经过用户的授权即可创建和管理属于自己公钥；用户也可以创建多个用于加密或数字签名的公钥，以细化每个公钥的用途。一个Public Key 列表的结构如下：</p>
+<ul>
+<li>key：公钥的值；</li>
+<li>key_id：钥匙对的id，算法同 OpenPGP；</li>
+<li>expires：公钥的有效期；</li>
+<li>algorithm：钥匙对的算法名称及密码长度，比如RSA-2048,DSA-1024,Elgamal-2048等；</li>
+<li>usage：标识公钥的用途，可以是sign、encrypt，或者两种用途都有；</li>
+<li>is_master_key：标识是否 Master Key；</li>
+<li>is_default_encrypt：标识是否默认加密公钥；</li>
+<li>name：公钥的名称，一般用于应用程序标识公钥的细分用途。名称可以为空白，如果不是空白，则必须经过加密，加密过程是：使用一个跟Public Key列表相关联的随机产生的session key加密name，然后使用默认加密公钥加密这个session key；</li>
+<li>app_id：创建公钥的应用程序的id，这个id是也是经过加密的，这样可以防止他人试图获取一个用户的应用程序列表。加密过程同name的；</li>
+<li>sign：对当前公钥使用 Master Key 签名的签名值；</li>
+<li>revoke_sign：如果要作废当前公钥，则使用 Master Key 签名该公钥并填写该字段。</li>
+</ul>
+<h3>用户 Public Profile</h3>
+<p>用户 Public Profile 是指可完全公开的个人资料，如unique id、名称、头像、个人简介、master key的指纹值等。</p>
+<p>更新Public Profile每项信息时，用户都需要签名该项信息，比如更新姓名时，需要把姓名以及这个新名字的数字签名一起提交，服务器验证数字签名通过之后才允许更新。</p>
+<p>其中的unique id是用户创建帐号时由OSID provider产生并签名的一个随机数——UUID，用于全局惟一标识一个用户。unique id除了用来关联一位用户的其他OSID信息（如Public Key列表）之外，还可以方便用户在不同的OSID provider 之间迁移帐号。</p>
+<p>除了以上的信息之外，Public Profile还包括一些社会属性的其他站点的Profile，比如用户的 Twitter、Facebook等Profile，OSID provider 可以通过这些网站的 OAuth 接口验证用户是否真正拥有这些Profile，经过验证之后 OSID provider 应该使用自己的密钥对这些 Profile 签名，以表示通过服务器验证。</p>
+<p>另外Public Profile还可以包括Email地址、电话号码等通信信息。对于 Email 地址 OSID provider可以通过发送邮件验证用户，通过验证的同样需要对其签名。由于一般用户可能不希望其他人看到（完整的）Email地址，OSID provider 应该只记录Email地址的Hash值，这样可以防止他人查看Email地址的同时，还能根据Hash值搜索或者核对一个Email地址。</p>
+<p>Public Profile 的结构如下：</p>
+<ul>
+<li>name：项目的名称，比如name, unique_id, photo, email, social_twitter 等。</li>
+<li>value：项目的值。</li>
+<li>screen_value：项目值用于显示时的内容。比如一个用户的Twitter Profile 是一个 Twitter User Id，为了显示时比较直观，可能设置screen_value为 @ivarptr。</li>
+<li>sign：项目值的用户签名。</li>
+<li>provider_sign：项目值的OSID provider方的签名。sign和provider_sign存在叠加关系，比如用户的社会属性Profile，先由用户签名，然后再由OSID provider把原始数据以及用户的签名再作一次签名。</li>
+</ul>
+<h3>管理工具</h3>
+<p>OSID provider 在很多情况下不处理业务，而只起读/写用户信息的作用。而大部分业务处理在客户端运行的管理工具完成，比如创建帐号、更新头像等。管理工具除了在桌面操作系统运行的应用程序以及在移动终端运行的app这两种形式之外，也包括Web版的应用程序。为保障安全，Web版管理工具的业务功能应该由javascript在本地运行实现，不能由OSID provider服务器运行。</p>
+<p>管理工具的主要功能除了让用户管理自己帐号信息之外，同时还充当信息传输代理角色。因为用户的部分信息是经过加密的，所以应用程序无法直接获取这些信息，这时应用程序只能通过IPC（指进程间通信，比如dbus、named pipe、socket等）访问管理工具，然后由管理工具访问OSID provider得到信息并且解密后再返回给应用程序。对于 Web应用程序可以通过JSONP或者iframe proxy技术跟Web版管理工具通信。</p>
+<p><a href="http://archboy.org/wp-content/uploads/2013/10/003-osid-manage-tool.png"><img class="alignnone size-full wp-image-386" alt="003-osid-manage-tool" src="http://archboy.org/wp-content/uploads/2013/10/003-osid-manage-tool.png" width="570" height="187" /></a></p>
+<p>图2：应用程序与管理工具</p>
+<p>为便于应用程序OSID，OSID provider 应该提供一种或者多种形式的管理工具，或者以SDK的方式提供基本的管理功能，比如登录、获取Public Key列表、Public Profile和Private Key列表的功能。</p>
+<h3>OAuth</h3>
+<p>通过 OAuth，（第三方）应用程序可以访问受保护的用户 OSID 资源，同时也可以通过 OSID 标识一位用户以登录自己的应用程序（类似一些应用程序所使用的“使用Twitter登录”功能）。</p>
+<p>跟大部分提供OAuth的服务一样，（第三方）应用程序开发者需要先在 OSID provider 登记自己的应用程序，然后当用户使用这个应用程序时会跳转到 OSID 管理工具询问用户授权，当应用程序获得用户授权之后就可以访问受保护的用户资源。对于已加密的信息，应用程序应该访问管理工具，然后由管理工具代理访问并返回解密后的信息。</p>
+<p><a href="http://archboy.org/wp-content/uploads/2013/10/003-osid-oauth.png"><img class="alignnone size-medium wp-image-387" alt="003-osid-oauth" src="http://archboy.org/wp-content/uploads/2013/10/003-osid-oauth-600x119.png" width="600" height="119" /></a></p>
+<p>图3：应用程序通过OAuth与Provider 通信</p>
+<h3> 用户 Private Key 列表</h3>
+<p>为了提高移动性，对安全性要求不非常高的用户可以选择把钥匙对当中的私钥部分加密后储存于 OSID provider，这样能大幅度方便用户在多个设备上使用OSID。</p>
+<p>跟用户Public Key列表一样，Private Key列表也有一个相关联的随机产生的 session key，用户的所有私钥都会被这个 session key 所加密，然后用户只需提供一种可靠的方式加密这个 session key 就可以了。而加密方式大概有如下几种：</p>
+<ul>
+<li>用户口令；</li>
+<li>类似随机数id卡等标识硬件；</li>
+<li>类似指纹、面孔、视网膜、DNA等跟用户相关的特征值。</li>
+</ul>
+<p>相对来说用户口令最方便，不过也最不安全，在创建帐号时系统应该提示用户使用强密码。</p>
+<p><a href="http://archboy.org/wp-content/uploads/2013/10/003-osid-private-key-list.png"><img class="alignnone size-full wp-image-388" alt="003-osid-private-key-list" src="http://archboy.org/wp-content/uploads/2013/10/003-osid-private-key-list.png" width="549" height="155" /></a></p>
+<p>图4：加密Private Key列表的原理</p>
+<p>应用程序经过用户授权也可以添加私钥到Private Key列表，不过需要注意的是，每添加一个私钥都必须同时添加对应的公钥到 Public Key列表。因为没有公钥的私钥是没有意义的。</p>
+<p>管理工具应该提供用户选择不使用 Private Key列表的选项，让对安全性要求较高的用户把私钥保存在本地。</p>
+<p>用户Private Key列表的结构跟Public Key列表基本相同。</p>
+<h3>通讯录</h3>
+<p>OSID provider 可以提供一个用户级的通讯录，方便用户管理常用联系人。联系人信息是经过加密后再添加到通讯录里的。</p>
+<p>联系人资料除了包括用户unique id、email、电话号码等基本资料之外，还应该包括对该联系人的信任程度的信息，比如是完全信任还是一般信任。这些资料都经过一个跟用户通讯录相关联的随机产生的session key加密，而 session key 则由用户的默认加密公钥加密。</p>
+<p>一个通讯录的结构如下：</p>
+<ul>
+<li>key：条目编号，一个随机UUID，用于更新/删除条目是定位。</li>
+<li>value：联系人的资料，使用JSON格式组织，然后经过session key加密。</li>
+</ul>
+<p>第三方应用程序可以通过OAuth以及管理工具读取/写入通讯录。</p>
+<h3>Public 信任列表</h3>
+<p>Public信任列表用于标识一位用户的public profile可信程度。如果你认识一位朋友，并且通过现实生活的方式（比如面对面或者打电话）核对过他的OSID public profile，则可以标识他的public profile为可信（对unique id签名）。这样当查看一位用户的 public profile时可以查看到所有信任他的用户的列表，这在OSID用于业务往来时会比较实用。</p>
+<p>比如用户A收到C发送过来的加密信息，虽然A在现实生活中不认识C，不过A认识并信任B，而B信任C，那么当次信息可认为是可信的。</p>
+<h2>登录方式</h2>
+<p>因为OSID当中跟隐私相关的信息都经过加密，所以大部分信息都是无需通过验证登录而能够直接读取的，包括public key列表、public profile、private key列表、public信任列表。仅当用户需要修改OSID信息时，才需需要登录系统。跟一般的应用程序（网站）的用户系统不同，OSID provider 并不储存用户的登录口令、也不储存口令的hash值，而是采用如下步骤向用户派发一个会话令牌（access token）：</p>
+<ol>
+<li>OSID provider 随机产生一个 access token，并使用用户的默认加密公钥加密这个 access token并返回给用户</li>
+<li>用户获取自己Private Key列表的被加密过的 session key以及被session key加密过的默认加密私钥。</li>
+<li>在客户端用户使用正确的口令（或其他解密方式）解密session key，然后再解密私钥，最后用私钥解密得到 access token。</li>
+<li>用户使用正确的 access token 就可以访问自己受保护的资源。</li>
+</ol>
+<h2>应用示例</h2>
+<p>OSID主要目的是为了简化用户操作步骤以及简化应用程序的开发。通过OSID，应用程序开发者可以较为简单地开发能充分保障用户隐私的应用程序，诸如在线相册、在线文档库、音乐库、讨论组、聊天工具等，而用户在使用这些应用的过程中也无需关心具体数据加密和解密工作，因为大部分操作都可以透明地封装起来。</p>
+<p>下面举一个端到端加密邮件应用程序（以下简称email app）的例子。</p>
+<p>首先假设Alice和Bob都已经创建了自己的OSID帐号，然后email app也已经在 OSID provider 登记过。当Alice要发送一封加密邮件给Bob时，步骤如下：</p>
+<ul>
+<li>Alice 在 email app里填写收件人地址为 bob@domain.com，书写完邮件内容之后点击发送；</li>
+<li>email app 根据这个收件人地址在 OSID provider搜索Bob的public profile以及默认加密公钥。</li>
+<li>email app 使用 Bob 的默认加密公钥加密邮件内容并发送出去。</li>
+<li>Bob 收到邮件之后用 email app打开；</li>
+<li>email app 通过管理工具获取Bob 的默认加密私钥（此时管理工具可能会要求Bob输入private key列表的口令），解密邮件内容并显示。</li>
+</ul>
+<p>由此可见，Alice发送加密邮件给Bob的所有幕后过程都已经自动完成了，用户的操作步骤被大幅度地简化。</p>
+<p>有关OSID的API接口定义以及数据结构的定义将会在另一篇文章说明。</p>
+<h2>附：OpenPGP 的工作原理</h2>
+<p>用户Alice加密一段信息发送给Bob的过程：Alice必须先取得Bob的公钥，用之加密信息后再发送给Bob。Bob收到消息之后使用自己的 私钥解密然后得到原始信息（注：为了提高效率，实际加密过程是用一个随机产生的密钥——称为session key——和对称加密算法来加密信息，然后公钥只加密这个session key。解密时先用私钥解密session key，然后再用它来解密信息）。</p>
+<p><a href="http://archboy.org/wp-content/uploads/2013/10/003-openpgp-encrypt.png"><img alt="003-openpgp-encrypt" src="http://archboy.org/wp-content/uploads/2013/10/003-openpgp-encrypt.png" width="571" height="178" /></a></p>
+<p>图5：OpenPGP加密信息的过程</p>
+<p>Alice 发送一条带有数字签名的信息给Bob的过程：首先Alice使用散列算法计算出信息的Hash值，然后用自己的私钥加密这个Hash得一个数字签名值，然 后把原始信息以及数字签名值同时发送给Bob，Bob收到之后用Alice的公钥解密数字签名值，得到Hash值，然后自己也计算一次原始信息的Hash 值并跟刚才得到的Hash值做比较，如果两个Hash值一致则说明信息的确是由Alice发出并且中途没有被篡改。</p>
+<p><a href="http://archboy.org/wp-content/uploads/2013/10/003-openpgp-sign.png"><img alt="003-openpgp-sign" src="http://archboy.org/wp-content/uploads/2013/10/003-openpgp-sign.png" width="559" height="178" /></a></p>
+<p>图6：OpenPGP的数字签名过程</p>
+<p>&nbsp;</p>
+]]></content:encoded>
+			<wfw:commentRss>http://archboy.org/2013/10/23/open-secure-id-draft/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		</item>
+		<item>
+		<title>Clobaframe 2.3 参考文档</title>
+		<link>http://archboy.org/2013/09/10/clobaframe-2-3-reference/</link>
+		<comments>http://archboy.org/2013/09/10/clobaframe-2-3-reference/#comments</comments>
+		<pubDate>Tue, 10 Sep 2013 12:27:00 +0000</pubDate>
+		<dc:creator><![CDATA[ivarptr]]></dc:creator>
+				<category><![CDATA[软件开发]]></category>
+		<category><![CDATA[clobaframe]]></category>
+		<category><![CDATA[cloud]]></category>
+
+		<guid isPermaLink="false">http://archboy.org/?p=369</guid>
+		<description><![CDATA[内容目录 1 Clobaframe 的作用 2 各个子模块的作用及依赖关系 3 使用示例 3.1 Query 3.2 Cache 3.3 Media 3.4 IO 3.5 Blob Store 3.6 Web Resource 3.7 Extra 4 配置文件 5 编译、测试和安装 5.1 检出源代码 5.2 配置Apache Maven 3 5.3 配置memcached 5.4 创建本地 blobstore目录 5.5 编译 5.6 运行单元测试 5.7 打包 5.8 生成 JavaDoc 5.9 安装jar库到Maven本地仓库 6 在项目中使用 Clobaframe &#160; Clobaframe &#8230; <a href="http://archboy.org/2013/09/10/clobaframe-2-3-reference/" class="more-link">Continue reading <span class="screen-reader-text">Clobaframe 2.3 参考文档</span> <span class="meta-nav">&#8594;</span></a>]]></description>
+				<content:encoded><![CDATA[<p>内容目录</p>
+<div><a href="#__RefHeading__1118_1427197658">1 Clobaframe 的作用</a><br />
+<a href="#__RefHeading__1241_1112260367">2 各个子模块的作用及依赖关系</a><br />
+<a href="#__RefHeading__6885_1452528826">3 使用示例</a><br />
+<a href="#__RefHeading__1124_1427197658">3.1 Query</a><br />
+<a href="#__RefHeading__1126_1427197658">3.2 Cache</a><br />
+<a href="#__RefHeading__1128_1427197658">3.3 Media</a><br />
+<a href="#__RefHeading__1130_1427197658">3.4 IO</a><br />
+<a href="#__RefHeading__1132_1427197658">3.5 Blob Store</a><br />
+<a href="#__RefHeading__1134_1427197658">3.6 Web Resource</a><br />
+<a href="#__RefHeading__1136_1427197658">3.7 Extra</a><br />
+<a href="#__RefHeading__1138_1427197658">4 配置文件</a><br />
+<a href="#__RefHeading__1140_1427197658">5 编译、测试和安装</a><br />
+<a href="#__RefHeading__6887_1452528826">5.1 检出源代码</a><br />
+<a href="#__RefHeading__6889_1452528826">5.2 配置</a><a href="#__RefHeading__6889_1452528826">Apache Maven 3</a><br />
+<a href="#__RefHeading__6891_1452528826">5.3 配置</a><a href="#__RefHeading__6891_1452528826">memcached</a><br />
+<a href="#__RefHeading__9543_1452528826">5.4 创建本地 </a><a href="#__RefHeading__9543_1452528826">blobstore目录</a><br />
+<a href="#__RefHeading__1142_1427197658">5.5 编译</a><br />
+<a href="#__RefHeading__1285_1112260367">5.6 运行单元测试</a><br />
+<a href="#__RefHeading__6895_1452528826">5.7 打包</a><br />
+<a href="#__RefHeading__6897_1452528826">5.8 生成 </a><a href="#__RefHeading__6897_1452528826">JavaDoc</a><br />
+<a href="#__RefHeading__1144_1427197658">5.9 安装</a><a href="#__RefHeading__1144_1427197658">jar库到</a><a href="#__RefHeading__1144_1427197658">Maven本地仓库</a><br />
+<a href="#__RefHeading__1148_1427197658">6 在项目中使用 </a><a href="#__RefHeading__1148_1427197658">Clobaframe</a></div>
+<p>&nbsp;</p>
+<p>Clobaframe 是一个web应用程序的基础设施框架，提供统一的接口，封装及抽象各种云服务（如 Amazon WebService, Google App Engine等），简化web程序调用云服务的过程。另外Coapframe 提供了 web 应用程序常用的功能封装，比如图片的处理、对象集合的查询、web 资源的自动管理、音频和视频的元数据提取等，为web应用程序提供必要的支持。</p>
+<p>该框架使用 Apache 协议开源，源码库地址 <a href="https://github.com/ivarptr/clobaframe">https://github.com/ivarptr/clobaframe</a> 。</p>
+<p><a href="https://twitter.com/ivarptr">@ivarptr</a></p>
+<h2><a name="__RefHeading__1118_1427197658"></a> 1 Clobaframe 的作用</h2>
+<p><a href="http://archboy.org/wp-content/uploads/2013/09/figure-the-structures.png"><img alt="figure-the structures" src="http://archboy.org/wp-content/uploads/2013/09/figure-the-structures-600x281.png" width="600" height="281" /></a></p>
+<p>Clobaframe 可以跟现有的web框架（比如 Spring Web MVC）结合使用。典型的组合由 Clobaframe、Spring Framework、Spring Security、Spring Web MVC和 Apache Velocity 等组成，只需为项目添加必要的数据持久化模块和业务逻辑模块，即可以快速搭建web应用程序。</p>
+<h2><a name="__RefHeading__1241_1112260367"></a> 2 各个子模块的作用及依赖关系</h2>
+<p><a href="http://archboy.org/wp-content/uploads/2013/09/figure-the-dependency-of-the-components.png"><img alt="figure-the dependency-of-the-components" src="http://archboy.org/wp-content/uploads/2013/09/figure-the-dependency-of-the-components.png" width="561" height="284" /></a></p>
+<p>Clobaframe 主要有如下几个子模块：</p>
+<ul>
+<li>Query：实现对象集合的条件查询、排序、重组等功能。</li>
+<li>Cache：对缓存服务的统一封装，目前有两个实现：Ehcache 和 Memcached，前者为基于 jvm 内存缓存，虽然可以配置为分布式，不过一般用于开发阶段或者单服务器的生产环境。后者使用 Memcached 服务，有良好的分布式特性，支持Amazon ElastiCache缓存阵列。</li>
+<li>Media：主要由Image,Audio,Video三个小模块组成，Image包含一些常用的图片处理功能，比如缩放、裁剪、加水印等。Audio和Video主要用于提取元数据（Meta Data）</li>
+<li>IO：对二进制数据资源进行封装，同时提供将数据送数据至客户端/浏览器，或者从客户端/浏览器接收数据的功能。</li>
+<li>Blob Store：储存或读取二进制资源，一般用于将图片/声音/视频等用户资源储存于分布式的储存阵列当中（或者云服务）。</li>
+<li>Web Resource：自动管理web application的资源，包括图片/css样式表/js脚本等。</li>
+<li>Extra： 对一些常用但尚未独立成一个模块的功能集合。</li>
+</ul>
+<h2><a name="__RefHeading__6885_1452528826"></a>3 使用示例</h2>
+<p>Clobaframe 各个模块的详细使用方法可以阅读相关的JavaDoc，或者参考各模块的单元测试的代码。下面简单罗列一下功能及使用示例：</p>
+<h3><a name="__RefHeading__1124_1427197658"></a>3.1 Query</h3>
+<p>考虑有个集合 ‘members’, 它有 4 个对象：<br />
+{id:001, name:hello, gender:m, birth:1990-4-1}<br />
+{id:002, name:world, gender:f, birth:1992-5-1}<br />
+{id:003, name:foo, gender:f, birth:1994-8-1}<br />
+{id:004, name:bar, gender:m, birth:1996-1-1}</p>
+<p><a name="__RefHeading__1243_1112260367"></a>3.1.1 查询所有 ‘gender’=&#8217;m’ 的对象</p>
+<p>result = SimpleQuery.from(members).whereEquals(&#8220;gender&#8221;, &#8220;m&#8221;).list();</p>
+<p><a name="__RefHeading__1245_1112260367"></a>3.1.2 按照 ‘birth’ 属性排序并找出第一个对象</p>
+<p>result = SimpleQuery.from(members).orderBy(&#8220;birth&#8221;).first();</p>
+<p><a name="__RefHeading__1247_1112260367"></a>3.1.3 先按照 ‘gender’ 排序然后再按 ‘birth’ 排序</p>
+<p>result = SimpleQuery.from(members)<br />
+.orderBy(&#8220;gender&#8221;)<br />
+.orderBy(&#8220;birth&#8221;)<br />
+.list();</p>
+<p><a name="__RefHeading__1249_1112260367"></a>3.1.4 查询所有 ‘birth’ 大于 ’1992-1-1′ 并小于 ’1996-1-1′ 的对象</p>
+<p>result = SimpleQuery.from(members)<br />
+.whereGreaterThan(&#8220;birth&#8221;, date1)<br />
+.whereLessThan(&#8220;birth&#8221;, date2)<br />
+.list();</p>
+<p><a name="__RefHeading__1251_1112260367"></a>3.1.5 查询所有 ‘gender’=&#8217;f’ 的对象然后按照 ‘name’ 排序</p>
+<p>result = SimpleQuery.from(members)<br />
+.whereEquals(&#8220;gender&#8221;,&#8221;f&#8221;)<br />
+.orderBy(&#8220;name&#8221;)<br />
+.list();</p>
+<p><a name="__RefHeading__1253_1112260367"></a>3.1.6 查询所有 ‘id’ 大于 ’003′ 或者 ‘name’ 等于 ‘hello’ 的对象</p>
+<p>result = SimpleQuery<br />
+.from(members)<br />
+.where(PredicateFactory.or(<br />
+PredicateFactory.greaterThan(&#8220;id&#8221;, &#8220;003&#8221;),<br />
+PredicateFactory.equals(&#8220;name&#8221;, &#8220;hello&#8221;)))<br />
+.list();</p>
+<p><a name="__RefHeading__1255_1112260367"></a>3.1.7 查询所有 ‘gender’=&#8217;m’ 的对象，然后返回只包含 &#8216;name&#8217;属性的新对象</p>
+<p>result = SimpleQuery.from(members).whereEquals(&#8220;gender&#8221;, &#8220;m&#8221;).select(“name”);</p>
+<p><a name="__RefHeading__1257_1112260367"></a>3.1.8 返回所有对象由 &#8216;id&#8217; 和 &#8216;name&#8217; 属性组成的新对象</p>
+<p>result = SimpleQuery.from(members).whereEquals(&#8220;gender&#8221;, &#8220;m&#8221;).select(“id”, “name”);</p>
+<h3><a name="__RefHeading__1126_1427197658"></a>3.2 Cache</h3>
+<p><a name="__RefHeading__1259_1112260367"></a>3.2.1 将字符串 压入缓存</p>
+<p>cache.put(&#8220;key001&#8221;, &#8220;foo&#8221;);<br />
+cache.put(&#8220;key002&#8221;, &#8220;bar&#8221;);</p>
+<p><a name="__RefHeading__1261_1112260367"></a>3.2.2 从缓存中获取</p>
+<p>String s1 = (String)cache.get(&#8220;key001&#8221;); // s1 will equals &#8220;foo&#8221;<br />
+String s2 = (String)cache.get(&#8220;key002&#8221;); // s2 will equals &#8220;bar&#8221;</p>
+<p><a name="__RefHeading__1263_1112260367"></a>3.2.3 删除缓存项</p>
+<p>cache.delete(&#8220;key001&#8221;);</p>
+<h3><a name="__RefHeading__1128_1427197658"></a>3.3 Media</h3>
+<p><a name="__RefHeading__1265_1112260367"></a>3.3.1 缩放图片，将图片缩放至 200x200px</p>
+<p>File file = new File(&#8220;&#8230;&#8221;);<br />
+Image image = (Image)mediaFactory.make(file);<br />
+Transform transform = imaging.reize(200, 200);<br />
+Image newimage = imaging.apply(transform);</p>
+<p><a name="__RefHeading__1267_1112260367"></a>3.3.2 为图片添加字体为“Arial” 32像素内容为“Watermark ”的蓝色透明度为75%的水印</p>
+<p>File file = getFileByName(&#8220;test.png&#8221;);<br />
+Image image = (Image)mediaFactory.make(file);<br />
+Font font = new Font(&#8220;Arial&#8221;, Font.BOLD, 32);<br />
+Composite composite = imaging.text(&#8220;Watermark&#8221;, font, Color.blue, 100, 100, 0.75F);<br />
+Image newimage = imaging.apply(image, composites);</p>
+<h3><a name="__RefHeading__1130_1427197658"></a>3.4 IO</h3>
+<p><a name="__RefHeading__1269_1112260367"></a>3.4.1 从客户端浏览器接收文件</p>
+<p>List&lt;UploadedResourceInfo&gt; resourceInfos = resourceReceiver.receive(request);<br />
+for(UploadedResourceInfo resourceInfo : resourceInfos){<br />
+if (!resourceInfo.isFormField()){<br />
+ResourceContent resourceContent = resourceInfo.getContentSnapshot();<br />
+&#8230;<br />
+}else{<br />
+System.out.println(resourceInfo.getContentAsString());<br />
+}</p>
+<p><a name="__RefHeading__1271_1112260367"></a>3.4.2 发送数据至客户端</p>
+<p>Resource resource = &#8230;;<br />
+resourceSender.send(resource, request, response);</p>
+<h3><a name="__RefHeading__1132_1427197658"></a>3.5 Blob Store</h3>
+<p>对于 BlobStore 来说，资源使用一个惟一码来标识和访问，资源之间没有目录层次结构。但可以使用”/”或”-”等不用于命名的符号模拟目录层次结构，在列举资源时底层会筛选以某个字符串开头的资源。另外资源可以分别储存于不同的集合当中，每个集合称之为“Bucket”。分集合储存资源的一个好处是可以对资源的性质进行分类管理，比如把用户的临死文件放在某一个bucket当中，在系统维护阶段可以将这个bucket进行清空操作。</p>
+<p><a name="__RefHeading__1273_1112260367"></a>3.5.1 储存资源</p>
+<p>InputStream in = &#8230;<br />
+BlobKey blobKey = new BlobKey(&#8220;bucket001&#8221;, &#8220;key-001&#8221;); // make sure the &#8220;bucket001&#8221; bucket has already exists.<br />
+BlobInfo blobInfo = blobInfoFactory.createBlobInfo(blobKey, data.length, &#8220;image/jpeg&#8221;, in);<br />
+blobstore.put(blobInfo);</p>
+<p><a name="__RefHeading__1275_1112260367"></a>3.5.2 获取指定资源</p>
+<p>BlobKey blobKey = new BlobKey(&#8220;bucketName&#8221;, &#8220;key-002&#8221;);<br />
+BlobInfo blobInfo = blobstore.get(blobKey);<br />
+BlobContent blobContent = blobInfo.getContentSnapshot();<br />
+InputStream in = blobContent.getInputStream();<br />
+&#8230;<br />
+blobContent.close();</p>
+<p><a name="__RefHeading__1277_1112260367"></a>3.5.3 删除指定资源</p>
+<p>BlobKey blobKey = new BlobKey(&#8220;bucketName&#8221;, &#8220;key-003&#8221;);<br />
+blobstore.delete(blobKey);</p>
+<p><a name="__RefHeading__1279_1112260367"></a>3.5.4 列举资源</p>
+<p>BlobKey blobKeyPrefix = new BlobKey(&#8220;bucketName&#8221;, &#8220;key-&#8220;);<br />
+PartialCollection blobs1 = blobstore.list(blobKeyPrefix);<br />
+&#8230;<br />
+while (blobs1.hasMore()){<br />
+PartialCollection blobs2 = blobstore.listNext(blobs)<br />
+&#8230;<br />
+}</p>
+<h3><a name="__RefHeading__1134_1427197658"></a>3.6 Web Resource</h3>
+<p>该模块还提供了替代css样式表和js脚本当中对资源名称为实际访问全路径（URL）的功能， 在css或者js当中可以使用占位符 &#8220;[[RESOURCE_NAME]]&#8221; 代表网页资源，在运行Web应用程序时，占位符将会自动替换为对应资源的直接访问全路径。比如现有样式表 &#8220;common.css&#8221; 和图片&#8221;logo.png&#8221;, 如果你希望在Web应用程序运行时样式表能正确指向图片文件，则可以这样引用：</p>
+<p>#button {<br />
+background: url(&#8220;[[logo.png]]&#8221;) no-repeat 0px 0px;<br />
+}</p>
+<p>在代码中（比如 html 和 css 当中）均使用“资源名称”来指定资源，资源名称是相对于配置指定的资源目录的相对路径，如“css/common.css”、”image/social/twitter.png”。</p>
+<p><a name="__RefHeading__1281_1112260367"></a>3.6.1 根据资源名称获取资源对象</p>
+<p>WebResourceInfo resource = webResourceService.getResource(&#8220;main.css&#8221;);<br />
+// get the resource location<br />
+String url = webResourceService.getLocation(resource);<br />
+// or<br />
+String url = webResourceService.getLocation(&#8220;main.css&#8221;);</p>
+<p><a name="__RefHeading__1283_1112260367"></a>3.6.2 发送指定资源给客户端</p>
+<p>webResourceSender.send(&#8220;main.css&#8221;, request, response);</p>
+<h3><a name="__RefHeading__1136_1427197658"></a>3.7 Extra</h3>
+<p>对一些常用但尚未独立成一个模块的功能集合。包含：</p>
+<ul>
+<li>DynaModel：动态Model，用于Web的Controller与View之间的数据传输Model，主要目的是为Java的静态语言特性提供动态语言的有限模拟</li>
+<li>Mail：用于发送纯文本或者HTML格式邮件，支持邮件模板。</li>
+</ul>
+<h2><a name="__RefHeading__1138_1427197658"></a>4 配置文件</h2>
+<p>Clobaframe 的默认配置文件为 clobaframe.properties，并由 Spring Framework 以 PropertyPlaceholderConfigurer 的形式引入项目，配置文件的内容可以根据所用到的子模块进行增减。配置内容也可以存在于其他属性文件，只要由 PropertyPlaceholderConfigurer 引入项目即可。</p>
+<p>对于配置内容中的资源路径表示方法，由于采用了 Spring Framework，所以有两种形式：</p>
+<ul>
+<li>classpath:some.package.name.subname</li>
+<li>file:path/relate/to/src/folder</li>
+</ul>
+<p>如果省略 classpath: 或者 file: 前缀，则由当前项目运行时的 Application Context 的类型决定，比如在单元测试环境下默认的是 file，而在 Servlet 容器当中，默认的是 classpath。因此建议不要省略路径前缀。</p>
+<p>下面是主要的配置项及其作用：</p>
+<p>cache.agent=memcached<br />
+#指定cahce使用的实现的名称，目前有3个实现：null，ehcache，memcached。第一个用于禁用缓存，一般用于单元测试阶段，第二个用于开发环境或者单服务器，第三个用于生产环境或者多服务器。</p>
+<p>cache.memcached.servers=127.0.0.1:11211<br />
+#指定 memcached 的服务器地址及其服务端口，多个cache服务器可以使用逗号分隔，比如：&#8217;host1:11211,host2:11211,host3:11211&#8242;</p>
+<p>cache.memcached.protocol=BINARY<br />
+#指定memcached 的通信协议，使用BINARY可以提高更好的性能，详细文档参考memcached。</p>
+<p>cache.ehcache.region=common<br />
+#指定encache服务当中用于cache的域的名称。因为encache服务可能会配置有多个域，有些域可能用于其他服务（比如 hibernate二级缓存），因此需要在此指定用于coapframe cache服务的域的名称。</p>
+<p>cache.ehcache.configuration=classpath:ehcache.xml<br />
+#指定encache的配置文件名称</p>
+<p>media.maxHandleSize=2048<br />
+#指定 media最大能处理的媒体的大小，单位为KB，用于防止待处理的比如图片、音频、视频等过大以致消耗过多的内存资源。</p>
+<p>blobstore.agent=local<br />
+#指定 blobstore 使用的实现的名称，Clobaframe自带一个本地实现，使用本地硬盘作为 blobstore 的数据储存方式，由于本地硬盘不易于动态扩展容量而且不支持指定的meta data和content type（mime type名称），所以只能用于开发和调试阶段。如果需要使用云存储服务（比如Amazon S3），可以查看另一个项目clobaframe-amazon。</p>
+<p>blobstore.local.path=file:/home/arch/blobstore<br />
+#本地储存的目录，如果采用相对路径，在 web application 当中这个路径是相对于&#8217;src/main/webapp&#8217;目录的路径。建议写成绝对路径。</p>
+<p>io.maxUploadSize=1024<br />
+#指定webio最大支持上传数据的大小，单位为KB。通过此项配置可以防止用户上传过大的数据/文件导致服务器内存消耗。</p>
+<p>webresource.strategy=local<br />
+#指定webresource使用的实现的名称。目前有2个实现：local和blobstore。第一个使用本地硬盘储存web资源（图片、样式表和脚本等），这个实现要求web application增加一个URL路由负责发送资源数据，因此适用于开发或者单服务器环境。第二个使用 Blobstore储存web资源，将web资源交由Blobstore 托管可以有效减轻服务器的负担，并且可以通过设置CDN（比如Amazon CloudFront）将web资源较快速地发送给用户浏览器。</p>
+<p>webresource.cacheSeconds=0<br />
+#指定资源的缓存时间间隔，单位为秒。设置为0表示不使用缓存（仅适合用于开发阶段）；设置为负数（如-1）表示总是缓存；在生产环境中一般取30～60之间的数值即可。</p>
+<p>webresource.local.path=file:src/test/resources/sample/web<br />
+#指定web资源的路径。</p>
+<p>webresource.local.location=/web/<br />
+#指定访问web资源的URL路由。</p>
+<p>webresource.blobstore.bucketName=test-clobaframe-bucket<br />
+#指定当使用Blobstore托管web资源时所采用的bucket的名称</p>
+<p>webresource.blobstore.keyNamePrefix=r-<br />
+#储存于Blobstore的资源的名称的前缀。</p>
+<p>webresource.blobstore.location=https://s3.amazonaws.com/test-clobaframe-bucket/<br />
+#web资源的访问URL。</p>
+<p>webresource.blobstore.sync=true<br />
+#是否每次启动应用程序都同步储存于Blobstore的web资源。</p>
+<p>webresource.blobstore.autoCreateBucket=true<br />
+#在同步的时候，如果指定bucket不存在，是否自动创建bucket。</p>
+<p>webresource.blobstore.deleteNoneExists=true<br />
+#同步时是否删除已经不再存在的web资源，即位于本地的已经被删除的资源。</p>
+<p>mail.agent=null<br />
+#发送邮件的实现的名称，目前的实现有：null，smtp</p>
+<p>mail.smtp.host=smtp.gmail.com<br />
+mail.smtp.port=587<br />
+mail.smtp.tls=true<br />
+mail.smtp.loginName=test@gmail.com<br />
+mail.smtp.loginPassword=no<br />
+mail.smtp.fromAddress=test@gmail.com</p>
+<h2><a name="__RefHeading__1140_1427197658"></a>5 编译、测试和安装</h2>
+<p>编译需要如下软件和工具：</p>
+<ul>
+<li>Java SDK 6+</li>
+<li>Apache Maven 3</li>
+</ul>
+<p>运行单元测试还需要：</p>
+<ul>
+<li>Memcached</li>
+</ul>
+<h3><a name="__RefHeading__6887_1452528826"></a>5.1 检出源代码</h3>
+<p>建议把源码检出到如下目录：<br />
+~/projects/archboy/clobaframe</p>
+<h3><a name="__RefHeading__6889_1452528826"></a>5.2 配置Apache Maven 3</h3>
+<p>Maven 是项目管理和构建工具，Clobaframe项目使用Maven管理和编译。在Linux环境下一般能从各个发行版自身的包管理工具直接安装。比如在 ArchLinux 下运行如下命令：</p>
+<p>$ sudo pacman -S maven</p>
+<p>除此之外也可以从官方网站下载安装，官方网站是 <a href="http://maven.apache.org/">http://maven.apache.org/</a>。下载已编译的版本然后解压到任意目录，比如 ~/programs/maven。然后在 ~/.bashrc 配置文件里加入如下环境变量：</p>
+<p>export M2_HOME=~/programs/maven<br />
+export PATH=$PATH:$M2_HOME/bin</p>
+<p>使用 source 命令加载新环境配置</p>
+<p>$ source ~/.bashrc</p>
+<p>然后转到任意一个目录，运行如下命令，如果出现正确的版本信息则说明Maven已经配置成功。</p>
+<p>$ mvn -v</p>
+<h3><a name="__RefHeading__6891_1452528826"></a>5.3 配置memcached</h3>
+<p>可以使用各个发行版的包管理器安装 memcached ，如在 Arch Linux下执行：</p>
+<p>$ sudo pacman -S memcached</p>
+<p>建议设置memcached以系统守护程序（daemon）形式启动，免去每次运行开发或者调试都要手动启动 memcached 的麻烦，比如，假设操作系统使用 systemd 管理系统守护程序，则执行：<br />
+$ sudo systemctl enable memcached.service<br />
+$ sudo systemctl start memcached.service</p>
+<p>memcached 默认监听tcp端口 11211，可以通过检查11211端口是否打开以判断服务是否正常运行：</p>
+<p>$ netstat -nat|grep 11211</p>
+<h3><a name="__RefHeading__9543_1452528826"></a>5.4 创建本地 blobstore目录</h3>
+<p>blobstore模块的单元测试默认配置使用本地的 blobstore 实现。而本地 blobstore 默认使用目录 /var/lib/clobaframe 储存数据，所以需要手动创建这个目录，另外还需要把该目录的拥有者和组更改为当前用户以及所属的组，否则测试会因为没有文件访问权限而失败。</p>
+<h3><a name="__RefHeading__1142_1427197658"></a>5.5 编译</h3>
+<p>在源码的首层目录，使用如下命令编译：<br />
+$ mvn clean compile</p>
+<h3><a name="__RefHeading__1285_1112260367"></a>5.6 运行单元测试</h3>
+<p>在源码的首层目录，使用如下命令进行单元测试：<br />
+$ mvn test</p>
+<p>如果看到成功信息，则说明测试已通过，然后继续进行下一步。</p>
+<h3><a name="__RefHeading__6895_1452528826"></a>5.7 打包</h3>
+<p>在源码的首层目录，使用如下命令编译并打包：<br />
+$ mvn clean package -DskipTests=true</p>
+<p>然后将会得到如下库文件：<br />
+./clobaframe-xxx/target/clobaframe-xxx-2.3.jar</p>
+<p>你可以按需要将库文件拷贝到你的项目的CLASS_PATH之下，如果你的项目也是使用 Maven 管理和构建的，则最佳实践应该是将库安装到 Maven 本地库（见5.9）。</p>
+<h3><a name="__RefHeading__6897_1452528826"></a>5.8 生成 JavaDoc</h3>
+<p>如果你需要库的文档 JavaDoc，则运行如下命令：<br />
+$ mvn clean javadoc:jar</p>
+<p>然后你将得到如下的文档包：<br />
+./clobaframe-xxx/target/clobaframe-xxx-2.3-javadoc.jar</p>
+<h3><a name="__RefHeading__1144_1427197658"></a>5.9 安装jar库到Maven本地仓库</h3>
+<p>在源码的首层目录，使用如下命令编译、打包并安装到Maven本地库：<br />
+$ mvn clean install -DskipTests=true</p>
+<p>使用如下命令可以同时安装项目的 JavaDoc 和 源代码 到 Maven 本地仓库：<br />
+$ mvn clean javadoc:jar source:jar install -DskipTests=true</p>
+<h2><a name="__RefHeading__1148_1427197658"></a>6 在项目中使用 Clobaframe</h2>
+<p>首先你需要按照上一节的方法编译得到库文件，然后按需要将库文件拷贝到你的项目的CLASS_PATH之下或者安装到 Maven 本地库。</p>
+<p>1、然后打开你的项目的 pom.xml 文件，添加Clobaframe的依赖项，如：</p>
+<pre lang="xml" escaped="true">&lt;dependencies&gt;
+  &lt;!-- Clobaframe --&gt;
+  &lt;dependency&gt;
+    &lt;groupId&gt;org.archboy.clobaframe&lt;/groupId&gt;
+    &lt;artifactId&gt;clobaframe-query&lt;/artifactId&gt;
+    &lt;version&gt;2.3&lt;/version&gt;
+  &lt;/dependency&gt;
+
+  &lt;dependency&gt;
+    &lt;groupId&gt;org.archboy.clobaframe&lt;/groupId&gt;
+    &lt;artifactId&gt;clobaframe-media&lt;/artifactId&gt;
+    &lt;version&gt;2.3&lt;/version&gt;
+  &lt;/dependency&gt;
+  ......
+&lt;/dependencies&gt;</pre>
+<p>2、接下来在你的项目（必须是Spring Framework IoC的项目）的 applicationContext.xml 内增加对 org.archboy.clobaframe 的自动扫描，如：</p>
+<pre lang="xml" escaped="true">&lt;context:component-scan base-package="
+org.archboy.clobaframe"&gt;
+    &lt;context:include-filter 
+    type="annotation" 
+    expression="org.aspectj.lang.annotation.Aspect"/&gt;
+&lt;/context:component-scan&gt;</pre>
+<p>3、按照文档配置好 clobaframe.properties。<br />
+4、使用 @Autowired 或者 @Inject 标注引用各个模块的主要接口，比如使用 Cache 模块：</p>
+<pre lang="java" escaped="true">@Service 
+public class MyService {
+
+@Autowired
+private Cache cache;
+
+public void test() {
+  String key = "key001";
+  cache.put(key, "FOO");
+  String result = cache.get(key);
+  if (result.equals("FOO")){
+     System.out.println("It works");
+  }
+  cache.delete(key);
+  }
+}</pre>
+]]></content:encoded>
+			<wfw:commentRss>http://archboy.org/2013/09/10/clobaframe-2-3-reference/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		</item>
+		<item>
+		<title>RFC 4880 阅读笔记</title>
+		<link>http://archboy.org/2013/07/08/rfc-4880-openpgp-message-format-reading-notes/</link>
+		<comments>http://archboy.org/2013/07/08/rfc-4880-openpgp-message-format-reading-notes/#comments</comments>
+		<pubDate>Mon, 08 Jul 2013 12:15:48 +0000</pubDate>
+		<dc:creator><![CDATA[ivarptr]]></dc:creator>
+				<category><![CDATA[Security]]></category>
+		<category><![CDATA[OpenPGP]]></category>
+		<category><![CDATA[security]]></category>
+
+		<guid isPermaLink="false">http://archboy.org/?p=335</guid>
+		<description><![CDATA[《RFC 4880 OpenPGP Message Format》 定义和说明了 OpenPGP 数据的元素和结构，如果想深入了解 OpenPGP 的工作原理或者做一些基于它的开发的话，则阅读该文档是很有帮助的。在阅读该规范前，最好先对 OpenPGP 的作用、原理和使用方法有一定的了解，这里有几篇文章可以参考： 迷你Howto教程：http://www.dewinter.com/gnupg_howto/english/GPGMiniHowto.html 迷你Howto教程（中文版）： http://www.gnupg.org/howtos/zh/index.html GnuPG for Daily Use http://moser.cm.nctu.edu.tw/gpg.html The GNU Privacy Handbook http://www.gnupg.org/gph/en/manual.html Wiki Pretty Good Privacy http://en.wikipedia.org/wiki/Pretty_Good_Privacy Using OpenPGP subkeys in Debian development http://wiki.debian.org/subkeys OpenPGP Best Practices https://we.riseup.net/riseuplabs+paow/openpgp-best-practices Packet OpenPGP 数据的基本组成单位是packet（包），packet的结构图如下： 一个 packet 包含 header 和 body 两部分，其中 header 包含一个用于表示当前packet类型的tag和表示packet内容长度的 body length。 &#8230; <a href="http://archboy.org/2013/07/08/rfc-4880-openpgp-message-format-reading-notes/" class="more-link">Continue reading <span class="screen-reader-text">RFC 4880 阅读笔记</span> <span class="meta-nav">&#8594;</span></a>]]></description>
+				<content:encoded><![CDATA[<p>《RFC 4880 OpenPGP Message Format》 定义和说明了 OpenPGP 数据的元素和结构，如果想深入了解 OpenPGP 的工作原理或者做一些基于它的开发的话，则阅读该文档是很有帮助的。在阅读该规范前，最好先对 OpenPGP 的作用、原理和使用方法有一定的了解，这里有几篇文章可以参考：</p>
+<ul>
+<li>迷你Howto教程：<a href="http://www.dewinter.com/gnupg_howto/english/GPGMiniHowto.html">http://www.dewinter.com/gnupg_howto/english/GPGMiniHowto.html</a></li>
+<li>迷你Howto教程（中文版）： <a href="http://www.gnupg.org/howtos/zh/index.html">http://www.gnupg.org/howtos/zh/index.html</a></li>
+<li>GnuPG for Daily Use <a href="http://moser.cm.nctu.edu.tw/gpg.html">http://moser.cm.nctu.edu.tw/gpg.html</a></li>
+<li>The GNU Privacy Handbook <a href="http://www.gnupg.org/gph/en/manual.html">http://www.gnupg.org/gph/en/manual.html</a></li>
+<li>Wiki Pretty Good Privacy <a href="http://en.wikipedia.org/wiki/Pretty_Good_Privacy">http://en.wikipedia.org/wiki/Pretty_Good_Privacy</a></li>
+<li>Using OpenPGP subkeys in Debian development <a href="http://wiki.debian.org/subkeys">http://wiki.debian.org/subkeys</a></li>
+<li>OpenPGP Best Practices <a href="https://we.riseup.net/riseuplabs+paow/openpgp-best-practices">https://we.riseup.net/riseuplabs+paow/openpgp-best-practices</a></li>
+</ul>
+<h2>Packet</h2>
+<p>OpenPGP 数据的基本组成单位是packet（包），packet的结构图如下：</p>
+<p><a href="http://archboy.org/wp-content/uploads/2013/07/rfc-4880-read-notes-01.png"><img alt="rfc 4880 read notes -01" src="http://archboy.org/wp-content/uploads/2013/07/rfc-4880-read-notes-01.png" width="356" height="165" /></a></p>
+<p>一个 packet 包含 header 和 body 两部分，其中 header 包含一个用于表示当前packet类型的tag和表示packet内容长度的 body length。<br />
+OpenPGP 数据可以有1个或多个packet组成，另外每个packet里面还可以包含其他packet。OpenPGP 数据的结构图如下：</p>
+<p><a href="http://archboy.org/wp-content/uploads/2013/07/rfc-4880-read-notes-02.png"><img alt="rfc 4880 read notes -02" src="http://archboy.org/wp-content/uploads/2013/07/rfc-4880-read-notes-02.png" width="271" height="286" /></a></p>
+<h2>已加密数据及Key数据</h2>
+<p>已加密数据及Key数据是 OpenPGP 主要两种数据（文件），其中已加密数据的结构图如下（每个框表示一个packet）：</p>
+<p><a href="http://archboy.org/wp-content/uploads/2013/07/rfc-4880-read-notes-03.png"><img alt="rfc 4880 read notes -03" src="http://archboy.org/wp-content/uploads/2013/07/rfc-4880-read-notes-03-600x305.png" width="600" height="305" /></a><br />
+加密数据的生成过程如下：</p>
+<ul>
+<li>message为原始消息。</li>
+<li>首先使用摘要算法计算出一个hash值，然后使用消息发送者的private key加密，形成一个signature（签名）。</li>
+<li>message经过压缩算法形成一个压缩包。</li>
+<li>生成一个随机session key。</li>
+<li>使用session key和对称加密算法加密message压缩包和signature。</li>
+<li>使用消息接收者的 public key 加密 session key。如果这个消息要同时发送给多个接收者，则分别使用每个接收者的public key解密。</li>
+<li>将已加密的 session key 和 已加密的“message和signature”通过base64编码为由可视字符组成的message block。注意message block有header和footer包围起来，其中header还允许一些“键-值”对，在body区还有一个crc24校验码。详细信息可阅读文档第6章“Radix-64 Conversions”。</li>
+</ul>
+<p>Key数据的结构图如下：</p>
+<p><a href="http://archboy.org/wp-content/uploads/2013/07/rfc-4880-read-notes-04.png"><img alt="rfc 4880 read notes -04" src="http://archboy.org/wp-content/uploads/2013/07/rfc-4880-read-notes-04-600x415.png" width="600" height="415" /></a></p>
+<p>各个packet的简单介绍</p>
+<ul>
+<li>public key：这个是非对称加密中 keypair （钥匙对）的public key（公钥部分）。如果当前key数据为private key（私钥），则这个packet同时包含 public key 和 private key。</li>
+<li>Revocation signature：这个是撤销当前key的一个签名。因为 OpenPGP 的分布式key管理模式，一旦public key发布到服务器则无法被删除，如果key拥有者在某个时候的确想作废此key，则需要生成一个revocation signature，然后提交到key server。</li>
+<li>User id：即用户名和Email地址，具体内容可以是多变的。一个key可以拥有多个user id（正如一个人可以拥有多个email地址），key拥有者必须签名每个user id，以证明这个user id是自己添加的。其他用户如果对这个user id表示信任，也可以签名它。</li>
+<li>User attribute：这个跟user id作用是一样的，只不过内容可以多元一些，比如允许一张头像照片。</li>
+<li>subkey：一个key可以拥有多个子key。一般情况下主key用户签名user id和subkey，或者用于对信息进行数字签名，而subkey则用于加密信息。这样做的好处是一旦某个subkey被泄露了，key拥有者只需撤销它然后重新生成一个subkey即可，而不至于需要整个key报废。GPG默认的组合是一个RSA用于签名一个RSA用户加密，或者一个DSA用于签名一个Elgamal用于加密，又或者单独一个DSA或者单独一个RSA仅用于签名。跟user id类似，key拥有者必须签名每个subkey，以证明这个subkey是自己添加的。</li>
+</ul>
+<p>&nbsp;</p>
+<h2>数据元素格式</h2>
+<p>OpenPGP数据由如下几种元素组成：</p>
+<ul>
+<li>整数：采用big-endian方式表示，即高位的数字放在前头，比如 [11 22 33] 表示 11*2^16 + 22*2^8 + 33。</li>
+</ul>
+<ul>
+<li>多倍整数：又叫MPIs，即编程当中的big integer。前2个字节表示整数的长度，后面的表示整数的数值。比如 [00 09 01 FF] 表示此数字的长度为9位，数字的值为 0x01FF，即511。</li>
+<li>Key ID：Key ID是一个8字节的整数。这个整数其实是 fingerprint 的低64位。而fingerprint则是对整个public packet进行160位的SHA-1的hash值。一般来说不同的key应该有不同的key id，但也有可能出现重复的情况。</li>
+<li>文本：OpenPGP的文本均使用UTF-8编码。</li>
+<li>时间：一个32位整数，数值是由 1970-1-1 00:00:00 UTC 以来所经历的秒数。</li>
+<li>Keyrings：即多个Key的集合。</li>
+</ul>
+<ul>
+<li>S2K：String-to-key 的简称。即用户输入的密码（passphrase），一般用来（对称）加密用户的private key。</li>
+</ul>
+<p>&nbsp;</p>
+<h2>其他</h2>
+<p>OpenPGP 的结构相对来说比较简单，内容比较多的主要是文档的第5章“packet”，其中以第2节“Signature Packet”比较复杂，不过耐心阅读的话一般没有什么问题的。</p>
+<p>当阅读完 RFC 4880 之后，另外还有一个文档 《RFC 3156 MIME Security with OpenPGP》描述了用 OpenPGP 对邮件进行加密和数字签名的规范，也是应该阅读的。</p>
+<h2>参考文档：</h2>
+<p>RFC 4880 OpenPGP Message Format <a href="http://tools.ietf.org/html/rfc4880">http://tools.ietf.org/html/rfc4880</a><br />
+RFC 3156 MIME Security with OpenPGP <a href="http://tools.ietf.org/html/rfc3156">http://tools.ietf.org/html/rfc3156</a></p>
+]]></content:encoded>
+			<wfw:commentRss>http://archboy.org/2013/07/08/rfc-4880-openpgp-message-format-reading-notes/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		</item>
+		<item>
+		<title>使用 OTR 保护你的聊天隐私</title>
+		<link>http://archboy.org/2013/07/01/protect-chat-privacy-with-pidgin-otr/</link>
+		<comments>http://archboy.org/2013/07/01/protect-chat-privacy-with-pidgin-otr/#comments</comments>
+		<pubDate>Mon, 01 Jul 2013 12:38:00 +0000</pubDate>
+		<dc:creator><![CDATA[ivarptr]]></dc:creator>
+				<category><![CDATA[Security]]></category>
+		<category><![CDATA[Adium]]></category>
+		<category><![CDATA[Encrypt]]></category>
+		<category><![CDATA[OTR]]></category>
+		<category><![CDATA[Pidgin]]></category>
+
+		<guid isPermaLink="false">http://archboy.org/?p=323</guid>
+		<description><![CDATA[在互联网上聊天（即时通信）中，通过使用开源免费的软件可以确保软件没有后门，通过使用加密传输协议（如基于 SSL 的 HTTPS）可以确保信息在传输至服务器的过程中不被第三方截获，不过这样仍不能避免聊天服务提供商记录或者分析你的聊天内容，所以为了保护聊天的隐私，最好使用“端到端”的加密技术让聊天内容只能由聊天的双方阅读。 在众多的“端到端”加密技术当中，开源免费的 OTR（Off the record，大概可翻译为“路过不留痕” :D）相对方便且容易使用，跟传统的 PGP 系统不同的是，OTR 更适合网络聊天，因为 PGP 运用到网络聊天会有一些缺点： 1、钥匙对（key pair）的有效期较长。 经过 PGP 加密的聊天内容，作为第三攻击方虽然不能即时破译不过却可以先记录下来，以后通过一定的方法获取某一方的密钥（private key），攻击方就可以还原之前的所有聊天记录了。 2、数字签名的能保证聊天内容的数据完整性以及确定内容的作者，在当次聊天当中是必须的，但在将来假如某一方的密钥泄露的情况下，之前数字签名过的聊天内容就变成“证据”了。 OTR 通过每次会话都使用短期有效密钥的方法避免了 PGP 的缺点，所以在安全性方面更有保障。 为了傻瓜化地使用 OTR，我们需要使用即时通信软件 Pidgin 配合，这是一款支持多种即时通信服务的客户端软件，而且有丰富的插件提供功能扩展。Pidgin 支持的即时通信服务包括 MSN、AIM、Yahoo、Google Talk 还有 QQ（Linux 下通过安装 LWQQ 插件实现）。OTR 将会以插件的形式在 Pidgin 中运行，它会把你的信息在发送之前先加密，然后对方接收到信息后会自动解密，简单来说它对用户是透明的，所以非常方便。 下面简单介绍安装和使用 Pidgin 和 OTR 的步骤。@ivarptr。 1、安装 Pidgin Pidgin 同样是开源免费的程序，而且能在 Windows 和 Linux 下运行，对于 OSX 系统，可以使用基于同样内核的 Adium。 对于 Linux &#8230; <a href="http://archboy.org/2013/07/01/protect-chat-privacy-with-pidgin-otr/" class="more-link">Continue reading <span class="screen-reader-text">使用 OTR 保护你的聊天隐私</span> <span class="meta-nav">&#8594;</span></a>]]></description>
+				<content:encoded><![CDATA[<p>在互联网上聊天（即时通信）中，通过使用开源免费的软件可以确保软件没有后门，通过使用加密传输协议（如基于 SSL 的 HTTPS）可以确保信息在传输至服务器的过程中不被第三方截获，不过这样仍不能避免聊天服务提供商记录或者分析你的聊天内容，所以为了保护聊天的隐私，最好使用“端到端”的加密技术让聊天内容只能由聊天的双方阅读。</p>
+<p>在众多的“端到端”加密技术当中，开源免费的 <a href="http://www.cypherpunks.ca/otr/index.php">OTR</a>（Off the record，大概可翻译为“路过不留痕” :D）相对方便且容易使用，跟传统的 PGP 系统不同的是，OTR 更适合网络聊天，因为 PGP 运用到网络聊天会有一些缺点：</p>
+<p>1、钥匙对（key pair）的有效期较长。<br />
+经过 PGP 加密的聊天内容，作为第三攻击方虽然不能即时破译不过却可以先记录下来，以后通过一定的方法获取某一方的密钥（private key），攻击方就可以还原之前的所有聊天记录了。</p>
+<p>2、数字签名的能保证聊天内容的数据完整性以及确定内容的作者，在当次聊天当中是必须的，但在将来假如某一方的密钥泄露的情况下，之前数字签名过的聊天内容就变成“证据”了。</p>
+<p><span style="line-height: 1.714285714; font-size: 1rem;">OTR 通过每次会话都使用短期有效密钥的方法避免了 PGP 的缺点，所以在安全性方面更有保障。</span></p>
+<p>为了傻瓜化地使用 OTR，我们需要使用即时通信软件 <a href="http://www.pidgin.im/">Pidgin</a> 配合，这是一款支持多种即时通信服务的客户端软件，而且有丰富的插件提供功能扩展。Pidgin 支持的即时通信服务包括 MSN、AIM、Yahoo、Google Talk 还有 QQ（Linux 下通过安装 <a href="https://github.com/xiehuc/pidgin-lwqq">LWQQ</a> 插件实现）。OTR 将会以插件的形式在 Pidgin 中运行，它会把你的信息在发送之前先加密，然后对方接收到信息后会自动解密，简单来说它对用户是透明的，所以非常方便。</p>
+<p>下面简单介绍安装和使用 Pidgin 和 OTR 的步骤。<a href="https://twitter.com/ivarptr">@ivarptr</a>。</p>
+<h2>1、安装 Pidgin</h2>
+<p>Pidgin 同样是开源免费的程序，而且能在 Windows 和 Linux 下运行，对于 OSX 系统，可以使用基于同样内核的 <a href="http://adium.im/">Adium</a>。</p>
+<p>对于 Linux 系统，一般能在官方源里找到 Pidgin 以及 OTR 插件。比如对于 Ubuntu 系统，在软件中心搜索 Pidgin 即可找到这两个软件；对于 Arch Linux，可直接安装软件包 pidgin 和 pidgin-otr，如果希望登录 QQ，则再安装软件包 pidgin-lwqq，详细的请阅读 <a href="https://wiki.archlinux.org/index.php/Pidgin">Arch Linux 的 Pidgin Wiki</a>。</p>
+<p>对于 Windows 系统，先下<a href="http://pidgin.im/">载主程序 Pidgin</a>，再下<a href="http://www.cypherpunks.ca/otr/index.php">载 OTR 的 Pidgin 插件</a>，然后依次安装即可。</p>
+<h2>2、配置帐号</h2>
+<p><a href="http://archboy.org/wp-content/uploads/2013/07/pidgin-01-account.png"><img class="alignnone size-full wp-image-324" alt="pidgin-01-account" src="http://archboy.org/wp-content/uploads/2013/07/pidgin-01-account.png" width="424" height="537" /></a></p>
+<p>首次运行 Pidgin 会要求你配置一个聊天帐号，这里你可以输入 MSN、AIM、Yahoo、Google Talk 或者 QQ 的登录名和密码，成功后应该能看到联系人并且能与之聊天。</p>
+<p><a href="http://archboy.org/wp-content/uploads/2013/07/pidgin-02-main.png"><img class="alignnone size-full wp-image-325" alt="pidgin-02-main" src="http://archboy.org/wp-content/uploads/2013/07/pidgin-02-main.png" width="279" height="456" /></a></p>
+<p>&nbsp;</p>
+<h2>3、激活及配置 OTR</h2>
+<p>在 Pidgin 主窗口点击菜单“工具（tools）”-&gt;“插件（Plugins）”，找到插件 “（不留痕）Off-the-Record Messaging”点击并勾上它。</p>
+<p><a href="http://archboy.org/wp-content/uploads/2013/07/pidgin-03-plugins.png"><img class="alignnone size-full wp-image-326" alt="pidgin-03-plugins" src="http://archboy.org/wp-content/uploads/2013/07/pidgin-03-plugins.png" width="446" height="577" /></a></p>
+<p>&nbsp;</p>
+<p>然后点击窗口下方的“配置插件（Configure Plugin）”按钮，在新出现的窗口中点击“生成（Generate）”按钮以生成你自己专属的密钥。</p>
+<p><a href="http://archboy.org/wp-content/uploads/2013/07/pidgin-04-otr-config.png"><img class="alignnone size-full wp-image-327" alt="pidgin-04-otr-config" src="http://archboy.org/wp-content/uploads/2013/07/pidgin-04-otr-config.png" width="414" height="511" /></a></p>
+<p>大概1分钟左右密钥生成完成。</p>
+<h2>4、尝试使用 OTR 加密聊天</h2>
+<p>现在你该找一位朋友帮你测试 OTR 加密了，首先你的朋友也要重复以上的步骤，然后你双击它的头像进入聊天窗口。</p>
+<p><a href="http://archboy.org/wp-content/uploads/2013/07/pidgin-06-chat.png"><img class="alignnone size-full wp-image-329" alt="pidgin-06-chat" src="http://archboy.org/wp-content/uploads/2013/07/pidgin-06-chat.png" width="464" height="461" /></a></p>
+<p>&nbsp;</p>
+<p>在聊天窗口的菜单中点击“OTR”，然后点击&#8221;开始加密聊天（Start private conversation）&#8221;，如果对方也安装有 OTR 则会建立一个加密的会话。不过这样的会话是存在漏洞的，因为对方可能被第三方入侵（即其他人冒充你的朋友），为了完善，你需要验证一下对方是否为本尊。点击菜单“OTR”或者点击消息发送框右上角的按钮，选择“身份验证”会显示如下一个窗口。</p>
+<p><a href="http://archboy.org/wp-content/uploads/2013/07/pidgin-07-verify.png"><img class="alignnone size-full wp-image-330" alt="pidgin-07-verify" src="http://archboy.org/wp-content/uploads/2013/07/pidgin-07-verify.png" width="496" height="588" /></a></p>
+<p>&nbsp;</p>
+<p>OTR 支持3种身份验证方式：</p>
+<ul>
+<li><span style="line-height: 1.714285714; font-size: 1rem;">问答式：你设定一个问题和一个答案，让对方根据问题输入答案，如果他输入的答案跟你设定的完全吻合，则通过验证。</span></li>
+<li><span style="line-height: 1.714285714; font-size: 1rem;">暗号式：你设定一个暗号（可以是一个句子），当对方输入完全相同的暗号时则通过验证。</span></li>
+<li><span style="line-height: 1.714285714; font-size: 1rem;">指纹验证：在第3步生成你的密钥时，如果注意观察的话会发现那里会显示一个指纹值（一串字母，可以再次进入OTR设置窗口查看），记下这个指纹值，然后你可以通过电话跟你的朋友核对一下各自的指纹值，一致的话则点击“已核对”按钮，身份验证即完成。</span></li>
+</ul>
+<p>以上3种方式你可以任选一种，一旦身份验证后，消息发送框右上角的按钮即变为绿色的“加密（private）”，即表示现在你们的会话已经安全地加密了。</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>1、钥匙对（key pair）的有效期较长。作为第三攻击方虽然不能即时破译聊天内容，不过却可以先记录下来，以后抄家时只要获取某一方的密钥（private key）就可以还原之前的所有聊天记录了。甚至包括将来的，假如另一方不知道该方的密钥已经泄露的话。<br />
+2、数字签名的数据完整性以及无法抵赖特性在当次聊天当中是必须的，但在将来假如某一方的密钥泄露的情况下，之前数字签名的聊天内容就变成“呈堂证据”了。</p>
+]]></content:encoded>
+			<wfw:commentRss>http://archboy.org/2013/07/01/protect-chat-privacy-with-pidgin-otr/feed/</wfw:commentRss>
+		<slash:comments>1</slash:comments>
+		</item>
+		<item>
+		<title>使用 GnuPG 实现文件加密和数字签名——PGP 30分钟简明教程(2)</title>
+		<link>http://archboy.org/2013/05/15/gnupg-pgp-encrypt-decrypt-file-and-digital-signing-easy-tutorial/</link>
+		<comments>http://archboy.org/2013/05/15/gnupg-pgp-encrypt-decrypt-file-and-digital-signing-easy-tutorial/#comments</comments>
+		<pubDate>Wed, 15 May 2013 02:12:39 +0000</pubDate>
+		<dc:creator><![CDATA[ivarptr]]></dc:creator>
+				<category><![CDATA[Security]]></category>
+		<category><![CDATA[Digital Signature]]></category>
+		<category><![CDATA[Encrypt]]></category>
+		<category><![CDATA[GnuPG]]></category>
+		<category><![CDATA[OpenPGP]]></category>
+		<category><![CDATA[PGP]]></category>
+
+		<guid isPermaLink="false">http://archboy.org/?p=314</guid>
+		<description><![CDATA[这是接上一篇《使用 GnuPG 实现电子邮件加密和数字签名——PGP 30分钟简明教程(1)》的PGP 30分钟简明教程第二部分，简单讲解 GnuPG 命令行工具的使用方法，以及对文件进行加密和数字签名。 五、使用命令行管理钥匙 如果你想深入了解 GnuPG 的操作和原理，那么使用命令行是一个很好的学习途径。基本上，使用命令行管理钥匙的要点跟图形工具的操作是一一对应。 1、生成钥匙对 $ gpg --gen-key 使用上面的命令可以生成地球上惟一的一对钥匙对（注：命令行前的钱币符号是提示符，不用输入），运行后会询问你几个问题，首选是选择钥匙对的算法： Please select what kind of key you want: (1) RSA and RSA (default) (2) DSA and Elgamal (3) DSA (sign only) (4) RSA (sign only) Your selection? 默认选择 RSA 就可以了，输入1并回车。然后选择钥匙的长度： RSA keys may be between 1024 and 4096 bits &#8230; <a href="http://archboy.org/2013/05/15/gnupg-pgp-encrypt-decrypt-file-and-digital-signing-easy-tutorial/" class="more-link">Continue reading <span class="screen-reader-text">使用 GnuPG 实现文件加密和数字签名——PGP 30分钟简明教程(2)</span> <span class="meta-nav">&#8594;</span></a>]]></description>
+				<content:encoded><![CDATA[<p>这是接上一篇<a href="http://archboy.org/2013/04/18/gnupg-pgp-encrypt-decrypt-message-and-email-and-digital-signing-easy-tutorial/">《使用 GnuPG 实现电子邮件加密和数字签名——PGP 30分钟简明教程(1)》</a>的PGP 30分钟简明教程第二部分，简单讲解 GnuPG 命令行工具的使用方法，以及对文件进行加密和数字签名。</p>
+<h2>五、使用命令行管理钥匙</h2>
+<p>如果你想深入了解 GnuPG 的操作和原理，那么使用命令行是一个很好的学习途径。基本上，使用命令行管理钥匙的要点跟图形工具的操作是一一对应。</p>
+<h3>1、生成钥匙对</h3>
+<pre lang="bash" escaped="true">$ gpg --gen-key</pre>
+<p>使用上面的命令可以生成地球上惟一的一对钥匙对（注：命令行前的钱币符号是提示符，不用输入），运行后会询问你几个问题，首选是选择钥匙对的算法：</p>
+<p>Please select what kind of key you want:<br />
+(1) RSA and RSA (default)<br />
+(2) DSA and Elgamal<br />
+(3) DSA (sign only)<br />
+(4) RSA (sign only)<br />
+Your selection?</p>
+<p>默认选择 RSA 就可以了，输入1并回车。然后选择钥匙的长度：</p>
+<p>RSA keys may be between 1024 and 4096 bits long.<br />
+What keysize do you want? (2048)</p>
+<p>默认是 2048 位，直接回车。然后选择钥匙的有效期限：</p>
+<p>Please specify how long the key should be valid.<br />
+0 = key does not expire<br />
+&lt;n&gt; = key expires in n days<br />
+&lt;n&gt;w = key expires in n weeks<br />
+&lt;n&gt;m = key expires in n months<br />
+&lt;n&gt;y = key expires in n years<br />
+Key is valid for? (0)</p>
+<p>默认是永远有效的，如果你打算过一段时间就换一把新钥匙，可以在此输入期限，比如输入30表示有效期为30天，数字后面可以加上单位，比如30m表示30个月，30y表示30年。如果你不知道这步有什么作用，则直接回车。然后询问你确定吗？果断输入y并回车。</p>
+<p>接下来是填写一些个人信息：</p>
+<p>Real name: ivarptr<br />
+Email address: ivarptr@126.com<br />
+Comment: ivarptr on Twitter</p>
+<p>第1行输入你的名字或者平常喜欢用的网名，比如我的是 ivarptr。<br />
+第2行输入你的email地址，比如我上面输入的是 ivarptr@126.com。<br />
+第3行输入一行备注，备注的作用是进一步标识自己的身份，比如你在姓名一行输入“小明”，为了让你的朋友更确切地知道是哪个小明，你可以输入“你隔壁家的小明”。</p>
+<p>这三行信息用于产生一个标识（uid），用来标识这个钥匙对，在下面的命令行里，就可以用名字或者email地址来指定这个钥匙对。</p>
+<p>虽然理论上这些信息是可以随意输入，而且也不会有人阻止你这么做，不过当别人拿到你的公钥时可能会搞不清谁对应谁，所以尽量使用别人分辨得清的名字（建议使用你常用的网名）和email地址。信息输入完之后再输入o并回车确定。</p>
+<p>因为 GnuPG 的钥匙（包括公钥和私钥）是保存在本机上的，如果有人或者黑客进入你的计算机把你的私钥盗走了，那么你的身份就有可能被冒充的危险。所以接下来你需要输入一个密码用于保护你的私钥。这个密码最好选择一个稍微复杂一些的。</p>
+<p>接下来就是等待程序生成钥匙对了，这个过程根可能需要几秒到几分钟时间，期间你可以去忙其他的事情。</p>
+<h3>2、查看本机钥匙信息</h3>
+<p>上一步完成后，可以使用如下命令查看本机上的公钥：</p>
+<pre lang="bash" escaped="true">$ gpg --list-keys</pre>
+<p>输出的结果跟下面的类似：</p>
+<p>/home/ivarptr/.gnupg/pubring.gpg<br />
+&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8211;<br />
+pub 2048R/72E75B05 2013-04-17 [expires: 2015-04-17]<br />
+uid ivarptr (ivarptr on Twitter) &lt;ivarptr@126.com&gt;<br />
+sub 2048R/74F0F5F9 2013-04-17 [expires: 2015-04-17]</p>
+<p>从中我们可以看到刚才生成的钥匙对的公钥部分，其中：</p>
+<ul>
+<li><span style="line-height: 1.714285714; font-size: 1rem;">72E75B05 是这个公钥的id，这个id跟uid都是用于标识这个公钥的，因为uid是用户随便输入的所以会有重复的情况，因此在某些需要明确指定公钥的命令，需要用id而不能用uid表示这个公钥。另外在使用这个id表示一个钥匙时，记得在前面加上&#8221;0x&#8221;，是零和字母XYZ的X，比如&#8221;0x72E75B05&#8243;</span></li>
+<li><span style="line-height: 1.714285714; font-size: 1rem;">2013-04-17 是生成这个公钥的时间，后面括号内的是有效期。</span></li>
+</ul>
+<p>在实际应用中，因为要发送加密信息给你的朋友就需要对方的公钥，所以在本机上可能会有多个朋友的公钥，但私钥往往只有一个，也就是自己的私钥。使用下面命令可以查看本机上的私钥。</p>
+<p>$ gpg &#8211;list-secret-keys</p>
+<h3>3、导出公钥</h3>
+<p>为了将自己的公钥扔给他人，你需要把公钥导出成为一个文件：</p>
+<pre lang="bash" escaped="true">$ gpg -a --output key.public --export UID</pre>
+<p>注：你要把其中的 UID 替换成你的名字或者email地址。</p>
+<p>其中参数</p>
+<ul>
+<li><span style="line-height: 1.714285714; font-size: 1rem;">-a 表示输出文本文件格式。默认输出是二进制格式，因为二进制格式不太方便在网络（比如论坛或者博客）上展示，所以推荐文本格式。</span></li>
+<li><span style="line-height: 1.714285714; font-size: 1rem;">&#8211;output 指定输出文件的名字，你可以更改为其他名字。</span></li>
+<li><span style="line-height: 1.714285714; font-size: 1rem;">&#8211;export 表示执行输出公钥操作，后面的 UID 为你要输出的公钥的标识。</span></li>
+</ul>
+<p>运行之后会在当前文件夹得到一个 key.public 文件，你可以使用文本编辑器或者 cat 命令查看里面的内容：</p>
+<pre lang="bash" escaped="true">$ cat key.public</pre>
+<p>内容大致如下：</p>
+<pre lang="bash" escaped="true">-----BEGIN PGP PUBLIC KEY BLOCK-----
+Version: GnuPG v2.0.19 (GNU/Linux)
+
+…………
+…………
+-----END PGP PUBLIC KEY BLOCK-----</pre>
+<p>公钥导出之后，你可以通过各种方式把它发送给你的朋友，比如email或者聊天工具。而比较方便的是把公钥发布到公钥服务器。</p>
+<h3>4、把公钥发布到公钥服务器</h3>
+<p>公钥服务器用于储存和发布用户的公钥以便相互交流，这些服务都是免费的，GnuPG 默认的公钥服务器是 keys.gnupg.net，你可以在<a href="http://en.wikipedia.org/wiki/Key_server_(cryptographic)">这里</a>找到更多的服务器，一般来说不用指定公钥服务器，随便发布到一个软件默认的就可以了，因为公钥服务器之间会自动同步。你也可以使用浏览器打开它们的网站，然后把你的公钥复制粘贴上去。当然最直接的是通过命令行：</p>
+<pre lang="bash" escaped="true">$ gpg --keyserver keys.gnupg.net --send-key ID</pre>
+<p>注：你要把其中的 ID 替换成你公钥的id。</p>
+<p>其中参数：</p>
+<ul>
+<li><span style="line-height: 1.714285714; font-size: 1rem;">&#8211;keyserver 用于指定公钥服务器，没有特殊需求的话是可以省略这个参数的，不过有些 GnuPG 版本可能需要指定这个参数才能正常工作。</span></li>
+<li><span style="line-height: 1.714285714; font-size: 1rem;">&#8211;send-key 用于指定待发布的公钥的id。</span></li>
+</ul>
+<p>好了，至此你已经学会生成钥匙对以及发布公钥了。</p>
+<h2>六、使用命令行加密文件</h2>
+<p>下面我们来做个试验，尝试导入作者的公钥，然后使用该公钥加密一个文件。通过这个试验就可以学会怎样获取他人的公钥并用之加密信息。</p>
+<h3>1、在公钥服务器搜索作者的公钥并导入到本机</h3>
+<p>使用如下的命令可以搜索到我的公钥：</p>
+<pre lang="bash" escaped="true">$ gpg --keyserver keys.gnupg.net --search-key ivarptr</pre>
+<p>参数 &#8211;search-key 用于指定搜索关键字，可以是uid的名字或者email地址部分。结果大致如下：</p>
+<p>gpg: searching for &#8220;ivarptr&#8221; from hkp server keys.gnupg.net<br />
+(1) ivarptr (ivarptr on Twitter) &lt;ivarptr@126.com&gt;<br />
+2048 bit RSA key 72E75B05, created: 2013-04-17<br />
+Keys 1-1 of 1 for &#8220;ivarptr&#8221;. Enter number(s), N)ext, or Q)uit &gt;</p>
+<p>如果有重名的情况，这里会列出多条记录。你可以输入n并回车把搜索结果浏览个遍。当你看到id和uid都跟你要找的那个吻合时，输入搜索结果前面显示的数字就可以把相应的公钥下载到本机。如上面的搜索结果，按数字1并回车就可以把我的公钥导入到本机。输入q并回车可退出搜索。</p>
+<p>注：服务 keys.gnupg.net 背后是一组服务器，它们之间的信息同步需要一定的时间，如果你刚刚提交了自己的公钥，可能不会立即搜索就有结果，只要过一段时间（最长可能要几小时或者几天）就好了。</p>
+<p>如果你确切知道要导入的公钥的id，也可以跳过搜索这步而直接使用如下的命令导入：</p>
+<pre lang="bash" escaped="true">$ gpg --keyserver keys.gnupg.net --recv-key 0x72E75B05</pre>
+<p>其中 0x72E75B05 是我公钥的id，如果把它替换成你朋友的公钥id则为导入你朋友的公钥。</p>
+<p>导入公钥还有另一种方法：如果我把公钥文件直接发送了给你，你也可以跳过公钥服务器。下面假设我的公钥文件 key.public 已发送给你，你运行如下命令就可以导入我的公钥了：</p>
+<pre lang="bash" escaped="true">$ gpg --import key.public</pre>
+<h3>2、核对公钥的指纹值并签收公钥</h3>
+<p>把对方的公钥导入到本机后，就已经可以用它来加密信息或者用于校验我的数字签名。不过这样每次操作时都会提示公钥不可信，因为虽然你导入了我的公钥，但存在导入冒充者的公钥的可能性。所以你需要进一步跟我核对公钥是否正确，然后签收（sign key）它。</p>
+<p>因为公钥有可能出现冒牌货，所以每个公钥里都加入了指纹值，使用下面命令可以查看指纹值：</p>
+<pre lang="bash" escaped="true">$ gpg --fingerprint</pre>
+<p>列出的结果应该有一组如下所示：</p>
+<p>pub 2048R/72E75B05 2013-04-17 [expires: 2015-04-17]<br />
+Key fingerprint = 0D24 0A94 A86C 7B83 3F7C 200E 1CAF 0CB0 72E7 5B05<br />
+uid ivarptr (ivarptr on Twitter) &lt;ivarptr@126.com&gt;<br />
+sub 2048R/74F0F5F9 2013-04-17 [expires: 2015-04-17]</p>
+<p>其中 “0D24 0A94 A86C 7B83 3F7C 200E 1CAF 0CB0 72E7 5B05” 就是这个公钥的指纹值。你应该通过打电话或者聊天工具等方式询问对方并核对指纹值是否一致，如果吻合的话就说明你取得的是真货了。</p>
+<p>注：因为我不可能公布我的电话 :D 所以如果你看到取回来的公钥指纹值跟我博客这篇文章的一致，就可以当作是真货了。当然如果是实际的朋友，一定要亲口核对的。</p>
+<p>确定取得的公钥是真货之后，使用如下命令对这个公钥进行签收（sign key）：</p>
+<pre lang="bash" escaped="true">$ gpg --sign-key ivarptr</pre>
+<p>运行上面的命令之后它提示你再确认一次指纹值，输入y并按回车确定。</p>
+<p>提示，如果发现获取回来的是冒牌货，可以使用如下的命令删除它：</p>
+<pre lang="bash" escaped="true">$ gpg --delete-keys ivarptr</pre>
+<h3>3、加密一个文件</h3>
+<p>使用文本编辑器（比如记事本或者 vim、echo）创建一个名为 message.txt 的文件，里面写上任意一行文字，然后使用如下的命令加密它：</p>
+<pre lang="bash" escaped="true">$ gpg -a --output message-ciper.txt -r ivarptr@126.com -e message.txt</pre>
+<p>其中参数：</p>
+<ul>
+<li><span style="line-height: 1.714285714; font-size: 1rem;">-a 表示输出文本文件格式。</span></li>
+<li><span style="line-height: 1.714285714; font-size: 1rem;">&#8211;output 指定输出（即加密后）的文件名。</span></li>
+<li><span style="line-height: 1.714285714; font-size: 1rem;">-r 指定信息的接收者（recipient）公钥的uid，可以是名字也可以是email地址。</span></li>
+<li><span style="line-height: 1.714285714; font-size: 1rem;">-e 表示这次要执行的是加密（encrypt）操作。</span></li>
+</ul>
+<p>执行完毕之后会在当前文件夹产生文件 message-ciper.txt，这个就是被加密之后的文件。</p>
+<p>注：如果你要加密的是一个二进制文件，则可以省略 -a 参数，这样产生的加密文件的体积会小一些。</p>
+<blockquote><p><strong><em>小练习：</em></strong>现在你可以用 email 把加密后的文件寄给我，或者把里面的内容复制然后粘贴到我博客的评论里，接下来我会解密然后回复你。如果你希望我也以加密的形式回复你，记得同时告诉我你的公钥 id。</p></blockquote>
+<h3>4、解密一个文件</h3>
+<p>现在假设我已经收到你寄过来的加密文件 message-ciper.txt，使用如下的命令解密：</p>
+<pre lang="bash" escaped="true">$ gpg --output message-plain.txt -d message-ciper.txt</pre>
+<p>其中参数：</p>
+<ul>
+<li><span style="line-height: 1.714285714; font-size: 1rem;">&#8211;output 指定输出（即解密后）的文件名。</span></li>
+<li><span style="line-height: 1.714285714; font-size: 1rem;">-d 表示这次要执行的是解密（decrypt）操作。</span></li>
+</ul>
+<p>GnuPG 程序会自动使用我的私钥来解密信息，最后得到一个跟原始内容一样的文本文件 message-plain.txt。</p>
+<p>至此，你已经学会使用 GnuPG 加密解密文件了。</p>
+<p>提示1：导入公钥、核对公钥的指纹值、签名公钥这些操作你只需做一次，以后就可以重复多次使用该公钥加密信息并发送给对方。</p>
+<p>提示2：如果你想自己体会整个加密和解密过程，可以用自己的公钥加密信息，然后用自己的私钥解密，只需把上面第3步的命令当中的接收者uid（ivarptr@126.com）更改为自己的uid即可。</p>
+<h2>七、使用命令行对文件进行数字签名</h2>
+<p>下面我会签名一个文件，你可以尝试检验一下这个签名。</p>
+<h3>1、数字签名一个文件的方法A</h3>
+<p>现在我有一个文本文件 message.txt，使用如下命令即可对它进行数字签名：</p>
+<pre lang="bash" escaped="true">$ gpg -a -b message.txt</pre>
+<p>其中参数</p>
+<ul>
+<li><span style="line-height: 1.714285714; font-size: 1rem;">-a 表示输出文本文件格式。</span></li>
+<li><span style="line-height: 1.714285714; font-size: 1rem;">-b 表示以生成独立的签名文件的方式进行签名。</span></li>
+</ul>
+<p>命令执行完毕之后，会在当前文件夹里产生一个 message.txt.asc 的文件，这个文件即签名。现在我应该把原信息文件 message.txt 连同签名文件 message.txt.asc 一起寄给你，然后你使用如下命令检验：</p>
+<pre lang="bash" escaped="true">$ gpg --verify message.txt.asc</pre>
+<p>如无意外，应该会看到如下两行：<br />
+gpg: Signature made Thu 18 Apr 2013 12:35:00 AM CST using RSA key ID 72E75B05<br />
+gpg: Good signature from &#8220;ivarptr (ivarptr on Twitter) &lt;ivarptr@126.com&gt;&#8221;</p>
+<p>其中最重要的是 &#8220;Good signature&#8221; 字样，表示通过检验，否则表示没通过检验（即意味着原信息的内容被篡改或者原信息不是我发出的）。</p>
+<p>提示：如果你有多个私钥，在签名时需要加上参数 -u 指定私钥的 uid。</p>
+<h3>2、数字签名一个文件的方法B</h3>
+<p>如果不想生成一个独立的签名文件，则还可以用如下的命令进行签名：</p>
+<pre lang="bash" escaped="true">$ gpg -a --clearsign message.txt</pre>
+<p>跟方法A不同的地方是用参数 &#8211;clearsign 替代了参数 -b。参数 clearsign 表示将签名和原信息合并在一起，并生成一个新文件。</p>
+<p>命令运行后同样会生成一个文件 message.txt.asc，内容如下：</p>
+<pre>-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA1
+
+hello world, my key id is 72E75B05, finger is 0D24 0A94......5B05, check it
+out.
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v2.0.19 (GNU/Linux)
+
+iQEcBAEBAgAGBQJRbuXuAAoJEByvDLBy51sFaY8IAKKnXX2JGI51mzYSakqvhNnr
+iV2JLvokMkvyDuJQGeNDMim5W7P0/df+G4oO45B9b0iFx6DSQwZGeBjEGCXvCURa
+uU2fdEqjaSarlrs0d4R1ihol8rCxkZwBYBBPjcvDkVwoVJJYS0zc3OYzMvWhb8mk
+Q72wQ0obX5LedUVrauG9OLkvq9aBKONr6Xlkldd133v3gb/Wzjf71CLYcRoJDpze
+2XBSkrGS0UxRp3WixJJK8xyfDfI9VHBaXEndCkgQ+Mpfq9nV5XAm3MKcPjlENq4g
+xGywHRpnwpW8N22VE6ZFEUFlXrh5C8hZfGaG/EcT21PeAbZYH8RcnYTbJ+s2nZ4=
+=lhd6
+-----END PGP SIGNATURE-----</pre>
+<p>你可以复制这段文字然后保存到一个文件里，如 abc.txt，然后使用如下命令进行检验：</p>
+<pre lang="bash" escaped="true">$ gpg --verify abc.txt</pre>
+<p>使用如下命令可以把原始信息提取出来：</p>
+<pre lang="bash" escaped="true">$ gpg --output message-original.txt -d abc.txt</pre>
+<h2></h2>
+<h2>八、GnuPG 的更多指南</h2>
+<p>至此已经讲完 GnuPG 的基本操作了，如果你还想更深入了解它，这里有几篇官方的文档，推荐阅读一下：</p>
+<ul>
+<li><span style="line-height: 1.714285714; font-size: 1rem;">迷你Howto教程：</span><a style="line-height: 1.714285714; font-size: 1rem;" href="http://www.dewinter.com/gnupg_howto/english/GPGMiniHowto.html">http://www.dewinter.com/gnupg_howto/english/GPGMiniHowto.html</a></li>
+<li><span style="line-height: 1.714285714; font-size: 1rem;">迷你Howto教程（中文版）： </span><a style="line-height: 1.714285714; font-size: 1rem;" href="http://www.gnupg.org/howtos/zh/index.html">http://www.gnupg.org/howtos/zh/index.html</a></li>
+<li><span style="line-height: 1.714285714; font-size: 1rem;">The GNU Privacy Handbook </span><a style="line-height: 1.714285714; font-size: 1rem;" href="http://www.gnupg.org/gph/en/manual.html">http://www.gnupg.org/gph/en/manual.html</a></li>
+</ul>
+<p>另外 wiki 对 OpenPGP 的讲解也很有值得阅读：</p>
+<ul>
+<li><span style="line-height: 1.714285714; font-size: 1rem;">Pretty Good Privacy</span><span style="line-height: 1.714285714; font-size: 1rem;"> </span><a style="line-height: 1.714285714; font-size: 1rem;" href="http://en.wikipedia.org/wiki/Pretty_Good_Privacy">http://en.wikipedia.org/wiki/Pretty_Good_Privacy</a></li>
+</ul>
+<p>还有一些本文未提到但会用得上的命令：</p>
+<ul>
+<li><span style="line-height: 1.714285714; font-size: 1rem;">Quick&#8217;n easy gpg cheatsheet </span><a style="line-height: 1.714285714; font-size: 1rem;" href="http://irtfweb.ifa.hawaii.edu/~lockhart/gpg/">http://irtfweb.ifa.hawaii.edu/~lockhart/gpg/</a></li>
+</ul>
+<p>文本完，如有问题可以 <a href="https://twitter.com/ivarptr">@ivarptr</a> 或者在评论中留言。谢谢！</p>
+]]></content:encoded>
+			<wfw:commentRss>http://archboy.org/2013/05/15/gnupg-pgp-encrypt-decrypt-file-and-digital-signing-easy-tutorial/feed/</wfw:commentRss>
+		<slash:comments>8</slash:comments>
+		</item>
+	</channel>
+</rss>

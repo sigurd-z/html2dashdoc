@@ -1,0 +1,129 @@
+<html><head prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# object: http://ogp.me/ns/object# article: http://ogp.me/ns/article# profile: http://ogp.me/ns/profile#">
+<meta charset="utf-8">
+<meta content="IE=edge" http-equiv="X-UA-Compatible">
+<meta content="en" http-equiv="Content-Language">
+<meta content="width=1020" name="viewport">
+<title>Adding an admin module · NetEase/pomelo Wiki · GitHub</title>
+<link href="/opensearch.xml" rel="search" title="GitHub" type="application/opensearchdescription+xml">
+<link href="src/ad667adaa2cfe8f3caa4a41b7d0a79a1.png" rel="fluid-icon" title="GitHub">
+<link href="src/a10d19ff5f738940a7a5086be334f50b.png" rel="apple-touch-icon" sizes="57x57">
+<link href="src/a10d19ff5f738940a7a5086be334f50b.png" rel="apple-touch-icon" sizes="114x114">
+<link href="src/b4cd268bc600cc14d2cdd557de6da2fb.png" rel="apple-touch-icon" sizes="72x72">
+<link href="src/b4cd268bc600cc14d2cdd557de6da2fb.png" rel="apple-touch-icon" sizes="144x144">
+<meta content="1401488693436528" property="fb:app_id">
+<meta content="@github" name="twitter:site"/><meta content="summary" name="twitter:card"/><meta content="NetEase/pomelo" name="twitter:title"/><meta content="pomelo - A fast,scalable,distributed game server framework for Node.js." name="twitter:description"/><meta content="https://avatars0.githubusercontent.com/u/1460597?v=3&amp;s=400" name="twitter:image:src"/>
+<meta content="GitHub" property="og:site_name"/><meta content="object" property="og:type"/><meta content="https://avatars0.githubusercontent.com/u/1460597?v=3&amp;s=400" property="og:image"/><meta content="NetEase/pomelo" property="og:title"/><meta content="https://github.com/NetEase/pomelo" property="og:url"/><meta content="pomelo - A fast,scalable,distributed game server framework for Node.js." property="og:description"/>
+<meta content="https://api.github.com/_private/browser/stats" name="browser-stats-url">
+<meta content="https://api.github.com/_private/browser/errors" name="browser-errors-url">
+<link href="https://assets-cdn.github.com/" rel="assets">
+<meta content="1000" name="pjax-timeout">
+<meta content="/windows-tile.png" name="msapplication-TileImage">
+<meta content="#ffffff" name="msapplication-TileColor">
+<meta data-pjax-transient="" name="selected-link" value="repo_wiki">
+<meta content="KT5gs8h0wvaagLKAVWq8bbeNwnZZK1r1XQysX3xurLU" name="google-site-verification">
+<meta content="UA-3769691-2" name="google-analytics">
+<meta content="collector.githubapp.com" name="octolytics-host"/><meta content="github" name="octolytics-app-id"/><meta content="7250A4CA:6926:ECB8D86:5670BFAA" name="octolytics-dimension-request_id"/>
+<meta content="/&lt;user-name&gt;/&lt;repo-name&gt;/wiki/show" data-pjax-transient="true" name="analytics-location"/>
+<meta content="Rails, view, wiki#show" data-pjax-transient="true" name="analytics-event"/>
+<meta class="js-ga-set" content="Logged Out" name="dimension1">
+<meta content="github.com" name="hostname">
+<meta content="" name="user-login">
+<meta content="github.com" name="expected-hostname">
+<link color="#4078c0" href="https://assets-cdn.github.com/pinned-octocat.svg" rel="mask-icon">
+<link href="https://assets-cdn.github.com/favicon.ico" rel="icon" type="image/x-icon">
+<meta content="d26e92879f7dbfd2ce1eb91990d63fd8d54b6cbe" name="form-nonce"/>
+<link crossorigin="anonymous" href="src/350888e1495e7af27e01faa9d8291dee.css" media="all" rel="stylesheet"/>
+<link crossorigin="anonymous" href="src/9fae9b7d8f0785d745a43c6465f74ae5.css" media="all" rel="stylesheet"/>
+<meta content="cd9958d45e48e8e3157a320e9c346eaa" http-equiv="x-pjax-version">
+<meta content="pomelo - A fast,scalable,distributed game server framework for Node.js." name="description">
+<meta content="github.com/NetEase/pomelo git https://github.com/NetEase/pomelo.git" name="go-import">
+<meta content="1460597" name="octolytics-dimension-user_id"/><meta content="NetEase" name="octolytics-dimension-user_login"/><meta content="5880912" name="octolytics-dimension-repository_id"/><meta content="NetEase/pomelo" name="octolytics-dimension-repository_nwo"/><meta content="true" name="octolytics-dimension-repository_public"/><meta content="false" name="octolytics-dimension-repository_is_fork"/><meta content="5880912" name="octolytics-dimension-repository_network_root_id"/><meta content="NetEase/pomelo" name="octolytics-dimension-repository_network_root_nwo"/>
+<link href="https://github.com/NetEase/pomelo/commits/master.atom" rel="alternate" title="Recent Commits to pomelo:master" type="application/atom+xml">
+</link></meta></meta></meta></link></link></meta></meta></meta></meta></meta></meta></meta></meta></meta></meta></link></meta></meta></meta></link></link></link></link></link></link></meta></meta></meta></meta></head><body style="padding:0 25px;"><div class="gollum-markdown-content instapaper_body" id="wiki-body">
+<div class="markdown-body">
+<p>A pomelo application is usually supported by a server cluster, so administrating the server cluster is very important. </p>
+<p>Pomelo provides a server administration framework, in which there are three roles servers would act: monitor, master and client. </p>
+<p>Master server is responsible for collecting all the information of the server cluster and sending instructions to the server cluster, while monitor will report its server status to master and respond to the instructions sent by master. Client is a third-party administration client, it will connect and register to master and then request the information about the server cluster or send instructions to the server cluster through the master. </p>
+<p>For different applications, the requirement of administration varies.  Therefore, pomelo provides an administration framework, but not a fixed module. Developers can define their own admin-modules and then register them into administration framework to meet their special requirement on administration of the server cluster.</p>
+<p>An admin module is composed of several related callbacks, including <code>monitorHandler</code>, <code>masterHandler</code>, <code>clientHandler</code> and <code>start</code>, and either of them can be ommited if possible. <code>monitorHandler</code> will be callbacked by monitor once receiving a request/notify from master, while <code>masterHandler</code> will be callbacked by master once reveiving a request/notify from monitor. And <code>clientHandler</code> will also be callbacked by master when master receiving a request/notify from a third-party client. <code>start</code> can be used to do some initilization after an admin-module being registered into the administration framework.</p>
+<p>To demonstrate how to customize and use admin module, we will implement a admin module in our example chat, namely "timeReport", which will let monitors report their own current local time to master every five seconds. Nevertheless, this functionality has no much practical significance, even "superfluous", but it is reasonable to keep the example simple. Actually, it is a common way to make monitors report something to master, not only local time, but also anything you want. </p>
+<h1>
+<a aria-hidden="true" class="anchor" href="#using-in-chat" id="user-content-using-in-chat"><span class="octicon octicon-link"></span></a>Using in Chat</h1>
+<p>The sample code is in the branch <code>tutorial-admin-module</code>, use the following command to switch:</p>
+<pre><code>$ git checkout tutorial-admin-module
+</code></pre>
+<ul>
+<li>First, we create a file modules/timeReport.js in the game-server/app directory, in which defining monitorHandler, masterHandler and clientHandler(start ommited), the code is shown as follows:</li>
+</ul>
+<div class="highlight highlight-source-js"><pre>
+<span class="pl-c1">module</span>.<span class="pl-en">exports</span> <span class="pl-k">=</span> <span class="pl-k">function</span>(<span class="pl-smi">opts</span>) {
+  <span class="pl-k">return</span> <span class="pl-k">new</span> <span class="pl-en">Module</span>(opts);
+}
+
+<span class="pl-k">var</span> moduleId <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">"</span>timeReport<span class="pl-pds">"</span></span>;
+<span class="pl-smi">module</span>.<span class="pl-smi">exports</span>.<span class="pl-smi">moduleId</span> <span class="pl-k">=</span> moduleId;
+
+<span class="pl-k">var</span> <span class="pl-en">Module</span> <span class="pl-k">=</span> <span class="pl-k">function</span>(<span class="pl-smi">opts</span>) {
+  <span class="pl-smi">this</span>.<span class="pl-smi">app</span> <span class="pl-k">=</span> <span class="pl-smi">opts</span>.<span class="pl-smi">app</span>;
+  <span class="pl-smi">this</span>.<span class="pl-c1">type</span> <span class="pl-k">=</span> <span class="pl-smi">opts</span>.<span class="pl-c1">type</span> <span class="pl-k">||</span> <span class="pl-s"><span class="pl-pds">'</span>pull<span class="pl-pds">'</span></span>;
+  <span class="pl-smi">this</span>.<span class="pl-smi">interval</span> <span class="pl-k">=</span> <span class="pl-smi">opts</span>.<span class="pl-smi">interval</span> <span class="pl-k">||</span> <span class="pl-c1">5</span>;
+}
+
+<span class="pl-c1">Module</span>.<span class="pl-c1">prototype</span>.<span class="pl-en">monitorHandler</span> <span class="pl-k">=</span> <span class="pl-k">function</span>(<span class="pl-smi">agent</span>, <span class="pl-smi">msg</span>, <span class="pl-smi">cb</span>) {
+  <span class="pl-en">console</span>.<span class="pl-c1">log</span>(<span class="pl-smi">this</span>.<span class="pl-smi">app</span>.<span class="pl-en">getServerId</span>() <span class="pl-k">+</span> <span class="pl-s"><span class="pl-pds">'</span><span class="pl-pds">'</span></span> <span class="pl-k">+</span> msg);
+  <span class="pl-k">var</span> serverId <span class="pl-k">=</span> <span class="pl-smi">agent</span>.<span class="pl-c1">id</span>;
+  <span class="pl-k">var</span> time <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-en">Date</span>(). <span class="pl-smi">toString</span>();
+
+  <span class="pl-smi">agent</span>.<span class="pl-en">notify</span>(moduleId, {serverId<span class="pl-k">:</span> serverId, time<span class="pl-k">:</span> time});
+}
+
+<span class="pl-c1">Module</span>.<span class="pl-c1">prototype</span>.<span class="pl-en">masterHandler</span> <span class="pl-k">=</span> <span class="pl-k">function</span>(<span class="pl-smi">agent</span>, <span class="pl-smi">msg</span>) {
+  <span class="pl-k">if</span>(<span class="pl-k">!</span> msg) {
+    <span class="pl-smi">agent</span>.<span class="pl-en">notifyAll</span>(moduleId, testMsg);
+    <span class="pl-k">return</span>;
+  }
+
+  <span class="pl-en">console</span>.<span class="pl-c1">log</span>(msg);
+  <span class="pl-k">var</span> timeData <span class="pl-k">=</span> <span class="pl-smi">agent</span>.<span class="pl-en">get</span>(moduleId);
+  <span class="pl-k">if</span>(<span class="pl-k">!</span> timeData) {
+    timeData <span class="pl-k">=</span> {};
+    <span class="pl-smi">agent</span>.<span class="pl-en">set</span>(moduleId, timeData);
+  }
+  timeData[<span class="pl-smi">msg</span>.<span class="pl-smi">serverId</span>] <span class="pl-k">=</span> <span class="pl-smi">msg</span>.<span class="pl-smi">time</span>;
+}
+
+
+<span class="pl-c1">Module</span>.<span class="pl-c1">prototype</span>.<span class="pl-en">clientHandler</span> <span class="pl-k">=</span> <span class="pl-k">function</span>(<span class="pl-smi">agent</span>, <span class="pl-smi">msg</span>, <span class="pl-smi">cb</span>) {
+  <span class="pl-en">cb</span>(<span class="pl-c1">null</span>, <span class="pl-smi">agent</span>.<span class="pl-en">get</span>(moduleId));
+}
+</pre></div>
+<ul>
+<li>After defining the admin module, we can register it into administration framework of our application by app.registerAdmin, add the following code into app.js :</li>
+</ul>
+<div class="highlight highlight-source-js"><pre>
+<span class="pl-k">var</span> timeReport <span class="pl-k">=</span> <span class="pl-c1">require</span>(<span class="pl-s"><span class="pl-pds">'</span>./app/modules/timeReport<span class="pl-pds">'</span></span>);
+<span class="pl-smi">app</span>.<span class="pl-en">registerAdmin</span>(timeReport, {app<span class="pl-k">:</span> app});
+</pre></div>
+<p>Here app.registerAdmin can accept two or three arguments, if three arguments, the first one must be a string as its moduleId. Otherwise, pomelo will regard the "moduleId" property of the first argument as the moduleId. For our example timeReport, property "moduleId" is defined for timeReport, so we just pass two arguments when calling app.registerAdmin. </p>
+<p>The last argument is options that can be used to configure the admin-module. There are two import options for an admin-module: type and interval. <code>type</code> can be <code>pull</code> or <code>push</code> and it indicates the way how monitor to report information to master, and <code>interval</code> indicates reporting-cycle. In our example, timeReport would use the <code>pull</code> mode and the reporting-cycle is five seconds by default.</p>
+<h1>
+<a aria-hidden="true" class="anchor" href="#notes" id="user-content-notes"><span class="octicon octicon-link"></span></a>Notes</h1>
+<ul>
+<li><p>When register admin-module into administration framework, it may need a moduleId property defined, and it also can be passed as the first argument when calling app.registerAdmin.</p></li>
+<li><p>There are two import options for an admin-module: type and interval. <code>type</code> indicates the way how to report informations to master and can be <code>pull</code> or <code>push</code>. If <code>pull</code>, master will periodically request the information of monitors,  while in <code>push</code> mode,  monitors will periodically report their own information to master. <code>interval</code> indicates the reporting-cycle. If <code>type</code> is not configured, then the administration action will not be periodical. </p></li>
+<li>
+<p>For masterHandler, it may be callbacked by master in two cases since it uses <code>pull</code> mode: one is triggerd every five seconds by a timely <code>pull</code> event emitted, another is triggered when master receiving a reported information from monitors. The two cases can be distinguished by the argument <code>msg</code>:</p>
+<ul>
+<li><p>If it is timely <code>pull</code> event, then msg argument is undefined, so at this time, it just call notifyAll to sent request to pull information of monitors. The argument <code>testMsg</code> does nothing but showing how to pass argument when sending a request/notify;</p></li>
+<li><p>If it is receiving a reported information reported from a monitor, then argument <code>msg</code> will be an object not undefined. At this time, master print the time value to console and cache the value. Of course, this value does nothing but demonstrating. </p></li>
+<li><p>In practice, the argument <code>msg</code> is often used to distinguish the two cases. Considering another case, in which the module uses not pull but push mode, then the monitor will have to distinguish the two cases too, one is the timely <code>push</code> event and another is receiving a request/notify from master, and <code>msg</code> also works well for this situation. You can have a try to change the <code>pull</code> mode to <code>push</code> mode.</p></li>
+</ul>
+</li>
+<li><p>For monitorHandler, it implements a very simple logic business. It will be callbacked by monitor when receiving a request/notify from master. It just take the argument <code>testMsg</code> brougt by the request/notify and then report its own current local time to master by a notify. In practice, a request/notify can bring more complex argument than <code>testMsg</code> here.</p></li>
+<li><p>clientHandler will be callbacked by master when there is a third-party administration client sending a request/notify to the master. Here, master just returns the time information it caches. </p></li>
+</ul>
+<h1>
+<a aria-hidden="true" class="anchor" href="#summary" id="user-content-summary"><span class="octicon octicon-link"></span></a>Summary</h1>
+<p>In this section , we introduce how to use server administration framework provided by pomelo and how to customize an admin-module for the framework. In fact, by customizing your own admin-module, you can make monitors report anything to master. For example, in practical applications, a connector server can report information about its logged users to the master server. So far, we have introduced almost all the basic functionalities of pomelo, the following will be a simple <a href="Tutorial-summary" title=" tutorial summary">summary for this tutorial</a>.</p>
+</div>
+</div></body></html>

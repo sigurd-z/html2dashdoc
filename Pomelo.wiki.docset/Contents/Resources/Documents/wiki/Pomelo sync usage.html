@@ -1,0 +1,174 @@
+<html><head prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# object: http://ogp.me/ns/object# article: http://ogp.me/ns/article# profile: http://ogp.me/ns/profile#">
+<meta charset="utf-8">
+<meta content="IE=edge" http-equiv="X-UA-Compatible">
+<meta content="en" http-equiv="Content-Language">
+<meta content="width=1020" name="viewport">
+<title>Pomelo sync usage · NetEase/pomelo Wiki · GitHub</title>
+<link href="/opensearch.xml" rel="search" title="GitHub" type="application/opensearchdescription+xml">
+<link href="src/ad667adaa2cfe8f3caa4a41b7d0a79a1.png" rel="fluid-icon" title="GitHub">
+<link href="src/a10d19ff5f738940a7a5086be334f50b.png" rel="apple-touch-icon" sizes="57x57">
+<link href="src/a10d19ff5f738940a7a5086be334f50b.png" rel="apple-touch-icon" sizes="114x114">
+<link href="src/b4cd268bc600cc14d2cdd557de6da2fb.png" rel="apple-touch-icon" sizes="72x72">
+<link href="src/b4cd268bc600cc14d2cdd557de6da2fb.png" rel="apple-touch-icon" sizes="144x144">
+<meta content="1401488693436528" property="fb:app_id">
+<meta content="@github" name="twitter:site"/><meta content="summary" name="twitter:card"/><meta content="NetEase/pomelo" name="twitter:title"/><meta content="pomelo - A fast,scalable,distributed game server framework for Node.js." name="twitter:description"/><meta content="https://avatars0.githubusercontent.com/u/1460597?v=3&amp;s=400" name="twitter:image:src"/>
+<meta content="GitHub" property="og:site_name"/><meta content="object" property="og:type"/><meta content="https://avatars0.githubusercontent.com/u/1460597?v=3&amp;s=400" property="og:image"/><meta content="NetEase/pomelo" property="og:title"/><meta content="https://github.com/NetEase/pomelo" property="og:url"/><meta content="pomelo - A fast,scalable,distributed game server framework for Node.js." property="og:description"/>
+<meta content="https://api.github.com/_private/browser/stats" name="browser-stats-url">
+<meta content="https://api.github.com/_private/browser/errors" name="browser-errors-url">
+<link href="https://assets-cdn.github.com/" rel="assets">
+<meta content="1000" name="pjax-timeout">
+<meta content="/windows-tile.png" name="msapplication-TileImage">
+<meta content="#ffffff" name="msapplication-TileColor">
+<meta data-pjax-transient="" name="selected-link" value="repo_wiki">
+<meta content="KT5gs8h0wvaagLKAVWq8bbeNwnZZK1r1XQysX3xurLU" name="google-site-verification">
+<meta content="UA-3769691-2" name="google-analytics">
+<meta content="collector.githubapp.com" name="octolytics-host"/><meta content="github" name="octolytics-app-id"/><meta content="7250A4CA:6922:F4105CD:5670C0C3" name="octolytics-dimension-request_id"/>
+<meta content="/&lt;user-name&gt;/&lt;repo-name&gt;/wiki/show" data-pjax-transient="true" name="analytics-location"/>
+<meta content="Rails, view, wiki#show" data-pjax-transient="true" name="analytics-event"/>
+<meta class="js-ga-set" content="Logged Out" name="dimension1">
+<meta content="github.com" name="hostname">
+<meta content="" name="user-login">
+<meta content="github.com" name="expected-hostname">
+<link color="#4078c0" href="https://assets-cdn.github.com/pinned-octocat.svg" rel="mask-icon">
+<link href="https://assets-cdn.github.com/favicon.ico" rel="icon" type="image/x-icon">
+<meta content="7ab6146caab3c5717fe6375924a35e86ee07eaa6" name="form-nonce"/>
+<link crossorigin="anonymous" href="src/350888e1495e7af27e01faa9d8291dee.css" media="all" rel="stylesheet"/>
+<link crossorigin="anonymous" href="src/9fae9b7d8f0785d745a43c6465f74ae5.css" media="all" rel="stylesheet"/>
+<meta content="cd9958d45e48e8e3157a320e9c346eaa" http-equiv="x-pjax-version">
+<meta content="pomelo - A fast,scalable,distributed game server framework for Node.js." name="description">
+<meta content="github.com/NetEase/pomelo git https://github.com/NetEase/pomelo.git" name="go-import">
+<meta content="1460597" name="octolytics-dimension-user_id"/><meta content="NetEase" name="octolytics-dimension-user_login"/><meta content="5880912" name="octolytics-dimension-repository_id"/><meta content="NetEase/pomelo" name="octolytics-dimension-repository_nwo"/><meta content="true" name="octolytics-dimension-repository_public"/><meta content="false" name="octolytics-dimension-repository_is_fork"/><meta content="5880912" name="octolytics-dimension-repository_network_root_id"/><meta content="NetEase/pomelo" name="octolytics-dimension-repository_network_root_nwo"/>
+<link href="https://github.com/NetEase/pomelo/commits/master.atom" rel="alternate" title="Recent Commits to pomelo:master" type="application/atom+xml">
+</link></meta></meta></meta></link></link></meta></meta></meta></meta></meta></meta></meta></meta></meta></meta></link></meta></meta></meta></link></link></link></link></link></link></meta></meta></meta></meta></head><body style="padding:0 25px;"><div class="gollum-markdown-content instapaper_body" id="wiki-body">
+<div class="markdown-body">
+<h2>
+<a aria-hidden="true" class="anchor" href="#overview" id="user-content-overview"><span class="octicon octicon-link"></span></a>Overview</h2>
+<p>Pomelo-sync is used to solve the problem that is to synchronize game data which need to be persisted to database or file between memory and storage system. This module provides an asynchronous implementation of the data synchronization. It can do timing data synchronization according to user's configuration to the persistence layer(such as MySQL, Redis, disk files, etc.). </p>
+<h2>
+<a aria-hidden="true" class="anchor" href="#application-scene" id="user-content-application-scene"><span class="octicon octicon-link"></span></a>Application scene</h2>
+<p>In the process of the game, updating and synchronizing a large amount of data occur from time to time(such as the role's location coordinates, HP, equipment properties, etc.). If we do much operations with the data persistence layer frequently, the cost of IO operation will be very enormous. With the method of timing synchronization a bulk of changed data is a way to avoid IO cost too much. Pomelo-sync is designed and implemented according to this idea. Pomelo-sync's configuration is like iBATIS', a different point is that the ORM is controlled completely by the user configuration with great flexibility. Therefore, pomelo-sync can be applied to a variety of databases(such as MongoDB, etc.). </p>
+<h2>
+<a aria-hidden="true" class="anchor" href="#module-structure" id="user-content-module-structure"><span class="octicon octicon-link"></span></a>Module structure</h2>
+<p>pomelo-sync module internal structure is as follows: </p>
+<p><img alt="" data-canonical-src="http://pomelo.netease.com/resource/documentImage/pomelo-sync.png" src="https://camo.githubusercontent.com/e4df599b8278380306ec6ee602a2c074dfb18c0c/687474703a2f2f706f6d656c6f2e6e6574656173652e636f6d2f7265736f757263652f646f63756d656e74496d6167652f706f6d656c6f2d73796e632e706e67"> </img></p>
+<p>Logic Interface: It provides intrusive data updating Interface, including conventional "add", "update", "delete", and the immediate execution of persistence interface "flush". <br> </br></p>
+<p>Invoke Interface: It provides the actual interfaces to perform persistence <br>
+Queue: It contains objects need to be saved in this period, supporting multiple nodes forwarding data <br> 
+Timer: It can support the static configuration and dynamic modification synchronization interval <br> 
+Mapping: It supports custom synchronization method mapping with persistence <br> </br></br></br></br></p>
+<p>Store Interface: It encapsulates persistent interfaces of various storage engines <br> 
+Log: It provides AOF logging of the changed data <br> 
+MySQL, Redis, File: They perform user custom synchronization methods according to user-defined incoming object <br> </br></br></br></p>
+<h2>
+<a aria-hidden="true" class="anchor" href="#installation" id="user-content-installation"><span class="octicon octicon-link"></span></a>Installation</h2>
+<p>npm install pomelo-sync-plugin <br>
+Note: Currently, pomelo-sync module is encapsulated in the <a href="https://github.com/NetEase/pomelo-sync-plugin">pomelo-sync-plugin</a>.</br></p>
+<h2>
+<a aria-hidden="true" class="anchor" href="#example-of-use" id="user-content-example-of-use"><span class="octicon octicon-link"></span></a>Example of use</h2>
+<h3>
+<a aria-hidden="true" class="anchor" href="#to-use-pomelo-sync-plugin" id="user-content-to-use-pomelo-sync-plugin"><span class="octicon octicon-link"></span></a>To use pomelo-sync-plugin</h3>
+<div class="highlight highlight-source-js"><pre><span class="pl-c">// app.js</span>
+<span class="pl-k">var</span> sync <span class="pl-k">=</span> <span class="pl-c1">require</span>(<span class="pl-s"><span class="pl-pds">'</span>pomelo-sync-plugin<span class="pl-pds">'</span></span>);
+<span class="pl-c">// ...</span>
+<span class="pl-c">// Configure database</span>
+<span class="pl-smi">app</span>.<span class="pl-en">configure</span>(<span class="pl-s"><span class="pl-pds">'</span>production|development<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>area|auth|connector|master<span class="pl-pds">'</span></span>, <span class="pl-k">function</span>() {
+  <span class="pl-k">var</span> dbclient <span class="pl-k">=</span> <span class="pl-c1">require</span>(<span class="pl-s"><span class="pl-pds">'</span>./app/dao/mysql/mysql<span class="pl-pds">'</span></span>).<span class="pl-en">init</span>(app);
+  <span class="pl-smi">app</span>.<span class="pl-en">set</span>(<span class="pl-s"><span class="pl-pds">'</span>dbclient<span class="pl-pds">'</span></span>, dbclient);
+  <span class="pl-smi">app</span>.<span class="pl-en">use</span>(sync, {sync<span class="pl-k">:</span> {path<span class="pl-k">:</span><span class="pl-c1">__dirname</span> <span class="pl-k">+</span> <span class="pl-s"><span class="pl-pds">'</span>/app/dao/mapping<span class="pl-pds">'</span></span>, dbclient<span class="pl-k">:</span> dbclient}});
+});
+<span class="pl-c">// ...</span></pre></div>
+<p>Note: All js files under the "/app/dao/mapping" directory will be loaded into the pomelo-sync. These modules define the timing synchronization operations of the persistence layer. Loading modules code as shown below: </p>
+<div class="highlight highlight-source-js"><pre><span class="pl-c">// pomelo-sync-plugin/node_modules/pomelo-sync/lib/dbsync.js</span>
+<span class="pl-k">var</span> DataSync <span class="pl-k">=</span> <span class="pl-c1">module</span>.<span class="pl-en">exports</span> <span class="pl-k">=</span> <span class="pl-k">function</span>(<span class="pl-smi">options</span>) {
+  <span class="pl-c">// ...</span>
+  <span class="pl-v">this</span>.<span class="pl-smi">mapping</span> <span class="pl-k">=</span> <span class="pl-v">this</span>.<span class="pl-en">loadMapping</span>(<span class="pl-smi">options</span>.<span class="pl-smi">mappingPath</span>);
+  <span class="pl-c">// ...</span>
+};</pre></div>
+<h3>
+<a aria-hidden="true" class="anchor" href="#configure-synchronization-object-mapping-relationship" id="user-content-configure-synchronization-object-mapping-relationship"><span class="octicon octicon-link"></span></a>Configure synchronization object mapping relationship</h3>
+<p>The module supports user-defined synchronization methods, such as: </p>
+<div class="highlight highlight-source-js"><pre><span class="pl-c">// game-server/app/dao/mapping/taskSync.js</span>
+<span class="pl-smi">module</span>.<span class="pl-smi">exports</span> <span class="pl-k">=</span> {
+  <span class="pl-en">updateTask</span><span class="pl-k">:</span> <span class="pl-k">function</span>(<span class="pl-smi">dbclient</span>, <span class="pl-smi">val</span>, <span class="pl-smi">cb</span>) {
+    <span class="pl-k">var</span> sql <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">'</span>update Task set taskState = ?, startTime = ?, taskData = ? where id = ?<span class="pl-pds">'</span></span>;
+    <span class="pl-c">// ...</span>
+    <span class="pl-k">var</span> args <span class="pl-k">=</span> [<span class="pl-smi">val</span>.<span class="pl-smi">taskState</span>, <span class="pl-smi">val</span>.<span class="pl-smi">startTime</span>, taskData, <span class="pl-smi">val</span>.<span class="pl-c1">id</span>];
+    <span class="pl-smi">dbclient</span>.<span class="pl-en">query</span>(sql, args, <span class="pl-k">function</span>(<span class="pl-smi">err</span>, <span class="pl-smi">res</span>) {
+    <span class="pl-c">// ...</span>
+    });
+  }
+};</pre></div>
+<h3>
+<a aria-hidden="true" class="anchor" href="#create-sync-object" id="user-content-create-sync-object"><span class="octicon octicon-link"></span></a>Create sync object</h3>
+<div class="highlight highlight-source-js"><pre><span class="pl-c">// pomelo-sync-plugin/lib/components/sync.js</span>
+<span class="pl-k">var</span> DataSync <span class="pl-k">=</span> <span class="pl-c1">require</span>(<span class="pl-s"><span class="pl-pds">'</span>pomelo-sync<span class="pl-pds">'</span></span>);
+<span class="pl-c">// ...</span>
+<span class="pl-k">var</span> <span class="pl-en">createSync</span> <span class="pl-k">=</span> <span class="pl-k">function</span>(<span class="pl-smi">opts</span>){
+  <span class="pl-k">var</span> opt <span class="pl-k">=</span> opts <span class="pl-k">||</span> {};
+  <span class="pl-smi">opt</span>.<span class="pl-smi">mappingPath</span> <span class="pl-k">=</span> <span class="pl-smi">opts</span>.<span class="pl-smi">path</span>;
+  <span class="pl-smi">opt</span>.<span class="pl-smi">client</span> <span class="pl-k">=</span> <span class="pl-smi">opts</span>.<span class="pl-smi">dbclient</span>;
+  <span class="pl-smi">opt</span>.<span class="pl-smi">interval</span> <span class="pl-k">=</span> <span class="pl-smi">opts</span>.<span class="pl-smi">interval</span> <span class="pl-k">||</span> <span class="pl-c1">60</span> <span class="pl-k">*</span> <span class="pl-c1">1000</span>;
+  <span class="pl-k">return</span> <span class="pl-k">new</span> <span class="pl-en">DataSync</span>(opt);
+};</pre></div>
+<h2>
+<a aria-hidden="true" class="anchor" href="#api" id="user-content-api"><span class="octicon octicon-link"></span></a>API</h2>
+<h3>
+<a aria-hidden="true" class="anchor" href="#syncexeckeyidvalcb" id="user-content-syncexeckeyidvalcb"><span class="octicon octicon-link"></span></a>sync.exec(key,id,val,cb)</h3>
+<p>Adding asynchronous operations that are performed regularly</p>
+<h4>
+<a aria-hidden="true" class="anchor" href="#arguments" id="user-content-arguments"><span class="octicon octicon-link"></span></a>Arguments</h4>
+<ul>
+<li>key - mapping keyword, need to be unique. </li>
+<li>id  - the primary key of the entity object. </li>
+<li>val - synchronization object, will be cloned after adding.</li>
+<li>cb  - an asynchronous callback after synchronization, can be null. </li>
+</ul>
+<p>Specific example:</p>
+<div class="highlight highlight-source-js"><pre><span class="pl-c">// app/dao/taskDao.js</span>
+<span class="pl-c">// ...</span>
+<span class="pl-smi">task</span>.<span class="pl-en">on</span>(<span class="pl-s"><span class="pl-pds">'</span>save<span class="pl-pds">'</span></span>, <span class="pl-k">function</span>() {
+  <span class="pl-smi">app</span>.<span class="pl-en">get</span>(<span class="pl-s"><span class="pl-pds">'</span>sync<span class="pl-pds">'</span></span>).<span class="pl-c1">exec</span>(<span class="pl-s"><span class="pl-pds">'</span>taskSync.updateTask<span class="pl-pds">'</span></span>, <span class="pl-smi">task</span>.<span class="pl-c1">id</span>, task);
+});
+<span class="pl-c">// ...</span></pre></div>
+<h3>
+<a aria-hidden="true" class="anchor" href="#syncflushkeyidvalcb" id="user-content-syncflushkeyidvalcb"><span class="octicon octicon-link"></span></a>sync.flush(key,id,val,cb)</h3>
+<p>Sync an object to persistence layer immediately</p>
+<h4>
+<a aria-hidden="true" class="anchor" href="#arguments-1" id="user-content-arguments-1"><span class="octicon octicon-link"></span></a>Arguments</h4>
+<ul>
+<li>key - mapping keyword, need to be unique. </li>
+<li>id  - the primary key of the entity object. </li>
+<li>val - synchronization object.</li>
+<li>cb  - an asynchronous callback after synchronization, can be null. </li>
+</ul>
+<h3>
+<a aria-hidden="true" class="anchor" href="#syncisdone" id="user-content-syncisdone"><span class="octicon octicon-link"></span></a>sync.isDone()</h3>
+<p>Check whether there are data objects in the memory that are needed to be synchronized to persistence layer. Generally used with "sync()" method. </p>
+<h3>
+<a aria-hidden="true" class="anchor" href="#syncsync" id="user-content-syncsync"><span class="octicon octicon-link"></span></a>sync.sync()</h3>
+<p>Ignoring the timer, it performs the synchronization process immediately. Generally, it is used when the server is shutting down. The code is as follows: </p>
+<div class="highlight highlight-source-js"><pre><span class="pl-c">// pomelo-sync-plugin/lib/components/sync.js</span>
+<span class="pl-c1">Component</span>.<span class="pl-c1">prototype</span>.<span class="pl-en">stop</span> <span class="pl-k">=</span> <span class="pl-k">function</span>(<span class="pl-smi">force</span>, <span class="pl-smi">cb</span>) {
+  <span class="pl-c">// ...</span>
+  <span class="pl-v">this</span>.<span class="pl-smi">state</span> <span class="pl-k">=</span> <span class="pl-c1">STATE_STOPED</span>;
+  <span class="pl-v">this</span>.<span class="pl-smi">sync</span>.<span class="pl-en">sync</span>();
+  <span class="pl-k">var</span> self <span class="pl-k">=</span> <span class="pl-v">this</span>;
+  <span class="pl-k">var</span> interval <span class="pl-k">=</span> <span class="pl-c1">setInterval</span>(<span class="pl-k">function</span>(){
+    <span class="pl-k">if</span> (<span class="pl-smi">self</span>.<span class="pl-smi">sync</span>.<span class="pl-en">isDone</span>()) {
+      <span class="pl-c1">clearInterval</span>(interval);
+      <span class="pl-en">cb</span>();
+    }
+  }, <span class="pl-c1">200</span>);
+};</pre></div>
+<h2>
+<a aria-hidden="true" class="anchor" href="#other-parameter-options" id="user-content-other-parameter-options"><span class="octicon octicon-link"></span></a>Other parameter options</h2>
+<p>The module's default synchronization interval is "1000 * 60"(1 minute). You can modify it by using the "opt.interval" parameter. </p>
+<p>The "AOF" logging function is off by default in the module. If you want to open, you can use "opts.AOF=true" to open it. </p>
+<h2>
+<a aria-hidden="true" class="anchor" href="#notice" id="user-content-notice"><span class="octicon octicon-link"></span></a>Notice</h2>
+<p>If you need support transactions operation, it should be dependent on the persistence layer's built-in transaction model to guarantee. </p>
+<h2>
+<a aria-hidden="true" class="anchor" href="#others" id="user-content-others"><span class="octicon octicon-link"></span></a>Others</h2>
+<p>More detailed example, please refer to the module <a href="https://github.com/NetEase/pomelo-sync">source</a> and <a href="https://github.com/NetEase/lordofpomelo">GameDemo</a>. </p>
+</div>
+</div></body></html>

@@ -1,0 +1,228 @@
+<html><head>
+<script charset="utf-8" id="allmobilize" src="src/3a2b543370de13310019b38bacd1097c.js"></script><meta content="no-siteapp" http-equiv="Cache-Control"/><link href="#" media="handheld" rel="alternate"/>
+<meta content="text/html;	charset=utf-8" http-equiv="Content-Type">
+<title>【原创】利用MySQL触发器高性能造数据 - 上帝，咱们不见不散！ - 51CTO技术博客</title>
+<meta content=" MySQL触发器功能比较简单，大部分只用来简单的更新第三方表，今天我来演示下MySQL触发器在造数据方面的功效。   下面是基表结果： CREATE TABLE `tb1` (  &amp;n.." name="description">
+<meta content="MySQL,触发器,存储过程,INNODB,造数据" name="keywords">
+<meta content="private" http-equiv="Cache-Control">
+
+<script src="src/6413294398e1d4f2cf1d9a8b6a63f03b.js"></script>
+<script language="javascript" src="src/6b7d97709430823503c457787870ac48.js" type="text/javascript"></script>
+<script language="javascript" src="src/a480c670f342961bc27a21a170e20b5e.js" type="text/javascript"></script>
+<script language="javascript" src="src/643c1a41c677ed19e8f7234bba1c415b.js" type="text/javascript"></script>
+<script language="javascript" src="src/c3233f645999f785e33f74ec11936579.js" type="text/javascript"></script>
+<link href="src/fe1a5385c63a2e025cd540aa77632011.css" rel="stylesheet" type="text/css">
+<link href="../rss.php?uid=397025" rel="alternate" title="RSS 2.0" type="application/rss+xml">
+<link href="xmlrpc.php?rsd=1" rel="edituri" title="rsd" type="application/rsd+xml"/>
+<link href="src/c6cbcc83f9e6186dd21ec4d761afd5ca.css" rel="stylesheet" type="text/css"/>
+<link href="src/cddd5571a5f3b7b750eb1fc4e114d2d0.css" rel="stylesheet" type="text/css"/>
+<style type="text/css">
+	.mainNav li a{display:inline-block}
+</style>
+<script>
+var myid = "";
+function add_flink(){
+	if(myid==""){
+
+        var refurlk = "http://yueliangdao0608.blog.51cto.com/397025/1066993";
+
+				//commentSubmit("",refurlk);
+				location.href="http://home.51cto.com/index.php?reback="+encodeURIComponent(encodeURIComponent(refurlk));
+				
+				return false;
+	}else{
+		var mtk = "cea36cf93714a192b385bd2c1285dd70";
+      		var url='/mod/edit_flink.php?type=addflink&uid=397025&flink=http://yueliangdao0608.blog.51cto.com&mtk='+mtk;
+		var ajax = InitAjax1();
+		ajax.open("GET", url, true);
+		ajax.onreadystatechange = function() {
+			if (ajax.readyState == 4 && ajax.status == 200) {
+				/*if(myid == 5290427){
+					alert(ajax.responseText);
+				}*/
+				if(ajax.responseText==""){
+					alert("添加成功。");
+				}
+				if(ajax.responseText=="1"){
+				alert("链接指向自己。");
+				}
+				if(ajax.responseText=="2"){
+				alert("友情链接已存在。")
+				}
+				if(ajax.responseText=="4"){
+					alert("验证已过期。")
+					}
+			}
+		}
+		ajax.send(null);
+	}
+
+
+
+}
+function sendmessage(){
+
+	var refurlk = "http://yueliangdao0608.blog.51cto.com/397025/1066993";
+
+	if(myid){
+		return true;
+	}else{
+		commentSubmit("",refurlk);
+		return false;
+	}
+}
+function copylink(ourl){
+	if(!ourl){
+		var clipBoardContent = "http://yueliangdao0608.blog.51cto.com";
+	}else{
+		var clipBoardContent = ourl;
+	}
+	window.clipboardData.setData("Text",clipBoardContent);
+	alert("复制成功!");
+	return false;
+}
+function correctPNG() {
+if (document.getElementById('blog_touxian'))
+{
+var img = document.getElementById('blog_touxian');
+      var imgName = img.src.toUpperCase()
+      var imgID = (img.id) ? "id='" + img.id + "' " : ""
+      var imgClass = (img.className) ? "class='" + img.className + "' " : ""
+      var imgTitle = (img.title) ? "title='" + img.title + "' " : "title='" + img.alt + "' "
+      var imgStyle = "display:inline-block;" + img.style.cssText
+      if (img.align == "left") imgStyle = "float:left;" + imgStyle
+      if (img.align == "right") imgStyle = "float:right;" + imgStyle
+      if (img.parentElement.href) imgStyle = "cursor:hand;" + imgStyle
+      var strNewHTML = "<span " + imgID + imgClass + imgTitle
+         + " style=\"" + "width:" + img.width + "px; height:" + img.height + "px;" + imgStyle + ";"
+         + "filter:progid:DXImageTransform.Microsoft.AlphaImageLoader"
+         + "(src=\'" + img.src + "\', sizingMethod='scale');\"></span>" ;
+      img.outerHTML = strNewHTML;
+}
+}
+//window.attachEvent("onload", correctPNG);
+window.onload=correctPNG;
+
+function copy(){
+var text=document.getElementById("txtUser").value;
+if(copy2Clipboard(text)!=false){ 
+alert("复制成功了！ "); 
+} 
+}
+function copy2Clipboard(txt){ 
+if(window.clipboardData){ 
+window.clipboardData.clearData(); 
+window.clipboardData.setData("Text",txt); 
+}else if(navigator.userAgent.indexOf("Opera")!=-1){ 
+window.location=txt; 
+}else if(window.netscape){ 
+try{ 
+netscape.security.PrivilegeManager.enablePrivilege("UniversalXPConnect"); 
+} 
+catch(e){ 
+alert("您使用的浏览器不支持此复制功能，请使用Ctrl+C或鼠标右键。"); 
+return false; 
+} 
+var clip=Components.classes['@mozilla.org/widget/clipboard;1'].createInstance(Components.interfaces.nsIClipboard); 
+if(!clip)return; 
+var trans=Components.classes['@mozilla.org/widget/transferable;1'].createInstance(Components.interfaces.nsITransferable); 
+if(!trans)return; 
+trans.addDataFlavor('text/unicode'); 
+var str=new Object(); 
+var len=new Object(); 
+var str=Components.classes["@mozilla.org/supports-string;1"].createInstance(Components.interfaces.nsISupportsString); 
+var copytext=txt;str.data=copytext; 
+trans.setTransferData("text/unicode",str,copytext.length*2); 
+var clipid=Components.interfaces.nsIClipboard; 
+if(!clip)return false; 
+clip.setData(trans,null,clipid.kGlobalClipboard); 
+return true;
+} 
+}
+
+function mod_close(){
+  document.getElementById('mod_tg').style.display="none";
+}
+
+function match_invite(uid) {
+    var url='/mod/match_invite.php';
+	var ajax = InitAjax();
+    var re = 'uid=' + uid;
+	ajax.open("POST", url, true);
+    ajax.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
+	ajax.send(re);
+    ajax.onreadystatechange = function() {
+        if (ajax.readyState == 4 && ajax.status == 200) {
+            if(ajax.responseText == 1){
+                alert("邀请信息已经发送成功。");
+            } else if(ajax.responseText=="-1"){
+                alert("邀请失败，请稍候再试。");
+            } else if(ajax.responseText=="2"){
+                alert("该用户已经报名了。")
+            }
+        }
+    }
+}
+
+</script>
+<style type="text/css">
+/*
+.artContent img {max-width:450px !important;}
+.showContent img{max-width:650px!important;}
+*/
+
+.artContent img{max-width: 450px; width:expression(this.width > 450 ? "450px" : this.width)}
+/*
+.showContent img{max-width: 450px; width:expression(this.width > 650 ? "650px" : this.width)}
+*/
+
+
+</style>
+</link></link></meta></meta></meta></meta></head><body><div class="showContent">
+<p> MySQL 触发器功能比较简单，大部分只用来简单的更新第三方表，今天我来演示下MySQL触发器在造数据方面的功效。 </p>
+<div> </div>
+<div> </div>
+<div>下面是基表结果：</div>
+<div> </div>
+<pre><ol class="dp-sql"><li class="alt"><span><span class="keyword">CREATE</span><span> </span><span class="keyword">TABLE</span><span> `tb1` ( </span></span></li><li><span>  `id` <span class="keyword">varchar</span><span>(255) </span><span class="op">NOT</span><span> </span><span class="op">NULL</span><span>, </span></span></li><li class="alt"><span>  `log_date` <span class="keyword">date</span><span> </span><span class="keyword">DEFAULT</span><span> </span><span class="op">NULL</span><span>, </span></span></li><li><span>  <span class="keyword">PRIMARY</span><span> </span><span class="keyword">KEY</span><span> (`id`) </span></span></li><li class="alt"><span>) ENGINE=InnoDB <span class="keyword">DEFAULT</span><span> CHARSET=utf8 ROW_FORMAT=FIXED </span></span></li></ol></pre>
+<div> </div>
+<div> </div>
+<div>这个是对基表的批量插入存储过程:</div>
+<div> </div>
+<pre><ol class="dp-sql"><li class="alt"><span><span class="keyword">CREATE</span><span> DEFINER = </span><span class="string">'root'</span><span>@</span><span class="string">'localhost'</span><span> </span></span></li><li><span><span class="keyword">PROCEDURE</span><span> db_myisam.sp_generate_tb1_data(</span><span class="op">IN</span><span> cur_1        </span><span class="keyword">INT</span><span>, </span></span></li><li class="alt"><span>                                         <span class="op">IN</span><span> f_input      </span><span class="keyword">INT</span><span>, </span></span></li><li><span>                                         <span class="op">IN</span><span> f_commit_num </span><span class="keyword">INT</span><span> </span></span></li><li class="alt"><span>                                         <span class="comment">-- Stands for which month's date.</span><span> </span></span></li><li><span>) </span></li><li class="alt"><span><span class="keyword">BEGIN</span><span> </span></span></li><li><span>  <span class="keyword">DECLARE</span><span> t_count     </span><span class="keyword">INT</span><span>; </span></span></li><li class="alt"><span>  <span class="keyword">DECLARE</span><span> v_log_date </span><span class="keyword">DATE</span><span>; </span></span></li><li><span>  <span class="keyword">DECLARE</span><span> c_date  </span><span class="keyword">DATE</span><span> </span><span class="keyword">DEFAULT</span><span> </span><span class="string">'2012-07-01'</span><span>; </span></span></li><li class="alt"><span> </span></li><li><span>  <span class="keyword">SET</span><span> t_count = cur_1 + (f_input - 1); </span></span></li><li class="alt"><span>  <span class="keyword">SET</span><span> @@autocommit = 0; </span></span></li><li><span> </span></li><li class="alt"><span>  WHILE cur_1 &lt;= t_count </span></li><li><span>  DO </span></li><li class="alt"><span>    IF mod(cur_1, f_commit_num) = 1 <span class="keyword">THEN</span><span> </span></span></li><li><span>      START <span class="keyword">TRANSACTION</span><span>; </span></span></li><li class="alt"><span>    <span class="keyword">END</span><span> IF; </span></span></li><li><span>    <span class="keyword">SET</span><span> v_log_date = date_add(c_date, INTERVAL ceil(rand() * 3) * (ceil(rand() * 15)) </span><span class="func">DAY</span><span>); </span></span></li><li class="alt"><span>    <span class="keyword">INSERT</span><span> </span><span class="keyword">INTO</span><span> tb1 (id, log_date) </span><span class="keyword">VALUES</span><span> (cur_1, v_log_date); </span></span></li><li><span>    IF mod(cur_1, f_commit_num) = 0 <span class="keyword">THEN</span><span> </span></span></li><li class="alt"><span>      <span class="keyword">COMMIT</span><span>; </span></span></li><li><span>    <span class="keyword">END</span><span> IF; </span></span></li><li class="alt"><span>    <span class="keyword">SET</span><span> cur_1 = cur_1 + 1; </span></span></li><li><span>  <span class="keyword">END</span><span> WHILE; </span></span></li><li class="alt"><span>  <span class="keyword">COMMIT</span><span>; </span></span></li><li><span><span class="keyword">END</span><span> </span></span></li></ol></pre>
+<div> </div>
+<div> </div>
+<div> </div>
+<div> </div>
+<div>单线程造数据：</div>
+<div> </div>
+<div> </div>
+<pre><ol class="dp-sql"><li class="alt"><span><span>mysql&gt; call sp_generate_tb1_data(1,10000000,200); </span></span></li><li><span>Query OK, 0 <span class="keyword">rows</span><span> affected (8 </span><span class="keyword">min</span><span> 20.00 sec) </span></span></li></ol></pre>
+<div> </div>
+<div>1KW行记录花了8分钟多，也就是一个线程每秒插入2W条记录。</div>
+<div> </div>
+<div> </div>
+<pre><ol class="dp-sql"><li class="alt"><span><span>mysql&gt; </span><span class="keyword">select</span><span> </span><span class="func">count</span><span>(*) </span><span class="keyword">from</span><span> tb1; </span></span></li><li><span>+<span class="comment">----------+</span><span> </span></span></li><li class="alt"><span>| <span class="func">count</span><span>(*) | </span></span></li><li><span>+<span class="comment">----------+</span><span> </span></span></li><li class="alt"><span>| 10000000 | </span></li><li><span>+<span class="comment">----------+</span><span> </span></span></li><li class="alt"><span>1 row <span class="op">in</span><span> </span><span class="keyword">set</span><span> (34.35 sec) </span></span></li></ol></pre>
+<div> </div>
+<div> </div>
+<div>创建复制表：</div>
+<div> </div>
+<pre><ol class="dp-sql"><li class="alt"><span><span class="keyword">create</span><span> </span><span class="keyword">table</span><span> tb2 </span><span class="op">like</span><span> tb1; </span></span></li><li><span><span class="keyword">create</span><span> </span><span class="keyword">table</span><span> tb3 </span><span class="op">like</span><span> tb1; </span></span></li></ol></pre>
+<div> </div>
+<div>这里比较恶心的是多建立了一个表tb3，因为MySQL触发器暂时不支持自己对自己插入。</div>
+<div> </div>
+<div> </div>
+<div> </div>
+<div>这个是基于表tb3的后置插入触发器：</div>
+<div> </div>
+<pre><ol class="dp-sql"><li class="alt"><span><span class="keyword">CREATE</span><span>  </span></span></li><li><span>    DEFINER = <span class="string">'root'</span><span>@</span><span class="string">'localhost'</span><span> </span></span></li><li class="alt"><span><span class="keyword">TRIGGER</span><span> db_myisam.ti_tb3_after </span></span></li><li><span>    <span class="keyword">AFTER</span><span> </span><span class="keyword">INSERT</span><span> </span></span></li><li class="alt"><span>    <span class="keyword">ON</span><span> db_myisam.tb3 </span></span></li><li><span>    <span class="keyword">FOR</span><span> EACH ROW </span></span></li><li class="alt"><span><span class="keyword">BEGIN</span><span> </span></span></li><li><span>  <span class="keyword">DECLARE</span><span> v_cur_1    </span><span class="keyword">INT</span><span> </span><span class="keyword">DEFAULT</span><span> 1; </span></span></li><li class="alt"><span>  <span class="keyword">DECLARE</span><span> v_log_date </span><span class="keyword">DATE</span><span>; </span></span></li><li><span>  <span class="keyword">DECLARE</span><span> c_date     </span><span class="keyword">DATE</span><span> </span><span class="keyword">DEFAULT</span><span> </span><span class="string">'2012-07-01'</span><span>; </span></span></li><li class="alt"><span> </span></li><li><span>  WHILE v_cur_1 &lt;= 10000000 </span></li><li class="alt"><span>  DO </span></li><li><span>    <span class="keyword">SET</span><span> v_log_date = date_add(c_date, INTERVAL ceil(rand() * 3) * (ceil(rand() * 15)) </span><span class="func">DAY</span><span>); </span></span></li><li class="alt"><span>    <span class="keyword">INSERT</span><span> </span><span class="keyword">INTO</span><span> tb2 (id, log_date) </span><span class="keyword">VALUES</span><span> (v_cur_1, v_log_date); </span></span></li><li><span>    <span class="keyword">SET</span><span> v_cur_1 = v_cur_1 + 1; </span></span></li><li class="alt"><span>  <span class="keyword">END</span><span> WHILE; </span></span></li><li><span><span class="keyword">END</span><span> </span></span></li></ol></pre>
+<div> </div>
+<div> </div>
+<div>1KW记录花了不到6分钟，也就是一个线程每秒插入大于3W记录。</div>
+<div> </div>
+<pre><ol class="dp-sql"><li class="alt"><span><span>mysql&gt; </span><span class="keyword">insert</span><span> </span><span class="keyword">into</span><span> tb3 </span><span class="keyword">values</span><span> (2,</span><span class="keyword">current_date</span><span>()); </span></span></li><li><span>Query OK, 1 row affected (5 <span class="keyword">min</span><span> 14.07 sec) </span></span></li></ol></pre>
+<div> </div>
+<div>可以看到，速度比存储过程提升了60%左右。 </div>
+<div> </div>
+<div>怎么样，很HAPPY吧？</div><p>本文出自 “<a href="http://yueliangdao0608.blog.51cto.com">上帝，咱们不见不散！</a>” 博客，请务必保留此出处<a href="http://yueliangdao0608.blog.51cto.com/397025/1066993">http://yueliangdao0608.blog.51cto.com/397025/1066993</a></p>
+</div></body></html>

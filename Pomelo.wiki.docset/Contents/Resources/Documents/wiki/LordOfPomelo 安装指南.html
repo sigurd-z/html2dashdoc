@@ -1,0 +1,195 @@
+<html><head prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# object: http://ogp.me/ns/object# article: http://ogp.me/ns/article# profile: http://ogp.me/ns/profile#">
+<meta charset="utf-8">
+<meta content="IE=edge" http-equiv="X-UA-Compatible">
+<meta content="en" http-equiv="Content-Language">
+<meta content="width=1020" name="viewport">
+<title>LordOfPomelo 安装指南 · NetEase/pomelo Wiki · GitHub</title>
+<link href="/opensearch.xml" rel="search" title="GitHub" type="application/opensearchdescription+xml">
+<link href="src/ad667adaa2cfe8f3caa4a41b7d0a79a1.png" rel="fluid-icon" title="GitHub">
+<link href="src/a10d19ff5f738940a7a5086be334f50b.png" rel="apple-touch-icon" sizes="57x57">
+<link href="src/a10d19ff5f738940a7a5086be334f50b.png" rel="apple-touch-icon" sizes="114x114">
+<link href="src/b4cd268bc600cc14d2cdd557de6da2fb.png" rel="apple-touch-icon" sizes="72x72">
+<link href="src/b4cd268bc600cc14d2cdd557de6da2fb.png" rel="apple-touch-icon" sizes="144x144">
+<meta content="1401488693436528" property="fb:app_id">
+<meta content="@github" name="twitter:site"/><meta content="summary" name="twitter:card"/><meta content="NetEase/pomelo" name="twitter:title"/><meta content="pomelo - A fast,scalable,distributed game server framework for Node.js." name="twitter:description"/><meta content="https://avatars0.githubusercontent.com/u/1460597?v=3&amp;s=400" name="twitter:image:src"/>
+<meta content="GitHub" property="og:site_name"/><meta content="object" property="og:type"/><meta content="https://avatars0.githubusercontent.com/u/1460597?v=3&amp;s=400" property="og:image"/><meta content="NetEase/pomelo" property="og:title"/><meta content="https://github.com/NetEase/pomelo" property="og:url"/><meta content="pomelo - A fast,scalable,distributed game server framework for Node.js." property="og:description"/>
+<meta content="https://api.github.com/_private/browser/stats" name="browser-stats-url">
+<meta content="https://api.github.com/_private/browser/errors" name="browser-errors-url">
+<link href="https://assets-cdn.github.com/" rel="assets">
+<meta content="1000" name="pjax-timeout">
+<meta content="/windows-tile.png" name="msapplication-TileImage">
+<meta content="#ffffff" name="msapplication-TileColor">
+<meta data-pjax-transient="" name="selected-link" value="repo_wiki">
+<meta content="KT5gs8h0wvaagLKAVWq8bbeNwnZZK1r1XQysX3xurLU" name="google-site-verification">
+<meta content="UA-3769691-2" name="google-analytics">
+<meta content="collector.githubapp.com" name="octolytics-host"/><meta content="github" name="octolytics-app-id"/><meta content="CA86616A:448C:146B46BD:5670C04F" name="octolytics-dimension-request_id"/>
+<meta content="/&lt;user-name&gt;/&lt;repo-name&gt;/wiki/show" data-pjax-transient="true" name="analytics-location"/>
+<meta content="Rails, view, wiki#show" data-pjax-transient="true" name="analytics-event"/>
+<meta class="js-ga-set" content="Logged Out" name="dimension1">
+<meta content="github.com" name="hostname">
+<meta content="" name="user-login">
+<meta content="github.com" name="expected-hostname">
+<link color="#4078c0" href="https://assets-cdn.github.com/pinned-octocat.svg" rel="mask-icon">
+<link href="https://assets-cdn.github.com/favicon.ico" rel="icon" type="image/x-icon">
+<meta content="1a62317ab94c368459addfdcf76edfcd15fc0e64" name="form-nonce"/>
+<link crossorigin="anonymous" href="src/350888e1495e7af27e01faa9d8291dee.css" media="all" rel="stylesheet"/>
+<link crossorigin="anonymous" href="src/9fae9b7d8f0785d745a43c6465f74ae5.css" media="all" rel="stylesheet"/>
+<meta content="cd9958d45e48e8e3157a320e9c346eaa" http-equiv="x-pjax-version">
+<meta content="pomelo - A fast,scalable,distributed game server framework for Node.js." name="description">
+<meta content="github.com/NetEase/pomelo git https://github.com/NetEase/pomelo.git" name="go-import">
+<meta content="1460597" name="octolytics-dimension-user_id"/><meta content="NetEase" name="octolytics-dimension-user_login"/><meta content="5880912" name="octolytics-dimension-repository_id"/><meta content="NetEase/pomelo" name="octolytics-dimension-repository_nwo"/><meta content="true" name="octolytics-dimension-repository_public"/><meta content="false" name="octolytics-dimension-repository_is_fork"/><meta content="5880912" name="octolytics-dimension-repository_network_root_id"/><meta content="NetEase/pomelo" name="octolytics-dimension-repository_network_root_nwo"/>
+<link href="https://github.com/NetEase/pomelo/commits/master.atom" rel="alternate" title="Recent Commits to pomelo:master" type="application/atom+xml">
+</link></meta></meta></meta></link></link></meta></meta></meta></meta></meta></meta></meta></meta></meta></meta></link></meta></meta></meta></link></link></link></link></link></link></meta></meta></meta></meta></head><body style="padding:0 25px;"><div class="gollum-markdown-content instapaper_body" id="wiki-body">
+<div class="markdown-body">
+<h1>
+<a aria-hidden="true" class="anchor" href="#lordofpomelo%E4%BB%8B%E7%BB%8D" id="user-content-lordofpomelo介绍"><span class="octicon octicon-link"></span></a>LordOfPomelo介绍</h1>
+<p>LordOfPomelo是一个基于Pomelo游戏框架开发的MMORPG(大型多人在线角色扮演游戏)的游戏Demo, 具有角色、怪物、装备、战斗、聊天、技能、升级系统、任务系统、组队、副本等较为完整的游戏功能. </p>
+<p>LordOfPomelo服务端采用了Pomelo框架, 客户端采用了基于HTML5的colorbox框架, 在大约3个月的时间内实现快速开发. 服务端约8000行代码, 客户端约6000行代码. 支持单场景800人以上的并发访问, 响应时间控制在100ms左右. </p>
+<h1>
+<a aria-hidden="true" class="anchor" href="#%E8%BF%90%E8%A1%8C%E7%8E%AF%E5%A2%83" id="user-content-运行环境"><span class="octicon octicon-link"></span></a>运行环境</h1>
+<ul>
+<li><a href="http://nodejs.org/">nodejs</a></li>
+<li>Windows、Linux 或 MacOS 操作系统</li>
+<li>MySql 数据库</li>
+</ul>
+<h1>
+<a aria-hidden="true" class="anchor" href="#%E5%AE%89%E8%A3%85lordofpomelo" id="user-content-安装lordofpomelo"><span class="octicon octicon-link"></span></a>安装LordOfPomelo</h1>
+<h2>
+<a aria-hidden="true" class="anchor" href="#%E4%B8%8B%E8%BD%BD%E6%BA%90%E7%A0%81" id="user-content-下载源码"><span class="octicon octicon-link"></span></a>下载源码</h2>
+<p><code>git clone https://github.com/NetEase/lordofpomelo.git</code></p>
+<h2>
+<a aria-hidden="true" class="anchor" href="#%E5%AE%89%E8%A3%85%E4%BE%9D%E8%B5%96%E5%8C%85" id="user-content-安装依赖包"><span class="octicon octicon-link"></span></a>安装依赖包</h2>
+<p>进入目录：
+<code>cd lordofpomelo</code></p>
+<p>安装依赖包：
+<code>sh npm-install.sh</code>(Windows: <code>npm-install.bat</code>)</p>
+<h1>
+<a aria-hidden="true" class="anchor" href="#%E5%88%9B%E5%BB%BAmysql%E6%95%B0%E6%8D%AE%E5%BA%93" id="user-content-创建mysql数据库"><span class="octicon octicon-link"></span></a>创建MySql数据库</h1>
+<h2>
+<a aria-hidden="true" class="anchor" href="#%E5%88%9B%E5%BB%BA%E6%95%B0%E6%8D%AE%E5%BA%93" id="user-content-创建数据库"><span class="octicon octicon-link"></span></a>创建数据库</h2>
+<p>sql文件路径：./game-server/config/schema/Pomelo.sql</p>
+<ul>
+<li>安装MySql数据库(略)</li>
+<li>登录MySql:
+<code>mysql –u用户名 –p密码</code>
+(登录成功提示符：mysql&gt;)</li>
+<li>创建数据库:
+<code>mysql&gt; create database Pomelo;</code>
+</li>
+<li>选择数据库:
+<code>mysql&gt; use Pomelo;</code>
+</li>
+<li>导入sql文件:
+<code>mysql&gt; source ./game-server/config/schema/Pomelo.sql</code>
+</li>
+</ul>
+<h2>
+<a aria-hidden="true" class="anchor" href="#%E4%BF%AE%E6%94%B9%E6%95%B0%E6%8D%AE%E5%BA%93%E9%85%8D%E7%BD%AE" id="user-content-修改数据库配置"><span class="octicon octicon-link"></span></a>修改数据库配置</h2>
+<p>数据库配置文件为./shared/config/mysql.json</p>
+<div class="highlight highlight-source-json"><pre>{
+  <span class="pl-s"><span class="pl-pds">"</span>development<span class="pl-pds">"</span></span>: {
+   <span class="pl-s"><span class="pl-pds">"</span>host<span class="pl-pds">"</span></span> : <span class="pl-s"><span class="pl-pds">"</span>127.0.0.1<span class="pl-pds">"</span></span>,
+    <span class="pl-s"><span class="pl-pds">"</span>port<span class="pl-pds">"</span></span> : <span class="pl-s"><span class="pl-pds">"</span>3306<span class="pl-pds">"</span></span>,
+    <span class="pl-s"><span class="pl-pds">"</span>database<span class="pl-pds">"</span></span> : <span class="pl-s"><span class="pl-pds">"</span>Pomelo<span class="pl-pds">"</span></span>,
+    <span class="pl-s"><span class="pl-pds">"</span>user<span class="pl-pds">"</span></span> : <span class="pl-s"><span class="pl-pds">"</span>xy<span class="pl-pds">"</span></span>,
+    <span class="pl-s"><span class="pl-pds">"</span>password<span class="pl-pds">"</span></span> : <span class="pl-s"><span class="pl-pds">"</span>dev<span class="pl-pds">"</span></span>
+  },
+  <span class="pl-s"><span class="pl-pds">"</span>production<span class="pl-pds">"</span></span>: {
+   <span class="pl-s"><span class="pl-pds">"</span>host<span class="pl-pds">"</span></span> : <span class="pl-s"><span class="pl-pds">"</span>127.0.0.1<span class="pl-pds">"</span></span>,
+    <span class="pl-s"><span class="pl-pds">"</span>port<span class="pl-pds">"</span></span> : <span class="pl-s"><span class="pl-pds">"</span>3306<span class="pl-pds">"</span></span>,
+    <span class="pl-s"><span class="pl-pds">"</span>database<span class="pl-pds">"</span></span> : <span class="pl-s"><span class="pl-pds">"</span>Pomelo<span class="pl-pds">"</span></span>,
+    <span class="pl-s"><span class="pl-pds">"</span>user<span class="pl-pds">"</span></span> : <span class="pl-s"><span class="pl-pds">"</span>xy<span class="pl-pds">"</span></span>,
+    <span class="pl-s"><span class="pl-pds">"</span>password<span class="pl-pds">"</span></span> : <span class="pl-s"><span class="pl-pds">"</span>dev<span class="pl-pds">"</span></span>
+  }
+}</pre></div>
+<p>将"development"环境下的的数据库配置修改为实际的配置. </p>
+<h1>
+<a aria-hidden="true" class="anchor" href="#%E8%BF%90%E8%A1%8C%E6%B8%B8%E6%88%8F" id="user-content-运行游戏"><span class="octicon octicon-link"></span></a>运行游戏</h1>
+<p>需要分别启动game-server和web-server. 
+game-server的启动方式：</p>
+<ul>
+<li>
+<code>pomelo start</code> (pomelo的安装方法参考<a href="https://github.com/NetEase/pomelo/wiki/pomelo%E5%BF%AB%E9%80%9F%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97">pomelo快速使用指南</a>) 注: 如果上次启动的进程没有完全退出, 可以使用<code>pomelo kill --force</code>来结束所有node进程. </li>
+</ul>
+<p>web-server的启动方式：</p>
+<ul>
+<li><code>cd web-server &amp;&amp; node app</code></li>
+</ul>
+<h1>
+<a aria-hidden="true" class="anchor" href="#%E8%AE%BF%E9%97%AE%E6%B8%B8%E6%88%8F" id="user-content-访问游戏"><span class="octicon octicon-link"></span></a>访问游戏</h1>
+<p>本地运行, 直接在浏览器中访问 http://localhost:3001 或者 <a href="http://127.0.0.1:3001">http://127.0.0.1:3001</a></p>
+<p>浏览器需支持websocket, 推荐使用chrome. </p>
+<h1>
+<a aria-hidden="true" class="anchor" href="#%E7%9B%B8%E5%85%B3%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95" id="user-content-相关问题解决办法"><span class="octicon octicon-link"></span></a>相关问题解决办法</h1>
+<ol>
+<li>端口冲突</li>
+</ol>
+<p>修改服务器配置文件./game-server/config/servers.json,内容如下：</p>
+<div class="highlight highlight-source-json"><pre>{
+  <span class="pl-s"><span class="pl-pds">"</span>development<span class="pl-pds">"</span></span>: {
+    <span class="pl-s"><span class="pl-pds">"</span>connector<span class="pl-pds">"</span></span>: [
+      {<span class="pl-s"><span class="pl-pds">"</span>id<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>connector-server-1<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>host<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>127.0.0.1<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>port<span class="pl-pds">"</span></span>: <span class="pl-c1">3150</span>, <span class="pl-s"><span class="pl-pds">"</span>clientPort<span class="pl-pds">"</span></span>: <span class="pl-c1">3010</span>, <span class="pl-s"><span class="pl-pds">"</span>frontend<span class="pl-pds">"</span></span>: <span class="pl-c1">true</span>},
+      {<span class="pl-s"><span class="pl-pds">"</span>id<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>connector-server-2<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>host<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>127.0.0.1<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>port<span class="pl-pds">"</span></span>: <span class="pl-c1">3151</span>, <span class="pl-s"><span class="pl-pds">"</span>clientPort<span class="pl-pds">"</span></span>:<span class="pl-c1">3011</span>, <span class="pl-s"><span class="pl-pds">"</span>frontend<span class="pl-pds">"</span></span>: <span class="pl-c1">true</span>}
+    ],
+    <span class="pl-s"><span class="pl-pds">"</span>area<span class="pl-pds">"</span></span>: [
+      {<span class="pl-s"><span class="pl-pds">"</span>id<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>area-server-1<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>host<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>127.0.0.1<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>port<span class="pl-pds">"</span></span>: <span class="pl-c1">3250</span>, <span class="pl-s"><span class="pl-pds">"</span>area<span class="pl-pds">"</span></span>: <span class="pl-c1">1</span>}, 
+      {<span class="pl-s"><span class="pl-pds">"</span>id<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>area-server-2<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>host<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>127.0.0.1<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>port<span class="pl-pds">"</span></span>: <span class="pl-c1">3251</span>, <span class="pl-s"><span class="pl-pds">"</span>area<span class="pl-pds">"</span></span>: <span class="pl-c1">2</span>}, 
+      {<span class="pl-s"><span class="pl-pds">"</span>id<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>area-server-3<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>host<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>127.0.0.1<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>port<span class="pl-pds">"</span></span>: <span class="pl-c1">3252</span>, <span class="pl-s"><span class="pl-pds">"</span>area<span class="pl-pds">"</span></span>: <span class="pl-c1">3</span>}, 
+      {<span class="pl-s"><span class="pl-pds">"</span>id<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>instance-server-1<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>host<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>127.0.0.1<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>port<span class="pl-pds">"</span></span>: <span class="pl-c1">3260</span>, <span class="pl-s"><span class="pl-pds">"</span>instance<span class="pl-pds">"</span></span>: <span class="pl-c1">true</span>},
+      {<span class="pl-s"><span class="pl-pds">"</span>id<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>instance-server-2<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>host<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>127.0.0.1<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>port<span class="pl-pds">"</span></span>: <span class="pl-c1">3261</span>, <span class="pl-s"><span class="pl-pds">"</span>instance<span class="pl-pds">"</span></span>: <span class="pl-c1">true</span>},
+      {<span class="pl-s"><span class="pl-pds">"</span>id<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>instance-server-3<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>host<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>127.0.0.1<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>port<span class="pl-pds">"</span></span>: <span class="pl-c1">3262</span>, <span class="pl-s"><span class="pl-pds">"</span>instance<span class="pl-pds">"</span></span>: <span class="pl-c1">true</span>}
+    ],
+    <span class="pl-s"><span class="pl-pds">"</span>chat<span class="pl-pds">"</span></span>: [
+      {<span class="pl-s"><span class="pl-pds">"</span>id<span class="pl-pds">"</span></span>:<span class="pl-s"><span class="pl-pds">"</span>chat-server-1<span class="pl-pds">"</span></span>,<span class="pl-s"><span class="pl-pds">"</span>host<span class="pl-pds">"</span></span>:<span class="pl-s"><span class="pl-pds">"</span>127.0.0.1<span class="pl-pds">"</span></span>,<span class="pl-s"><span class="pl-pds">"</span>port<span class="pl-pds">"</span></span>:<span class="pl-c1">3450</span>}
+    ],
+    <span class="pl-s"><span class="pl-pds">"</span>path<span class="pl-pds">"</span></span>: [
+      {<span class="pl-s"><span class="pl-pds">"</span>id<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>path-server-1<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>host<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>127.0.0.1<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>port<span class="pl-pds">"</span></span>: <span class="pl-c1">3550</span>}
+    ],
+    <span class="pl-s"><span class="pl-pds">"</span>auth<span class="pl-pds">"</span></span>: [
+      {<span class="pl-s"><span class="pl-pds">"</span>id<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>auth-server-1<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>host<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>127.0.0.1<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>port<span class="pl-pds">"</span></span>: <span class="pl-c1">3650</span>}
+    ],
+    <span class="pl-s"><span class="pl-pds">"</span>gate<span class="pl-pds">"</span></span>: [
+      {<span class="pl-s"><span class="pl-pds">"</span>id<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>gate-server-1<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>host<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>127.0.0.1<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>clientPort<span class="pl-pds">"</span></span>: <span class="pl-c1">3014</span>, <span class="pl-s"><span class="pl-pds">"</span>frontend<span class="pl-pds">"</span></span>: <span class="pl-c1">true</span>}
+    ],
+    <span class="pl-s"><span class="pl-pds">"</span>manager<span class="pl-pds">"</span></span>: [
+      {<span class="pl-s"><span class="pl-pds">"</span>id<span class="pl-pds">"</span></span>:<span class="pl-s"><span class="pl-pds">"</span>manager-server-1<span class="pl-pds">"</span></span>,<span class="pl-s"><span class="pl-pds">"</span>host<span class="pl-pds">"</span></span>:<span class="pl-s"><span class="pl-pds">"</span>127.0.0.1<span class="pl-pds">"</span></span>,<span class="pl-s"><span class="pl-pds">"</span>port<span class="pl-pds">"</span></span>:<span class="pl-c1">3750</span>}
+    ]
+  },
+  <span class="pl-s"><span class="pl-pds">"</span>production<span class="pl-pds">"</span></span>: {
+    <span class="pl-ii">//</span> <span class="pl-ii">...</span>
+  }
+}</pre></div>
+<p>该配置文件分别定义了development和production环境下的各个服务器的配置信息, 包括服务器类型, 地址, 端口号等, production环境下的参数和development环境的结构类似. frontend参数为true时表示前端服务器. 端口冲突时可以修改相应的端口号. </p>
+<p>或者修改文件./web-server/public/js/config/config.js, 内容如下：</p>
+<div class="highlight highlight-source-json"><pre>__resources__[<span class="pl-s"><span class="pl-pds">"</span>/config.js<span class="pl-pds">"</span></span>] = {<span class="pl-ii">meta</span>: {<span class="pl-ii">mimetype</span>: <span class="pl-s"><span class="pl-pds">"</span>application/javascript<span class="pl-pds">"</span></span>}, <span class="pl-ii">data</span>: <span class="pl-ii">function(exports</span>, <span class="pl-ii">require,</span> <span class="pl-ii">module,</span> <span class="pl-ii">__filename,</span> <span class="pl-ii">__dirname)</span> <span class="pl-ii">{</span>
+  <span class="pl-ii">module.exports</span> <span class="pl-ii">=</span> <span class="pl-ii">{</span> 
+    <span class="pl-ii">IMAGE_URL</span>:<span class="pl-ii">'http://pomelo.netease.com/art/'</span>,
+    <span class="pl-ii">GATE_HOST</span>: <span class="pl-ii">window.location.hostname</span>,
+    <span class="pl-ii">GATE_PORT</span>:<span class="pl-c1">3014</span>
+  };
+}};</pre></div>
+<p>该文件是web服务器的常用配置信息: IMAGE_URL是图片等静态资源的地址; GATE_HOST是gate服务器接受websocket的入口, 所有的websocket请求须先经过gate服务器获取connector服务器的id, 然后再和connector建立连接; GATE_PORT是前端gate的端口号. manager服务器主要负责是副本和组队功能.</p>
+<h1>
+<a aria-hidden="true" class="anchor" href="#%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E6%B1%87%E6%80%BB%E8%AF%B4%E6%98%8E" id="user-content-配置文件汇总说明"><span class="octicon octicon-link"></span></a>配置文件汇总说明</h1>
+<ul>
+<li>./game-server/config/master.json</li>
+</ul>
+<p>master服务器的配置信息, 包括development和production环境下的服务器地址、端口号等. </p>
+<p>master服务器负责启动、关闭各服务器, 并监控所有服务器的状态信息. </p>
+<ul>
+<li>./game-server/config/servers.json</li>
+</ul>
+<p>area、connector等服务器的配置信息, 包括development和production环境下的服务器地址、端口号等. 由于connector是前端服务器, 用于接收并转发玩家的请求, 所以会有clientPort. </p>
+<ul>
+<li>./shared/config/mysql.json</li>
+</ul>
+<p>数据库配置信息, 在安装LordOfPomelo之后需要根据数据库安装的实际情况修改development和production环境的参数. </p>
+<ul>
+<li>./web-server/public/js/config/config.js</li>
+</ul>
+<p>客户端图片等静态资源及HTTP访问地址的配置. </p>
+<h1>
+<a aria-hidden="true" class="anchor" href="#%E7%99%BB%E5%BD%95%E9%97%AE%E9%A2%98%E8%AF%B4%E6%98%8E" id="user-content-登录问题说明"><span class="octicon octicon-link"></span></a>登录问题说明</h1>
+<p>LordOfPomelo提供了注册新用户以及使用github, google, facebook, twitter和新浪微博授权的方式进行登录. 在使用github等授权方式进行登录时, 需要自己通过OAuth授权认证, 然后修改配置文件中的对应信息(./web-server/config/oauth.json). </p>
+</div>
+</div></body></html>

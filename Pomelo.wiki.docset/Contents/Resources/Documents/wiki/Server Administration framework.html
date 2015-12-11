@@ -1,0 +1,147 @@
+<html><head prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# object: http://ogp.me/ns/object# article: http://ogp.me/ns/article# profile: http://ogp.me/ns/profile#">
+<meta charset="utf-8">
+<meta content="IE=edge" http-equiv="X-UA-Compatible">
+<meta content="en" http-equiv="Content-Language">
+<meta content="width=1020" name="viewport">
+<title>Server Administration framework · NetEase/pomelo Wiki · GitHub</title>
+<link href="/opensearch.xml" rel="search" title="GitHub" type="application/opensearchdescription+xml">
+<link href="src/ad667adaa2cfe8f3caa4a41b7d0a79a1.png" rel="fluid-icon" title="GitHub">
+<link href="src/a10d19ff5f738940a7a5086be334f50b.png" rel="apple-touch-icon" sizes="57x57">
+<link href="src/a10d19ff5f738940a7a5086be334f50b.png" rel="apple-touch-icon" sizes="114x114">
+<link href="src/b4cd268bc600cc14d2cdd557de6da2fb.png" rel="apple-touch-icon" sizes="72x72">
+<link href="src/b4cd268bc600cc14d2cdd557de6da2fb.png" rel="apple-touch-icon" sizes="144x144">
+<meta content="1401488693436528" property="fb:app_id">
+<meta content="@github" name="twitter:site"/><meta content="summary" name="twitter:card"/><meta content="NetEase/pomelo" name="twitter:title"/><meta content="pomelo - A fast,scalable,distributed game server framework for Node.js." name="twitter:description"/><meta content="https://avatars0.githubusercontent.com/u/1460597?v=3&amp;s=400" name="twitter:image:src"/>
+<meta content="GitHub" property="og:site_name"/><meta content="object" property="og:type"/><meta content="https://avatars0.githubusercontent.com/u/1460597?v=3&amp;s=400" property="og:image"/><meta content="NetEase/pomelo" property="og:title"/><meta content="https://github.com/NetEase/pomelo" property="og:url"/><meta content="pomelo - A fast,scalable,distributed game server framework for Node.js." property="og:description"/>
+<meta content="https://api.github.com/_private/browser/stats" name="browser-stats-url">
+<meta content="https://api.github.com/_private/browser/errors" name="browser-errors-url">
+<link href="https://assets-cdn.github.com/" rel="assets">
+<meta content="1000" name="pjax-timeout">
+<meta content="/windows-tile.png" name="msapplication-TileImage">
+<meta content="#ffffff" name="msapplication-TileColor">
+<meta data-pjax-transient="" name="selected-link" value="repo_wiki">
+<meta content="KT5gs8h0wvaagLKAVWq8bbeNwnZZK1r1XQysX3xurLU" name="google-site-verification">
+<meta content="UA-3769691-2" name="google-analytics">
+<meta content="collector.githubapp.com" name="octolytics-host"/><meta content="github" name="octolytics-app-id"/><meta content="7250A4CA:6921:C8D77D1:5670C12F" name="octolytics-dimension-request_id"/>
+<meta content="/&lt;user-name&gt;/&lt;repo-name&gt;/wiki/show" data-pjax-transient="true" name="analytics-location"/>
+<meta content="Rails, view, wiki#show" data-pjax-transient="true" name="analytics-event"/>
+<meta class="js-ga-set" content="Logged Out" name="dimension1">
+<meta content="github.com" name="hostname">
+<meta content="" name="user-login">
+<meta content="github.com" name="expected-hostname">
+<link color="#4078c0" href="https://assets-cdn.github.com/pinned-octocat.svg" rel="mask-icon">
+<link href="https://assets-cdn.github.com/favicon.ico" rel="icon" type="image/x-icon">
+<meta content="3e8f74f14b36bbd75a203bf19cf7fe170cf8f52d" name="form-nonce"/>
+<link crossorigin="anonymous" href="src/350888e1495e7af27e01faa9d8291dee.css" media="all" rel="stylesheet"/>
+<link crossorigin="anonymous" href="src/9fae9b7d8f0785d745a43c6465f74ae5.css" media="all" rel="stylesheet"/>
+<meta content="cd9958d45e48e8e3157a320e9c346eaa" http-equiv="x-pjax-version">
+<meta content="pomelo - A fast,scalable,distributed game server framework for Node.js." name="description">
+<meta content="github.com/NetEase/pomelo git https://github.com/NetEase/pomelo.git" name="go-import">
+<meta content="1460597" name="octolytics-dimension-user_id"/><meta content="NetEase" name="octolytics-dimension-user_login"/><meta content="5880912" name="octolytics-dimension-repository_id"/><meta content="NetEase/pomelo" name="octolytics-dimension-repository_nwo"/><meta content="true" name="octolytics-dimension-repository_public"/><meta content="false" name="octolytics-dimension-repository_is_fork"/><meta content="5880912" name="octolytics-dimension-repository_network_root_id"/><meta content="NetEase/pomelo" name="octolytics-dimension-repository_network_root_nwo"/>
+<link href="https://github.com/NetEase/pomelo/commits/master.atom" rel="alternate" title="Recent Commits to pomelo:master" type="application/atom+xml">
+</link></meta></meta></meta></link></link></meta></meta></meta></meta></meta></meta></meta></meta></meta></meta></link></meta></meta></meta></link></link></link></link></link></link></meta></meta></meta></meta></head><body style="padding:0 25px;"><div class="gollum-markdown-content instapaper_body" id="wiki-body">
+<div class="markdown-body">
+<p>As we know, pomelo supports adding or stoping a server to scale up/down dynamically, so we would ask when adding an application server, how the application server that has been started to know the new additional server; When stopping a server, how the other running servers to know it and make subsequent RPC invocation or messages are not routed to the server has been stopped. </p>
+<p>Also, if you want to know the running status of the server cluster, how to get it? The answer is the administration framework pomelo provides. The administration framework of pomelo is extensible, users can customize their own admin-module and plug it into administration framework to meet their own demands. Here is some introduction to it.</p>
+<h1>
+<a aria-hidden="true" class="anchor" href="#server-administration-framework-of-pomelo" id="user-content-server-administration-framework-of-pomelo"><span class="octicon octicon-link"></span></a>Server Administration Framework of Pomelo</h1>
+<ul>
+<li><p>There are three roles in pomelo administration framework, namely, master, monitor and client. Master can be treated to correspond to master component loaded by master server. Monitor can be treated to correspond to monitor component loaded by all servers, and client can be treated as a third-party administration tool, Pomelo command-line tool, pomelo-cli and admin-console-web provided by pomelo all play as client role.</p></li>
+<li>
+<p>Typically, administration patterns can be roughly divided into two categories :</p>
+<ul>
+<li><p>Master requests to monitor for certain monitoring information, monitor reports its monitoring information to master as a response, master caches the monitoring informations it has got from monitor. The third-party client connects and registers to master (username and password may be required), and then requests the server cluster's monitoring information to master, master return its cached monitoring information back to client.</p></li>
+<li><p>Client connectes and registers to master, and then send a command, for example, shut down the server cluster, to master. Master receives the command, and broadcasts it to all the monitors that registed to master. So long as monitor receives the shutdown command, it will shut itself down.</p></li>
+</ul>
+</li>
+<li><p>The figure presented below shows class diagram of the administration framework, which is part of the pomelo framework presented before:</p></li>
+</ul>
+<p><img alt="pomelo admin class diagram " src="src/f263fcf2bac7192c6fe8515db03f9e51.png"/></p>
+<p>In the class diagram above, Master component, Monitor component, AdminClient are corresponding to master, monitor and client role we mentioned before. We will use these term indiscriminately in the following.</p>
+<ul>
+<li><p>For master, MasterConsoleService will manage all registered admin-modules, generates a map with ModuleId as its key for admin-modules. MasterAgent listens on configured port and accepts connections and registeration from monitor and client, it also accepts the request/notify from monitor and client and send request/notify to monitor. Note, master will not send request/notify to client initialtively, it will only respond to client for request handling.</p></li>
+<li><p>For monitor, MonitorConsoleService will manage all registered admin-modules and maintain map of admin-modules. All servers can learn the listening host and port of master server through the configuration file of master server. MonitorAgent connects and registers to master and maintains connection, then communicates with master via this connection.</p></li>
+<li><p>For client, it connects and registers to master, it may be required to provide an username and password when registering. AdminClient maintains the connection to master, and then it sends requst/notify to master to manage the server cluster.</p></li>
+<li><p>All communication-related classes maintain their own connection socket. For Master, it has to maintain the connection socket and listening socket. The underlying transport for administration framework is socket.io. </p></li>
+<li><p>A Module (admin-module) defines four callback: monitorHandler, masterHandler, clientHandler and start and all of these callbacks are optional. The callback's function signature is <code>XXXHandler (agent, msg, cb)</code>, the first parameter indicates caller's Agent, it can be MonitorAgent/MasterAgent for monitor/master side, the second parameter is body of request/notify, and the third is a callback which is used to respond to requester if it is a request, otherwise, the third parameter is ignored.</p></li>
+</ul>
+<p>Here we use a sequence-like diagram to illustrate control flow of administration framework :</p>
+<p><img alt="pomelo Framework class diagram" src="src/8b1c4f381b3509c6118f5e80d4611bdc.png"/></p>
+<p>In fact, we make more than one control flow for different scenarios together in this ONE diagram in order to simplification. Readers can distinguish one scenarios from others in the diagram.</p>
+<h4>
+<a aria-hidden="true" class="anchor" href="#master-component-startup" id="user-content-master-component-startup"><span class="octicon octicon-link"></span></a>Master Component Startup</h4>
+<p>Master server always starts firstly. At the last of "start" called of master component, it will delegate the task to start all the application servers to Starter, and the call to Starter.start will start all the application servers. There are several steps to be completed in starting master:</p>
+<ul>
+<li><p>Load registered admin-module(Module) to MasterConsoleService.</p></li>
+<li><p>After finishing loading Modules, MasterAgent will listen on configured port. At this time, master would be able to accept request and notify from client and monitor.</p></li>
+<li><p>After starting listening, MasterConsoleService will enable all Modules registered to itself. This operation mainly schedules the periodic monitoring operation if Module has been configured that master should pull the monitoring data periodically, in other word, the Module's option type is set to 'pull'.</p></li>
+<li><p>Finally, if Module has callback "start", it will be called here. In general, it does some initialization in the callback "start".</p></li>
+</ul>
+<p>After these steps above, master started.</p>
+<h4>
+<a aria-hidden="true" class="anchor" href="#monitor-component-startup" id="user-content-monitor-component-startup"><span class="octicon octicon-link"></span></a>Monitor Component Startup</h4>
+<p>Since application servers are launched later than master, so monitor is also started later than master. The steps of monitor starting is similar to master component, the only difference is that, monitor will initiates a connection to the master, but not listens on certain port. Monitor also does several steps, load registered Modules, schedule periodic monitoring operation if there are Modules is configured to periodically push data to master, that means its option "type" is set to 'push'. Finally, if there are Modules which defines the callback "start" , then call it. It may be required to provide a token when monitor registering to master for security. </p>
+<h4>
+<a aria-hidden="true" class="anchor" href="#client-registration" id="user-content-client-registration"><span class="octicon octicon-link"></span></a>Client Registration</h4>
+<p>Client need to connect and register to master, so it would start successfully only if master has started. For sake of security, client should provide username and password for authentication, all the authentication infomation is specified in file config/adminUser.json, there are also configuration file example in the demo. If authenticated successfully, it registers successfully.</p>
+<h4>
+<a aria-hidden="true" class="anchor" href="#periodical-triggered" id="user-content-periodical-triggered"><span class="octicon octicon-link"></span></a>Periodical Triggered</h4>
+<p>Module may have been configured options "type" and "interval", they are used to configured for monitor to report monitoring information to master periodically. "Type" indicates reporting mode, "pull" means master request to monitor for monitoring information periodically, while "push" means monitor would push monitoring information periodically. And "interval" indicates period. If a Module has been configured "type" and "interval", as we know before, it would be scheduled while its enabling. If the mode is configured to 'pull', then, masterHandler will be callbacked every interval seconds without any arguments passed.</p>
+<h4>
+<a aria-hidden="true" class="anchor" href="#requestnotify" id="user-content-requestnotify"><span class="octicon octicon-link"></span></a>Request/Notify</h4>
+<ul>
+<li><p>When a monitor request/notify to master, the request would hold ModuleId and arguments the callback would use. And then, in master, masterHandler will be callbacked with those arguments of the Module indicated by ModuleId. Therefore, master can distinguish whether the callback to masterHandler is a request/notify accepted or periodical triggered by the passed arguments since no arguments is passed if period triggered.</p></li>
+<li><p>Monitor is similar to master, when a Module is configured option type is to 'push', its monitorHandler will be callbacked periodically to report monitoring information to master. When master request/notify to monitor with ModuleId and arguments, monitorHandler would also be callbacked too. Being same with master, monitor can distinguish whether the callback to monitorHandler is a periodical triggered or a request/notify accepted by the passed arguments. </p></li>
+</ul>
+<p>Of course, the request/notify may holds no arguments same as periodical triggered, this situation can only be handled by the business logic. In general, in order to facilitate to distingush, do not send request/notify without arguments.</p>
+<ul>
+<li>After registering to master, client can send request/nofity to master. The request/notify will hold ModuleId and the callback arguments. When master accepts a request/notify from client, clientHandler of Module identified by ModuleId hold in request/notify will be callbacked with arguments hold in request/notify too. Note: master will not send request/notify to client, only responds to client for client's requests.</li>
+</ul>
+<p>These scenarios above basically describe the control flow of the server administration framework that pomelo provides, the following will analyze two builtin Modules which are important to pomelo.</p>
+<h1>
+<a aria-hidden="true" class="anchor" href="#watchdog-" id="user-content-watchdog-"><span class="octicon octicon-link"></span></a>Watchdog </h1>
+<p>We know that for the static applciation server configuration information, it can be obtained directly from the configuration file, but because pomelo supports adding and stopping servers at runtime dynamically, it requires a mechanism to spread the information when server cluster changes such as adding a server, stoping a server.</p>
+<p>Pomelo uses the built-in Module watchdog to do this. The following is a sequence-like diagram to illustrate how watchdog to work via some typical scenarios:
+<img alt="pomelo watchdog class diagram" src="src/d57210293c0154f5f5faaa30b44eb90e.png"/></p>
+<h4>
+<a aria-hidden="true" class="anchor" href="#bind-events" id="user-content-bind-events"><span class="octicon octicon-link"></span></a>Bind Events</h4>
+<p>When watchdog is loaded by master component at master server, in addition to listen on certain port, it will re-emit the socket events that can be captured by MasterAgent, and then the re-emited socket events will be caught and handled by MasterConsoleService, these socket events include:</p>
+<ul>
+<li><p>Register, if there is a MonitorAgent initiates a connection and registration to MasterAgent, it will emit this event. MasterConsoleService will handle it by broardcasting the adding server to all the started servers.</p></li>
+<li><p>Disconnect, if there is a MonitorAgent disconnects to MasterAgent, it will emit this event. Also, MasterConsoleService will broadcast the leaving server information to all the startd servers to handle this event. </p></li>
+<li><p>reconnect, if there is a MonitorAgent reconnects to MasterAgent, that means the server connects to master again after it disconnects from master due to some reason. It will emit this event. MasterConsoleService also broadcast the reconnecting server information to all the started servers to handle this event as well. </p></li>
+</ul>
+<h4>
+<a aria-hidden="true" class="anchor" href="#adding-server" id="user-content-adding-server"><span class="octicon octicon-link"></span></a>Adding Server</h4>
+<p>In scenario 4, when watchdog being loaded by monitor while a new server launching, its <code>start</code> callback will be called during initialization phase. In its <code>start</code> callback, monitor will initiate a subscription request for the information about server cluster to master, master will handle it by calling its <code>masterHandler</code> , and in which it will respond the server cluster information to the new added server and add this new added server to its listener list for it can send the change of the server cluster to it later.</p>
+<p>In scenario 3, it shows inter-behavior of servers when adding a new server to server cluster. If a monitor initiates a registration request to master, it will trigger a register event and master will handle it by broadcasting the new adding server's information MasterAgent to all servers in its listener list that has subscribed for change information before. After accepting notifies from master, monitorHandler will be callbacked by all servers, in which app.addServers will be called to add the new adding server to their server map.</p>
+<h4>
+<a aria-hidden="true" class="anchor" href="#stopping-server" id="user-content-stopping-server"><span class="octicon octicon-link"></span></a>Stopping Server</h4>
+<p>In scenario 5, it shows behavior when there is an application server disconnects from master. It will emit disconnect event for MonitorAgent, in event handling for this event, MasterConsoleService will broadcast this disconnected server's information to all servers in master's listener list that has subscribed for change information before. Being similar to add server, After accepting notify from master, monitorHandler will be callbacked by all servers, in which app.addServers will called to remove the stopping server from their server map.</p>
+<h4>
+<a aria-hidden="true" class="anchor" href="#reconnecting-server" id="user-content-reconnecting-server"><span class="octicon octicon-link"></span></a>Reconnecting Server</h4>
+<p>In scenario 6, it shows behavior when there is an application server disconnect and reconnect to master. It is similar to adding server and stopping server, So analysis about it is ommited here.</p>
+<p>Watchdog is a core Module of pomelo, used to complete exchange of the server status information among server cluster. Therefore, this Module involves only master and monitor, no client. so callback <code>clientHandler</code> definition is omitted. The administration event is emitted by the underlying socket connection, rather than periodically task, so it is no need to configure its option type and interval.</p>
+<h1>
+<a aria-hidden="true" class="anchor" href="#console-" id="user-content-console-"><span class="octicon octicon-link"></span></a>Console </h1>
+<p>Here is simple analysis about Module console, it is used to support pomelo command line tool:</p>
+<p><img alt="pomelo Framework class diagram" src="src/4cf7fcc45a61300cda9df34004b27a06.png"/></p>
+<p>The figure above shows a typical pattern for a user to manage the server cluster by a client using command. Here, we use <code>pomelo list</code> as an example to illustrate it:</p>
+<ul>
+<li><p>User executes <code>pomleo list [options]</code>, at this time, the command-line tool creates an AdminClient, and then send a registration request to master. Options following <code>pomelo list</code> hold location of master, listened port, username/password that is used for authentication and permission granted. Please refer to <a href="">pomelo command line tool document</a> for morre detail.</p></li>
+<li><p>After AdminClient registers to the Master successfully, it will send a request to master, whose arguments specify what operation to do, on which Module specified by ModuleId. In this example, ModuleId is <code>console</code>, and the operation is <code>list</code>.</p></li>
+<li><p>After accepting the request from client, the clientHandler of console Module will be callbacked in master, it will check which operation should be done, and then broadcast this <code>list</code> command to all the servers including itself.</p></li>
+<li><p>After accepting the command from master, monitorHandler of console Module will be callbacked in monitor, it will report its own status to master, including pid, heapused and so on.</p></li>
+<li><p>Master will wait to collect all the monitors' reports. After completely collecting all the monitors' reports, it will respond it to AdminClient, that means the command-line tool will receive all the servers' status from master, and then the information is displayed.</p></li>
+</ul>
+<p>In general, most administration command execution by client is similar to be shown above. If you configure a periodical monitoring task for Module by configuring its option <code>type</code> and <code>interval</code>, then master can get all the latest monitoring information periodically. So master can caches the monitoring information, it can directly respond its cache to client without needing to send requests to poll all servers' monitoring information while client send a request.</p>
+<p>In Module console, since there is no request/notify sended from monitor to master, so console's <code>masterHandler</code> callback is omitted, so is the  <code>start</code> callback.</p>
+<p>Note: For the command-line tool, command <code>add</code> is obsolete now. When you need to add server, it is recommended to use <a href="NetEase/pomelo-cli">pomelo-cli</a>, which is a powerful interactive command-line tool, pomelo-cli use more Modules that implemented in <a href="">pomelo-admin</a>, including watchServer, Script and so on. In pomelo application, using <code>app.enable ('systemMonitor')</code> makes application register these Modules implemented in pomelo-admin. Otherwise, only console and watchdog will be registered by default. There is also a web-based monitoring tool [pomelo-admin-web], which provides server administration through web pages, of course it plays as a client role too. </p>
+<h1>
+<a aria-hidden="true" class="anchor" href="#access-control" id="user-content-access-control"><span class="octicon octicon-link"></span></a>Access Control</h1>
+<p>When client connected and register to master, it is required to make an authentication because client may be a vicious. Users that can execute command for server cluster is configured in file adminUser.json, where divides users into several levels. For more about access control, you can refer to <a href="pomelo-cli-usage">pomelo-cli related documents</a>.</p>
+<h1>
+<a aria-hidden="true" class="anchor" href="#summary" id="user-content-summary"><span class="octicon octicon-link"></span></a>Summary</h1>
+<p>This section introduces server administration framework of pomelo in detail and analyze the two core Module: watchdog and console. Combined with the previous tutorial examples on Module, users can easily complete their own customized Module to meet their special demands.</p>
+</div>
+</div></body></html>

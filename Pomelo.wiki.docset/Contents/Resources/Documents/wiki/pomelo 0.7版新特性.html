@@ -1,0 +1,176 @@
+<html><head prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# object: http://ogp.me/ns/object# article: http://ogp.me/ns/article# profile: http://ogp.me/ns/profile#">
+<meta charset="utf-8">
+<meta content="IE=edge" http-equiv="X-UA-Compatible">
+<meta content="en" http-equiv="Content-Language">
+<meta content="width=1020" name="viewport">
+<title>pomelo 0.7版新特性 · NetEase/pomelo Wiki · GitHub</title>
+<link href="/opensearch.xml" rel="search" title="GitHub" type="application/opensearchdescription+xml">
+<link href="src/ad667adaa2cfe8f3caa4a41b7d0a79a1.png" rel="fluid-icon" title="GitHub">
+<link href="src/a10d19ff5f738940a7a5086be334f50b.png" rel="apple-touch-icon" sizes="57x57">
+<link href="src/a10d19ff5f738940a7a5086be334f50b.png" rel="apple-touch-icon" sizes="114x114">
+<link href="src/b4cd268bc600cc14d2cdd557de6da2fb.png" rel="apple-touch-icon" sizes="72x72">
+<link href="src/b4cd268bc600cc14d2cdd557de6da2fb.png" rel="apple-touch-icon" sizes="144x144">
+<meta content="1401488693436528" property="fb:app_id">
+<meta content="@github" name="twitter:site"/><meta content="summary" name="twitter:card"/><meta content="NetEase/pomelo" name="twitter:title"/><meta content="pomelo - A fast,scalable,distributed game server framework for Node.js." name="twitter:description"/><meta content="https://avatars0.githubusercontent.com/u/1460597?v=3&amp;s=400" name="twitter:image:src"/>
+<meta content="GitHub" property="og:site_name"/><meta content="object" property="og:type"/><meta content="https://avatars0.githubusercontent.com/u/1460597?v=3&amp;s=400" property="og:image"/><meta content="NetEase/pomelo" property="og:title"/><meta content="https://github.com/NetEase/pomelo" property="og:url"/><meta content="pomelo - A fast,scalable,distributed game server framework for Node.js." property="og:description"/>
+<meta content="https://api.github.com/_private/browser/stats" name="browser-stats-url">
+<meta content="https://api.github.com/_private/browser/errors" name="browser-errors-url">
+<link href="https://assets-cdn.github.com/" rel="assets">
+<meta content="1000" name="pjax-timeout">
+<meta content="/windows-tile.png" name="msapplication-TileImage">
+<meta content="#ffffff" name="msapplication-TileColor">
+<meta data-pjax-transient="" name="selected-link" value="repo_wiki">
+<meta content="KT5gs8h0wvaagLKAVWq8bbeNwnZZK1r1XQysX3xurLU" name="google-site-verification">
+<meta content="UA-3769691-2" name="google-analytics">
+<meta content="collector.githubapp.com" name="octolytics-host"/><meta content="github" name="octolytics-app-id"/><meta content="CA86616A:448C:146B82BB:5670C06F" name="octolytics-dimension-request_id"/>
+<meta content="/&lt;user-name&gt;/&lt;repo-name&gt;/wiki/show" data-pjax-transient="true" name="analytics-location"/>
+<meta content="Rails, view, wiki#show" data-pjax-transient="true" name="analytics-event"/>
+<meta class="js-ga-set" content="Logged Out" name="dimension1">
+<meta content="github.com" name="hostname">
+<meta content="" name="user-login">
+<meta content="github.com" name="expected-hostname">
+<link color="#4078c0" href="https://assets-cdn.github.com/pinned-octocat.svg" rel="mask-icon">
+<link href="https://assets-cdn.github.com/favicon.ico" rel="icon" type="image/x-icon">
+<meta content="26edfc8ede089ef3b7c01ab85c4ef9ad0628c73e" name="form-nonce"/>
+<link crossorigin="anonymous" href="src/350888e1495e7af27e01faa9d8291dee.css" media="all" rel="stylesheet"/>
+<link crossorigin="anonymous" href="src/9fae9b7d8f0785d745a43c6465f74ae5.css" media="all" rel="stylesheet"/>
+<meta content="cd9958d45e48e8e3157a320e9c346eaa" http-equiv="x-pjax-version">
+<meta content="pomelo - A fast,scalable,distributed game server framework for Node.js." name="description">
+<meta content="github.com/NetEase/pomelo git https://github.com/NetEase/pomelo.git" name="go-import">
+<meta content="1460597" name="octolytics-dimension-user_id"/><meta content="NetEase" name="octolytics-dimension-user_login"/><meta content="5880912" name="octolytics-dimension-repository_id"/><meta content="NetEase/pomelo" name="octolytics-dimension-repository_nwo"/><meta content="true" name="octolytics-dimension-repository_public"/><meta content="false" name="octolytics-dimension-repository_is_fork"/><meta content="5880912" name="octolytics-dimension-repository_network_root_id"/><meta content="NetEase/pomelo" name="octolytics-dimension-repository_network_root_nwo"/>
+<link href="https://github.com/NetEase/pomelo/commits/master.atom" rel="alternate" title="Recent Commits to pomelo:master" type="application/atom+xml">
+</link></meta></meta></meta></link></link></meta></meta></meta></meta></meta></meta></meta></meta></meta></meta></link></meta></meta></meta></link></link></link></link></link></link></meta></meta></meta></meta></head><body style="padding:0 25px;"><div class="gollum-markdown-content instapaper_body" id="wiki-body">
+<div class="markdown-body">
+<p>在pomelo 0.7版本中，增加了用户自定义定时任务功能，用户能够在不同服务器中动态地增删定时任务；根据网友的建议，在0.7版中增加了全局filter的功能，用户能够在前端服务器对请求进行统一处理；另外新版中增加了事务的机制，提供了一个简单的事务方法，包括条件方法和处理方法；其它新特性还包括<a href="https://github.com/NetEase/pomelo-cli">pomelo-cli</a>的命令自动补全功能。</p>
+<h2>
+<a aria-hidden="true" class="anchor" href="#%E5%AE%9A%E6%97%B6%E4%BB%BB%E5%8A%A1" id="user-content-定时任务"><span class="octicon octicon-link"></span></a>定时任务</h2>
+<p>用户能够通过配置文件或者<a href="https://github.com/NetEase/pomelo-cli">pomelo-cli</a>的命令addCron和removeCron对定时任务进行动态调度。
+定时任务是针对具体服务器而言，例如需要在chat服务器中配置定时任务：</p>
+<p>首先在game-server/app/servers/chat目录下增加cron目录，在game-server/app/servers/chat/cron目录下编写具体的执行的任务的代码chatCron.js，例如：</p>
+<pre><code>module.exports = function(app) {
+  return new Cron(app);
+};
+var Cron = function(app) {
+  this.app = app;
+};
+var cron = Cron.prototype;
+
+cron.sendMoney = function() {
+  console.log('%s server is sending money now!', this.app.serverId);
+};
+</code></pre>
+<p>然后在game-server/config/目录下增加定时任务配置文件crons.json，具体配置文件如下所示：</p>
+<pre><code>{
+   "development":{
+        "chat":[
+             {"id":1, "time": "0 30 10 * * *", "action": "chatCron.sendMoney"},
+             {"id":2, "serverId":"chat-server-1", "time": "0 30 10 * * *", "action": "chatCron.sendMoney"}
+        ]
+    },
+    "production":{
+        "chat":[
+             {"id":1, "time": "0 30 10 * * *", "action": "chatCron.sendMoney"},
+             {"id":2, "serverId":"chat-server-1", "time": "0 30 10 * * *", "action": "chatCron.sendMoney"}
+        ]
+  }
+}
+</code></pre>
+<p>在配置文件crons.json中，id是定时任务在具体服务器的唯一标识，且不能在同一服务器中重复；time是定时任务执行的具体时间，时间的定义跟linux的定时任务类似，一共包括7个字段，每个字段的具体定义如下：</p>
+<pre>
+*     *     *     *   *    *        command to be executed
+-     -     -     -   -    -
+|     |     |     |   |    |
+|     |     |     |   |    +----- day of week (0 - 6) (Sunday=0)
+|     |     |     |   +------- month (0 - 11)
+|     |     |     +--------- day of month (1 - 31)
+|     |     +----------- hour (0 - 23)
+|     +------------- min (0 - 59)
++------------- second (0 - 59)
+</pre>
+<p>0 30 10 * * * 这就代表每天10:30执行相应任务；serverId是一个可选字段，如果有写该字段则该任务只在该服务器下执行，如果没有该字段则该定时任务在所有同类服务器中执行；action是具体执行任务方法，chatCron.sendMoney则代表执行game-server/app/servers/chat/cron/chatCron.js中的sendMoney方法。</p>
+<p>通过<a href="https://github.com/NetEase/pomelo-cli">pomelo-cli</a>的addCron和removeCron命令可以动态地增加和删除定时任务，其中addCron的必要参数包括：id,action,time；removeCron的必要参数包括：id；serverId和serverType是两者选其一即可。例如：</p>
+<pre><code>addCron id=8 'time=0 30 11 * * *' action=chatCron.sendMoney serverId=chat-server-3
+
+removeCron id=8
+</code></pre>
+<h2>
+<a aria-hidden="true" class="anchor" href="#%E5%85%A8%E5%B1%80filter" id="user-content-全局filter"><span class="octicon octicon-link"></span></a>全局filter</h2>
+<p>在之前pomelo的版本中，filter是在后端服务器进行消息拦截并进行相应处理；根据网友的意见，在0.7版中在前端服务器增加了filter,请求在前端服务器就可以进行统一处理。请求的处理过程由之前的：前端服务器 -&gt; beforeFilter -&gt; 后端服务器 -&gt; afterFilter 变为：globalBeforeFilter -&gt; 前端服务器 -&gt; beforeFilter -&gt; 后端服务器 -&gt; afterFilter -&gt; globalAfterFilter。同之前的filter的错误处理过程一样，全局filter的错误全部进入globalErrorHandler处理。</p>
+<p>全局filter与以前的filter可以相互通用，具体的配置样例如下：</p>
+<pre><code>app.configure('production|development', function() {
+  app.globalFilter(pomelo.serial());
+});
+</code></pre>
+<h2>
+<a aria-hidden="true" class="anchor" href="#transaction" id="user-content-transaction"><span class="octicon octicon-link"></span></a>Transaction</h2>
+<p>在新版本中，pomelo提供简单的事务处理的功能；开发者可以设置相应的事务处理条件和实际事务处理的方法，同时开发还可以定义事务处理的重试次数。事务的具体执行过程是先执行开发者定义的事务处理条件，如果条件报错则直接终止整个事务，如果条件执行通过，再开始执行相应的事务处理方法，当在事务处理方法执行的过程中出现错误则根据开发者定义的重试次数进行执行重试，默认重试次数为1；所有的事务处理的结果都会在相应的日志文件中进行详细记录，开发者可以根据错误日志对失败的事务进行相应处理；相应的API如下所示：</p>
+<h4>
+<a aria-hidden="true" class="anchor" href="#transactionname-conditions-handlers-retry" id="user-content-transactionname-conditions-handlers-retry"><span class="octicon octicon-link"></span></a>transaction(name, conditions, handlers, retry)</h4>
+<p>事务处理方法</p>
+<h5>
+<a aria-hidden="true" class="anchor" href="#arguments" id="user-content-arguments"><span class="octicon octicon-link"></span></a>Arguments</h5>
+<ul>
+<li>name - transaction name</li>
+<li>conditions - transaction conditions</li>
+<li>handlers - transaction handlers</li>
+<li>retry - retry times of handlers if error occurs in handlers</li>
+</ul>
+<p>具体的使用示例如下：</p>
+<pre><code> var conditions = {
+        test1: function(cb) {
+          console.log('condition1');
+          cb();
+        },
+        test2: function(cb) {
+          console.log('condition2');
+          cb();
+        }
+      };
+      var handlers = {
+        do1: function(cb) {
+          console.log('handler1');
+          cb();
+        },
+        do2: function(cb) {
+          console.log('handler2');
+          cb();
+        }
+      };
+   app.transaction('test', conditions, handlers, 3);
+</code></pre>
+<h2>
+<a aria-hidden="true" class="anchor" href="#pomelo-cli%E8%87%AA%E5%8A%A8%E6%8F%90%E7%A4%BA" id="user-content-pomelo-cli自动提示"><span class="octicon octicon-link"></span></a>pomelo-cli自动提示</h2>
+<p>在最新版本的pomelo-cli中提供命令自动补全的功能，具体可以参考<a href="https://github.com/NetEase/pomelo-cli">pomelo-cli</a>。</p>
+<h2>
+<a aria-hidden="true" class="anchor" href="#pomelo-%E9%83%A8%E5%88%86%E6%9C%AF%E8%AF%AD%E6%94%B9%E5%90%8D" id="user-content-pomelo-部分术语改名"><span class="octicon octicon-link"></span></a>pomelo 部分术语改名</h2>
+<p>在最新版本中，对pomelo中一些含混并且可能对用户造成误导的命名做了修改，这样可以使得名字含义更明确，以使得开发者能更好地理解，具体修改如下：</p>
+<ul>
+<li>LocalSession以及LocalSessionService改名为BackendSession和BackendSessionService，具体功能不变，代码中需要注意如下：</li>
+</ul>
+<div class="highlight highlight-source-js"><pre>
+<span class="pl-c">// deprecated</span>
+<span class="pl-k">var</span> localSessionService <span class="pl-k">=</span> <span class="pl-smi">app</span>.<span class="pl-en">get</span>(<span class="pl-s"><span class="pl-pds">"</span>localSessionService<span class="pl-pds">"</span></span>);
+
+<span class="pl-c">// recommanded </span>
+<span class="pl-k">var</span> backendSessionService <span class="pl-k">=</span> <span class="pl-smi">app</span>.<span class="pl-en">get</span>(<span class="pl-s"><span class="pl-pds">"</span>backendSessionService<span class="pl-pds">"</span></span>);
+</pre></div>
+<ul>
+<li><p>MockLocalSession 修改为 FrontendSession。</p></li>
+<li><p>组件scheduler改名为pushScheduler， 对pushScheduler组件进行配置选项的时候使用：</p></li>
+</ul>
+<pre><code> app.set("pushSchedulerConfig", opts);
+</code></pre>
+<ul>
+<li>组件proxy以及remote的配置选项 cacheMsg 本版本中改名为bufferMsg，使得含义更明确：</li>
+</ul>
+<pre><code>// deprecated
+app.set("proxyConfig", {cacheMsg: true});
+app.set("remoteConfig", {cacheMsg: true});
+
+//recommended
+app.set("proxyConfig", {bufferMsg: true});
+app.set("remoteConfig", {bufferMsg: true});
+</code></pre>
+<p>这些改名对以前的代码保持兼容。</p>
+</div>
+</div></body></html>

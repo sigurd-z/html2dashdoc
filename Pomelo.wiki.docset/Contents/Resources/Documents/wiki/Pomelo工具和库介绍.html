@@ -1,0 +1,74 @@
+<html><head prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# object: http://ogp.me/ns/object# article: http://ogp.me/ns/article# profile: http://ogp.me/ns/profile#">
+<meta charset="utf-8">
+<meta content="IE=edge" http-equiv="X-UA-Compatible">
+<meta content="en" http-equiv="Content-Language">
+<meta content="width=1020" name="viewport">
+<title>Pomelo工具和库介绍 · NetEase/pomelo Wiki · GitHub</title>
+<link href="/opensearch.xml" rel="search" title="GitHub" type="application/opensearchdescription+xml">
+<link href="src/ad667adaa2cfe8f3caa4a41b7d0a79a1.png" rel="fluid-icon" title="GitHub">
+<link href="src/a10d19ff5f738940a7a5086be334f50b.png" rel="apple-touch-icon" sizes="57x57">
+<link href="src/a10d19ff5f738940a7a5086be334f50b.png" rel="apple-touch-icon" sizes="114x114">
+<link href="src/b4cd268bc600cc14d2cdd557de6da2fb.png" rel="apple-touch-icon" sizes="72x72">
+<link href="src/b4cd268bc600cc14d2cdd557de6da2fb.png" rel="apple-touch-icon" sizes="144x144">
+<meta content="1401488693436528" property="fb:app_id">
+<meta content="@github" name="twitter:site"/><meta content="summary" name="twitter:card"/><meta content="NetEase/pomelo" name="twitter:title"/><meta content="pomelo - A fast,scalable,distributed game server framework for Node.js." name="twitter:description"/><meta content="https://avatars0.githubusercontent.com/u/1460597?v=3&amp;s=400" name="twitter:image:src"/>
+<meta content="GitHub" property="og:site_name"/><meta content="object" property="og:type"/><meta content="https://avatars0.githubusercontent.com/u/1460597?v=3&amp;s=400" property="og:image"/><meta content="NetEase/pomelo" property="og:title"/><meta content="https://github.com/NetEase/pomelo" property="og:url"/><meta content="pomelo - A fast,scalable,distributed game server framework for Node.js." property="og:description"/>
+<meta content="https://api.github.com/_private/browser/stats" name="browser-stats-url">
+<meta content="https://api.github.com/_private/browser/errors" name="browser-errors-url">
+<link href="https://assets-cdn.github.com/" rel="assets">
+<meta content="1000" name="pjax-timeout">
+<meta content="/windows-tile.png" name="msapplication-TileImage">
+<meta content="#ffffff" name="msapplication-TileColor">
+<meta data-pjax-transient="" name="selected-link" value="repo_wiki">
+<meta content="KT5gs8h0wvaagLKAVWq8bbeNwnZZK1r1XQysX3xurLU" name="google-site-verification">
+<meta content="UA-3769691-2" name="google-analytics">
+<meta content="collector.githubapp.com" name="octolytics-host"/><meta content="github" name="octolytics-app-id"/><meta content="CA86616A:2F41:C8C08A4:5670C0F4" name="octolytics-dimension-request_id"/>
+<meta content="/&lt;user-name&gt;/&lt;repo-name&gt;/wiki/show" data-pjax-transient="true" name="analytics-location"/>
+<meta content="Rails, view, wiki#show" data-pjax-transient="true" name="analytics-event"/>
+<meta class="js-ga-set" content="Logged Out" name="dimension1">
+<meta content="github.com" name="hostname">
+<meta content="" name="user-login">
+<meta content="github.com" name="expected-hostname">
+<link color="#4078c0" href="https://assets-cdn.github.com/pinned-octocat.svg" rel="mask-icon">
+<link href="https://assets-cdn.github.com/favicon.ico" rel="icon" type="image/x-icon">
+<meta content="58cd529d6d15dcf210cfb83a24a7a5a926c70099" name="form-nonce"/>
+<link crossorigin="anonymous" href="src/350888e1495e7af27e01faa9d8291dee.css" media="all" rel="stylesheet"/>
+<link crossorigin="anonymous" href="src/9fae9b7d8f0785d745a43c6465f74ae5.css" media="all" rel="stylesheet"/>
+<meta content="cd9958d45e48e8e3157a320e9c346eaa" http-equiv="x-pjax-version">
+<meta content="pomelo - A fast,scalable,distributed game server framework for Node.js." name="description">
+<meta content="github.com/NetEase/pomelo git https://github.com/NetEase/pomelo.git" name="go-import">
+<meta content="1460597" name="octolytics-dimension-user_id"/><meta content="NetEase" name="octolytics-dimension-user_login"/><meta content="5880912" name="octolytics-dimension-repository_id"/><meta content="NetEase/pomelo" name="octolytics-dimension-repository_nwo"/><meta content="true" name="octolytics-dimension-repository_public"/><meta content="false" name="octolytics-dimension-repository_is_fork"/><meta content="5880912" name="octolytics-dimension-repository_network_root_id"/><meta content="NetEase/pomelo" name="octolytics-dimension-repository_network_root_nwo"/>
+<link href="https://github.com/NetEase/pomelo/commits/master.atom" rel="alternate" title="Recent Commits to pomelo:master" type="application/atom+xml">
+</link></meta></meta></meta></link></link></meta></meta></meta></meta></meta></meta></meta></meta></meta></meta></link></meta></meta></meta></link></link></link></link></link></link></meta></meta></meta></meta></head><body style="padding:0 25px;"><div class="gollum-markdown-content instapaper_body" id="wiki-body">
+<div class="markdown-body">
+<p>pomelo 提供了一系列的工具和库供开发者使用，这些工具和库能够协助开发者更好地完成应用开发、调试以及部署等工作。这些工具和库涵盖全面，有管理控制工具，有用来做压力测试的工具，也有一些比较通用的库。</p>
+<ul>
+<li><strong>命令行工具pomelo</strong></li>
+</ul>
+<p>pomelo框架提供的一个较简单的工具，该工具可以帮助开发者更便捷、更有效地进行应用开发，包括创建项目、启动应用、停止应用、关闭应用等等，请参考<a href="pomelo%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8">pomelo命令行工具使用</a>。</p>
+<ul>
+<li><strong>pomelo-cli</strong></li>
+</ul>
+<p>pomelo-cli是一个pomelo服务器群的管理客户端，通过连接注册到master服务器，可以对服务器群进行较为高级的管理，如运行时动态的添加关闭服务器，查看服务器的状态等等。请参考<a href="pomelo-cli%E4%BD%BF%E7%94%A8">pomelo-cli更详细的文档</a>。</p>
+<ul>
+<li><strong>pomelo-robot</strong></li>
+</ul>
+<p>pomelo-robot是一个用来对pomelo游戏框架进行性能测试的工具，可以帮助开发者做一些压力测试，请参考<a href="https://github.com/NetEase/pomelo/wiki/pomelo-robot%E4%BD%BF%E7%94%A8%E6%96%87%E6%A1%A3">pomelo-robot更详细的文档</a></p>
+<ul>
+<li><strong>pomelo-daemon</strong></li>
+</ul>
+<p>pomelo-daemon 提供了一个 daemon 服务，可以用这个服务来进行分布式部署以及日志收集。请参考<a href="pomelo-daemon%E7%9A%84%E4%BD%BF%E7%94%A8">pomelo-daemon的使用</a>。</p>
+<ul>
+<li><strong>pomelo-admin-web</strong></li>
+</ul>
+<p>pomelo-admin-web 是 pomelo 框架中基于<a href="https://github.com/NetEase/pomelo-admin">pomelo-admin</a>开发的web端监控的模块，可以通过 web 端的方式来对游戏服务器集群的运行状态，性能，日志等进行实时的监控。请参考<a href="pomelo-admin-web%E5%B7%A5%E5%85%B7%E7%9A%84%E4%BD%BF%E7%94%A8">pomelo-admin-web工具的使用</a>。</p>
+<ul>
+<li><strong>pomelo-sync</strong></li>
+</ul>
+<p>pomelo-sync 模块是用来管理游戏进程中需要持久化的数据在内存与存储系统之间同步的。请参考<a href="https://github.com/NetEase/pomelo/wiki/pomelo-sync%E4%BD%BF%E7%94%A8%E6%96%87%E6%A1%A3">pomelo sync 使用文档</a></p>
+<ul>
+<li><strong>pomelo-protobuf</strong></li>
+</ul>
+<p>pomelo-protobuf 是对google protobuf的一个实现，借助javascript的语言特性，实现了类.proto文件的运行时解析，并用在pomelo框架中，完成对要传输消息的压缩。protobuf不仅可以用在服务端，也同样可以用于web客户端。具体请参考<a href="https://github.com/pomelonode/pomelo-protobuf">pomelo-protobuf</a>。</p>
+</div>
+</div></body></html>

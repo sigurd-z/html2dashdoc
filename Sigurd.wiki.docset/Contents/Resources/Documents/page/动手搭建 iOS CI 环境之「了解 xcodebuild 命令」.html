@@ -1,0 +1,40 @@
+<html><head>
+<meta charset="utf-8">
+<title>动手搭建 iOS CI 环境之「了解 xcodebuild 命令」 - CocoaChina_让移动开发更简单</title>
+<meta content="iOS,CI 环境,xcodebuildiPhone开发,iOS开发,iPad开发,Mac开发,苹果开发中文站,iPhone开发中文站,CocoaChina首页, Mac OS开发, Cocoa介绍,移动互联网,触控科技,Cocoa,Apple,developer,iOS,iPhone,iPad,iMac,iPod Touch,iPhone5,iPhone4S,iPad3,招聘,iPhone程序员,Objective-c,iPhone应用外包,ios6,ios面试,Cocos2d-x,cocos2d,iTunes,App Store,苹果开发" name="keywords"/>
+<meta content="CocoaChina前身是全球成立最早规模最大的苹果开发中文站，现致力为所有移动开发者提供资讯服务、问答服务、代码下载、工具库及人才招聘服务" name="description"/>
+<meta content="IE=edge" http-equiv="X-UA-Compatible">
+<meta content="width=device-width, initial-scale=1" name="viewport">
+<meta content="3300a939a1098c27e94457b75a0bb8c1" name="baidu-tc-cerfication"/>
+<script type="text/javascript">
+        function gotoMobilePage() {
+            var sUserAgent = navigator.userAgent.toLowerCase();
+            var agent_iphone = /iphone/i;
+            var agent_android = /android/i;
+            //var agent_ipad = /ipad/i;
+            var agent_ipod = /ipod/i;
+            var agent_wphone = /windows phone/i;
+            if(agent_iphone.test(sUserAgent) || agent_android.test(sUserAgent) || agent_ipod.test(sUserAgent) || agent_wphone.test(sUserAgent)){
+                var re = /\/\w+\/\d+\/(\d+)\.html/, 
+                    result = re.exec(window.location.pathname);
+                if ( result )
+                {
+                    window.location.href = "http://www.cocoachina.com/cms/wap.php?action=article&id=" + result[1];
+                } else {
+                    window.location.href = "http://m.cocoachina.com/";
+                }
+            }
+        }
+        gotoMobilePage(); 
+    </script>
+<link href="src/a84898c7e6056d1260de02fbe818b59e.css" media="all" rel="stylesheet">
+<link href="src/fc35020aff41205c763aecda3951334a.css" media="all" rel="stylesheet">
+<link href="src/d489a5f4b1e2af09b4874b9d8d44c7a2.css" rel="stylesheet">
+<link href="src/b5f6d4d81287e6040d1271874f705098.css" rel="stylesheet">
+<link href="src/a1959dceb4a4550b81d1eaa35f644180.css" rel="stylesheet"/>
+<script src="src/a769fe53451c6abe32a2409f213c856c.js" type="text/javascript"></script>
+<script src="src/878a1f110abba9b87695d6713e2423f4.js" type="text/javascript"></script>
+<script src="src/78baea099161f999e575b28991cb48cf.js" type="text/javascript"></script>
+</link></link></link></link></meta></meta></meta></head><body><div class="field_body" id="detailbody">
+<p style="text-align:center"><img alt="1.jpg" src="src/1b2ce79c91a116432593be6b66f1ab61.jpg" title="1446621888739949.jpg"/></p><p>作者：<a href="http://weibo.com/u/1713195262" target="_self">@webfrogs</a><br/></p><p>CI 也就是持续集成，是一种软件开发实践。通过自动化构建来将软件系统集成后尽早交付测试来发现问题。</p><p>在 iOS 开发中，如果需要把工程打包成 ipa 文件，通常的做法就是在 Xcode 里点击 「Product -&gt; Archive」，等待整个工程 archive 后，然后在自动弹出的 「Organizer」 中进行选择，根据需要导出 ad hoc，enterprise 类型的 ipa 包。虽然 Xcode 通过提供的 GUI 操作已经屏蔽了大部分的细节，但作为一个偷懒的程序员，当然只是想简单的执行一个命令，然后坐下来惬意地喝一杯茶，静静等待整个过程的完成。那 xcodebuild 这个命令就是来完成这个事情的。</p><p>目前已经有不少封装得很不错的第三方打包服务可以用，比如最出名的有 AFNetworking 的作者 mattt 大大的 <a href="https://github.com/nomad/shenzhen" target="_self">shenzhen</a> （没错，就是深圳），还有一个名叫 <a href="https://github.com/fastlane/gym" target="_self">gym</a> 也很不错。这些库都是对 xcodebuild 这个命令做了一些封装，更方便使用而已。</p><p><strong>xcodebuild 使用方法</strong></p><p>xcodebuild 命令是 Xcode Command Line Tools 的一部分。通过调用这个命令，可以完成 iOS 工程的编译，打包和签名过程。这个命令随着 Xcode 的版本不同使用方法上也会有所不同。打开命令行，调用以下命令查看使用方法</p><pre class="brush:js;toolbar:false">xcodebuild --help</pre><p>虽然这个命令屏蔽了大量编译器的细节，实际使用起来还是较为繁琐，使用的话最好还是对其做一层封装，来更方便地使用，这个之后的文章里再细说。</p><p><img alt="blob.png" src="src/255971fff25f339df3b43bce64cae5b7.png" title="1446619831795158.png"/></p><p>上面截图中显示了命令执行结果。当前环境是目前最新的 Xcode 7.1。</p><p><strong>Archive 工程</strong></p><p>我们就根据显示的帮助信息来调用命令完成整个打包的过程吧。首先需要了解的是，archive 工程后，实际上我们是把整个工程编译，然后签名，变成了一个后缀名为 xcarchive 的文件。通过调用以下命令，我们将整个工程编译，签名，然后将生成的 xcarchive 文件放到工程根路径下的 build 文件夹里。</p><pre class="brush:js;toolbar:false">xcodebuild -scheme  -archivePath build/.xcarchive archive</pre><p>参数说明：SchemeName 就是工程的 scheme 的名字，在 Xcode 中可以看到。如下图</p><p><img alt="blob.png" src="src/9e7d11c886d1110c8c5322a6cc4af401.png" title="1446619843449901.png"/></p><p>如果工程使用了 Cocoapods 来管理第三方库，那么命令的执行方式上有所不同，因为 Cocoapods 会把工程变成一个 workspace。将 workspace 工程 archive 的命令如下。</p><pre class="brush:js;toolbar:false">xcodebuild -workspace  -scheme  -archivePath build/.xcarchive archive</pre><p>这个命令和上面的命令区别就在于需要指定 workspace 的文件名。</p><p>上面这两个命令适用于不同类型的工程： workspace 或者非 workspace。执行中读取的配置都是在工程的 Target 或者 Scheme 中设置好的配置。比如，archive 进行编译的是 release 环境，这个在工程的 scheme 中可以看到。而签名的证书默认也是在各个 Target 的 Build Setting 中的配置。</p><p>命令中可以添加一些参数实现在命令执行时配置不同的环境。比如，如果想 archive 出 Debug 环境的包，那么就可以在命令中添加 -configuration Debug 参数。对于非 workspace 的工程，还可以通过添加 PROVISIONING_PROFILE=<profileuuid>的参数来指定签名所用的 Profile 文件，参数的值为 profile 文件的 UUID。</profileuuid></p><p>注意：如果下一步中需要导出的是 enterprise 类型的 ipa 包，则导出过程中使用的 profile 文件中指定的 identifier 一定要和相应的 target 的 Bundle Identifier 完全一样，不能使用包含通配符 * 的 profile</p><p>小提示：如果 archive 命令无法执行成功, 则可以在 Xcode 中通过点击「Product -&gt; Archive」来查看产生问题的原因。如果 Xcode 中操作没有问题，那么 archive 命令也是可以正确执行的。</p><p><strong>导出 IPA</strong></p><p>接下来就是将上一步生成的 xcarchive 文件导出，生成 ipa 文件。这里需要用到的命令是 xcodebuild -exportArchive。</p><p>从上面的帮助文件中可以看到命令的使用方法。这里需要注意的是，目前的 Xcode 7 中此命令的使用已经变成使用 -exportOptionsPlist 的参数形式了。这种形式支持 bitcode 的功能。但在实际的使用中，我发现使用这种形式我们工程并不能正确导出 ipa 包。原因我暂未找到，关于 xcodebuild 的资料也真是少的可怜。我猜测是我们工程未使用 bitcode 导致。所以我改为使用了 Xcode 6 时代的 -exportFormat IPA 参数来完成导出 ipa 包的功能。</p><pre class="brush:js;toolbar:false">xcodebuild  -exportArchive -exportFormat IPA -archivePath  -exportPath</pre><p>参数说明：archivePath 就是上一步生成的 xcarchive 文件的路径。exportPath 就是导出的 ipa 文件路径。</p><p>如果导出的 ipa 中要更换 profile 文件，也就是需要修改上一步中 archive 文件用于签名的 profile 文件，有两种方式可以完成这个任务。</p><p>一种方式是直接指定新的 profile 文件，用法是添加参数 -exportProvisioningProfile<profile name="">这种用法适用于只有一个 target 的项目。</profile></p><p>如果工程中有多于一个的 tagert， 比如提供了 watchkit 的功能。由于 watchkit 和 watchkitextension 的 target 也分别需要不同的 profile，需要使用第二种形式的参数, -exportSigningIdentity<signing identity="" name="">只要相关的 profile 文件已经正确安装，那么就可以导出需要的 ipa 文件。 identity 可以在 Keychain 中找到。如下图</signing></p><p><img alt="blob.png" src="src/3d1b775b81b5225e3fcf4b72a38bec22.png" title="1446619892433063.png"/></p><p><strong>实例</strong></p><p>以一个实际工程举例，该工程的名字叫 Tyrion。Scheme 名字也是 Tyrion。 那么 archive 的命令如下</p><pre class="brush:js;toolbar:false">xcodebuild -scheme Tyrion  -archivePath build/Tyrion.xcarchive archive</pre><p>导出 ipa 包的命令如下</p><pre class="brush:js;toolbar:false">xcodebuild  -exportArchive -exportFormat IPA -archivePath build/Tyrion.xcarchive -exportPath build/Tyrion.ipa</pre><p>依次执行完这两个命令后，工程根路径下的 build 文件夹内容如下图。</p><p><img alt="blob.png" src="src/ef43813944db4be46e50fc9e27c436ed.png" title="1446619917430883.png"/></p><p><strong>后续</strong></p><p>导出 ipa 包后，就可以利用 iFunBox 之类的软件直接安装到对应的 iPhone ，或者利用 items-service 协议来远程安装。</p><p>就整个 CI 环境搭建来说，能够通过命令行正确导出 ipa 包只是完成了第一步，要完成整个自动化构建，还需要能够自动将 ipa 包发布出去。这篇文章就到此为止啦~~</p><p><br/></p>
+</div></body></html>

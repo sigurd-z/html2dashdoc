@@ -1,0 +1,446 @@
+<html><head prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# object: http://ogp.me/ns/object# article: http://ogp.me/ns/article# profile: http://ogp.me/ns/profile#">
+<meta charset="utf-8">
+<meta content="IE=edge" http-equiv="X-UA-Compatible">
+<meta content="en" http-equiv="Content-Language">
+<meta content="width=1020" name="viewport">
+<title>Pomelo's new features in version 0.8 · NetEase/pomelo Wiki · GitHub</title>
+<link href="/opensearch.xml" rel="search" title="GitHub" type="application/opensearchdescription+xml">
+<link href="src/ad667adaa2cfe8f3caa4a41b7d0a79a1.png" rel="fluid-icon" title="GitHub">
+<link href="src/a10d19ff5f738940a7a5086be334f50b.png" rel="apple-touch-icon" sizes="57x57">
+<link href="src/a10d19ff5f738940a7a5086be334f50b.png" rel="apple-touch-icon" sizes="114x114">
+<link href="src/b4cd268bc600cc14d2cdd557de6da2fb.png" rel="apple-touch-icon" sizes="72x72">
+<link href="src/b4cd268bc600cc14d2cdd557de6da2fb.png" rel="apple-touch-icon" sizes="144x144">
+<meta content="1401488693436528" property="fb:app_id">
+<meta content="@github" name="twitter:site"/><meta content="summary" name="twitter:card"/><meta content="NetEase/pomelo" name="twitter:title"/><meta content="pomelo - A fast,scalable,distributed game server framework for Node.js." name="twitter:description"/><meta content="https://avatars0.githubusercontent.com/u/1460597?v=3&amp;s=400" name="twitter:image:src"/>
+<meta content="GitHub" property="og:site_name"/><meta content="object" property="og:type"/><meta content="https://avatars0.githubusercontent.com/u/1460597?v=3&amp;s=400" property="og:image"/><meta content="NetEase/pomelo" property="og:title"/><meta content="https://github.com/NetEase/pomelo" property="og:url"/><meta content="pomelo - A fast,scalable,distributed game server framework for Node.js." property="og:description"/>
+<meta content="https://api.github.com/_private/browser/stats" name="browser-stats-url">
+<meta content="https://api.github.com/_private/browser/errors" name="browser-errors-url">
+<link href="https://assets-cdn.github.com/" rel="assets">
+<meta content="1000" name="pjax-timeout">
+<meta content="/windows-tile.png" name="msapplication-TileImage">
+<meta content="#ffffff" name="msapplication-TileColor">
+<meta data-pjax-transient="" name="selected-link" value="repo_wiki">
+<meta content="KT5gs8h0wvaagLKAVWq8bbeNwnZZK1r1XQysX3xurLU" name="google-site-verification">
+<meta content="UA-3769691-2" name="google-analytics">
+<meta content="collector.githubapp.com" name="octolytics-host"/><meta content="github" name="octolytics-app-id"/><meta content="CA86616A:448B:13C97C2C:5670C0DF" name="octolytics-dimension-request_id"/>
+<meta content="/&lt;user-name&gt;/&lt;repo-name&gt;/wiki/show" data-pjax-transient="true" name="analytics-location"/>
+<meta content="Rails, view, wiki#show" data-pjax-transient="true" name="analytics-event"/>
+<meta class="js-ga-set" content="Logged Out" name="dimension1">
+<meta content="github.com" name="hostname">
+<meta content="" name="user-login">
+<meta content="github.com" name="expected-hostname">
+<link color="#4078c0" href="https://assets-cdn.github.com/pinned-octocat.svg" rel="mask-icon">
+<link href="https://assets-cdn.github.com/favicon.ico" rel="icon" type="image/x-icon">
+<meta content="3921bfad47ca19f1ef9aa8632296944a1322d331" name="form-nonce"/>
+<link crossorigin="anonymous" href="src/350888e1495e7af27e01faa9d8291dee.css" media="all" rel="stylesheet"/>
+<link crossorigin="anonymous" href="src/9fae9b7d8f0785d745a43c6465f74ae5.css" media="all" rel="stylesheet"/>
+<meta content="cd9958d45e48e8e3157a320e9c346eaa" http-equiv="x-pjax-version">
+<meta content="pomelo - A fast,scalable,distributed game server framework for Node.js." name="description">
+<meta content="github.com/NetEase/pomelo git https://github.com/NetEase/pomelo.git" name="go-import">
+<meta content="1460597" name="octolytics-dimension-user_id"/><meta content="NetEase" name="octolytics-dimension-user_login"/><meta content="5880912" name="octolytics-dimension-repository_id"/><meta content="NetEase/pomelo" name="octolytics-dimension-repository_nwo"/><meta content="true" name="octolytics-dimension-repository_public"/><meta content="false" name="octolytics-dimension-repository_is_fork"/><meta content="5880912" name="octolytics-dimension-repository_network_root_id"/><meta content="NetEase/pomelo" name="octolytics-dimension-repository_network_root_nwo"/>
+<link href="https://github.com/NetEase/pomelo/commits/master.atom" rel="alternate" title="Recent Commits to pomelo:master" type="application/atom+xml">
+</link></meta></meta></meta></link></link></meta></meta></meta></meta></meta></meta></meta></meta></meta></meta></link></meta></meta></meta></link></link></link></link></link></link></meta></meta></meta></meta></head><body style="padding:0 25px;"><div class="gollum-markdown-content instapaper_body" id="wiki-body">
+<div class="markdown-body">
+<h1>
+<a aria-hidden="true" class="anchor" href="#new-feature-in-pomelo-08" id="user-content-new-feature-in-pomelo-08"><span class="octicon octicon-link"></span></a>New feature in Pomelo 0.8</h1>
+<h2>
+<a aria-hidden="true" class="anchor" href="#pomelo-cocos2d-jsb" id="user-content-pomelo-cocos2d-jsb"><span class="octicon octicon-link"></span></a>Pomelo-cocos2d-jsb</h2>
+<p>In pomelo 0.8 we support cocos2d-x javascript binding, and developers can use javascript both in frontend and backend development. The detail infomation refers to <a href="https://github.com/NetEase/pomelo-cocos2d-jsb">pomelo-cocos2d-jsb</a>.</p>
+<h2>
+<a aria-hidden="true" class="anchor" href="#pomelo-command-line-tool-refactoring" id="user-content-pomelo-command-line-tool-refactoring"><span class="octicon octicon-link"></span></a>Pomelo command line tool refactoring</h2>
+<h4>
+<a aria-hidden="true" class="anchor" href="#elimination-for-dependency-on-specified-directory-when-executing-pomelo-command" id="user-content-elimination-for-dependency-on-specified-directory-when-executing-pomelo-command"><span class="octicon octicon-link"></span></a>Elimination for dependency on specified directory when executing pomelo command.</h4>
+<p>When executing <code>pomelo start</code> in a directory which is not the source code directory <code>game-server</code>, you need to indicate the location of <code>game-server</code> by the option <code>-d, --directory</code>. For <code>log4js</code> configuration file, as all the logs should be put into <code>game-server</code> directory, so it is necessary to specify it and ${opts: base} is used to do so. That means if you executed <code>pomelo start</code> in a non-<code>game-server</code> directory, you may need to use the new log4js configuration file and a template for it can be found in <code>template</code> directory. An example is as follows: </p>
+<pre><code>
+{
+  "appenders": [
+    {
+      "type": "console"
+    },
+    {
+      "type": "file",
+      "filename": "${opts:base}/logs/con-log-${opts:serverId}.log",
+      "pattern": "connector",
+      "maxLogSize": 1048576,
+      "layout": {
+        "type": "basic"
+      },
+      "backups": 5,
+      "category": "con-log"
+    },
+    {
+      "type": "file",
+      "filename": "${opts:base}/logs/crash.log",
+      "maxLogSize": 1048576,
+      "layout": {
+        "type": "basic"
+      },
+      "backups": 5,
+      "category":"crash-log"
+    },
+    // other appenders...
+  ],
+
+  "levels": {
+    "rpc-log" : "ERROR",
+    "forward-log": "ERROR"
+  },
+  "replaceConsole": true,
+  "lineDebug": false
+}
+
+</code></pre>
+<p>For other pomelo commands, such as <code>pomelo list</code>, <code>pomelo add</code>, <code>pomelo stop</code>, it is needed to specify the address of <code>master</code> server, and it would be 127.0.0.1:3005 by default, that means all these commands can be executed remotely. Also, all these commands need authorization with a pair of <code>username</code> and <code>password</code>, the default <code>username</code> and <code>password</code> both are <code>admin</code> if you don't specify them.</p>
+<p>For <code>pomelo masterha</code>, similar to <code>pomelo start</code>, it is also needed to specify the soure code location.</p>
+<h4>
+<a aria-hidden="true" class="anchor" href="#pomelo-start-improvement" id="user-content-pomelo-start-improvement"><span class="octicon octicon-link"></span></a><code>pomelo start</code> improvement</h4>
+<p>Eliminating the dependency on <code>forever</code> if starting the pomelo application in daemon mode. Now, it you executed <code>pomelo start --daemon</code>, then the application will run in background and be out of the control terminal. All the logs will only output to files.</p>
+<p>You can also specify the pomelo <code>env</code> by option <code>-e, --env</code>.</p>
+<p><code>pomelo --help</code> for more help information.</p>
+<h2>
+<a aria-hidden="true" class="anchor" href="#enhancement-for-pushscheduler" id="user-content-enhancement-for-pushscheduler"><span class="octicon octicon-link"></span></a>Enhancement for pushScheduler</h2>
+<h4>
+<a aria-hidden="true" class="anchor" href="#add-an-optional-parameter-for-response-and-push" id="user-content-add-an-optional-parameter-for-response-and-push"><span class="octicon octicon-link"></span></a>add an optional parameter for <code>response</code> and <code>push</code>
+</h4>
+<p>In version 0.8, it supports a more fine-grained pushScheduler configuration, and a <code>connector</code> can be configured to use more than one pushScheduler. we add an optional parameter <code>userOptions</code> for <code>response</code> and <code>push</code>, for <code>broadcast</code>, we just extend its orignal parameter <code>option</code>. Users can set the parameter any value, and it is used to select a proper pushScheduler for each <code>response</code>, <code>push</code> and <code>broadcast</code> invocation as a <code>connector</code> may be configured to use multi-pushScheduler. An example is as follows:</p>
+<p>In Handler, pass a <code>userOptions</code> to <code>next</code>, <code>useOptions</code> will be used in <code>response</code>:</p>
+<pre><code>
+Handler.prototype.handle = function(msg, session, next) {
+
+    // do handling
+    // var resp = ...
+    // var userOptions = ...
+
+    cb(null, resp, userOptions);
+}
+
+</code></pre>
+<p>An example for <code>push</code> invocation:</p>
+<pre><code>
+var aChannel = channelService.getChannel('aChannel');
+
+// var userOptions = ...
+
+aChannel.pushMessage(route, msg, userOptions, cb);
+
+</code></pre>
+<p>For <code>broadcast</code>, the previous versions have supported the parameter <code>option</code> which just contains two available fields <code>binded</code> and <code>filterParam</code>. In 0.8, we just extend it as <code>userOptions</code>, <code>binded</code> &amp; <code>filterParam</code> are already available and stand same semantics, and users can define more fields in the <code>userOptions</code>.</p>
+<p>For <code>errorHandler</code>, its signature in previous versions is:</p>
+<pre><code>var errorHandler = function (err, msg, resp, session, cb) {
+  // ...
+}
+</code></pre>
+<p>Now, as adding the parameter <code>userOptions</code>, so the new <code>errorHandler</code> should be defined as follows:</p>
+<pre><code>
+var errorHandler = function (err, msg, resp, session, opts, cb) {
+  // ...
+}
+</code></pre>
+<p>In 0.8, it is compatiable to the previous <code>errorHandler</code>, however, the new <code>errorHandler</code> is recommended.</p>
+<h3>
+<a aria-hidden="true" class="anchor" href="#multi-pushscheudler-configuration-and-selecting" id="user-content-multi-pushscheudler-configuration-and-selecting"><span class="octicon octicon-link"></span></a>Multi-pushScheudler configuration and selecting</h3>
+<p>In 0.8, a <code>connector</code> can be configured to use more than one pushScheduler, for every <code>response</code>, <code>push</code> and <code>broadcast</code>, it can select a specified pushScheduler based on its rule <code>selector</code>, and the optional parameter <code>userOptions</code> can be used to calculate the selecting. An example which shows how to do this is as follows:</p>
+<pre><code>
+app.configure('development', 'connector', function() {
+  app.set('pushSchedulerConfig', {
+    scheduler: [ 
+      {
+        id: 'direct',
+        scheduler: pomelo.pushSchedulers.direct
+      },
+      {
+        id: 'buffer5',
+        scheduler: pomelo.pushSchedulers.buffer,
+        options: {flushInterval: 5000}
+      },
+      {
+        id: 'buffer10',
+        scheduler: pomelo.pushSchedulers.buffer,
+        options: {flushInterval: 10000}
+      }
+    ],
+    selector: function(reqId, route, msg, recvs, opts, cb) {
+       // opts.userOptions is passed by response/push/broadcast
+       console.log('user options is: ', opts.userOptions);
+       if(opts.type === 'push') {
+         cb('buffer5');
+         return;
+       }
+       if (opts.type === 'response') {
+         cb('direct');
+         return ;
+       }
+       if (opts.type === 'broadcast') {
+         cb('buffer10');
+         return ;
+       }
+    }
+  });
+
+</code></pre>
+<p>The change for configuration of pushScheduler also keeps compatiable to previous versions.</p>
+<h2>
+<a aria-hidden="true" class="anchor" href="#rpc-invocation-improvement" id="user-content-rpc-invocation-improvement"><span class="octicon octicon-link"></span></a>RPC invocation improvement</h2>
+<p>When initiating a rpc invocation, in 0.8, it can skip the route calculating and dispatch it to a specified server or a kind of servers which have the same serverType. An example is as follows:</p>
+<pre><code>
+// route
+
+var routeParam = session;
+app.rpc.area.playerRemote.leaveTeam(routeParam, args..., cb);
+
+// to specified server 'area-server-1', 0.8 supports.
+app.rpc.area.playerRemote.leaveTeam.toServer('area-server-1', args..., cb);
+
+// broadcast to all the area servers, 0.8 supports.
+app.rpc.area.playerRemote.leaveTeam.toServer('*', args..., cb);
+
+</code></pre>
+<h2>
+<a aria-hidden="true" class="anchor" href="#lifecycle-callback" id="user-content-lifecycle-callback"><span class="octicon octicon-link"></span></a>Lifecycle callback</h2>
+<p>Pomelo 0.8 exposes the lifecycle callbacks of application to developers, and this allows developers to do operations in lifecycle of different type of servers. Existing lifecycle callbacks include beforeStartup，afterStartup，beforeShutdown，afterStartAll. </p>
+<h3>
+<a aria-hidden="true" class="anchor" href="#beforestartupapp-cb" id="user-content-beforestartupapp-cb"><span class="octicon octicon-link"></span></a>beforeStartup(app, cb)</h3>
+<p>before application start components callback</p>
+<h4>
+<a aria-hidden="true" class="anchor" href="#arguments" id="user-content-arguments"><span class="octicon octicon-link"></span></a>Arguments</h4>
+<ul>
+<li>app - application object</li>
+<li>cb - callback function</li>
+</ul>
+<h3>
+<a aria-hidden="true" class="anchor" href="#afterstartupapp-cb" id="user-content-afterstartupapp-cb"><span class="octicon octicon-link"></span></a>afterStartup(app, cb)</h3>
+<p>after application start components callback</p>
+<h4>
+<a aria-hidden="true" class="anchor" href="#arguments-1" id="user-content-arguments-1"><span class="octicon octicon-link"></span></a>Arguments</h4>
+<ul>
+<li>app - application object</li>
+<li>cb - callback function</li>
+</ul>
+<h3>
+<a aria-hidden="true" class="anchor" href="#beforeshutdownapp-cb" id="user-content-beforeshutdownapp-cb"><span class="octicon octicon-link"></span></a>beforeShutdown(app, cb)</h3>
+<p>before application stop components callback</p>
+<h4>
+<a aria-hidden="true" class="anchor" href="#arguments-2" id="user-content-arguments-2"><span class="octicon octicon-link"></span></a>Arguments</h4>
+<ul>
+<li>app - application object</li>
+<li>cb - callback function</li>
+</ul>
+<h3>
+<a aria-hidden="true" class="anchor" href="#afterstartallapp" id="user-content-afterstartallapp"><span class="octicon octicon-link"></span></a>afterStartAll(app)</h3>
+<p>after all applications started callback</p>
+<h4>
+<a aria-hidden="true" class="anchor" href="#arguments-3" id="user-content-arguments-3"><span class="octicon octicon-link"></span></a>Arguments</h4>
+<ul>
+<li>app - application object</li>
+</ul>
+<p>usage: add lifecycle.js in game-server/app/servers/sometype server/, the example is as follows:</p>
+<pre><code>
+module.exports.beforeStartup = function(app, cb) {
+    // do some operations before application start up
+    cb();
+};
+
+
+module.exports.afterStartup = function(app, cb) {
+    // do some operations after application start up
+    cb();
+};
+
+module.exports.beforeShutdown = function(app, cb) {
+    // do some operations before application shutdown down
+    cb();
+};
+
+module.exports.afterStartAll = function(app) {
+    // do some operations after all applications start up
+};
+
+
+</code></pre>
+<h2>
+<a aria-hidden="true" class="anchor" href="#expose-rpc-filter-interface" id="user-content-expose-rpc-filter-interface"><span class="octicon octicon-link"></span></a>Expose rpc filter interface</h2>
+<p>On the advice of the netizens, pomelo exposes rpc filter interfaces including rpcBefore、rpcAfter、rpcFilter. The usage is similar to handler, and the example configuration is as follows:</p>
+<pre><code>
+app.configure('production|development', function() {
+    // configurations
+    app.filter(pomelo.filters.time());
+    app.rpcFilter(pomelo.rpcFilters.rpcLog());
+});
+
+</code></pre>
+<h2>
+<a aria-hidden="true" class="anchor" href="#simplify-configuration" id="user-content-simplify-configuration"><span class="octicon octicon-link"></span></a>Simplify configuration</h2>
+<p>0.8 pomelo simplifies the configuration of servers.json by adding the clusterCount field, and this makes pomelo more suitable for deployment of large-scale application.</p>
+<p>origin configuration:</p>
+<pre><code>
+     "connector":[
+             {"id":"connector-server-1", "host":"127.0.0.1", "port":4050, "clientPort": 3050, "frontend": true},
+             {"id":"connector-server-2", "host":"127.0.0.1", "port":4051, "clientPort": 3051, "frontend": true},
+             {"id":"connector-server-3", "host":"127.0.0.1", "port":4052, "clientPort": 3052, "frontend": true}
+         ],
+        "chat":[
+             {"id":"chat-server-1", "host":"127.0.0.1", "port":6050},
+             {"id":"chat-server-2", "host":"127.0.0.1", "port":6051},
+             {"id":"chat-server-3", "host":"127.0.0.1", "port":6052}
+        ],
+        "gate":[
+           {"id": "gate-server-1", "host": "127.0.0.1", "clientPort": 3014, "frontend": true}
+        ]
+</code></pre>
+<p>0.8 pomelo configuration:</p>
+<pre><code>
+    "connector":[
+             {"host":"127.0.0.1", "port":"4050++", "clientPort": "3050++", "frontend": true, "clusterCount": 3}
+         ],
+        "chat":[
+             {"host":"127.0.0.1", "port":"6050++", "clusterCount": 3}
+        ],
+        "gate":[
+           {"host": "127.0.0.1", "clientPort": 3014, "frontend": true, "clusterCount": 1}
+        ]
+
+</code></pre>
+<p>When using <a href="https://github.com/NetEase/pomelo-cli">pomelo-cli</a> to add servers dynamically, 'add host=127.0.0.1 port=9000++ serverType=chat clusterCount=3' this command can work as well.</p>
+<h2>
+<a aria-hidden="true" class="anchor" href="#pomelo-logger-supports-dynamic-log-level" id="user-content-pomelo-logger-supports-dynamic-log-level"><span class="octicon octicon-link"></span></a>Pomelo-logger supports dynamic log level</h2>
+<p><a href="https://github.com/NetEase/pomelo-logger">pomelo-logger</a> 0.1.2 supports dynamic log level, and developers can add reloadSecs in config/log4js.json. The parameter means the time checking whether the log configuration has been changed. If the log configuration changed, the levels will be reloaded. The example configuration is as follows:</p>
+<pre><code>
+{
+
+  ......
+
+  "levels": {
+
+    "pomelo" : "INFO",
+    "rpc-log" : "INFO", 
+    "forward-log": "ERROR",
+    "con-log": "INFO"
+  }, 
+
+  "replaceConsole": true,
+
+  "reloadSecs": 60 * 3
+
+}
+
+</code></pre>
+<p>The above configuration means checking log configuration every 3 minutes.</p>
+<h2>
+<a aria-hidden="true" class="anchor" href="#safety" id="user-content-safety"><span class="octicon octicon-link"></span></a>Safety</h2>
+<h3>
+<a aria-hidden="true" class="anchor" href="#rpc-ip-white-list" id="user-content-rpc-ip-white-list"><span class="octicon octicon-link"></span></a>RPC IP white list</h3>
+<p>Pomelo 0.8 supports white list for rpc invoking.</p>
+<h6>
+<a aria-hidden="true" class="anchor" href="#principle" id="user-content-principle"><span class="octicon octicon-link"></span></a>Principle</h6>
+<p>Rpc server side will check client ip according to the white list function which provided by developers when a new connection comes. If the client ip is not in the white list, the corresponding socket will disconnect.</p>
+<h6>
+<a aria-hidden="true" class="anchor" href="#usage" id="user-content-usage"><span class="octicon octicon-link"></span></a>Usage</h6>
+<p>If you want to use this function, you only need to pass a white list function (<code>whitelist: rpcWhitelist.whitelistFunc</code>) in <code>remoteConfig</code>. The example code is as follows:</p>
+<pre><code>./game-server/app/util/whitelist.js
+... ...
+var self = this;
+self.gWhitelist = ['192.168.146.100', '192.168.146.101'];
+module.exports.whitelistFunc = function(cb) {
+  cb(null, self.gWhitelist);
+  };
+... ...
+</code></pre>
+<pre><code>./game-server/app.js
+var rpcWhitelist = require('./app/util/whitelist');
+... ...
+// configure for global
+app.configure('production|development', function() {
+... ...
+  // remote configures
+  app.set('remoteConfig', {
+    cacheMsg: true
+    , interval: 30
+    , whitelist: rpcWhitelist.whitelistFunc
+  });
+... ...
+}
+</code></pre>
+<ul>
+<li>Detail information can refer to <a href="https://github.com/NetEase/lordofpomelo/tree/dev">lordofpomelo</a>
+</li>
+</ul>
+<h3>
+<a aria-hidden="true" class="anchor" href="#pomelo-admin-ip-white-list" id="user-content-pomelo-admin-ip-white-list"><span class="octicon octicon-link"></span></a>pomelo-admin ip white list</h3>
+<h6>
+<a aria-hidden="true" class="anchor" href="#principle-1" id="user-content-principle-1"><span class="octicon octicon-link"></span></a>Principle</h6>
+<p>This function is similar to rpc ip white list.</p>
+<h6>
+<a aria-hidden="true" class="anchor" href="#usage-1" id="user-content-usage-1"><span class="octicon octicon-link"></span></a>Usage</h6>
+<p>If you want to use this function, you only need to pass a white list function (<code>whitelist: adminWhitelist.whitelistFunc</code>) in <code>masterConfig</code>. The example code is as follows:</p>
+<pre><code>./game-server/app/util/whitelist.js
+... ...
+var self = this;
+self.gWhitelist = ['192.168.146.100', '192.168.146.101'];
+module.exports.whitelistFunc = function(cb) {
+  cb(null, self.gWhitelist);
+};
+... ...
+</code></pre>
+<pre><code>./game-server/app.js
+var adminWhitelist = require('./app/util/whitelist');
+... ...
+// configure for global
+app.configure('production|development', function() {
+... ...
+  app.set('masterConfig', {
+    authUser: app.get('adminAuthUser') // auth client function
+    , authServer: app.get('adminAuthServerMaster') // auth server function
+    , whitelist: adminWhitelist.whitelistFunc
+  });
+... ...
+}
+</code></pre>
+<ul>
+<li>Detail information can refer to <a href="https://github.com/NetEase/lordofpomelo/tree/dev">lordofpomelo</a>
+</li>
+</ul>
+<h2>
+<a aria-hidden="true" class="anchor" href="#pomelo-data-plugin" id="user-content-pomelo-data-plugin"><span class="octicon octicon-link"></span></a>Pomelo-data-plugin</h2>
+<h6>
+<a aria-hidden="true" class="anchor" href="#principle-2" id="user-content-principle-2"><span class="octicon octicon-link"></span></a>Principle</h6>
+<p>The plugin uses <a href="https://npmjs.org/package/csv">csv module</a> to resolve the csv configuration file, and uses <code>fs.watchFile</code> to monitor file changes. When the plugin is loaded in pomelo, it will load all csv files in specific directory and add a watcher for each file.</p>
+<h6>
+<a aria-hidden="true" class="anchor" href="#installation" id="user-content-installation"><span class="octicon octicon-link"></span></a>Installation</h6>
+<pre><code>npm install pomelo-data-plugin
+</code></pre>
+<h6>
+<a aria-hidden="true" class="anchor" href="#usage-2" id="user-content-usage-2"><span class="octicon octicon-link"></span></a>Usage</h6>
+<pre><code>./pomelo-data-plugin-demo/config/data/team.csv
+# team name configuration
+# team number, team name
+id,teamName
+5,The Lord of the Rings
+6,The Fast and the Furious
+</code></pre>
+<p>The lines start with <code>#</code> are comments in csv file. The first line of text is column name(<code>id</code> is the main column name, which is necessary), and the next lines are concrete data.</p>
+<pre><code>var dataPlugin = require('pomelo-data-plugin');
+... ...
+app.configure('production|development', function() {
+  ...
+  app.use(dataPlugin, {
+    watcher: {
+      dir: __dirname + '/config/data',
+      idx: 'id',
+      interval: 3000
+    }
+  });
+  ...
+});
+... ...
+... ...
+var teamConf = app.get('dataService').get('team');
+... ...
+... ...
+</code></pre>
+<p><code>dir</code> means the configuration directory which would be mointored; <code>idx</code> means csv the main column of configuration files;<code>interval</code> means the time interval of <code>fs.watchFile</code>, in milliseconds.</p>
+<ul>
+<li>Detail information can refer to <a href="https://github.com/NetEase/pomelo-data-plugin">pomelo-data-plugin</a>和<a href="https://github.com/NetEase/pomelo-data-plugin-demo">pomelo-data-plugin-demo</a>
+</li>
+</ul>
+</div>
+</div></body></html>

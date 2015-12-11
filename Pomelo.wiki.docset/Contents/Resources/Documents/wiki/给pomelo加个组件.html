@@ -1,0 +1,112 @@
+<html><head prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# object: http://ogp.me/ns/object# article: http://ogp.me/ns/article# profile: http://ogp.me/ns/profile#">
+<meta charset="utf-8">
+<meta content="IE=edge" http-equiv="X-UA-Compatible">
+<meta content="en" http-equiv="Content-Language">
+<meta content="width=1020" name="viewport">
+<title>给pomelo加个组件 · NetEase/pomelo Wiki · GitHub</title>
+<link href="/opensearch.xml" rel="search" title="GitHub" type="application/opensearchdescription+xml">
+<link href="src/ad667adaa2cfe8f3caa4a41b7d0a79a1.png" rel="fluid-icon" title="GitHub">
+<link href="src/a10d19ff5f738940a7a5086be334f50b.png" rel="apple-touch-icon" sizes="57x57">
+<link href="src/a10d19ff5f738940a7a5086be334f50b.png" rel="apple-touch-icon" sizes="114x114">
+<link href="src/b4cd268bc600cc14d2cdd557de6da2fb.png" rel="apple-touch-icon" sizes="72x72">
+<link href="src/b4cd268bc600cc14d2cdd557de6da2fb.png" rel="apple-touch-icon" sizes="144x144">
+<meta content="1401488693436528" property="fb:app_id">
+<meta content="@github" name="twitter:site"/><meta content="summary" name="twitter:card"/><meta content="NetEase/pomelo" name="twitter:title"/><meta content="pomelo - A fast,scalable,distributed game server framework for Node.js." name="twitter:description"/><meta content="https://avatars0.githubusercontent.com/u/1460597?v=3&amp;s=400" name="twitter:image:src"/>
+<meta content="GitHub" property="og:site_name"/><meta content="object" property="og:type"/><meta content="https://avatars0.githubusercontent.com/u/1460597?v=3&amp;s=400" property="og:image"/><meta content="NetEase/pomelo" property="og:title"/><meta content="https://github.com/NetEase/pomelo" property="og:url"/><meta content="pomelo - A fast,scalable,distributed game server framework for Node.js." property="og:description"/>
+<meta content="https://api.github.com/_private/browser/stats" name="browser-stats-url">
+<meta content="https://api.github.com/_private/browser/errors" name="browser-errors-url">
+<link href="https://assets-cdn.github.com/" rel="assets">
+<meta content="1000" name="pjax-timeout">
+<meta content="/windows-tile.png" name="msapplication-TileImage">
+<meta content="#ffffff" name="msapplication-TileColor">
+<meta data-pjax-transient="" name="selected-link" value="repo_wiki">
+<meta content="KT5gs8h0wvaagLKAVWq8bbeNwnZZK1r1XQysX3xurLU" name="google-site-verification">
+<meta content="UA-3769691-2" name="google-analytics">
+<meta content="collector.githubapp.com" name="octolytics-host"/><meta content="github" name="octolytics-app-id"/><meta content="CA86616A:2F42:FB7B669:5670C1AD" name="octolytics-dimension-request_id"/>
+<meta content="/&lt;user-name&gt;/&lt;repo-name&gt;/wiki/show" data-pjax-transient="true" name="analytics-location"/>
+<meta content="Rails, view, wiki#show" data-pjax-transient="true" name="analytics-event"/>
+<meta class="js-ga-set" content="Logged Out" name="dimension1">
+<meta content="github.com" name="hostname">
+<meta content="" name="user-login">
+<meta content="github.com" name="expected-hostname">
+<link color="#4078c0" href="https://assets-cdn.github.com/pinned-octocat.svg" rel="mask-icon">
+<link href="https://assets-cdn.github.com/favicon.ico" rel="icon" type="image/x-icon">
+<meta content="caade75753e06c997f83f09207c613ba0a90f30f" name="form-nonce"/>
+<link crossorigin="anonymous" href="src/350888e1495e7af27e01faa9d8291dee.css" media="all" rel="stylesheet"/>
+<link crossorigin="anonymous" href="src/9fae9b7d8f0785d745a43c6465f74ae5.css" media="all" rel="stylesheet"/>
+<meta content="cd9958d45e48e8e3157a320e9c346eaa" http-equiv="x-pjax-version">
+<meta content="pomelo - A fast,scalable,distributed game server framework for Node.js." name="description">
+<meta content="github.com/NetEase/pomelo git https://github.com/NetEase/pomelo.git" name="go-import">
+<meta content="1460597" name="octolytics-dimension-user_id"/><meta content="NetEase" name="octolytics-dimension-user_login"/><meta content="5880912" name="octolytics-dimension-repository_id"/><meta content="NetEase/pomelo" name="octolytics-dimension-repository_nwo"/><meta content="true" name="octolytics-dimension-repository_public"/><meta content="false" name="octolytics-dimension-repository_is_fork"/><meta content="5880912" name="octolytics-dimension-repository_network_root_id"/><meta content="NetEase/pomelo" name="octolytics-dimension-repository_network_root_nwo"/>
+<link href="https://github.com/NetEase/pomelo/commits/master.atom" rel="alternate" title="Recent Commits to pomelo:master" type="application/atom+xml">
+</link></meta></meta></meta></link></link></meta></meta></meta></meta></meta></meta></meta></meta></meta></meta></link></meta></meta></meta></link></link></link></link></link></link></meta></meta></meta></meta></head><body style="padding:0 25px;"><div class="gollum-markdown-content instapaper_body" id="wiki-body">
+<div class="markdown-body">
+<p>pomelo的核心是由一系列松耦合的component组成，同时我们也可以实现我们自己的component来完成一些自己定制的功能。对于我们的chat应用，我们尝试给其增加一个component，目的是展示如何增加一个component，以及component的生命周期管理，而不会特别关注这个component的实际功能。我们现在就给其增加一个component HelloWorld，这个component仅仅在master服务器上加载运行,在master服务器的话，它将每隔一段时间在console上打印出来一个HelloWorld，具体的时间间隔由opts配置来指定。</p>
+<h1>
+<a aria-hidden="true" class="anchor" href="#chat%E4%B8%AD%E5%BA%94%E7%94%A8" id="user-content-chat中应用"><span class="octicon octicon-link"></span></a>chat中应用</h1>
+<p>具体的代码在分支<code>tutorial-component</code>上，使用如下命令切换分支：</p>
+<pre><code>$ git checkout tutorial-component
+</code></pre>
+<ul>
+<li>首先，在app下建立components/HelloWorld.js文件, 大致代码如下：</li>
+</ul>
+<div class="highlight highlight-source-js"><pre>
+<span class="pl-c">// components/HelloWorld.js</span>
+<span class="pl-c1">module</span>.<span class="pl-en">exports</span> <span class="pl-k">=</span> <span class="pl-k">function</span>(<span class="pl-smi">app</span>, <span class="pl-smi">opts</span>) {
+  <span class="pl-k">return</span> <span class="pl-k">new</span> <span class="pl-en">HelloWorld</span>(app, opts);
+};
+
+<span class="pl-k">var</span> <span class="pl-c1">DEFAULT_INTERVAL</span> <span class="pl-k">=</span> <span class="pl-c1">3000</span>;
+
+<span class="pl-k">var</span> <span class="pl-en">HelloWorld</span> <span class="pl-k">=</span> <span class="pl-k">function</span>(<span class="pl-smi">app</span>, <span class="pl-smi">opts</span>) {
+  <span class="pl-v">this</span>.<span class="pl-smi">app</span> <span class="pl-k">=</span> app;
+  <span class="pl-v">this</span>.<span class="pl-smi">interval</span> <span class="pl-k">=</span> <span class="pl-smi">opts</span>.<span class="pl-smi">interval</span> <span class="pl-k">|</span> <span class="pl-c1">DEFAULT_INTERVAL</span>;
+  <span class="pl-v">this</span>.<span class="pl-smi">timerId</span> <span class="pl-k">=</span> <span class="pl-c1">null</span>;
+};
+
+<span class="pl-smi">HelloWorld</span>.<span class="pl-c1">name</span> <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">'</span>__HelloWorld__<span class="pl-pds">'</span></span>;
+
+<span class="pl-c1">HelloWorld</span>.<span class="pl-c1">prototype</span>.<span class="pl-en">start</span> <span class="pl-k">=</span> <span class="pl-k">function</span>(<span class="pl-smi">cb</span>) {
+  <span class="pl-en">console</span>.<span class="pl-c1">log</span>(<span class="pl-s"><span class="pl-pds">'</span>Hello World Start<span class="pl-pds">'</span></span>);
+  <span class="pl-k">var</span> self <span class="pl-k">=</span> <span class="pl-v">this</span>;
+  <span class="pl-v">this</span>.<span class="pl-smi">timerId</span> <span class="pl-k">=</span> <span class="pl-c1">setInterval</span>(<span class="pl-k">function</span>() {
+    <span class="pl-en">console</span>.<span class="pl-c1">log</span>(<span class="pl-smi">self</span>.<span class="pl-smi">app</span>.<span class="pl-en">getServerId</span>() <span class="pl-k">+</span> <span class="pl-s"><span class="pl-pds">"</span>: Hello World!<span class="pl-pds">"</span></span>);
+    }, <span class="pl-v">this</span>.<span class="pl-smi">interval</span>);
+  <span class="pl-smi">process</span>.<span class="pl-en">nextTick</span>(cb);
+}
+
+<span class="pl-c1">HelloWorld</span>.<span class="pl-c1">prototype</span>.<span class="pl-en">afterStart</span> <span class="pl-k">=</span> <span class="pl-k">function</span> (<span class="pl-smi">cb</span>) {
+  <span class="pl-en">console</span>.<span class="pl-c1">log</span>(<span class="pl-s"><span class="pl-pds">'</span>Hello World afterStart<span class="pl-pds">'</span></span>);
+  <span class="pl-smi">process</span>.<span class="pl-en">nextTick</span>(cb);
+}
+
+<span class="pl-c1">HelloWorld</span>.<span class="pl-c1">prototype</span>.<span class="pl-en">stop</span> <span class="pl-k">=</span> <span class="pl-k">function</span>(<span class="pl-smi">force</span>, <span class="pl-smi">cb</span>) {
+  <span class="pl-en">console</span>.<span class="pl-c1">log</span>(<span class="pl-s"><span class="pl-pds">'</span>Hello World stop<span class="pl-pds">'</span></span>);
+  <span class="pl-c1">clearInterval</span>(<span class="pl-v">this</span>.<span class="pl-smi">timerId</span>);
+  <span class="pl-smi">process</span>.<span class="pl-en">nextTick</span>(cb);
+}
+</pre></div>
+<p>我们看到每一个component一般都要定义start，afterStart，stop这些hook函数，供pomelo管理其生命周期时进行调用。对于component的启动，pomelo总是先调用其加载的每一个component提供的start函数，当全部调用完后，才会去调用其加载的每一个component的afterStart方法，这里总是按顺序调用的。在afterStart中，一些需要全局就绪的工作可以放在这里完成，因为调用afterStart的时候，所有component的start已经调用完毕。stop用于程序结束时对component进行清理时使用。虽然我们这个例子非常简单，但是足以说明如何在pomelo中定制自己的component，并使用。我们在HelloWorld的start里面启用了一个定时器，每隔一段时间就向console打印一个HelloWorld。然后在stop里关闭它。</p>
+<ul>
+<li>然后，我们让master服务器来加载我们的这个component，具体代码如下：</li>
+</ul>
+<div class="highlight highlight-source-js"><pre><span class="pl-c">// app.js</span>
+<span class="pl-k">var</span> helloWorld <span class="pl-k">=</span> <span class="pl-c1">require</span>(<span class="pl-s"><span class="pl-pds">'</span>./app/components/HelloWorld<span class="pl-pds">'</span></span>);
+
+<span class="pl-smi">app</span>.<span class="pl-en">configure</span>(<span class="pl-s"><span class="pl-pds">'</span>production|development<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>master<span class="pl-pds">'</span></span>, <span class="pl-k">function</span>() {
+  <span class="pl-smi">app</span>.<span class="pl-c1">load</span>(helloWorld, {interval<span class="pl-k">:</span> <span class="pl-c1">5000</span>});
+});
+</pre></div>
+<p>好了， 我们通过实现一个简单的component，明白了如何实现自己的定制component，当然这个component很简单，也没有啥实际意义，但是它是一个完整的component，有完整的生命周期管理，我们通过这个例子已经了解到了component的创建以及加载。</p>
+<h1>
+<a aria-hidden="true" class="anchor" href="#%E4%B8%80%E4%BA%9B%E8%AF%B4%E6%98%8E" id="user-content-一些说明"><span class="octicon octicon-link"></span></a>一些说明</h1>
+<ul>
+<li><p>这里定义的HelloWorld component中，往外导出的是一个工厂函数，而不是一个对象。当app加载component时，如果是一个工厂函数，那么app会将自己作为上下文信息以及后面的opts作为参数传给这个函数，使用这个函数的返回值作为component对象。同样，也可以直接给module.exports赋予一个对象，那样的话，就可以直接使用而不用调用工厂函数，不过这样的话丧失了使用app和具体配置参数， 不够灵活，因此，使用工厂方法的方式是一个好选择。</p></li>
+<li><p>对于start和afterStart的执行，pomelo总是会先按顺序执行完所有component的start后，才会按顺序执行所有component的afterStart，因此可以在afterStart里执行一些需要其他component执行了start后才可以执行的逻辑。</p></li>
+<li><p>实际上，pomelo应用的整个运行过程可以认为是管理其component的生命周期过程，pomelo的所有功能都是通过其内建的component来实现的。用户可以轻松地定制自己的component，然后将其load进去，这样就很轻松地实现了对pomelo的扩展。</p></li>
+</ul>
+<h1>
+<a aria-hidden="true" class="anchor" href="#%E5%B0%8F%E7%BB%93" id="user-content-小结"><span class="octicon octicon-link"></span></a>小结</h1>
+<p>在这部分，我们给聊天应用“画蛇添足”般地添加了一个HelloWorld component，使得可以更好地理解如何定制自己的component，并加载它。pomelo的框架非常灵活，有很好的可扩展性，从我们的例子中，我们可以看出，可以很容易地对pomelo进行扩展。pomelo不仅可以扩展component，pomelo还提供了一个灵活的可扩展的服务器监控管理框架，<a href="%E5%A2%9E%E5%8A%A0admin-module" title="增加admin-module">下一步</a>，我们将给我们的聊天应用增加一个监控模块，让应用服务器自动向master上报自己的本地时间，以此来示例如何在pomelo中定制自己的监控管理模块。</p>
+</div>
+</div></body></html>

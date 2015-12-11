@@ -1,0 +1,114 @@
+<html><head prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# object: http://ogp.me/ns/object# article: http://ogp.me/ns/article# profile: http://ogp.me/ns/profile#">
+<meta charset="utf-8">
+<meta content="IE=edge" http-equiv="X-UA-Compatible">
+<meta content="en" http-equiv="Content-Language">
+<meta content="width=1020" name="viewport">
+<title>增加filter · NetEase/pomelo Wiki · GitHub</title>
+<link href="/opensearch.xml" rel="search" title="GitHub" type="application/opensearchdescription+xml">
+<link href="src/ad667adaa2cfe8f3caa4a41b7d0a79a1.png" rel="fluid-icon" title="GitHub">
+<link href="src/a10d19ff5f738940a7a5086be334f50b.png" rel="apple-touch-icon" sizes="57x57">
+<link href="src/a10d19ff5f738940a7a5086be334f50b.png" rel="apple-touch-icon" sizes="114x114">
+<link href="src/b4cd268bc600cc14d2cdd557de6da2fb.png" rel="apple-touch-icon" sizes="72x72">
+<link href="src/b4cd268bc600cc14d2cdd557de6da2fb.png" rel="apple-touch-icon" sizes="144x144">
+<meta content="1401488693436528" property="fb:app_id">
+<meta content="@github" name="twitter:site"/><meta content="summary" name="twitter:card"/><meta content="NetEase/pomelo" name="twitter:title"/><meta content="pomelo - A fast,scalable,distributed game server framework for Node.js." name="twitter:description"/><meta content="https://avatars0.githubusercontent.com/u/1460597?v=3&amp;s=400" name="twitter:image:src"/>
+<meta content="GitHub" property="og:site_name"/><meta content="object" property="og:type"/><meta content="https://avatars0.githubusercontent.com/u/1460597?v=3&amp;s=400" property="og:image"/><meta content="NetEase/pomelo" property="og:title"/><meta content="https://github.com/NetEase/pomelo" property="og:url"/><meta content="pomelo - A fast,scalable,distributed game server framework for Node.js." property="og:description"/>
+<meta content="https://api.github.com/_private/browser/stats" name="browser-stats-url">
+<meta content="https://api.github.com/_private/browser/errors" name="browser-errors-url">
+<link href="https://assets-cdn.github.com/" rel="assets">
+<meta content="1000" name="pjax-timeout">
+<meta content="/windows-tile.png" name="msapplication-TileImage">
+<meta content="#ffffff" name="msapplication-TileColor">
+<meta data-pjax-transient="" name="selected-link" value="repo_wiki">
+<meta content="KT5gs8h0wvaagLKAVWq8bbeNwnZZK1r1XQysX3xurLU" name="google-site-verification">
+<meta content="UA-3769691-2" name="google-analytics">
+<meta content="collector.githubapp.com" name="octolytics-host"/><meta content="github" name="octolytics-app-id"/><meta content="CA86616A:4488:C320621:5670C183" name="octolytics-dimension-request_id"/>
+<meta content="/&lt;user-name&gt;/&lt;repo-name&gt;/wiki/show" data-pjax-transient="true" name="analytics-location"/>
+<meta content="Rails, view, wiki#show" data-pjax-transient="true" name="analytics-event"/>
+<meta class="js-ga-set" content="Logged Out" name="dimension1">
+<meta content="github.com" name="hostname">
+<meta content="" name="user-login">
+<meta content="github.com" name="expected-hostname">
+<link color="#4078c0" href="https://assets-cdn.github.com/pinned-octocat.svg" rel="mask-icon">
+<link href="https://assets-cdn.github.com/favicon.ico" rel="icon" type="image/x-icon">
+<meta content="7d17e5a5c90ab0a8f65dbdbc94aa4ea78567a96d" name="form-nonce"/>
+<link crossorigin="anonymous" href="src/350888e1495e7af27e01faa9d8291dee.css" media="all" rel="stylesheet"/>
+<link crossorigin="anonymous" href="src/9fae9b7d8f0785d745a43c6465f74ae5.css" media="all" rel="stylesheet"/>
+<meta content="cd9958d45e48e8e3157a320e9c346eaa" http-equiv="x-pjax-version">
+<meta content="pomelo - A fast,scalable,distributed game server framework for Node.js." name="description">
+<meta content="github.com/NetEase/pomelo git https://github.com/NetEase/pomelo.git" name="go-import">
+<meta content="1460597" name="octolytics-dimension-user_id"/><meta content="NetEase" name="octolytics-dimension-user_login"/><meta content="5880912" name="octolytics-dimension-repository_id"/><meta content="NetEase/pomelo" name="octolytics-dimension-repository_nwo"/><meta content="true" name="octolytics-dimension-repository_public"/><meta content="false" name="octolytics-dimension-repository_is_fork"/><meta content="5880912" name="octolytics-dimension-repository_network_root_id"/><meta content="NetEase/pomelo" name="octolytics-dimension-repository_network_root_nwo"/>
+<link href="https://github.com/NetEase/pomelo/commits/master.atom" rel="alternate" title="Recent Commits to pomelo:master" type="application/atom+xml">
+</link></meta></meta></meta></link></link></meta></meta></meta></meta></meta></meta></meta></meta></meta></meta></link></meta></meta></meta></link></link></link></link></link></link></meta></meta></meta></meta></head><body style="padding:0 25px;"><div class="gollum-markdown-content instapaper_body" id="wiki-body">
+<div class="markdown-body">
+<p>在实际的应用中，我们往往需要在逻辑服务器处理请求之前需要对用户请求做一些前置处理，而当请求被处理后，又需要做一些善后处理，由于这是一种很常见的情形，pomelo对其进行了抽象，也就是filter。在pomelo中，filter分为before filter和after filter。在一个请求到达Handler被处理之前，可以经过多个before Filter组成的filter链进行一些前置处理，比如对请求进行排队，超时处理。当请求被Handler处理完成后，又可以通过一个after filter链进行一些善后处理。这里需要注意的是在after filter中一般只做一些清理处理，而不应该再去修改到客户端的响应内容，因为此时，对客户端的响应内容已经发给了客户端。</p>
+<p>本例是一个聊天应用，在聊天室里，当有人说脏话时，往往需要进行屏蔽。我们在这里就以加一个脏话屏蔽的filter来示范如何使用pomelo的filter。具体的代码请切换到<code>tutorial-abuse-filter</code>分支，使用如下命令：</p>
+<pre><code>$ git checkout tutorial-abuse-filter
+</code></pre>
+<h1>
+<a aria-hidden="true" class="anchor" href="#filter%E7%BB%93%E6%9E%84" id="user-content-filter结构"><span class="octicon octicon-link"></span></a>Filter结构</h1>
+<p>Filter是一个对象，定义一个Filter的大致代码如下:</p>
+<div class="highlight highlight-source-js"><pre><span class="pl-k">var</span> <span class="pl-en">Filter</span> <span class="pl-k">=</span> <span class="pl-k">function</span> (&lt;<span class="pl-smi">args</span>&gt;) {
+  <span class="pl-c">// ....</span>
+};
+
+<span class="pl-c1">Filter</span>.<span class="pl-c1">prototype</span>.<span class="pl-en">before</span> <span class="pl-k">=</span> <span class="pl-k">function</span>(<span class="pl-smi">msg</span>, <span class="pl-smi">session</span>, <span class="pl-smi">next</span>) {
+    <span class="pl-c">// ...</span>
+}
+
+<span class="pl-c1">Filter</span>.<span class="pl-c1">prototype</span>.<span class="pl-en">after</span> <span class="pl-k">=</span> <span class="pl-k">function</span>(<span class="pl-smi">err</span>, <span class="pl-smi">msg</span>, <span class="pl-smi">session</span>, <span class="pl-smi">resp</span>, <span class="pl-smi">next</span>) {
+ <span class="pl-c">// ...</span>
+}
+</pre></div>
+<p>如果定义了before，那么就可以作为一个before filter使用，如果定义了after，就是一个after filter。</p>
+<p>对于before filter来说，其有两个参数msg和session，这里msg可能是用户请求原始内容，也可能是经过了前面filter链处理后的内容。如果在后端服务器上，session在这里是BackendSession，如果在前端服务器上，则是FrontendSession，用户对其的直接修改都只会在整个请求处理链的后面处理过程中有效，而不会对前端的session有任何影响，更不会影响原始的session信息了。当然如果确实有需要修改session的话，比如绑定uid的话，可以通过BackendSessionService的相关调用达到目的。</p>
+<p>在after中，err是当前面有错误的错误信息，resp是对客户端的相应内容。当定义好Filter后，通过application的filter，before或after调用将其挂到对应的逻辑服务器处理的处理链上。这是只是一个简单教程，不做深入探讨。</p>
+<h1>
+<a aria-hidden="true" class="anchor" href="#%E5%AE%9A%E4%B9%89%E6%88%91%E4%BB%AC%E8%87%AA%E5%B7%B1%E7%9A%84filter" id="user-content-定义我们自己的filter"><span class="octicon octicon-link"></span></a>定义我们自己的Filter</h1>
+<p>我们这里需要的一个脏话过滤Filter，为了简单期间我们只对<code>fuck</code>进行过滤。在before filter里，如果用户发言里有<code>fuck</code>字眼，那么就将其替换为<code>****</code>,并在其session里增加一个标记。在after filter里，我们检查session的这个标记，如果是脏话，那么就将这个用户的名字记录下来，同样为了简单起见，我们将其记录的方式仅仅是打到console中。我们的abuseFilter 代码如下:</p>
+<div class="highlight highlight-source-js"><pre><span class="pl-c">// abuseFilter.js</span>
+<span class="pl-c1">module</span>.<span class="pl-en">exports</span> <span class="pl-k">=</span> <span class="pl-k">function</span>() {
+  <span class="pl-k">return</span> <span class="pl-k">new</span> <span class="pl-en">Filter</span>();
+}
+
+<span class="pl-k">var</span> <span class="pl-en">Filter</span> <span class="pl-k">=</span> <span class="pl-k">function</span>() {
+};
+
+<span class="pl-c1">Filter</span>.<span class="pl-c1">prototype</span>.<span class="pl-en">before</span> <span class="pl-k">=</span> <span class="pl-k">function</span> (<span class="pl-smi">msg</span>, <span class="pl-smi">session</span>, <span class="pl-smi">next</span>) {
+  <span class="pl-k">if</span> (<span class="pl-smi">msg</span>.<span class="pl-c1">content</span>.<span class="pl-c1">indexOf</span>(<span class="pl-s"><span class="pl-pds">'</span>fuck<span class="pl-pds">'</span></span>) <span class="pl-k">!==</span> <span class="pl-k">-</span><span class="pl-c1">1</span>) {
+    <span class="pl-smi">session</span>.<span class="pl-smi">__abuse__</span> <span class="pl-k">=</span> <span class="pl-c1">true</span>;
+    <span class="pl-smi">msg</span>.<span class="pl-c1">content</span> <span class="pl-k">=</span> <span class="pl-smi">msg</span>.<span class="pl-c1">content</span>.<span class="pl-c1">replace</span>(<span class="pl-s"><span class="pl-pds">'</span>fuck<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>****<span class="pl-pds">'</span></span>);
+  }
+
+  <span class="pl-en">next</span>();
+};
+
+<span class="pl-c1">Filter</span>.<span class="pl-c1">prototype</span>.<span class="pl-en">after</span> <span class="pl-k">=</span> <span class="pl-k">function</span> (<span class="pl-smi">err</span>, <span class="pl-smi">msg</span>, <span class="pl-smi">session</span>, <span class="pl-smi">resp</span>, <span class="pl-smi">next</span>) {
+  <span class="pl-k">if</span> (<span class="pl-smi">session</span>.<span class="pl-smi">__abuse__</span>) {
+    <span class="pl-k">var</span> user_info <span class="pl-k">=</span> <span class="pl-smi">session</span>.<span class="pl-smi">uid</span>.<span class="pl-c1">split</span>(<span class="pl-s"><span class="pl-pds">'</span>*<span class="pl-pds">'</span></span>);
+    <span class="pl-en">console</span>.<span class="pl-c1">log</span>(<span class="pl-s"><span class="pl-pds">'</span>abuse:<span class="pl-pds">'</span></span> <span class="pl-k">+</span> user_info[<span class="pl-c1">0</span>] <span class="pl-k">+</span> <span class="pl-s"><span class="pl-pds">"</span> at room <span class="pl-pds">"</span></span> <span class="pl-k">+</span> user_info[<span class="pl-c1">1</span>]);
+  }
+  <span class="pl-en">next</span>(err);
+};
+</pre></div>
+<p>在定义完filter后，我们需要把其配置到chat服务器中，在app.js中增加代码如下：</p>
+<div class="highlight highlight-source-js"><pre>
+<span class="pl-c">// app.js</span>
+<span class="pl-k">var</span> abuseFilter <span class="pl-k">=</span> <span class="pl-c1">require</span>(<span class="pl-s"><span class="pl-pds">'</span>./app/servers/chat/filter/abuseFilter<span class="pl-pds">'</span></span>);
+<span class="pl-smi">app</span>.<span class="pl-en">configure</span>(<span class="pl-s"><span class="pl-pds">'</span>production|development<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>chat<span class="pl-pds">'</span></span>, <span class="pl-k">function</span>() {
+    <span class="pl-smi">app</span>.<span class="pl-en">filter</span>(<span class="pl-en">abuseFilter</span>());
+}
+</pre></div>
+<p>好了，让我们按照前面所讲的部分，重新运行我们的chat应用，在聊天内容里面输入what a fucking day，看看是不是已经被****替换了，效果图如下：</p>
+<p><img alt="abuse" src="src/743ed3a7855b66bfacbc9879efd11edf.png"/></p>
+<h1>
+<a aria-hidden="true" class="anchor" href="#%E4%B8%80%E4%BA%9B%E8%AF%B4%E6%98%8E" id="user-content-一些说明"><span class="octicon octicon-link"></span></a>一些说明</h1>
+<ul>
+<li><p>需要指出的是，这里使用filter来做脏话替换，可能不是很合理，但仅仅为了示例filter的使用，还是可以的。一般情况下，在before filter里，可以做一些请求排队，超时处理, 而在after filter里做一些清理记录的处理。比如，为了统计Handler的处理请求时间，可以在before filter里给session记录一个时间戳，在after filter里取出刚才的时间戳，跟当前时间做运算，就能得到Handler处理请求的时间。pomelo内置提供了几个filter，有toobusy，timeout等，这里不再深入。</p></li>
+<li><p>一个filter里可以只定义before，可以只定义after，也可以两者都定义。application中与filter相关的调用为filter，after和before。如果一个filter既定义了before又定义了after，那么就可以调用filter，这样，application就会将其after和before都加载进去，否则，就只能调用after或者before了。</p></li>
+</ul>
+<h1>
+<a aria-hidden="true" class="anchor" href="#%E5%B0%8F%E7%BB%93" id="user-content-小结"><span class="octicon octicon-link"></span></a>小结</h1>
+<p>在这部分，我们使用了pomelo 提供的filter机制实现了我们聊天应用的脏话过滤。当然我们的实现非常得简陋而且并不一定很合理，但是仅仅是为了说明Filter的使用方式，还是可行的。下一步我们来使用<a href="%E8%AF%95%E8%AF%95route%E5%8E%8B%E7%BC%A9" title="route压缩">基于dict的route压缩</a>来继续完善我们的聊天应用。</p>
+</div>
+</div></body></html>

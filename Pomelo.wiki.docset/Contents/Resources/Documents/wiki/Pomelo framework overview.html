@@ -1,0 +1,181 @@
+<html><head prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# object: http://ogp.me/ns/object# article: http://ogp.me/ns/article# profile: http://ogp.me/ns/profile#">
+<meta charset="utf-8">
+<meta content="IE=edge" http-equiv="X-UA-Compatible">
+<meta content="en" http-equiv="Content-Language">
+<meta content="width=1020" name="viewport">
+<title>Pomelo framework overview · NetEase/pomelo Wiki · GitHub</title>
+<link href="/opensearch.xml" rel="search" title="GitHub" type="application/opensearchdescription+xml">
+<link href="src/ad667adaa2cfe8f3caa4a41b7d0a79a1.png" rel="fluid-icon" title="GitHub">
+<link href="src/a10d19ff5f738940a7a5086be334f50b.png" rel="apple-touch-icon" sizes="57x57">
+<link href="src/a10d19ff5f738940a7a5086be334f50b.png" rel="apple-touch-icon" sizes="114x114">
+<link href="src/b4cd268bc600cc14d2cdd557de6da2fb.png" rel="apple-touch-icon" sizes="72x72">
+<link href="src/b4cd268bc600cc14d2cdd557de6da2fb.png" rel="apple-touch-icon" sizes="144x144">
+<meta content="1401488693436528" property="fb:app_id">
+<meta content="@github" name="twitter:site"/><meta content="summary" name="twitter:card"/><meta content="NetEase/pomelo" name="twitter:title"/><meta content="pomelo - A fast,scalable,distributed game server framework for Node.js." name="twitter:description"/><meta content="https://avatars0.githubusercontent.com/u/1460597?v=3&amp;s=400" name="twitter:image:src"/>
+<meta content="GitHub" property="og:site_name"/><meta content="object" property="og:type"/><meta content="https://avatars0.githubusercontent.com/u/1460597?v=3&amp;s=400" property="og:image"/><meta content="NetEase/pomelo" property="og:title"/><meta content="https://github.com/NetEase/pomelo" property="og:url"/><meta content="pomelo - A fast,scalable,distributed game server framework for Node.js." property="og:description"/>
+<meta content="https://api.github.com/_private/browser/stats" name="browser-stats-url">
+<meta content="https://api.github.com/_private/browser/errors" name="browser-errors-url">
+<link href="https://assets-cdn.github.com/" rel="assets">
+<meta content="1000" name="pjax-timeout">
+<meta content="/windows-tile.png" name="msapplication-TileImage">
+<meta content="#ffffff" name="msapplication-TileColor">
+<meta data-pjax-transient="" name="selected-link" value="repo_wiki">
+<meta content="KT5gs8h0wvaagLKAVWq8bbeNwnZZK1r1XQysX3xurLU" name="google-site-verification">
+<meta content="UA-3769691-2" name="google-analytics">
+<meta content="collector.githubapp.com" name="octolytics-host"/><meta content="github" name="octolytics-app-id"/><meta content="CA86616A:448D:EAD2C87:5670C0A2" name="octolytics-dimension-request_id"/>
+<meta content="/&lt;user-name&gt;/&lt;repo-name&gt;/wiki/show" data-pjax-transient="true" name="analytics-location"/>
+<meta content="Rails, view, wiki#show" data-pjax-transient="true" name="analytics-event"/>
+<meta class="js-ga-set" content="Logged Out" name="dimension1">
+<meta content="github.com" name="hostname">
+<meta content="" name="user-login">
+<meta content="github.com" name="expected-hostname">
+<link color="#4078c0" href="https://assets-cdn.github.com/pinned-octocat.svg" rel="mask-icon">
+<link href="https://assets-cdn.github.com/favicon.ico" rel="icon" type="image/x-icon">
+<meta content="3196f5deaee6bef1b1d5e3fa78829c2f32fe113f" name="form-nonce"/>
+<link crossorigin="anonymous" href="src/350888e1495e7af27e01faa9d8291dee.css" media="all" rel="stylesheet"/>
+<link crossorigin="anonymous" href="src/9fae9b7d8f0785d745a43c6465f74ae5.css" media="all" rel="stylesheet"/>
+<meta content="cd9958d45e48e8e3157a320e9c346eaa" http-equiv="x-pjax-version">
+<meta content="pomelo - A fast,scalable,distributed game server framework for Node.js." name="description">
+<meta content="github.com/NetEase/pomelo git https://github.com/NetEase/pomelo.git" name="go-import">
+<meta content="1460597" name="octolytics-dimension-user_id"/><meta content="NetEase" name="octolytics-dimension-user_login"/><meta content="5880912" name="octolytics-dimension-repository_id"/><meta content="NetEase/pomelo" name="octolytics-dimension-repository_nwo"/><meta content="true" name="octolytics-dimension-repository_public"/><meta content="false" name="octolytics-dimension-repository_is_fork"/><meta content="5880912" name="octolytics-dimension-repository_network_root_id"/><meta content="NetEase/pomelo" name="octolytics-dimension-repository_network_root_nwo"/>
+<link href="https://github.com/NetEase/pomelo/commits/master.atom" rel="alternate" title="Recent Commits to pomelo:master" type="application/atom+xml">
+</link></meta></meta></meta></link></link></meta></meta></meta></meta></meta></meta></meta></meta></meta></meta></link></meta></meta></meta></link></link></link></link></link></link></meta></meta></meta></meta></head><body style="padding:0 25px;"><div class="gollum-markdown-content instapaper_body" id="wiki-body">
+<div class="markdown-body">
+<p>The runtime architecture of a scalable game server must be multi-process, since single process can not be scaled easily. <a href="http://code.google.com/p/gritsgame/">Gritsgame</a> from google and <a href="https://github.com/mozilla/BrowserQuest">Browserquest</a> from mozilla both use node.js as platform for game server, but they use a single-process model, which means their number of online users are limited and lack of scalability. The multi-process architecture can obtain high scalability for game server,</p>
+<h1>
+<a aria-hidden="true" class="anchor" href="#typical-multi-process-architecture" id="user-content-typical-multi-process-architecture"><span class="octicon octicon-link"></span></a>Typical Multi-process Architecture</h1>
+<p>A typical runtime architecture of a multi-process MMO game server is shown as follows:</p>
+<img alt="MMO running Architecture" src="src/c59a1134d63103c1ab875c8fbd4a8dae.png">
+<p>Some Notes about the figure above:</p>
+<ul>
+<li>Every rectangle in the figure represents a process, that is equivalent to the "server" conceptually;</li>
+<li>Clients connect to the <code>connector</code> server via websocket or socket;</li>
+<li>Connectors that are treated as frontend server. They do not do any game logic, they just forwards the requests from clients to backend servers;</li>
+<li>Backend servers including area, chat, status and other type servers are responsible for their own business logic. There may be many other type servers in actual cases.</li>
+<li>Backend servers will send back response of logic handling to connectors, then connectors broadcast/respond/push it back to clients;</li>
+<li>Master server manages all these servers, including startup, monitoring and stop etc.</li>
+</ul>
+<h1>
+<a aria-hidden="true" class="anchor" href="#introduction-of-pomelo-framework" id="user-content-introduction-of-pomelo-framework"><span class="octicon octicon-link"></span></a>Introduction of Pomelo Framework</h1>
+<h4>
+<a aria-hidden="true" class="anchor" href="#components-of-pomelo-framework" id="user-content-components-of-pomelo-framework"><span class="octicon octicon-link"></span></a>Components of Pomelo Framework</h4>
+<p>Pomelo framework's components is as below:</p>
+<img alt="pomelo framework" src="src/f0be489b9d9b16cc49b01620f1bfd556.png">
+<ul>
+<li>Server Management</li>
+</ul>
+<p>pomelo uses multi-process model, so it is especially important to manage the servers. The abstraction of servers in the framework makes server management very easy; </p>
+<ul>
+<li>Network</li>
+</ul>
+<p>Netwok in pomelo framewrork can be divided into two parts: communication between frontend servers and clients, communication inside server cluster. It includes request/response, broadcast, session management, RPC invocation,and all these communications construct the game logic flow .</p>
+<ul>
+<li>Application</li>
+</ul>
+<p>This is crucial for a loosely coupled architecture, application is treated as a global context to support components' life cycle, app DSL, etc.,  which make pomelo framework pluggable and easy to extend.</p>
+<h1>
+<a aria-hidden="true" class="anchor" href="#design-goals" id="user-content-design-goals"><span class="octicon octicon-link"></span></a>Design Goals</h1>
+<ul>
+<li>Abstraction for Servers(Processes) </li>
+</ul>
+<p>In web applications, servers are stateless, loosely coupled, in other word, there is no need to manage all these servers with a framework.
+However, the game server are different from web. A particular game may includes various server types and various amount of a particular server type. All these require framework to support abstraction and decoupling of servers.</p>
+<ul>
+<li>Abstraction for Request/Response, Broadcast</li>
+</ul>
+<p>Requests/response is similar in game application comparing with web application, but game is based on long connection, so a common request/broadcast mechanism is required. Since broadcast is the most frequent action in game application, so the framework needs to provide a convenient api and make it as efficient as possible.</p>
+<ul>
+<li>RPC Invocation between Servers </li>
+</ul>
+<p>Servers need to talk to each other, although we try to avoid it, inter-process communication is inevitable and therefore it requires a user-friendly rpc framework.</p>
+<ul>
+<li>Loosely Coupled, Pluggable Application.</li>
+</ul>
+<p>Application exptension is very important, pomelo framework supports extension, you can customize your own components, routing rules , request filter, admin-module and then plug it into pomelo framework.</p>
+<h3>
+<a aria-hidden="true" class="anchor" href="#abstraction-for-servers" id="user-content-abstraction-for-servers"><span class="octicon octicon-link"></span></a>Abstraction for Servers</h3>
+<h4>
+<a aria-hidden="true" class="anchor" href="#server-types" id="user-content-server-types"><span class="octicon octicon-link"></span></a>Server Types</h4>
+<p>Pomelo divides servers into two categories: frontend server and backend server, as shown below:</p>
+<img alt="Server abstract" src="src/f6f8f674635b5342ba3f67fb29fac2e6.png">
+<p>The responsibilities of frontend servers:</p>
+<ul>
+<li>Handle connection from clients </li>
+<li>Maintain session information for clients</li>
+<li>Forward requests from clients to backend servers</li>
+<li>Broadcast/respond messages produced by backend servers to clients</li>
+</ul>
+<p>The responsibilities of backend servers:</p>
+<ul>
+<li>Handle business logic, including RPC requests and requests forwarded by frontend servers</li>
+<li>Push response meessages to frontend servers.</li>
+</ul>
+<h4>
+<a aria-hidden="true" class="anchor" href="#server-duck-type" id="user-content-server-duck-type"><span class="octicon octicon-link"></span></a>Server Duck Type</h4>
+<p>Duck type is a concept commonly used in OOP for dynamic programming language. However, it can also be used to make server abstraction. There are only two types of interfaces for a server, one is to handle requests from clients, called "Hanldler", and another one is to handle rpc invocation, called "Remote".</p>
+<p>So long as we define remote and handler for a server, we can determine type of the server and what it looks like.</p>
+<h4>
+<a aria-hidden="true" class="anchor" href="#implementation-of-server-abstraction" id="user-content-implementation-of-server-abstraction"><span class="octicon octicon-link"></span></a>Implementation of Server Abstraction</h4>
+<p>The simplest way is to make the orgnization of server code correspond with directory structure. Here is a example:</p>
+<img alt="Directory structure" src="src/b2f76a6e2b802d03490f2fc763fde9b1.png">
+<p>We just design a server called "area", the behavior of the server is determined by the code in "handler" and "remote".
+All we need to do is to fill code into handler and remote.</p>
+<p>To make the server run, we need a small config file called servers.json. Here is a example as follows: </p>
+<div class="highlight highlight-source-json"><pre>{
+  <span class="pl-s"><span class="pl-pds">"</span>development<span class="pl-pds">"</span></span>: {
+    <span class="pl-s"><span class="pl-pds">"</span>connector<span class="pl-pds">"</span></span>: [
+      {<span class="pl-s"><span class="pl-pds">"</span>id<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>connector-server-1<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>host<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>127.0.0.1<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>port<span class="pl-pds">"</span></span>: <span class="pl-c1">3150</span>, <span class="pl-s"><span class="pl-pds">"</span>clientPort<span class="pl-pds">"</span></span>: <span class="pl-c1">3010</span>, <span class="pl-s"><span class="pl-pds">"</span>frontend<span class="pl-pds">"</span></span>: <span class="pl-c1">true</span>},
+      {<span class="pl-s"><span class="pl-pds">"</span>id<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>connector-server-2<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>host<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>127.0.0.1<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>port<span class="pl-pds">"</span></span>: <span class="pl-c1">3151</span>, <span class="pl-s"><span class="pl-pds">"</span>clientPort<span class="pl-pds">"</span></span>: <span class="pl-c1">3011</span>, <span class="pl-s"><span class="pl-pds">"</span>frontend<span class="pl-pds">"</span></span>: <span class="pl-c1">true</span>}
+    ] ,
+    <span class="pl-s"><span class="pl-pds">"</span>area<span class="pl-pds">"</span></span>: [
+      {<span class="pl-s"><span class="pl-pds">"</span>id<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>area-server-1<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>host<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>127.0.0.1<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>port<span class="pl-pds">"</span></span>: <span class="pl-c1">3250</span>, <span class="pl-s"><span class="pl-pds">"</span>area<span class="pl-pds">"</span></span>: <span class="pl-c1">1</span>},
+      {<span class="pl-s"><span class="pl-pds">"</span>id<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>area-server-2<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>host<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>127.0.0.1<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>port<span class="pl-pds">"</span></span>: <span class="pl-c1">3251</span>, <span class="pl-s"><span class="pl-pds">"</span>area<span class="pl-pds">"</span></span>: <span class="pl-c1">2</span>},
+      {<span class="pl-s"><span class="pl-pds">"</span>id<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>area-server-3<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>host<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>127.0.0.1<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>port<span class="pl-pds">"</span></span>: <span class="pl-c1">3252</span>, <span class="pl-s"><span class="pl-pds">"</span>area<span class="pl-pds">"</span></span>: <span class="pl-c1">3</span>}
+   ] ,
+    <span class="pl-s"><span class="pl-pds">"</span>chat<span class="pl-pds">"</span></span>: [
+      {<span class="pl-s"><span class="pl-pds">"</span>id<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>chat-server-1<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>host<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>127.0.0.1<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>port<span class="pl-pds">"</span></span>: <span class="pl-c1">3450</span>}
+    ]
+  }
+}</pre></div>
+<h3>
+<a aria-hidden="true" class="anchor" href="#requestresponse-broadcast" id="user-content-requestresponse-broadcast"><span class="octicon octicon-link"></span></a>Request/Response, Broadcast</h3>
+<p>Although we use long connection in game, but the request/response API is similar to web. Here is a example:
+ 
+</p>
+<img alt="Request Sample" src="src/ac66e6cd8508d09b34ad730a1c7c7dcc.png">
+<p>The API of request/response looks much like "Ajax", although it uses a long connection actually. Based on the principle "convention over configuration", there is no need to config anything. As shown above, the request route string: "chat.chatHandler.send" is composed by server type, handler, and request Method.</p>
+<p>pomelo also provides filter, broadcast/multicast mechanism, and channel support, etc.</p>
+<h3>
+<a aria-hidden="true" class="anchor" href="#rpc-invocation-abstraction" id="user-content-rpc-invocation-abstraction"><span class="octicon octicon-link"></span></a>RPC Invocation Abstraction</h3>
+<p>The rpc framework pomelo provides is really simple rpc framework. It can automatically choose route rules and route invocations to the target server without any configuration. Here is a example:</p>
+<img alt="rpc call" src="src/59d26866411e2842bf57914fbb687cde.png">
+<p>There is a interface defined in the figure above: chatRemote.js, and is defined as follows :</p>
+<div class="highlight highlight-source-js"><pre><span class="pl-c1">chatRemote</span>.<span class="pl-en">kick</span> <span class="pl-k">=</span> <span class="pl-k">function</span> (<span class="pl-smi">uid</span>, <span class="pl-smi">player</span>, <span class="pl-smi">cb</span>) {
+}</pre></div>
+<p>The RPC client can emit a RPC invoke just like this :</p>
+<div class="highlight highlight-source-js"><pre><span class="pl-smi">app</span>.<span class="pl-smi">rpc</span>.<span class="pl-smi">chat</span>.<span class="pl-smi">chatRemote</span>.<span class="pl-en">kick</span> (session, uid, player, <span class="pl-k">function</span> (<span class="pl-smi">data</span>) {
+}) ;</pre></div>
+<p>Notice the parameter, "session", it is used for routing requests. The framework routes invocations to certain server automatically based on route rule. For example, an invocation for "area" service will be forwarded based on which area is the player in. RPC framework is transparent to the developer and pomelo provides a friendly rpc API for developers.</p>
+<h3>
+<a aria-hidden="true" class="anchor" href="#pluggable-component" id="user-content-pluggable-component"><span class="octicon octicon-link"></span></a>Pluggable Component</h3>
+<p>Component is pluggable module in pomelo, developers can implement their own component and just plug it into pomelo. The core functionalities of pomelo are implemented by its builtin components. In other word, it can be said pomelo framework is just a container for its components.</p>
+<p>The life cycle of components are shown as follows:</p>
+<img alt="components" src="src/68d945b1003db79ebbe91ea219e9a4f9.png">
+<p>All developers have to do is implementing all these interfaces: start, afterStart, stop, and then we can load it in app.js by:</p>
+<div class="highlight highlight-source-js"><pre><span class="pl-smi">app</span>.<span class="pl-en">load</span> ([name], comp, [opts])</pre></div>
+<p>Further more, pomelo also support plugin, which is based on component. Plugin is an independent npm module. With plugin, programmers can extend the framework very easy without any influences to the framework core. Pomelo provides some built-in plugin as follows: </p>
+<ul>
+<li>
+<a href="https://github.com/NetEase/pomelo-sync-plugin">pomelo-sync-plugin</a>：data synchronization plugin, based on <a href="https://github.com/NetEase/pomelo-sync">pomelo-sync</a>.</li>
+<li>
+<a href="https://github.com/NetEase/pomelo-globalchannel-plugin">pomelo-globalchannel-plugin</a>：gloableChannel plugin, based on redis.</li>
+<li>
+<a href="https://github.com/NetEase/pomelo-status-plugin">pomelo-status-plugin</a>：user online status plugin, based on redis.</li>
+<li>
+<a href="https://github.com/NetEase/pomelo-masterha-plugin">pomelo-masterha-plugin</a>：master availability plugin, based on zookeeper.</li>
+</ul>
+<h1>
+<a aria-hidden="true" class="anchor" href="#summary" id="user-content-summary"><span class="octicon octicon-link"></span></a>Summary</h1>
+<p>In this section, we describe overall architecture of the pomelo framework, as well as its design goals. Pomelo framework implements abstractions of server, request/response, rpc and pluggable component. These abstractions make pomelo very flexible and easy to use, easy to extend.</p>
+</img></img></img></img></img></img></img></div>
+</div></body></html>

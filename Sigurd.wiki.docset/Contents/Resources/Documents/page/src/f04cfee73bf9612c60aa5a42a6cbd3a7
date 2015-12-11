@@ -1,0 +1,342 @@
+﻿@charset "utf-8";
+/*
+*首页css/dongsheng.li
+*/
+/* cont */	
+.middle{width:1000px; margin:0 auto; position:relative;}
+.m-banner,.m-ad1,.m-downcode,.m-ad2,.m-forum,.m-board,.m-rank{ overflow:hidden; clear:both;}
+.m-banner,.m-downcode,.m-forum,.m-board,.m-rank{ margin-top:17px;}
+.m-banner{}/*轮播，选项卡*/
+.m-role{ float:left; display:inline; width:698px; height:320px; margin-right:20px; overflow:hidden;border:1px solid #d9dce8}
+.role-h{ font-size:18px; height:310px; float:left; width:298px; border-left: none;}
+.role-h a{overflow:hidden;height:52px;display:block; margin:0 5px 0 5px;  padding:5px 0 6px 9px;border-left: 2px solid #ffffff;border-top: 1px dashed #ddd;}
+.role-h a span{display: table-cell;height:52px;line-height:27px;vertical-align:middle;  width:280px;}
+.role-h a:hover,.tab-role a.current,.role-h a.current{ color:#eb6100;background: url(../images/slide-left.jpg) no-repeat left;}
+.role-h a.first {border-top: none;}
+.role-main{ overflow:hidden; clear:both; width:400px; float:left;}
+.role-main li{ display:none;}
+.role-main li.current{ display:block;}
+.role-main li a{display:block;width:400px; position:relative; line-height:320px}
+.role-main li a img{max-width:400px;background:#FFF;max-height: 320px; vertical-align:middle}
+.role-main li a span{ font-weight:bold; position:absolute;bottom:0; left:0; height:80px; line-height:22px; background:#FFF; width:380px; font-size:18px;background:rgba(0, 0, 0, 0.5)!important;filter:Alpha(opacity=50);padding: 10px;overflow: hidden;text-overflow: ellipsis; white-space: nowrap; color:#fff;}
+.role-main li a:hover span{background:rgba(0, 0, 0, 0.73)!important;filter:Alpha(opacity=73);}
+.role-main li a span i{ display:block; font-size:12px; white-space:normal;margin-top: 5px;color:#fff;height: 44px;overflow: hidden; font-weight:normal;}
+.m-coco{float:left; display:inline; height:318px; border:1px solid #e2e2e6; width:278px;}
+.m-coco h2{font-weight:bold;height:28px; line-height:29px;background:#fafafa; color:#464646; font-size:16px; text-indent:10px;}
+.tab-h{ font-size:16px; height:28px;}
+.tab-h a{ color:#b5b5b5; display:block; height:28px; float:left; border-top:1px solid #e2e2e6;}
+.tab-h a span{ display:block; width:138px; height:20px; line-height:20px; text-align:center; margin:4px 0;}
+.tab-h a span.wd{ border-right:1px solid #e2e2e6;}
+.tab-h a:hover,.tab-h a.current{ color:#464646;border-top:1px solid #3f3f3f;}
+.tab-main{ overflow:hidden; clear:both;padding:10px;}
+.tab-main li{ display:none;}
+.tab-main li.current{ display:block;}
+.tab-list li{ display:block;}
+.tab-list{}
+.tab-list ul{width:260px;}
+.tab-list ul li{clear:both; overflow:hidden; font-size:14px;  background:url(../images/sq-inc.png) no-repeat 1px center; text-indent:14px; line-height:25px;}
+.tab-list ul li a{display:block;overflow: hidden;text-overflow: ellipsis; white-space: nowrap;width: 260px;}
+.m-ad1{}/*广告第一块*/
+.m-ad1 div{ float:left; margin-right:20px; margin-bottom:-3px; }
+.m-ad1 img{height:80px; margin-top:20px;}
+.m-ad1 div.ad1-r{margin-right:0;}
+.m-downcode{ border:1px solid #e2e2e6; min-height:188px; background:url(../images/code-h2.png) left top repeat-y;}/*代码下载横行*/
+.m-downcode h2{font-weight: bold; width:20px; padding:0 9px; margin-top:60px; font-size:16px; height:100%; float:left; display:inline; text-align:center; line-height:19px;}
+.code-tags{ width:306px; padding:9px 13px; float:left; display:inline; font-size:14px; line-height:24px;}
+.code-tags span{display:block; float:left; margin-right:10px;}
+.code-tags a{ display:block; float:left; margin-right:10px;}
+.code-list{float:left; display:inline; margin-left:30px;}
+.code-list ul{ width:280px; padding-top:4px;}
+.code-list ul li{clear:both; overflow:hidden; font-size:14px; line-height:20px; background:url(../images/sq-inc.png) no-repeat 1px center; text-indent:14px; line-height:22px;}
+.code-list ul li a{display:block;overflow: hidden;text-overflow: ellipsis; white-space: nowrap;width: 280px;}
+.m-ad2{margin-bottom: -8px;}/*广告第二块*/
+.ad2-l{float:left;}
+.ad2-l img{width:700px; margin-top:12px;}
+.ad2-r{ float:right;}
+.ad2-r img{ width:280px; margin-top:12px;}
+.ad2-full { float: left;}
+.ad2-full img { width:100%; margin-top: 12px;}
+.m-forum{ margin-top:17px;}/*论坛*/
+.forum-l,.forum-c,.forum-r{ float:left; display:inline;}
+.forum-l{ width:280px;}
+.forum-l-t{border:1px solid #e2e2e6; min-height:602px;}
+.forum-l-t h2{height:28px;font-weight: bold; line-height:29px;border-bottom:1px solid #e2e2e6; background:#fafafa; color:#464646; font-size:16px; text-indent:10px;}
+.forum-l-t ul{padding:10px 9px;}
+.forum-l-t ul li{clear:both; overflow:hidden; font-size:14px; line-height:24px; background:url(../images/sq-inc.png) no-repeat 1px center; text-indent:14px;}
+.forum-l-t ul li a{display:block;overflow: hidden;text-overflow: ellipsis; white-space: nowrap;width: 258px;}
+.forum-l-b{border:1px solid #e2e2e6; min-height:596px; margin-top:20px;}
+.forum-l-b h2{height:28px; line-height:29px;border-bottom:1px solid #e2e2e6; background:#fafafa; color:#464646; font-size:16px; text-indent:10px; font-weight:bold;}
+.forum-l-b ul{width:252px; text-align:center; margin:0 auto; padding:2px 0 0px 0;}
+.forum-l-b ul li{ height:168px;  margin-top:14px;}
+.forum-l-b ul li a{ position:relative; display:block; width: 252px;}
+.forum-l-b ul li a img{ display:block;height: 168px; margin:0 auto}
+.forum-l-b ul li a span{ position:absolute;bottom:0; left:0; height:40px; line-height:40px; background:#FFF; width:100%; font-size:16px;background:rgba(255, 255, 255, 0.8)!important;filter:Alpha(opacity=80); color:#3a3a3a; font-weight:bold;}
+.forum-l-b ul li a:hover span{background:rgba(255, 255, 255, 0.73)!important;filter:Alpha(opacity=73);}
+.forum-c{ width:398px; margin:0 20px;border:1px solid #e2e2e6; /*min-height:1220px;*/}
+.forum-c h2{height:28px;font-weight: bold; line-height:29px;border-bottom:1px solid #e2e2e6; background:#fafafa; color:#464646; font-size:16px; text-indent:10px;}
+.forum-ad{ width:380px; margin:0 auto;}
+.forum-ad h3{ font-size:16px; padding-top:8px; line-height:22px; margin-top:-17px}
+.forum-ad a{ display:block; }
+.forum-ad a.img{text-align: center; margin:10px 0}
+.ad-word{font-size:14px;overflow: hidden;text-overflow: ellipsis; white-space: nowrap; width:100%; padding-bottom:5px; display:block}
+.forum-c ul{width:380px; margin:0 auto; max-height:1161px}
+.forum-c ul li{ height:98px; padding-top:17px; border-top:1px dashed #ddd; overflow:hidden; clear:both;}
+.forum-c ul li.forum-large{ height:auto;}
+.forum-c ul li.forum-large a img{ max-width:inherit}
+.forum-c ul li a{ display:block; overflow:hidden;}
+.forum-c ul li:hover{ background:#fafafa;}
+.forum-c ul li a p.img {display:block;height:84px;width:126px;overflow:hidden;float:left}
+.forum-c ul li a img{max-width:126px;}
+.forum-c ul li a div{ float:left; display:inline; width:244px; margin-left:10px;}
+.forum-c ul li a div h4{ font-size:14px; color:#464646;overflow: hidden;text-overflow: ellipsis; white-space: nowrap; display:block; width:100%;}
+.forum-c ul li a div span{ font-size:12px; color:#888; display:block; height:25px; line-height:23px; text-align:right; padding-right:4px;}
+.forum-c ul li a div p{color:#888;margin-top: 7px;line-height: 22px; height:44px; overflow:hidden;font-size: 12px;}
+.forum-c a.more{ display:block; text-align:center; border-top:1px solid #ddd; width:380px; margin:0 auto; height:31px; line-height:31px; font-size:14px; color:#888;}
+.forum-c h2 a.right{ color:#888; font-size:12px; float: right; margin-right: 10px; font-weight:100;}
+.forum-c h2 a:hover{color:#eb6100;}
+.forum-r{width:280px;}
+.forum-r-t{border:1px solid #e2e2e6; min-height:422px;margin-top:17px;}
+.forum-r-t h2{height:28px;font-weight: bold; line-height:29px;border-bottom:1px solid #e2e2e6; background:#fafafa; color:#464646; font-size:16px; text-indent:10px; position:relative;}
+.forum-r-t h2 a.right{ color:#888; font-size:12px; right:10px; position:absolute;}
+.forum-r-t h2 a:hover{color:#eb6100;}
+.forum-r-t ul{ width:260px; margin:0 auto;}
+.forum-r-t ul li{ height:81px; border-top:1px dashed #ddd; padding-top:5px;}
+.forum-r-t ul li.act-new{ height:190px; overflow:hidden; border:none;}
+.forum-r-t ul li a{ color:#3a3a3a; font-size:14px;}
+.forum-r-t ul li a img{ display:block;margin:0 auto; height:80px; margin-bottom:5px}
+.forum-r-t ul li span{ display:block; color:#888; margin:5px 0;line-height: 20px;}
+.forum-r-t a.apply-btn{height:28px;width:260px;background:url(../images/sprite.png) no-repeat 0px -12px; line-height:28px; text-align:center; color:#FFF; display:block; font-size:15px;font-weight: bold;}
+.forum-r-t a.apply-btn:hover{background:url(../images/sprite.png) no-repeat 0px -40px;color: #ffffff;}
+.forum-r-b{border:1px solid #e2e2e6; /*min-height:587px;*/ margin-top:0;}
+.forum-r-b h2{font-weight: bold; height:28px; line-height:29px;border-bottom:1px solid #e2e2e6; background:#fafafa; color:#464646; font-size:16px; text-indent:10px;}
+.forum-r-b h2 a.right{ color:#888; font-size:12px; right:10px; position:absolute; font-weight:100;}
+.forum-r-b h2 a:hover{color:#eb6100;}
+.forum-r-b ul{ width:260px; margin:0 auto;}
+.forum-r-b ul li{ height:49px; border-bottom:1px dashed #ddd; background:url(../images/sq-inc.png) no-repeat 0 13px;text-indent: 10px;}
+.forum-r-b ul li.li-last{ border:none}
+.forum-r-b ul li a{ display:block; font-size:14px; height:27px; line-height:30px;overflow: hidden;text-overflow: ellipsis; white-space: nowrap; display:block; width:79%;}
+.forum-r-b ul li span{line-height: 22px; color:#888; display:block;overflow: hidden;text-overflow: ellipsis; white-space: nowrap; display:block; width:79%;font-size: 12px;}
+.forum-r-b2{ margin-top:17px;}
+.forum-r-b2 img{ display:block; width:280px; height:52px; margin-bottom:8px;}
+.forum-r-b2 a{ line-height:20px; font-size:14px; display:block;}
+
+.m-board{}/*版块*/
+.board-box{ width:233px;border:1px solid #e2e2e6;float:left; display:inline; color:#3a3a3a; margin:0 20px 20px 0;}
+.b-box-4{ margin-right:0;}
+.board-box h3{font-weight: bold; height:38px; line-height:38px;border-bottom:1px solid #e2e2e6; background:#fafafa; color:#464646; font-size:16px; text-indent:10px;}
+.board-box ul{padding:10px 9px;}
+.board-box ul li{ clear:both; overflow:hidden; font-size:14px; line-height:20px; background:url(../images/sq-inc.png) no-repeat 4px center; text-indent:15px;}
+.board-box ul li a{ display:block;overflow: hidden;text-overflow: ellipsis; white-space: nowrap;width: 218px;}
+.board-box ul li.m-b-hot{ height:95px;text-indent:0;}
+.elite-box ul li.m-b-hot{ height:104px;text-indent:0;}
+.board-box ul li.m-b-take{ margin-top:4px;}
+.m-b-take input.take-mail{ width:209px; height:28px; line-height:22px; border:1px solid #a2a2a2; float:left; display:inline; text-indent:10px;}
+.m-b-take input.take-btn{ width:49px; height:30px; border:none; background:#aaa9ae; color:#f7f6fc;float:left; display:inline; cursor:pointer;}
+.m-b-take input.take-btn:hover{  color:#fff;background:#aaa9ae;}
+.board-box ul li.m-b-hot a{ font-size:12px;white-space: normal;line-height: 16px;}
+.m-b-hot img{ width:126px; height:84px;float:left; display:block;}
+.m-b-hot p{width:85px; height:64px; float:left; background:#e2e2e6; color:#3a3a3a; padding:20px 1px 0 6px;}
+.m-b-hot p span{display:block;height: 45px;overflow: hidden;margin-right: 5px;}
+.m-b-hot p:hover{background-color:#d8d8d8 }
+.webapp{margin-right:0;}
+.elite-box{border: 1px solid #e2e2e6;color:#3a3a3a;}
+.elite-box h3{ line-height:38px;border-bottom:1px solid #e2e2e6; background:#eb6100; }
+.elite-box h3 a{font-weight: bold;font-size:16px;text-indent:10px;color:#FFF;height:28px; padding-top:10px; }
+.subscribe{ display:inline-block !important}
+.elite-box h3 a:hover{ color:#000000; text-decoration:none}
+.elite-box ul{padding:7px 9px;min-height: 117px;}
+.elite-box ul li{ clear:both; overflow:hidden; font-size:14px; line-height:20px; background:url(../images/sq-inc.png) no-repeat 4px center; text-indent:15px;}
+.elite-box ul li.m-b-take{ margin-top:5px;}
+.elite-box ul li a{ display:block;overflow: hidden;text-overflow: ellipsis; white-space: nowrap;width: 265px;}
+.m-rank{}/*排行榜*/
+.m-rank div{ border:1px solid #e2e2e6; float:left; display:inline; color:#464646;}
+.m-rank div h3{ height:28px; line-height:28px;border-bottom:1px solid #e2e2e6; background:#fafafa; color:#464646; font-size:14px; text-indent:10px;}
+.m-rank div ol{ padding:2px 6px;}
+.m-rank div ol li{height:30px; line-height:30px;}
+.m-rank div ol li a{ display:block;}
+.m-rank div ol li a i{ display:block; float:left; width:14px; height:14px; text-align:center; margin-right:10px;}
+.top3{background:#eb6100; color:#FFF; margin-top: 7px; line-height:14px;}
+.m-rank div ol li a em{overflow: hidden;text-overflow: ellipsis; white-space: nowrap;width: 210px; display:block; float:left;}
+.m-rank div.rank-m ol li a em{overflow: hidden;text-overflow: ellipsis; white-space: nowrap;width: 240px; display:block; float:left;}
+.m-rank div ol li a span{color:#d8d8d8; float:right; display:block;}
+.rank-l{ width:308px;}
+.rank-m{ width:338px; margin:0 20px;}
+.rank-r{ width:308px;}
+.rank-tit{ font-weight: bold; font-size:16px; border-bottom:1px solid #e2e2e6; text-indent:10px; height:29px;}
+.noborder-b{ border-bottom:none 0 !important}
+
+
+/* 2015-8 首页改版 */
+/* 专题栏 */
+.m-coco h2{
+    border-bottom:1px solid #e2e2e6;
+}
+.m-coco h2 .more{
+    float: right;
+    font-size: 12px;
+    margin-right: 10px;
+    font-weight: 100;
+}
+.spec-list{
+    background-color:#f6f6f6;
+}
+.spec-item{
+    font-size:14px;
+}
+.spec-item .spec-item-title{
+    border-bottom:1px solid #fff;
+    height:33px;
+    line-height:33px;
+    background:url(../images/sq-inc.png) no-repeat 10px center;
+    cursor:pointer;
+}
+.spec-item div.spec-last{
+    border-bottom:1px solid #e2e2e6;
+}
+.spec-item .spec-item-title span{
+    margin-left:20px;
+}
+.spec-item a{
+    text-decoration:none;
+    color:#fff;
+}
+.spec-item .spec-item-detail{
+    position:relative;
+    width:278px;
+    height:155px;
+    display:none;
+}
+.spec-item div.spec-hidden{
+    display:none;
+}
+.spec-item div.spec-block{
+    display:block;
+}
+.spec-item .spec-item-detail img{
+    width:278px;
+    height:155px;
+}
+.spec-item .spec-item-detail div{
+    width:100%;
+    color:#fff;
+    height:33px;
+    line-height:33px;
+    text-align:center;
+    background-color:rgba(0,0,0,0.4);
+    position:absolute;
+    left:0;
+    bottom:0;
+}
+
+/* 论坛热帖*/
+.forum-hot-list{
+    
+}
+.forum-hot-list .forum-hot-item{
+    overflow:hidden;
+    margin:0 10px;
+    border-bottom:1px dashed #e2e2e6;
+}
+
+.forum-hot-item .forum-hot-count{
+    float:left;
+    width:20px;
+    height: 40px;
+    line-height: 40px;
+    font-size:15px;
+    font-style:italic;
+    color:#9a9a9a;
+    text-align: right;
+    margin:9px 5px 9px 4px;
+}
+.forum-hot-item .forum-hot-title{
+    float:left;
+    width:210px;
+    margin:9px 5px 9px 7px;
+    height:40px;
+    overflow:hidden;
+    font-size:14px;
+}
+.forum-hot-item .forum-hot-title a{
+    display: table-cell;
+    height: 40px;
+    vertical-align: middle;
+}
+
+.forum-hot-list div.forum-hot{
+    color:#f97b15;
+    font-size: 17px;
+}
+.forum-hot-list div.forum-hot-item-last{
+    border-bottom:none;
+}
+
+/* 招聘栏 */
+.forum-r-b ul li{
+    position:relative;
+}
+
+.forum-r-b ul li div.hire-salary{
+    font-size:13px;
+    color:#1c62f8;
+    height:20px;
+    line-height:20px;
+    position:absolute;
+    top:15px;
+    right:8px;
+}
+
+/* 活动栏 */
+.forum-r-t ul li.act-new{
+    border-bottom:1px dashed #ddd;
+    margin-top:5px;
+}
+.forum-r-t ul li.act-new a{
+    display: block;
+    /*width:260px;*/
+    overflow: hidden;
+    text-overflow: ellipsis; 
+    white-space: nowrap;
+}
+.forum-r-t ul li.act-new-last{
+    border:none;
+}
+.forum-r-t a.apply-btn{
+    width:100px;
+    border-radius:5px;
+    -moz-border-radius:5px;
+    -webkit-border-radius:5px;
+    -o-border-radius:5px;    
+}
+
+
+/* 活动栏下方的图片 */
+.forum-r-b3{
+    margin-top:17px;
+}
+.forum-r-b3 img{
+    width:280px;
+}
+
+/*  左侧栏广告 */
+.forum-l-ad1{
+    margin-top:17px;
+    width:280px;
+    height: 96px;
+}
+
+.forum-l-ad1 img{
+    width:280px;
+    height: 96px;
+}
+
+.forum-r-ad2{
+    margin-top:17px;
+    width:280px;
+    height: 175px;
+}
+
+.forum-r-ad2 img{
+    width:280px;
+    height: 175px;
+}

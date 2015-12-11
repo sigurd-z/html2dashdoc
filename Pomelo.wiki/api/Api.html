@@ -1,0 +1,2075 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <meta charset='utf-8' />
+      <title>pomelo API</title>
+      <meta http-equiv='content-type' content='text/html' />
+      <meta http-equiv='content-style-type' content='text/css' />
+      <meta http-equiv='content-script-type' content='text/javascript' />
+      <meta name='author' content='netease' />
+      <meta name='version' content='1.0' />
+      <meta name='keywords' content='pomelo, game, framework, lordofpomelo, node.js, js, 网易，游戏'/>
+      <meta name='description' content='Pomelo is a fast, scalable, distributed game server framework for Node.js. It provides the basic development framework and a lot of related components, including libraries and tools. Pomelo is also suitable for realtime web application, its distributed architecture makes Pomelo scale better than other realtime web frameworks.' />
+      <link type='text/css' rel='stylesheet' href='css/base.css'>
+      <link type='text/css' rel='stylesheet' href='css/api.css'>
+   </head>
+   <body>
+      <!-- 整体居中 -->
+      <div class="g-doc">
+         <!-- API主体 -->
+         <div class="m-wrap">
+            <!-- API -->
+            <div class='main'>
+               <div class='maintt'>
+                  <h1> pomelo<span class='version'>0.8.0</span></h1>
+               </div>
+               <div class='cls' id='Application'>
+                  <div class='clstt'>
+                     <h2>Application</h2>
+                  </div>
+                  <div class='clsdes'>
+                     <p>Application prototype.</p>
+                  </div>
+                  <div class='method' id='getBase'>
+                     <div class='methodtt'>
+                        <h3>getBase</h3>
+                        <h4>Application.getBase()</h4>
+                        <p class='type'>type: method</p>
+                     </div>
+                     <div class='params'>
+                        <ul>
+                        </ul>
+                     </div>
+                     <div>
+                        <p>Get application base path</p>
+                        <p>// cwd: /home/game/  pomelo start  // app.getBase() -> /home/game</p>
+                     </div>
+                     <div class='source'>
+                        <h4>Source</h4>
+                        <pre><code>Application.getBase = function() {
+  return this.get(Constants.Reserved.BASE);
+};</code></pre>
+                     </div>
+                  </div>
+                  <div class='method' id='filter'>
+                     <div class='methodtt'>
+                        <h3>filter</h3>
+                        <h4>Application.filter()</h4>
+                        <p class='type'>type: method</p>
+                     </div>
+                     <div class='params'>
+                        <h4>Params</h4>
+                        <ul>
+                           <li>filter - provide before and after filter method.</li>
+                        </ul>
+                     </div>
+                     <div>
+                        <p>add a filter to before and after filter</p>
+                     </div>
+                     <div class='source'>
+                        <h4>Source</h4>
+                        <pre><code>Application.filter = function (filter) {
+  this.before(filter);
+  this.after(filter);
+};</code></pre>
+                     </div>
+                  </div>
+                  <div class='method' id='before'>
+                     <div class='methodtt'>
+                        <h3>before</h3>
+                        <h4>Application.before()</h4>
+                        <p class='type'>type: method</p>
+                     </div>
+                     <div class='params'>
+                        <h4>Params</h4>
+                        <ul>
+                           <li>bf - before fileter, bf(msg, session, next)</li>
+                        </ul>
+                     </div>
+                     <div>
+                        <p>Add before filter.</p>
+                     </div>
+                     <div class='source'>
+                        <h4>Source</h4>
+                        <pre><code>Application.before = function (bf) {
+  addFilter(this, Constants.KeyWords.BEFORE_FILTER, bf);
+};</code></pre>
+                     </div>
+                  </div>
+                  <div class='method' id='after'>
+                     <div class='methodtt'>
+                        <h3>after</h3>
+                        <h4>Application.after()</h4>
+                        <p class='type'>type: method</p>
+                     </div>
+                     <div class='params'>
+                        <h4>Params</h4>
+                        <ul>
+                           <li>af - after filter, `af(err, msg, session, resp, next)`</li>
+                        </ul>
+                     </div>
+                     <div>
+                        <p>Add after filter.</p>
+                     </div>
+                     <div class='source'>
+                        <h4>Source</h4>
+                        <pre><code>Application.after = function (af) {
+  addFilter(this, Constants.KeyWords.AFTER_FILTER, af);
+};</code></pre>
+                     </div>
+                  </div>
+                  <div class='method' id='globalFilter'>
+                     <div class='methodtt'>
+                        <h3>globalFilter</h3>
+                        <h4>Application.globalFilter()</h4>
+                        <p class='type'>type: method</p>
+                     </div>
+                     <div class='params'>
+                        <h4>Params</h4>
+                        <ul>
+                           <li>filter - provide before and after filter method.</li>
+                        </ul>
+                     </div>
+                     <div>
+                        <p>add a global filter to before and after global filter</p>
+                     </div>
+                     <div class='source'>
+                        <h4>Source</h4>
+                        <pre><code>Application.globalFilter = function (filter) {
+  this.globalBefore(filter);
+  this.globalAfter(filter);
+};</code></pre>
+                     </div>
+                  </div>
+                  <div class='method' id='globalBefore'>
+                     <div class='methodtt'>
+                        <h3>globalBefore</h3>
+                        <h4>Application.globalBefore()</h4>
+                        <p class='type'>type: method</p>
+                     </div>
+                     <div class='params'>
+                        <h4>Params</h4>
+                        <ul>
+                           <li>bf - before fileter, bf(msg, session, next)</li>
+                        </ul>
+                     </div>
+                     <div>
+                        <p>Add global before filter.</p>
+                     </div>
+                     <div class='source'>
+                        <h4>Source</h4>
+                        <pre><code>Application.globalBefore = function (bf) {
+  addFilter(this, Constants.KeyWords.GLOBAL_BEFORE_FILTER, bf);
+};</code></pre>
+                     </div>
+                  </div>
+                  <div class='method' id='globalAfter'>
+                     <div class='methodtt'>
+                        <h3>globalAfter</h3>
+                        <h4>Application.globalAfter()</h4>
+                        <p class='type'>type: method</p>
+                     </div>
+                     <div class='params'>
+                        <h4>Params</h4>
+                        <ul>
+                           <li>af - after filter, `af(err, msg, session, resp, next)`</li>
+                        </ul>
+                     </div>
+                     <div>
+                        <p>Add global after filter.</p>
+                     </div>
+                     <div class='source'>
+                        <h4>Source</h4>
+                        <pre><code>Application.globalAfter = function (af) {
+  addFilter(this, Constants.KeyWords.GLOBAL_AFTER_FILTER, af);
+};</code></pre>
+                     </div>
+                  </div>
+                  <div class='method' id='rpcBefore'>
+                     <div class='methodtt'>
+                        <h3>rpcBefore</h3>
+                        <h4>Application.rpcBefore()</h4>
+                        <p class='type'>type: method</p>
+                     </div>
+                     <div class='params'>
+                        <h4>Params</h4>
+                        <ul>
+                           <li>bf - before fileter, bf(serverId, msg, opts, next)</li>
+                        </ul>
+                     </div>
+                     <div>
+                        <p>Add rpc before filter.</p>
+                     </div>
+                     <div class='source'>
+                        <h4>Source</h4>
+                        <pre><code>Application.rpcBefore = function(bf) {
+  addFilter(this, Constants.KeyWords.RPC_BEFORE_FILTER, bf);
+};</code></pre>
+                     </div>
+                  </div>
+                  <div class='method' id='rpcAfter'>
+                     <div class='methodtt'>
+                        <h3>rpcAfter</h3>
+                        <h4>Application.rpcAfter()</h4>
+                        <p class='type'>type: method</p>
+                     </div>
+                     <div class='params'>
+                        <h4>Params</h4>
+                        <ul>
+                           <li>af - after filter, `af(serverId, msg, opts, next)`</li>
+                        </ul>
+                     </div>
+                     <div>
+                        <p>Add rpc after filter.</p>
+                     </div>
+                     <div class='source'>
+                        <h4>Source</h4>
+                        <pre><code>Application.rpcAfter = function(af) {
+  addFilter(this, Constants.KeyWords.RPC_AFTER_FILTER, af);
+};</code></pre>
+                     </div>
+                  </div>
+                  <div class='method' id='rpcFilter'>
+                     <div class='methodtt'>
+                        <h3>rpcFilter</h3>
+                        <h4>Application.rpcFilter()</h4>
+                        <p class='type'>type: method</p>
+                     </div>
+                     <div class='params'>
+                        <h4>Params</h4>
+                        <ul>
+                           <li>filter - provide before and after filter method.</li>
+                        </ul>
+                     </div>
+                     <div>
+                        <p>add a rpc filter to before and after rpc filter</p>
+                     </div>
+                     <div class='source'>
+                        <h4>Source</h4>
+                        <pre><code>Application.rpcFilter = function(filter) {
+  this.rpcBefore(filter);
+  this.rpcAfter(filter);
+};</code></pre>
+                     </div>
+                  </div>
+                  <div class='method' id='load'>
+                     <div class='methodtt'>
+                        <h3>load</h3>
+                        <h4>Application.load()</h4>
+                        <p class='type'>type: method</p>
+                     </div>
+                     <div class='params'>
+                        <h4>Params</h4>
+                        <ul>
+                           <li>name - (optional) name of the component</li>
+                           <li>component - component instance or factory function of the component</li>
+                           <li>opts - (optional) construct parameters for the factory function</li>
+                        </ul>
+                     </div>
+                     <div>
+                        <p>Load component</p>
+                     </div>
+                     <div class='source'>
+                        <h4>Source</h4>
+                        <pre><code>Application.load = function(name, component, opts) {
+  if(typeof name !== 'string') {
+    opts = component;
+    component = name;
+    name = null;
+    if(typeof component.name === 'string') {
+      name = component.name;
+    }
+  }
+
+  if(typeof component === 'function') {
+    component = component(this, opts);
+  }
+
+  if(!name &amp;&amp; typeof component.name === 'string') {
+    name = component.name;
+  }
+
+  if(name &amp;&amp; this.components[name]) {
+    // ignore duplicat component
+    logger.warn('ignore duplicate component: %j', name);
+    return;
+  }
+
+  this.loaded.push(component);
+  if(name) {
+    // components with a name would get by name throught app.components later.
+    this.components[name] = component;
+  }
+
+  return this;
+};</code></pre>
+                     </div>
+                  </div>
+                  <div class='method' id='loadConfig'>
+                     <div class='methodtt'>
+                        <h3>loadConfig</h3>
+                        <h4>Application.loadConfig()</h4>
+                        <p class='type'>type: method</p>
+                     </div>
+                     <div class='params'>
+                        <h4>Params</h4>
+                        <ul>
+                           <li>key - environment key</li>
+                           <li>val - environment value</li>
+                        </ul>
+                     </div>
+                     <div>
+                        <p>Load Configure json file to settings.</p>
+                     </div>
+                     <div class='source'>
+                        <h4>Source</h4>
+                        <pre><code>Application.loadConfig = function (key, val) {
+  var env = this.get(Constants.Reserved.ENV);
+  val = require(val);
+  if (val[env]) {
+    val = val[env];
+  }
+  this.set(key, val);
+};</code></pre>
+                     </div>
+                  </div>
+                  <div class='method' id='route'>
+                     <div class='methodtt'>
+                        <h3>route</h3>
+                        <h4>Application.route()</h4>
+                        <p class='type'>type: method</p>
+                     </div>
+                     <div class='params'>
+                        <h4>Params</h4>
+                        <ul>
+                           <li>serverType - server type string</li>
+                           <li>routeFunc - route function. routeFunc(session, msg, app, cb)</li>
+                        </ul>
+                     </div>
+                     <div>
+                        <p>Set the route function for the specified server type.</p>
+                        <p>Examples:</p>
+                        <p>app.route('area', routeFunc);</p>
+                        <p>var routeFunc = function(session, msg, app, cb) {    // all request to area would be route to the first area server    var areas = app.getServersByType('area');    cb(null, areas[0].id);  };</p>
+                     </div>
+                     <div class='source'>
+                        <h4>Source</h4>
+                        <pre><code>Application.route = function(serverType, routeFunc) {
+  var routes = this.get(Constants.KeyWords.ROUTE);
+  if(!routes) {
+    routes = {};
+    this.set(Constants.KeyWords.ROUTE, routes);
+  }
+  routes[serverType] = routeFunc;
+  return this;
+};</code></pre>
+                     </div>
+                  </div>
+                  <div class='method' id='beforeStopHook'>
+                     <div class='methodtt'>
+                        <h3>beforeStopHook</h3>
+                        <h4>Application.beforeStopHook()</h4>
+                        <p class='type'>type: method</p>
+                     </div>
+                     <div class='params'>
+                        <h4>Params</h4>
+                        <ul>
+                           <li>fun - before close function</li>
+                        </ul>
+                     </div>
+                     <div>
+                        <p>Set before stop function. It would perform before servers stop.</p>
+                     </div>
+                     <div class='source'>
+                        <h4>Source</h4>
+                        <pre><code>Application.beforeStopHook = function(fun) {
+  logger.warn('this method was deprecated in pomelo 0.8');
+  if(!!fun &amp;&amp; typeof fun === 'function') {
+    this.set(Constants.KeyWords.BEFORE_STOP_HOOK, fun);
+  }
+};</code></pre>
+                     </div>
+                  </div>
+                  <div class='method' id='start'>
+                     <div class='methodtt'>
+                        <h3>start</h3>
+                        <h4>Application.start()</h4>
+                        <p class='type'>type: method</p>
+                     </div>
+                     <div class='params'>
+                        <h4>Params</h4>
+                        <ul>
+                           <li>cb - callback function</li>
+                        </ul>
+                     </div>
+                     <div>
+                        <p>Start application. It would load the default components and start all the loaded components.</p>
+                     </div>
+                     <div class='source'>
+                        <h4>Source</h4>
+                        <pre><code>Application.start = function(cb) {
+  this.startTime = Date.now();
+  if(this.state &gt; STATE_INITED) {
+    utils.invokeCallback(cb, new Error('application has already start.'));
+    return;
+  }
+  appUtil.loadDefaultComponents(this);
+  var self = this;
+  var startUp = function() {
+    appUtil.optComponents(self.loaded, Constants.Reserved.START, function(err) {
+      self.state = STATE_START;
+      if(err) {
+        utils.invokeCallback(cb, err);
+      } else {
+        logger.info('%j enter after start...', self.getServerId());
+        self.afterStart(cb);
+      }
+    });
+  };
+  var beforeFun = this.lifecycleCbs[Constants.LIFECYCLE.BEFORE_STARTUP];
+  if(!!beforeFun) {
+    beforeFun.call(null, this, startUp);
+  } else {
+    startUp();
+  }
+};</code></pre>
+                     </div>
+                  </div>
+                  <div class='method' id='set'>
+                     <div class='methodtt'>
+                        <h3>set</h3>
+                        <h4>Application.set()</h4>
+                        <p class='type'>type: method</p>
+                     </div>
+                     <div class='params'>
+                        <h4>Params</h4>
+                        <ul>
+                           <li>setting - the setting of application</li>
+                           <li>val - the setting's value</li>
+                           <li>attach - whether attach the settings to application</li>
+                        </ul>
+                     </div>
+                     <div>
+                        <p>Assign <code>setting</code> to <code>val</code>, or return <code>setting</code>'s value.</p>
+                        <p>Example:</p>
+                        <p>app.set('key1', 'value1');  app.get('key1');  // 'value1'  app.key1;         // undefined</p>
+                        <p>app.set('key2', 'value2', true);  app.get('key2');  // 'value2'  app.key2;         // 'value2'</p>
+                     </div>
+                     <div class='source'>
+                        <h4>Source</h4>
+                        <pre><code>Application.set = function (setting, val, attach) {
+  if (arguments.length === 1) {
+    return this.settings[setting];
+  }
+  this.settings[setting] = val;
+  if(attach) {
+    this[setting] = val;
+  }
+  return this;
+};</code></pre>
+                     </div>
+                  </div>
+                  <div class='method' id='get'>
+                     <div class='methodtt'>
+                        <h3>get</h3>
+                        <h4>Application.get()</h4>
+                        <p class='type'>type: method</p>
+                     </div>
+                     <div class='params'>
+                        <h4>Params</h4>
+                        <ul>
+                           <li>setting - application setting</li>
+                        </ul>
+                     </div>
+                     <div>
+                        <p>Get property from setting</p>
+                     </div>
+                     <div class='source'>
+                        <h4>Source</h4>
+                        <pre><code>Application.get = function (setting) {
+  return this.settings[setting];
+};</code></pre>
+                     </div>
+                  </div>
+                  <div class='method' id='enabled'>
+                     <div class='methodtt'>
+                        <h3>enabled</h3>
+                        <h4>Application.enabled()</h4>
+                        <p class='type'>type: method</p>
+                     </div>
+                     <div class='params'>
+                        <h4>Params</h4>
+                        <ul>
+                           <li>setting - application setting</li>
+                        </ul>
+                     </div>
+                     <div>
+                        <p>Check if <code>setting</code> is enabled.</p>
+                     </div>
+                     <div class='source'>
+                        <h4>Source</h4>
+                        <pre><code>Application.enabled = function (setting) {
+  return !!this.get(setting);
+};</code></pre>
+                     </div>
+                  </div>
+                  <div class='method' id='disabled'>
+                     <div class='methodtt'>
+                        <h3>disabled</h3>
+                        <h4>Application.disabled()</h4>
+                        <p class='type'>type: method</p>
+                     </div>
+                     <div class='params'>
+                        <h4>Params</h4>
+                        <ul>
+                           <li>setting - application setting</li>
+                        </ul>
+                     </div>
+                     <div>
+                        <p>Check if <code>setting</code> is disabled.</p>
+                     </div>
+                     <div class='source'>
+                        <h4>Source</h4>
+                        <pre><code>Application.disabled = function (setting) {
+  return !this.get(setting);
+};</code></pre>
+                     </div>
+                  </div>
+                  <div class='method' id='enable'>
+                     <div class='methodtt'>
+                        <h3>enable</h3>
+                        <h4>Application.enable()</h4>
+                        <p class='type'>type: method</p>
+                     </div>
+                     <div class='params'>
+                        <h4>Params</h4>
+                        <ul>
+                           <li>setting - application setting</li>
+                        </ul>
+                     </div>
+                     <div>
+                        <p>Enable <code>setting</code>.</p>
+                     </div>
+                     <div class='source'>
+                        <h4>Source</h4>
+                        <pre><code>Application.enable = function (setting) {
+  return this.set(setting, true);
+};</code></pre>
+                     </div>
+                  </div>
+                  <div class='method' id='disable'>
+                     <div class='methodtt'>
+                        <h3>disable</h3>
+                        <h4>Application.disable()</h4>
+                        <p class='type'>type: method</p>
+                     </div>
+                     <div class='params'>
+                        <h4>Params</h4>
+                        <ul>
+                           <li>setting - application setting</li>
+                        </ul>
+                     </div>
+                     <div>
+                        <p>Disable <code>setting</code>.</p>
+                     </div>
+                     <div class='source'>
+                        <h4>Source</h4>
+                        <pre><code>Application.disable = function (setting) {
+  return this.set(setting, false);
+};</code></pre>
+                     </div>
+                  </div>
+                  <div class='method' id='configure'>
+                     <div class='methodtt'>
+                        <h3>configure</h3>
+                        <h4>Application.configure()</h4>
+                        <p class='type'>type: method</p>
+                     </div>
+                     <div class='params'>
+                        <h4>Params</h4>
+                        <ul>
+                           <li>env - application environment</li>
+                           <li>fn - callback function</li>
+                           <li>type - server type</li>
+                        </ul>
+                     </div>
+                     <div>
+                        <p>Configure callback for the specified env and server type. When no env is specified that callback will be invoked for all environments and when no type is specified that callback will be invoked for all server types.</p>
+                        <p>Examples:</p>
+                        <p>app.configure(function(){    // executed for all envs and server types  });</p>
+                        <p>app.configure('development', function(){    // executed development env  });</p>
+                        <p>app.configure('development', 'connector', function(){    // executed for development env and connector server type  });</p>
+                     </div>
+                     <div class='source'>
+                        <h4>Source</h4>
+                        <pre><code>Application.configure = function (env, type, fn) {
+  var args = [].slice.call(arguments);
+  fn = args.pop();
+  env = type = Constants.Reserved.ALL;
+
+  if(args.length &gt; 0) {
+    env = args[0];
+  }
+  if(args.length &gt; 1) {
+    type = args[1];
+  }
+
+  if (env === Constants.Reserved.ALL || contains(this.settings.env, env)) {
+    if (type === Constants.Reserved.ALL || contains(this.settings.serverType, type)) {
+      fn.call(this);
+    }
+  }
+  return this;
+};</code></pre>
+                     </div>
+                  </div>
+                  <div class='method' id='registerAdmin'>
+                     <div class='methodtt'>
+                        <h3>registerAdmin</h3>
+                        <h4>Application.registerAdmin()</h4>
+                        <p class='type'>type: method</p>
+                     </div>
+                     <div class='params'>
+                        <h4>Params</h4>
+                        <ul>
+                           <li>module - (optional) module id or provoided by module.moduleId</li>
+                           <li>module - module object or factory function for module</li>
+                           <li>opts - construct parameter for module</li>
+                        </ul>
+                     </div>
+                     <div>
+                        <p>Register admin modules. Admin modules is the extends point of the monitor system.</p>
+                     </div>
+                     <div class='source'>
+                        <h4>Source</h4>
+                        <pre><code>Application.registerAdmin = function(moduleId, module, opts) {
+  var modules = this.get(Constants.KeyWords.MODULE);
+  if(!modules) {
+    modules = {};
+    this.set(Constants.KeyWords.MODULE, modules);
+  }
+
+  if(typeof moduleId !== 'string') {
+    opts = module;
+    module = moduleId;
+    if(module) {
+      moduleId = module.moduleId;
+    }
+  }
+
+  if(!moduleId){
+    return;
+  }
+
+  modules[moduleId] = {
+    moduleId: moduleId,
+    module: module,
+    opts: opts
+  };
+};</code></pre>
+                     </div>
+                  </div>
+                  <div class='method' id='use'>
+                     <div class='methodtt'>
+                        <h3>use</h3>
+                        <h4>Application.use()</h4>
+                        <p class='type'>type: method</p>
+                     </div>
+                     <div class='params'>
+                        <h4>Params</h4>
+                        <ul>
+                           <li>plugin - plugin instance</li>
+                           <li>opts - (optional) construct parameters for the factory function</li>
+                        </ul>
+                     </div>
+                     <div>
+                        <p>Use plugin.</p>
+                     </div>
+                     <div class='source'>
+                        <h4>Source</h4>
+                        <pre><code>Application.use = function(plugin, opts) {
+  if(!plugin.components) {
+    logger.error('invalid components, no components exist');
+    return;
+  }
+
+  var self = this;
+  var dir = path.dirname(plugin.components);
+
+  if(!fs.existsSync(plugin.components)) {
+    logger.error('fail to find components, find path: %s', plugin.components);
+    return;
+  }
+
+  fs.readdirSync(plugin.components).forEach(function (filename) {
+    if (!/\.js$/.test(filename)) {
+      return;
+    }
+    var name = path.basename(filename, '.js');
+    var param = opts[name] || {};
+    var absolutePath = path.join(dir, Constants.Dir.COMPONENT, filename);
+    if(!fs.existsSync(absolutePath)) {
+      logger.error('component %s not exist at %s', name, absolutePath);
+    } else {
+      self.load(require(absolutePath), param);
+    }
+  });
+
+  // load events
+  if(!plugin.events) {
+    return;
+  } else {
+    if(!fs.existsSync(plugin.events)) {
+      logger.error('fail to find events, find path: %s', plugin.events);
+      return;
+    }
+
+    fs.readdirSync(plugin.events).forEach(function (filename) {
+      if (!/\.js$/.test(filename)) {
+        return;
+      }
+      var absolutePath = path.join(dir, Constants.Dir.EVENT, filename);
+      if(!fs.existsSync(absolutePath)) {
+        logger.error('events %s not exist at %s', filename, absolutePath);
+      } else {
+        bindEvents(require(absolutePath), self);
+      }
+    });
+  }
+};</code></pre>
+                     </div>
+                  </div>
+                  <div class='method' id='transaction'>
+                     <div class='methodtt'>
+                        <h3>transaction</h3>
+                        <h4>Application.transaction()</h4>
+                        <p class='type'>type: method</p>
+                     </div>
+                     <div class='params'>
+                        <h4>Params</h4>
+                        <ul>
+                           <li>name - transaction name</li>
+                           <li>conditions - functions which are called before transaction</li>
+                           <li>handlers - functions which are called during transaction</li>
+                           <li>retry - retry times to execute handlers if conditions are successfully executed</li>
+                        </ul>
+                     </div>
+                     <div>
+                        <p>Application transaction. Transcation includes conditions and handlers, if conditions are satisfied, handlers would be executed. And you can set retry times to execute handlers. The transaction log is in file logs/transaction.log.</p>
+                     </div>
+                     <div class='source'>
+                        <h4>Source</h4>
+                        <pre><code>Application.transaction = function(name, conditions, handlers, retry) {
+  appManager.transaction(name, conditions, handlers, retry);
+};</code></pre>
+                     </div>
+                  </div>
+                  <div class='method' id='getMaster'>
+                     <div class='methodtt'>
+                        <h3>getMaster</h3>
+                        <h4>Application.getMaster()</h4>
+                        <p class='type'>type: method</p>
+                     </div>
+                     <div class='params'>
+                        <ul>
+                        </ul>
+                     </div>
+                     <div>
+                        <p>Get master server info.</p>
+                     </div>
+                     <div class='source'>
+                        <h4>Source</h4>
+                        <pre><code>Application.getMaster = function() {
+  return this.master;
+};</code></pre>
+                     </div>
+                  </div>
+                  <div class='method' id='getCurServer'>
+                     <div class='methodtt'>
+                        <h3>getCurServer</h3>
+                        <h4>Application.getCurServer()</h4>
+                        <p class='type'>type: method</p>
+                     </div>
+                     <div class='params'>
+                        <ul>
+                        </ul>
+                     </div>
+                     <div>
+                        <p>Get current server info.</p>
+                     </div>
+                     <div class='source'>
+                        <h4>Source</h4>
+                        <pre><code>Application.getCurServer = function() {
+  return this.curServer;
+};</code></pre>
+                     </div>
+                  </div>
+                  <div class='method' id='getServerId'>
+                     <div class='methodtt'>
+                        <h3>getServerId</h3>
+                        <h4>Application.getServerId()</h4>
+                        <p class='type'>type: method</p>
+                     </div>
+                     <div class='params'>
+                        <ul>
+                        </ul>
+                     </div>
+                     <div>
+                        <p>Get current server id.</p>
+                     </div>
+                     <div class='source'>
+                        <h4>Source</h4>
+                        <pre><code>Application.getServerId = function() {
+  return this.serverId;
+};</code></pre>
+                     </div>
+                  </div>
+                  <div class='method' id='getServerType'>
+                     <div class='methodtt'>
+                        <h3>getServerType</h3>
+                        <h4>Application.getServerType()</h4>
+                        <p class='type'>type: method</p>
+                     </div>
+                     <div class='params'>
+                        <ul>
+                        </ul>
+                     </div>
+                     <div>
+                        <p>Get current server type.</p>
+                     </div>
+                     <div class='source'>
+                        <h4>Source</h4>
+                        <pre><code>Application.getServerType = function() {
+  return this.serverType;
+};</code></pre>
+                     </div>
+                  </div>
+                  <div class='method' id='getServers'>
+                     <div class='methodtt'>
+                        <h3>getServers</h3>
+                        <h4>Application.getServers()</h4>
+                        <p class='type'>type: method</p>
+                     </div>
+                     <div class='params'>
+                        <ul>
+                        </ul>
+                     </div>
+                     <div>
+                        <p>Get all the current server infos.</p>
+                     </div>
+                     <div class='source'>
+                        <h4>Source</h4>
+                        <pre><code>Application.getServers = function() {
+  return this.servers;
+};</code></pre>
+                     </div>
+                  </div>
+                  <div class='method' id='getServersFromConfig'>
+                     <div class='methodtt'>
+                        <h3>getServersFromConfig</h3>
+                        <h4>Application.getServersFromConfig()</h4>
+                        <p class='type'>type: method</p>
+                     </div>
+                     <div class='params'>
+                        <ul>
+                        </ul>
+                     </div>
+                     <div>
+                        <p>Get all server infos from servers.json.</p>
+                     </div>
+                     <div class='source'>
+                        <h4>Source</h4>
+                        <pre><code>Application.getServersFromConfig = function() {
+  return this.get(Constants.KeyWords.SERVER_MAP);
+};</code></pre>
+                     </div>
+                  </div>
+                  <div class='method' id='getServerTypes'>
+                     <div class='methodtt'>
+                        <h3>getServerTypes</h3>
+                        <h4>Application.getServerTypes()</h4>
+                        <p class='type'>type: method</p>
+                     </div>
+                     <div class='params'>
+                        <ul>
+                        </ul>
+                     </div>
+                     <div>
+                        <p>Get all the server type.</p>
+                     </div>
+                     <div class='source'>
+                        <h4>Source</h4>
+                        <pre><code>Application.getServerTypes = function() {
+  return this.serverTypes;
+};</code></pre>
+                     </div>
+                  </div>
+                  <div class='method' id='getServerById'>
+                     <div class='methodtt'>
+                        <h3>getServerById</h3>
+                        <h4>Application.getServerById()</h4>
+                        <p class='type'>type: method</p>
+                     </div>
+                     <div class='params'>
+                        <h4>Params</h4>
+                        <ul>
+                           <li>serverId - server id</li>
+                        </ul>
+                     </div>
+                     <div>
+                        <p>Get server info by server id from current server cluster.</p>
+                     </div>
+                     <div class='source'>
+                        <h4>Source</h4>
+                        <pre><code>Application.getServerById = function(serverId) {
+  return this.servers[serverId];
+};</code></pre>
+                     </div>
+                  </div>
+                  <div class='method' id='getServerFromConfig'>
+                     <div class='methodtt'>
+                        <h3>getServerFromConfig</h3>
+                        <h4>Application.getServerFromConfig()</h4>
+                        <p class='type'>type: method</p>
+                     </div>
+                     <div class='params'>
+                        <h4>Params</h4>
+                        <ul>
+                           <li>serverId - server id</li>
+                        </ul>
+                     </div>
+                     <div>
+                        <p>Get server info by server id from servers.json.</p>
+                     </div>
+                     <div class='source'>
+                        <h4>Source</h4>
+                        <pre><code>Application.getServerFromConfig = function(serverId) {
+  return this.get(Constants.keyWords.SERVER_MAP)[serverId];
+};</code></pre>
+                     </div>
+                  </div>
+                  <div class='method' id='getServersByType'>
+                     <div class='methodtt'>
+                        <h3>getServersByType</h3>
+                        <h4>Application.getServersByType()</h4>
+                        <p class='type'>type: method</p>
+                     </div>
+                     <div class='params'>
+                        <h4>Params</h4>
+                        <ul>
+                           <li>serverType - server type</li>
+                        </ul>
+                     </div>
+                     <div>
+                        <p>Get server infos by server type.</p>
+                     </div>
+                     <div class='source'>
+                        <h4>Source</h4>
+                        <pre><code>Application.getServersByType = function(serverType) {
+  return this.serverTypeMaps[serverType];
+};</code></pre>
+                     </div>
+                  </div>
+                  <div class='method' id='isFrontend'>
+                     <div class='methodtt'>
+                        <h3>isFrontend</h3>
+                        <h4>Application.isFrontend()</h4>
+                        <p class='type'>type: method</p>
+                     </div>
+                     <div class='params'>
+                        <h4>Params</h4>
+                        <ul>
+                           <li>server - server info. it would check current server</li>
+                        </ul>
+                     </div>
+                     <div>
+                        <p>Check the server whether is a frontend server</p>
+                     </div>
+                     <div class='source'>
+                        <h4>Source</h4>
+                        <pre><code>Application.isFrontend = function(server) {
+  server = server || this.getCurServer();
+  return !!server &amp;&amp; server.frontend === 'true';
+};</code></pre>
+                     </div>
+                  </div>
+                  <div class='method' id='isBackend'>
+                     <div class='methodtt'>
+                        <h3>isBackend</h3>
+                        <h4>Application.isBackend()</h4>
+                        <p class='type'>type: method</p>
+                     </div>
+                     <div class='params'>
+                        <h4>Params</h4>
+                        <ul>
+                           <li>server - server info. it would check current server</li>
+                        </ul>
+                     </div>
+                     <div>
+                        <p>Check the server whether is a backend server</p>
+                     </div>
+                     <div class='source'>
+                        <h4>Source</h4>
+                        <pre><code>Application.isBackend = function(server) {
+  server = server || this.getCurServer();
+  return !!server &amp;&amp; !server.frontend;
+};</code></pre>
+                     </div>
+                  </div>
+                  <div class='method' id='isMaster'>
+                     <div class='methodtt'>
+                        <h3>isMaster</h3>
+                        <h4>Application.isMaster()</h4>
+                        <p class='type'>type: method</p>
+                     </div>
+                     <div class='params'>
+                        <ul>
+                        </ul>
+                     </div>
+                     <div>
+                        <p>Check whether current server is a master server</p>
+                     </div>
+                     <div class='source'>
+                        <h4>Source</h4>
+                        <pre><code>Application.isMaster = function() {
+  return this.serverType === Constants.Reserved.MASTER;
+};</code></pre>
+                     </div>
+                  </div>
+                  <div class='method' id='addServers'>
+                     <div class='methodtt'>
+                        <h3>addServers</h3>
+                        <h4>Application.addServers()</h4>
+                        <p class='type'>type: method</p>
+                     </div>
+                     <div class='params'>
+                        <h4>Params</h4>
+                        <ul>
+                           <li>servers - new server info list</li>
+                        </ul>
+                     </div>
+                     <div>
+                        <p>Add new server info to current application in runtime.</p>
+                     </div>
+                     <div class='source'>
+                        <h4>Source</h4>
+                        <pre><code>Application.addServers = function(servers) {
+  if(!servers || !servers.length) {
+    return;
+  }
+
+  var item, slist;
+  for(var i=0, l=servers.length; i &lt; l; i++) {
+    item = servers[i];
+    // update global server map
+    this.servers[item.id] = item;
+
+    // update global server type map
+    slist = this.serverTypeMaps[item.serverType];
+    if(!slist) {
+      this.serverTypeMaps[item.serverType] = slist = [];
+    }
+    replaceServer(slist, item);
+
+    // update global server type list
+    if(this.serverTypes.indexOf(item.serverType) &lt; 0) {
+      this.serverTypes.push(item.serverType);
+    }
+  }
+  this.event.emit(events.ADD_SERVERS, servers);
+};</code></pre>
+                     </div>
+                  </div>
+                  <div class='method' id='removeServers'>
+                     <div class='methodtt'>
+                        <h3>removeServers</h3>
+                        <h4>Application.removeServers()</h4>
+                        <p class='type'>type: method</p>
+                     </div>
+                     <div class='params'>
+                        <h4>Params</h4>
+                        <ul>
+                           <li>ids - server id list</li>
+                        </ul>
+                     </div>
+                     <div>
+                        <p>Remove server info from current application at runtime.</p>
+                     </div>
+                     <div class='source'>
+                        <h4>Source</h4>
+                        <pre><code>Application.removeServers = function(ids) {
+  if(!ids || !ids.length) {
+    return;
+  }
+
+  var id, item, slist;
+  for(var i=0, l=ids.length; i &lt; l; i++) {
+    id = ids[i];
+    item = this.servers[id];
+    if(!item) {
+      continue;
+    }
+    // clean global server map
+    delete this.servers[id];
+
+    // clean global server type map
+    slist = this.serverTypeMaps[item.serverType];
+    removeServer(slist, id);
+    // TODO: should remove the server type if the slist is empty?
+  }
+  this.event.emit(events.REMOVE_SERVERS, ids);
+};</code></pre>
+                     </div>
+                  </div>
+                  <div class='method' id='replaceServers'>
+                     <div class='methodtt'>
+                        <h3>replaceServers</h3>
+                        <h4>Application.replaceServers()</h4>
+                        <p class='type'>type: method</p>
+                     </div>
+                     <div class='params'>
+                        <h4>Params</h4>
+                        <ul>
+                           <li>server - id map</li>
+                        </ul>
+                     </div>
+                     <div>
+                        <p>Replace server info from current application at runtime.</p>
+                     </div>
+                     <div class='source'>
+                        <h4>Source</h4>
+                        <pre><code>Application.replaceServers = function(servers) {
+  if(!servers){
+    return;
+  }
+
+  this.servers = servers;
+  this.serverTypeMaps = {};
+  this.serverTypes = [];
+  var serverArray = [];
+  for(var id in servers){
+    var server = servers[id];
+    var serverType = server[Constants.Reserved.SERVER_TYPE];
+    var slist = this.serverTypeMaps[serverType];
+    if(!slist) {
+      this.serverTypeMaps[serverType] = slist = [];
+    }
+    this.serverTypeMaps[serverType].push(server);
+    // update global server type list
+    if(this.serverTypes.indexOf(serverType) &lt; 0) {
+      this.serverTypes.push(serverType);
+    }
+    serverArray.push(server);
+  }
+  this.event.emit(events.REPLACE_SERVERS, serverArray);
+};</code></pre>
+                     </div>
+                  </div>
+                  <div class='method' id='addCrons'>
+                     <div class='methodtt'>
+                        <h3>addCrons</h3>
+                        <h4>Application.addCrons()</h4>
+                        <p class='type'>type: method</p>
+                     </div>
+                     <div class='params'>
+                        <h4>Params</h4>
+                        <ul>
+                           <li>crons - new crons would be added in application</li>
+                        </ul>
+                     </div>
+                     <div>
+                        <p>Add crons from current application at runtime.</p>
+                     </div>
+                     <div class='source'>
+                        <h4>Source</h4>
+                        <pre><code>Application.addCrons = function(crons) {
+  if(!crons || !crons.length) {
+    logger.warn('crons is not defined.');
+    return;
+  }
+  this.event.emit(events.ADD_CRONS, crons);
+};</code></pre>
+                     </div>
+                  </div>
+                  <div class='method' id='removeCrons'>
+                     <div class='methodtt'>
+                        <h3>removeCrons</h3>
+                        <h4>Application.removeCrons()</h4>
+                        <p class='type'>type: method</p>
+                     </div>
+                     <div class='params'>
+                        <h4>Params</h4>
+                        <ul>
+                           <li>crons - old crons would be removed in application</li>
+                        </ul>
+                     </div>
+                     <div>
+                        <p>Remove crons from current application at runtime.</p>
+                     </div>
+                     <div class='source'>
+                        <h4>Source</h4>
+                        <pre><code>Application.removeCrons = function(crons) {
+  if(!crons || !crons.length) {
+    logger.warn('ids is not defined.');
+    return;
+  }
+  this.event.emit(events.REMOVE_CRONS, crons);
+};
+
+var replaceServer = function(slist, serverInfo) {
+  for(var i=0, l=slist.length; i &lt; l; i++) {
+    if(slist[i].id === serverInfo.id) {
+      slist[i] = serverInfo;
+      return;
+    }
+  }
+  slist.push(serverInfo);
+};
+
+var removeServer = function(slist, id) {
+  if(!slist || !slist.length) {
+    return;
+  }
+
+  for(var i=0, l=slist.length; i &lt; l; i++) {
+    if(slist[i].id === id) {
+      slist.splice(i, 1);
+      return;
+    }
+  }
+};
+
+var contains = function(str, settings) {
+  if(!settings) {
+    return false;
+  }
+
+  var ts = settings.split(&quot;|&quot;);
+  for(var i=0, l=ts.length; i &lt; l; i++) {
+    if(str === ts[i]) {
+      return true;
+    }
+  }
+  return false;
+};
+
+var bindEvents = function(Event, app) {
+  var emethods = new Event(app);
+  for(var m in emethods) {
+    if(typeof emethods[m] === 'function') {
+      app.event.on(m, emethods[m].bind(emethods));
+    }
+  }
+};
+
+var addFilter = function(app, type, filter) {
+ var filters = app.get(type);
+  if(!filters) {
+    filters = [];
+    app.set(type, filters);
+  }
+  filters.push(filter);
+};</code></pre>
+                     </div>
+                  </div>
+               </div>
+               <div class='cls' id='BackendSessionService'>
+                  <div class='clstt'>
+                     <h2>BackendSessionService</h2>
+                  </div>
+                  <div class='clsdes'>
+                     <p>Service that maintains backend sessions and the communiation with frontend servers.</p>
+                     <p>BackendSessionService would be created in each server process and maintains backend sessions for current process and communicates with the relative frontend servers.</p>
+                     <p>BackendSessionService instance could be accessed by <code>app.get('backendSessionService')</code> or app.backendSessionService.</p>
+                  </div>
+                  <div class='method' id='get'>
+                     <div class='methodtt'>
+                        <h3>get</h3>
+                        <h4>BackendSessionService.prototype.get()</h4>
+                        <p class='type'>type: method</p>
+                     </div>
+                     <div class='params'>
+                        <h4>Params</h4>
+                        <ul>
+                           <li>frontendId - frontend server id that session attached</li>
+                           <li>sid - session id</li>
+                           <li>cb - callback function. args: cb(err, BackendSession)</li>
+                        </ul>
+                     </div>
+                     <div>
+                        <p>Get backend session by frontend server id and session id.</p>
+                     </div>
+                     <div class='source'>
+                        <h4>Source</h4>
+                        <pre><code>BackendSessionService.prototype.get = function(frontendId, sid, cb) {
+  var namespace = 'sys';
+  var service = 'sessionRemote';
+  var method = 'getBackendSessionBySid';
+  var args = [sid];
+  rpcInvoke(this.app, frontendId, namespace, service, method,
+            args, BackendSessionCB.bind(null, this, cb));
+};</code></pre>
+                     </div>
+                  </div>
+                  <div class='method' id='getByUid'>
+                     <div class='methodtt'>
+                        <h3>getByUid</h3>
+                        <h4>BackendSessionService.prototype.getByUid()</h4>
+                        <p class='type'>type: method</p>
+                     </div>
+                     <div class='params'>
+                        <h4>Params</h4>
+                        <ul>
+                           <li>frontendId - frontend server id that session attached</li>
+                           <li>uid - user id binded with the session</li>
+                           <li>cb - callback function. args: cb(err, BackendSessions)</li>
+                        </ul>
+                     </div>
+                     <div>
+                        <p>Get backend sessions by frontend server id and user id.</p>
+                     </div>
+                     <div class='source'>
+                        <h4>Source</h4>
+                        <pre><code>BackendSessionService.prototype.getByUid = function(frontendId, uid, cb) {
+  var namespace = 'sys';
+  var service = 'sessionRemote';
+  var method = 'getBackendSessionsByUid';
+  var args = [uid];
+  rpcInvoke(this.app, frontendId, namespace, service, method,
+            args, BackendSessionCB.bind(null, this, cb));
+};</code></pre>
+                     </div>
+                  </div>
+                  <div class='method' id='kickBySid'>
+                     <div class='methodtt'>
+                        <h3>kickBySid</h3>
+                        <h4>BackendSessionService.prototype.kickBySid()</h4>
+                        <p class='type'>type: method</p>
+                     </div>
+                     <div class='params'>
+                        <h4>Params</h4>
+                        <ul>
+                           <li>frontendId - cooperating frontend server id</li>
+                           <li>sid - session id</li>
+                           <li>cb - callback function</li>
+                        </ul>
+                     </div>
+                     <div>
+                        <p>Kick a session by session id.</p>
+                     </div>
+                     <div class='source'>
+                        <h4>Source</h4>
+                        <pre><code>BackendSessionService.prototype.kickBySid = function(frontendId, sid, cb) {
+  var namespace = 'sys';
+  var service = 'sessionRemote';
+  var method = 'kickBySid';
+  var args = [sid];
+  rpcInvoke(this.app, frontendId, namespace, service, method, args, cb);
+};</code></pre>
+                     </div>
+                  </div>
+                  <div class='method' id='kickByUid'>
+                     <div class='methodtt'>
+                        <h3>kickByUid</h3>
+                        <h4>BackendSessionService.prototype.kickByUid()</h4>
+                        <p class='type'>type: method</p>
+                     </div>
+                     <div class='params'>
+                        <h4>Params</h4>
+                        <ul>
+                           <li>frontendId - cooperating frontend server id</li>
+                           <li>uid - user id</li>
+                           <li>cb - callback function</li>
+                        </ul>
+                     </div>
+                     <div>
+                        <p>Kick sessions by user id.</p>
+                     </div>
+                     <div class='source'>
+                        <h4>Source</h4>
+                        <pre><code>BackendSessionService.prototype.kickByUid = function(frontendId, uid, cb) {
+  var namespace = 'sys';
+  var service = 'sessionRemote';
+  var method = 'kickByUid';
+  var args = [uid];
+  rpcInvoke(this.app, frontendId, namespace, service, method, args, cb);
+};</code></pre>
+                     </div>
+                  </div>
+               </div>
+               <div class='cls' id='BackendSession'>
+                  <div class='clstt'>
+                     <h2>BackendSession</h2>
+                  </div>
+                  <div class='clsdes'>
+                     <p>BackendSession is the proxy for the frontend internal session passed to handlers and it helps to keep the key/value pairs for the server locally. Internal session locates in frontend server and should not be accessed directly.</p>
+                     <p>The mainly operation on backend session should be read and any changes happen in backend  session is local and would be discarded in next request. You have to push the changes to the frontend manually if necessary. Any push would overwrite the last push of the same key silently and the changes would be saw in next request. And you have to make sure the transaction outside if you would push the session concurrently in different processes.</p>
+                     <p>See the api below for more details.</p>
+                  </div>
+                  <div class='method' id='bind'>
+                     <div class='methodtt'>
+                        <h3>bind</h3>
+                        <h4>BackendSession.prototype.bind()</h4>
+                        <p class='type'>type: method</p>
+                     </div>
+                     <div class='params'>
+                        <h4>Params</h4>
+                        <ul>
+                           <li>uid - user id</li>
+                           <li>cb - callback function</li>
+                        </ul>
+                     </div>
+                     <div>
+                        <p>Bind current session with the user id. It would push the uid to frontend server and bind  uid to the frontend internal session.</p>
+                     </div>
+                     <div class='source'>
+                        <h4>Source</h4>
+                        <pre><code>BackendSession.prototype.bind = function(uid, cb) {
+  var self = this;
+  this.__sessionService__.bind(this.frontendId, this.id, uid, function(err) {
+    if(!err) {
+      self.uid = uid;
+    }
+    utils.invokeCallback(cb, err);
+  });
+};</code></pre>
+                     </div>
+                  </div>
+                  <div class='method' id='unbind'>
+                     <div class='methodtt'>
+                        <h3>unbind</h3>
+                        <h4>BackendSession.prototype.unbind()</h4>
+                        <p class='type'>type: method</p>
+                     </div>
+                     <div class='params'>
+                        <h4>Params</h4>
+                        <ul>
+                           <li>uid - user id</li>
+                           <li>cb - callback function</li>
+                        </ul>
+                     </div>
+                     <div>
+                        <p>Unbind current session with the user id. It would push the uid to frontend server and unbind uid from the frontend internal session.</p>
+                     </div>
+                     <div class='source'>
+                        <h4>Source</h4>
+                        <pre><code>BackendSession.prototype.unbind = function(uid, cb) {
+  var self = this;
+  this.__sessionService__.unbind(this.frontendId, this.id, uid, function(err) {
+    if(!err) {
+      self.uid = null;
+    }
+    utils.invokeCallback(cb, err);
+  });
+};</code></pre>
+                     </div>
+                  </div>
+                  <div class='method' id='set'>
+                     <div class='methodtt'>
+                        <h3>set</h3>
+                        <h4>BackendSession.prototype.set()</h4>
+                        <p class='type'>type: method</p>
+                     </div>
+                     <div class='params'>
+                        <h4>Params</h4>
+                        <ul>
+                           <li>key - key</li>
+                           <li>value - value</li>
+                        </ul>
+                     </div>
+                     <div>
+                        <p>Set the key/value into backend session.</p>
+                     </div>
+                     <div class='source'>
+                        <h4>Source</h4>
+                        <pre><code>BackendSession.prototype.set = function(key, value) {
+  this.settings[key] = value;
+};</code></pre>
+                     </div>
+                  </div>
+                  <div class='method' id='get'>
+                     <div class='methodtt'>
+                        <h3>get</h3>
+                        <h4>BackendSession.prototype.get()</h4>
+                        <p class='type'>type: method</p>
+                     </div>
+                     <div class='params'>
+                        <h4>Params</h4>
+                        <ul>
+                           <li>key - key</li>
+                        </ul>
+                     </div>
+                     <div>
+                        <p>Get the value from backend session by key.</p>
+                     </div>
+                     <div class='source'>
+                        <h4>Source</h4>
+                        <pre><code>BackendSession.prototype.get = function(key) {
+  return this.settings[key];
+};</code></pre>
+                     </div>
+                  </div>
+                  <div class='method' id='push'>
+                     <div class='methodtt'>
+                        <h3>push</h3>
+                        <h4>BackendSession.prototype.push()</h4>
+                        <p class='type'>type: method</p>
+                     </div>
+                     <div class='params'>
+                        <h4>Params</h4>
+                        <ul>
+                           <li>key - key</li>
+                           <li>cb - callback function</li>
+                        </ul>
+                     </div>
+                     <div>
+                        <p>Push the key/value in backend session to the front internal session.</p>
+                     </div>
+                     <div class='source'>
+                        <h4>Source</h4>
+                        <pre><code>BackendSession.prototype.push = function(key, cb) {
+  this.__sessionService__.push(this.frontendId, this.id, key, this.get(key), cb);
+};</code></pre>
+                     </div>
+                  </div>
+                  <div class='method' id='pushAll'>
+                     <div class='methodtt'>
+                        <h3>pushAll</h3>
+                        <h4>BackendSession.prototype.pushAll()</h4>
+                        <p class='type'>type: method</p>
+                     </div>
+                     <div class='params'>
+                        <h4>Params</h4>
+                        <ul>
+                           <li>cb - callback function</li>
+                        </ul>
+                     </div>
+                     <div>
+                        <p>Push all the key/values in backend session to the frontend internal session.</p>
+                     </div>
+                     <div class='source'>
+                        <h4>Source</h4>
+                        <pre><code>BackendSession.prototype.pushAll = function(cb) {
+  this.__sessionService__.pushAll(this.frontendId, this.id, this.settings, cb);
+};</code></pre>
+                     </div>
+                  </div>
+               </div>
+               <div class='cls' id='ChannelService'>
+                  <div class='clstt'>
+                     <h2>ChannelService</h2>
+                  </div>
+                  <div class='clsdes'>
+                     <p>Create and maintain channels for server local.</p>
+                     <p>ChannelService is created by channel component which is a default loaded component of pomelo and channel service would be accessed by <code>app.get('channelService')</code>.</p>
+                  </div>
+                  <div class='method' id='createChannel'>
+                     <div class='methodtt'>
+                        <h3>createChannel</h3>
+                        <h4>ChannelService.prototype.createChannel()</h4>
+                        <p class='type'>type: method</p>
+                     </div>
+                     <div class='params'>
+                        <h4>Params</h4>
+                        <ul>
+                           <li>name - channel's name</li>
+                        </ul>
+                     </div>
+                     <div>
+                        <p>Create channel with name.</p>
+                     </div>
+                     <div class='source'>
+                        <h4>Source</h4>
+                        <pre><code>ChannelService.prototype.createChannel = function(name) {
+  if(this.channels[name]) {
+    return this.channels[name];
+  }
+
+  var c = new Channel(name, this);
+  this.channels[name] = c;
+  return c;
+};</code></pre>
+                     </div>
+                  </div>
+                  <div class='method' id='getChannel'>
+                     <div class='methodtt'>
+                        <h3>getChannel</h3>
+                        <h4>ChannelService.prototype.getChannel()</h4>
+                        <p class='type'>type: method</p>
+                     </div>
+                     <div class='params'>
+                        <h4>Params</h4>
+                        <ul>
+                           <li>name - channel's name</li>
+                           <li>create - if true, create channel</li>
+                        </ul>
+                     </div>
+                     <div>
+                        <p>Get channel by name.</p>
+                     </div>
+                     <div class='source'>
+                        <h4>Source</h4>
+                        <pre><code>ChannelService.prototype.getChannel = function(name, create) {
+  var channel = this.channels[name];
+  if(!channel &amp;&amp; !!create) {
+    channel = this.channels[name] = new Channel(name, this);
+  }
+  return channel;
+};</code></pre>
+                     </div>
+                  </div>
+                  <div class='method' id='destroyChannel'>
+                     <div class='methodtt'>
+                        <h3>destroyChannel</h3>
+                        <h4>ChannelService.prototype.destroyChannel()</h4>
+                        <p class='type'>type: method</p>
+                     </div>
+                     <div class='params'>
+                        <h4>Params</h4>
+                        <ul>
+                           <li>name - channel name</li>
+                        </ul>
+                     </div>
+                     <div>
+                        <p>Destroy channel by name.</p>
+                     </div>
+                     <div class='source'>
+                        <h4>Source</h4>
+                        <pre><code>ChannelService.prototype.destroyChannel = function(name) {
+  delete this.channels[name];
+};</code></pre>
+                     </div>
+                  </div>
+                  <div class='method' id='pushMessageByUids'>
+                     <div class='methodtt'>
+                        <h3>pushMessageByUids</h3>
+                        <h4>ChannelService.prototype.pushMessageByUids()</h4>
+                        <p class='type'>type: method</p>
+                     </div>
+                     <div class='params'>
+                        <h4>Params</h4>
+                        <ul>
+                           <li>route - message route</li>
+                           <li>msg - message that would be sent to client</li>
+                           <li>uids - the receiver info list, [{uid: userId, sid: frontendServerId}]</li>
+                           <li>opts - user-defined push options, optional </li>
+                           <li>cb - cb(err)</li>
+                        </ul>
+                     </div>
+                     <div>
+                        <p>Push message by uids. Group the uids by group. ignore any uid if sid not specified.</p>
+                     </div>
+                     <div class='source'>
+                        <h4>Source</h4>
+                        <pre><code>ChannelService.prototype.pushMessageByUids = function(route, msg, uids, opts, cb) {
+  if(typeof route !== 'string') {
+    cb = opts;
+    opts = uids;
+    uids = msg;
+    msg = route;
+    route = msg.route;
+  }
+
+  if(!cb &amp;&amp; typeof opts === 'function') {
+    cb = opts;
+    opts = {};
+  }
+
+  if(!uids || uids.length === 0) {
+    utils.invokeCallback(cb, new Error('uids should not be empty'));
+    return;
+  }
+  var groups = {}, record;
+  for(var i=0, l=uids.length; i &lt; l; i++) {
+    record = uids[i];
+    add(record.uid, record.sid, groups);
+  }
+
+  sendMessageByGroup(this, route, msg, groups, opts, cb);
+};</code></pre>
+                     </div>
+                  </div>
+                  <div class='method' id='broadcast'>
+                     <div class='methodtt'>
+                        <h3>broadcast</h3>
+                        <h4>ChannelService.prototype.broadcast()</h4>
+                        <p class='type'>type: method</p>
+                     </div>
+                     <div class='params'>
+                        <h4>Params</h4>
+                        <ul>
+                           <li>stype - frontend server type string</li>
+                           <li>route - route string</li>
+                           <li>msg - message</li>
+                           <li>opts - user-defined broadcast options, optional</li>
+                           <li>cb - callback</li>
+                        </ul>
+                     </div>
+                     <div>
+                        <p>Broadcast message to all the connected clients.</p>
+                     </div>
+                     <div class='source'>
+                        <h4>Source</h4>
+                        <pre><code>ChannelService.prototype.broadcast = function(stype, route, msg, opts, cb) {
+  var app = this.app;
+  var namespace = 'sys';
+  var service = 'channelRemote';
+  var method = 'broadcast';
+  var servers = app.getServersByType(stype);
+
+  if(!servers || servers.length === 0) {
+    // server list is empty
+    utils.invokeCallback(cb);
+    return;
+  }
+
+  var count = servers.length;
+  var successFlag = false;
+
+  var latch = countDownLatch.createCountDownLatch(count, function() {
+    if(!successFlag) {
+      utils.invokeCallback(cb, new Error('broadcast fails'));
+      return;
+    }
+    utils.invokeCallback(cb, null);
+  });
+
+  var genCB = function() {
+    return function(err) {
+      if(err) {
+        logger.error('[broadcast] fail to push message, err:' + err.stack);
+        latch.done();
+        return;
+      }
+      successFlag = true;
+      latch.done();
+    };
+  };
+
+  opts = {type: 'broadcast', userOptions: opts || {}};
+
+  // for compatiblity
+  opts.isBroadcast = true;
+  if(opts.userOptions) {
+    opts.binded = opts.userOptions.binded;
+    opts.filterParam = opts.userOptions.filterParam;
+  }
+
+  for(var i=0, l=count; i &lt; l; i++) {
+    app.rpcInvoke(servers[i].id, {namespace: namespace, service: service,
+      method: method, args: [route, msg, opts]}, genCB());
+  }
+};</code></pre>
+                     </div>
+                  </div>
+               </div>
+               <div class='cls' id='Channel'>
+                  <div class='clstt'>
+                     <h2>Channel</h2>
+                  </div>
+                  <div class='clsdes'>
+                     <p>Channel maintains the receiver collection for a subject. You can add users into a channel and then broadcast message to them by channel.</p>
+                  </div>
+                  <div class='method' id='add'>
+                     <div class='methodtt'>
+                        <h3>add</h3>
+                        <h4>Channel.prototype.add()</h4>
+                        <p class='type'>type: method</p>
+                     </div>
+                     <div class='params'>
+                        <h4>Params</h4>
+                        <ul>
+                           <li>uid - user id</li>
+                           <li>sid - frontend server id which user has connected to</li>
+                        </ul>
+                     </div>
+                     <div>
+                        <p>Add user to channel.</p>
+                     </div>
+                     <div class='source'>
+                        <h4>Source</h4>
+                        <pre><code>Channel.prototype.add = function(uid, sid) {
+  if(this.state &gt; ST_INITED) {
+    return false;
+  } else {
+    var res = add(uid, sid, this.groups);
+    if(res) {
+      this.records[uid] = {sid: sid, uid: uid};
+    }
+    return res;
+  }
+};</code></pre>
+                     </div>
+                  </div>
+                  <div class='method' id='leave'>
+                     <div class='methodtt'>
+                        <h3>leave</h3>
+                        <h4>Channel.prototype.leave()</h4>
+                        <p class='type'>type: method</p>
+                     </div>
+                     <div class='params'>
+                        <h4>Params</h4>
+                        <ul>
+                           <li>uid - user id</li>
+                           <li>sid - frontend server id which user has connected to.</li>
+                        </ul>
+                     </div>
+                     <div>
+                        <p>Remove user from channel.</p>
+                     </div>
+                     <div class='source'>
+                        <h4>Source</h4>
+                        <pre><code>Channel.prototype.leave = function(uid, sid) {
+  if(!uid || !sid) {
+    return false;
+  }
+  delete this.records[uid];
+  var res = deleteFrom(uid, sid, this.groups[sid]);
+  if(this.groups[sid] &amp;&amp; this.groups[sid].length === 0) {
+    delete this.groups[sid];
+  }
+  return res;
+};</code></pre>
+                     </div>
+                  </div>
+                  <div class='method' id='getMembers'>
+                     <div class='methodtt'>
+                        <h3>getMembers</h3>
+                        <h4>Channel.prototype.getMembers()</h4>
+                        <p class='type'>type: method</p>
+                     </div>
+                     <div class='params'>
+                        <ul>
+                        </ul>
+                     </div>
+                     <div>
+                        <p>Get channel members.</p>
+                        <p><b>Notice:</b> Heavy operation.</p>
+                     </div>
+                     <div class='source'>
+                        <h4>Source</h4>
+                        <pre><code>Channel.prototype.getMembers = function() {
+  var res = [], groups = this.groups;
+  var group, i, l;
+  for(var sid in groups) {
+    group = groups[sid];
+    for(i=0, l=group.length; i &lt; l; i++) {
+      res.push(group[i]);
+    }
+  }
+  return res;
+};</code></pre>
+                     </div>
+                  </div>
+                  <div class='method' id='getMember'>
+                     <div class='methodtt'>
+                        <h3>getMember</h3>
+                        <h4>Channel.prototype.getMember()</h4>
+                        <p class='type'>type: method</p>
+                     </div>
+                     <div class='params'>
+                        <h4>Params</h4>
+                        <ul>
+                           <li>uid - user id</li>
+                        </ul>
+                     </div>
+                     <div>
+                        <p>Get Member info.</p>
+                     </div>
+                     <div class='source'>
+                        <h4>Source</h4>
+                        <pre><code>Channel.prototype.getMember = function(uid) {
+  return this.records[uid];
+};</code></pre>
+                     </div>
+                  </div>
+                  <div class='method' id='destroy'>
+                     <div class='methodtt'>
+                        <h3>destroy</h3>
+                        <h4>Channel.prototype.destroy()</h4>
+                        <p class='type'>type: method</p>
+                     </div>
+                     <div class='params'>
+                        <ul>
+                        </ul>
+                     </div>
+                     <div>
+                        <p>Destroy channel.</p>
+                     </div>
+                     <div class='source'>
+                        <h4>Source</h4>
+                        <pre><code>Channel.prototype.destroy = function() {
+  this.state = ST_DESTROYED;
+  this.__channelService__.destroyChannel(this.name);
+};</code></pre>
+                     </div>
+                  </div>
+                  <div class='method' id='pushMessage'>
+                     <div class='methodtt'>
+                        <h3>pushMessage</h3>
+                        <h4>Channel.prototype.pushMessage()</h4>
+                        <p class='type'>type: method</p>
+                     </div>
+                     <div class='params'>
+                        <h4>Params</h4>
+                        <ul>
+                           <li>route - message route</li>
+                           <li>msg - message that would be sent to client</li>
+                           <li>opts - user-defined push options, optional</li>
+                           <li>cb - callback function</li>
+                        </ul>
+                     </div>
+                     <div>
+                        <p>Push message to all the members in the channel</p>
+                     </div>
+                     <div class='source'>
+                        <h4>Source</h4>
+                        <pre><code>Channel.prototype.pushMessage = function(route, msg, opts, cb) {
+  if(this.state !== ST_INITED) {
+    utils.invokeCallback(new Error('channel is not running now'));
+    return;
+  }
+
+  if(typeof route !== 'string') {
+    cb = opts;
+    opts = msg;
+    msg = route;
+    route = msg.route;
+  }
+
+  if(!cb &amp;&amp; typeof opts === 'function') {
+    cb = opts;
+    opts = {};
+  }
+
+  sendMessageByGroup(this.__channelService__, route, msg, this.groups, opts, cb);
+};</code></pre>
+                     </div>
+                  </div>
+               </div>
+               <div class='cls' id='SessionService'>
+                  <div class='clstt'>
+                     <h2>SessionService</h2>
+                  </div>
+                  <div class='clsdes'>
+                     <p>Session service maintains the internal session for each client connection.</p>
+                     <p>Session service is created by session component and is only <b>available</b> in frontend servers. You can access the service by <code>app.get('sessionService')</code> or <code>app.sessionService</code> in frontend servers.</p>
+                  </div>
+                  <div class='method' id='kick'>
+                     <div class='methodtt'>
+                        <h3>kick</h3>
+                        <h4>SessionService.prototype.kick()</h4>
+                        <p class='type'>type: method</p>
+                     </div>
+                     <div class='params'>
+                        <h4>Params</h4>
+                        <ul>
+                           <li>uid - user id asscociated with the session</li>
+                           <li>cb - callback function</li>
+                        </ul>
+                     </div>
+                     <div>
+                        <p>Kick all the session offline under the user id.</p>
+                     </div>
+                     <div class='source'>
+                        <h4>Source</h4>
+                        <pre><code>SessionService.prototype.kick = function(uid, reason, cb) {
+  // compatible for old kick(uid, cb);
+  if(typeof reason === 'function') {
+    cb = reason;
+    reason = 'kick';
+  }
+  var sessions = this.getByUid(uid);
+
+  if(sessions) {
+    // notify client
+    for(var i=0, l=sessions.length; i &lt; l; i++) {
+      sessions[i].closed(reason);
+    }
+    process.nextTick(function() {
+      utils.invokeCallback(cb);
+    });
+  } else {
+    process.nextTick(function() {
+      utils.invokeCallback(cb);
+    });
+  }
+};</code></pre>
+                     </div>
+                  </div>
+                  <div class='method' id='kickBySessionId'>
+                     <div class='methodtt'>
+                        <h3>kickBySessionId</h3>
+                        <h4>SessionService.prototype.kickBySessionId()</h4>
+                        <p class='type'>type: method</p>
+                     </div>
+                     <div class='params'>
+                        <h4>Params</h4>
+                        <ul>
+                           <li>sid - session id</li>
+                           <li>cb - callback function</li>
+                        </ul>
+                     </div>
+                     <div>
+                        <p>Kick a user offline by session id.</p>
+                     </div>
+                     <div class='source'>
+                        <h4>Source</h4>
+                        <pre><code>SessionService.prototype.kickBySessionId = function(sid, cb) {
+  var session = this.get(sid);
+
+  if(session) {
+    // notify client
+    session.closed('kick');
+    process.nextTick(function() {
+      utils.invokeCallback(cb);
+    });
+  } else {
+    process.nextTick(function() {
+      utils.invokeCallback(cb);
+    });
+  }
+};</code></pre>
+                     </div>
+                  </div>
+               </div>
+               <div class='cls' id='Pomelo'>
+                  <div class='clstt'>
+                     <h2>Pomelo</h2>
+                  </div>
+                  <div class='clsdes'>
+                     <p>Expose <code>createApplication()</code>.</p>
+                  </div>
+                  <div class='method' id='createApp'>
+                     <div class='methodtt'>
+                        <h3>createApp</h3>
+                        <h4>Pomelo.createApp()</h4>
+                        <p class='type'>type: method</p>
+                     </div>
+                     <div class='params'>
+                        <ul>
+                        </ul>
+                     </div>
+                     <div>
+                        <p>Create an pomelo application.</p>
+                     </div>
+                     <div class='source'>
+                        <h4>Source</h4>
+                        <pre><code>Pomelo.createApp = function (opts) {
+  var app = application;
+  app.init(opts);
+  self.app = app;
+  return app;
+};</code></pre>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+      <!-- 向上图标 -->
+      <div class='m-arrow f-dn'><a href="index.html#"></a></div>
+      <!-- 代码高亮模块 -->
+      <script src='js/hijs.js'></script>
+   </body>
+</html>

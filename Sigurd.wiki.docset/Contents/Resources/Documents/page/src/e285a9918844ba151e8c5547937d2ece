@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	
+	>
+<channel>
+	<title>Comments on: 转换 wav,ape,flac 音乐为 mp3,m4a(mp4) 格式</title>
+	<atom:link href="http://archboy.org/2012/10/18/convert-ape-flac-music-to-mp3/feed/" rel="self" type="application/rss+xml" />
+	<link>http://archboy.org/2012/10/18/convert-ape-flac-music-to-mp3/</link>
+	<description>开源, 架构, 编程 相关的杂文</description>
+	<lastBuildDate>Mon, 14 Dec 2015 02:42:30 +0000</lastBuildDate>
+	<sy:updatePeriod>hourly</sy:updatePeriod>
+	<sy:updateFrequency>1</sy:updateFrequency>
+	<generator>http://wordpress.org/?v=4.3.1</generator>
+	<item>
+		<title>By: 转换 wav,ape,flac 音乐为 mp3,m4a(mp4) 格式 &#124; 道客秀</title>
+		<link>http://archboy.org/2012/10/18/convert-ape-flac-music-to-mp3/#comment-79244</link>
+		<dc:creator><![CDATA[转换 wav,ape,flac 音乐为 mp3,m4a(mp4) 格式 &#124; 道客秀]]></dc:creator>
+		<pubDate>Wed, 10 Dec 2014 16:32:13 +0000</pubDate>
+		<guid isPermaLink="false">http://archboy.org/?p=248#comment-79244</guid>
+		<description><![CDATA[[&#8230;] 原文: ArchBoy, post 转换 wav,ape,flac 音乐为 mp3,m4a(mp4) 格式 [&#8230;]]]></description>
+		<content:encoded><![CDATA[<p>[&#8230;] 原文: ArchBoy, post 转换 wav,ape,flac 音乐为 mp3,m4a(mp4) 格式 [&#8230;]</p>
+]]></content:encoded>
+	</item>
+</channel>
+</rss>

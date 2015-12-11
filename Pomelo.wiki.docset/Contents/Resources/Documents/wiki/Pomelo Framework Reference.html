@@ -1,0 +1,290 @@
+<html><head prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# object: http://ogp.me/ns/object# article: http://ogp.me/ns/article# profile: http://ogp.me/ns/profile#">
+<meta charset="utf-8">
+<meta content="IE=edge" http-equiv="X-UA-Compatible">
+<meta content="en" http-equiv="Content-Language">
+<meta content="width=1020" name="viewport">
+<title>Pomelo Framework Reference · NetEase/pomelo Wiki · GitHub</title>
+<link href="/opensearch.xml" rel="search" title="GitHub" type="application/opensearchdescription+xml">
+<link href="src/ad667adaa2cfe8f3caa4a41b7d0a79a1.png" rel="fluid-icon" title="GitHub">
+<link href="src/a10d19ff5f738940a7a5086be334f50b.png" rel="apple-touch-icon" sizes="57x57">
+<link href="src/a10d19ff5f738940a7a5086be334f50b.png" rel="apple-touch-icon" sizes="114x114">
+<link href="src/b4cd268bc600cc14d2cdd557de6da2fb.png" rel="apple-touch-icon" sizes="72x72">
+<link href="src/b4cd268bc600cc14d2cdd557de6da2fb.png" rel="apple-touch-icon" sizes="144x144">
+<meta content="1401488693436528" property="fb:app_id">
+<meta content="@github" name="twitter:site"/><meta content="summary" name="twitter:card"/><meta content="NetEase/pomelo" name="twitter:title"/><meta content="pomelo - A fast,scalable,distributed game server framework for Node.js." name="twitter:description"/><meta content="https://avatars0.githubusercontent.com/u/1460597?v=3&amp;s=400" name="twitter:image:src"/>
+<meta content="GitHub" property="og:site_name"/><meta content="object" property="og:type"/><meta content="https://avatars0.githubusercontent.com/u/1460597?v=3&amp;s=400" property="og:image"/><meta content="NetEase/pomelo" property="og:title"/><meta content="https://github.com/NetEase/pomelo" property="og:url"/><meta content="pomelo - A fast,scalable,distributed game server framework for Node.js." property="og:description"/>
+<meta content="https://api.github.com/_private/browser/stats" name="browser-stats-url">
+<meta content="https://api.github.com/_private/browser/errors" name="browser-errors-url">
+<link href="https://assets-cdn.github.com/" rel="assets">
+<meta content="1000" name="pjax-timeout">
+<meta content="/windows-tile.png" name="msapplication-TileImage">
+<meta content="#ffffff" name="msapplication-TileColor">
+<meta data-pjax-transient="" name="selected-link" value="repo_wiki">
+<meta content="KT5gs8h0wvaagLKAVWq8bbeNwnZZK1r1XQysX3xurLU" name="google-site-verification">
+<meta content="UA-3769691-2" name="google-analytics">
+<meta content="collector.githubapp.com" name="octolytics-host"/><meta content="github" name="octolytics-app-id"/><meta content="CA86616A:4486:5E64488:5670C0B1" name="octolytics-dimension-request_id"/>
+<meta content="/&lt;user-name&gt;/&lt;repo-name&gt;/wiki/show" data-pjax-transient="true" name="analytics-location"/>
+<meta content="Rails, view, wiki#show" data-pjax-transient="true" name="analytics-event"/>
+<meta class="js-ga-set" content="Logged Out" name="dimension1">
+<meta content="github.com" name="hostname">
+<meta content="" name="user-login">
+<meta content="github.com" name="expected-hostname">
+<link color="#4078c0" href="https://assets-cdn.github.com/pinned-octocat.svg" rel="mask-icon">
+<link href="https://assets-cdn.github.com/favicon.ico" rel="icon" type="image/x-icon">
+<meta content="5fbbe56af5ca7aece1ad8673280f8d675d50b8d6" name="form-nonce"/>
+<link crossorigin="anonymous" href="src/350888e1495e7af27e01faa9d8291dee.css" media="all" rel="stylesheet"/>
+<link crossorigin="anonymous" href="src/9fae9b7d8f0785d745a43c6465f74ae5.css" media="all" rel="stylesheet"/>
+<meta content="cd9958d45e48e8e3157a320e9c346eaa" http-equiv="x-pjax-version">
+<meta content="pomelo - A fast,scalable,distributed game server framework for Node.js." name="description">
+<meta content="github.com/NetEase/pomelo git https://github.com/NetEase/pomelo.git" name="go-import">
+<meta content="1460597" name="octolytics-dimension-user_id"/><meta content="NetEase" name="octolytics-dimension-user_login"/><meta content="5880912" name="octolytics-dimension-repository_id"/><meta content="NetEase/pomelo" name="octolytics-dimension-repository_nwo"/><meta content="true" name="octolytics-dimension-repository_public"/><meta content="false" name="octolytics-dimension-repository_is_fork"/><meta content="5880912" name="octolytics-dimension-repository_network_root_id"/><meta content="NetEase/pomelo" name="octolytics-dimension-repository_network_root_nwo"/>
+<link href="https://github.com/NetEase/pomelo/commits/master.atom" rel="alternate" title="Recent Commits to pomelo:master" type="application/atom+xml">
+</link></meta></meta></meta></link></link></meta></meta></meta></meta></meta></meta></meta></meta></meta></meta></link></meta></meta></meta></link></link></link></link></link></link></meta></meta></meta></meta></head><body style="padding:0 25px;"><div class="gollum-markdown-content instapaper_body" id="wiki-body">
+<div class="markdown-body">
+<h1>
+<a aria-hidden="true" class="anchor" href="#framework-overview" id="user-content-framework-overview"><span class="octicon octicon-link"></span></a>Framework Overview</h1>
+<p>There are all kinds of task in a game server, such as managing client connections, managing status of the game world, and executing game logic. Each task requires different resources like IO and CPU that is difficult to manage with one process. So generally, game servers break the server into some multiple processes. For example, a game could have a chat process, connection process, and a scene transition process synchronized by a single master process.</p>
+<p>Building this from scratch requires a massive amount of time. While there are frameworks that attempt to abstract out these tasks, like BigWorld (quite expensive and complicated), Pomelo is the leading open-source solution!</p>
+<p><img alt="Pomelo Architecture" data-canonical-src="http://pomelo.netease.com/resource/documentImage/pomelo-arch.png" src="https://camo.githubusercontent.com/1c88f142423bed8f67b19a71689e6360ce6c1ebc/687474703a2f2f706f6d656c6f2e6e6574656173652e636f6d2f7265736f757263652f646f63756d656e74496d6167652f706f6d656c6f2d617263682e706e67"/></p>
+<ul>
+<li>
+<em>Server Manager Module</em>: responsible for defining the server types and creating and monitoring all the service processes.</li>
+<li>
+<em>Network Module</em>: RPC and process-to-process communication.</li>
+<li>
+<em>Application Module</em>: configuration and lifecycle management of the associated service processes.</li>
+</ul>
+<h1>
+<a aria-hidden="true" class="anchor" href="#frontend-vs-backend-servers" id="user-content-frontend-vs-backend-servers"><span class="octicon octicon-link"></span></a>Frontend vs. Backend Servers</h1>
+<p>Pomelo classifies servers into two categories: frontend and backend.</p>
+<p><img alt="Server types in Pomelo" data-canonical-src="http://pomelo.netease.com/resource/documentImage/server-type.png" src="https://camo.githubusercontent.com/5935f0403ef84c20197af32d6ca0d86069c742b3/687474703a2f2f706f6d656c6f2e6e6574656173652e636f6d2f7265736f757263652f646f63756d656e74496d6167652f7365727665722d747970652e706e67"/></p>
+<p><em>Backend</em>: game logic.</p>
+<p><em>Frontend</em>: communication between clients (e.g. browser or mobile device) and backend servers.</p>
+<p>As your game grows, you will need to figure out how to distribute your game code across the front and backend servers.</p>
+<h1>
+<a aria-hidden="true" class="anchor" href="#processing-client-requests" id="user-content-processing-client-requests"><span class="octicon octicon-link"></span></a>Processing Client Requests</h1>
+<h2>
+<a aria-hidden="true" class="anchor" href="#request-and-response" id="user-content-request-and-response"><span class="octicon octicon-link"></span></a>Request and response</h2>
+<p>Messages from clients fall into two categories: <em>request</em> and <em>notification</em>. The differences between them are:</p>
+<p><img alt="Request and notification messages" data-canonical-src="http://pomelo.netease.com/resource/documentImage/request-and-response.png" src="https://camo.githubusercontent.com/60b1bbdb0b60ff7939053a9a23d94a4fb8ca6157/687474703a2f2f706f6d656c6f2e6e6574656173652e636f6d2f7265736f757263652f646f63756d656e74496d6167652f726571756573742d616e642d726573706f6e73652e706e67"/></p>
+<p>Requests are bidirectional similar to an HTTP GET request:</p>
+<pre><code>    pomleo.request('connector.helloHandler.ask', {msg: 'What is your name?'}, function (resp) {
+      // We can get the name from response
+    });
+</code></pre>
+<p>Notifications are unidirectional:</p>
+<pre><code>    pomelo.notify('connector.helloHandler.sayHi', {msg: 'Hi'});
+</code></pre>
+<h2>
+<a aria-hidden="true" class="anchor" href="#client-message-processing" id="user-content-client-message-processing"><span class="octicon octicon-link"></span></a>Client Message Processing</h2>
+<p>Message processing is broken into two parts: <em>handlers</em> and <em>filters</em>.</p>
+<p>A handler is responsible for providing game logic. Filters take care of the pre and post jobs, like logging and timeout handling.</p>
+<p><img alt="Process the client request" data-canonical-src="http://pomelo.netease.com/resource/documentImage/request-flow.png" src="https://camo.githubusercontent.com/f7a405773f551d70ffc001f3768166d13b479687/687474703a2f2f706f6d656c6f2e6e6574656173652e636f6d2f7265736f757263652f646f63756d656e74496d6167652f726571756573742d666c6f772e706e67"/></p>
+<h3>
+<a aria-hidden="true" class="anchor" href="#before-filter" id="user-content-before-filter"><span class="octicon octicon-link"></span></a>Before Filter</h3>
+<p>Use a before filter for pre-game-logic tasks, like checking the login status of the current player and logging.</p>
+<p>Example:</p>
+<pre><code>    filter.before = function(msg, session, next) {
+        // Do something with msg and session
+        next();
+    }
+</code></pre>
+<ul>
+<li>
+<code>msg</code>: the message object from the client.</li>
+<li>
+<code>session</code>: the session object for the client.</li>
+<li>
+<code>next</code>: callback function to trigger the next object in the message process flow.</li>
+</ul>
+<p>If you pass an error to the first parameter of the <code>next()</code> function, it means some error has happened and we need to stop the message processing flow (e.g. the current player has not logged in yet).</p>
+<h3>
+<a aria-hidden="true" class="anchor" href="#handler" id="user-content-handler"><span class="octicon octicon-link"></span></a>Handler</h3>
+<p>Implement your game logic in a message handler.</p>
+<p>Example:</p>
+<pre><code>    handler.methodName = function(msg, session, next) {
+        // Perform some game logic, like send a message to all clients
+        next(200, {response: 'Some response'});
+    }
+</code></pre>
+<p>To process a request message, the handler function can pass the response object which is a simple json object as the second parameter to the next callback function.</p>
+<ul>
+<li>
+<code>msg</code>: the message object from the client.</li>
+<li>
+<code>session</code>: the session object for the client.</li>
+<li>
+<code>next</code>: callback function to trigger the next object in the message process flow.</li>
+</ul>
+<p>If an error occurs, just pass an error object to the first parameter for the next function.</p>
+<h3>
+<a aria-hidden="true" class="anchor" href="#error-handler" id="user-content-error-handler"><span class="octicon octicon-link"></span></a>Error Handler</h3>
+<p>Use the <code>'errorHandler'</code> to process global errors:</p>
+<pre><code>    app.set('errorHandler', function (err, msg, resp, session, next) {
+        // Manage error here.
+        next();
+    });
+</code></pre>
+<ul>
+<li>
+<code>err</code>: the error object passed to <code>next()</code> by before filter or handler.</li>
+<li>
+<code>msg</code>: the message from a client that triggered the error.</li>
+<li>
+<code>resp</code>: the response message passed by handler which would be sent to the client.</li>
+<li>
+<code>session</code>: the client session object.</li>
+<li>
+<code>next</code>: called to trigger processing of the next part of the message processing flow.</li>
+</ul>
+<h3>
+<a aria-hidden="true" class="anchor" href="#after-filter" id="user-content-after-filter"><span class="octicon octicon-link"></span></a>After Filter</h3>
+<p>The after filter is the final processing point of a message and can be used for tasks like releasing the request resouces or recording the processing time of the request. Note that the response message has already been sent to the client by the time we reach an after filter.</p>
+<pre><code>    filter.after = function(err, msg, session, resp, next) {
+        // Handle
+        next();
+    }
+</code></pre>
+<ul>
+<li>
+<code>err</code>: the error object passed to <code>next()</code> by before filter or handler (if there is one)</li>
+<li>
+<code>msg</code>: the message from a client that triggered the error.</li>
+<li>
+<code>resp</code>: the response message passed by handler which would be sent to the client.</li>
+<li>
+<code>session</code>: the client session object.</li>
+<li>
+<code>next</code>: called to trigger processing of the next part of the message processing flow.</li>
+</ul>
+<h3>
+<a aria-hidden="true" class="anchor" href="#session" id="user-content-session"><span class="octicon octicon-link"></span></a>Session</h3>
+<p>Session is a JavaScript <code>Object</code> used to persist player status. There are two kinds of sessions in Pomelo: <em>internal session</em> and <em>backendSession</em>.</p>
+<p>Internal session is generated and located in the frontend server which the client connects with directly. It is the place to store player information. An internal session is cloned and forwarded to the backend server along with the client message. Once cloned, it is called a backend session.</p>
+<p>Changes to the BackendSession are not propagated to the internal sessions. To propagate backendSession changes to the internal sessions, call the <code>push</code> methods of backendSession.</p>
+<p>For more information, see the <a href="http://pomelo.netease.com/api.html">API DOC</a> backendSessionService.</p>
+<h1>
+<a aria-hidden="true" class="anchor" href="#channels-and-broadcasting" id="user-content-channels-and-broadcasting"><span class="octicon octicon-link"></span></a>Channels and Broadcasting</h1>
+<p>In this section, we will show how servers push/broadcast messages to clients.</p>
+<h2>
+<a aria-hidden="true" class="anchor" href="#channel" id="user-content-channel"><span class="octicon octicon-link"></span></a>Channel</h2>
+<p>There are many messages to push in a game server. For example, we might need to communicate when a player moves from A to B in a scene. In this case the server has to push AOI messages to all other players. A channel is a utility to push these messages.</p>
+<p>Channels contain sets of player ids. You can add and remove player ids to a channel. When you push a message to a channel, all the players in the channel would receive the exact same message. You can create any number of channels, and customize each to handle different types of messages for various sections of your game.</p>
+<h2>
+<a aria-hidden="true" class="anchor" href="#named-vs-anonymous-channels" id="user-content-named-vs-anonymous-channels"><span class="octicon octicon-link"></span></a>Named vs. Anonymous Channels</h2>
+<p>There are two kinds of channel in Pomelo: <em>named</em> and <em>anonymous</em>.</p>
+<p>Named channel specify a name and are not released automatically. To destroy a named channel, you call <code>channel.destroy()</code>. Named channels are subscription based, like a chat service.</p>
+<p>The anonymous channel is accessed via <code>channelService.pushMessageByUids(...)</code>. Anonymous channel is used when the members of channel are changed frequently or for temporary messages, such as AOI message.</p>
+<p>For more information, see the <a href="http://pomelo.netease.com/api.html">API DOC</a>.</p>
+<p>Both channel types function similarly under the hood. Messages are grouped and sent to each frontend server and then the frontend servers send messages to their appropriate clients.</p>
+<p><img alt="Broadcast by channel" data-canonical-src="http://pomelo.netease.com/resource/documentImage/channel.png" src="https://camo.githubusercontent.com/6ccbc5f7b046e720d82e844a0c4adba89895c6a3/687474703a2f2f706f6d656c6f2e6e6574656173652e636f6d2f7265736f757263652f646f63756d656e74496d6167652f6368616e6e656c2e706e67"/></p>
+<h1>
+<a aria-hidden="true" class="anchor" href="#rpc-framework" id="user-content-rpc-framework"><span class="octicon octicon-link"></span></a>RPC Framework</h1>
+<p>In this section, we cover interserver communication.</p>
+<h3>
+<a aria-hidden="true" class="anchor" href="#usage-of-rpc" id="user-content-usage-of-rpc"><span class="octicon octicon-link"></span></a>Usage of RPC</h3>
+<p>The Pomelo RPC framework is a helpful utility that links server processes together. The following are some points that the Pomelo RPC framework should consider:</p>
+<p><em>Routing Rules</em>: decide which processes should receive a message. The rules will be different depending on the message type. These messages may also affect the status of game objects. Fox example, consider a simple move request from a client. This message should be forwarded to the process that manages the current scene. If the player teleports to a new scene, then all the move requests after that should be forward to the new scene process.</p>
+<p><em>Protocols</em>: communication protocol (e.g. TCP vs. UDP) between processes may be different in different games as well.</p>
+<p>Pomelo RPC framework introduces abstract layers to simplify and resolve the problems above.</p>
+<h2>
+<a aria-hidden="true" class="anchor" href="#rpc-client" id="user-content-rpc-client"><span class="octicon octicon-link"></span></a>RPC client</h2>
+<p><img alt="Architecture of RPC client" data-canonical-src="http://pomelo.netease.com/resource/documentImage/rpc-client.png" src="https://camo.githubusercontent.com/937586143e155954fac3a9f4b3bbe649805f9857/687474703a2f2f706f6d656c6f2e6e6574656173652e636f6d2f7265736f757263652f646f63756d656e74496d6167652f7270632d636c69656e742e706e67"/></p>
+<p>The RPC message in figure is a typed message that constains a description of the RPC request, including the RPC request type, arguments and so on. The session is a collection of status of the player who lauches the RPC request.</p>
+<ul>
+<li>
+<strong>Mail box layer</strong> - The mail box layer solves the problem of communication protocol. One mail box stands for a remote server and a mail box uses the remote server id as its own id so that it easy to find out the associated mail box instance by the remote server id. All the details of the communication between current server and the remote server are covered by the mail box instance, such as how to establish the connection and what protocol should be used and how to close the connection. It could implement different mail boxes to support different protocol and it is easy to switch the communication protocol since it just need to choose proper kind of mail box in mail box layer.</li>
+<li>
+<strong>Mail station layer</strong> - The mail station layer maintains all the mail box instances for current process. It would forward the RPC message from upper layer to the proper mail box instance by mail box id. Mail station receives a mail box factory function which decides which kind of mail box should be used for a remote server and return the associated mail box instance. It would ask the mail box factory for mail box instance on the first time of current server try to connect to a remote server. So developers could customize the communication mechanism by the mail box factory function.</li>
+<li>
+<strong>Route layer</strong> - The route layer is used to provide the routing rules. It recieves a route function and use it to caculate the destination process id with the RPC message and session pass by upper layer. And then the id would pass to the mail station mentioned above.</li>
+<li>
+<strong>Proxy layer</strong> - The proxy layer provides the local proxy instances which make the remote method call just like invoking a local method and hides all the details of RPC. The only different of the local proxy method from remote method is that it adds a session parameter which including the status of current player in the first parameter slot of the method. Following is a simple example.</li>
+</ul>
+<p>Remote service:</p>
+<div class="highlight highlight-source-js"><pre>  <span class="pl-c1">remote</span>.<span class="pl-en">echo</span> <span class="pl-k">=</span> <span class="pl-k">function</span>(<span class="pl-smi">msg</span>, <span class="pl-smi">cb</span>) {
+    <span class="pl-c">// …</span>
+  };</pre></div>
+<p>Local proxy：</p>
+<div class="highlight highlight-source-js"><pre>  <span class="pl-c1">proxy</span>.<span class="pl-en">echo</span> <span class="pl-k">=</span> <span class="pl-k">function</span>(<span class="pl-smi">session</span>, <span class="pl-smi">msg</span>, <span class="pl-smi">cb</span>) {
+    <span class="pl-c">// …</span>
+  };</pre></div>
+<p>There is another approach to invoke the remote call by rpcInvoke function if the destination server id is available directly.</p>
+<h2>
+<a aria-hidden="true" class="anchor" href="#rpc-server" id="user-content-rpc-server"><span class="octicon octicon-link"></span></a>RPC server</h2>
+<p>The layers of RPC server as below:</p>
+<img alt="rpc server" data-canonical-src="http://pomelo.netease.com/resource/documentImage/rpc-server.png" src="https://camo.githubusercontent.com/daa733d208fe0fd9a4f8c473c459690d6f91b1ba/687474703a2f2f706f6d656c6f2e6e6574656173652e636f6d2f7265736f757263652f646f63756d656e74496d6167652f7270632d7365727665722e706e67">
+
+
+  Architecture of RPC server
+
+
+<ul>
+<li>
+<strong>Acceptor layer</strong> - The acceptor layer exports the remote services by network. It would listen the port, receive and parse the RPC message by the specified protocol. It should be noted that the acceptor should cooperate with the mail box of remote peer, that means they should use the same protocol to make sure they can communicate with each other without problem. Acceptor is also customized by the acceptor factory function. And acceptor would pass the RPC message to the upper layers.</li>
+<li>
+<strong>Dispatch layer</strong> - The dispatch layer parses the RPC message, exports the message type and RPC arguments and then dispatches the RPC request to the destination remote service.</li>
+<li>
+<strong>Remote service layer</strong> - The remote service layer implements the service logics which is provided by the game developers and loaded by Pomelo framework automatically.</li>
+</ul>
+<h1>
+<a aria-hidden="true" class="anchor" href="#extension-of-server" id="user-content-extension-of-server"><span class="octicon octicon-link"></span></a>Extension of server</h1>
+<p>In this section, we will discuss how to extend the ability of a server process.</p>
+<p>As mentioned above, we create many kinds of server. And each of them has its own abilities. For example, the frontend server has the ability of receiving messages from client while the backend server has the ability of receiving messages forwarded by frontend servers. And then how should we maintain and reuse thess abilities? Further more, how should we extend the abilities of a process in a more flexible and elegant way?</p>
+<p>Combination would be an appropriate approach. Pomelo introduces the component system to achieve the goals above.</p>
+<h2>
+<a aria-hidden="true" class="anchor" href="#component" id="user-content-component"><span class="octicon octicon-link"></span></a>Component</h2>
+<h3>
+<a aria-hidden="true" class="anchor" href="#what-is-component" id="user-content-what-is-component"><span class="octicon octicon-link"></span></a>What is component</h3>
+<p>In Pomelo, a component is a resusable service unit. A component instance provides some kind of service. For example, the handler component loads the handler codes and pass the client message to the requested handler.</p>
+<p>An component instance could be registered into a process context(known as app) and the latter would obtain the ability provided by the component instance. Component instances can cooperate with each other by app. For example, a connector component receives a client request and pass it to app and a handler component may fetch it from app later.</p>
+<p>The component system model is described as below:</p>
+<img alt="component-system" data-canonical-src="http://pomelo.netease.com/resource/documentImage/component-system.png" src="https://camo.githubusercontent.com/a502e24301144bfb888c00a0e90a0ed63edfc080/687474703a2f2f706f6d656c6f2e6e6574656173652e636f6d2f7265736f757263652f646f63756d656e74496d6167652f636f6d706f6e656e742d73797374656d2e706e67">
+
+
+  Component system
+
+
+<p>In code, component is a simple class that implements some necessary lifecycle interfaces and app would fire the lifecycle callbacks for each component instance during each phase.</p>
+<img alt="components" data-canonical-src="http://pomelo.netease.com/resource/documentImage/components.png" src="https://camo.githubusercontent.com/cc8061f334e3d953f731be4c9327b275abc84e4d/687474703a2f2f706f6d656c6f2e6e6574656173652e636f6d2f7265736f757263652f646f63756d656e74496d6167652f636f6d706f6e656e74732e706e67">
+
+
+  Lifecycles of component
+
+
+<ul>
+<li>
+<code>start(cb)</code> - Server start lifecycle callback which would be invoke during the process starting stage. NOTICE: Each component has to invoke the <code>cb</code> function to continue the next steps. The component also could pass a error argument to <code>cb</code> to denote that current component fails to start which would let app to terminate the process.</li>
+<li>
+<code>afterStart(cb)</code> - Server after start lifecycle callback which would be invoke when all the registed components in current process have started. It gives the components a chance to do some cooperating initialization.</li>
+<li>
+<code>stop(force, cb)</code> - Server stop lifecycle callback which would be invoke when the server process is going to stop. Components can do some clear job, such as flush data to database in this lifecycle. Force argument is true means all the components should stop immediately.</li>
+</ul>
+<h3>
+<a aria-hidden="true" class="anchor" href="#abstraction-levels-of-pomelo" id="user-content-abstraction-levels-of-pomelo"><span class="octicon octicon-link"></span></a>Abstraction levels of Pomelo</h3>
+<p>Based on the component system, app fact is the backbone of the process. It loads all the registed components and drives them throughout the lifecycles. But app would not be involved into the details of each components. All the jobs to customize a server process is just picking out the necessary components and composing them into the app. So the app is clear and flexible and the components is highly reusable. Further more, the component system summarizes all the server types into a uniform process finally.</p>
+<img alt="components" data-canonical-src="http://pomelo.netease.com/resource/documentImage/abstract-level.png" src="https://camo.githubusercontent.com/5f37a049be0669ea41674c02f6732d9434e82a7b/687474703a2f2f706f6d656c6f2e6e6574656173652e636f6d2f7265736f757263652f646f63756d656e74496d6167652f61627374726163742d6c6576656c2e706e67">
+
+
+  Abstraction level of Pomelo
+
+
+<h3>
+<a aria-hidden="true" class="anchor" href="#how-to-register-a-component" id="user-content-how-to-register-a-component"><span class="octicon octicon-link"></span></a>How to register a component</h3>
+<p>Register a commponent to app as below:</p>
+<div class="highlight highlight-source-js"><pre><span class="pl-smi">app</span>.<span class="pl-c1">load</span>([name], comp, [opts])</pre></div>
+<ul>
+<li>
+<code>name</code> - optional component name. Named component instance can be accessed by app.components.name after loaded.</li>
+<li>
+<code>comp</code> - component instance or component factory function. If comp is a function, app would take it as factory function and ask it for a component instance. Factory function takes two arguments app and opts(see below) and return a new component instance.</li>
+<li>
+<code>opts</code> - optional argument that would be pass as the second argument of component factory function.</li>
+</ul>
+<h1>
+<a aria-hidden="true" class="anchor" href="#summary" id="user-content-summary"><span class="octicon octicon-link"></span></a>Summary</h1>
+<p>We break the whole game server into small services to clean up the architecture and improve the scalability of game server. And then we summarize all the service types into two kinds of server containers frontend and backend server to simplify the model. And we discuss how the message flows from client to server, from server to client and between the servers. At last, we introduce the component system to combine all the pieces above together to form a unified process. Overall Pomelo provides a scalable and flexible framework to support the game server develop and hide all the noisy and complicated jobs from game developers.</p>
+<p>Enjoy the game develop and Pomelo!</p>
+<p>More information please refer to <a href="http://pomelo.netease.com/api.html">API DOC</a>, <a href="https://github.com/NetEase/pomelo/wiki/Quick-start-guide">quick start</a> and <a href="https://github.com/NetEase/pomelo/wiki/Architecture-overview-of-pomelo">architecture overview</a></p>
+</img></img></img></img></div>
+</div></body></html>

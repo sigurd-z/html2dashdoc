@@ -1,0 +1,143 @@
+<html><head prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# object: http://ogp.me/ns/object# article: http://ogp.me/ns/article# profile: http://ogp.me/ns/profile#">
+<meta charset="utf-8">
+<meta content="IE=edge" http-equiv="X-UA-Compatible">
+<meta content="en" http-equiv="Content-Language">
+<meta content="width=1020" name="viewport">
+<title>Message compression · NetEase/pomelo Wiki · GitHub</title>
+<link href="/opensearch.xml" rel="search" title="GitHub" type="application/opensearchdescription+xml">
+<link href="src/ad667adaa2cfe8f3caa4a41b7d0a79a1.png" rel="fluid-icon" title="GitHub">
+<link href="src/a10d19ff5f738940a7a5086be334f50b.png" rel="apple-touch-icon" sizes="57x57">
+<link href="src/a10d19ff5f738940a7a5086be334f50b.png" rel="apple-touch-icon" sizes="114x114">
+<link href="src/b4cd268bc600cc14d2cdd557de6da2fb.png" rel="apple-touch-icon" sizes="72x72">
+<link href="src/b4cd268bc600cc14d2cdd557de6da2fb.png" rel="apple-touch-icon" sizes="144x144">
+<meta content="1401488693436528" property="fb:app_id">
+<meta content="@github" name="twitter:site"/><meta content="summary" name="twitter:card"/><meta content="NetEase/pomelo" name="twitter:title"/><meta content="pomelo - A fast,scalable,distributed game server framework for Node.js." name="twitter:description"/><meta content="https://avatars0.githubusercontent.com/u/1460597?v=3&amp;s=400" name="twitter:image:src"/>
+<meta content="GitHub" property="og:site_name"/><meta content="object" property="og:type"/><meta content="https://avatars0.githubusercontent.com/u/1460597?v=3&amp;s=400" property="og:image"/><meta content="NetEase/pomelo" property="og:title"/><meta content="https://github.com/NetEase/pomelo" property="og:url"/><meta content="pomelo - A fast,scalable,distributed game server framework for Node.js." property="og:description"/>
+<meta content="https://api.github.com/_private/browser/stats" name="browser-stats-url">
+<meta content="https://api.github.com/_private/browser/errors" name="browser-errors-url">
+<link href="https://assets-cdn.github.com/" rel="assets">
+<meta content="1000" name="pjax-timeout">
+<meta content="/windows-tile.png" name="msapplication-TileImage">
+<meta content="#ffffff" name="msapplication-TileColor">
+<meta data-pjax-transient="" name="selected-link" value="repo_wiki">
+<meta content="KT5gs8h0wvaagLKAVWq8bbeNwnZZK1r1XQysX3xurLU" name="google-site-verification">
+<meta content="UA-3769691-2" name="google-analytics">
+<meta content="collector.githubapp.com" name="octolytics-host"/><meta content="github" name="octolytics-app-id"/><meta content="CA86616A:4489:F583D07:5670C055" name="octolytics-dimension-request_id"/>
+<meta content="/&lt;user-name&gt;/&lt;repo-name&gt;/wiki/show" data-pjax-transient="true" name="analytics-location"/>
+<meta content="Rails, view, wiki#show" data-pjax-transient="true" name="analytics-event"/>
+<meta class="js-ga-set" content="Logged Out" name="dimension1">
+<meta content="github.com" name="hostname">
+<meta content="" name="user-login">
+<meta content="github.com" name="expected-hostname">
+<link color="#4078c0" href="https://assets-cdn.github.com/pinned-octocat.svg" rel="mask-icon">
+<link href="https://assets-cdn.github.com/favicon.ico" rel="icon" type="image/x-icon">
+<meta content="8ac182bcbdfd8e65a60d61e62199a33f34a91449" name="form-nonce"/>
+<link crossorigin="anonymous" href="src/350888e1495e7af27e01faa9d8291dee.css" media="all" rel="stylesheet"/>
+<link crossorigin="anonymous" href="src/9fae9b7d8f0785d745a43c6465f74ae5.css" media="all" rel="stylesheet"/>
+<meta content="cd9958d45e48e8e3157a320e9c346eaa" http-equiv="x-pjax-version">
+<meta content="pomelo - A fast,scalable,distributed game server framework for Node.js." name="description">
+<meta content="github.com/NetEase/pomelo git https://github.com/NetEase/pomelo.git" name="go-import">
+<meta content="1460597" name="octolytics-dimension-user_id"/><meta content="NetEase" name="octolytics-dimension-user_login"/><meta content="5880912" name="octolytics-dimension-repository_id"/><meta content="NetEase/pomelo" name="octolytics-dimension-repository_nwo"/><meta content="true" name="octolytics-dimension-repository_public"/><meta content="false" name="octolytics-dimension-repository_is_fork"/><meta content="5880912" name="octolytics-dimension-repository_network_root_id"/><meta content="NetEase/pomelo" name="octolytics-dimension-repository_network_root_nwo"/>
+<link href="https://github.com/NetEase/pomelo/commits/master.atom" rel="alternate" title="Recent Commits to pomelo:master" type="application/atom+xml">
+</link></meta></meta></meta></link></link></meta></meta></meta></meta></meta></meta></meta></meta></meta></meta></link></meta></meta></meta></link></link></link></link></link></link></meta></meta></meta></meta></head><body style="padding:0 25px;"><div class="gollum-markdown-content instapaper_body" id="wiki-body">
+<div class="markdown-body">
+<p>In practice, in order to reduce the data bandwidth cost, improve transmission efficiency, pomelo provides compression on the message, including dictionary-based compression on route and protobuf-based encode/decode for transmission data.</p>
+<h1>
+<a aria-hidden="true" class="anchor" href="#route-compression" id="user-content-route-compression"><span class="octicon octicon-link"></span></a>Route Compression</h1>
+<p>In practice, effective payload ratio in a package of network bandwidth is a worthwhile consideration. In particular, for mobile devices, the network resource is often not rich, in order to save network resource as much as possible, it needs to increase the effective data ratio in a packet .</p>
+<h4>
+<a aria-hidden="true" class="anchor" href="#route-problem" id="user-content-route-problem"><span class="octicon octicon-link"></span></a>Route Problem</h4>
+<p>Routes in pomelo is used to determine how to distribute the request messages and take it to the proper servers and services to be handled. Routes can be divided into two categories, one indicates a service at server-side used by client to sent requests, another indicates a event handler at client-side used to handle the pushed messages sent from server-side.</p>
+<ul>
+<li><p>The former route is automatically generated by the server and it has three fields. For example, a route "area.playerHandler.attack" at server-side, the "area" is type of server that means the request should be forward to an "area" server; "playerHandler" indicates the concrete handler and "attack" indicates the concrete method, the format is "..". Routing information is too long , so the effective payload ratio is very low. For example, in a chat application, if a user's speech is only one character, but the request message has to carry entire route "chat.chatHandler.send".</p></li>
+<li><p>The latter route is defined by developers, and it is used when server-side would like to push message to clients. Its format is like "onMove" and "onAttack", "on" is the general format. Although developers can define a short route, but that would result in less readable.</p></li>
+</ul>
+<p>Generally, when an application becomes stable, the routes it uses also do not be changed. So we can consider a simple way to compress the routing information by replacing it.</p>
+<h4>
+<a aria-hidden="true" class="anchor" href="#dict-based-compression" id="user-content-dict-based-compression"><span class="octicon octicon-link"></span></a>Dict-Based Compression</h4>
+<p>pomelo provides a dictionary-based compression on routes, Currently it only supports hybridconnector, and is unavailable to sioconnector. It works as follows:</p>
+<ul>
+<li><p>For automatically generated routes, which are routing information at the server side with format "..", Dictionary component will scan them and then generate an unique dictionary entry that is an unsigned small integer for each route.</p></li>
+<li><p>For user-defined routes, which are routing information at client side with format "on", Dictionary component will also generate an unique dictionry entry for every route if the route is list in a configuration file "config/dictionary.json". It requires developers to configure the file by filling the route list.</p></li>
+<li><p>When dict-based compression is enabled and the underlying connector is hybridconnector, server will send the entire dirctionary to client during handshake phase, so that client and server would have the same specific corresponding relationship between routes and unsigned small integers.</p></li>
+<li><p>When there is message transmission, the route in the message will automatically be replaced with an unsigned small integer and receiver will automatically restore it. All these is completely transparent to developers.</p></li>
+</ul>
+<h4>
+<a aria-hidden="true" class="anchor" href="#use-the-route-compression" id="user-content-use-the-route-compression"><span class="octicon octicon-link"></span></a>Use the Route Compression</h4>
+<p>Now, route compression only works when underlying connector is hybridconnector. Enable this feature is simple, as shown below:</p>
+<div class="highlight highlight-source-js"><pre><span class="pl-smi">app</span>.<span class="pl-en">set</span>(<span class="pl-s"><span class="pl-pds">'</span>connectorConfig<span class="pl-pds">'</span></span>,
+  {
+    connector<span class="pl-k">:</span> <span class="pl-smi">pomelo</span>.<span class="pl-smi">connectors</span>.<span class="pl-smi">hybridconnector</span>,
+    heartbeat<span class="pl-k">:</span> <span class="pl-c1">3</span>,
+    useDict<span class="pl-k">:</span> <span class="pl-c1">true</span> <span class="pl-c">// enable route compression</span>
+  }
+});</pre></div>
+<p>The user-defined routing information at client side should be list in the configuration file "config/dictionary.json". Developers can fill the route strings into this file to make route compression enabled for that route. an example for dictionary.json is shown below:</p>
+<div class="highlight highlight-source-js"><pre>[
+<span class="pl-s"><span class="pl-pds">"</span>onDropItem<span class="pl-pds">"</span></span>,
+<span class="pl-s"><span class="pl-pds">"</span>onAttack<span class="pl-pds">"</span></span>,
+<span class="pl-s"><span class="pl-pds">"</span>onDied<span class="pl-pds">"</span></span>,
+<span class="pl-s"><span class="pl-pds">"</span>onMove<span class="pl-pds">"</span></span>,
+<span class="pl-s"><span class="pl-pds">"</span>onRevive<span class="pl-pds">"</span></span>,
+<span class="pl-s"><span class="pl-pds">"</span>addEntities<span class="pl-pds">"</span></span>,
+<span class="pl-s"><span class="pl-pds">"</span>onRemoveEntities<span class="pl-pds">"</span></span>,
+<span class="pl-s"><span class="pl-pds">"</span>onPathCheckout<span class="pl-pds">"</span></span>
+]</pre></div>
+<p><strong>Note</strong>: For user-defined routing message that is not list in the file dictionary.json, pomelo will still use the original route string without replacing it. Pomelo will check whether the route could be compressed based on the dictionary. If there is a corresponding dictionary entry for the route, then uses the dictionary entry, that is an integer, and if not, pomelo will use the original routing string. All thess is transparent to developers.</p>
+<h1>
+<a aria-hidden="true" class="anchor" href="#transmission-data-compression-" id="user-content-transmission-data-compression-"><span class="octicon octicon-link"></span></a>Transmission Data Compression </h1>
+<p>Pomelo has implemented encoder/decoder of message using protobuf format. Compared with xml, json, protobuf has better transmission efficiency and smaller size. In our demo project lordofpomelo, the message size encoded using protobuf is 80% smaller than json format on average.</p>
+<h4>
+<a aria-hidden="true" class="anchor" href="#protobuf-introduction" id="user-content-protobuf-introduction"><span class="octicon octicon-link"></span></a>Protobuf Introduction</h4>
+<p>Protobuf is produced by Google Inc. which is mainly used in RPC invocation and file encoding. Protobuf includes two parts: binary-based encoding protocol and metadata-based code generator. When using protobuf in an application, it needs several steps: firstly, write proto file that describes metadata of the message, and then generate encoding/decoding code for specific host language by compiling the .proto file, at last, put the code together into the application's source code. These steps can be shown as follows: 
+<img alt="protobuf" src="src/5cf27f4ea37cd9a1644be665256f2b0d.png"/></p>
+<p>This way to use protobuf shown in figure above is original, it is high efficient and .proto file is not required at rumtime. But it is too heavyweight. And if a message structure is changed, all these steps including compling .proto file, rebuilding the application, etc. should be re-done, that means it is not flexible and easy to use. More detail on protobuf can be seen at <a href="https://code.google.com/p/protobuf/">protobuf project</a>.</p>
+<h4>
+<a aria-hidden="true" class="anchor" href="#protobuf-in-pomelo" id="user-content-protobuf-in-pomelo"><span class="octicon octicon-link"></span></a>Protobuf in Pomelo</h4>
+<p>Since using protobuf in original way is too heavyweight and lack of flexibility, pomelo provides a parser for .proto file, and the parser can work at runtime not compiling time. That means using protobuf in pomelo does not require the code generator, and the parser will parse the .proto files at runtime dynamicly.</p>
+<p>Pomelo also provides a generic protobuf encoder/decoder based on the information parsed from the .proto file by the parser. Thus, when messages changes, it only needs to modify the corresponding .proto files without compiling or rebuilding. The way pomelo using protobuf is shown as follows:</p>
+<p><img alt="pomelo protobuf" src="src/6c058a5978ba0eb11501bcdffd98cc56.png"/></p>
+<p>Seen from the figure above, comparing with the original way, the solution in pomelo is more flexible and lightweight.</p>
+<h4>
+<a aria-hidden="true" class="anchor" href="#proto-file-variant" id="user-content-proto-file-variant"><span class="octicon octicon-link"></span></a>Proto File Variant</h4>
+<p>.proto file uses a idl-like format, it can be compiled to generate encoder/decoder, and after compiling, the .proto file does nothing at runtime. However, in pomelo, since we need to dynamically parse the .proto file to encode/decode message at runtime, so it is required to maintain a complete proto type information at runtime. pomelo uses a variant of .proto file, whose syntax is similar to the original proto, but using json format, here is an example:</p>
+<div class="highlight highlight-source-json"><pre>{
+  <span class="pl-s"><span class="pl-pds">"</span>onMove<span class="pl-pds">"</span></span>: {
+    <span class="pl-s"><span class="pl-pds">"</span>required uInt32 entityId<span class="pl-pds">"</span></span>: <span class="pl-c1">1</span>,
+      <span class="pl-s"><span class="pl-pds">"</span>message Path<span class="pl-pds">"</span></span>: {
+      <span class="pl-s"><span class="pl-pds">"</span>required uInt32 x<span class="pl-pds">"</span></span>: <span class="pl-c1">1</span>,
+      <span class="pl-s"><span class="pl-pds">"</span>required uInt32 y<span class="pl-pds">"</span></span>: <span class="pl-c1">2</span>
+    },
+    <span class="pl-s"><span class="pl-pds">"</span>repeated Path path<span class="pl-pds">"</span></span>: <span class="pl-c1">2</span>,
+    <span class="pl-s"><span class="pl-pds">"</span>required uInt32 speed<span class="pl-pds">"</span></span>: <span class="pl-c1">3</span>
+  },
+  <span class="pl-s"><span class="pl-pds">"</span>onAttack<span class="pl-pds">"</span></span>: {
+    <span class="pl-s"><span class="pl-pds">"</span>required uInt32 attacker<span class="pl-pds">"</span></span>: <span class="pl-c1">1</span>,
+    <span class="pl-s"><span class="pl-pds">"</span>required uInt32 target<span class="pl-pds">"</span></span>: <span class="pl-c1">2</span>
+  }
+}</pre></div>
+<p>In pomelo, for the same route of the message such as 'area.playerHander.attack', it may be completely different defined at client side from server side since one is request and another is response. Therefore, we need two sets of protos files, one is for server side, and another for client, as shown below:
+! <a href="images/ser_cli_proto.png">pomelo protobuf protos</a></p>
+<h4>
+<a aria-hidden="true" class="anchor" href="#enable-protobuf-in-pomelo" id="user-content-enable-protobuf-in-pomelo"><span class="octicon octicon-link"></span></a>Enable Protobuf in Pomelo</h4>
+<p>Protobuf only works when the underlying connector is hybridconnector now, it does not support sioconnector. Although the implementation of protobuf looks very complicated, since it is completely transparent to developer, it is very easy to use. It is also easy to enable protobuf feature for an existed project: </p>
+<ul>
+<li>First, enable protobuf feature in connector configuration:</li>
+</ul>
+<div class="highlight highlight-source-js"><pre><span class="pl-smi">app</span>.<span class="pl-en">set</span> (<span class="pl-s"><span class="pl-pds">'</span>connectorConfig<span class="pl-pds">'</span></span>,
+{
+  connector<span class="pl-k">:</span> <span class="pl-smi">pomelo</span>.<span class="pl-smi">connectors</span>.<span class="pl-smi">hybridconnector</span>,
+  heartbeat<span class="pl-k">:</span> <span class="pl-c1">3</span>,
+  useProtobuf<span class="pl-k">:</span> <span class="pl-c1">true</span> <span class="pl-c">// enable protobuf using</span>
+}) ;</pre></div>
+<ul>
+<li><p>Actually the necessary is to add "useProtobuf: true". If enabled, pomelo will synchronize the proto files between server side and client side at transport handshake phase, that is similar to route compression.</p></li>
+<li><p>Secondly, developers need to define .protos file that the application uses. .protos files is placed into /game-server/config directory by default, including two files: serverProtos.json and clientProtos.json. These two .proto's will be automatically loaded by protobuf component if protobuf feature is enabled.</p></li>
+<li><p>Of course, if some messages has no definition in .proto files, it will use its original encoder/decoder by default.</p></li>
+<li><p>If there is a message needs protobuf encoding/decoding, just adding its proto definition to the corresponding protos file (serverProtos.json or clientProtos) is Ok, it would not impact messages that have no definition in the .proto files.</p></li>
+</ul>
+<h1>
+<a aria-hidden="true" class="anchor" href="#summary" id="user-content-summary"><span class="octicon octicon-link"></span></a>Summary</h1>
+<p>In this document, it introduces data compression in pomelo. No matter route compression or protobuf encoding/decoding works only when the underlying connector is hybridconnector. for sioconnector, it uses json as the communication format, it does not support data compression.</p>
+</div>
+</div></body></html>

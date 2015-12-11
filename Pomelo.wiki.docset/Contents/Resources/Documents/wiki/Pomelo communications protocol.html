@@ -1,0 +1,172 @@
+<html><head prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# object: http://ogp.me/ns/object# article: http://ogp.me/ns/article# profile: http://ogp.me/ns/profile#">
+<meta charset="utf-8">
+<meta content="IE=edge" http-equiv="X-UA-Compatible">
+<meta content="en" http-equiv="Content-Language">
+<meta content="width=1020" name="viewport">
+<title>Pomelo communications protocol · NetEase/pomelo Wiki · GitHub</title>
+<link href="/opensearch.xml" rel="search" title="GitHub" type="application/opensearchdescription+xml">
+<link href="src/ad667adaa2cfe8f3caa4a41b7d0a79a1.png" rel="fluid-icon" title="GitHub">
+<link href="src/a10d19ff5f738940a7a5086be334f50b.png" rel="apple-touch-icon" sizes="57x57">
+<link href="src/a10d19ff5f738940a7a5086be334f50b.png" rel="apple-touch-icon" sizes="114x114">
+<link href="src/b4cd268bc600cc14d2cdd557de6da2fb.png" rel="apple-touch-icon" sizes="72x72">
+<link href="src/b4cd268bc600cc14d2cdd557de6da2fb.png" rel="apple-touch-icon" sizes="144x144">
+<meta content="1401488693436528" property="fb:app_id">
+<meta content="@github" name="twitter:site"/><meta content="summary" name="twitter:card"/><meta content="NetEase/pomelo" name="twitter:title"/><meta content="pomelo - A fast,scalable,distributed game server framework for Node.js." name="twitter:description"/><meta content="https://avatars0.githubusercontent.com/u/1460597?v=3&amp;s=400" name="twitter:image:src"/>
+<meta content="GitHub" property="og:site_name"/><meta content="object" property="og:type"/><meta content="https://avatars0.githubusercontent.com/u/1460597?v=3&amp;s=400" property="og:image"/><meta content="NetEase/pomelo" property="og:title"/><meta content="https://github.com/NetEase/pomelo" property="og:url"/><meta content="pomelo - A fast,scalable,distributed game server framework for Node.js." property="og:description"/>
+<meta content="https://api.github.com/_private/browser/stats" name="browser-stats-url">
+<meta content="https://api.github.com/_private/browser/errors" name="browser-errors-url">
+<link href="https://assets-cdn.github.com/" rel="assets">
+<meta content="1000" name="pjax-timeout">
+<meta content="/windows-tile.png" name="msapplication-TileImage">
+<meta content="#ffffff" name="msapplication-TileColor">
+<meta data-pjax-transient="" name="selected-link" value="repo_wiki">
+<meta content="KT5gs8h0wvaagLKAVWq8bbeNwnZZK1r1XQysX3xurLU" name="google-site-verification">
+<meta content="UA-3769691-2" name="google-analytics">
+<meta content="collector.githubapp.com" name="octolytics-host"/><meta content="github" name="octolytics-app-id"/><meta content="CA86616A:448A:12097DD6:5670C08D" name="octolytics-dimension-request_id"/>
+<meta content="/&lt;user-name&gt;/&lt;repo-name&gt;/wiki/show" data-pjax-transient="true" name="analytics-location"/>
+<meta content="Rails, view, wiki#show" data-pjax-transient="true" name="analytics-event"/>
+<meta class="js-ga-set" content="Logged Out" name="dimension1">
+<meta content="github.com" name="hostname">
+<meta content="" name="user-login">
+<meta content="github.com" name="expected-hostname">
+<link color="#4078c0" href="https://assets-cdn.github.com/pinned-octocat.svg" rel="mask-icon">
+<link href="https://assets-cdn.github.com/favicon.ico" rel="icon" type="image/x-icon">
+<meta content="3386cf0cb41073f3472f283a7017ecce6f138c68" name="form-nonce"/>
+<link crossorigin="anonymous" href="src/350888e1495e7af27e01faa9d8291dee.css" media="all" rel="stylesheet"/>
+<link crossorigin="anonymous" href="src/9fae9b7d8f0785d745a43c6465f74ae5.css" media="all" rel="stylesheet"/>
+<meta content="cd9958d45e48e8e3157a320e9c346eaa" http-equiv="x-pjax-version">
+<meta content="pomelo - A fast,scalable,distributed game server framework for Node.js." name="description">
+<meta content="github.com/NetEase/pomelo git https://github.com/NetEase/pomelo.git" name="go-import">
+<meta content="1460597" name="octolytics-dimension-user_id"/><meta content="NetEase" name="octolytics-dimension-user_login"/><meta content="5880912" name="octolytics-dimension-repository_id"/><meta content="NetEase/pomelo" name="octolytics-dimension-repository_nwo"/><meta content="true" name="octolytics-dimension-repository_public"/><meta content="false" name="octolytics-dimension-repository_is_fork"/><meta content="5880912" name="octolytics-dimension-repository_network_root_id"/><meta content="NetEase/pomelo" name="octolytics-dimension-repository_network_root_nwo"/>
+<link href="https://github.com/NetEase/pomelo/commits/master.atom" rel="alternate" title="Recent Commits to pomelo:master" type="application/atom+xml">
+</link></meta></meta></meta></link></link></meta></meta></meta></meta></meta></meta></meta></meta></meta></meta></link></meta></meta></meta></link></link></link></link></link></link></meta></meta></meta></meta></head><body style="padding:0 25px;"><div class="gollum-markdown-content instapaper_body" id="wiki-body">
+<div class="markdown-body">
+<h2>
+<a aria-hidden="true" class="anchor" href="#pomelo-protocol" id="user-content-pomelo-protocol"><span class="octicon octicon-link"></span></a>Pomelo protocol</h2>
+<h3>
+<a aria-hidden="true" class="anchor" href="#background" id="user-content-background"><span class="octicon octicon-link"></span></a>Background</h3>
+<p>Pomelo uses json as the communication protocol between client and server in the 0.2 versions. The protocol based on json is flexible and easy to modify. But it also introduces a lot of redundant data. Pomelo 0.3 replaces the json string protocol with a new binary protocol and makes great efforts on content compression to improve the efficiency of bandwidth.</p>
+<p>The new Pomelo protocol contains to layer encoding: <code>package</code> and <code>message</code>. The message layer provides the route string compression and protobuf compression. And the encoding result from message layer would be passed to the package layer. </p>
+<p>The package layer provides a series mechanism of handshake, heartbeat and data transmission based on binary stream. The encoding result from package layer is free to transmitted on TCP or websocket.</p>
+<p>Both of the message layer and package layer could be replaced independently since neither of them relies on the other one directly.</p>
+<p>The layers of Pomelo protocol is as below:</p>
+<img alt="Pomelo Protocol" data-canonical-src="http://pomelo.netease.com/resource/documentImage/protocol/Data%20transport.png" src="https://camo.githubusercontent.com/3c3a9b28071220fe15a3c3666d7d088fe1a227de/687474703a2f2f706f6d656c6f2e6e6574656173652e636f6d2f7265736f757263652f646f63756d656e74496d6167652f70726f746f636f6c2f446174612532307472616e73706f72742e706e67">
+<h3>
+<a aria-hidden="true" class="anchor" href="#pomelo-package" id="user-content-pomelo-package"><span class="octicon octicon-link"></span></a>Pomelo Package</h3>
+<p>There are two kinds of package run on the package layer: control package and data package. </p>
+<p>Control package is used to the control operaion, such as handshake, heartbeat and disconnect message from server.</p>
+<p>While the data package is mainly used to transmit data between cilent and server.</p>
+<h4>
+<a aria-hidden="true" class="anchor" href="#package-format" id="user-content-package-format"><span class="octicon octicon-link"></span></a>Package format</h4>
+<p>Package is composed by two parts: header and body.</p>
+<p>Header contains the descriptions of the package, such as the package type and the length of package body.</p>
+<p>Body contains the binary payload of the package.</p>
+<p>The format of package:</p>
+<img alt="pomelo package" data-canonical-src="http://pomelo.netease.com/resource/documentImage/pomelo-package.png" src="https://camo.githubusercontent.com/d5dff0a6494b53e5ad45d1aa98341b8e6db6d598/687474703a2f2f706f6d656c6f2e6e6574656173652e636f6d2f7265736f757263652f646f63756d656e74496d6167652f706f6d656c6f2d7061636b6167652e706e67">
+<ul>
+<li>type - package type, one byte
+
+<ul>
+<li>0x01: handshake request from client to server and handshake response from server to client.</li>
+<li>0x02: handshake ack from client to server.</li>
+<li>0x03: heartbeat package.</li>
+<li>0x04: data package.</li>
+<li>0x05: disconnect message from server.</li>
+</ul>
+</li>
+<li>length - length of body in byte, 3 bytes big-endian integer.</li>
+<li>body - binary payload.</li>
+</ul>
+<p>The mainly process flow of each package type as below:</p>
+<h4>
+<a aria-hidden="true" class="anchor" href="#handshake" id="user-content-handshake"><span class="octicon octicon-link"></span></a>Handshake</h4>
+<p>Handshake phase provides a chance to exchange initialization data between client and server after the connection established on the application level.</p>
+<p>The handshake data splited into two parts: system and user. The system data is used by Pomelo framework and the user data is customized by the upper level application.</p>
+<p>The handshake data is encoded as a utf-8 json string without any compression and transmitted by the body of the handshake package.</p>
+<p>A handshake request is as following:</p>
+<pre><code>{
+  'sys': {
+    'version': '1.1.1',
+    'type': 'js-websocket'
+  }, 
+  'user': {
+    // any customized request data
+  }
+}
+</code></pre>
+<ul>
+<li>sys.version - client version. Each version client SDK should assign a constant version number and should upload this version number to the server during the handshake phase. And the server could use this information to figure out whether the client is suitable to communicate with.</li>
+<li>sys.type - client type, such as c, android and ios. Used with <code>sys.version</code> together to check the client.</li>
+</ul>
+<p>A handshake response is as following:</p>
+<pre><code>{
+  'code': 200,          // result code
+  'sys': {
+    'heartbeat': 3,     // heartbeat interval in second
+    'dict': {},         // route dictionary
+    'protos': {}        // protobuf definition data
+  }, 
+  'user': {
+    // any customized response data
+  }
+}
+</code></pre>
+<ul>
+<li>code - response code of handshake, such as 200 for ok, 500 for handshake fails and 501 for invalid client type and version.</li>
+<li>sys.heartbeat - optional heartbeat interval in second. Empty for no heartbeat.</li>
+<li>dict - optional route dictionary that used for route string compression. Empty for no route string compression.</li>
+<li>protobuf - optional protobuf definitions. Empty for no protobuf compression.</li>
+<li>user - optional customized handshake data. Empty for no customized handshake data.</li>
+</ul>
+<p>The process flow of handshake as below:</p>
+<img alt="handshake" data-canonical-src="http://pomelo.netease.com/resource/documentImage/pomelo-handshake.png" src="https://camo.githubusercontent.com/577b3255b705d645fe2ad5647b95e0ff599900da/687474703a2f2f706f6d656c6f2e6e6574656173652e636f6d2f7265736f757263652f646f63756d656e74496d6167652f706f6d656c6f2d68616e647368616b652e706e67">
+<h4>
+<a aria-hidden="true" class="anchor" href="#heartbeat" id="user-content-heartbeat"><span class="octicon octicon-link"></span></a>Heartbeat</h4>
+<p>The length of heartbeat package is 0 and the body is empty.</p>
+<p>The process flow of heartbeat as below:</p>
+<img alt="heartbeat" data-canonical-src="http://pomelo.netease.com/resource/documentImage/pomelo-heartbeat.png" src="https://camo.githubusercontent.com/4d221f97ad9c332a976baf43c0e6c0e21363af0a/687474703a2f2f706f6d656c6f2e6e6574656173652e636f6d2f7265736f757263652f646f63756d656e74496d6167652f706f6d656c6f2d6865617274626561742e706e67">
+<p>Congiure the heartbeat interval in server. And server would fire the first heartbeat after handshake. And then both of server and client delays a heartbeat interval and then sends a heartbeat request to the other after receiving a heartbeat request.</p>
+<p>The heartbeat timeout is double of the heartbeat interval. Server would not break the connection when it detectes a heartbeat timeout. And the client can make it desision whether to break the connection when it detectes a heartbeat timeout. </p>
+<h4>
+<a aria-hidden="true" class="anchor" href="#data" id="user-content-data"><span class="octicon octicon-link"></span></a>Data</h4>
+<p>Data package is used to transmit binary data between client and server. The payload of data package could be any binary data from the upper layer. The package layer would not do any modifcation of the payload.</p>
+<h4>
+<a aria-hidden="true" class="anchor" href="#disconnect-by-server" id="user-content-disconnect-by-server"><span class="octicon octicon-link"></span></a>Disconnect by server</h4>
+<p>When server wants to break a client connection, such as kicking a player offline, it would send a control package, known as kick package, and then breaks the connection.</p>
+<p>The client can figure out that the connection is broken by the server by this package.</p>
+<h3>
+<a aria-hidden="true" class="anchor" href="#pomelo-message" id="user-content-pomelo-message"><span class="octicon octicon-link"></span></a>Pomelo Message</h3>
+<p>The Pomelo Message protocol is used to build the message head, which includes message route and message type. Different type of messages have different head.</p>
+<h4>
+<a aria-hidden="true" class="anchor" href="#the-format-of-message-head" id="user-content-the-format-of-message-head"><span class="octicon octicon-link"></span></a>The format of message head</h4>
+<p>Message head is composed by three parts: flag, message id, route, as in the image below. </p>
+<img alt="Message Head" data-canonical-src="http://pomelo.netease.com/resource/documentImage/protocol/MessageHead.png" src="https://camo.githubusercontent.com/a61e4e7b751af6ebc476b48a42ff94a7fdbf744c/687474703a2f2f706f6d656c6f2e6e6574656173652e636f6d2f7265736f757263652f646f63756d656e74496d6167652f70726f746f636f6c2f4d657373616765486561642e706e67">
+<p>Flag is used to identify the message type and other information. Message id is a unique id for the message, used in the request/response mode. Message route is used to find idnetify the handler of the message, used at request/response mode and server publish mode.</p>
+<p>As in the above picture, the flag field is necessary for message head, it will occupy a byte, it decide the other fields of the head. Message id and message route are exchangeable, the length and content are decided by message flag.</p>
+<h5>
+<a aria-hidden="true" class="anchor" href="#flag-field" id="user-content-flag-field"><span class="octicon octicon-link"></span></a>Flag field</h5>
+<p>Flag field always at the first byte of message head, it's content is as follow:</p>
+<img alt="flag" data-canonical-src="http://pomelo.netease.com/resource/documentImage/protocol/MessageFlag.png" src="https://camo.githubusercontent.com/9a940e05b8cf0f76374a7879b1cbecac35a11334/687474703a2f2f706f6d656c6f2e6e6574656173652e636f6d2f7265736f757263652f646f63756d656e74496d6167652f70726f746f636f6c2f4d657373616765466c61672e706e67">
+<p>In pomelo 0.3, we only used 4 bits of the flag field, and the 4 bits can be divided into two parts: message type field for 3 bits and route compression flag for 1 bit.</p>
+<ul>
+<li>Message type filed is used to identify the message type,it can represent 8 kinds of message with value from 0 to 7, now we only use 4 kinds of message with the value from 0~3. The message type and there meaning will be explanation later.</li>
+<li>Route compression flag is used to identify if the route field in the message head is compressed, it will affect the length of the route field.</li>
+</ul>
+<h5>
+<a aria-hidden="true" class="anchor" href="#message-type-filed" id="user-content-message-type-filed"><span class="octicon octicon-link"></span></a>Message type filed</h5>
+<p>The value of the message type filed represent the kinds of different messages, as in the follow form:</p>
+<img alt="Message Type" data-canonical-src="http://pomelo.netease.com/resource/documentImage/protocol/MessageType.png" src="https://camo.githubusercontent.com/0152a96bccc8fb9b0f28b51b8bc9a034f0fe0bdb/687474703a2f2f706f6d656c6f2e6e6574656173652e636f6d2f7265736f757263652f646f63756d656e74496d6167652f70726f746f636f6c2f4d657373616765547970652e706e67">
+<p>And different message type may have different message head, as in the follow picture :</p>
+<img alt="Message Head Content" data-canonical-src="http://pomelo.netease.com/resource/documentImage/protocol/MessageHeadContent.png" src="https://camo.githubusercontent.com/8c6e2adfa3412f55df88ff72a4f4e9d82055e25f/687474703a2f2f706f6d656c6f2e6e6574656173652e636f6d2f7265736f757263652f646f63756d656e74496d6167652f70726f746f636f6c2f4d65737361676548656164436f6e74656e742e706e67">
+<h5>
+<a aria-hidden="true" class="anchor" href="#route-field" id="user-content-route-field"><span class="octicon octicon-link"></span></a>Route field</h5>
+<p>We use the route flag in the flag field to identify if the route is compressed, where 1 means a compressed route and 1 means no compressed. The contents of different route are as follow :  </p>
+<img alt="Message Type" data-canonical-src="http://pomelo.netease.com/resource/documentImage/protocol/MessageRoute.png" src="https://camo.githubusercontent.com/cfb26e336222d6165d0eed77749e0c5cd5eb3b00/687474703a2f2f706f6d656c6f2e6e6574656173652e636f6d2f7265736f757263652f646f63756d656e74496d6167652f70726f746f636f6c2f4d657373616765526f7574652e706e67">
+<p>As we can see in the above picture:</p>
+<ul>
+<li>For a compressed route, the route is a uInt16.</li>
+<li>For a original route, we use an uInt8 to identify it's length(0~255), which followed by route content encoded with utf8.</li>
+</ul>
+<p>For more information of route compression, see at <a href="https://github.com/NetEase/pomelo/wiki/Pomelo-data-compression-protocol">Pomelo data compression protocol</a>.</p>
+</img></img></img></img></img></img></img></img></img></div>
+</div></body></html>

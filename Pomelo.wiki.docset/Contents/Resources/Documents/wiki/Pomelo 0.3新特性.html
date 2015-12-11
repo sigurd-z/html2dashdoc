@@ -1,0 +1,223 @@
+<html><head prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# object: http://ogp.me/ns/object# article: http://ogp.me/ns/article# profile: http://ogp.me/ns/profile#">
+<meta charset="utf-8">
+<meta content="IE=edge" http-equiv="X-UA-Compatible">
+<meta content="en" http-equiv="Content-Language">
+<meta content="width=1020" name="viewport">
+<title>Pomelo 0.3新特性 · NetEase/pomelo Wiki · GitHub</title>
+<link href="/opensearch.xml" rel="search" title="GitHub" type="application/opensearchdescription+xml">
+<link href="src/ad667adaa2cfe8f3caa4a41b7d0a79a1.png" rel="fluid-icon" title="GitHub">
+<link href="src/a10d19ff5f738940a7a5086be334f50b.png" rel="apple-touch-icon" sizes="57x57">
+<link href="src/a10d19ff5f738940a7a5086be334f50b.png" rel="apple-touch-icon" sizes="114x114">
+<link href="src/b4cd268bc600cc14d2cdd557de6da2fb.png" rel="apple-touch-icon" sizes="72x72">
+<link href="src/b4cd268bc600cc14d2cdd557de6da2fb.png" rel="apple-touch-icon" sizes="144x144">
+<meta content="1401488693436528" property="fb:app_id">
+<meta content="@github" name="twitter:site"/><meta content="summary" name="twitter:card"/><meta content="NetEase/pomelo" name="twitter:title"/><meta content="pomelo - A fast,scalable,distributed game server framework for Node.js." name="twitter:description"/><meta content="https://avatars0.githubusercontent.com/u/1460597?v=3&amp;s=400" name="twitter:image:src"/>
+<meta content="GitHub" property="og:site_name"/><meta content="object" property="og:type"/><meta content="https://avatars0.githubusercontent.com/u/1460597?v=3&amp;s=400" property="og:image"/><meta content="NetEase/pomelo" property="og:title"/><meta content="https://github.com/NetEase/pomelo" property="og:url"/><meta content="pomelo - A fast,scalable,distributed game server framework for Node.js." property="og:description"/>
+<meta content="https://api.github.com/_private/browser/stats" name="browser-stats-url">
+<meta content="https://api.github.com/_private/browser/errors" name="browser-errors-url">
+<link href="https://assets-cdn.github.com/" rel="assets">
+<meta content="1000" name="pjax-timeout">
+<meta content="/windows-tile.png" name="msapplication-TileImage">
+<meta content="#ffffff" name="msapplication-TileColor">
+<meta data-pjax-transient="" name="selected-link" value="repo_wiki">
+<meta content="KT5gs8h0wvaagLKAVWq8bbeNwnZZK1r1XQysX3xurLU" name="google-site-verification">
+<meta content="UA-3769691-2" name="google-analytics">
+<meta content="collector.githubapp.com" name="octolytics-host"/><meta content="github" name="octolytics-app-id"/><meta content="CA86616A:4489:F585076:5670C065" name="octolytics-dimension-request_id"/>
+<meta content="/&lt;user-name&gt;/&lt;repo-name&gt;/wiki/show" data-pjax-transient="true" name="analytics-location"/>
+<meta content="Rails, view, wiki#show" data-pjax-transient="true" name="analytics-event"/>
+<meta class="js-ga-set" content="Logged Out" name="dimension1">
+<meta content="github.com" name="hostname">
+<meta content="" name="user-login">
+<meta content="github.com" name="expected-hostname">
+<link color="#4078c0" href="https://assets-cdn.github.com/pinned-octocat.svg" rel="mask-icon">
+<link href="https://assets-cdn.github.com/favicon.ico" rel="icon" type="image/x-icon">
+<meta content="e2bb56c1894bd0b0e373e4a100de014342ebb02f" name="form-nonce"/>
+<link crossorigin="anonymous" href="src/350888e1495e7af27e01faa9d8291dee.css" media="all" rel="stylesheet"/>
+<link crossorigin="anonymous" href="src/9fae9b7d8f0785d745a43c6465f74ae5.css" media="all" rel="stylesheet"/>
+<meta content="cd9958d45e48e8e3157a320e9c346eaa" http-equiv="x-pjax-version">
+<meta content="pomelo - A fast,scalable,distributed game server framework for Node.js." name="description">
+<meta content="github.com/NetEase/pomelo git https://github.com/NetEase/pomelo.git" name="go-import">
+<meta content="1460597" name="octolytics-dimension-user_id"/><meta content="NetEase" name="octolytics-dimension-user_login"/><meta content="5880912" name="octolytics-dimension-repository_id"/><meta content="NetEase/pomelo" name="octolytics-dimension-repository_nwo"/><meta content="true" name="octolytics-dimension-repository_public"/><meta content="false" name="octolytics-dimension-repository_is_fork"/><meta content="5880912" name="octolytics-dimension-repository_network_root_id"/><meta content="NetEase/pomelo" name="octolytics-dimension-repository_network_root_nwo"/>
+<link href="https://github.com/NetEase/pomelo/commits/master.atom" rel="alternate" title="Recent Commits to pomelo:master" type="application/atom+xml">
+</link></meta></meta></meta></link></link></meta></meta></meta></meta></meta></meta></meta></meta></meta></meta></link></meta></meta></meta></link></link></link></link></link></link></meta></meta></meta></meta></head><body style="padding:0 25px;"><div class="gollum-markdown-content instapaper_body" id="wiki-body">
+<div class="markdown-body">
+<h1>
+<a aria-hidden="true" class="anchor" href="#pomelo-03%E7%89%88%E6%9C%AC%E6%96%B0%E7%89%B9%E6%80%A7" id="user-content-pomelo-03版本新特性"><span class="octicon octicon-link"></span></a>Pomelo 0.3版本新特性</h1>
+<p>Pomelo 0.3版为移动端性能优化做了很多工作， 新协议的数据包压缩后的传输量仅为0.2版的20%， 并保留了0.2版基于socket.io的传输协议。socket.io对开发浏览器端器端的实时应用非常适合，而socket（websocket）、protobuf、二进制等协议则对移动端、桌面客户端的开发更具优势。pomelo对它们的同时支持使同时支持浏览器、移动、桌面客户端的高实时应用或游戏变得非常容易。</p>
+<p>服务器的动态扩展是另一个重要的特性， 这不仅使系统适应了弹性的工作环境，也为游戏的一些动态功能提供了更多方便， 如MMORPG游戏的动态副本等。</p>
+<p>0.3版还提供了其它很多特性，如新的广播接口， 新的客户端支持等。</p>
+<h2>
+<a aria-hidden="true" class="anchor" href="#1-%E6%96%B0%E5%8D%8F%E8%AE%AE%E6%94%AF%E6%8C%81" id="user-content-1-新协议支持"><span class="octicon octicon-link"></span></a>1 新协议支持</h2>
+<p>0.3版Pomelo开始支持二进制协议，并支持对请求route的字典压缩和请求内容进行protobuf压缩。0.3版同时兼容以前版本基于socket.io的通讯协议。通过在应用中配置不同的connector component来实现协议的切换或共存。</p>
+<p>目前Pomelo服务器提供两类connector：sioconnector和hybridconnector，分别对于基于socket.io和二进制的通讯。</p>
+<h3>
+<a aria-hidden="true" class="anchor" href="#11-sioconnector" id="user-content-11-sioconnector"><span class="octicon octicon-link"></span></a>1.1 sioconnector</h3>
+<p>支持基于socket.io的通讯协议，也是Pomelo框架默认采用的connector（主要是兼容老版本）。之前基于socket.io的服务器和客户端代码不用修改就可以使用。</p>
+<h3>
+<a aria-hidden="true" class="anchor" href="#12-hybridconnector" id="user-content-12-hybridconnector"><span class="octicon octicon-link"></span></a>1.2 hybridconnector</h3>
+<p>支持socket和websocket，使用二进制通讯协议，并且支持route字典压缩和protobuf压缩的connector，需要在app.js中显式配置。以下是一个hybridconnector的配置例子：</p>
+<pre><code>app.configure('production|development', 'connector', function(){
+  app.set('connectorConfig', {
+    connector: pomelo.connectors.hybridconnector,
+    heartbeat: 3,
+    useDict: true,
+    useProtobuf: true,
+    checkClient: function(type, version) {
+        // check the client type and version then return true or false
+    },
+    handshake: function(msg, cb){
+      cb(null, {/* message pass to client in handshake phase */});
+    }
+  });
+});
+</code></pre>
+<p>首先，通过<code>app.set('connectorConfig', opts)</code>更改了connector组件的默认配置。<code>opts</code>是最终将被传递给connector，不同的connector可以有不同的opts内容。</p>
+<ul>
+<li>connector - 指定所采用的connector实现，用来支持不同的底层通讯协议。Pomelo提供了<code>pomelo.connectors.sioconnector</code>和<code>pomelo.connectors.hybridconnector</code>。开发者也可以实现自己的connector，以支持不同的通讯协议。</li>
+<li>heartbeat - 客户端与服务器的心跳间隔。不指定则表示不需要心跳。具体心跳流程在协议文档心跳小结介绍。</li>
+<li>useDict - 是否进行route字典压缩，默认为false。具体字典压缩原理请参考协议文档字典压缩小结。</li>
+<li>useProtobuf - 是否对协议内容进行protobuf压缩，默认为false。protobuf的流程请参考协议文档protobuf压缩小结。</li>
+<li>checkClient - 可选的客户端鉴定函数。如果设置该字段，则要求客户端在握手阶段<em>必须</em>传递其版本号给服务器，并通过此函数来鉴定该版本客户端是否适用。如果该函数的返回值为false，则拒绝该客户端的后续操作。</li>
+<li>handshake - 可选的握手函数，在客户端和服务器握手过程中被调用，用来在握手阶段向客户端传递自定义的信息。</li>
+</ul>
+<h3>
+<a aria-hidden="true" class="anchor" href="#13-%E4%B8%8D%E5%90%8Cconnector%E7%9A%84%E5%85%B1%E5%AD%98" id="user-content-13-不同connector的共存"><span class="octicon octicon-link"></span></a>1.3 不同connector的共存</h3>
+<p>不同的connector可以在同一个项目中共存，支持不同的客户端连接，只要配置不同的前端服务器，监听不同的端口即可。例如：</p>
+<pre><code>// frontend server based on socket.io
+app.configure('production|development', 'sio-connector', function(){
+  app.set('connectorConfig', {
+    connector: pomelo.connectors.sioconnector
+  });
+});
+
+// frontend server based on socket and websocket
+app.configure('production|development', 'hybrid-connector', function(){
+  app.set('connectorConfig', {
+    connector: pomelo.connectors.hybridconnector
+  });
+});
+
+</code></pre>
+<p>servers.json的配置</p>
+<pre><code>{
+  "development": {
+    "sio-connector": [
+      {"id": "sio-server-1", "host": "127.0.0.1", "port": 3150, "clientPort": 3010, "frontend": true}
+    ],
+    "hybrid-connector": [
+      {"id": "hybrid-server-1", "host": "127.0.0.1", "port": 3250, "clientPort": 3020, "frontend": true}
+    ]
+  }
+}
+
+</code></pre>
+<p>关于Pomelo二进制协议的具体格式，请参考<a href="https://github.com/NetEase/pomelo/wiki/Pomelo-%E9%80%9A%E8%AE%AF%E5%8D%8F%E8%AE%AE">Pomelo协议文档</a>，字典压缩和protobuf压缩相关内容请参考<a href="https://github.com/NetEase/pomelo/wiki/Pomelo-%E6%95%B0%E6%8D%AE%E5%8E%8B%E7%BC%A9%E5%8D%8F%E8%AE%AE">Pomelo数据压缩协议</a>。</p>
+<h2>
+<a aria-hidden="true" class="anchor" href="#2-%E5%8A%A8%E6%80%81%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%89%A9%E5%B1%95" id="user-content-2-动态服务器扩展"><span class="octicon octicon-link"></span></a>2 动态服务器扩展</h2>
+<p>Pomelo 0.3版开始支持动态增加和移除服务器进程机制，并提供相应的命令行工具。每台新增的服务器都会连接到master服务器上进行注册。Master再将新服务器的信息广播给集群中的所有服务器进程。原有的服务器进程再对新增服务器事件进行响应。</p>
+<p>当一个服务器进程接收到一个新增服务器的消息后，会将该服务器信息保存到本地的app上下文中，之后可以通过<code>app.getServers</code>等系列方法查看到新服务器的信息，从而影响之后的消息路由。</p>
+<p>如果新加的服务器的类型之前尚未存在于app上下文中，Pomelo会尝试着为其创建对应的rpc代理对象。如果该类型服务器需要提供rpc服务，则需要在约定的目录（servers/server-type/remote/）下提供rpc服务代码。</p>
+<p>动态移除服务器进程的流程也与上面类似，当服务器断开与master的连接后，master会将该服务器的信息广播给其他进程，其他进程再进行相应处理。</p>
+<p><em>注意</em>: Pomelo仅提供动态增加和移除服务器进程的机制，但由此而导致的路由规则的变化应当由具体的应用自己来维护。需要谨慎处理好诸如数据状态等问题。</p>
+<h3>
+<a aria-hidden="true" class="anchor" href="#%E5%91%BD%E4%BB%A4%E8%A1%8C%E6%94%AF%E6%8C%81" id="user-content-命令行支持"><span class="octicon octicon-link"></span></a>命令行支持</h3>
+<p>Pomelo 0.3版本的命令行工具根据新特性增加了一个add命令，同时对之前的stop命令做了一定的修改。</p>
+<p>pomelo add命令主要作用是动态的添加服务器，暂时不支持前端服务器的添加(0.3后面的版本可能会支持)。命令需要的参数有四个，分别是服务器地址，服务器端口号，服务器id（用来标识服务器）,服务器类型。具体的命令格式如下：</p>
+<pre><code>pomelo add host=[host] port=[port] id=[id] serverType=[serverType]
+</code></pre>
+<p>pomelo stop命令主要作用是动态的停止服务器，可以动态的停止某一台服务器或者同时停止多台服务器。命令主要需要的参数就是服务器id, 可以同时有多个id,这样就是停止多台服务器，如果没有id，默认就是停止所有的服务器。具体的命令格式如下：</p>
+<pre><code>pomelo stop [id]
+</code></pre>
+<h2>
+<a aria-hidden="true" class="anchor" href="#3-%E5%85%B6%E4%BB%96%E6%96%B0%E7%89%B9%E6%80%A7" id="user-content-3-其他新特性"><span class="octicon octicon-link"></span></a>3 其他新特性</h2>
+<h3>
+<a aria-hidden="true" class="anchor" href="#31-serversjson%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E7%9A%84%E4%BF%AE%E6%94%B9" id="user-content-31-serversjson配置文件的修改"><span class="octicon octicon-link"></span></a>3.1 servers.json配置文件的修改</h3>
+<p>随着Pomelo支持协议的增多，配置文件原先定义的<code>wsPort</code>（代表websocket port）已不适用，现调整为<code>clientPort</code>。并新增一个字段frontend来标识该服务器是否是前端服务器，前端服务器 <em>必须</em> 设置该字段为true，后端服务器可以不设置或设置成false。</p>
+<p>以<a href="https://github.com/NetEase/lordofpomelo">lordofpomelo</a>为例，<a href="https://github.com/NetEase/lordofpomelo/blob/master/game-server/config/servers.json">servers.js</a>文件修改如下。</p>
+<p>connector服务器配置：</p>
+<pre><code>"connector": [
+  {"id": "connector-server-1", "host": "127.0.0.1", "port": 3150, "clientPort": 3010, "frontend": true},
+  {"id": "connector-server-2", "host": "127.0.0.1", "port": 3151, "clientPort":3011, "frontend": true}
+]
+</code></pre>
+<p>gate服务器配置：</p>
+<pre><code>"gate": [
+  {"id": "gate-server-1", "host": "127.0.0.1", "clientPort": 3014, "frontend": true}
+]
+</code></pre>
+<p>服务器代码中有依赖到配置信息<code>wsPort</code>的地方也需要做相应的调整。<a href="https://github.com/NetEase/lordofpomelo">lordofpomelo</a>中的<a href="https://github.com/NetEase/lordofpomelo/blob/master/game-server/app/servers/gate/handler/gateHandler.js#L29">gateHandler</a>中的<code>res.wsPort</code>需要改为<code>res.clientPort</code>。</p>
+<h3>
+<a aria-hidden="true" class="anchor" href="#32-%E6%96%B0%E5%A2%9Echannel%E5%B9%BF%E6%92%AD%E6%8E%A5%E5%8F%A3" id="user-content-32-新增channel广播接口"><span class="octicon octicon-link"></span></a>3.2 新增channel广播接口</h3>
+<p><code>ChannelService</code>新增<code>broadcast</code>接口，适用于给全世界广播的场景。该接口会将消息推送到指定类型的所有前端服务器进程，再由后者将消息推送给连接的所有客户端。详细接口描述请参考<a href="http://pomelo.netease.com/api.html">Pomelo API</a>。</p>
+<p>使用例子：</p>
+<pre><code>var frontendType = 'connector';
+var route = 'test.hello';
+var msg = {msg: 'hello world'};
+var opts = {binded: true};
+app.get('channelService').broadcast(frontendType, route, msg, opts, function(err) {
+  // check the broadcast result
+});
+</code></pre>
+<h3>
+<a aria-hidden="true" class="anchor" href="#33-%E6%96%B0%E5%A2%9Esession%E8%8E%B7%E5%8F%96%E6%8E%A5%E5%8F%A3" id="user-content-33-新增session获取接口"><span class="octicon octicon-link"></span></a>3.3 新增session获取接口</h3>
+<p><code>LocalSessionService</code>新增根据session id获取<code>localSession</code>接口<code>get</code>和根据user id获取<code>localSession</code>接口<code>getByUid</code>。</p>
+<p>使用例子：</p>
+<pre><code>var frontendId = 'connector-server-1';
+var sid = 1;
+var uid = '123456';
+app.get('localSessionService').get(frontendId, sid, function(err, localSession) {
+  // do something with the local session
+});
+
+app.get('localSessionService').getByUid(frontendId, uid, function(err, localSession) {
+  // do something with the local session
+});
+
+</code></pre>
+<h3>
+<a aria-hidden="true" class="anchor" href="#34--javascript%E5%AE%A2%E6%88%B7%E7%AB%AF%E6%94%AF%E6%8C%81" id="user-content-34--javascript客户端支持"><span class="octicon octicon-link"></span></a>3.4  javascript客户端支持</h3>
+<h4>
+<a aria-hidden="true" class="anchor" href="#341-%E6%94%AF%E6%8C%81%E4%B8%A4%E7%B1%BBjavascript%E5%AE%A2%E6%88%B7%E7%AB%AF-----socketio%E4%B8%8Ewebsocket" id="user-content-341-支持两类javascript客户端-----socketio与websocket"><span class="octicon octicon-link"></span></a>3.4.1 支持两类javascript客户端 --- socket.io与websocket</h4>
+<p>目前socket.io与websocket两套协议在javascript都有用武之地。socket.io的兼容好，可以适应各种浏览器，适合开发类似聊天室这样的高实时应用。websocket客户端则在数据压缩上做到了很多优化，大大减少了消息的传输量，适合开发基于HTML 5的游戏应用。</p>
+<p>两个客户端的发布地址如下：</p>
+<ul>
+<li><a href="https://github.com/pomelonode/pomelo-jsclient-websocket">websocket客户端</a></li>
+<li><a href="https://github.com/pomelonode/pomelo-jsclient-socket.io">socket.io客户端</a></li>
+</ul>
+<h4>
+<a aria-hidden="true" class="anchor" href="#342-%E5%AE%A2%E6%88%B7%E7%AB%AFjavscript-build%E7%B3%BB%E7%BB%9F" id="user-content-342-客户端javscript-build系统"><span class="octicon octicon-link"></span></a>3.4.2 客户端javscript build系统</h4>
+<p>以前的pomelo-jsclient版本管理异常混乱， 经常将好几个文件复制到不同的项目各自修改。因此我们引入了<a href="https://github.com/component/component">component</a>来管理js的库。
+客户端js代码目前采用以<a href="https://github.com/component/component">component</a>的形式统一管理与维护。
+因此在lordofpomelo的web-server下面的js库代码就只剩下，component.json，local文件夹，以及colorbox文件夹<br>
+其中，component.json包含了指向local这个文件夹所指定的本地component，用于在component build的时候作为初始化操作<br>
+而local文件夹里面有一个boot component，里面对lordofpomelo需要用到的客户端js库进行了配置，配置类似于npm的配置方式  </br></br></p>
+<pre><code>{  
+  "name": "boot",  
+  "description": "Main app boot component",  
+  "dependencies": {  
+    "component/emitter":"master",  
+    "NetEase/pomelo-protocol": "0.3.x",  
+    "pomelonode/pomelo-protobuf": "*",  
+    "pomelonode/pomelo-jsclient-websocket": "master",  
+    "component/jquery": "*"  
+  },  
+  "scripts": ["index.js"]  
+}    
+</code></pre>
+<p>使用component之前，需要进行build，为了便于开发，在web-server目录的bin文件夹下面，有一个 component.sh 
+web-server目录下执行命令，即可完成install和build客户端代码的工作  </p>
+<pre><code>sh bin/component.sh  
+</code></pre>
+<p>如果你只是修改了本地的component而不需要install线上的版本，那么你可以在web-server目录下执行命令  </p>
+<pre><code>sh bin/build-component.sh  
+</code></pre>
+<p>即可对本地的component进行build操作，而不去线上install  </p>
+<p>具体详情还请到 <a href="https://github.com/component/component">component</a> 上去了解  </p>
+<h3>
+<a aria-hidden="true" class="anchor" href="#35-%E5%85%B6%E5%AE%83%E5%AE%A2%E6%88%B7%E7%AB%AF%E6%94%AF%E6%8C%81" id="user-content-35-其它客户端支持"><span class="octicon octicon-link"></span></a>3.5 其它客户端支持</h3>
+<ul>
+<li>提供新的C客户端，支持socket协议，基于libuv开发，提供了完整的数据与消息压缩， 支持cocos2d-x</li>
+<li>其余客户端，如flash,android, ios, unity3d， 目前还只支持socket.io协议，后续会推出基于socket协议客户端</li>
+</ul>
+</div>
+</div></body></html>

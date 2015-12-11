@@ -1,0 +1,7 @@
+
+function MailChecker() { }
+MailChecker._path = '/dwr';
+
+MailChecker.checkMail = function(p0, p1, callback) {
+    DWREngine._execute(MailChecker._path, 'MailChecker', 'checkMail', p0, p1, callback);
+}

@@ -1,0 +1,267 @@
+<html><head prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# object: http://ogp.me/ns/object# article: http://ogp.me/ns/article# profile: http://ogp.me/ns/profile#">
+<meta charset="utf-8">
+<meta content="IE=edge" http-equiv="X-UA-Compatible">
+<meta content="en" http-equiv="Content-Language">
+<meta content="width=1020" name="viewport">
+<title>Distributed Chat · NetEase/pomelo Wiki · GitHub</title>
+<link href="/opensearch.xml" rel="search" title="GitHub" type="application/opensearchdescription+xml">
+<link href="src/ad667adaa2cfe8f3caa4a41b7d0a79a1.png" rel="fluid-icon" title="GitHub">
+<link href="src/a10d19ff5f738940a7a5086be334f50b.png" rel="apple-touch-icon" sizes="57x57">
+<link href="src/a10d19ff5f738940a7a5086be334f50b.png" rel="apple-touch-icon" sizes="114x114">
+<link href="src/b4cd268bc600cc14d2cdd557de6da2fb.png" rel="apple-touch-icon" sizes="72x72">
+<link href="src/b4cd268bc600cc14d2cdd557de6da2fb.png" rel="apple-touch-icon" sizes="144x144">
+<meta content="1401488693436528" property="fb:app_id">
+<meta content="@github" name="twitter:site"/><meta content="summary" name="twitter:card"/><meta content="NetEase/pomelo" name="twitter:title"/><meta content="pomelo - A fast,scalable,distributed game server framework for Node.js." name="twitter:description"/><meta content="https://avatars0.githubusercontent.com/u/1460597?v=3&amp;s=400" name="twitter:image:src"/>
+<meta content="GitHub" property="og:site_name"/><meta content="object" property="og:type"/><meta content="https://avatars0.githubusercontent.com/u/1460597?v=3&amp;s=400" property="og:image"/><meta content="NetEase/pomelo" property="og:title"/><meta content="https://github.com/NetEase/pomelo" property="og:url"/><meta content="pomelo - A fast,scalable,distributed game server framework for Node.js." property="og:description"/>
+<meta content="https://api.github.com/_private/browser/stats" name="browser-stats-url">
+<meta content="https://api.github.com/_private/browser/errors" name="browser-errors-url">
+<link href="https://assets-cdn.github.com/" rel="assets">
+<meta content="1000" name="pjax-timeout">
+<meta content="/windows-tile.png" name="msapplication-TileImage">
+<meta content="#ffffff" name="msapplication-TileColor">
+<meta data-pjax-transient="" name="selected-link" value="repo_wiki">
+<meta content="KT5gs8h0wvaagLKAVWq8bbeNwnZZK1r1XQysX3xurLU" name="google-site-verification">
+<meta content="UA-3769691-2" name="google-analytics">
+<meta content="collector.githubapp.com" name="octolytics-host"/><meta content="github" name="octolytics-app-id"/><meta content="CA86616A:4488:C301D5E:5670BFF6" name="octolytics-dimension-request_id"/>
+<meta content="/&lt;user-name&gt;/&lt;repo-name&gt;/wiki/show" data-pjax-transient="true" name="analytics-location"/>
+<meta content="Rails, view, wiki#show" data-pjax-transient="true" name="analytics-event"/>
+<meta class="js-ga-set" content="Logged Out" name="dimension1">
+<meta content="github.com" name="hostname">
+<meta content="" name="user-login">
+<meta content="github.com" name="expected-hostname">
+<link color="#4078c0" href="https://assets-cdn.github.com/pinned-octocat.svg" rel="mask-icon">
+<link href="https://assets-cdn.github.com/favicon.ico" rel="icon" type="image/x-icon">
+<meta content="6cfc0b3f7188f36042f94487a1fccdee08fd0a7b" name="form-nonce"/>
+<link crossorigin="anonymous" href="src/350888e1495e7af27e01faa9d8291dee.css" media="all" rel="stylesheet"/>
+<link crossorigin="anonymous" href="src/9fae9b7d8f0785d745a43c6465f74ae5.css" media="all" rel="stylesheet"/>
+<meta content="cd9958d45e48e8e3157a320e9c346eaa" http-equiv="x-pjax-version">
+<meta content="pomelo - A fast,scalable,distributed game server framework for Node.js." name="description">
+<meta content="github.com/NetEase/pomelo git https://github.com/NetEase/pomelo.git" name="go-import">
+<meta content="1460597" name="octolytics-dimension-user_id"/><meta content="NetEase" name="octolytics-dimension-user_login"/><meta content="5880912" name="octolytics-dimension-repository_id"/><meta content="NetEase/pomelo" name="octolytics-dimension-repository_nwo"/><meta content="true" name="octolytics-dimension-repository_public"/><meta content="false" name="octolytics-dimension-repository_is_fork"/><meta content="5880912" name="octolytics-dimension-repository_network_root_id"/><meta content="NetEase/pomelo" name="octolytics-dimension-repository_network_root_nwo"/>
+<link href="https://github.com/NetEase/pomelo/commits/master.atom" rel="alternate" title="Recent Commits to pomelo:master" type="application/atom+xml">
+</link></meta></meta></meta></link></link></meta></meta></meta></meta></meta></meta></meta></meta></meta></meta></link></meta></meta></meta></link></link></link></link></link></link></meta></meta></meta></meta></head><body style="padding:0 25px;"><div class="gollum-markdown-content instapaper_body" id="wiki-body">
+<div class="markdown-body">
+<h2>
+<a aria-hidden="true" class="anchor" href="#why-chat" id="user-content-why-chat"><span class="octicon octicon-link"></span></a>Why chat?</h2>
+<p>Pomelo is a game server framework, why does the tutorial starts from chat?</p>
+<p>Pomelo is really a game server framework, but it is essentially a high real-time, scalable, multi-process application framework. In addition to some special parts of the game library in the library section, the rest of the framework can be used for development of real-time web application. And compared with some node.js real-time application frameworks such as derby, socketstream, meteor etc, it is more scalable.</p>
+<p>Because of the complexity of the game in scene management, client animation, they are not suitable entry level application for the pomelo. Chat application is usually the first application which developers contact with node.js, and therefore more suitable for the tutorial.</p>
+<p>Generally the beginner chat application of node.js is based on socket.io. Because it is based on single-process node.js, it hit a discount in scalability. For example, if you want to improve it to a multi-channels chat room like irc, the increased number of channels will inevitably lead the single-process node.js overloaded.</p>
+<h2>
+<a aria-hidden="true" class="anchor" href="#from-a-single-process-to-multi-process-from-socketio-to-pomelo" id="user-content-from-a-single-process-to-multi-process-from-socketio-to-pomelo"><span class="octicon octicon-link"></span></a>From a single process To multi-process, From socket.io To pomelo</h2>
+<p>A native chat room application based socket.io, take <a href="http://github.com/joshmarshall/uberchat">uberchat</a> for example.</p>
+<p>Its application architecture diagram is as below:</p>
+<p><img alt="uberchat" data-canonical-src="http://pomelo.netease.com/resource/documentImage/uberchat.png" src="https://camo.githubusercontent.com/7d29c6c5ee66abe7f39c0a8defcc2138bc0603ea/687474703a2f2f706f6d656c6f2e6e6574656173652e636f6d2f7265736f757263652f646f63756d656e74496d6167652f75626572636861742e706e67"/></p>
+<p>The server which only contains a single node.js process handle all requests from websocket.</p>
+<p>It has following disadvantages:</p>
+<ol>
+<li><p>Poor scalability: it only supports single process node.js, can not be distributed according to room/channel, and can not separate broadcast pressure from logic business processing either.</p></li>
+<li><p>Code redundancy: it just makes simple encapsulation of socket.io, and only the server side contains 430 lines of code.</p></li>
+</ol>
+<p>Using pomelo to write this framework can be completely overcome these shortcomings.</p>
+<p>The distributed chat application architecture which we want to build is as follow:</p>
+<p><img alt="multi chat" data-canonical-src="http://pomelo.netease.com/resource/documentImage/multi_chat.png" src="https://camo.githubusercontent.com/da1170cd20d5264ccfd6f3ff755aab3d81002252/687474703a2f2f706f6d656c6f2e6e6574656173652e636f6d2f7265736f757263652f646f63756d656e74496d6167652f6d756c74695f636861742e706e67"/></p>
+<p>In this architecture, the front-end servers named connector is responsible for holding connections, the chat server is in charge of processing business logic.</p>
+<p>Such scale-up architecture has following advantages:</p>
+<ul>
+<li><p>Load separation: The architecture totally separates the connection code from the business logic code, and this is really necessary especially in broadcast-intensive application like game.Network communication can consume large amount of resource, however, the business logic processing  ability will not be influenced by broadcasting because of the separated architecture.</p></li>
+<li><p>Simplify channel switch: Users can switch channels or rooms without reconnecting websocket because of this separated architecture.</p></li>
+<li><p>Scale better: We can launch more connector processes to deal with the increase of users, and use hash algorithm to map channels to different servers.</p></li>
+</ul>
+<p>We will start to build this application with pomelo, and you will be amazed to find that it only takes less than 100 lines of code to build such a complex architecture.</p>
+<h2>
+<a aria-hidden="true" class="anchor" href="#initialization-of-code-structure" id="user-content-initialization-of-code-structure"><span class="octicon octicon-link"></span></a>Initialization of Code Structure</h2>
+<p>Application of the code structure can be initialized by using the following command:</p>
+<blockquote>
+<p>pomelo init chatofpomelo</p>
+</blockquote>
+<p>The code structure is shown below:</p>
+<p><img alt="chat directory" data-canonical-src="http://pomelo.netease.com/resource/documentImage/chatDir.png" src="https://camo.githubusercontent.com/d9a45f06e69f2e0486add1a8d99e58ec667563a6/687474703a2f2f706f6d656c6f2e6e6574656173652e636f6d2f7265736f757263652f646f63756d656e74496d6167652f636861744469722e706e67"/></p>
+<p>Description:</p>
+<ul>
+<li><p>game-server: all the game business logic code is in this directory.The file app.js is the entrance of the server, and all the game logic and functions start from here.</p></li>
+<li><p>web-server: web server which used by game server(including login logic), the client js, css and static resources.</p></li>
+<li><p>config: Generally, a project needs a lot of configurations and you can use JSON files here. In game project, some configurations have been created such as log, master-server and other servers at initialization. Also, you can add database, map and numerical tabular configuration etc.</p></li>
+<li><p>logs: Logs are essential for the project and contain a lot of information which you can get the project runing state from.</p></li>
+<li><p>shared: Both some configurations and code resources can be shared between front end and back end if you choose javascript as client language.</p></li>
+</ul>
+<p>Initialization &amp;&amp; Test:</p>
+<p>install npm package</p>
+<blockquote>
+<p>sh npm-install.sh</p>
+</blockquote>
+<p>start game server</p>
+<blockquote>
+<p>cd game-server &amp;&amp; pomelo start</p>
+</blockquote>
+<p>start web server</p>
+<blockquote>
+<p>cd web-server &amp;&amp; node app.js</p>
+</blockquote>
+<p>The web server contains the pomelo client code, when the web server is started, the client is automatically loaded into the browser. Clients send requests to the game server via websocket, the server can push messages to the client after connected by pomelo.</p>
+<p>Visit http://localhost:3001, if the web server is running successfully, the following page will appear in  browser:</p>
+<p><img alt="welcome page" data-canonical-src="http://pomelo.netease.com/resource/documentImage/welcome.png" src="https://camo.githubusercontent.com/aeee01d08ae08c0fd2f16a460a2d9e2f3945f631/687474703a2f2f706f6d656c6f2e6e6574656173652e636f6d2f7265736f757263652f646f63756d656e74496d6167652f77656c636f6d652e706e67"/></p>
+<p>Click the Test Game Server button, the pop of 'game server is ok.' verify the success of the client and server communication.</p>
+<h2>
+<a aria-hidden="true" class="anchor" href="#lets-start-chat-logic-coding" id="user-content-lets-start-chat-logic-coding"><span class="octicon octicon-link"></span></a>Let's start Chat Logic Coding</h2>
+<p>The logic of chat includes the following sections:</p>
+<ul>
+<li><p>Entering: this part of the logic is responsible for registering user information to session, and add user into the channel of chat room.</p></li>
+<li><p>Chatting: this section includes sending requests from the client, and receiving requests by the server.</p></li>
+<li><p>Broadcasting: all clients in the same chat room will receive messages and show messages in browser.</p></li>
+<li><p>Leaving: this section needs to do some clean-up work, including cleaning up the session and channel information.</p></li>
+</ul>
+<h3>
+<a aria-hidden="true" class="anchor" href="#entering" id="user-content-entering"><span class="octicon octicon-link"></span></a>Entering</h3>
+<p>Entering page is as shown below:
+User enters user name, name of chat room, user joins the chat room.</p>
+<p><img alt="login" data-canonical-src="http://pomelo.netease.com/resource/documentImage/login.png" src="https://camo.githubusercontent.com/74c399ab310d68051dcad46cf5407b448a47d498/687474703a2f2f706f6d656c6f2e6e6574656173652e636f6d2f7265736f757263652f646f63756d656e74496d6167652f6c6f67696e2e706e67"/></p>
+<h4>
+<a aria-hidden="true" class="anchor" href="#client" id="user-content-client"><span class="octicon octicon-link"></span></a>Client</h4>
+<p>Clients need to send a request to the server, the first request must route to the connector process, because the server needs to register the session information for the first time(page code layout in this tutorial omitted).</p>
+<div class="highlight highlight-source-js"><pre><span class="pl-smi">pomelo</span>.<span class="pl-en">request</span>(<span class="pl-s"><span class="pl-pds">'</span>connector.entryHandler.enter<span class="pl-pds">'</span></span>, {username<span class="pl-k">:</span> username}, <span class="pl-k">function</span>(){
+}); </pre></div>
+<p>The above request string 'connector.entryHandler.enter' representing the name of server type, the file name of the service and the corresponding method name respectively.</p>
+<h4>
+<a aria-hidden="true" class="anchor" href="#server" id="user-content-server"><span class="octicon octicon-link"></span></a>Server</h4>
+<p>The connector can receive messages without any configuration, all you have to do is creating a new file named entryHandler.js under the connector/handler directory. We need to implement the enter method, and the server will automatically invoke the corresponding handler, the specific code is as follows:</p>
+<div class="highlight highlight-source-js"><pre><span class="pl-c1">handler</span>.<span class="pl-en">enter</span> <span class="pl-k">=</span> <span class="pl-k">function</span>(<span class="pl-smi">request</span>, <span class="pl-smi">session</span>, <span class="pl-smi">next</span>) {
+    <span class="pl-smi">session</span>.<span class="pl-en">bind</span>(uid);
+    <span class="pl-smi">session</span>.<span class="pl-en">on</span>(<span class="pl-s"><span class="pl-pds">'</span>closed<span class="pl-pds">'</span></span>, <span class="pl-smi">onUserLeave</span>.<span class="pl-en">bind</span>(<span class="pl-c1">null</span>, <span class="pl-smi">this</span>.<span class="pl-smi">app</span>));
+};</pre></div>
+<h4>
+<a aria-hidden="true" class="anchor" href="#server-add-user-into-channel" id="user-content-server-add-user-into-channel"><span class="octicon octicon-link"></span></a>Server add user into channel</h4>
+<p>Using the rpc method to add the logged in user into the channel.</p>
+<div class="highlight highlight-source-js"><pre><span class="pl-smi">app</span>.<span class="pl-smi">rpc</span>.<span class="pl-smi">chat</span>.<span class="pl-smi">chatRemote</span>.<span class="pl-c1">add</span>(session, uid, <span class="pl-smi">app</span>.<span class="pl-en">get</span>(<span class="pl-s"><span class="pl-pds">'</span>serverId<span class="pl-pds">'</span></span>), <span class="pl-k">function</span>(<span class="pl-smi">data</span>){});</pre></div>
+<p>app is the application object of pomelo, app.rpc represents the remote rpc call between the front and the end servers, the last three parameters correspond to the server name, the file name and the name of the method respectively. In order to finish this rpc call, you only need to create a new file named chatRemote.js in chat/remote directory, and implement the add method.</p>
+<div class="highlight highlight-source-js"><pre><span class="pl-c1">handler</span>.<span class="pl-en">add</span> <span class="pl-k">=</span> <span class="pl-k">function</span>(<span class="pl-smi">uid</span>, <span class="pl-smi">sid</span>, <span class="pl-smi">cb</span>){
+    <span class="pl-k">var</span> channel <span class="pl-k">=</span> <span class="pl-smi">channelService</span>.<span class="pl-en">getChannel</span>(<span class="pl-s"><span class="pl-pds">'</span>pomelo<span class="pl-pds">'</span></span>, <span class="pl-c1">true</span>); 
+    <span class="pl-k">if</span>(<span class="pl-k">!!</span>channel)
+        <span class="pl-smi">channel</span>.<span class="pl-c1">add</span>(uid, sid);
+};</pre></div>
+<p>In the add method, firstly get the channel from channelService provided by pomelo, then add the user into the channel. This completes a full rpc call, in pomelo it is that easy to finish complex rpc call.</p>
+<h4>
+<a aria-hidden="true" class="anchor" href="#user-initiate-chatting-and-server-receive-message" id="user-content-user-initiate-chatting-and-server-receive-message"><span class="octicon octicon-link"></span></a>User initiate chatting and server receive message</h4>
+<p>client code:</p>
+<div class="highlight highlight-source-js"><pre><span class="pl-smi">pomelo</span>.<span class="pl-en">request</span>(<span class="pl-s"><span class="pl-pds">'</span>chat.chatHandler.send<span class="pl-pds">'</span></span>, {content<span class="pl-k">:</span> msg, from<span class="pl-k">:</span> username, target<span class="pl-k">:</span> target}, <span class="pl-k">function</span>(){});</pre></div>
+<p>server code:</p>
+<div class="highlight highlight-source-js"><pre><span class="pl-c1">handler</span>.<span class="pl-en">send</span> <span class="pl-k">=</span> <span class="pl-k">function</span>(<span class="pl-smi">request</span>, <span class="pl-smi">session</span>, <span class="pl-smi">next</span>) {
+ <span class="pl-k">var</span> param <span class="pl-k">=</span> {route<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>onChat<span class="pl-pds">'</span></span>, msg<span class="pl-k">:</span> <span class="pl-smi">msg</span>.<span class="pl-c1">content</span>, from<span class="pl-k">:</span> <span class="pl-smi">msg</span>.<span class="pl-smi">from</span>, target<span class="pl-k">:</span> <span class="pl-smi">msg</span>.<span class="pl-c1">target</span>};
+ <span class="pl-c">// send messages</span>
+};</pre></div>
+<h4>
+<a aria-hidden="true" class="anchor" href="#server-broadcast-message-and-client-receive" id="user-content-server-broadcast-message-and-client-receive"><span class="octicon octicon-link"></span></a>Server broadcast message and client receive</h4>
+<p>In server side, add the code into the send method:</p>
+<div class="highlight highlight-source-js"><pre><span class="pl-k">var</span> channel <span class="pl-k">=</span> <span class="pl-smi">channelService</span>.<span class="pl-en">getChannel</span>(<span class="pl-s"><span class="pl-pds">'</span>pomelo<span class="pl-pds">'</span></span>, <span class="pl-c1">false</span>);
+<span class="pl-smi">channel</span>.<span class="pl-en">pushMessage</span>(param);</pre></div>
+<p>In client side, all users in the same channel receive and show messages.</p>
+<div class="highlight highlight-source-js"><pre><span class="pl-smi">pomelo</span>.<span class="pl-en">on</span>(<span class="pl-s"><span class="pl-pds">'</span>onChat<span class="pl-pds">'</span></span>, <span class="pl-k">function</span>() {
+   <span class="pl-en">addMessage</span>(<span class="pl-smi">data</span>.<span class="pl-smi">from</span>, <span class="pl-smi">data</span>.<span class="pl-c1">target</span>, <span class="pl-smi">data</span>.<span class="pl-smi">msg</span>);
+   $(<span class="pl-s"><span class="pl-pds">"</span>#chatHistory<span class="pl-pds">"</span></span>).<span class="pl-en">show</span>();
+};</pre></div>
+<h3>
+<a aria-hidden="true" class="anchor" href="#leaving" id="user-content-leaving"><span class="octicon octicon-link"></span></a>Leaving</h3>
+<p>When user's session is disconnected, remove the user from the channel.</p>
+<div class="highlight highlight-source-js"><pre><span class="pl-smi">app</span>.<span class="pl-smi">rpc</span>.<span class="pl-smi">chat</span>.<span class="pl-smi">chatRemote</span>.<span class="pl-en">kick</span>(session, <span class="pl-smi">session</span>.<span class="pl-smi">uid</span>, <span class="pl-smi">app</span>.<span class="pl-en">get</span>(<span class="pl-s"><span class="pl-pds">'</span>serverId<span class="pl-pds">'</span></span>), <span class="pl-s"><span class="pl-pds">'</span>pomelo<span class="pl-pds">'</span></span>, <span class="pl-c1">null</span>);</pre></div>
+<p>Like entering into the chat room, add the kick method in chatRemote can achieve the functionality of user exits chat room.</p>
+<div class="highlight highlight-source-js"><pre><span class="pl-c1">handler</span>.<span class="pl-en">kick</span> <span class="pl-k">=</span> <span class="pl-k">function</span>(<span class="pl-smi">uid</span>, <span class="pl-smi">sid</span>, <span class="pl-smi">name</span>){
+    <span class="pl-k">var</span> channel <span class="pl-k">=</span> <span class="pl-smi">channelService</span>.<span class="pl-en">getChannel</span>(name, <span class="pl-c1">false</span>);
+    <span class="pl-k">if</span> (<span class="pl-k">!!</span>channel) {
+        <span class="pl-smi">channel</span>.<span class="pl-en">leave</span>(uid,sid);
+    }
+};</pre></div>
+<h2>
+<a aria-hidden="true" class="anchor" href="#start" id="user-content-start"><span class="octicon octicon-link"></span></a>Start</h2>
+<h3>
+<a aria-hidden="true" class="anchor" href="#configure-serversjson" id="user-content-configure-serversjson"><span class="octicon octicon-link"></span></a>Configure servers.json</h3>
+<p>the specific configuration is as follows：</p>
+<div class="highlight highlight-source-json"><pre>{
+  <span class="pl-s"><span class="pl-pds">"</span>development<span class="pl-pds">"</span></span>:{
+       <span class="pl-s"><span class="pl-pds">"</span>connector<span class="pl-pds">"</span></span>:[
+            { <span class="pl-s"><span class="pl-pds">"</span>id<span class="pl-pds">"</span></span>:<span class="pl-s"><span class="pl-pds">"</span>connector-server-1<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>host<span class="pl-pds">"</span></span>:<span class="pl-s"><span class="pl-pds">"</span>127.0.0.1<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>port<span class="pl-pds">"</span></span>:<span class="pl-c1">3050</span> }
+        ],
+       <span class="pl-s"><span class="pl-pds">"</span>chat<span class="pl-pds">"</span></span>:[
+            { <span class="pl-s"><span class="pl-pds">"</span>id<span class="pl-pds">"</span></span>:<span class="pl-s"><span class="pl-pds">"</span>chat-server-1<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>host<span class="pl-pds">"</span></span>:<span class="pl-s"><span class="pl-pds">"</span>127.0.0.1<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>port<span class="pl-pds">"</span></span>:<span class="pl-c1">6050</span> }
+        ]
+   },
+  <span class="pl-s"><span class="pl-pds">"</span>production<span class="pl-pds">"</span></span>:{
+       <span class="pl-s"><span class="pl-pds">"</span>connector<span class="pl-pds">"</span></span>:[
+            { <span class="pl-s"><span class="pl-pds">"</span>id<span class="pl-pds">"</span></span>:<span class="pl-s"><span class="pl-pds">"</span>connector-server-1<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>host<span class="pl-pds">"</span></span>:<span class="pl-s"><span class="pl-pds">"</span>127.0.0.1<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>port<span class="pl-pds">"</span></span>:<span class="pl-c1">3050</span> }
+        ],
+       <span class="pl-s"><span class="pl-pds">"</span>chat<span class="pl-pds">"</span></span>:[
+            { <span class="pl-s"><span class="pl-pds">"</span>id<span class="pl-pds">"</span></span>:<span class="pl-s"><span class="pl-pds">"</span>chat-server-1<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>host<span class="pl-pds">"</span></span>:<span class="pl-s"><span class="pl-pds">"</span>127.0.0.1<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>port<span class="pl-pds">"</span></span>:<span class="pl-c1">6050</span> }
+        ]
+   }
+}</pre></div>
+<p>The number of servers that developers can determine based on the number of users, which only need to add a line of code including server id, server type, host and port number in corresponding position in the configuration file.</p>
+<h3>
+<a aria-hidden="true" class="anchor" href="#run" id="user-content-run"><span class="octicon octicon-link"></span></a>Run</h3>
+<blockquote>
+<p>pomelo start</p>
+</blockquote>
+<h2>
+<a aria-hidden="true" class="anchor" href="#scale-up" id="user-content-scale-up"><span class="octicon octicon-link"></span></a>scale up</h2>
+<p>Next we can see the scale up in pomelo is so easy.</p>
+<p>The architecture diagram now is below:</p>
+<p><img alt="single chat" data-canonical-src="http://pomelo.netease.com/resource/documentImage/single_chat.png" src="https://camo.githubusercontent.com/4f1aa6fbc14b61752ee7b393dcac55cf00bb44ca/687474703a2f2f706f6d656c6f2e6e6574656173652e636f6d2f7265736f757263652f646f63756d656e74496d6167652f73696e676c655f636861742e706e67"/></p>
+<p>If we want to scale up, we just need to modify servers.json.</p>
+<div class="highlight highlight-source-json"><pre>{
+  <span class="pl-s"><span class="pl-pds">"</span>development<span class="pl-pds">"</span></span>:{
+       <span class="pl-s"><span class="pl-pds">"</span>gate<span class="pl-pds">"</span></span>:[
+            { <span class="pl-s"><span class="pl-pds">"</span>id<span class="pl-pds">"</span></span>:<span class="pl-s"><span class="pl-pds">"</span>gate-server-1<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>host<span class="pl-pds">"</span></span>:<span class="pl-s"><span class="pl-pds">"</span>127.0.0.1<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>port<span class="pl-pds">"</span></span>:<span class="pl-c1">3014</span> }
+        ],
+       <span class="pl-s"><span class="pl-pds">"</span>connector<span class="pl-pds">"</span></span>:[
+            { <span class="pl-s"><span class="pl-pds">"</span>id<span class="pl-pds">"</span></span>:<span class="pl-s"><span class="pl-pds">"</span>connector-server-1<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>host<span class="pl-pds">"</span></span>:<span class="pl-s"><span class="pl-pds">"</span>127.0.0.1<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>port<span class="pl-pds">"</span></span>:<span class="pl-c1">3050</span> },
+            { <span class="pl-s"><span class="pl-pds">"</span>id<span class="pl-pds">"</span></span>:<span class="pl-s"><span class="pl-pds">"</span>connector-server-2<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>host<span class="pl-pds">"</span></span>:<span class="pl-s"><span class="pl-pds">"</span>127.0.0.1<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>port<span class="pl-pds">"</span></span>:<span class="pl-c1">3051</span> },
+            { <span class="pl-s"><span class="pl-pds">"</span>id<span class="pl-pds">"</span></span>:<span class="pl-s"><span class="pl-pds">"</span>connector-server-3<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>host<span class="pl-pds">"</span></span>:<span class="pl-s"><span class="pl-pds">"</span>127.0.0.1<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>port<span class="pl-pds">"</span></span>:<span class="pl-c1">3052</span> }
+        ],
+       <span class="pl-s"><span class="pl-pds">"</span>chat<span class="pl-pds">"</span></span>:[
+            { <span class="pl-s"><span class="pl-pds">"</span>id<span class="pl-pds">"</span></span>:<span class="pl-s"><span class="pl-pds">"</span>chat-server-1<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>host<span class="pl-pds">"</span></span>:<span class="pl-s"><span class="pl-pds">"</span>127.0.0.1<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>port<span class="pl-pds">"</span></span>:<span class="pl-c1">6050</span> }, 
+            { <span class="pl-s"><span class="pl-pds">"</span>id<span class="pl-pds">"</span></span>:<span class="pl-s"><span class="pl-pds">"</span>chat-server-2<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>host<span class="pl-pds">"</span></span>:<span class="pl-s"><span class="pl-pds">"</span>127.0.0.1<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>port<span class="pl-pds">"</span></span>:<span class="pl-c1">6051</span> },
+            { <span class="pl-s"><span class="pl-pds">"</span>id<span class="pl-pds">"</span></span>:<span class="pl-s"><span class="pl-pds">"</span>chat-server-3<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>host<span class="pl-pds">"</span></span>:<span class="pl-s"><span class="pl-pds">"</span>127.0.0.1<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>port<span class="pl-pds">"</span></span>:<span class="pl-c1">6052</span> }
+        ]
+   },
+ <span class="pl-s"><span class="pl-pds">"</span>production<span class="pl-pds">"</span></span>:{
+       <span class="pl-s"><span class="pl-pds">"</span>gate<span class="pl-pds">"</span></span>:[
+            { <span class="pl-s"><span class="pl-pds">"</span>id<span class="pl-pds">"</span></span>:<span class="pl-s"><span class="pl-pds">"</span>gate-server-1<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>host<span class="pl-pds">"</span></span>:<span class="pl-s"><span class="pl-pds">"</span>127.0.0.1<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>port<span class="pl-pds">"</span></span>:<span class="pl-c1">3014</span> }
+        ],
+       <span class="pl-s"><span class="pl-pds">"</span>connector<span class="pl-pds">"</span></span>:[
+            { <span class="pl-s"><span class="pl-pds">"</span>id<span class="pl-pds">"</span></span>:<span class="pl-s"><span class="pl-pds">"</span>connector-server-1<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>host<span class="pl-pds">"</span></span>:<span class="pl-s"><span class="pl-pds">"</span>127.0.0.1<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>port<span class="pl-pds">"</span></span>:<span class="pl-c1">3050</span> },
+            { <span class="pl-s"><span class="pl-pds">"</span>id<span class="pl-pds">"</span></span>:<span class="pl-s"><span class="pl-pds">"</span>connector-server-2<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>host<span class="pl-pds">"</span></span>:<span class="pl-s"><span class="pl-pds">"</span>127.0.0.1<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>port<span class="pl-pds">"</span></span>:<span class="pl-c1">3051</span> },
+            { <span class="pl-s"><span class="pl-pds">"</span>id<span class="pl-pds">"</span></span>:<span class="pl-s"><span class="pl-pds">"</span>connector-server-3<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>host<span class="pl-pds">"</span></span>:<span class="pl-s"><span class="pl-pds">"</span>127.0.0.1<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>port<span class="pl-pds">"</span></span>:<span class="pl-c1">3052</span> }
+        ],
+       <span class="pl-s"><span class="pl-pds">"</span>chat<span class="pl-pds">"</span></span>:[
+            { <span class="pl-s"><span class="pl-pds">"</span>id<span class="pl-pds">"</span></span>:<span class="pl-s"><span class="pl-pds">"</span>chat-server-1<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>host<span class="pl-pds">"</span></span>:<span class="pl-s"><span class="pl-pds">"</span>127.0.0.1<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>port<span class="pl-pds">"</span></span>:<span class="pl-c1">6050</span> }, 
+            { <span class="pl-s"><span class="pl-pds">"</span>id<span class="pl-pds">"</span></span>:<span class="pl-s"><span class="pl-pds">"</span>chat-server-2<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>host<span class="pl-pds">"</span></span>:<span class="pl-s"><span class="pl-pds">"</span>127.0.0.1<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>port<span class="pl-pds">"</span></span>:<span class="pl-c1">6051</span> },
+            { <span class="pl-s"><span class="pl-pds">"</span>id<span class="pl-pds">"</span></span>:<span class="pl-s"><span class="pl-pds">"</span>chat-server-3<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>host<span class="pl-pds">"</span></span>:<span class="pl-s"><span class="pl-pds">"</span>127.0.0.1<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>port<span class="pl-pds">"</span></span>:<span class="pl-c1">6052</span> }
+        ]
+   }
+}</pre></div>
+<p>This way we easily change the single connector, chat server into multiple connector, chat server architecture. After scale up, there are more than one connector server in front, in order to balance the load of different connector servers, we add a gate server. The gate server is mainly responsible for allocate users in different connector servers, in this application we use the user name's hash value to select connector server.</p>
+<p>The architecture diagram after scale up is as follow:</p>
+<p><img alt="multi chat" data-canonical-src="http://pomelo.netease.com/resource/documentImage/multi_chat.png" src="https://camo.githubusercontent.com/da1170cd20d5264ccfd6f3ff755aab3d81002252/687474703a2f2f706f6d656c6f2e6e6574656173652e636f6d2f7265736f757263652f646f63756d656e74496d6167652f6d756c74695f636861742e706e67"/></p>
+<h3>
+<a aria-hidden="true" class="anchor" href="#configure-router" id="user-content-configure-router"><span class="octicon octicon-link"></span></a>Configure router</h3>
+<p>When extended to multiple servers, we need to add different routing configurations for different types of servers.The code below is the chat server routing configuration, in order to reduce application's complexity, we just do hash processing on room name, the detailed description of the configuration can refer to<a href="https://github.com/NetEase/pomelo/wiki/Reference-configuration-of-app.js">Reference configuration of app.js</a>。Specific code is as follow：</p>
+<div class="highlight highlight-source-js"><pre><span class="pl-c">//routeUtil.js</span>
+<span class="pl-c1">exp</span>.<span class="pl-en">chat</span> <span class="pl-k">=</span> <span class="pl-k">function</span>(<span class="pl-smi">session</span>, <span class="pl-smi">msg</span>, <span class="pl-smi">app</span>, <span class="pl-smi">cb</span>) {
+    <span class="pl-k">var</span> chatServers <span class="pl-k">=</span> <span class="pl-smi">app</span>.<span class="pl-en">getServersByType</span>(<span class="pl-s"><span class="pl-pds">'</span>chat<span class="pl-pds">'</span></span>); 
+    <span class="pl-k">if</span> (<span class="pl-k">!</span>chatServers) {
+        <span class="pl-en">cb</span>(<span class="pl-k">new</span> <span class="pl-en">Error</span>(<span class="pl-s"><span class="pl-pds">'</span>can not find chat servers.<span class="pl-pds">'</span></span>));
+        <span class="pl-k">return</span>;
+    }
+    <span class="pl-k">var</span> res <span class="pl-k">=</span> <span class="pl-smi">dispatcher</span>.<span class="pl-en">dispatch</span>(<span class="pl-smi">session</span>.<span class="pl-en">get</span>(<span class="pl-s"><span class="pl-pds">'</span>rid<span class="pl-pds">'</span></span>), chatServers);
+    <span class="pl-en">cb</span>(<span class="pl-c1">null</span>, <span class="pl-smi">res</span>.<span class="pl-c1">id</span>);
+};</pre></div>
+<div class="highlight highlight-source-js"><pre><span class="pl-c">//app.js</span>
+<span class="pl-smi">app</span>.<span class="pl-en">configure</span>(<span class="pl-s"><span class="pl-pds">'</span>production|development<span class="pl-pds">'</span></span>, <span class="pl-k">function</span>() {
+       <span class="pl-smi">app</span>.<span class="pl-en">route</span>(<span class="pl-s"><span class="pl-pds">'</span>chat<span class="pl-pds">'</span></span>, <span class="pl-smi">routeUtil</span>.<span class="pl-smi">chat</span>);
+});</pre></div>
+<h1>
+<a aria-hidden="true" class="anchor" href="#source-code" id="user-content-source-code"><span class="octicon octicon-link"></span></a>Source Code</h1>
+<p>The tutorial source code can be obtained by using the following command:</p>
+<blockquote>
+<p>git clone <a href="https://github.com/NetEase/chatofpomelo.git">https://github.com/NetEase/chatofpomelo.git</a></p>
+</blockquote>
+</div>
+</div></body></html>

@@ -1,0 +1,126 @@
+<html><head prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# object: http://ogp.me/ns/object# article: http://ogp.me/ns/article# profile: http://ogp.me/ns/profile#">
+<meta charset="utf-8">
+<meta content="IE=edge" http-equiv="X-UA-Compatible">
+<meta content="en" http-equiv="Content-Language">
+<meta content="width=1020" name="viewport">
+<title>Communication with client · NetEase/pomelo Wiki · GitHub</title>
+<link href="/opensearch.xml" rel="search" title="GitHub" type="application/opensearchdescription+xml">
+<link href="src/ad667adaa2cfe8f3caa4a41b7d0a79a1.png" rel="fluid-icon" title="GitHub">
+<link href="src/a10d19ff5f738940a7a5086be334f50b.png" rel="apple-touch-icon" sizes="57x57">
+<link href="src/a10d19ff5f738940a7a5086be334f50b.png" rel="apple-touch-icon" sizes="114x114">
+<link href="src/b4cd268bc600cc14d2cdd557de6da2fb.png" rel="apple-touch-icon" sizes="72x72">
+<link href="src/b4cd268bc600cc14d2cdd557de6da2fb.png" rel="apple-touch-icon" sizes="144x144">
+<meta content="1401488693436528" property="fb:app_id">
+<meta content="@github" name="twitter:site"/><meta content="summary" name="twitter:card"/><meta content="NetEase/pomelo" name="twitter:title"/><meta content="pomelo - A fast,scalable,distributed game server framework for Node.js." name="twitter:description"/><meta content="https://avatars0.githubusercontent.com/u/1460597?v=3&amp;s=400" name="twitter:image:src"/>
+<meta content="GitHub" property="og:site_name"/><meta content="object" property="og:type"/><meta content="https://avatars0.githubusercontent.com/u/1460597?v=3&amp;s=400" property="og:image"/><meta content="NetEase/pomelo" property="og:title"/><meta content="https://github.com/NetEase/pomelo" property="og:url"/><meta content="pomelo - A fast,scalable,distributed game server framework for Node.js." property="og:description"/>
+<meta content="https://api.github.com/_private/browser/stats" name="browser-stats-url">
+<meta content="https://api.github.com/_private/browser/errors" name="browser-errors-url">
+<link href="https://assets-cdn.github.com/" rel="assets">
+<meta content="1000" name="pjax-timeout">
+<meta content="/windows-tile.png" name="msapplication-TileImage">
+<meta content="#ffffff" name="msapplication-TileColor">
+<meta data-pjax-transient="" name="selected-link" value="repo_wiki">
+<meta content="KT5gs8h0wvaagLKAVWq8bbeNwnZZK1r1XQysX3xurLU" name="google-site-verification">
+<meta content="UA-3769691-2" name="google-analytics">
+<meta content="collector.githubapp.com" name="octolytics-host"/><meta content="github" name="octolytics-app-id"/><meta content="CA86616A:2F3F:614ADD4:5670BFE3" name="octolytics-dimension-request_id"/>
+<meta content="/&lt;user-name&gt;/&lt;repo-name&gt;/wiki/show" data-pjax-transient="true" name="analytics-location"/>
+<meta content="Rails, view, wiki#show" data-pjax-transient="true" name="analytics-event"/>
+<meta class="js-ga-set" content="Logged Out" name="dimension1">
+<meta content="github.com" name="hostname">
+<meta content="" name="user-login">
+<meta content="github.com" name="expected-hostname">
+<link color="#4078c0" href="https://assets-cdn.github.com/pinned-octocat.svg" rel="mask-icon">
+<link href="https://assets-cdn.github.com/favicon.ico" rel="icon" type="image/x-icon">
+<meta content="bad52fedfb4011e778845de4d68cbe9000254cfb" name="form-nonce"/>
+<link crossorigin="anonymous" href="src/350888e1495e7af27e01faa9d8291dee.css" media="all" rel="stylesheet"/>
+<link crossorigin="anonymous" href="src/9fae9b7d8f0785d745a43c6465f74ae5.css" media="all" rel="stylesheet"/>
+<meta content="cd9958d45e48e8e3157a320e9c346eaa" http-equiv="x-pjax-version">
+<meta content="pomelo - A fast,scalable,distributed game server framework for Node.js." name="description">
+<meta content="github.com/NetEase/pomelo git https://github.com/NetEase/pomelo.git" name="go-import">
+<meta content="1460597" name="octolytics-dimension-user_id"/><meta content="NetEase" name="octolytics-dimension-user_login"/><meta content="5880912" name="octolytics-dimension-repository_id"/><meta content="NetEase/pomelo" name="octolytics-dimension-repository_nwo"/><meta content="true" name="octolytics-dimension-repository_public"/><meta content="false" name="octolytics-dimension-repository_is_fork"/><meta content="5880912" name="octolytics-dimension-repository_network_root_id"/><meta content="NetEase/pomelo" name="octolytics-dimension-repository_network_root_nwo"/>
+<link href="https://github.com/NetEase/pomelo/commits/master.atom" rel="alternate" title="Recent Commits to pomelo:master" type="application/atom+xml">
+</link></meta></meta></meta></link></link></meta></meta></meta></meta></meta></meta></meta></meta></meta></meta></link></meta></meta></meta></link></link></link></link></link></link></meta></meta></meta></meta></head><body style="padding:0 25px;"><div class="gollum-markdown-content instapaper_body" id="wiki-body">
+<div class="markdown-body">
+<p>This document will introduce you how pomelo communicates with clients and how frontend servers handle user requests. The process of handling requests from clients involves a lot of components, including session component, server component, connection component, connector component, proxy component and remote component. Here, we only introduce you what the components associated with frontend server works for.</p>
+<p>For frontend server, Session component is a component wrapper for sessionService, and is used to maintain sessions of users; Connection component is a component wrapper for connectionService, and is used to do some statistics; Connector component holds the connections from clients.</p>
+<p>Server component will maintain the Handlers and HandlerFilters, when a request reaches frontend server, the frontend server will check whether the request is valid or not. If the request is valid and the frontend server has defined the corresponding Handler, that means the frontend server is able to handle the request, then the frontend server uses its filter-handler chain to handle it. Otherwise, the frontend server will forward the request to corresponding backend server by initiating an RPC invocation. Backend server will get the request from RPC remote, and handle it use its filter-handler chain. as shown :</p>
+<img alt="request-flow" src="src/f55ee11c4dc8647e050fb556cdb3904a.png">
+<p>The following class diagram roughly shows the relationship between these classes:</p>
+<img alt="pomelo" src="src/252f3cf655e1743879f02d1ee168b550.png">
+<p>The following sequence-like diagram shows typical behavior of handling a request from client:</p>
+<img alt="server" src="src/da69f39c18b7a58cb65f834af351f271.png">
+<h4>
+<a aria-hidden="true" class="anchor" href="#initialization" id="user-content-initialization"><span class="octicon octicon-link"></span></a>Initialization</h4>
+<ul>
+<li><p>In afterStart callback of connector component, it will start to listen on clientPort that is configured within server configuration, then it can accept the user's connection, and bind the connector event to corresponding event handler.</p></li>
+<li><p>In start callback of server component, it will scan Handlers and HandlerFilters that should be loaded and HandlerFilter and load them. At this time, server component is ready to accept incoming client connections and requests.</p></li>
+</ul>
+<h4>
+<a aria-hidden="true" class="anchor" href="#client-connecting" id="user-content-client-connecting"><span class="octicon octicon-link"></span></a>Client Connecting</h4>
+<p>When a client connects to a frontend server, it will trigger connector's connection event. In handling the event, connection componet increases number of connection that can be used to make stastistics. And then bind close, error, disconnect, etc. events for the accepted socket. Session component will create session for the connection.</p>
+<h4>
+<a aria-hidden="true" class="anchor" href="#client-request" id="user-content-client-request"><span class="octicon octicon-link"></span></a>Client Request</h4>
+<ul>
+<li><p>After client connection is established, the client is able to send request. The request will emit the socket's message event, In handling to this event, firstly connector will unpack the message to get route, request id(optional, notify does not have a request id), request body, and then dispatch this to server component. Server component will check whether the request is valid or not, for example, it will check existence of route, and if the request is that the frontend server can handle, typically such as a request for user loging in, then server component will use its filter-handler chain to handle it in its method <strong>doHandle</strong>. If the request route is not for the frontend server, that means frontend server can not handle the request, then server component will initiate a sys namespace RPC invocation to backend server in its <strong>doFoward</strong> method. When initiating sys namespace RPC invocation, because the same type of backend servers is always not only one, it need to make a selection to find which backend server should be forwarded. The user can configure the routing policy through app.route call, if the user does not configure it, pomelo will use a default routing policy. Backend server receives a request for RPC remote, and then it will call <strong>doHandle</strong> of its server component, same as frontend server, it  will use filter-handler chain to handle the request, and then return the result to the frontend server by RPC returning. which will be responded to client by the frontend server. </p></li>
+<li><p>Frontend server will calls the send method of  connector to send message or response to clients. The responses are produced by its own handling or an RPC returning from a backend server. Send method call does not send a message through the socket directly to client, but schedule the sending task to pushscheduler component, pushscheduler component will do the last step to send message to clients based on its scheduling policy. Pomelo provids two scheduling policy, direct and buffered. direct policy means the message is immediately sent to the client, buffered policy means it will buffer the sending task and flush timely to save resource. Direct policy is default, if you want to use the buffered policy, you can enable it by:</p></li>
+</ul>
+<div class="highlight highlight-source-js"><pre>    <span class="pl-smi">app</span>.<span class="pl-en">set</span> (<span class="pl-s"><span class="pl-pds">'</span>pushSchedulerConfig<span class="pl-pds">'</span></span>, {scheduler<span class="pl-k">:</span> <span class="pl-smi">pomelo</span>.<span class="pl-smi">pushSchedulers</span>.<span class="pl-smi">buffer</span>, flushInterval<span class="pl-k">:</span> <span class="pl-c1">20</span>});</pre></div>
+<p>Here, flushInterval is flushing cycle, you can also customize your own policy to meet your special demands and configure it into applications.</p>
+<ul>
+<li>When business logic that handles requests needs to push messages to clients, it will get session(s) from SessionService by the user's uid or session id. And as we know,  session maintains the connection socket to clients, then it will push messages/send response via the socket.</li>
+</ul>
+<h4>
+<a aria-hidden="true" class="anchor" href="#user-bindunbind" id="user-content-user-bindunbind"><span class="octicon octicon-link"></span></a>User Bind/Unbind</h4>
+<ul>
+<li><p>Typically, After establishing the connection and session, there will be a user login request to complete binding a specific user to the session. Server component will handle this when a user sends a requst to bind an user to the session, it will call session component's bind method to complete it. In addition, it will also call connection component's addLoginedUser method to increase logged user for maintaining statistics.</p></li>
+<li><p>When an user logging out, there will be a logging out request to be sent. Usually server component will handle the request by calling SessionService's unbind method. In addition, it will also call connection component's removeLoginedUser to reduce logged user for maintaining statistics.</p></li>
+</ul>
+<h4>
+<a aria-hidden="true" class="anchor" href="#client-disconnected" id="user-content-client-disconnected"><span class="octicon octicon-link"></span></a>Client disconnected</h4>
+<p>When a client disconnects from the frontend server, the socket corresponding to the client will emit disconnect event, in the handling to disconnect event, it will be delete the corresponding session from the SessionService, release the connection that the session maintains. In addition, it also calls ConnectionService's decreaseConnectionCount for maintaining statistics.</p>
+<p>We have selected several typical scenarios above to illustrate the behavior of components to handle client requests. Here we pay more attention on frontend server than backend server, which will be presented in next document.</p>
+<h1>
+<a aria-hidden="true" class="anchor" href="#filter-handler-handling-chain" id="user-content-filter-handler-handling-chain"><span class="octicon octicon-link"></span></a>Filter-Handler Handling Chain</h1>
+<p>In pomelo, HandlerFilter is divided into beforeFilter and afterFilter, for beforeFilter, its method signature:</p>
+<pre><code>before(msg, session, next);
+</code></pre>
+<p>Where <strong>msg</strong> is request body, <strong>session</strong> represents the current request session, it is a FrontendSession at frontend server, or a BackendSession at backend server, <strong>next</strong> is a callback to continue handling. While implementing a before filter, it is required to call the <strong>next</strong> to make the handling-chain to be continue. If there is no errors in a specific before filter, then directly call next() without any arguments, otherwise, call next(err, resp), which will stop the handling-chain immediately and turn to error handling, which will respond the <strong>resp</strong> to client as a response.</p>
+<p>Handler's signature is shown as:</p>
+<pre><code>&lt;handler_Name&gt;(msg, session, next);
+</code></pre>
+<p><strong>msg</strong> is the request body handled by beforeFilter chain, <strong>session</strong> is the request session handled by beforeFilter chain, too. Also, <strong>next</strong> is a callback to do next step. If the handler has no errors, then calling next(null, resp), otherwise you can use the next (err, resp) to indicate an error generated in the handler. Usually, the responses to clients are produced in the handler. It is required to call next in handler implementing as well as beforeFilter.</p>
+<p>For afterFilter, its method signature:</p>
+<pre><code>after(err, msg, session, resp, next);
+</code></pre>
+<p>In after filter, it will do some cleanup. If handling-chain went to after filter, the response to the clients has been sent, that means changing <strong>resp</strong> in after filter would not have any impact on client responses. Similarly, where <strong>next</strong> argument is used to do the next step of cleaning, its signature is next(err), and being defferent from handler and beforefilter above, since after filters often do some cleaning and do impact what to respond to clients, the processing of after filter will no longer be sensitive for <strong>err</strong>, all the after filter chain will be executed one by one anyway.</p>
+<p>ErrorHandler, is used to handle exception if there are errors generated in before filter or handler, its signature:</p>
+<pre><code>&lt;errorHandler_Name&gt; (err, msg, resp, session, cb);
+</code></pre>
+<p>Whether in handler or before filter, if an error generated, it will turn to ErrorHandler immediately, its arguments have the same meaning as introduced above, where resp is passed by next(err, resp) call, cb is a callback and its signature cb(err, resp), cb will send <strong>resp</strong> to clients. So, it is required to call cb(err,resp) in implementing an ErrorHandler, otherwise, the client will not receive the response. In errorHandler, it can re-produce <strong>resp</strong> to clients according to err, resp and other information that have been passed as arguments. You can configure a globally customized ErrorHandler by: </p>
+<pre><code>var errorHandler = require ('&lt;path&gt;');
+app.set('errorHandler', errorHandler);
+</code></pre>
+<p>If users do not configure a global ErrorHandler, then default ErrorHandler will sent the resp produced by beforeFilters or Handler directly without any manipulating. Roughly the entire request handling-chain process is shown as follows :</p>
+<img alt="handle-flow" src="src/835f8a46b87f1063c5df6317dc1810cd.png">
+<h1>
+<a aria-hidden="true" class="anchor" href="#builtin-filters" id="user-content-builtin-filters"><span class="octicon octicon-link"></span></a>Builtin Filters</h1>
+<p>Pomelo provides some builtin filters for common use, users can enable them by:</p>
+<pre><code>app.filter(pomelo.filters.&lt;filterName&gt;(&lt;args&gt;));
+</code></pre>
+<h4>
+<a aria-hidden="true" class="anchor" href="#serial" id="user-content-serial"><span class="octicon octicon-link"></span></a>Serial</h4>
+<p>This filter is used to do serialization of user requests, and it can make requestes from a certain session to be handled one by one in the same order as their being sent. It uses a serial taskManager, when a request comes in, in the beforeFilter, it will put the request into taskManager with session.id as key, taskManager maintains a map  for all session. In the corresponding afterFilter, if there is a pending request in its taskManager, it will be handled. As so, it implements the task serialization.</p>
+<h4>
+<a aria-hidden="true" class="anchor" href="#timeout" id="user-content-timeout"><span class="octicon octicon-link"></span></a>Timeout</h4>
+<p>This filter is used for warning there is a timeout in handling a request. It will start a timer in its beforeFilter and clear it in its afterFilter. If afterFilter is called before the timer expiring, that means no timout occurs, the timer will be cleared in afterFilter. If the timer expires, but afterFilter is not yet called, that means a timeout occurs and a warning is thrown out and logged. The default timeout is 3 seconds, but you can configure it while loading it.</p>
+<h4>
+<a aria-hidden="true" class="anchor" href="#time" id="user-content-time"><span class="octicon octicon-link"></span></a>Time</h4>
+<p>The filter is used to record handling time. In beforeFilter, it will record a timestamp, In afterFilter it will record a timestamp too. and then subtract two timestamps to get the handling time, and then log it.</p>
+<h4>
+<a aria-hidden="true" class="anchor" href="#toobusy" id="user-content-toobusy"><span class="octicon octicon-link"></span></a>Toobusy</h4>
+<p>This filter is used to detected whether node.js event loop is busy or not. Once toobusy is triggered, then the filter toobusy will refuse sequential requests, and call next(err, resp) to pass err to error handler, indicating that server is too busy.</p>
+<h1>
+<a aria-hidden="true" class="anchor" href="#summary" id="user-content-summary"><span class="octicon octicon-link"></span></a>Summary</h1>
+<p>In this document, it describes how frontend server to communicate with clients by introducing the relationship between related classes, as well as their behaviors of typical scenarios. It presents detail of before filter, handler, after fitler, error handler, and so on. Finally, it introduces the builtin filters that pomelo provides.</p>
+</img></img></img></img></div>
+</div></body></html>

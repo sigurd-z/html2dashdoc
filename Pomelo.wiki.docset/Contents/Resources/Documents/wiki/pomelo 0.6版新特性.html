@@ -1,0 +1,178 @@
+<html><head prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# object: http://ogp.me/ns/object# article: http://ogp.me/ns/article# profile: http://ogp.me/ns/profile#">
+<meta charset="utf-8">
+<meta content="IE=edge" http-equiv="X-UA-Compatible">
+<meta content="en" http-equiv="Content-Language">
+<meta content="width=1020" name="viewport">
+<title>pomelo 0.6版新特性 · NetEase/pomelo Wiki · GitHub</title>
+<link href="/opensearch.xml" rel="search" title="GitHub" type="application/opensearchdescription+xml">
+<link href="src/ad667adaa2cfe8f3caa4a41b7d0a79a1.png" rel="fluid-icon" title="GitHub">
+<link href="src/a10d19ff5f738940a7a5086be334f50b.png" rel="apple-touch-icon" sizes="57x57">
+<link href="src/a10d19ff5f738940a7a5086be334f50b.png" rel="apple-touch-icon" sizes="114x114">
+<link href="src/b4cd268bc600cc14d2cdd557de6da2fb.png" rel="apple-touch-icon" sizes="72x72">
+<link href="src/b4cd268bc600cc14d2cdd557de6da2fb.png" rel="apple-touch-icon" sizes="144x144">
+<meta content="1401488693436528" property="fb:app_id">
+<meta content="@github" name="twitter:site"/><meta content="summary" name="twitter:card"/><meta content="NetEase/pomelo" name="twitter:title"/><meta content="pomelo - A fast,scalable,distributed game server framework for Node.js." name="twitter:description"/><meta content="https://avatars0.githubusercontent.com/u/1460597?v=3&amp;s=400" name="twitter:image:src"/>
+<meta content="GitHub" property="og:site_name"/><meta content="object" property="og:type"/><meta content="https://avatars0.githubusercontent.com/u/1460597?v=3&amp;s=400" property="og:image"/><meta content="NetEase/pomelo" property="og:title"/><meta content="https://github.com/NetEase/pomelo" property="og:url"/><meta content="pomelo - A fast,scalable,distributed game server framework for Node.js." property="og:description"/>
+<meta content="https://api.github.com/_private/browser/stats" name="browser-stats-url">
+<meta content="https://api.github.com/_private/browser/errors" name="browser-errors-url">
+<link href="https://assets-cdn.github.com/" rel="assets">
+<meta content="1000" name="pjax-timeout">
+<meta content="/windows-tile.png" name="msapplication-TileImage">
+<meta content="#ffffff" name="msapplication-TileColor">
+<meta data-pjax-transient="" name="selected-link" value="repo_wiki">
+<meta content="KT5gs8h0wvaagLKAVWq8bbeNwnZZK1r1XQysX3xurLU" name="google-site-verification">
+<meta content="UA-3769691-2" name="google-analytics">
+<meta content="collector.githubapp.com" name="octolytics-host"/><meta content="github" name="octolytics-app-id"/><meta content="CA86616A:448D:EACDEFF:5670C06D" name="octolytics-dimension-request_id"/>
+<meta content="/&lt;user-name&gt;/&lt;repo-name&gt;/wiki/show" data-pjax-transient="true" name="analytics-location"/>
+<meta content="Rails, view, wiki#show" data-pjax-transient="true" name="analytics-event"/>
+<meta class="js-ga-set" content="Logged Out" name="dimension1">
+<meta content="github.com" name="hostname">
+<meta content="" name="user-login">
+<meta content="github.com" name="expected-hostname">
+<link color="#4078c0" href="https://assets-cdn.github.com/pinned-octocat.svg" rel="mask-icon">
+<link href="https://assets-cdn.github.com/favicon.ico" rel="icon" type="image/x-icon">
+<meta content="a941848f20612894bbde0cd5734cb007c1754f28" name="form-nonce"/>
+<link crossorigin="anonymous" href="src/350888e1495e7af27e01faa9d8291dee.css" media="all" rel="stylesheet"/>
+<link crossorigin="anonymous" href="src/9fae9b7d8f0785d745a43c6465f74ae5.css" media="all" rel="stylesheet"/>
+<meta content="cd9958d45e48e8e3157a320e9c346eaa" http-equiv="x-pjax-version">
+<meta content="pomelo - A fast,scalable,distributed game server framework for Node.js." name="description">
+<meta content="github.com/NetEase/pomelo git https://github.com/NetEase/pomelo.git" name="go-import">
+<meta content="1460597" name="octolytics-dimension-user_id"/><meta content="NetEase" name="octolytics-dimension-user_login"/><meta content="5880912" name="octolytics-dimension-repository_id"/><meta content="NetEase/pomelo" name="octolytics-dimension-repository_nwo"/><meta content="true" name="octolytics-dimension-repository_public"/><meta content="false" name="octolytics-dimension-repository_is_fork"/><meta content="5880912" name="octolytics-dimension-repository_network_root_id"/><meta content="NetEase/pomelo" name="octolytics-dimension-repository_network_root_nwo"/>
+<link href="https://github.com/NetEase/pomelo/commits/master.atom" rel="alternate" title="Recent Commits to pomelo:master" type="application/atom+xml">
+</link></meta></meta></meta></link></link></meta></meta></meta></meta></meta></meta></meta></meta></meta></meta></link></meta></meta></meta></link></link></link></link></link></link></meta></meta></meta></meta></head><body style="padding:0 25px;"><div class="gollum-markdown-content instapaper_body" id="wiki-body">
+<div class="markdown-body">
+<p>在Pomelo 0.6版本中，对pomelo部分结构进行了调整，将原有的globalChannel组件和master高可用组件从框架中移出，以一种插件的形式提供给用户，具体可以参考<a href="https://github.com/NetEase/pomelo-globalchannel-plugin">pomelo-globalchannel-plugin</a>, <a href="https://github.com/NetEase/pomelo-masterha-plugin">pomelo-masterha-plugin</a>；同时在新版本中提供了一个交互式命令行工具，相比之前的命令行工具，使用更为方便、安全，对于项目的运维会更加方便；另外为了进一步提高pomelo的安全性，在0.6版本中引入了数据的签名验证，同时对hybridconnector的非法连接进行了相关处理；其它新的特性还包括详细的rpc debug日志和前端服务器的基本过载保护功能。</p>
+<h2>
+<a aria-hidden="true" class="anchor" href="#%E4%BA%A4%E4%BA%92%E5%BC%8F%E5%91%BD%E4%BB%A4%E8%A1%8C" id="user-content-交互式命令行"><span class="octicon octicon-link"></span></a>交互式命令行</h2>
+<p>为了方便开发者更好的对使用pomelo开发的服务进行运维，在新版本中提供了交互式命令行工具，具体情况可以参考<a href="https://github.com/NetEase/pomelo-cli">pomelo-cli</a> </p>
+<h2>
+<a aria-hidden="true" class="anchor" href="#%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%BF%9E%E6%8E%A5%E8%AE%A4%E8%AF%81" id="user-content-服务器连接认证"><span class="octicon octicon-link"></span></a>服务器连接认证</h2>
+<p>服务器与master之间的连接需要进行认证以提高服务的安全性，目前在pomelo-admin中提供了一个简单的服务器认证，可以看 <a href="https://github.com/NetEase/pomelo-admin/blob/master/lib/util/utils.js#L117">admin auth</a><br>
+使用连接认证，需要在 config 目录下添加 adminServer.json 的文件  </br></p>
+<pre><code>[{
+    "type": "connector",
+    "token": "agarxhqb98rpajloaxn34ga8xrunpagkjwlaw3ruxnpaagl29w4rxn"
+}, {
+    "type": "chat",
+    "token": "agarxhqb98rpajloaxn34ga8xrunpagkjwlaw3ruxnpaagl29w4rxn"
+},{
+    "type": "gate",
+    "token": "agarxhqb98rpajloaxn34ga8xrunpagkjwlaw3ruxnpaagl29w4rxn"
+}
+]
+</code></pre>
+<p><strong>type</strong> 是serverType, <strong>token</strong> 是一个字符串，你可以自己生成<br>
+你可以通过自己定义的认证还是来完成认证的工作<br>
+具体情况可以参考 <a href="https://github.com/NetEase/pomelo-admin#server-master-auth">admin auth server</a> </br></br></p>
+<h2>
+<a aria-hidden="true" class="anchor" href="#plugin%E6%9C%BA%E5%88%B6" id="user-content-plugin机制"><span class="octicon octicon-link"></span></a>plugin机制</h2>
+<p>为了方便开发者根据自身的需求对pomelo原有的功能进行有效的扩展，在新版本中提供了插件机制的功能，同时将之前版本中的globalChannel和master服务器高可用部分以plugin的形式提供，具体情况可以参考 <a href="https://github.com/NetEase/pomelo/wiki/plugin%E6%96%87%E6%A1%A3">pomelo plugin</a>。如果要将pomelo升级到0.6，对于之前的pomelo-sync库需要重新修改在app.js中的配置，参考配置修改如下：</p>
+<pre><code>var sync = require('pomelo-sync-plugin');
+app.use(sync, {sync: {
+ // opts parameters passed to constructor
+}});
+</code></pre>
+<h2>
+<a aria-hidden="true" class="anchor" href="#%E8%BF%9E%E6%8E%A5%E5%8A%A0%E5%AF%86" id="user-content-连接加密"><span class="octicon octicon-link"></span></a>连接加密</h2>
+<p>在pomelo 0.6版本中，对hybridconnector增加了数据签名的功能。客户端首先产生rsa的密钥对，客户端保留rsa私钥，在握手阶段客户端将公钥发到服务端；在发送消息阶段，客户端使用私钥对消息进行签名，客户端将消息和签名一起发送到服务端，服务端进行签名验证，如果验证成功后面的流程继续，如果验证失败则该数据包则不进行处理。具体流程可以参考下图：</p>
+<p><img alt="rsa" data-canonical-src="http://pomelo.netease.com/resource/documentImage/rsa.png" src="https://camo.githubusercontent.com/62961590fa25e5a629dee6f8cdcf2a23da15f13c/687474703a2f2f706f6d656c6f2e6e6574656173652e636f6d2f7265736f757263652f646f63756d656e74496d6167652f7273612e706e67"/></p>
+<h3>
+<a aria-hidden="true" class="anchor" href="#%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95" id="user-content-使用方法"><span class="octicon octicon-link"></span></a>使用方法</h3>
+<p>在客户端连接的过程中增加encrypt:true，在服务端app.js中配置useCrypt，具体代码参考：</p>
+<p>客户端</p>
+<pre lang="javascript```"><code>pomelo.init({
+ host:'127.0.0.1',
+ port:3014,
+ encrypt:true
+}, function() {
+// do something connected
+});
+</code></pre>
+<p>服务端</p>
+<pre lang="javascript```"><code>app.set('connectorConfig', {
+ connector: pomelo.connectors.hybridconnector,
+ heartbeat: 3,
+ useDict: true,
+ useProtobuf: true,
+ useCrypto: true
+});
+</code></pre>
+<h2>
+<a aria-hidden="true" class="anchor" href="#%E9%9D%9E%E6%B3%95%E8%BF%9E%E6%8E%A5%E5%A4%84%E7%90%86" id="user-content-非法连接处理"><span class="octicon octicon-link"></span></a>非法连接处理</h2>
+<p>在pomelo中sioconnector是基于socket.io，socket.io本身是有对非socket.io的连接进行处理的。对于hybridconnector，底层是基于socket的，在pomelo 0.6版本中增加了对不符合规定协议的连接进行拒绝处理。主要包括两个部分：1.对空连接进行了超时处理；2.对不符合协议规范的连接进行拒绝处理。</p>
+<h2>
+<a aria-hidden="true" class="anchor" href="#rpc-debug%E6%97%A5%E5%BF%97" id="user-content-rpc-debug日志"><span class="octicon octicon-link"></span></a>rpc debug日志</h2>
+<p>根据网友的建议，在pomelo 0.6版本中增加了更多的rpc日志。开发者只需要在app.js中使用app.enable('rpcDebugLog')即可，另外需要在game-server/config/servers.json中配置category为rpc-debug的appender，具体配置可以参考如下代码：</p>
+<pre lang="json```"><code>{
+ "type": "file",
+ "filename": "./logs/rpc-debug-${opts:serverId}.log",
+ "maxLogSize": 1048576,
+ "layout": {
+  "type": "basic"
+ },
+ "backups":5,
+ "category": "rpc-debug"
+}
+</code></pre>
+<h2>
+<a aria-hidden="true" class="anchor" href="#%E8%BF%87%E8%BD%BD%E4%BF%9D%E6%8A%A4" id="user-content-过载保护"><span class="octicon octicon-link"></span></a>过载保护</h2>
+<p>在pomelo之前的版本中有toobusy模块对服务器进行过载保护，在新版本中增加了一个对connector连接数的限制功能，开发者只需要在servers.json中对不同的connector进行最大连接数量的配置，当connector超过配置的最大数量，服务器会拒绝连接。配置可以参考如下代码：</p>
+<pre lang="json```"><code>{"id":"connector-server-1", "host":"127.0.0.1", "port":4050, "clientPort":3050, "frontend":true, "max-connections": 100}
+</code></pre>
+<h2>
+<a aria-hidden="true" class="anchor" href="#%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%96%AD%E7%BD%91%E9%87%8D%E8%BF%9E%E6%9C%BA%E5%88%B6" id="user-content-服务器断网重连机制"><span class="octicon octicon-link"></span></a>服务器断网重连机制</h2>
+<p>在之前pomelo的版本中，在分布式环境下，存在服务器(非master)网络短时间断开，然后网络恢复后服务无法恢复的情况。在pomelo 0.6版本中，如果服务器(非master)短时间断开，网络恢复后服务器可以正常工作。</p>
+<h2>
+<a aria-hidden="true" class="anchor" href="#daemon%E5%90%AF%E5%8A%A8%E6%A8%A1%E5%BC%8F" id="user-content-daemon启动模式"><span class="octicon octicon-link"></span></a>Daemon启动模式</h2>
+<p>pomelo-daemon提供对pomelo服务进行分布式环境下的启动以及rpc debug日志的收集<br>
+详细情况请看 <a href="https://github.com/NetEase/pomelo-daemon">pomelo-daemon</a></br></p>
+<h2>
+<a aria-hidden="true" class="anchor" href="#%E5%8D%87%E7%BA%A7%E7%9A%84logger" id="user-content-升级的logger"><span class="octicon octicon-link"></span></a>升级的logger</h2>
+<p>在新版中对pomelo中的logger进行了升级  </p>
+<ul>
+<li>logger支持自定义prefix输出，把prefix打印在消息的头部，prefix可以是文件名，serverId, host 等等</li>
+<li>logger在debug模式下支持log行号的打印，方便开发者分析调试<br>
+</br></li>
+<li>在pomelo中的日志统一输出到了category为pomelo的appenders<br>
+详细情况请看 <a href="https://github.com/NetEase/pomelo-logger">pomelo-logger</a>
+</br></li>
+</ul>
+<h2>
+<a aria-hidden="true" class="anchor" href="#pomelo-protobuf%E6%94%AF%E6%8C%81rootmsg%E7%9A%84proto%E6%96%87%E4%BB%B6%E5%AE%9A%E4%B9%89" id="user-content-pomelo-protobuf支持rootmsg的proto文件定义"><span class="octicon octicon-link"></span></a>pomelo-protobuf支持rootMsg的proto文件定义</h2>
+<p>通过定义rootMsg，可以很好的进行复用，简化protos文件的大小  </p>
+<pre><code>{
+  "message Path": {
+    "required double x" : 1,
+    "required double y" : 2
+  },
+  "message Equipment" : {
+    "required uInt32 entityId" : 1,
+    "required uInt32 kindId" : 2
+  },
+  "onMove" : {
+    "required uInt32 entityId" : 1,
+    "repeated Path path" : 2,
+    "required float speed" : 3
+  },
+  "area.playerHandler.enterScene" : {
+    "message Player" : {
+      "message Bag" : {
+        "message Item" : {
+          "required uInt32 id" : 1,
+          "optional string type" : 2
+        },
+        "repeated Item items" : 1
+      },
+      "required uInt32 entityId" : 1,
+      "required uInt32 kindId" : 2,
+      "required Bag bag" : 3,
+      "repeated Equipment equipments" : 4
+    },
+    "optional Player curPlayer" : 2
+  }
+}
+</code></pre>
+<p>以上定义的Equipment和Path都是可能复用的root message。
+详细情况情况 <a href="https://github.com/pomelonode/pomelo-protobuf#rootmessage-support">pomelo-protobuf</a></p>
+</div>
+</div></body></html>

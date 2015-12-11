@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<!--[if IE 7]>
+<html class="ie ie7" lang="en-US">
+<![endif]-->
+<!--[if IE 8]>
+<html class="ie ie8" lang="en-US">
+<![endif]-->
+<!--[if !(IE 7) & !(IE 8)]><!-->
+<html lang="en-US">
+<!--<![endif]-->
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width">
+	<title>Linux 访问 Google Nexus 7 内部储存器（文件）以及 adb 连接及调试的方法 | ArchBoy</title>
+	<link rel="profile" href="http://gmpg.org/xfn/11">
+	<link rel="pingback" href="http://archboy.org/xmlrpc.php">
+	<!--[if lt IE 9]>
+	<script src="http://archboy.org/wp-content/themes/twentythirteen/js/html5.js"></script>
+	<![endif]-->
+	<link rel="alternate" type="application/rss+xml" title="ArchBoy &raquo; Feed" href="http://archboy.org/feed/" />
+<link rel="alternate" type="application/rss+xml" title="ArchBoy &raquo; Comments Feed" href="http://archboy.org/comments/feed/" />
+<link rel="alternate" type="application/rss+xml" title="ArchBoy &raquo; Linux 访问 Google Nexus 7 内部储存器（文件）以及 adb 连接及调试的方法 Comments Feed" href="http://archboy.org/2012/09/17/linux-connect-google-nexus-7-file-system-adb-development/feed/" />
+		<script type="text/javascript">
+			window._wpemojiSettings = {"baseUrl":"http:\/\/s.w.org\/images\/core\/emoji\/72x72\/","ext":".png","source":{"concatemoji":"http:\/\/archboy.org\/wp-includes\/js\/wp-emoji-release.min.js?ver=4.3.1"}};
+			!function(a,b,c){function d(a){var c=b.createElement("canvas"),d=c.getContext&&c.getContext("2d");return d&&d.fillText?(d.textBaseline="top",d.font="600 32px Arial","flag"===a?(d.fillText(String.fromCharCode(55356,56812,55356,56807),0,0),c.toDataURL().length>3e3):(d.fillText(String.fromCharCode(55357,56835),0,0),0!==d.getImageData(16,16,1,1).data[0])):!1}function e(a){var c=b.createElement("script");c.src=a,c.type="text/javascript",b.getElementsByTagName("head")[0].appendChild(c)}var f,g;c.supports={simple:d("simple"),flag:d("flag")},c.DOMReady=!1,c.readyCallback=function(){c.DOMReady=!0},c.supports.simple&&c.supports.flag||(g=function(){c.readyCallback()},b.addEventListener?(b.addEventListener("DOMContentLoaded",g,!1),a.addEventListener("load",g,!1)):(a.attachEvent("onload",g),b.attachEvent("onreadystatechange",function(){"complete"===b.readyState&&c.readyCallback()})),f=c.source||{},f.concatemoji?e(f.concatemoji):f.wpemoji&&f.twemoji&&(e(f.twemoji),e(f.wpemoji)))}(window,document,window._wpemojiSettings);
+		</script>
+		<style type="text/css">
+img.wp-smiley,
+img.emoji {
+	display: inline !important;
+	border: none !important;
+	box-shadow: none !important;
+	height: 1em !important;
+	width: 1em !important;
+	margin: 0 .07em !important;
+	vertical-align: -0.1em !important;
+	background: none !important;
+	padding: 0 !important;
+}
+</style>
+<link rel='stylesheet' id='twentythirteen-fonts-css'  href='https://fonts.googleapis.com/css?family=Source+Sans+Pro%3A300%2C400%2C700%2C300italic%2C400italic%2C700italic%7CBitter%3A400%2C700&#038;subset=latin%2Clatin-ext' type='text/css' media='all' />
+<link rel='stylesheet' id='genericons-css'  href='http://archboy.org/wp-content/themes/twentythirteen/genericons/genericons.css?ver=3.03' type='text/css' media='all' />
+<link rel='stylesheet' id='twentythirteen-style-css'  href='http://archboy.org/wp-content/themes/twentythirteen/style.css?ver=2013-07-18' type='text/css' media='all' />
+<!--[if lt IE 9]>
+<link rel='stylesheet' id='twentythirteen-ie-css'  href='http://archboy.org/wp-content/themes/twentythirteen/css/ie.css?ver=2013-07-18' type='text/css' media='all' />
+<![endif]-->
+<script type='text/javascript' src='http://archboy.org/wp-includes/js/jquery/jquery.js?ver=1.11.3'></script>
+<script type='text/javascript' src='http://archboy.org/wp-includes/js/jquery/jquery-migrate.min.js?ver=1.2.1'></script>
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://archboy.org/xmlrpc.php?rsd" />
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="http://archboy.org/wp-includes/wlwmanifest.xml" /> 
+<link rel='prev' title='Arch Linux 新手指南之番外篇（1）——入门之前' href='http://archboy.org/2012/06/25/arch-linux-beginners-guide-gaiden-1-openning/' />
+<link rel='next' title='转换 wav,ape,flac 音乐为 mp3,m4a(mp4) 格式' href='http://archboy.org/2012/10/18/convert-ape-flac-music-to-mp3/' />
+<meta name="generator" content="WordPress 4.3.1" />
+<link rel='canonical' href='http://archboy.org/2012/09/17/linux-connect-google-nexus-7-file-system-adb-development/' />
+<link rel='shortlink' href='http://archboy.org/?p=236' />
+	<style type="text/css">.recentcomments a{display:inline !important;padding:0 !important;margin:0 !important;}</style>
+	<style type="text/css" id="twentythirteen-header-css">
+			.site-header {
+			background: url(http://archboy.org/wp-content/themes/twentythirteen/images/headers/circle.png) no-repeat scroll top;
+			background-size: 1600px auto;
+		}
+		@media (max-width: 767px) {
+			.site-header {
+				background-size: 768px auto;
+			}
+		}
+		@media (max-width: 359px) {
+			.site-header {
+				background-size: 360px auto;
+			}
+		}
+			.site-title,
+		.site-description {
+			color: #ffffff;
+		}
+		</style>
+	</head>
+
+<body class="single single-post postid-236 single-format-standard sidebar">
+	<div id="page" class="hfeed site">
+		<header id="masthead" class="site-header" role="banner">
+			<a class="home-link" href="http://archboy.org/" title="ArchBoy" rel="home">
+				<h1 class="site-title">ArchBoy</h1>
+				<h2 class="site-description">开源, 架构, 编程 相关的杂文</h2>
+			</a>
+
+			<div id="navbar" class="navbar">
+				<nav id="site-navigation" class="navigation main-navigation" role="navigation">
+					<button class="menu-toggle">Menu</button>
+					<a class="screen-reader-text skip-link" href="#content" title="Skip to content">Skip to content</a>
+					<div class="nav-menu"><ul><li class="page_item page-item-93"><a href="http://archboy.org/maillist/">邮件列表</a></li><li class="page_item page-item-7"><a href="http://archboy.org/about/">关于</a></li></ul></div>
+					<form role="search" method="get" class="search-form" action="http://archboy.org/">
+				<label>
+					<span class="screen-reader-text">Search for:</span>
+					<input type="search" class="search-field" placeholder="Search &hellip;" value="" name="s" title="Search for:" />
+				</label>
+				<input type="submit" class="search-submit" value="Search" />
+			</form>				</nav><!-- #site-navigation -->
+			</div><!-- #navbar -->
+		</header><!-- #masthead -->
+
+		<div id="main" class="site-main">
+
+	<div id="primary" class="content-area">
+		<div id="content" class="site-content" role="main">
+
+						
+				
+<article id="post-236" class="post-236 post type-post status-publish format-standard hentry category-arm-device tag-adb tag-arm-device tag-mtp tag-mtpfs tag-nexus7 tag-ptp">
+	<header class="entry-header">
+		
+				<h1 class="entry-title">Linux 访问 Google Nexus 7 内部储存器（文件）以及 adb 连接及调试的方法</h1>
+		
+		<div class="entry-meta">
+			<span class="date"><a href="http://archboy.org/2012/09/17/linux-connect-google-nexus-7-file-system-adb-development/" title="Permalink to Linux 访问 Google Nexus 7 内部储存器（文件）以及 adb 连接及调试的方法" rel="bookmark"><time class="entry-date" datetime="2012-09-17T12:46:12+00:00">2012/09/17</time></a></span><span class="categories-links"><a href="http://archboy.org/category/arm-device/" rel="category tag">ARM Device</a></span><span class="tags-links"><a href="http://archboy.org/tag/adb/" rel="tag">adb</a>, <a href="http://archboy.org/tag/arm-device/" rel="tag">ARM Device</a>, <a href="http://archboy.org/tag/mtp/" rel="tag">mtp</a>, <a href="http://archboy.org/tag/mtpfs/" rel="tag">mtpfs</a>, <a href="http://archboy.org/tag/nexus7/" rel="tag">nexus7</a>, <a href="http://archboy.org/tag/ptp/" rel="tag">ptp</a></span><span class="author vcard"><a class="url fn n" href="http://archboy.org/author/ivarptr/" title="View all posts by ivarptr" rel="author">ivarptr</a></span>					</div><!-- .entry-meta -->
+	</header><!-- .entry-header -->
+
+		<div class="entry-content">
+		<p>Google Nexus 7 使用了原生的 Android 4.1 (Jelly Beans) 系统，当你使用USB线连接至（Linux 系统的）电脑时会发现不再出现USB驱动器了。这是因为 Android JB 只提供 MTP（Media Transfer Protocol） 和 PTP 两种文件传输方式，后者常见于数码相机用于传输照片，前者则可用于传输文件。可惜目前的很多 Linux 发行版并没有默认附带 MTP 的支持，同时 Nexus 7 没有可拆卸的 SD 卡，所以在 Linux 系统里往 Nexus 7 传输文件需要一些额外的步骤。下面简单介绍访问 Nexus 7 文件的一些方法（Arch Linux 发行版），同时顺便标注一下 ADB 连接的方法。</p>
+<h2>1、使用 PTP 传送照片</h2>
+<p>如果你仅仅希望往 Nexus 7 传输一些照片，那么方法就很简单了。首先用 USB 线缆将 Nexus 7 连接到电脑上，然后在 USB 连接模式里选择 “PTP”，如下图：</p>
+<p><a href="http://archboy.org/2012/09/17/linux-connect-google-nexus-7-file-system-adb-development/screenshot_2012-09-17-11-47-11/" rel="attachment wp-att-237"><img class="alignnone size-medium wp-image-237" title="Screenshot_2012-09-17-11-47-11" src="http://archboy.org/wp-content/uploads/2012/09/Screenshot_2012-09-17-11-47-11-375x600.png" alt="" width="375" height="600" /></a></p>
+<p>图1：USB 连接模式</p>
+<p>然后安装 libgphoto2 和 gvfs-gphoto2 软件包：</p>
+<pre escaped="true" lang="bash">$ sudo pacman -S libgphoto2 gvfs-gphoto2</pre>
+<p>安装好之后打开文件浏览器 nautilus，在左侧 “位置” 一栏应该可以看到 Nexus 7 设备，在这里你可以执行复制/粘贴/删除等操作，不过局限于照片。</p>
+<h2>2、使用 MTP 传输文件</h2>
+<p>相对 PTP 来说 MTP 要强大一些，不过并不是每个 Linux 发行版都能成功（原因我也不太清楚）。</p>
+<p>首先将 Nexus 7 的 USB 连接模式选择为 MTP（见图1）。然后使用 lsusb 命令检测设备是否连接妥当并且从中获取其厂商 ID 以及产品 ID。</p>
+<pre escaped="true" lang="bash">$ lsusb</pre>
+<p>命令的运行结果大致如下：</p>
+<p><span style="color: #339966;">Bus 002 Device 003: ID 18d1:4e41 Google Inc.</span><br />
+Bus 004 Device 002: ID 045e:0040 Microsoft Corp. Wheel Mouse Optical<br />
+Bus 001 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub<br />
+Bus 003 Device 001: ID 1d6b:0001 Linux Foundation 1.1 root hub</p>
+<p>其中第一行（绿色字）的表示已经检测到 Nexus 7 设备，并且设备厂商ID和设备ID分别是 18d1:4e41。</p>
+<p>虽然在 Linux 系统里并不需要安装 Android 手机或平板的驱动程序，不过却需要添加访问规则（权限）到 udev 配置文件里才能访问到这些设备。编辑文件 /etc/udev/rules.d/51-android.rules。</p>
+<p>在里面添加一行：</p>
+<p>SUBSYSTEM==&#8221;usb&#8221;, ATTR{idVendor}==&#8221;18d1&#8243;, ATTR{idProduct}==&#8221;4e41&#8243;, MODE=&#8221;0666&#8243;</p>
+<p>如果你同时拥有其他 Android 设备，可以在这个文件里同时添加多个设备的访问规则，比如 HTC 手机的可以添加如下一行：</p>
+<p>SUBSYSTEM==&#8221;usb&#8221;, ATTR{idVendor}==&#8221;0bb4&#8243;, MODE=&#8221;0666&#8243;</p>
+<p>然后重新加载 udev 规则：</p>
+<pre escaped="true" lang="bash">$ sudo udevadm control --reload</pre>
+<p>安装 libmtp 和 mtpfs 软件包：</p>
+<pre escaped="true">$ sudo pacman -S libmtp mtpfs</pre>
+<p>编辑文件 /etc/fuse.conf ，去掉 user_allow_other 一行前面的注释。在 /media 文件夹里创建名为“nexus7”的文件夹作为挂载点。然后就可以挂载 Nexus 7 文件系统了。挂载文件系统的命令：</p>
+<pre escaped="true" lang="bash">$ sudo mtpfs -o allow_other /media/nexus7</pre>
+<p>挂载好之后在文件浏览器应该可以看到一个新的挂载点，在里面可以任意管理里面的文件。</p>
+<p>卸载的命令是：</p>
+<pre escaped="true" lang="bash">$ umount /media/nexus7</pre>
+<h2>3、ADB 连接到 Nexus 7 （非 Android 开发者请忽略此节）</h2>
+<p>首先确认你的 Android SDK 已经更新到最新版本，然后根据第二节的描述添加 udev 访问规律，最后打开 Nexus 7 的USB调试模块开关，如下图所示：</p>
+<p><a href="http://archboy.org/2012/09/17/linux-connect-google-nexus-7-file-system-adb-development/screenshot_2012-09-17-11-47-33/" rel="attachment wp-att-238"><img class="alignnone size-medium wp-image-238" title="Screenshot_2012-09-17-11-47-33" src="http://archboy.org/wp-content/uploads/2012/09/Screenshot_2012-09-17-11-47-33-375x600.png" alt="" width="375" height="600" /></a></p>
+<p>图2：Nexus 7 的 USB 调试开关</p>
+<p>使用 adb 命令检测设备：</p>
+<pre escaped="true" lang="bash">$ ./adb devices</pre>
+<p>正常的话应该看到类似如下的结果：</p>
+<p>List of devices attached<br />
+015dxxxxf50cxxxx device</p>
+<p>如果没看到一般是 udev 访问规则没有添加正确，修正后重新加载规则，再用 adb 扫描：</p>
+<pre escaped="true" lang="bash">$ ./adb kill-server
+
+$ ./adb devices</pre>
+<p>没问题的话就可以正常开发调试 Nexus 7 了。</p>
+<h3>参考资料：</h3>
+<p>PTP：<a href="https://wiki.archlinux.org/index.php/Digital_Cameras">https://wiki.archlinux.org/index.php/Digital_Cameras</a></p>
+<p>MTP：<a href="https://wiki.archlinux.org/index.php/Mtp">https://wiki.archlinux.org/index.php/Mtp</a></p>
+<p>Android 设备厂商 ID 列表：<a href="http://developer.android.com/tools/device.html">http://developer.android.com/tools/device.html</a></p>
+<p>在 Linux 系统里搭建 Android App 开发环境：<a href="http://archboy.org/2011/12/19/develop-android-application-in-linux/">http://archboy.org/2011/12/19/develop-android-application-in-linux/</a></p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+	</div><!-- .entry-content -->
+	
+	<footer class="entry-meta">
+		
+			</footer><!-- .entry-meta -->
+</article><!-- #post -->
+					<nav class="navigation post-navigation" role="navigation">
+		<h1 class="screen-reader-text">Post navigation</h1>
+		<div class="nav-links">
+
+			<a href="http://archboy.org/2012/06/25/arch-linux-beginners-guide-gaiden-1-openning/" rel="prev"><span class="meta-nav">&larr;</span> Arch Linux 新手指南之番外篇（1）——入门之前</a>			<a href="http://archboy.org/2012/10/18/convert-ape-flac-music-to-mp3/" rel="next">转换 wav,ape,flac 音乐为 mp3,m4a(mp4) 格式 <span class="meta-nav">&rarr;</span></a>
+		</div><!-- .nav-links -->
+	</nav><!-- .navigation -->
+					
+<div id="comments" class="comments-area">
+
+			<h2 class="comments-title">
+			4 thoughts on &ldquo;<span>Linux 访问 Google Nexus 7 内部储存器（文件）以及 adb 连接及调试的方法</span>&rdquo;		</h2>
+
+		<ol class="comment-list">
+					<li id="comment-997" class="comment even thread-even depth-1 parent">
+			<article id="div-comment-997" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='http://1.gravatar.com/avatar/d1c3654a111f7e504b42b9968d715ca1?s=74&#038;d=mm&#038;r=g' srcset='http://1.gravatar.com/avatar/d1c3654a111f7e504b42b9968d715ca1?s=148&amp;d=mm&amp;r=g 2x' class='avatar avatar-74 photo' height='74' width='74' />						<b class="fn">王彦文</b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="http://archboy.org/2012/09/17/linux-connect-google-nexus-7-file-system-adb-development/#comment-997">
+							<time datetime="2013-01-05T13:47:07+00:00">
+								2013/01/05 at 1:47 pm							</time>
+						</a>
+											</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>你好，看了你的文档，学到了，谢谢！不过在查找mtpfs包的过程中，作者在README中卸载好象是另外命令，请指正：<br />
+To unmount do:</p>
+<p>  fusermount -u </p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://archboy.org/2012/09/17/linux-connect-google-nexus-7-file-system-adb-development/?replytocom=997#respond' onclick='return addComment.moveForm( "div-comment-997", "997", "respond", "236" )' aria-label='Reply to 王彦文'>Reply</a></div>			</article><!-- .comment-body -->
+<ol class="children">
+		<li id="comment-1046" class="comment byuser comment-author-ivarptr bypostauthor odd alt depth-2">
+			<article id="div-comment-1046" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='http://2.gravatar.com/avatar/54ae18677a2fad676b9e19fabdad2ebb?s=74&#038;d=mm&#038;r=g' srcset='http://2.gravatar.com/avatar/54ae18677a2fad676b9e19fabdad2ebb?s=148&amp;d=mm&amp;r=g 2x' class='avatar avatar-74 photo' height='74' width='74' />						<b class="fn"><a href='http://twitter.com/#!/ivarptr' rel='external nofollow' class='url'>ivarptr</a></b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="http://archboy.org/2012/09/17/linux-connect-google-nexus-7-file-system-adb-development/#comment-1046">
+							<time datetime="2013-01-10T22:44:56+00:00">
+								2013/01/10 at 10:44 pm							</time>
+						</a>
+											</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>应该都是可以的，具体有什么不同我也不是很清楚 :D<br />
+<a href="https://wiki.archlinux.org/index.php/Mtp#mtpfs" rel="nofollow">https://wiki.archlinux.org/index.php/Mtp#mtpfs</a></p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://archboy.org/2012/09/17/linux-connect-google-nexus-7-file-system-adb-development/?replytocom=1046#respond' onclick='return addComment.moveForm( "div-comment-1046", "1046", "respond", "236" )' aria-label='Reply to ivarptr'>Reply</a></div>			</article><!-- .comment-body -->
+</li><!-- #comment-## -->
+</ol><!-- .children -->
+</li><!-- #comment-## -->
+		<li id="comment-2759" class="comment even thread-odd thread-alt depth-1">
+			<article id="div-comment-2759" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='http://2.gravatar.com/avatar/20dd05347249e3984f2d4546ea0ca127?s=74&#038;d=mm&#038;r=g' srcset='http://2.gravatar.com/avatar/20dd05347249e3984f2d4546ea0ca127?s=148&amp;d=mm&amp;r=g 2x' class='avatar avatar-74 photo' height='74' width='74' />						<b class="fn"><a href='http://hit9.org' rel='external nofollow' class='url'>hit9</a></b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="http://archboy.org/2012/09/17/linux-connect-google-nexus-7-file-system-adb-development/#comment-2759">
+							<time datetime="2013-06-15T13:24:00+00:00">
+								2013/06/15 at 1:24 pm							</time>
+						</a>
+											</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>好像未root的手机不能cp文件之类的<br />
+、、</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://archboy.org/2012/09/17/linux-connect-google-nexus-7-file-system-adb-development/?replytocom=2759#respond' onclick='return addComment.moveForm( "div-comment-2759", "2759", "respond", "236" )' aria-label='Reply to hit9'>Reply</a></div>			</article><!-- .comment-body -->
+</li><!-- #comment-## -->
+		<li id="comment-14212" class="comment odd alt thread-even depth-1">
+			<article id="div-comment-14212" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='http://1.gravatar.com/avatar/7fb3af027ca599f6d72a628600f40699?s=74&#038;d=mm&#038;r=g' srcset='http://1.gravatar.com/avatar/7fb3af027ca599f6d72a628600f40699?s=148&amp;d=mm&amp;r=g 2x' class='avatar avatar-74 photo' height='74' width='74' />						<b class="fn">weite</b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="http://archboy.org/2012/09/17/linux-connect-google-nexus-7-file-system-adb-development/#comment-14212">
+							<time datetime="2013-12-25T08:48:52+00:00">
+								2013/12/25 at 8:48 am							</time>
+						</a>
+											</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>谢谢分享，不过个人需要改进下才行<br />
+1.<br />
+SUBSYSTEM==”usb”, ATTR{idVendor}==”18d1″, ATTR{idProduct}==”4e41″, MODE=”0666″<br />
+这句代码中的ID需要通过个人用“lsusb”来获取自己的ID<br />
+2.<br />
+$ sudo mtpfs -o allow_other /media/nexus7<br />
+这句代码中的 allow_other 改为 nonempty 就可以装载自己的nexus7了<br />
+谢谢分享。</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://archboy.org/2012/09/17/linux-connect-google-nexus-7-file-system-adb-development/?replytocom=14212#respond' onclick='return addComment.moveForm( "div-comment-14212", "14212", "respond", "236" )' aria-label='Reply to weite'>Reply</a></div>			</article><!-- .comment-body -->
+</li><!-- #comment-## -->
+		</ol><!-- .comment-list -->
+
+		
+		
+	
+							<div id="respond" class="comment-respond">
+				<h3 id="reply-title" class="comment-reply-title">Leave a Reply <small><a rel="nofollow" id="cancel-comment-reply-link" href="/2012/09/17/linux-connect-google-nexus-7-file-system-adb-development/#respond" style="display:none;">Cancel reply</a></small></h3>
+									<form action="http://archboy.org/wp-comments-post.php" method="post" id="commentform" class="comment-form" novalidate>
+																			<p class="comment-notes"><span id="email-notes">Your email address will not be published.</span> Required fields are marked <span class="required">*</span></p>							<p class="comment-form-author"><label for="author">Name <span class="required">*</span></label> <input id="author" name="author" type="text" value="" size="30" aria-required='true' required='required' /></p>
+<p class="comment-form-email"><label for="email">Email <span class="required">*</span></label> <input id="email" name="email" type="email" value="" size="30" aria-describedby="email-notes" aria-required='true' required='required' /></p>
+<p class="comment-form-url"><label for="url">Website</label> <input id="url" name="url" type="url" value="" size="30" /></p>
+												<p class="comment-form-comment"><label for="comment">Comment</label> <textarea id="comment" name="comment" cols="45" rows="8"  aria-required="true" required="required"></textarea></p>						
+						<p class="form-submit"><input name="submit" type="submit" id="submit" class="submit" value="Post Comment" /> <input type='hidden' name='comment_post_ID' value='236' id='comment_post_ID' />
+<input type='hidden' name='comment_parent' id='comment_parent' value='0' />
+</p><p style="display: none;"><input type="hidden" id="akismet_comment_nonce" name="akismet_comment_nonce" value="b1c2453c14" /></p><p style="display: none;"><input type="hidden" id="ak_js" name="ak_js" value="129"/></p>					</form>
+							</div><!-- #respond -->
+			
+</div><!-- #comments -->
+			
+		</div><!-- #content -->
+	</div><!-- #primary -->
+
+	<div id="tertiary" class="sidebar-container" role="complementary">
+		<div class="sidebar-inner">
+			<div class="widget-area">
+				<aside id="text-2" class="widget widget_text">			<div class="textwidget"><a href="http://www.linode.com/?r=015bb87e20b23347b3247dd2137d8a00ea4df3ce">
+<img src="http://archboy.org/wp-content/uploads/2013/04/linode.jpg" border="0" width="83" height="100"/></a>
+<p>本站寄宿于 Linode，这是一家比较稳定兼厚道的虚拟主机提供商，如有需要可以<a href="http://www.linode.com/?r=015bb87e20b23347b3247dd2137d8a00ea4df3ce">猛戳这个有尾巴的链接</a>购买VPS。</p></div>
+		</aside><aside id="categories-3" class="widget widget_categories"><h3 class="widget-title">Categories</h3>		<ul>
+	<li class="cat-item cat-item-34"><a href="http://archboy.org/category/arm-device/" >ARM Device</a>
+</li>
+	<li class="cat-item cat-item-1"><a href="http://archboy.org/category/etc/" >etc</a>
+</li>
+	<li class="cat-item cat-item-3"><a href="http://archboy.org/category/linux/" >Linux</a>
+</li>
+	<li class="cat-item cat-item-69"><a href="http://archboy.org/category/security-and-privacy/" >Security</a>
+</li>
+	<li class="cat-item cat-item-80"><a href="http://archboy.org/category/server/" >Server</a>
+</li>
+	<li class="cat-item cat-item-78"><a href="http://archboy.org/category/distributed/" >分布式计算与存储</a>
+</li>
+	<li class="cat-item cat-item-4"><a href="http://archboy.org/category/devel/" >软件开发</a>
+</li>
+		</ul>
+</aside>		<aside id="recent-posts-4" class="widget widget_recent_entries">		<h3 class="widget-title">Recent Posts</h3>		<ul>
+					<li>
+				<a href="http://archboy.org/2014/08/21/ffmpeg-scale-cut-crop-video/">使用 ffmpeg 缩放、裁剪、剪辑视频</a>
+							<span class="post-date">2014/08/21</span>
+						</li>
+					<li>
+				<a href="http://archboy.org/2014/08/02/https-proxy-server-the-easy-way/">简单搭建 https proxy 服务器</a>
+							<span class="post-date">2014/08/02</span>
+						</li>
+					<li>
+				<a href="http://archboy.org/2014/08/02/how-to-buy-the-cheap-ssl-certificates/">如何购买廉价 SSL 证书</a>
+							<span class="post-date">2014/08/02</span>
+						</li>
+					<li>
+				<a href="http://archboy.org/2014/08/01/just-update-2014-08/">刷刷存在感</a>
+							<span class="post-date">2014/08/01</span>
+						</li>
+					<li>
+				<a href="http://archboy.org/2013/11/03/hp-chromebook-11-2013-review/">体验 HP Chromebook 11</a>
+							<span class="post-date">2013/11/03</span>
+						</li>
+					<li>
+				<a href="http://archboy.org/2013/10/23/open-secure-id-draft/">一种开放式安全ID的设计</a>
+							<span class="post-date">2013/10/23</span>
+						</li>
+					<li>
+				<a href="http://archboy.org/2013/09/10/clobaframe-2-3-reference/">Clobaframe 2.3 参考文档</a>
+							<span class="post-date">2013/09/10</span>
+						</li>
+					<li>
+				<a href="http://archboy.org/2013/07/08/rfc-4880-openpgp-message-format-reading-notes/">RFC 4880 阅读笔记</a>
+							<span class="post-date">2013/07/08</span>
+						</li>
+					<li>
+				<a href="http://archboy.org/2013/07/01/protect-chat-privacy-with-pidgin-otr/">使用 OTR 保护你的聊天隐私</a>
+							<span class="post-date">2013/07/01</span>
+						</li>
+					<li>
+				<a href="http://archboy.org/2013/05/15/gnupg-pgp-encrypt-decrypt-file-and-digital-signing-easy-tutorial/">使用 GnuPG 实现文件加密和数字签名——PGP 30分钟简明教程(2)</a>
+							<span class="post-date">2013/05/15</span>
+						</li>
+				</ul>
+		</aside><aside id="tag_cloud-3" class="widget widget_tag_cloud"><h3 class="widget-title">Tags</h3><div class="tagcloud"><a href='http://archboy.org/tag/aac/' class='tag-link-91' title='2 topics' style='font-size: 14.3pt;'>aac</a>
+<a href='http://archboy.org/tag/afp/' class='tag-link-5' title='1 topic' style='font-size: 8pt;'>afp</a>
+<a href='http://archboy.org/tag/apache/' class='tag-link-6' title='3 topics' style='font-size: 18.5pt;'>Apache</a>
+<a href='http://archboy.org/tag/apr/' class='tag-link-40' title='2 topics' style='font-size: 14.3pt;'>apr</a>
+<a href='http://archboy.org/tag/archlinux-2/' class='tag-link-7' title='2 topics' style='font-size: 14.3pt;'>ArchLinux</a>
+<a href='http://archboy.org/tag/arm/' class='tag-link-63' title='2 topics' style='font-size: 14.3pt;'>ARM</a>
+<a href='http://archboy.org/tag/arm-device/' class='tag-link-95' title='4 topics' style='font-size: 22pt;'>ARM Device</a>
+<a href='http://archboy.org/tag/cassandra/' class='tag-link-8' title='1 topic' style='font-size: 8pt;'>Cassandra</a>
+<a href='http://archboy.org/tag/cconv/' class='tag-link-9' title='1 topic' style='font-size: 8pt;'>cconv</a>
+<a href='http://archboy.org/tag/clobaframe/' class='tag-link-81' title='1 topic' style='font-size: 8pt;'>clobaframe</a>
+<a href='http://archboy.org/tag/cyanogenmod/' class='tag-link-35' title='1 topic' style='font-size: 8pt;'>CyanogenMod</a>
+<a href='http://archboy.org/tag/digital-signature/' class='tag-link-74' title='2 topics' style='font-size: 14.3pt;'>Digital Signature</a>
+<a href='http://archboy.org/tag/encrypt/' class='tag-link-73' title='3 topics' style='font-size: 18.5pt;'>Encrypt</a>
+<a href='http://archboy.org/tag/fedora/' class='tag-link-10' title='1 topic' style='font-size: 8pt;'>Fedora</a>
+<a href='http://archboy.org/tag/ffmpeg/' class='tag-link-56' title='2 topics' style='font-size: 14.3pt;'>ffmpeg</a>
+<a href='http://archboy.org/tag/flash/' class='tag-link-11' title='1 topic' style='font-size: 8pt;'>Flash</a>
+<a href='http://archboy.org/tag/freebsd/' class='tag-link-12' title='3 topics' style='font-size: 18.5pt;'>FreeBSD</a>
+<a href='http://archboy.org/tag/git/' class='tag-link-13' title='1 topic' style='font-size: 8pt;'>Git</a>
+<a href='http://archboy.org/tag/gnome/' class='tag-link-14' title='2 topics' style='font-size: 14.3pt;'>Gnome</a>
+<a href='http://archboy.org/tag/gnupg/' class='tag-link-72' title='2 topics' style='font-size: 14.3pt;'>GnuPG</a>
+<a href='http://archboy.org/tag/godaddy/' class='tag-link-38' title='1 topic' style='font-size: 8pt;'>godaddy</a>
+<a href='http://archboy.org/tag/h264/' class='tag-link-15' title='2 topics' style='font-size: 14.3pt;'>h264</a>
+<a href='http://archboy.org/tag/hadoop/' class='tag-link-16' title='2 topics' style='font-size: 14.3pt;'>Hadoop</a>
+<a href='http://archboy.org/tag/kernel/' class='tag-link-17' title='1 topic' style='font-size: 8pt;'>kernel</a>
+<a href='http://archboy.org/tag/linux/' class='tag-link-94' title='1 topic' style='font-size: 8pt;'>Linux</a>
+<a href='http://archboy.org/tag/mac/' class='tag-link-18' title='1 topic' style='font-size: 8pt;'>mac</a>
+<a href='http://archboy.org/tag/mp4/' class='tag-link-59' title='2 topics' style='font-size: 14.3pt;'>mp4</a>
+<a href='http://archboy.org/tag/mpeg4/' class='tag-link-19' title='1 topic' style='font-size: 8pt;'>mpeg4</a>
+<a href='http://archboy.org/tag/mysql/' class='tag-link-20' title='2 topics' style='font-size: 14.3pt;'>MySQL</a>
+<a href='http://archboy.org/tag/netatalk/' class='tag-link-21' title='1 topic' style='font-size: 8pt;'>netatalk</a>
+<a href='http://archboy.org/tag/nio/' class='tag-link-41' title='1 topic' style='font-size: 8pt;'>nio</a>
+<a href='http://archboy.org/tag/openpgp/' class='tag-link-71' title='4 topics' style='font-size: 22pt;'>OpenPGP</a>
+<a href='http://archboy.org/tag/pgp/' class='tag-link-70' title='2 topics' style='font-size: 14.3pt;'>PGP</a>
+<a href='http://archboy.org/tag/php/' class='tag-link-22' title='1 topic' style='font-size: 8pt;'>PHP</a>
+<a href='http://archboy.org/tag/pptpd/' class='tag-link-23' title='1 topic' style='font-size: 8pt;'>pptpd</a>
+<a href='http://archboy.org/tag/security/' class='tag-link-24' title='4 topics' style='font-size: 22pt;'>security</a>
+<a href='http://archboy.org/tag/sendmail/' class='tag-link-25' title='1 topic' style='font-size: 8pt;'>sendmail</a>
+<a href='http://archboy.org/tag/sshd/' class='tag-link-26' title='1 topic' style='font-size: 8pt;'>sshd</a>
+<a href='http://archboy.org/tag/ssl/' class='tag-link-37' title='4 topics' style='font-size: 22pt;'>ssl</a>
+<a href='http://archboy.org/tag/timemachine/' class='tag-link-27' title='1 topic' style='font-size: 8pt;'>timemachine</a>
+<a href='http://archboy.org/tag/tomcat/' class='tag-link-36' title='4 topics' style='font-size: 22pt;'>tomcat</a>
+<a href='http://archboy.org/tag/ubuntu/' class='tag-link-29' title='1 topic' style='font-size: 8pt;'>Ubuntu</a>
+<a href='http://archboy.org/tag/wordpress/' class='tag-link-30' title='1 topic' style='font-size: 8pt;'>WordPress</a>
+<a href='http://archboy.org/tag/workbench/' class='tag-link-39' title='1 topic' style='font-size: 8pt;'>workbench</a>
+<a href='http://archboy.org/tag/%e7%94%b5%e6%ba%90%e7%ae%a1%e7%90%86/' class='tag-link-31' title='1 topic' style='font-size: 8pt;'>电源管理</a></div>
+</aside><aside id="archives-3" class="widget widget_archive"><h3 class="widget-title">Archives</h3>		<ul>
+	<li><a href='http://archboy.org/2014/08/'>August 2014</a></li>
+	<li><a href='http://archboy.org/2013/11/'>November 2013</a></li>
+	<li><a href='http://archboy.org/2013/10/'>October 2013</a></li>
+	<li><a href='http://archboy.org/2013/09/'>September 2013</a></li>
+	<li><a href='http://archboy.org/2013/07/'>July 2013</a></li>
+	<li><a href='http://archboy.org/2013/05/'>May 2013</a></li>
+	<li><a href='http://archboy.org/2013/04/'>April 2013</a></li>
+	<li><a href='http://archboy.org/2013/02/'>February 2013</a></li>
+	<li><a href='http://archboy.org/2012/12/'>December 2012</a></li>
+	<li><a href='http://archboy.org/2012/10/'>October 2012</a></li>
+	<li><a href='http://archboy.org/2012/09/'>September 2012</a></li>
+	<li><a href='http://archboy.org/2012/06/'>June 2012</a></li>
+	<li><a href='http://archboy.org/2012/05/'>May 2012</a></li>
+	<li><a href='http://archboy.org/2012/02/'>February 2012</a></li>
+	<li><a href='http://archboy.org/2011/12/'>December 2011</a></li>
+	<li><a href='http://archboy.org/2011/08/'>August 2011</a></li>
+		</ul>
+</aside><aside id="recent-comments-3" class="widget widget_recent_comments"><h3 class="widget-title">Recent Comments</h3><ul id="recentcomments"><li class="recentcomments"><span class="comment-author-link"><a href='http://www.2345.com/?ksdzfd' rel='external nofollow' class='url'>u2pgzr</a></span> on <a href="http://archboy.org/2014/08/21/ffmpeg-scale-cut-crop-video/#comment-143831">使用 ffmpeg 缩放、裁剪、剪辑视频</a></li><li class="recentcomments"><span class="comment-author-link"><a href='http://www.bateer.eeequn.com/' rel='external nofollow' class='url'>bateer</a></span> on <a href="http://archboy.org/2014/08/21/ffmpeg-scale-cut-crop-video/#comment-142691">使用 ffmpeg 缩放、裁剪、剪辑视频</a></li><li class="recentcomments"><span class="comment-author-link"><a href='http://www.nosa.me/2015/07/25/java-%e7%a8%8b%e5%ba%8f%e7%9a%84%e5%8f%91%e5%b8%83%e6%b5%81%e7%a8%8b/' rel='external nofollow' class='url'>Java 程序的发布流程 | nosa.me</a></span> on <a href="http://archboy.org/2012/05/21/apache-maven-profile-filtering-multiple-build-environments/#comment-129382">Apache Maven 使用 profile 和 filtering 实现多种环境下的资源配置管理</a></li><li class="recentcomments"><span class="comment-author-link">红白</span> on <a href="http://archboy.org/2013/04/18/gnupg-pgp-encrypt-decrypt-message-and-email-and-digital-signing-easy-tutorial/#comment-111805">使用 GnuPG 实现电子邮件加密和数字签名——PGP 30分钟简明教程(1)</a></li><li class="recentcomments"><span class="comment-author-link"><a href='http://wangleisd.cn/pi-samba-nas/' rel='external nofollow' class='url'>基于Samba实现NAS系统 | 王雷的博客 wanglei&#039;s blog</a></span> on <a href="http://archboy.org/2011/08/18/netatalk-afp-linux-share-file-mac-osx-timemachine-backup-server/#comment-106726">使用 Netatalk 让 Linux 与 Mac OSX 共享文件，同时为 Mac 搭建 TimeMachine 备份服务器</a></li></ul></aside><aside id="meta-4" class="widget widget_meta"><h3 class="widget-title">Meta</h3>			<ul>
+						<li><a href="http://archboy.org/wp-login.php">Log in</a></li>
+			<li><a href="http://archboy.org/feed/">Entries <abbr title="Really Simple Syndication">RSS</abbr></a></li>
+			<li><a href="http://archboy.org/comments/feed/">Comments <abbr title="Really Simple Syndication">RSS</abbr></a></li>
+<li><a href="https://wordpress.org/" title="Powered by WordPress, state-of-the-art semantic personal publishing platform.">WordPress.org</a></li>			</ul>
+</aside>			</div><!-- .widget-area -->
+		</div><!-- .sidebar-inner -->
+	</div><!-- #tertiary -->
+
+		</div><!-- #main -->
+		<footer id="colophon" class="site-footer" role="contentinfo">
+			
+			<div class="site-info">
+								<a href="https://wordpress.org/" title="Semantic Personal Publishing Platform">Proudly powered by WordPress</a>
+			</div><!-- .site-info -->
+		</footer><!-- #colophon -->
+	</div><!-- #page -->
+
+	<script type='text/javascript' src='http://archboy.org/wp-content/plugins/akismet/_inc/form.js?ver=3.1.5'></script>
+<script type='text/javascript' src='http://archboy.org/wp-includes/js/comment-reply.min.js?ver=4.3.1'></script>
+<script type='text/javascript' src='http://archboy.org/wp-content/themes/twentythirteen/js/functions.js?ver=20150330'></script>
+</body>
+</html>

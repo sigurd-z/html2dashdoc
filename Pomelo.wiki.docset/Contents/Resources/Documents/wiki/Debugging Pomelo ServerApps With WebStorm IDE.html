@@ -1,0 +1,149 @@
+<html><head prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# object: http://ogp.me/ns/object# article: http://ogp.me/ns/article# profile: http://ogp.me/ns/profile#">
+<meta charset="utf-8">
+<meta content="IE=edge" http-equiv="X-UA-Compatible">
+<meta content="en" http-equiv="Content-Language">
+<meta content="width=1020" name="viewport">
+<title>Debugging Pomelo ServerApps With WebStorm IDE · NetEase/pomelo Wiki · GitHub</title>
+<link href="/opensearch.xml" rel="search" title="GitHub" type="application/opensearchdescription+xml">
+<link href="src/ad667adaa2cfe8f3caa4a41b7d0a79a1.png" rel="fluid-icon" title="GitHub">
+<link href="src/a10d19ff5f738940a7a5086be334f50b.png" rel="apple-touch-icon" sizes="57x57">
+<link href="src/a10d19ff5f738940a7a5086be334f50b.png" rel="apple-touch-icon" sizes="114x114">
+<link href="src/b4cd268bc600cc14d2cdd557de6da2fb.png" rel="apple-touch-icon" sizes="72x72">
+<link href="src/b4cd268bc600cc14d2cdd557de6da2fb.png" rel="apple-touch-icon" sizes="144x144">
+<meta content="1401488693436528" property="fb:app_id">
+<meta content="@github" name="twitter:site"/><meta content="summary" name="twitter:card"/><meta content="NetEase/pomelo" name="twitter:title"/><meta content="pomelo - A fast,scalable,distributed game server framework for Node.js." name="twitter:description"/><meta content="https://avatars0.githubusercontent.com/u/1460597?v=3&amp;s=400" name="twitter:image:src"/>
+<meta content="GitHub" property="og:site_name"/><meta content="object" property="og:type"/><meta content="https://avatars0.githubusercontent.com/u/1460597?v=3&amp;s=400" property="og:image"/><meta content="NetEase/pomelo" property="og:title"/><meta content="https://github.com/NetEase/pomelo" property="og:url"/><meta content="pomelo - A fast,scalable,distributed game server framework for Node.js." property="og:description"/>
+<meta content="https://api.github.com/_private/browser/stats" name="browser-stats-url">
+<meta content="https://api.github.com/_private/browser/errors" name="browser-errors-url">
+<link href="https://assets-cdn.github.com/" rel="assets">
+<meta content="1000" name="pjax-timeout">
+<meta content="/windows-tile.png" name="msapplication-TileImage">
+<meta content="#ffffff" name="msapplication-TileColor">
+<meta data-pjax-transient="" name="selected-link" value="repo_wiki">
+<meta content="KT5gs8h0wvaagLKAVWq8bbeNwnZZK1r1XQysX3xurLU" name="google-site-verification">
+<meta content="UA-3769691-2" name="google-analytics">
+<meta content="collector.githubapp.com" name="octolytics-host"/><meta content="github" name="octolytics-app-id"/><meta content="CA86616A:2F44:1447C908:5670BFF0" name="octolytics-dimension-request_id"/>
+<meta content="/&lt;user-name&gt;/&lt;repo-name&gt;/wiki/show" data-pjax-transient="true" name="analytics-location"/>
+<meta content="Rails, view, wiki#show" data-pjax-transient="true" name="analytics-event"/>
+<meta class="js-ga-set" content="Logged Out" name="dimension1">
+<meta content="github.com" name="hostname">
+<meta content="" name="user-login">
+<meta content="github.com" name="expected-hostname">
+<link color="#4078c0" href="https://assets-cdn.github.com/pinned-octocat.svg" rel="mask-icon">
+<link href="https://assets-cdn.github.com/favicon.ico" rel="icon" type="image/x-icon">
+<meta content="dcff33dbf1576f0ce69f15c552ce6ff4b0b8ef14" name="form-nonce"/>
+<link crossorigin="anonymous" href="src/350888e1495e7af27e01faa9d8291dee.css" media="all" rel="stylesheet"/>
+<link crossorigin="anonymous" href="src/9fae9b7d8f0785d745a43c6465f74ae5.css" media="all" rel="stylesheet"/>
+<meta content="cd9958d45e48e8e3157a320e9c346eaa" http-equiv="x-pjax-version">
+<meta content="pomelo - A fast,scalable,distributed game server framework for Node.js." name="description">
+<meta content="github.com/NetEase/pomelo git https://github.com/NetEase/pomelo.git" name="go-import">
+<meta content="1460597" name="octolytics-dimension-user_id"/><meta content="NetEase" name="octolytics-dimension-user_login"/><meta content="5880912" name="octolytics-dimension-repository_id"/><meta content="NetEase/pomelo" name="octolytics-dimension-repository_nwo"/><meta content="true" name="octolytics-dimension-repository_public"/><meta content="false" name="octolytics-dimension-repository_is_fork"/><meta content="5880912" name="octolytics-dimension-repository_network_root_id"/><meta content="NetEase/pomelo" name="octolytics-dimension-repository_network_root_nwo"/>
+<link href="https://github.com/NetEase/pomelo/commits/master.atom" rel="alternate" title="Recent Commits to pomelo:master" type="application/atom+xml">
+</link></meta></meta></meta></link></link></meta></meta></meta></meta></meta></meta></meta></meta></meta></meta></link></meta></meta></meta></link></link></link></link></link></link></meta></meta></meta></meta></head><body style="padding:0 25px;"><div class="gollum-markdown-content instapaper_body" id="wiki-body">
+<div class="markdown-body">
+<p>With a powerful IDE, we build apps much faster. This also happens on debugging, the IDE can help us finding bugs much more accurately.
+Within this wiki page, I'll talk about how to debug <a href="https://github.com/NetEase/chatofpomelo">Chat of Pomelo</a> (Pomelo chat demo) with <a href="http://www.jetbrains.com/webstorm/">JetBrain's WebStorm</a>, the MONSTER of JavaScript IDE.
+But if you would like to choose <a href="http://www.eclipse.org/">Eclipse</a> or other IDEs, I wish this wiki could be also helpful.</p>
+<h2>
+<a aria-hidden="true" class="anchor" href="#preface" id="user-content-preface"><span class="octicon octicon-link"></span></a>Preface</h2>
+<ul>
+<li><p>First thing of first, we need to know NodeJS Apps can be running under the debug mode by adding an argument like <code>--debug=5858</code>, which <code>5858</code> is the port listening for debugger to connect.</p></li>
+<li>
+<p>Secondary, what happened after command <code>pomelo start</code> has been executed.</p>
+<ol>
+<li>The <code>master</code> server has been launched first.</li>
+<li>The <code>master</code> reads configuration files. Especially <code>game-server/config/servers.json</code>.</li>
+<li>Then, each configured sub-servers has been launched.</li>
+</ol>
+</li>
+</ul>
+<p>In the file <code>servers.json</code>, the <code>id</code>, <code>host</code>, <code>port</code> ect. those all are configurations. These keys and values are all appended to sub-server launch command, after <code>app.js</code>.</p>
+<ul>
+<li>And, the smart Pomelo designers has already considered the question, how to add arguments after <code>node</code> command. In the configuration of each server, there can be a key, named <code>args</code>, and can has a string value. So that anyone can put any arguments they want in one line of string. Like this <code>"args": " --WHAT=YOU --WANT=NODE --TO=DO "</code>.</li>
+</ul>
+<h2>
+<a aria-hidden="true" class="anchor" href="#change-config-to-enable-debug-mode-of-the-server" id="user-content-change-config-to-enable-debug-mode-of-the-server"><span class="octicon octicon-link"></span></a>Change Config to Enable Debug Mode of the Server</h2>
+<h3>
+<a aria-hidden="true" class="anchor" href="#1---open-file" id="user-content-1---open-file"><span class="octicon octicon-link"></span></a>1 - Open File</h3>
+<p>Open <code>game-server/config/servers.json</code>. For easier to develop and understand, let's decrease each type of server to 1. So we'll see:</p>
+<p><img alt="server configurations" data-canonical-src="https://f.cloud.github.com/assets/1926860/305880/bfc0d546-9666-11e2-8092-9a4f15766c21.png" src="https://camo.githubusercontent.com/e01f3d8c4d09603855e13a41c4d61e99abc9e544/68747470733a2f2f662e636c6f75642e6769746875622e636f6d2f6173736574732f313932363836302f3330353838302f62666330643534362d393636362d313165322d383039322d3961346631353736366332312e706e67"/></p>
+<h3>
+<a aria-hidden="true" class="anchor" href="#2---modify--save" id="user-content-2---modify--save"><span class="octicon octicon-link"></span></a>2 - Modify &amp; Save</h3>
+<p>I'm interested with load balancing in the <code>gate</code> server. OK, target locked, let's debug.
+Insert <code>, "args": " --debug=32312 "</code> before the <code>}</code> which the line starting with <code>{"id": "gate-server-1",</code>. Then we'll see this:</p>
+<p><img alt="gate server debug configuration" data-canonical-src="https://f.cloud.github.com/assets/1926860/305916/f19cfd00-9667-11e2-8e93-9f490d181eab.png" src="https://camo.githubusercontent.com/3a12ad456cb78417db6773194d8e3969bfe0d4c8/68747470733a2f2f662e636c6f75642e6769746875622e636f6d2f6173736574732f313932363836302f3330353931362f66313963666430302d393636372d313165322d386539332d3966343930643138316561622e706e67"/></p>
+<p>When the server has been launched again, <code>master</code> will load the new <code>servers.json</code> configuration file. And the new configuration will take effect on server <code>gate-server-1</code>.</p>
+<p>So, the progress of this <code>gate</code> server, will listen on port <code>32312</code>, waiting for debuggers to connect to. To avoid <code>port be in use</code> conflicts, we choosed a higher port number. During the development with debugging, when you see error <code>ADDRINUSE</code> after server launched, you need to use command <code>pomelo kill --force</code> to terminate all the pomelo progresses. Perhaps you also need to change the <code>32312</code> debug port.</p>
+<h2>
+<a aria-hidden="true" class="anchor" href="#configure-the-debugger-of-ide" id="user-content-configure-the-debugger-of-ide"><span class="octicon octicon-link"></span></a>Configure the Debugger of IDE</h2>
+<h3>
+<a aria-hidden="true" class="anchor" href="#1---open-edit-configurations" id="user-content-1---open-edit-configurations"><span class="octicon octicon-link"></span></a>1 - Open <code>Edit Configurations...</code>
+</h3>
+<p>Open <code>Edit Configurations...</code> in one of two ways:</p>
+<p><img alt="open edit configurations" data-canonical-src="https://f.cloud.github.com/assets/1926860/306059/748e320c-966c-11e2-848e-fbbe6e04532d.png" src="https://camo.githubusercontent.com/068536e73fc81ac36f50524fdb8a8369f3d0bf9a/68747470733a2f2f662e636c6f75642e6769746875622e636f6d2f6173736574732f313932363836302f3330363035392f37343865333230632d393636632d313165322d383438652d6662626536653034353332642e706e67"/></p>
+<h3>
+<a aria-hidden="true" class="anchor" href="#2---add-a-new-nodejs-remote-debug-configuration" id="user-content-2---add-a-new-nodejs-remote-debug-configuration"><span class="octicon octicon-link"></span></a>2 - Add a New <code>Node.js Remote Debug</code> Configuration</h3>
+<p><img alt="add a new node.js remote debug configuration" data-canonical-src="https://f.cloud.github.com/assets/1926860/306064/b3366cf4-966c-11e2-892f-f19f558a6243.png" src="https://camo.githubusercontent.com/14bd9fb68d9c3afa6ed3ccf327065fc1f100cba5/68747470733a2f2f662e636c6f75642e6769746875622e636f6d2f6173736574732f313932363836302f3330363036342f62333336366366342d393636632d313165322d383932662d6631396635353861363234332e706e67"/></p>
+<p><img alt="gate study debugger configuration" data-canonical-src="https://f.cloud.github.com/assets/1926860/306070/1197fcfe-966d-11e2-9a3b-e6bf86d1f029.png" src="https://camo.githubusercontent.com/1e76ecee756c9af804f63373c8e638f9f2936e29/68747470733a2f2f662e636c6f75642e6769746875622e636f6d2f6173736574732f313932363836302f3330363037302f31313937666366652d393636642d313165322d396133622d6536626638366431663032392e706e67"/></p>
+<p><code>Name</code>, fill in whatever you'd like. Check <code>Single instance only</code>, so there will only be one instance.</p>
+<p><code>Host</code>, fill <code>127.0.0.1</code>, <code>Debug Port</code> use the value after the <code>--debug=</code> argument. I will fill <code>32312</code> here. <code>Local directory</code> use where the <code>game-server/app.js</code> is.</p>
+<p><strong>For Webstorm 10+</strong>
+There is nowhere to set <code>Local directory</code>. Instead, you need to mark game-server as Resource Root if you encounter "unknown" in call stack panel, as illustrated in the following.
+<img alt="Mark As Resource Root in webstorm" src="src/81df3c672369eb4ed31f971a52fd26fb.png"/></p>
+<h3>
+<a aria-hidden="true" class="anchor" href="#attach-run-configurations" id="user-content-attach-run-configurations"><span class="octicon octicon-link"></span></a>Attach: Run Configurations</h3>
+<p>You may have noticed, <code>Configurations</code> not only have <code>Debug Config</code>, but also have <code>Run Config</code>. <code>Run Config</code> is mostly like other NodeJS Apps. Noobs can refer to this figure (click for larger one):</p>
+<p><a href="https://f.cloud.github.com/assets/1926860/306139/b7fa3a74-966f-11e2-9a26-666f9f011d4e.png"><img alt="game-server &amp; web-server run configurations" data-canonical-src="https://f.cloud.github.com/assets/1926860/306139/b7fa3a74-966f-11e2-9a26-666f9f011d4e.png" src="https://camo.githubusercontent.com/a0933bc9d229796cb93f9867f6332dbe7235537c/68747470733a2f2f662e636c6f75642e6769746875622e636f6d2f6173736574732f313932363836302f3330363133392f62376661336137342d393636662d313165322d396132362d3636366639663031316434652e706e67"/></a></p>
+<h2>
+<a aria-hidden="true" class="anchor" href="#prepare-for-debugging" id="user-content-prepare-for-debugging"><span class="octicon octicon-link"></span></a>Prepare for Debugging</h2>
+<h3>
+<a aria-hidden="true" class="anchor" href="#1---launch-both-web-and-chat-servers" id="user-content-1---launch-both-web-and-chat-servers"><span class="octicon octicon-link"></span></a>1 - Launch Both Web and Chat Servers</h3>
+<p>If you have configured <code>Web</code> and <code>Chat</code> Running Config in the IDE, now you just to choose the each server from the dropdown menu. Then click [►] RUN Button. During the server is launching, the console at the bottom of IDE shows the output. You can check whether server started successfully. If you see words in RED, may the error occured. You can following the error information, google it, or just <a href="https://github.com/NetEase/pomelo/issues/new">submit NEW ISSUE</a>, to find the solution.</p>
+<p><img alt="run, debug configuration" data-canonical-src="https://f.cloud.github.com/assets/1926860/306179/2d03b5e6-9672-11e2-929e-df99fc90104c.png" src="https://camo.githubusercontent.com/f5ea35f878131e9de3805201ea044f8965611991/68747470733a2f2f662e636c6f75642e6769746875622e636f6d2f6173736574732f313932363836302f3330363137392f32643033623565362d393637322d313165322d393239652d6466393966633930313034632e706e67"/></p>
+<h3>
+<a aria-hidden="true" class="anchor" href="#2---get-debugger-connected" id="user-content-2---get-debugger-connected"><span class="octicon octicon-link"></span></a>2 - Get Debugger Connected</h3>
+<p>Now again, choose the debug config <code>gate study</code> from the configuration dropdown menu. And you will find [►] RUN Button become disabled. The only clickable is the [☼] DEBUG Button, just click it. Then at the bottom of IDE, <code>Debugger</code> will say: <code>Connected to 127.0.0.1:32312</code>.</p>
+<p><img alt="debugger has been connected" data-canonical-src="https://f.cloud.github.com/assets/1926860/306250/2c299dd6-9675-11e2-9861-b5096dcee5d2.png" src="https://camo.githubusercontent.com/6a680a2fb792b23f6025a3682a009f5f2818fec2/68747470733a2f2f662e636c6f75642e6769746875622e636f6d2f6173736574732f313932363836302f3330363235302f32633239396464362d393637352d313165322d393836312d6235303936646365653564322e706e67"/></p>
+<h3>
+<a aria-hidden="true" class="anchor" href="#3---set-a-breakpoint" id="user-content-3---set-a-breakpoint"><span class="octicon octicon-link"></span></a>3 - Set a Breakpoint</h3>
+<p>As we're going to study how <code>gate</code> works with <code>connector</code>. So open <code>app/servers/gate/handler/gateHandler.js</code>, in <a href="https://github.com/NetEase/chatofpomelo/blob/master/game-server/app/servers/gate/handler/gateHandler.js#L30">line 30</a> , set a breakpoint here.</p>
+<p><img alt="breakpoint in gateHandler.js" data-canonical-src="https://f.cloud.github.com/assets/1926860/306168/b6d2c916-9671-11e2-93fe-99634c124810.png" src="https://camo.githubusercontent.com/a5d74e5082edbd89bf92a4ca61162139ec10a675/68747470733a2f2f662e636c6f75642e6769746875622e636f6d2f6173736574732f313932363836302f3330363136382f62366432633931362d393637312d313165322d393366652d3939363334633132343831302e706e67"/></p>
+<h2>
+<a aria-hidden="true" class="anchor" href="#practise" id="user-content-practise"><span class="octicon octicon-link"></span></a>Practise</h2>
+<p>Open <a href="http://127.0.0.1:3001/index.html">http://127.0.0.1:3001/index.html</a> in an advanced browser. The login page of <code>Chat of Pomelo</code> will be shown. Fill the two blanks, click on [JOIN] Button.</p>
+<p><img alt="Chat Of Pomelo login page" data-canonical-src="https://f.cloud.github.com/assets/1926860/306261/c8ecac3a-9675-11e2-8338-1ac33ea60736.png" src="https://camo.githubusercontent.com/b7d5748b0d0a8e4466c069473bf117c1d8916f68/68747470733a2f2f662e636c6f75642e6769746875622e636f6d2f6173736574732f313932363836302f3330363236312f63386563616333612d393637352d313165322d383333382d3161633333656136303733362e706e67"/></p>
+<p>But by now, the webpage will not response anything, because the code on the server side is blocked by breakpoint. And IDE will be active by debugger.</p>
+<p><img alt="start debugging" data-canonical-src="https://f.cloud.github.com/assets/1926860/306292/b829e8a8-9676-11e2-9879-d33996890224.png" src="https://camo.githubusercontent.com/88d69fa83d683c1cb9e439fa9cfffa8003c725f4/68747470733a2f2f662e636c6f75642e6769746875622e636f6d2f6173736574732f313932363836302f3330363239322f62383239653861382d393637362d313165322d393837392d6433333939363839303232342e706e67"/></p>
+<p>Besides the must-have features <code>StepOver</code>, <code>StepInto</code>, <code>StepOut</code> , the debug window at the bottom has many other useful tools, like <code>Evaluate Expression</code> and <code>Toggle Break on Exception</code>. For usage of those tools, you can refer to the official documents.</p>
+<h2>
+<a aria-hidden="true" class="anchor" href="#a-usable-chat-app" id="user-content-a-usable-chat-app"><span class="octicon octicon-link"></span></a>A Usable Chat App</h2>
+<h3>
+<a aria-hidden="true" class="anchor" href="#common-sence" id="user-content-common-sence"><span class="octicon octicon-link"></span></a>Common Sence</h3>
+<p>After we launched the <code>Web</code> server, it said <code>Please log on http://127.0.0.1:3001/index.html</code>. But we all know <code>127.0.0.1</code> is local host. That means anyone cannot access your server by access <code>127.0.0.1</code>. So this chat server is not usable or accessable.</p>
+<p>That is why we change <code>127.0.0.1</code> to our own ip address. Here my ip address is <code>192.168.1.61</code>, and I'm feeling well to browse <code>http://192.168.1.61:3001/index.html</code>. I can login, send message there myself. So I send this link to my workmate with full of faith.</p>
+<h3>
+<a aria-hidden="true" class="anchor" href="#problem-occured" id="user-content-problem-occured"><span class="octicon octicon-link"></span></a>Problem Occured</h3>
+<p><b>But here, a problem occured.</b></p>
+<p>According to the other's console output of the browser. I saw the client has connected to <code>192.168.1.61:3014</code>, then connecting to <code>127.0.0.1:3050</code>. So this is the problem caused login failure.</p>
+<p>Port <code>3014</code> is just point to the <code>gate</code> server, so just go on debugging.</p>
+<p>After several switches of breakpoints, I found route <code>gateHandler.queryEntry</code> finally executed the <code>next</code> function on <a href="https://github.com/NetEase/chatofpomelo/blob/master/game-server/app/servers/gate/handler/gateHandler.js#L39">line 39</a>.</p>
+<pre><code>var res = dispatcher.dispatch(uid, connectors);
+next(null, {
+    code: 200,
+    host: res.host,
+    port: res.clientPort
+});
+</code></pre>
+<p>We can see the response <code>host</code> is assigned from <code>res.host</code>. Variable <code>res</code> comes from variable <code>connectors</code>. <code>connectors</code> is come from the configuration file <code>servers.json</code>.</p>
+<p>And <a href="https://github.com/NetEase/chatofpomelo/blob/master/game-server/config/servers.json#L4L6">each server configuration</a> in <code>connector</code> config group from config file <code>game-server/config/servers.json</code> has a key <code>host</code>. We can also see these hosts are <code>127.0.0.1</code>.</p>
+<h3>
+<a aria-hidden="true" class="anchor" href="#solve-this-problem" id="user-content-solve-this-problem"><span class="octicon octicon-link"></span></a>Solve This Problem</h3>
+<p>Now let's change these <code>127.0.0.1</code>s into our own ip address. Here I use mine, <code>192.168.1.61</code>. And relaunch the <code>Chat</code> server.</p>
+<p>After my workmate refresh the webpage, he can login.</p>
+<h2>
+<a aria-hidden="true" class="anchor" href="#ps" id="user-content-ps"><span class="octicon octicon-link"></span></a>P.S.</h2>
+<p>Perhaps you've noticed, the ip address that the debugger need to connect to is <b><code>127.0.0.1</code></b>. Maybe you just think can this debugger connect to any other IPs except <b><code>127.0.0.1</code></b>? It's called 'Remote Debugger' after all. But the answer is NO, without the help of a TCP proxy tool.</p>
+<p>You can refer to this <a href="https://github.com/joyent/node/wiki/using-eclipse-as-node-applications-debugger">NodeJS Official Wiki</a> page, at the middle-bottom of content or quickly you can Ctrl-F search "You probably noticed" in page, there is the certain proxy tool. So that you can debug the deployed code remotely.</p>
+<p>Also, as the wiki page title says, that is the official Eclipse Debug Node Apps Guide.</p>
+</div>
+</div></body></html>

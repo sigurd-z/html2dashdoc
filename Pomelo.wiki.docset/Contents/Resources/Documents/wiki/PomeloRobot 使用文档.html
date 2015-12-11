@@ -1,0 +1,135 @@
+<html><head prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# object: http://ogp.me/ns/object# article: http://ogp.me/ns/article# profile: http://ogp.me/ns/profile#">
+<meta charset="utf-8">
+<meta content="IE=edge" http-equiv="X-UA-Compatible">
+<meta content="en" http-equiv="Content-Language">
+<meta content="width=1020" name="viewport">
+<title>PomeloRobot 使用文档 · NetEase/pomelo Wiki · GitHub</title>
+<link href="/opensearch.xml" rel="search" title="GitHub" type="application/opensearchdescription+xml">
+<link href="src/ad667adaa2cfe8f3caa4a41b7d0a79a1.png" rel="fluid-icon" title="GitHub">
+<link href="src/a10d19ff5f738940a7a5086be334f50b.png" rel="apple-touch-icon" sizes="57x57">
+<link href="src/a10d19ff5f738940a7a5086be334f50b.png" rel="apple-touch-icon" sizes="114x114">
+<link href="src/b4cd268bc600cc14d2cdd557de6da2fb.png" rel="apple-touch-icon" sizes="72x72">
+<link href="src/b4cd268bc600cc14d2cdd557de6da2fb.png" rel="apple-touch-icon" sizes="144x144">
+<meta content="1401488693436528" property="fb:app_id">
+<meta content="@github" name="twitter:site"/><meta content="summary" name="twitter:card"/><meta content="NetEase/pomelo" name="twitter:title"/><meta content="pomelo - A fast,scalable,distributed game server framework for Node.js." name="twitter:description"/><meta content="https://avatars0.githubusercontent.com/u/1460597?v=3&amp;s=400" name="twitter:image:src"/>
+<meta content="GitHub" property="og:site_name"/><meta content="object" property="og:type"/><meta content="https://avatars0.githubusercontent.com/u/1460597?v=3&amp;s=400" property="og:image"/><meta content="NetEase/pomelo" property="og:title"/><meta content="https://github.com/NetEase/pomelo" property="og:url"/><meta content="pomelo - A fast,scalable,distributed game server framework for Node.js." property="og:description"/>
+<meta content="https://api.github.com/_private/browser/stats" name="browser-stats-url">
+<meta content="https://api.github.com/_private/browser/errors" name="browser-errors-url">
+<link href="https://assets-cdn.github.com/" rel="assets">
+<meta content="1000" name="pjax-timeout">
+<meta content="/windows-tile.png" name="msapplication-TileImage">
+<meta content="#ffffff" name="msapplication-TileColor">
+<meta data-pjax-transient="" name="selected-link" value="repo_wiki">
+<meta content="KT5gs8h0wvaagLKAVWq8bbeNwnZZK1r1XQysX3xurLU" name="google-site-verification">
+<meta content="UA-3769691-2" name="google-analytics">
+<meta content="collector.githubapp.com" name="octolytics-host"/><meta content="github" name="octolytics-app-id"/><meta content="CA86616A:448B:13C98467:5670C0E3" name="octolytics-dimension-request_id"/>
+<meta content="/&lt;user-name&gt;/&lt;repo-name&gt;/wiki/show" data-pjax-transient="true" name="analytics-location"/>
+<meta content="Rails, view, wiki#show" data-pjax-transient="true" name="analytics-event"/>
+<meta class="js-ga-set" content="Logged Out" name="dimension1">
+<meta content="github.com" name="hostname">
+<meta content="" name="user-login">
+<meta content="github.com" name="expected-hostname">
+<link color="#4078c0" href="https://assets-cdn.github.com/pinned-octocat.svg" rel="mask-icon">
+<link href="https://assets-cdn.github.com/favicon.ico" rel="icon" type="image/x-icon">
+<meta content="f8bb829d7733a7b7af79a61c3710a16573c0c5b9" name="form-nonce"/>
+<link crossorigin="anonymous" href="src/350888e1495e7af27e01faa9d8291dee.css" media="all" rel="stylesheet"/>
+<link crossorigin="anonymous" href="src/9fae9b7d8f0785d745a43c6465f74ae5.css" media="all" rel="stylesheet"/>
+<meta content="cd9958d45e48e8e3157a320e9c346eaa" http-equiv="x-pjax-version">
+<meta content="pomelo - A fast,scalable,distributed game server framework for Node.js." name="description">
+<meta content="github.com/NetEase/pomelo git https://github.com/NetEase/pomelo.git" name="go-import">
+<meta content="1460597" name="octolytics-dimension-user_id"/><meta content="NetEase" name="octolytics-dimension-user_login"/><meta content="5880912" name="octolytics-dimension-repository_id"/><meta content="NetEase/pomelo" name="octolytics-dimension-repository_nwo"/><meta content="true" name="octolytics-dimension-repository_public"/><meta content="false" name="octolytics-dimension-repository_is_fork"/><meta content="5880912" name="octolytics-dimension-repository_network_root_id"/><meta content="NetEase/pomelo" name="octolytics-dimension-repository_network_root_nwo"/>
+<link href="https://github.com/NetEase/pomelo/commits/master.atom" rel="alternate" title="Recent Commits to pomelo:master" type="application/atom+xml">
+</link></meta></meta></meta></link></link></meta></meta></meta></meta></meta></meta></meta></meta></meta></meta></link></meta></meta></meta></link></link></link></link></link></link></meta></meta></meta></meta></head><body style="padding:0 25px;"><div class="gollum-markdown-content instapaper_body" id="wiki-body">
+<div class="markdown-body">
+<h1>
+<a aria-hidden="true" class="anchor" href="#pomelo-robot" id="user-content-pomelo-robot"><span class="octicon octicon-link"></span></a>pomelo-robot</h1>
+<p>pomelo-robot 是一个用来对pomelo游戏服务器框架进行性能测试的工具, 也可以测试其他基于socket.io服务的性能. 
+该模块可以采用单机或者分布式测试两种模式. </p>
+<h1>
+<a aria-hidden="true" class="anchor" href="#%E5%8A%9F%E8%83%BD" id="user-content-功能"><span class="octicon octicon-link"></span></a>功能</h1>
+<p>对游戏项目进行自动化的性能测试和分析, 为游戏服务器提供机器人及其运行脚本, 最终输出性能测试分析报告. 
+pomelo-robot 模块通过沙箱的方式执行用户自定义的JS脚本. 运行过程中各客户端会自动把数据汇报给主节点, 主节点把所有节点的测试数据进行提炼汇总, 计算出平均响应时间等统计数据, 然后定时发给内置的HTTP服务器进行界面展示. </p>
+<h1>
+<a aria-hidden="true" class="anchor" href="#%E6%A8%A1%E5%9D%97%E7%BB%93%E6%9E%84" id="user-content-模块结构"><span class="octicon octicon-link"></span></a>模块结构</h1>
+<p>模块内部运行结构如下：</p>
+<p><img alt="" data-canonical-src="https://raw.github.com/palmtoy/ImageBucket/master/Pomelo/Robot/1.jpg" src="https://camo.githubusercontent.com/c39083c4053b86c23e9bcaba71608e2233583a4a/68747470733a2f2f7261772e6769746875622e636f6d2f70616c6d746f792f496d6167654275636b65742f6d61737465722f506f6d656c6f2f526f626f742f312e6a7067"/></p>
+<p>"Master"负责收集所有"Client"的运行数据并展示统计结果. <br>
+"Client"负责在多个沙箱("User")中运行自定义脚本, 同时向"Master"汇报运行数据. </br></p>
+<h2>
+<a aria-hidden="true" class="anchor" href="#%E4%BD%BF%E7%94%A8%E7%A4%BA%E4%BE%8B" id="user-content-使用示例"><span class="octicon octicon-link"></span></a>使用示例</h2>
+<p>创建Node.js测试工程, 工程目录结构如下图所示:<br/></p>
+<p><img alt="" data-canonical-src="https://raw.github.com/palmtoy/ImageBucket/master/Pomelo/Robot/2.jpg" src="https://camo.githubusercontent.com/7bfa022d9c00dfc818a57c8eda24e78c32cb44bc/68747470733a2f2f7261772e6769746875622e636f6d2f70616c6d746f792f496d6167654275636b65742f6d61737465722f506f6d656c6f2f526f626f742f322e6a7067"/></p>
+<p>安装依赖库:<br/></p>
+<div class="highlight highlight-source-js"><pre>npm install pomelo<span class="pl-k">-</span>robot</pre></div>
+<h3>
+<a aria-hidden="true" class="anchor" href="#configjson%E9%85%8D%E7%BD%AE" id="user-content-configjson配置"><span class="octicon octicon-link"></span></a>config.json配置</h3>
+<p>"config.json"分为两种运行环境: 开发(dev)或生产(prod)环境, "prod"环境的文件内容如下：</p>
+<div class="highlight highlight-source-js"><pre>{
+  <span class="pl-s"><span class="pl-pds">"</span>master<span class="pl-pds">"</span></span><span class="pl-k">:</span> {<span class="pl-s"><span class="pl-pds">"</span>host<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>127.0.0.1<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>port<span class="pl-pds">"</span></span><span class="pl-k">:</span><span class="pl-c1">8888</span>, <span class="pl-s"><span class="pl-pds">"</span>webport<span class="pl-pds">"</span></span><span class="pl-k">:</span><span class="pl-c1">8889</span>, <span class="pl-s"><span class="pl-pds">"</span>interval<span class="pl-pds">"</span></span><span class="pl-k">:</span><span class="pl-c1">500</span>}
+}</pre></div>
+<p>"master"：主服务器的IP, 与客户端的通讯端口, WEB界面端口, 间隔多少毫秒运行一个自定义JS脚本(如:lord.js). <br/></p>
+<h3>
+<a aria-hidden="true" class="anchor" href="#%E5%AE%9E%E7%8E%B0%E8%87%AA%E5%AE%9A%E4%B9%89%E8%84%9A%E6%9C%AC%E9%85%8D%E7%BD%AE" id="user-content-实现自定义脚本配置"><span class="octicon octicon-link"></span></a>实现自定义脚本配置</h3>
+<h5>
+<a aria-hidden="true" class="anchor" href="#%E5%9C%A8envjson%E4%B8%AD%E9%85%8D%E7%BD%AE%E8%87%AA%E5%AE%9A%E4%B9%89%E8%84%9A%E6%9C%AC%E8%B7%AF%E5%BE%84" id="user-content-在envjson中配置自定义脚本路径"><span class="octicon octicon-link"></span></a>在"env.json"中配置自定义脚本路径:<br>
+</br></h5>
+<div class="highlight highlight-source-js"><pre>{
+  <span class="pl-s"><span class="pl-pds">"</span>env<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>prod<span class="pl-pds">"</span></span>,
+  <span class="pl-s"><span class="pl-pds">"</span>script<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>/app/script/lord.js<span class="pl-pds">"</span></span>
+}</pre></div>
+<h5>
+<a aria-hidden="true" class="anchor" href="#%E5%AE%9E%E7%8E%B0%E8%87%AA%E5%AE%9A%E4%B9%89%E8%84%9A%E6%9C%AClordjs" id="user-content-实现自定义脚本lordjs"><span class="octicon octicon-link"></span></a>实现自定义脚本"lord.js":</h5>
+<div class="highlight highlight-source-js"><pre><span class="pl-c">// ...</span>
+<span class="pl-k">var</span> queryHero <span class="pl-k">=</span> <span class="pl-c1">require</span>(cwd <span class="pl-k">+</span> <span class="pl-s"><span class="pl-pds">'</span>/app/data/mysql<span class="pl-pds">'</span></span>).<span class="pl-smi">queryHero</span>;
+<span class="pl-c">// ...</span>
+<span class="pl-k">function</span> <span class="pl-en">entry</span>(<span class="pl-smi">host</span>, <span class="pl-smi">port</span>, <span class="pl-smi">token</span>, <span class="pl-smi">callback</span>) {
+  <span class="pl-c">// ...</span>
+  <span class="pl-c">// 初始化socketClient</span>
+  <span class="pl-smi">pomelo</span>.<span class="pl-en">init</span>({host<span class="pl-k">:</span> host, port<span class="pl-k">:</span> port, log<span class="pl-k">:</span> <span class="pl-c1">true</span>}, <span class="pl-k">function</span>() {
+    <span class="pl-smi">pomelo</span>.<span class="pl-en">request</span>(<span class="pl-s"><span class="pl-pds">'</span>connector.entryHandler.entry<span class="pl-pds">'</span></span>, {token<span class="pl-k">:</span> token}, <span class="pl-k">function</span>(<span class="pl-smi">data</span>) {
+      <span class="pl-c">// ...</span>
+      <span class="pl-en">afterLogin</span>(pomelo,data);
+    });
+  });
+}
+<span class="pl-c">// ...</span></pre></div>
+<p>"/app/data/mysql.js"中查找登录角色的代码如下：</p>
+<div class="highlight highlight-source-js"><pre><span class="pl-c">// ...</span>
+<span class="pl-en">queryHero</span> <span class="pl-k">=</span> <span class="pl-k">function</span>(<span class="pl-smi">client</span>,<span class="pl-smi">limit</span>,<span class="pl-smi">offset</span>,<span class="pl-smi">cb</span>){
+    <span class="pl-k">var</span> users <span class="pl-k">=</span> [];
+    <span class="pl-k">var</span> sql <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">"</span>SELECT User.* FROM User,Player where User.id = Player.userId and User.name like 'pomelo%' limit ? offset ? <span class="pl-pds">"</span></span>;
+    <span class="pl-c">// ...</span>
+};
+<span class="pl-c">// ...</span></pre></div>
+<p>上面的代码运行在沙箱中: 首先登录游戏服务器, 登录成功后回调"afterLogin"函数, 用户可以进行后续的相关操作. <br/></p>
+<h3>
+<a aria-hidden="true" class="anchor" href="#%E5%90%AF%E5%8A%A8%E5%85%A5%E5%8F%A3%E6%96%87%E4%BB%B6appjs" id="user-content-启动入口文件appjs"><span class="octicon octicon-link"></span></a>启动入口文件app.js</h3>
+<p>"app.js"会根据启动参数判断是启动"master"服务还是"client"服务. <br/></p>
+<div class="highlight highlight-source-js"><pre><span class="pl-k">var</span> envConfig <span class="pl-k">=</span> <span class="pl-c1">require</span>(<span class="pl-s"><span class="pl-pds">'</span>./app/config/env.json<span class="pl-pds">'</span></span>);
+<span class="pl-k">var</span> config <span class="pl-k">=</span> <span class="pl-c1">require</span>(<span class="pl-s"><span class="pl-pds">'</span>./app/config/<span class="pl-pds">'</span></span> <span class="pl-k">+</span> <span class="pl-smi">envConfig</span>.<span class="pl-smi">env</span> <span class="pl-k">+</span> <span class="pl-s"><span class="pl-pds">'</span>/config<span class="pl-pds">'</span></span>);
+<span class="pl-c">//...</span>
+<span class="pl-k">if</span> (mode <span class="pl-k">===</span> <span class="pl-s"><span class="pl-pds">'</span>master<span class="pl-pds">'</span></span>) {
+    <span class="pl-smi">robot</span>.<span class="pl-en">runMaster</span>(<span class="pl-c1">__filename</span>);
+} <span class="pl-k">else</span> {
+    <span class="pl-k">var</span> script <span class="pl-k">=</span> (<span class="pl-smi">process</span>.<span class="pl-en">cwd</span>() <span class="pl-k">+</span> <span class="pl-smi">envConfig</span>.<span class="pl-smi">script</span>);
+    <span class="pl-smi">robot</span>.<span class="pl-en">runAgent</span>(script);
+}
+<span class="pl-c">// ...</span></pre></div>
+<p>具体代码可参考<a href="https://github.com/NetEase/pomelo-robot-demo">工程</a>. <br/></p>
+<h3>
+<a aria-hidden="true" class="anchor" href="#%E8%BF%90%E8%A1%8C%E6%B5%8B%E8%AF%95" id="user-content-运行测试"><span class="octicon octicon-link"></span></a>运行测试</h3>
+<p>运行如下命令, 启动"master"服务: <br>
+"node app.js master" <br>
+打开浏览器访问地址"http://masterIp:8889" <br/></br></br></p>
+<p>运行如下命令, 启动"client"服务: <br>
+"node app.js client" <br>
+注: 可以在多台机器上启动"client"服务进行性能和压力测试.</br></br></p>
+<p>WEB界面会显示连接到"master"的"client"数量, 可以在"Per Agent Users"一栏中配置每个"client"将要运行的沙箱数量, 点击"Go"按钮通知所有的"client"开始运行. WEB界面会定时获取后台数据进行展示. <br>
+运行界面如下图所示：<br/></br></p>
+<p><img alt="" data-canonical-src="https://raw.github.com/palmtoy/ImageBucket/master/Pomelo/Robot/3.jpg" src="https://camo.githubusercontent.com/930378944b04b9ecad6f2cb1c0b9783a033c22f5/68747470733a2f2f7261772e6769746875622e636f6d2f70616c6d746f792f496d6167654275636b65742f6d61737465722f506f6d656c6f2f526f626f742f332e6a7067"> </img></p>
+<p><img alt="" data-canonical-src="https://raw.github.com/palmtoy/ImageBucket/master/Pomelo/Robot/4.jpg" src="https://camo.githubusercontent.com/13e963d6897da78e1f550c15dd039f21d4352816/68747470733a2f2f7261772e6769746875622e636f6d2f70616c6d746f792f496d6167654275636b65742f6d61737465722f506f6d656c6f2f526f626f742f342e6a7067"> </img></p>
+<h3>
+<a aria-hidden="true" class="anchor" href="#%E5%85%B6%E4%BB%96" id="user-content-其他"><span class="octicon octicon-link"></span></a>其他</h3>
+<p>源代码请参考<a href="https://github.com/NetEase/pomelo-robot">工程</a> </p>
+</div>
+</div></body></html>

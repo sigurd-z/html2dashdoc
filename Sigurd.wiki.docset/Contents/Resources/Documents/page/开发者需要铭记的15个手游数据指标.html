@@ -1,0 +1,40 @@
+<html><head>
+<meta charset="utf-8">
+<title>开发者需要铭记的15个手游数据指标 - CocoaChina_让移动开发更简单</title>
+<meta content="游戏开发,数据分析iPhone开发,iOS开发,iPad开发,Mac开发,苹果开发中文站,iPhone开发中文站,CocoaChina首页, Mac OS开发, Cocoa介绍,移动互联网,触控科技,Cocoa,Apple,developer,iOS,iPhone,iPad,iMac,iPod Touch,iPhone5,iPhone4S,iPad3,招聘,iPhone程序员,Objective-c,iPhone应用外包,ios6,ios面试,Cocos2d-x,cocos2d,iTunes,App Store,苹果开发" name="keywords"/>
+<meta content="CocoaChina前身是全球成立最早规模最大的苹果开发中文站，现致力为所有移动开发者提供资讯服务、问答服务、代码下载、工具库及人才招聘服务" name="description"/>
+<meta content="IE=edge" http-equiv="X-UA-Compatible">
+<meta content="width=device-width, initial-scale=1" name="viewport">
+<meta content="3300a939a1098c27e94457b75a0bb8c1" name="baidu-tc-cerfication"/>
+<script type="text/javascript">
+        function gotoMobilePage() {
+            var sUserAgent = navigator.userAgent.toLowerCase();
+            var agent_iphone = /iphone/i;
+            var agent_android = /android/i;
+            //var agent_ipad = /ipad/i;
+            var agent_ipod = /ipod/i;
+            var agent_wphone = /windows phone/i;
+            if(agent_iphone.test(sUserAgent) || agent_android.test(sUserAgent) || agent_ipod.test(sUserAgent) || agent_wphone.test(sUserAgent)){
+                var re = /\/\w+\/\d+\/(\d+)\.html/, 
+                    result = re.exec(window.location.pathname);
+                if ( result )
+                {
+                    window.location.href = "http://www.cocoachina.com/cms/wap.php?action=article&id=" + result[1];
+                } else {
+                    window.location.href = "http://m.cocoachina.com/";
+                }
+            }
+        }
+        gotoMobilePage(); 
+    </script>
+<link href="src/a84898c7e6056d1260de02fbe818b59e.css" media="all" rel="stylesheet">
+<link href="src/fc35020aff41205c763aecda3951334a.css" media="all" rel="stylesheet">
+<link href="src/d489a5f4b1e2af09b4874b9d8d44c7a2.css" rel="stylesheet">
+<link href="src/b5f6d4d81287e6040d1271874f705098.css" rel="stylesheet">
+<link href="src/a1959dceb4a4550b81d1eaa35f644180.css" rel="stylesheet"/>
+<script src="src/a769fe53451c6abe32a2409f213c856c.js" type="text/javascript"></script>
+<script src="src/878a1f110abba9b87695d6713e2423f4.js" type="text/javascript"></script>
+<script src="src/78baea099161f999e575b28991cb48cf.js" type="text/javascript"></script>
+</link></link></link></link></meta></meta></meta></head><body><div class="field_body" id="detailbody">
+<p style="text-align:center"><img alt="FM-e1437468388707500.jpg" src="src/6b27fb639a0a301b57a24e3a74d77591.jpg" title="1437532856437145.jpg"/></p><p>原文：<a href="http://blog.gameanalytics.com/blog/metrics-all-game-developers-should-know.html" target="_blank">15 Metrics All Game Developers Should Know by Hear</a>t<br/>手游数据分析听起来可能感觉很复杂，因为当提及指标问题，往往需要记录成百上千的数据。简单来说，有下载量、访问量和日活跃(DAU)这些指标。这些数据相对来说比较简单，并且衡量的是具体行为。更复杂一些的指标有流失、付费玩家平均贡献（ARPPU）和日活跃用户（DAU）与用户活跃度(DAU/MAU)。这些指标解释起来没那么直观，而且他们衍生出的问题可能比答案更多。<br/></p><p>我要等多久才知道一个用户已经流失了呢？</p><p>“一个好的付费玩家平均贡献是什么样的呢？”</p><p>到目前为止，我们还没有介绍更先进的分析概念，比如细分、漏斗和自定义事件。现在，我们会继续讲解这些指标，并看看这些数据实际可以告诉我们游戏存在哪些问题。然而对于游戏分析来说，没有放之四海而皆准的原则，一些有用的指标可以帮助我们看清怎样去改善游戏。</p><p><span style="color: rgb(0, 176, 80);"><strong>基础指标</strong></span></p><p><strong>日活跃用户DAU</strong></p><p>让我们从基础指标DAU开始，DAU是指任何一天在应用程序上至少有一次访问的独立用户数量。仅凭DAU和其他指标不会更深入的展示应用程序的表现。然而，了解这些简单的指标对于后续的分析讨论是一个好的开始。</p><p>让我们来看一个例子，一个硬核游戏拥有10000个用户，这些用户每天都会玩几次并给游戏带来收入。这与拥有1,000,000活跃用户的新闻客户端或消息应用程序相比，他们虽有很高的活跃但是没有盈利机制。再以另一款应用程序为例，它可能留存很差，但可能在不断持续的导入用户。今天，他们拥有5000000的日活跃用户，但是明天日活跃用户可能减少到100000。日活跃用户数仅仅是一个数据快照，其他数据也同样重要，但是没有一个比庞大的用户群更重要的数据了。</p><p><strong>登录</strong></p><p>任何用户在任何时间（不再区分独立用户），只要打开一次应用程序，就算一次登录。与日活跃用户相似，登录的总次数需要其他数据支撑才能成为一个有用的数据。具体来说，应该关注每日活跃用户登录的平均数，因为这个指标可以告诉我们用户参与游戏的程度。</p><p>应用程序的类型的确会影响登录与日活跃用户，因为一些类型的游戏可以使用户有更频繁的登录。如果用户每天登录5-10次，那就很明确的认为他们喜欢这个游戏；如果用户每天只打开这个应用程序一两次，那这个游戏就不可能获得他们长时间的关注。</p><p><strong>用户活跃度（DAU/MAU）</strong></p><p>日活跃用户与月活跃用户的比值显示了一个应用程序的用户留存，也通常被称为游戏粘性。这个指标也显示了用户登录应用程序的频率，举例说明会更易于理解。</p><p>假如一个应用程序有100000个月活跃用户和平均15000个日活跃用户，那么日活跃用户与月活跃用户比值应该是15%。这也就是说每个用户在当月平均登录了大约15%的天数（30*15%=4.5天）。</p><p>因为这是一个比值，日活跃用户与月活跃用户比指只可能是一个0到1之间的值。值越接近1，意味着用户打开这个应用程序的天数越多。流行的社交网络应用，如Facebook，就曾报道日活跃用户与月活跃用户比高达50%，但是大多数成功游戏应用的比值大概接近20%。</p><p><strong>留存</strong></p><p>对免费游戏来说，留存可以说是最重要的指标，成功的免费游戏和用户之间建立了一种长期关系。享受这种体验的用户愿意为在游戏中争取竞争优势而付费，游戏需要有较高的留存并且需要用户长时间去建立这种关系。</p><p>计算留存，会根据下载应用程序的时间把用户分组，用户下载当天记为0，如果用户在第二天再次打开应用程序，则记为1，他们就会被标记为留存用户。如果他们没有打开这个应用程序，那么就不会被标记。这种计算方式是用于每天记录那些已经下载过游戏的用户群组。常见的记录留存的天数是1、3、7和30。</p><p style="text-align:center"><img alt="Sk?rmbillede-2015-07-08-kl.-14.53.jpg" src="src/5de70ae887dbe42f2c6d40885ea8dfab.jpg" title="1437533027112525.jpg"/></p><p style="text-align: center;">为了计算留存，将会根据下载应用程序的时间把用户分组</p><p><strong>付费转化率</strong></p><p>现在继续来讲大家都喜欢的话题：钱！以上所讲的指标主要是用来衡量游戏和用户之间的关系，用户使用应用程序的频率。但是对于大多数的独立研发者来说，最重要的标准是游戏是否能够赚足够的钱。</p><p>转化率衡量的是在一定的时间内，付费独立用户占总独立用户的百分比，也可以衡量在免费游戏中广告的转化率。</p><p>让用户在免费游戏中付钱是很难的事情。但是，和许多其他行业一样，在免费游戏中重复消费者会为游戏带来大部分的收益。通过提供给用户具有极高价值的虚拟物品来鼓励他们进行第一次付费转化。</p><p><strong>日活跃用户平均收益ARPDAU</strong></p><p>日活跃用户平均收益（ARPDAU）是在游戏中经常被讨论的指标之一。ARPDAU是一个很有用的指标，因为它可以在日常基础数据中了解游戏的收益表现。</p><p>ARPDAU是追踪记录用户在付费之前以及在付费过程中行为的一个很好的指标。获取新用户之前，一定要知道ARPDAU的范围以及它是如何正常波动的。在获取新用户过程中，根据来源分割新用户，并看看在你应用程序上哪个网络或游戏表现最好。我们会在之后的帖子里讨论用户细分问题。</p><p><strong>每付费用户平均收益ARPPU</strong></p><p>每付费用户平均收益（ARPPU）衡量在游戏中已经完成付费的用户，这个指标基于游戏类型会有很大的差异。硬核游戏往往有更高的收益标准，但是相比休闲类游戏来说，却缺少更大的付费吸引力。</p><p><strong>流失</strong></p><p>流失和留存相反，统计有多少玩家下载了游戏但是没有再继续玩。预售模式中，流失指标具有重要意义，但是免费游戏中又会有一些差别。</p><p>主要考量的是用户玩游戏的风格。不管用户是否付费，在预售模式中，流失是不可避免的。在免费游戏中一些玩家可能每天会玩多次，然而更多的休闲玩家一周可能登录一两次。为了区分玩家之间这些不同，我们把在28天内没有玩的用户定义为流失用户。</p><p><span style="color: rgb(0, 176, 80);"><strong>游戏内指标</strong></span></p><p>除了了解用户参与度、留存和收益，权衡游戏经济也是非常重要的。如果赚取虚拟币太容易，那么用户就没有需求去付费，但是用户仍然需要足够的虚拟货币来享受和探索游戏，两者之间有一个有趣的方式，下面我们就来介绍。</p><p><strong>资源的产出和消耗</strong></p><p>产出是用户可以赚取虚拟货币的方式。在游戏数据分析中，产出指标是用来衡量用户赚取的货币数量，它还包括仁慈的游戏设计者慷慨地给予用户任何形式的货币。</p><p>消耗和产出是相反的。是指用户在游戏中消费的虚拟货币，产出和消耗都可以适用于硬通货币和代币（虚拟货币）。在分析中要把这些不同类型的货币单独分析。</p><p>随着资源的产出和消耗就形成了资源的流通。资源流通是玩家消费和赚取货币收支平衡的表现，一般来说资源流通应该像下面曲线图中的一样稳定。</p><p style="text-align:center"><img alt="2-e1437469470390.jpg" src="src/fb762796b16c0904706e287cae9032ed.jpg" title="1437533095515907.jpg"/></p><p style="text-align: center;">资源流通是玩家消费和赚取货币收支平衡的表现</p><p>如果图表的曲线与指数曲线一样向上倾斜，那表示玩家手中有过多的货币，那么他们就没有必要去充值。如果图表中曲线向下倾斜并趋近于0，表示在游戏中玩家由于资源匮乏不能做任何事。</p><p>开始次数，失败次数或成功次数</p><p>最后，我们来看一些进阶指标。很多类型的游戏都有一个关卡系统。开始次数指标衡量的是一个玩家挑战一个新关卡的次数。</p><p>另一个指标是失败次数。当一个用户挑战下一个新的关卡但是没有完成就会出现失败。</p><p>如你所料，成功次数指标记录的是用户完成某一关卡的次数，把这三个结合在一起可以帮助你分析游戏中的关卡问题。</p><p style="text-align:center"><img alt="3-e1437469561654.jpg" src="src/d8eaa89346f6b3147b37404e2337a795.jpg" title="1437533127246908.jpg"/></p><p style="text-align: center;">开始，失败或成功</p><p>游戏的难度设计合理吗？用户是否意外地被卡在某一关卡上？在哪一关用户玩得最愉快并且会重复玩？开始、失败和完成次数可以回答这些的问题。</p><p>然而，对于游戏分析没有万全之策，以上提及的指标仅仅是能帮我们达到分析领域的入门标准。手游分析最重要的是要建立自己游戏的标准。一旦了解了用户行为，就可以权衡一些问题，比如游戏更新的影响或者是改变获取用户的策略。</p>
+</div></body></html>
