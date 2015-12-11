@@ -1,0 +1,929 @@
+
+<!DOCTYPE html>
+
+<html class="" lang="en">
+<head prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# object: http://ogp.me/ns/object# article: http://ogp.me/ns/article# profile: http://ogp.me/ns/profile#">
+<meta charset="utf-8">
+<meta content="IE=edge" http-equiv="X-UA-Compatible">
+<meta content="en" http-equiv="Content-Language">
+<meta content="width=1020" name="viewport">
+<title>框架驱动 · NetEase/pomelo Wiki · GitHub</title>
+<link href="/opensearch.xml" rel="search" title="GitHub" type="application/opensearchdescription+xml">
+<link href="https://github.com/fluidicon.png" rel="fluid-icon" title="GitHub">
+<link href="/apple-touch-icon-114.png" rel="apple-touch-icon" sizes="57x57">
+<link href="/apple-touch-icon-114.png" rel="apple-touch-icon" sizes="114x114">
+<link href="/apple-touch-icon-144.png" rel="apple-touch-icon" sizes="72x72">
+<link href="/apple-touch-icon-144.png" rel="apple-touch-icon" sizes="144x144">
+<meta content="1401488693436528" property="fb:app_id">
+<meta content="@github" name="twitter:site"/><meta content="summary" name="twitter:card"/><meta content="NetEase/pomelo" name="twitter:title"/><meta content="pomelo - A fast,scalable,distributed game server framework for Node.js." name="twitter:description"/><meta content="https://avatars0.githubusercontent.com/u/1460597?v=3&amp;s=400" name="twitter:image:src"/>
+<meta content="GitHub" property="og:site_name"/><meta content="object" property="og:type"/><meta content="https://avatars0.githubusercontent.com/u/1460597?v=3&amp;s=400" property="og:image"/><meta content="NetEase/pomelo" property="og:title"/><meta content="https://github.com/NetEase/pomelo" property="og:url"/><meta content="pomelo - A fast,scalable,distributed game server framework for Node.js." property="og:description"/>
+<meta content="https://api.github.com/_private/browser/stats" name="browser-stats-url">
+<meta content="https://api.github.com/_private/browser/errors" name="browser-errors-url">
+<link href="https://assets-cdn.github.com/" rel="assets">
+<meta content="1000" name="pjax-timeout">
+<meta content="/windows-tile.png" name="msapplication-TileImage">
+<meta content="#ffffff" name="msapplication-TileColor">
+<meta data-pjax-transient="" name="selected-link" value="repo_wiki">
+<meta content="KT5gs8h0wvaagLKAVWq8bbeNwnZZK1r1XQysX3xurLU" name="google-site-verification">
+<meta content="UA-3769691-2" name="google-analytics">
+<meta content="collector.githubapp.com" name="octolytics-host"/><meta content="github" name="octolytics-app-id"/><meta content="482E8777:4489:5CDB313:566A2A3C" name="octolytics-dimension-request_id"/>
+<meta content="/&lt;user-name&gt;/&lt;repo-name&gt;/wiki/show" data-pjax-transient="true" name="analytics-location"/>
+<meta content="Rails, view, wiki#show" data-pjax-transient="true" name="analytics-event"/>
+<meta class="js-ga-set" content="Logged Out" name="dimension1">
+<meta content="github.com" name="hostname">
+<meta content="" name="user-login">
+<meta content="github.com" name="expected-hostname">
+<link color="#4078c0" href="https://assets-cdn.github.com/pinned-octocat.svg" rel="mask-icon">
+<link href="https://assets-cdn.github.com/favicon.ico" rel="icon" type="image/x-icon">
+<meta content="3ca56e3394045334433388fdc8d30cd60106db4b" name="form-nonce"/>
+<link crossorigin="anonymous" href="https://assets-cdn.github.com/assets/github-c4e84b31ad83e3338ffded095ee7f4bd13abea9e4e85427bce41c960343dae2e.css" media="all" rel="stylesheet"/>
+<link crossorigin="anonymous" href="https://assets-cdn.github.com/assets/github2-dbb634f9787dac887112e206dd1bc44b0b513564a9ab6a760d2575625ac399e8.css" media="all" rel="stylesheet"/>
+<meta content="a4621b982950a688525d6a6b60789411" http-equiv="x-pjax-version">
+<meta content="pomelo - A fast,scalable,distributed game server framework for Node.js." name="description">
+<meta content="github.com/NetEase/pomelo git https://github.com/NetEase/pomelo.git" name="go-import">
+<meta content="1460597" name="octolytics-dimension-user_id"/><meta content="NetEase" name="octolytics-dimension-user_login"/><meta content="5880912" name="octolytics-dimension-repository_id"/><meta content="NetEase/pomelo" name="octolytics-dimension-repository_nwo"/><meta content="true" name="octolytics-dimension-repository_public"/><meta content="false" name="octolytics-dimension-repository_is_fork"/><meta content="5880912" name="octolytics-dimension-repository_network_root_id"/><meta content="NetEase/pomelo" name="octolytics-dimension-repository_network_root_nwo"/>
+<link href="https://github.com/NetEase/pomelo/commits/master.atom" rel="alternate" title="Recent Commits to pomelo:master" type="application/atom+xml">
+</link></meta></meta></meta></link></link></meta></meta></meta></meta></meta></meta></meta></meta></meta></meta></link></meta></meta></meta></link></link></link></link></link></link></meta></meta></meta></meta></head>
+<body class="logged_out env-production vis-public">
+<a class="accessibility-aid js-skip-to-content" href="" tabindex="1">Skip to content</a>
+<div class="header header-logged-out" role="banner">
+<div class="container clearfix">
+<a class="header-logo-wordmark" data-ga-click="(Logged out) Header, go to homepage, icon:logo-wordmark" href="">
+<span class="mega-octicon octicon-logo-github"></span>
+</a>
+<div class="header-actions" role="navigation">
+<a class="btn btn-primary" data-ga-click="(Logged out) Header, clicked Sign up, text:sign-up" href="">Sign up</a>
+<a class="btn" data-ga-click="(Logged out) Header, clicked Sign in, text:sign-in" href="">Sign in</a>
+</div>
+<div class="site-search repo-scope js-site-search" role="search">
+<!-- </textarea> --><!-- '"` --><form accept-charset="UTF-8" action="/NetEase/pomelo/search" class="js-site-search-form" data-global-search-url="/search" data-repo-search-url="/NetEase/pomelo/search" method="get"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="✓"/></div>
+<label class="js-chromeless-input-container form-control">
+<div class="scope-badge">This repository</div>
+<input aria-label="Search this repository" autocapitalize="off" class="js-site-search-focus js-site-search-field is-clearable chromeless-input" data-global-scope-placeholder="Search GitHub" data-hotkey="s" data-repo-scope-placeholder="Search" name="q" placeholder="Search" tabindex="1" type="text">
+</input></label>
+</form>
+</div>
+<ul class="header-nav left" role="navigation">
+<li class="header-nav-item">
+<a class="header-nav-link" data-ga-click="(Logged out) Header, go to explore, text:explore" href="">Explore</a>
+</li>
+<li class="header-nav-item">
+<a class="header-nav-link" data-ga-click="(Logged out) Header, go to features, text:features" href="">Features</a>
+</li>
+<li class="header-nav-item">
+<a class="header-nav-link" data-ga-click="(Logged out) Header, go to enterprise, text:enterprise" href="">Enterprise</a>
+</li>
+<li class="header-nav-item">
+<a class="header-nav-link" data-ga-click="(Logged out) Header, go to pricing, text:pricing" href="">Pricing</a>
+</li>
+</ul>
+</div>
+</div>
+<div class="accessibility-aid" id="start-of-content"></div>
+<div id="js-flash-container">
+</div>
+<div class="main-content" role="main">
+<div itemscope="" itemtype="http://schema.org/WebPage">
+<div class="context-loader-container js-repo-nav-next" data-pjax-container="" id="js-repo-pjax-container">
+<div class="pagehead repohead instapaper_ignore readability-menu experiment-repo-nav">
+<div class="container repohead-details-container">
+<ul class="pagehead-actions">
+<li>
+<a aria-label="You must be signed in to watch a repository" class="btn btn-sm btn-with-count tooltipped tooltipped-n" href="" rel="nofollow">
+<span class="octicon octicon-eye"></span>
+    Watch
+  </a>
+<a class="social-count" href="">
+    893
+  </a>
+</li>
+<li>
+<a aria-label="You must be signed in to star a repository" class="btn btn-sm btn-with-count tooltipped tooltipped-n" href="" rel="nofollow">
+<span class="octicon octicon-star"></span>
+    Star
+  </a>
+<a class="social-count js-social-count" href="">
+      5,441
+    </a>
+</li>
+<li>
+<a aria-label="You must be signed in to fork a repository" class="btn btn-sm btn-with-count tooltipped tooltipped-n" href="" rel="nofollow">
+<span class="octicon octicon-repo-forked"></span>
+        Fork
+      </a>
+<a class="social-count" href="">
+      1,627
+    </a>
+</li>
+</ul>
+<h1 class="entry-title public " itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+<span class="octicon octicon-repo"></span>
+<span class="author"><a class="url fn" href="" itemprop="url" rel="author"><span itemprop="title">NetEase</span></a></span><!--
+--><span class="path-divider">/</span><!--
+--><strong><a data-pjax="#js-repo-pjax-container" href="">pomelo</a></strong>
+<span class="page-context-loader">
+<img alt="" height="16" src="https://assets-cdn.github.com/images/spinners/octocat-spinner-32.gif" width="16"/>
+</span>
+</h1>
+</div>
+<div class="container">
+<nav class="reponav js-repo-nav js-sidenav-container-pjax js-octicon-loaders" data-pjax="#js-repo-pjax-container" role="navigation">
+<a aria-label="Code" class="js-selected-navigation-item reponav-item" data-hotkey="g c" data-selected-links="repo_source repo_downloads repo_commits repo_releases repo_tags repo_branches /NetEase/pomelo" href="">
+<span class="octicon octicon-code"></span>
+    Code
+</a>
+<a class="js-selected-navigation-item reponav-item" data-hotkey="g i" data-selected-links="repo_issues repo_labels repo_milestones /NetEase/pomelo/issues" href="">
+<span class="octicon octicon-issue-opened"></span>
+      Issues
+      <span class="counter">222</span>
+</a>
+<a class="js-selected-navigation-item reponav-item" data-hotkey="g p" data-selected-links="repo_pulls /NetEase/pomelo/pulls" href="">
+<span class="octicon octicon-git-pull-request"></span>
+    Pull requests
+    <span class="counter">7</span>
+</a>
+<a aria-selected="true" class="js-selected-navigation-item selected reponav-item" data-hotkey="g w" data-selected-links="repo_wiki /NetEase/pomelo/wiki" href="">
+<span class="octicon octicon-book"></span>
+      Wiki
+</a>
+<a class="js-selected-navigation-item reponav-item" data-selected-links="pulse /NetEase/pomelo/pulse" href="">
+<span class="octicon octicon-pulse"></span>
+    Pulse
+</a>
+<a class="js-selected-navigation-item reponav-item" data-selected-links="repo_graphs repo_contributors /NetEase/pomelo/graphs" href="">
+<span class="octicon octicon-graph"></span>
+    Graphs
+</a>
+</nav>
+</div>
+</div>
+<div class="container new-discussion-timeline experiment-repo-nav">
+<div class="repository-content">
+<div class="wiki-wrapper page" id="wiki-wrapper">
+<div class="gh-header">
+<div class="gh-header-show">
+<h1 class="gh-header-title instapaper_title">框架驱动</h1>
+<div class="gh-header-meta">
+        Modun Zhang edited this page <time datetime="2015-03-09T08:27:25Z" is="relative-time">Mar 9, 2015</time>
+        ·
+        <a class="history" href="">
+          4 revisions
+        </a>
+</div>
+</div>
+</div>
+<div id="wiki-content">
+<div class="has-rightbar">
+<div id="wiki-rightbar">
+<div class="wiki-pages-box readability-sidebar boxed-group flush js-wiki-pages-box " role="navigation">
+<h3 class="js-wiki-toggle-collapse wiki-auxiliary-content">
+<span class="octicon octicon-triangle-down caret-expanded"></span>
+<span class="octicon octicon-triangle-right caret-collapsed"></span>
+  Pages <span class="counter">200</span>
+</h3>
+<div class="boxed-group-inner wiki-auxiliary-content wiki-auxiliary-content-no-bg">
+<div class="filter-bar">
+<input aria-label="Find a Page…" class="filter-input js-filterable-field" id="wiki-pages-filter" placeholder="Find a Page…" tabindex="2" type="text">
+</input></div>
+<ul class="wiki-pages" data-filterable-for="wiki-pages-filter" data-filterable-type="substring">
+<li>
+<strong><a class="wiki-page-link" href="">Home</a></strong>
+</li>
+<li>
+<strong><a class="wiki-page-link" href="">Adding a component</a></strong>
+</li>
+<li>
+<strong><a class="wiki-page-link" href="">Adding a filter</a></strong>
+</li>
+<li>
+<strong><a class="wiki-page-link" href="">Adding an admin module</a></strong>
+</li>
+<li>
+<strong><a class="wiki-page-link" href="">adminConsole 开发文档</a></strong>
+</li>
+<li>
+<strong><a class="wiki-page-link" href="">adminConsole安装与简介</a></strong>
+</li>
+<li>
+<strong><a class="wiki-page-link" href="">Application configuration</a></strong>
+</li>
+<li>
+<strong><a class="wiki-page-link" href="">Architecture overview of pomelo</a></strong>
+</li>
+<li>
+<strong><a class="wiki-page-link" href="">Architecture overview of pomelo 포멜로 아키텍처 개요</a></strong>
+</li>
+<li>
+<strong><a class="wiki-page-link" href="">Backend server</a></strong>
+</li>
+<li>
+<strong><a class="wiki-page-link" href="">Builtin components</a></strong>
+</li>
+<li>
+<strong><a class="wiki-page-link" href="">Chat源码下载与安装</a></strong>
+</li>
+<li>
+<strong><a class="wiki-page-link" href="">Client development</a></strong>
+</li>
+<li>
+<strong><a class="wiki-page-link" href="">Client platform supported</a></strong>
+</li>
+<li>
+<strong><a class="wiki-page-link" href="">Code architecture</a></strong>
+</li>
+<li class="wiki-more-pages">
+<strong><a class="wiki-page-link" href="">Command Line Document</a></strong>
+</li>
+<li class="wiki-more-pages">
+<strong><a class="wiki-page-link" href="">Communication protocol</a></strong>
+</li>
+<li class="wiki-more-pages">
+<strong><a class="wiki-page-link" href="">Communication with client</a></strong>
+</li>
+<li class="wiki-more-pages">
+<strong><a class="wiki-page-link" href="">Connector实现</a></strong>
+</li>
+<li class="wiki-more-pages">
+<strong><a class="wiki-page-link" href="">Debugging Pomelo ServerApps With WebStorm IDE</a></strong>
+</li>
+<li class="wiki-more-pages">
+<strong><a class="wiki-page-link" href="">Development introduction to lordofpomelo</a></strong>
+</li>
+<li class="wiki-more-pages">
+<strong><a class="wiki-page-link" href="">Distributed Chat</a></strong>
+</li>
+<li class="wiki-more-pages">
+<strong><a class="wiki-page-link" href="">Distributed Chat 분산 채팅</a></strong>
+</li>
+<li class="wiki-more-pages">
+<strong><a class="wiki-page-link" href="">Distributed deployment of pomelo</a></strong>
+</li>
+<li class="wiki-more-pages">
+<strong><a class="wiki-page-link" href="">Documentation</a></strong>
+</li>
+<li class="wiki-more-pages">
+<strong><a class="wiki-page-link" href="">FAQ</a></strong>
+</li>
+<li class="wiki-more-pages">
+<strong><a class="wiki-page-link" href="">FAQ 자주 묻는 질문들</a></strong>
+</li>
+<li class="wiki-more-pages">
+<strong><a class="wiki-page-link" href="">Features List</a></strong>
+</li>
+<li class="wiki-more-pages">
+<strong><a class="wiki-page-link" href="">Framework class diagram</a></strong>
+</li>
+<li class="wiki-more-pages">
+<strong><a class="wiki-page-link" href="">Framework execution flow</a></strong>
+</li>
+<li class="wiki-more-pages">
+<strong><a class="wiki-page-link" href="">Getting source code &amp; installation</a></strong>
+</li>
+<li class="wiki-more-pages">
+<strong><a class="wiki-page-link" href="">Helloworld of pomelo</a></strong>
+</li>
+<li class="wiki-more-pages">
+<strong><a class="wiki-page-link" href="">Home in Chinese</a></strong>
+</li>
+<li class="wiki-more-pages">
+<strong><a class="wiki-page-link" href="">Home in Korean</a></strong>
+</li>
+<li class="wiki-more-pages">
+<strong><a class="wiki-page-link" href="">Installation</a></strong>
+</li>
+<li class="wiki-more-pages">
+<strong><a class="wiki-page-link" href="">Installation guide of lordofpomelo</a></strong>
+</li>
+<li class="wiki-more-pages">
+<strong><a class="wiki-page-link" href="">Installation 설치</a></strong>
+</li>
+<li class="wiki-more-pages">
+<strong><a class="wiki-page-link" href="">Introduction of pomelo</a></strong>
+</li>
+<li class="wiki-more-pages">
+<strong><a class="wiki-page-link" href="">Introduction to  Lord of Pomelo</a></strong>
+</li>
+<li class="wiki-more-pages">
+<strong><a class="wiki-page-link" href="">Introduction to Pomelo</a></strong>
+</li>
+<li class="wiki-more-pages">
+<strong><a class="wiki-page-link" href="">Introduction to Pomelo 포멜로 서론</a></strong>
+</li>
+<li class="wiki-more-pages">
+<strong><a class="wiki-page-link" href="">Introduction to servers in lordofpomelo</a></strong>
+</li>
+<li class="wiki-more-pages">
+<strong><a class="wiki-page-link" href="">Kor</a></strong>
+</li>
+<li class="wiki-more-pages">
+<strong><a class="wiki-page-link" href="">Library reference of pomleo</a></strong>
+</li>
+<li class="wiki-more-pages">
+<strong><a class="wiki-page-link" href="">Log management</a></strong>
+</li>
+<li class="wiki-more-pages">
+<strong><a class="wiki-page-link" href="">Lord of pomelo安装指南</a></strong>
+</li>
+<li class="wiki-more-pages">
+<strong><a class="wiki-page-link" href="">lordofpomelo 0.3新特性</a></strong>
+</li>
+<li class="wiki-more-pages">
+<strong><a class="wiki-page-link" href="">LordOfPomelo code organization</a></strong>
+</li>
+<li class="wiki-more-pages">
+<strong><a class="wiki-page-link" href="">Lordofpomelo install amazon ec2</a></strong>
+</li>
+<li class="wiki-more-pages">
+<strong><a class="wiki-page-link" href="">LordOfPomelo installation guide</a></strong>
+</li>
+<li class="wiki-more-pages">
+<strong><a class="wiki-page-link" href="">LordOfPomelo introduction</a></strong>
+</li>
+<li class="wiki-more-pages">
+<strong><a class="wiki-page-link" href="">LordOfPomelo server introduction</a></strong>
+</li>
+<li class="wiki-more-pages">
+<strong><a class="wiki-page-link" href="">LordOfPomelo startup process</a></strong>
+</li>
+<li class="wiki-more-pages">
+<strong><a class="wiki-page-link" href="">LordOfPomelo 介绍</a></strong>
+</li>
+<li class="wiki-more-pages">
+<strong><a class="wiki-page-link" href="">LordOfPomelo 代码组织</a></strong>
+</li>
+<li class="wiki-more-pages">
+<strong><a class="wiki-page-link" href="">LordOfPomelo 启动流程</a></strong>
+</li>
+<li class="wiki-more-pages">
+<strong><a class="wiki-page-link" href="">LordOfPomelo 安装指南</a></strong>
+</li>
+<li class="wiki-more-pages">
+<strong><a class="wiki-page-link" href="">LordOfPomelo 服务器介绍</a></strong>
+</li>
+<li class="wiki-more-pages">
+<strong><a class="wiki-page-link" href="">lordofpomelo 简介</a></strong>
+</li>
+<li class="wiki-more-pages">
+<strong><a class="wiki-page-link" href="">Message compression</a></strong>
+</li>
+<li class="wiki-more-pages">
+<strong><a class="wiki-page-link" href="">plugin</a></strong>
+</li>
+<li class="wiki-more-pages">
+<strong><a class="wiki-page-link" href="">plugin文档</a></strong>
+</li>
+<li class="wiki-more-pages">
+<strong><a class="wiki-page-link" href="">Pomelo 0.2到0.3升级指南</a></strong>
+</li>
+<li class="wiki-more-pages">
+<strong><a class="wiki-page-link" href="">Pomelo 0.3 new features</a></strong>
+</li>
+<li class="wiki-more-pages">
+<strong><a class="wiki-page-link" href="">Pomelo 0.3新特性</a></strong>
+</li>
+<li class="wiki-more-pages">
+<strong><a class="wiki-page-link" href="">Pomelo 0.4 new features</a></strong>
+</li>
+<li class="wiki-more-pages">
+<strong><a class="wiki-page-link" href="">Pomelo 0.4新特性</a></strong>
+</li>
+<li class="wiki-more-pages">
+<strong><a class="wiki-page-link" href="">Pomelo 0.5新特性</a></strong>
+</li>
+<li class="wiki-more-pages">
+<strong><a class="wiki-page-link" href="">pomelo 0.6版新特性</a></strong>
+</li>
+<li class="wiki-more-pages">
+<strong><a class="wiki-page-link" href="">pomelo 0.7版新特性</a></strong>
+</li>
+<li class="wiki-more-pages">
+<strong><a class="wiki-page-link" href="">pomelo 0.8新特性</a></strong>
+</li>
+<li class="wiki-more-pages">
+<strong><a class="wiki-page-link" href="">pomelo 0.9新特性</a></strong>
+</li>
+<li class="wiki-more-pages">
+<strong><a class="wiki-page-link" href="">pomelo 1.0新特性</a></strong>
+</li>
+<li class="wiki-more-pages">
+<strong><a class="wiki-page-link" href="">Pomelo admin web tool usage</a></strong>
+</li>
+<li class="wiki-more-pages">
+<strong><a class="wiki-page-link" href="">pomelo admin web工具的使用</a></strong>
+</li>
+<li class="wiki-more-pages">
+<strong><a class="wiki-page-link" href="">pomelo cli exec命令使用</a></strong>
+</li>
+<li class="wiki-more-pages">
+<strong><a class="wiki-page-link" href="">Pomelo cli usage</a></strong>
+</li>
+<li class="wiki-more-pages">
+<strong><a class="wiki-page-link" href="">Pomelo cli使用</a></strong>
+</li>
+<li class="wiki-more-pages">
+<strong><a class="wiki-page-link" href="">Pomelo command line tool</a></strong>
+</li>
+<li class="wiki-more-pages">
+<strong><a class="wiki-page-link" href="">pomelo command line Usage</a></strong>
+</li>
+<li class="wiki-more-pages">
+<strong><a class="wiki-page-link" href="">Pomelo communications protocol</a></strong>
+</li>
+<li class="wiki-more-pages">
+<strong><a class="wiki-page-link" href="">Pomelo daemon usage</a></strong>
+</li>
+<li class="wiki-more-pages">
+<strong><a class="wiki-page-link" href="">Pomelo daemon的使用</a></strong>
+</li>
+<li class="wiki-more-pages">
+<strong><a class="wiki-page-link" href="">Pomelo data compression protocol</a></strong>
+</li>
+<li class="wiki-more-pages">
+<strong><a class="wiki-page-link" href="">Pomelo design motivation</a></strong>
+</li>
+<li class="wiki-more-pages">
+<strong><a class="wiki-page-link" href="">Pomelo document contribution in Chinese</a></strong>
+</li>
+<li class="wiki-more-pages">
+<strong><a class="wiki-page-link" href="">Pomelo document contribution in English</a></strong>
+</li>
+<li class="wiki-more-pages">
+<strong><a class="wiki-page-link" href="">Pomelo Framework</a></strong>
+</li>
+<li class="wiki-more-pages">
+<strong><a class="wiki-page-link" href="">Pomelo framework overview</a></strong>
+</li>
+<li class="wiki-more-pages">
+<strong><a class="wiki-page-link" href="">Pomelo Framework Reference</a></strong>
+</li>
+<li class="wiki-more-pages">
+<strong><a class="wiki-page-link" href="">Pomelo performance</a></strong>
+</li>
+<li class="wiki-more-pages">
+<strong><a class="wiki-page-link" href="">Pomelo robot usage</a></strong>
+</li>
+<li class="wiki-more-pages">
+<strong><a class="wiki-page-link" href="">pomelo robot使用文档</a></strong>
+</li>
+<li class="wiki-more-pages">
+<strong><a class="wiki-page-link" href="">pomelo rpc zeromq性能测试报告</a></strong>
+</li>
+<li class="wiki-more-pages">
+<strong><a class="wiki-page-link" href="">pomelo rpc性能测试报告</a></strong>
+</li>
+<li class="wiki-more-pages">
+<strong><a class="wiki-page-link" href="">Pomelo startup procedure</a></strong>
+</li>
+<li class="wiki-more-pages">
+<strong><a class="wiki-page-link" href="">Pomelo startup procedure 포멜로 시작 절차</a></strong>
+</li>
+<li class="wiki-more-pages">
+<strong><a class="wiki-page-link" href="">Pomelo startup 절차</a></strong>
+</li>
+<li class="wiki-more-pages">
+<strong><a class="wiki-page-link" href="">Pomelo sync usage</a></strong>
+</li>
+<li class="wiki-more-pages">
+<strong><a class="wiki-page-link" href="">pomelo sync使用文档</a></strong>
+</li>
+<li class="wiki-more-pages">
+<strong><a class="wiki-page-link" href="">Pomelo tools libraries introduction</a></strong>
+</li>
+<li class="wiki-more-pages">
+<strong><a class="wiki-page-link" href="">Pomelo update tutorial from 0.2 to 0.3</a></strong>
+</li>
+<li class="wiki-more-pages">
+<strong><a class="wiki-page-link" href="">Pomelo 协议</a></strong>
+</li>
+<li class="wiki-more-pages">
+<strong><a class="wiki-page-link" href="">Pomelo 性能测试</a></strong>
+</li>
+<li class="wiki-more-pages">
+<strong><a class="wiki-page-link" href="">Pomelo 数据压缩协议</a></strong>
+</li>
+<li class="wiki-more-pages">
+<strong><a class="wiki-page-link" href="">Pomelo 组件</a></strong>
+</li>
+<li class="wiki-more-pages">
+<strong><a class="wiki-page-link" href="">Pomelo 通讯协议</a></strong>
+</li>
+<li class="wiki-more-pages">
+<strong><a class="wiki-page-link" href="">Pomelo 소개</a></strong>
+</li>
+<li class="wiki-more-pages">
+<strong><a class="wiki-page-link" href="">Pomelo's new features in version 0.5</a></strong>
+</li>
+<li class="wiki-more-pages">
+<strong><a class="wiki-page-link" href="">Pomelo's new features in version 0.6</a></strong>
+</li>
+<li class="wiki-more-pages">
+<strong><a class="wiki-page-link" href="">Pomelo's new features in version 0.7</a></strong>
+</li>
+<li class="wiki-more-pages">
+<strong><a class="wiki-page-link" href="">Pomelo's new features in version 0.8</a></strong>
+</li>
+<li class="wiki-more-pages">
+<strong><a class="wiki-page-link" href="">Pomelo's new features in version 0.9</a></strong>
+</li>
+<li class="wiki-more-pages">
+<strong><a class="wiki-page-link" href="">PomeloRobot 使用文档</a></strong>
+</li>
+<li class="wiki-more-pages">
+<strong><a class="wiki-page-link" href="">PomeloSync 使用文档</a></strong>
+</li>
+<li class="wiki-more-pages">
+<strong><a class="wiki-page-link" href="">pomelo中文tutorial</a></strong>
+</li>
+<li class="wiki-more-pages">
+<strong><a class="wiki-page-link" href="">pomelo介绍</a></strong>
+</li>
+<li class="wiki-more-pages">
+<strong><a class="wiki-page-link" href="">Pomelo使用参考手册</a></strong>
+</li>
+<li class="wiki-more-pages">
+<strong><a class="wiki-page-link" href="">Pomelo启动流程</a></strong>
+</li>
+<li class="wiki-more-pages">
+<strong><a class="wiki-page-link" href="">Pomelo命令行工具使用</a></strong>
+</li>
+<li class="wiki-more-pages">
+<strong><a class="wiki-page-link" href="">Pomelo客户端开发</a></strong>
+</li>
+<li class="wiki-more-pages">
+<strong><a class="wiki-page-link" href="">Pomelo工具和库介绍</a></strong>
+</li>
+<li class="wiki-more-pages">
+<strong><a class="wiki-page-link" href="">pomelo快速使用指南</a></strong>
+</li>
+<li class="wiki-more-pages">
+<strong><a class="wiki-page-link" href="">Pomelo性能分析</a></strong>
+</li>
+<li class="wiki-more-pages">
+<strong><a class="wiki-page-link" href="">pomelo性能参考</a></strong>
+</li>
+<li class="wiki-more-pages">
+<strong><a class="wiki-page-link" href="">Pomelo成功案例</a></strong>
+</li>
+<li class="wiki-more-pages">
+<strong><a class="wiki-page-link" href="">Pomelo日志管理</a></strong>
+</li>
+<li class="wiki-more-pages">
+<strong><a class="wiki-page-link" href="">pomelo架构概览</a></strong>
+</li>
+<li class="wiki-more-pages">
+<strong><a class="wiki-page-link" href="">Pomelo框架概述</a></strong>
+</li>
+<li class="wiki-more-pages">
+<strong><a class="wiki-page-link" href="">pomelo的HelloWorld</a></strong>
+</li>
+<li class="wiki-more-pages">
+<strong><a class="wiki-page-link" href="">Pomelo的master服务器高可用</a></strong>
+</li>
+<li class="wiki-more-pages">
+<strong><a class="wiki-page-link" href="">Pomelo的分布式部署方法</a></strong>
+</li>
+<li class="wiki-more-pages">
+<strong><a class="wiki-page-link" href="">Pomelo的设计动机</a></strong>
+</li>
+<li class="wiki-more-pages">
+<strong><a class="wiki-page-link" href="">Pomelo의 HelloWorld</a></strong>
+</li>
+<li class="wiki-more-pages">
+<strong><a class="wiki-page-link" href="">Pomelo의 설계 동기</a></strong>
+</li>
+<li class="wiki-more-pages">
+<strong><a class="wiki-page-link" href="">Preface</a></strong>
+</li>
+<li class="wiki-more-pages">
+<strong><a class="wiki-page-link" href="">Protobuf compression</a></strong>
+</li>
+<li class="wiki-more-pages">
+<strong><a class="wiki-page-link" href="">Protobuf压缩</a></strong>
+</li>
+<li class="wiki-more-pages">
+<strong><a class="wiki-page-link" href="">Quick start guide</a></strong>
+</li>
+<li class="wiki-more-pages">
+<strong><a class="wiki-page-link" href="">Quick start guide 퀵 스타트 가이드</a></strong>
+</li>
+<li class="wiki-more-pages">
+<strong><a class="wiki-page-link" href="">Reference configuration of app.js</a></strong>
+</li>
+<li class="wiki-more-pages">
+<strong><a class="wiki-page-link" href="">Route compression</a></strong>
+</li>
+<li class="wiki-more-pages">
+<strong><a class="wiki-page-link" href="">Rpc framework</a></strong>
+</li>
+<li class="wiki-more-pages">
+<strong><a class="wiki-page-link" href="">Rpc invocation</a></strong>
+</li>
+<li class="wiki-more-pages">
+<strong><a class="wiki-page-link" href="">Rpc调用原理</a></strong>
+</li>
+<li class="wiki-more-pages">
+<strong><a class="wiki-page-link" href="">Runtime Configurations</a></strong>
+</li>
+<li class="wiki-more-pages">
+<strong><a class="wiki-page-link" href="">Server Administration framework</a></strong>
+</li>
+<li class="wiki-more-pages">
+<strong><a class="wiki-page-link" href="">Server scalability</a></strong>
+</li>
+<li class="wiki-more-pages">
+<strong><a class="wiki-page-link" href="">Start process for lordofpomelo</a></strong>
+</li>
+<li class="wiki-more-pages">
+<strong><a class="wiki-page-link" href="">Style and conventions</a></strong>
+</li>
+<li class="wiki-more-pages">
+<strong><a class="wiki-page-link" href="">Terminologies</a></strong>
+</li>
+<li class="wiki-more-pages">
+<strong><a class="wiki-page-link" href="">Test</a></strong>
+</li>
+<li class="wiki-more-pages">
+<strong><a class="wiki-page-link" href="">Tools reference of pomelo</a></strong>
+</li>
+<li class="wiki-more-pages">
+<strong><a class="wiki-page-link" href="">Treasure</a></strong>
+</li>
+<li class="wiki-more-pages">
+<strong><a class="wiki-page-link" href="">Treasures introduction</a></strong>
+</li>
+<li class="wiki-more-pages">
+<strong><a class="wiki-page-link" href="">Treasures 介绍</a></strong>
+</li>
+<li class="wiki-more-pages">
+<strong><a class="wiki-page-link" href="">Treasures 트레져</a></strong>
+</li>
+<li class="wiki-more-pages">
+<strong><a class="wiki-page-link" href="">Tutorial</a></strong>
+</li>
+<li class="wiki-more-pages">
+<strong><a class="wiki-page-link" href="">Tutorial 2    Treasures</a></strong>
+</li>
+<li class="wiki-more-pages">
+<strong><a class="wiki-page-link" href="">Tutorial summary</a></strong>
+</li>
+<li class="wiki-more-pages">
+<strong><a class="wiki-page-link" href="">Tutorial 튜토리얼</a></strong>
+</li>
+<li class="wiki-more-pages">
+<strong><a class="wiki-page-link" href="">tutorial1</a></strong>
+</li>
+<li class="wiki-more-pages">
+<strong><a class="wiki-page-link" href="">tutorial1  分布式聊天</a></strong>
+</li>
+<li class="wiki-more-pages">
+<strong><a class="wiki-page-link" href="">tutorial1–分布式聊天</a></strong>
+</li>
+<li class="wiki-more-pages">
+<strong><a class="wiki-page-link" href="">Understanding connector</a></strong>
+</li>
+<li class="wiki-more-pages">
+<strong><a class="wiki-page-link" href="">Welcome to pomelo</a></strong>
+</li>
+<li class="wiki-more-pages">
+<strong><a class="wiki-page-link" href="">Welcome to Pomelo 웰컴 투 Pomelo</a></strong>
+</li>
+<li class="wiki-more-pages">
+<strong><a class="wiki-page-link" href="">与客户端通信</a></strong>
+</li>
+<li class="wiki-more-pages">
+<strong><a class="wiki-page-link" href="">中文FAQ</a></strong>
+</li>
+<li class="wiki-more-pages">
+<strong><a class="wiki-page-link" href="">中文文档首页</a></strong>
+</li>
+<li class="wiki-more-pages">
+<strong><a class="wiki-page-link" href="">使用 WebStorm IDE 调试 Pomelo 应用程序</a></strong>
+</li>
+<li class="wiki-more-pages">
+<strong><a class="wiki-page-link" href="">前言</a></strong>
+</li>
+<li class="wiki-more-pages">
+<strong><a class="wiki-page-link" href="">协议格式</a></strong>
+</li>
+<li class="wiki-more-pages">
+<strong><a class="wiki-page-link" href="">后端服务器</a></strong>
+</li>
+<li class="wiki-more-pages">
+<strong><a class="wiki-page-link" href="">命令行文档</a></strong>
+</li>
+<li class="wiki-more-pages">
+<strong><a class="wiki-page-link" href="">增加admin module</a></strong>
+</li>
+<li class="wiki-more-pages">
+<strong><a class="wiki-page-link" href="">增加filter</a></strong>
+</li>
+<li class="wiki-more-pages">
+<strong><a class="wiki-page-link" href="">增加rpc调用</a></strong>
+</li>
+<li class="wiki-more-pages">
+<strong><a class="wiki-page-link" href="">如何添加新的服务器类型</a></strong>
+</li>
+<li class="wiki-more-pages">
+<strong><a class="wiki-page-link" href="">安装pomelo</a></strong>
+</li>
+<li class="wiki-more-pages">
+<strong><a class="wiki-page-link" href="">客户端支持介绍</a></strong>
+</li>
+<li class="wiki-more-pages">
+<strong><a class="wiki-page-link" href="">工具参考</a></strong>
+</li>
+<li class="wiki-more-pages">
+<strong><a class="wiki-page-link" href="">库参考</a></strong>
+</li>
+<li class="wiki-more-pages">
+<strong><a class="wiki-page-link" href="">应用程序配置</a></strong>
+</li>
+<li class="wiki-more-pages">
+<strong><a class="wiki-page-link" href="">快速使用指南</a></strong>
+</li>
+<li class="wiki-more-pages">
+<strong><a class="wiki-page-link" href="">总结</a></strong>
+</li>
+<li class="wiki-more-pages">
+<strong><a class="wiki-page-link" href="">扩充服务器</a></strong>
+</li>
+<li class="wiki-more-pages">
+<strong><a class="wiki-page-link" href="">服务器管理框架</a></strong>
+</li>
+<li class="wiki-more-pages">
+<strong><a class="wiki-page-link" href="">术语解释</a></strong>
+</li>
+<li class="wiki-more-pages">
+<strong><a class="wiki-page-link" href="">框架类关系图</a></strong>
+</li>
+<li class="wiki-more-pages">
+<strong><a class="wiki-page-link" href="">框架驱动</a></strong>
+</li>
+<li class="wiki-more-pages">
+<strong><a class="wiki-page-link" href="">欢迎使用pomelo</a></strong>
+</li>
+<li class="wiki-more-pages">
+<strong><a class="wiki-page-link" href="">消息压缩</a></strong>
+</li>
+<li class="wiki-more-pages">
+<strong><a class="wiki-page-link" href="">游戏服务器的app.js配置参考</a></strong>
+</li>
+<li class="wiki-more-pages">
+<strong><a class="wiki-page-link" href="">组件概述</a></strong>
+</li>
+<li class="wiki-more-pages">
+<strong><a class="wiki-page-link" href="">给pomelo加个组件</a></strong>
+</li>
+<li class="wiki-more-pages">
+<strong><a class="wiki-page-link" href="">试试route压缩</a></strong>
+</li>
+<li class="wiki-more-pages">
+<strong><a class="wiki-page-link" href="">风格与约定</a></strong>
+</li>
+<li class="wiki-more-pages">
+<strong><a class="wiki-page-link" href="">설치</a></strong>
+</li>
+<li class="wiki-more-pages">
+<strong><a class="wiki-page-link" href="">웰컴투pomelo</a></strong>
+</li>
+<li class="wiki-more-pages-link">
+<a class="js-wiki-more-pages-link" href="">
+        Show 185 more pages…
+      </a>
+</li>
+</ul>
+</div>
+</div>
+<div class="clone-url">
+<h5>Clone this wiki locally</h5>
+<div class="input-group js-zeroclipboard-container">
+<input class="input-mini text-small text-muted input-monospace js-url-field js-zeroclipboard-target" readonly="readonly" type="text" value="https://github.com/NetEase/pomelo.wiki.git">
+<span class="input-group-button">
+<button aria-label="Copy to clipboard" class="js-zeroclipboard btn btn-sm zeroclipboard-button tooltipped tooltipped-s" data-copied-hint="Copied!" type="button"><span class="octicon octicon-clippy"></span></button>
+</span>
+</input></div>
+</div>
+</div>
+<div class="gollum-markdown-content instapaper_body" id="wiki-body">
+<div class="markdown-body">
+<p>使用pomelo开发应用时，我们一直关注的是给框架填入相应的回调，给app配置一些上下文。而没有太多关心整个框架的驱动力量。 在我们启动应用的时候，我们会在game-server目录下执行pomelo start，然后就能看到很多log信息，这样就启动了很多服务器。但是我们并没有太多关心框架是如何做到这一点的，在这部分，将试图向你讲述pomelo框架是如何驱动的。</p>
+<p>首先看下图:</p>
+<p><img alt="ps_tree" src="images/ps_tree.png"/></p>
+<p>这张图是以chat为例，当chat应用启动后，使用命令</p>
+<pre><code>pstree -au
+</code></pre>
+<p>得到的进程树的一部分，我们从图上可以清楚地看出，<code>pomelo start</code>调用进程会创建子进程，子进程执行的是<code>node app.js env=development</code>,然后这个子进程又会创建很多子进程，这些子进程执行的跟原进程同样的文件，只是多了更多的参数，它们后面会有一些诸如id，serverType，port等这样的参数。</p>
+<p>好了，现在我们可以做一些简单的解释了，<code>pomelo start</code>的进程直接创建的那个子进程，实际上就是我们的master服务器进程，而由master服务器创建的那些子进程，他们执行的是类似于</p>
+<pre><code>`node &lt;BasePath&gt;/app.js env=development id=chat-server-1 ...`
+</code></pre>
+<p>这样命令的则是由master服务器创建的子进程，这些子进程也就是我们的应用服务器。当然，这里的进程都在一台主机上，所以会有父子关系，也就是说master进程是其他应用服务器的父进程。如果各个进程分布在不同的物理主机上的话，pomelo默认会使用ssh的方式远程启动相应的服务器，那样的话，master进程与应用程序进程就不会再有父子关系了。
+下面我们从pomelo.createApp调用开始，来梳理pomelo的启动过程。
+首先我们使用<code>pomelo start</code>，此时命令行工具pomelo会检测start后面有没有其他参数，比如是否需要daemon的形式启动，后面的参数是否指定了env等，在这里，我们仅仅使用了<code>pomelo start</code>，后面没有跟任何其他参数，此时命令行工具将会为其添加一个默认的env参数，即 <code>env=develpment</code>，然后就启动了node.js进程，如下：</p>
+<pre><code>`node &lt;BasePath&gt;/app.js env=development`
+</code></pre>
+<p>此时<code>pomelo start</code>就以没有过多参数的方式启动了app.js。</p>
+<h1>
+<a aria-hidden="true" class="anchor" href="" id="user-content-application的初始化"><span class="octicon octicon-link"></span></a>Application的初始化</h1>
+<p>接下来我们来分析app.js的执行:</p>
+<p><img alt="init_app" src="images/app_init.png"/></p>
+<p>如上面的时序图所示：</p>
+<ul>
+<li> pomelo调用createApp()</li>
+<li> pomelo的createApp调用中会调用app的init方法，完成对app的初始化</li>
+<li> app会使用appUtil提供的defaultConfiguration来完成自己的初始化配置</li>
+<li> appUtil的defaultConfiguration会调用app的一些初始化方法，这些方法包括setEnv，loadMaster，loadServers，parseArgs，configLogger。这里setEnv操作会将当前的env设定为development， loadMaster调用会加载master服务器的配置信息，loadServers会加载所有的应用服务器的配置信息。parseArgs是一个很关键的操作，由于我们在启动参数中仅仅指定了env，其他的参数并没有指定，此时pomelo认为目前启动的不是应用服务器，而是master服务器。这样，当前的进程将使用master的配置信息，并将其自己的serverId，serverType等参数，均设置为master服务器所有的。实际上，对于应用服务器来说，如我们在上面进程树图中看到的那样，如果启动的是应用服务器的话，其<code>node app.js</code>后面将会带有很多参数，包括id，serverType，port，clientPort等参数，这些参数在parseArgs这一步将会被处理，从而确定当前服务器的id，当前服务器的类型以及其他所必须的配置信息。</li>
+<li>在执行完上面的操作之后，app进入到INITED状态，同时pomelo的createApp返回。</li>
+</ul>
+<p>在pomelo的createApp()返回后，我们在app.js里，往往会对app进行一些配置，比如调用app.set设置一个上下文变量的值，app.route调用配置个路由等。</p>
+<h1>
+<a aria-hidden="true" class="anchor" href="" id="user-content-master服务器启动"><span class="octicon octicon-link"></span></a>Master服务器启动</h1>
+<p>当执行完上面的用户编辑的代码后，将会进入到的是 app.start()调用, 当app.start调用时，首先会加载默认的组件，对于master服务器来说，其加载的默认组件为master组件和monitor组件。下面主要分析master组件在启动中的作用，分析一下master组件的启动过程：</p>
+<p><img alt="init_app" src="images/sd_master.png"/></p>
+<p>如上面的时序图所示:</p>
+<ul>
+<li><p>首先app.start()首先会加载默认组件，由于没有指定服务器类型，此时会默认为master类型，拿到master的配置信息，加载Master组件，由于Master组件是以工厂函数的方式导出的，故会创建Master组件，Master组件的创建过程会创建MasterConsole，MasterConsole会创建MasterAgent，MasterAgent会创建监听Socket,用来监听应用服务器的监控和管理请求的。</p></li>
+<li><p>在加载完所有的组件包括Master组件后，会启动所有的组件，对于Master服务器来说，会启动Master组件和Monitor组件，也就是调用相应组件的start方法，这里先讨论Master组件。Master组件会注册默认的Module，这是通过Application的registerAdmin实现的，这里多说一句，如果用户自定义了Module，可以在app.start调用之前调用registerAdmin，将自定义的Module挂到app上。</p></li>
+<li><p>在将所有默认的Module都挂到app上后，Master组件会启动MasterConsoleService。在启动MasterConsoleService时，MasterConsoleService会从app处拿到所有挂到其上面的Module，然后将Module注册到自己的Module仓库中，这一步实际上就是Module放到一个以ModuleId做键的Map中，以使得后来有请求时，可以直接进行查询回调。</p></li>
+<li><p>然后，开启MasterAgent的监听，这个时候，Master组件就已经可以接受监控管理请求了。</p></li>
+<li>在开启监听后，下一步就是enable所有的Module, 主要就是根据Module的参数type和interval，来确定Module的回调触发方式，是周期性的由Master来拉，还是周期性的由Monitor来推，还是不是周期性的触发，使用其他的事件触发方式。如果使用了周期性的触发的话，将会对周期性的事件进行调度，调度是由pomelo-schedule提供的。</li>
+<li>下一步，将启动所有的Module，如果有Module定义了start方法的话，将在这步被回调，pomelo核心中的Module console就提供了start方法。到这一步为止，Master组件已经开启了请求监听，挂载好了每一个Module相应的回调函数，并且对需要周期执行的监控任务已经完成了调度。</li>
+<li>是时候启动所有的应用服务器了。当Master组件完成了所有的其自身的Module的初始化和开启任务后，Master会委托Starter来完成整个服务器群的启动。需要注意：由于每一个服务器一旦启动，就会向Master报告其状态，所以Master组件必须在启动应用服务器之前就准备好对来自服务器的监控数据作出回应，因此，这也是为什么Master组件在完成很多其自身的操作后，才去启动应用服务器。</li>
+<li>
+<p>我们知道，在app初始化的时候，master服务器已经加载了所有服务器的配置信息，每一个服务器要启动的地址，服务器的类型，服务器应该监听的端口等信息。Starter在启动这些服务器的时候将会分析服务器是在本地启动还是远程启动，如果在本地启动的话，将会起一个子进程，如果在远程启动的话，会使用ssh的方式远程启动相应的进程。这个时候的启动命令行，将会附带更多的参数，对于chat例子中来说，其chat-server启动命令行大概如下面的样子:</p>
+<p><code>node &lt;BasePath&gt;/app.js env=development id=chat-server-1 host=127.0.0.1 port=6050 serverType=chat</code></p>
+</li>
+<li><p>此后，应用服务器将会被启动。</p></li>
+<li>在调用了Master组件的start方法后，由于Master方法没有定义afterStart方法，故此时Master组件的启动过程已经完毕，Master组件将会监听来自其他服务器的Monitor发出的请求或者给其他的Monitor推送通知，当然这些操作都是在对应的Module定义的回调中进行的。</li>
+</ul>
+<h1>
+<a aria-hidden="true" class="anchor" href="" id="user-content-应用服务器启动"><span class="octicon octicon-link"></span></a>应用服务器启动</h1>
+<ul>
+<li><p>对于应用服务器来说，与master服务器一样，会执行app.js,也会创建app，加载一些配置信息，setEnv等。应用服务器与Master服务器在App init阶段唯一的不同就是，Master服务器的启动命令行中，没有具体服务器参数，使得pomelo会把其当作Master服务器启动，而应用服务器的启动命令行，则包含了全部的应用服务器参数，因此pomelo会按照他们具体的配置信息为其默认加载不同的组件，对于master服务器来会加载Master组件，对于应用服务器来说，则会根据应用服务器的配置不同，默认加载相应的组件。</p></li>
+<li><p>在创建完app，并完成初始化后，app.js中的对app进行配置的代码会执行，这里包括app.route调用，app.set调用等等。</p></li>
+<li><p>在执行完用户的配置代码后，app.js进入到Application.start调用，在这里pomelo框架会针对每一种服务器将默认加载不同的组件。 对于pomelo来说，所有服务器的执行都可以看作是对其组件进行生命周期管理的过程。每一个pomelo的组件都会定义start，afterStart，stop方法，用来框架进行生命周期管理时候回调。下面展示了其调用顺序:</p></li>
+</ul>
+<p><img alt="app" data-canonical-src="https://github-camo.global.ssl.fastly.net/cc8061f334e3d953f731be4c9327b275abc84e4d/687474703a2f2f706f6d656c6f2e6e6574656173652e636f6d2f7265736f757263652f646f63756d656e74496d6167652f636f6d706f6e656e74732e706e67" src="https://camo.githubusercontent.com/df1afe416132eb19f9add0b527880cb3d4156f9f/68747470733a2f2f6769746875622d63616d6f2e676c6f62616c2e73736c2e666173746c792e6e65742f636338303631663333346533643935336637333162653463393332376232373561626338346534642f363837343734373033613266326637303666366436353663366632653665363537343635363137333635326536333666366432663732363537333666373537323633363532663634366636333735366436353665373434393664363136373635326636333666366437303666366536353665373437333265373036653637"/></p>
+<ul>
+<li><p>pomelo框架总是先顺序地调用所有组件的start方法后，才去顺序的调用每个组件的afterStart方法。设置afterStart方法的原因是，可能有组件互相依赖的时候，某些组件的某些启动过程依赖于另外某个组件的启动过程时，可以将有依赖的部分放到afterStart方法里面，这样可以使得在有依赖的部分执行时，其所依赖的组件已经完成初始化。或者还有一些需要等待全局就绪的工作也可以放到这里来做。</p></li>
+<li><p>不同的组件在启动时会开启不同的功能，关于应用服务器加载的组件的具体启动过程，由于涉及到其提供的功能细节，将在后面介绍，这里关注的不是组件的细节功能，而是整个应用程序的驱动方式。</p></li>
+<li><p>当所有组件的afterStart方法都调用完毕后，应用服务器启动完成。此时，由于其加载的组件开启了监听接口，应用服务器将接受外来的请求，然后进入相应的回调。</p></li>
+</ul>
+<h1>
+<a aria-hidden="true" class="anchor" href="" id="user-content-服务器的关闭"><span class="octicon octicon-link"></span></a>服务器的关闭</h1>
+<p>当我们调用了<code>pomelo start</code>启动了master服务器，master服务器又启动了所有的应用服务器后，所有的服务器都进入到自己的事件循环中，接受外来的请求事件或者是自身的定时器事件执行相应的回调方法。</p>
+<p>当我们想关闭服务器时候，我们可以很暴力地使用<code>Ctrl+C</code>直接结束掉所有的进程，也可以优雅地通过命令行工具执行<code>pomelo stop</code>进行关闭。实际上，命令行工具是作为pomelo管理框架中的client角色的，它使用的Module是pomelo内建的console，通过console Module给master服务器发出关闭服务器请求，master会给每一个服务器发出停止通告。每个应用服务器接收到stop通告后，回调函数里面会调用app.stop, app.stop则会如上面图中那样，按照加载的逆序分别调用每一个组件的stop回调方法。当所有的组件的stop调用完后，服务器完成关闭。master在发出停止通告后，自己稍作等待也调用app.stop,stop掉自己加载的组件完成关闭。</p>
+<h1>
+<a aria-hidden="true" class="anchor" href="" id="user-content-总结"><span class="octicon octicon-link"></span></a>总结</h1>
+<p>我们在这里阐述了pomelo应用从启动到关闭的整个流程，pomelo应用的整个流程实际就是对其所加载的组件的生命周期的管理过程，pomelo的核心功能都由其组件提供。每一个组件在导出的时候，往往导出的都是一个工厂函数，通过工厂函数，app在加载的时候才会创建相应的组件。app在整个pomelo应用中，并不执行逻辑业务，它仅仅被当作一个全程驱动的入口以及一个上下文环境。对整个应用其关键性的调用为app的start调用和app.stop调用，其中app.start启动服务器，app.stop关闭服务器。app.start一般都是在app.js中由用户来调用，而app.stop一般都是系统的某个组件接受到停止服务器请求时进行的异步回调。关于具体加载的一些组件的功能，将在相关部分进行详述。</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="modal-backdrop"></div>
+</div>
+</div>
+</div>
+</div>
+<div class="container">
+<div class="site-footer" role="contentinfo">
+<ul class="site-footer-links right">
+<li><a data-ga-click="Footer, go to status, text:status" href="">Status</a></li>
+<li><a data-ga-click="Footer, go to api, text:api" href="">API</a></li>
+<li><a data-ga-click="Footer, go to training, text:training" href="">Training</a></li>
+<li><a data-ga-click="Footer, go to shop, text:shop" href="">Shop</a></li>
+<li><a data-ga-click="Footer, go to blog, text:blog" href="">Blog</a></li>
+<li><a data-ga-click="Footer, go to about, text:about" href="">About</a></li>
+<li><a data-ga-click="Footer, go to pricing, text:pricing" href="">Pricing</a></li>
+</ul>
+<a aria-label="Homepage" href="">
+<span class="mega-octicon octicon-mark-github" title="GitHub"></span>
+</a>
+<ul class="site-footer-links">
+<li>© 2015 <span title="0.15541s from github-fe134-cp1-prd.iad.github.net">GitHub</span>, Inc.</li>
+<li><a data-ga-click="Footer, go to terms, text:terms" href="">Terms</a></li>
+<li><a data-ga-click="Footer, go to privacy, text:privacy" href="">Privacy</a></li>
+<li><a data-ga-click="Footer, go to security, text:security" href="">Security</a></li>
+<li><a data-ga-click="Footer, go to contact, text:contact" href="">Contact</a></li>
+<li><a data-ga-click="Footer, go to help, text:help" href="">Help</a></li>
+</ul>
+</div>
+</div>
+<div class="flash flash-error" id="ajax-error-message">
+<span class="octicon octicon-alert"></span>
+<button aria-label="Dismiss error" class="flash-close js-flash-close js-ajax-error-dismiss" type="button">
+<span class="octicon octicon-x"></span>
+</button>
+      Something went wrong with that request. Please try again.
+    </div>
+<script crossorigin="anonymous" src="https://assets-cdn.github.com/assets/frameworks-b7c9523d93e6cd0235a0a8b7d1a691f7909d3834cd9c9caa7b1674ba508b644c.js"></script>
+<script async="async" crossorigin="anonymous" src="https://assets-cdn.github.com/assets/github-d7127e27f4a786f28823bcf728354983705e94a492084feac273324d22930033.js"></script>
+<script crossorigin="anonymous" src="https://assets-cdn.github.com/assets/wiki-479caef88e594edcef6697028bc6f669f6254cb027d57c894094eb9c8e52de25.js"></script>
+<div class="js-stale-session-flash stale-session-flash flash flash-warn flash-banner hidden">
+<span class="octicon octicon-alert"></span>
+<span class="signed-in-tab-flash">You signed in with another tab or window. <a href="">Reload</a> to refresh your session.</span>
+<span class="signed-out-tab-flash">You signed out in another tab or window. <a href="">Reload</a> to refresh your session.</span>
+</div>
+</body>
+</html>

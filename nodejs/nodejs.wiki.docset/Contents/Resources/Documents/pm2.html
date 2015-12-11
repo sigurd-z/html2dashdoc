@@ -1,0 +1,525 @@
+<html lang="zh-CN"><head><script async="" src="//www.google-analytics.com/analytics.js"></script><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta charset="UTF-8">
+
+    <title>告别node-forever,拥抱PM2 | AriesDevil's Blog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
+
+    <meta name="author" content="Damon Zhao">
+
+    <meta name="description" content="原文地址:Goodbye node-forever,hello PM2
+
+devo.ps团队对JavaScript的迷恋已经不是什么秘密了;node.js作为服务器端,AngularJS作为客户端,某种程度上说,我们的堆栈是用它建成的.我们构建静态客户端和RESTful JSON API的方法意味着">
+
+
+
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="se77en_cc">
+    <meta name="twitter:title" content="告别node-forever,拥抱PM2 | AriesDevil's Blog">
+
+
+
+    <link rel="alternate" href="atom.xml" title="AriesDevil's Blog" type="application/atom+xml">
+
+
+    <link rel="icon" href="http://se77en.cc/img/favicon.ico">
+
+
+    <link rel="apple-touch-icon" href="http://se77en.cc/img/apple.jpg">
+    <link rel="apple-touch-icon-precomposed" href="http://se77en.cc/img/apple.jpg">
+
+    <link rel="stylesheet" href="./pm2_files/style.css" type="text/css">
+
+<style type="text/css"></style><script async="" src="./pm2_files/analytics.js"></script><script type="text/javascript" async="" src="./pm2_files/embed.js" charset="UTF-8"></script><style>.lookupGKQIMU, .lookupforemostGKQIMU, .lookupdockedGKQIMU, .rowiframeGKQIMU, .celliframeGKQIMU, .iframeGKQIMU, .emptyGKQIMU, .barGKQIMU, .barforemostGKQIMU, .bardockedGKQIMU, .cellGKQIMU, .leftGKQIMU, .rightGKQIMU, .buttoncontainerGKQIMU, .buttonGKQIMU, .buttonimageGKQIMU, .waitingGKQIMU, .handleGKQIMU, .queryGKQIMU, .hintGKQIMU, .templateGKQIMU, .firstlevelgroupGKQIMU, .notfirstlevelgroupGKQIMU{
+	    background: none !important;
+	    border: 0px !important;
+	    border-style: none !important;
+	     color: black !important;
+	     direction: ltr !important;
+	     float: none !important;
+	     font-family: sans-serif !important;
+	     font-size: small !important;
+	     font-style: normal !important;
+	     font-variant: normal !important;
+	     font-weight: normal !important;
+	     letter-spacing: normal !important;
+	     line-height: normal !important;
+	     margin: 0px !important;
+	    padding: 0px !important;
+	    text-align: left !important;
+	     text-decoration: none !important;
+	     text-indent: 0px !important;
+	     text-transform: none !important;
+	     vertical-align: baseline !important;
+	    white-space: normal !important;
+}
+
+div.lookupGKQIMU{
+	     display: table !important;
+	     -webkit-transition: -webkit-box-shadow 0.25s linear, border-color 0.25s linear !important;
+}
+
+div.lookupforemostGKQIMU{
+}
+
+div.lookupdockedGKQIMU{
+}
+
+div.rowiframeGKQIMU{
+	     display: table-row !important;
+}
+
+div.rowiframeGKQIMU td.celliframeGKQIMU{
+	      display: table-cell !important;
+	      width: 100% !important;
+	      height: 100% !important;
+}
+
+td.celliframeGKQIMU iframe.iframeGKQIMU{
+	       display: inline !important;
+	       width: 100% !important;
+	       height: 100% !important;
+	       background-color: white !important;
+}
+
+iframe.emptyGKQIMU{
+	       background-image: url('chrome-extension://hljnlfolmbmibdjaikiaepgepgnldclj/img/128.png') !important;
+	       background-position: 50% 50% !important;
+	       background-repeat: no-repeat !important;
+}
+
+div.barGKQIMU{
+	     display: table-row !important;
+	     -webkit-transition: background 0.25s linear !important;
+	     width: 100% !important;
+	     cursor: move !important;
+	     background: lightgrey !important;
+}
+
+div.barforemostGKQIMU{
+	background: #84b7ea !important;
+}
+
+div.bardockedGKQIMU{
+	background: #336699 !important;
+}
+
+div.barGKQIMU div.cellGKQIMU{
+	     display: table-cell !important;
+	     vertical-align: middle !important;
+}
+
+div.leftGKQIMU{
+	     padding-right: 16px !important;
+	     text-align: left !important;
+}
+
+div.rightGKQIMU{
+	     white-space: nowrap !important;
+	     text-align: right !important;
+}
+
+span.buttoncontainerGKQIMU{
+	     display:inline !important;
+}
+
+a.buttonGKQIMU:link{
+	     display:inline !important;
+	     -webkit-user-select: none !important;
+	     color: transparent !important;
+}
+
+a.buttonGKQIMU img.buttonimageGKQIMU{
+	     display:inline !important;
+	     vertical-align: middle !important;
+}
+
+img.waitingGKQIMU{
+	     display:inline !important;
+	     cursor: pointer !important;
+	     -webkit-user-select: none !important;
+	     vertical-align: middle !important;
+	     padding-left: 6px !important;
+	 padding-right: 6px !important;
+}
+
+div.handleGKQIMU{
+	     display:block !important;
+	     cursor: se-resize !important;
+	     left: 100% !important;
+	     top: 100% !important;
+	     margin-left: -4px !important;
+	     margin-top: -4px !important;
+	     position: absolute !important;
+	     width: 8px !important;
+	 height: 8px !important;
+}
+
+input.queryGKQIMU{
+	     display:inline-block !important;
+	     background: white !important;
+	     vertical-align: top !important;
+	     border: 1px solid darkgrey !important;
+	      font-size: 13px !important;
+	      padding-top: 1px !important;
+	 padding-bottom: 1px !important;
+	     width: 12em !important;
+}
+
+.hintGKQIMU{
+	      color: lightgrey !important;
+	      font-style:italic !important;
+}
+
+select.templateGKQIMU{
+	     display:inline-block !important;
+	     background: white !important;
+	     font-size: 13px !important;
+	      border: 1px solid darkgrey !important;
+	      vertical-align: top !important;
+	     white-space: pre !important;
+	     width: 9em !important;
+	     margin-right: 2px !important;
+}
+
+optgroup.firstlevelgroupGKQIMU{
+	      color: blue !important;
+}
+
+.notfirstlevelgroupGKQIMU{
+	      color: black !important;
+}
+
+</style><style>.tipQJBOXT, .arrowQJBOXT, .arrowupQJBOXT, .arrowdownQJBOXT, .mainQJBOXT, .closeQJBOXT, .barQJBOXT, .rowQJBOXT, .cellQJBOXT, .leftQJBOXT, .rightQJBOXT, .displaytitleQJBOXT, .refreshQJBOXT, .pagingQJBOXT, .brandQJBOXT, .textQJBOXT, .leftlabelQJBOXT, .selectQJBOXT, .checkboxQJBOXT, .waitingQJBOXT, .buttoncontainerQJBOXT, .buttonQJBOXT, .buttonimageQJBOXT, .flagQJBOXT, .noticebarscontainerQJBOXT, .noticebarQJBOXT, .iframecontentQJBOXT{
+	    background: none !important;
+	    border: 0px !important;
+	    border-style: none !important;
+	     color: black !important;
+	     direction: ltr !important;
+	     float: none !important;
+	     font-family: sans-serif !important;
+	     font-size: small !important;
+	     font-style: normal !important;
+	     font-variant: normal !important;
+	     font-weight: normal !important;
+	     letter-spacing: normal !important;
+	     line-height: normal !important;
+	     margin: 0px !important;
+	    padding: 0px !important;
+	    text-align: left !important;
+	     text-decoration: none !important;
+	     text-indent: 0px !important;
+	     text-transform: none !important;
+	     vertical-align: baseline !important;
+	    white-space: normal !important;
+}
+
+div.tipQJBOXT{
+	     position: absolute !important;
+	     display:block !important;
+}
+
+div.arrowQJBOXT{
+	display:block !important;
+}
+
+canvas.arrowupQJBOXT{
+	      display: inline !important;
+	      vertical-align: bottom !important;
+}
+
+canvas.downupQJBOXT{
+	      display: inline !important;
+	      vertical-align: top !important;
+}
+
+div.mainQJBOXT{
+	display: block !important;
+}
+
+img.closeQJBOXT{
+	      display: block !important;
+	      -webkit-transition: opacity 0.5s linear !important;
+	      float: right !important;
+	      margin-right: -5px !important;
+	      margin-top: -5px !important;
+}
+
+div.barQJBOXT{
+	     display: table !important;
+	      margin-bottom: 4px !important;
+	     -webkit-user-select: none !important;
+	     width: 100% !important;
+}
+
+div.rowQJBOXT{
+	display: table-row !important;
+}
+
+div.cellQJBOXT{
+	      display: table-cell !important;
+	      vertical-align: middle !important;
+}
+
+.leftQJBOXT{
+	      padding-right: 16px !important;
+	      text-align: left !important;
+}
+
+.rightQJBOXT{
+	text-align: right !important;
+}
+
+span.refreshQJBOXT{
+	display: inline !important;
+}
+
+span.pagingQJBOXT{
+	      display: inline !important;
+	      font-size: x-small !important;
+}
+
+span.buttoncontainerQJBOXT{
+	display: inline !important;
+}
+
+span.displaytitleQJBOXT{
+	      display: inline !important;
+	      padding-left: 6px !important;
+	      font-size: small !important;
+	      font-weight: bold !important;
+}
+
+span.displaytitleQJBOXT a:link{
+	       display: inline !important;
+	       color: #0645AD !important;
+	       text-decoration: none !important;
+}
+
+span.displaytitleQJBOXT img{
+	display: inline !important;
+}
+
+span.brandQJBOXT{
+	      display: inline !important;
+	      font-size: x-small !important;
+}
+
+.brandQJBOXT a{
+	       display: inline !important;
+	       font-size: x-small !important;
+}
+
+.brandQJBOXT a:link{
+	       display: inline !important;
+	       color: #0645AD !important;
+	       text-decoration: none !important;
+}
+
+.brandQJBOXT a:visited{
+	       display: inline !important;
+	       color: #0B0080 !important;
+	       text-decoration: none !important;
+}
+
+span.textQJBOXT{
+	      display: inline !important;
+	      font-size: x-small !important;
+}
+
+label.leftlabelQJBOXT{
+	      display: inline !important;
+	      font-size: x-small !important;
+	      margin-right: 3px !important;
+}
+
+select.selectQJBOXT{
+	       display: inline-block !important;
+	       border: 1px solid darkgrey !important;
+	       white-space: pre !important;
+	       font-size: x-small !important;
+}
+
+input.checkboxQJBOXT{
+	      display: inline-block !important;
+	      vertical-align: text-top !important;
+	      font-size: x-small !important;
+	      margin-right: 0.3em !important;
+}
+
+img.waitingQJBOXT{
+	      display: inline !important;
+	      -webkit-user-select: none !important;
+	      vertical-align: middle !important;
+	      padding-left: 3px !important;
+}
+
+a.buttonQJBOXT, a.buttonQJBOXT:link{
+	      display: inline !important;
+	      -webkit-user-select: none !important;
+	      color: transparent !important;
+	      margin-right: 2px !important;
+}
+
+img.buttonimageQJBOXT{
+	      display: inline !important;
+	      vertical-align: middle !important;
+}
+
+img.flagQJBOXT{
+	      display: inline !important;
+	      vertical-align: middle !important;
+	      padding-bottom:2px !important;
+}
+
+img.buttonselectedQJBOXT{
+	      display: inline !important;
+	      background: #dd8 !important;
+	      border: 1px solid #bb6 !important;
+	      margin: -1px !important;
+	      border-radius: 2px !important;
+}
+
+div.noticebarscontainerQJBOXT{
+	     display: block !important;
+	     text-align: left !important;
+	     margin-bottom: 4px !important;
+	     overflow-y: auto !important;
+}
+
+div.noticebarQJBOXT{
+	     display: block !important;
+	     background: white !important;
+	     font-size: x-small !important;
+	     border-left: 3px solid lightGrey !important;
+	     margin-bottom: 1px !important;
+	     padding-left: 2px !important;
+}
+
+div.noticebarQJBOXT img{
+	      display: inline !important;
+	      margin-right: 1px !important;
+	      vertical-align: text-top !important;
+}
+
+div.noticebarQJBOXT a{
+	      display: inline !important;
+	      font-family: sans-serif !important;
+	       font-style: normal !important;
+	       font-variant: normal !important;
+	       font-weight: normal !important;
+	       font-size: x-small !important;
+}
+
+div.noticebarQJBOXT a:link{
+	      display: inline !important;
+	      color: #0645AD !important;
+	      text-decoration: none !important;
+}
+
+div.noticebarQJBOXT a:visited{
+	      display: inline !important;
+	      color: #0B0080 !important;
+	      text-decoration: none !important;
+}
+
+iframe.iframecontentQJBOXT{
+	     display: inline !important;
+	     width: 100% !important;
+}
+
+</style><style id="style-1-cropbar-clipper">/* Copyright 2014 Evernote Corporation. All rights reserved. */
+.en-markup-crop-options {
+    top: 18px !important;
+    left: 50% !important;
+    margin-left: -100px !important;
+    width: 200px !important;
+    border: 2px rgba(255,255,255,.38) solid !important;
+    border-radius: 4px !important;
+}
+
+.en-markup-crop-options div div:first-of-type {
+    margin-left: 0px !important;
+}
+</style><style id="simplehl_hlstyle_MSYPCL">.simplehl1_VASMGY { display: inline!important;font-family:inherit!important; font-style:inherit!important; font-variant:inherit!important; font-weight:inherit!important; border-color: transparent !important; color: #000000!important; background-color: rgba(255,0,0,0.7)!important; font-size: inherit!important; -webkit-transition-property: color, background-color, -webkit-box-shadow; -webkit-transition-duration: 0.5s, 0.5s, 0.5s; -webkit-transition-timing-function: linear, linear, linear; padding: 0.2em!important; -webkit-box-shadow: rgba(0,0,0,0.42) 3px 3px 4px!important; border-radius: 6px!important; } .simplehl2_VASMGY { display: inline!important;font-family:inherit!important; font-style:inherit!important; font-variant:inherit!important; font-weight:inherit!important; border-color: transparent !important; color: #000000!important; background-color: rgba(255,165,0,0.7)!important; font-size: inherit!important; -webkit-transition-property: color, background-color, -webkit-box-shadow; -webkit-transition-duration: 0.5s, 0.5s, 0.5s; -webkit-transition-timing-function: linear, linear, linear; padding: 0.2em!important; -webkit-box-shadow: rgba(0,0,0,0.42) 3px 3px 4px!important; border-radius: 6px!important; } .simplehl3_VASMGY { display: inline!important;font-family:inherit!important; font-style:inherit!important; font-variant:inherit!important; font-weight:inherit!important; border-color: transparent !important; color: #000000!important; background-color: rgba(255,255,96,0.7)!important; font-size: inherit!important; -webkit-transition-property: color, background-color, -webkit-box-shadow; -webkit-transition-duration: 0.5s, 0.5s, 0.5s; -webkit-transition-timing-function: linear, linear, linear; padding: 0.2em!important; -webkit-box-shadow: rgba(0,0,0,0.42) 3px 3px 4px!important; border-radius: 6px!important; } .simplehl4_VASMGY { display: inline!important;font-family:inherit!important; font-style:inherit!important; font-variant:inherit!important; font-weight:inherit!important; border-color: transparent !important; color: #000000!important; background-color: rgba(96,255,96,0.7)!important; font-size: inherit!important; -webkit-transition-property: color, background-color, -webkit-box-shadow; -webkit-transition-duration: 0.5s, 0.5s, 0.5s; -webkit-transition-timing-function: linear, linear, linear; padding: 0.2em!important; -webkit-box-shadow: rgba(0,0,0,0.42) 3px 3px 4px!important; border-radius: 6px!important; } .simplehl5_VASMGY { display: inline!important;font-family:inherit!important; font-style:inherit!important; font-variant:inherit!important; font-weight:inherit!important; border-color: transparent !important; color: #000000!important; background-color: rgba(96,255,255,0.7)!important; font-size: inherit!important; -webkit-transition-property: color, background-color, -webkit-box-shadow; -webkit-transition-duration: 0.5s, 0.5s, 0.5s; -webkit-transition-timing-function: linear, linear, linear; padding: 0.2em!important; -webkit-box-shadow: rgba(0,0,0,0.42) 3px 3px 4px!important; border-radius: 6px!important; } .simplehl6_VASMGY { display: inline!important;font-family:inherit!important; font-style:inherit!important; font-variant:inherit!important; font-weight:inherit!important; border-color: transparent !important; color: #000000!important; background-color: rgba(255,96,255,0.7)!important; font-size: inherit!important; -webkit-transition-property: color, background-color, -webkit-box-shadow; -webkit-transition-duration: 0.5s, 0.5s, 0.5s; -webkit-transition-timing-function: linear, linear, linear; padding: 0.2em!important; -webkit-box-shadow: rgba(0,0,0,0.42) 3px 3px 4px!important; border-radius: 6px!important; } .simplehl7_VASMGY { display: inline!important;font-family:inherit!important; font-style:inherit!important; font-variant:inherit!important; font-weight:inherit!important; border-color: transparent !important; color: #ffffff!important; background-color: rgba(0,0,0,0.7)!important; font-size: inherit!important; -webkit-transition-property: color, background-color, -webkit-box-shadow; -webkit-transition-duration: 0.5s, 0.5s, 0.5s; -webkit-transition-timing-function: linear, linear, linear; padding: 0.2em!important; -webkit-box-shadow: rgba(0,0,0,0.42) 3px 3px 4px!important; border-radius: 6px!important; } </style><style id="simplehl_flashstyle_XTMOOL">@-webkit-keyframes flash {         0% {             opacity: 1;         }         100% {             opacity: 0;         }}</style><link type="text/css" rel="stylesheet" href="./pm2_files/embed.default.css"><script type="text/javascript" async="" src="//static.duoshuo.com/embed.js" charset="UTF-8"></script></head>
+
+  <body>
+
+    <div id="container">
+      <div id="main" class="post" itemscope="" itemprop="blogPost">
+	<article itemprop="articleBody">
+
+	<div class="article-content">
+
+
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#PM2到底是什么个东西呢?"><span class="toc-number">1.</span> <span class="toc-text">PM2到底是什么个东西呢?</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#原生的集群化支持"><span class="toc-number">2.</span> <span class="toc-text">原生的集群化支持</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#按照termcaps-HTOP(Linux下的系统监控与进程管理软件)的方式管理"><span class="toc-number">3.</span> <span class="toc-text">按照termcaps-HTOP(Linux下的系统监控与进程管理软件)的方式管理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#实时集中log处理"><span class="toc-number">4.</span> <span class="toc-text">实时集中log处理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#快速恢复"><span class="toc-number">5.</span> <span class="toc-text">快速恢复</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#强健的API"><span class="toc-number">6.</span> <span class="toc-text">强健的API</span></a></li></ol>
+		</div>
+
+		<p>原文地址:<a href="http://devo.ps/blog/2013/06/26/goodbye-node-forever-hello-pm2.html" target="_blank" rel="external">Goodbye node-forever,hello PM2</a></p>
+<p>devo.ps团队对JavaScript的迷恋已经不是什么秘密了;node.js作为服务器端,AngularJS作为客户端,某种程度上说,我们的堆栈是用它建成的.我们构建<a href="http://devo.ps/blog/2013/01/31/farewell-to-regular-web-development-approaches.html" target="_blank" rel="external">静态客户端和RESTful JSON API</a>的方法意味着我们跑了很多的node.js,我必须承认尽管node.js的一切都令人敬畏,但当我们在生产环境中运行它时它仍然会让我们感到头疼.相比一些更加成熟的语言,它的工具和最佳实践仍然缺乏(试想一下:监控,日志,错误处理).</p>
+<p>到目前为止,我们仍然依赖漂亮俏皮的<a href="https://github.com/nodejitsu/forever" target="_blank" rel="external">node-forever模块</a>.它是非常伟大的模块,不过依然缺失一些功能:</p>
+<ul>
+<li>有限的监控和日志功能</li>
+<li>进程管理配置的支持差</li>
+<li>不支持集群</li>
+<li>代码库老化(意味着在升级node.js时频繁的失败)</li>
+</ul>
+<p>这就是为什么我们要在过去的几个月里去写<a href="https://github.com/Unitech/pm2" target="_blank" rel="external">PM2模块</a>.在我们即将发布针对生产环境的正式版之前我们想先让您看一眼.</p>
+<h3 id="PM2到底是什么个东西呢?"><strong>PM2到底是什么个东西呢?</strong></h3>
+<p>首先第一件事,你需要先通过<code>npm</code>来安装它:</p>
+<pre><code>npm <span class="operator"><span class="keyword">install</span> -g pm2</span>
+</code></pre><p>让我们通过表格来对比下:</p>
+<br><table class="table table-bordered table-striped table-condensed">   <tbody><tr>      <th width="50%">Feature</th>      <th width="25%">Forever</th>      <th width="25%">PM2</th>   </tr>   <tr>      <td>Keep Alive</td>      <td>✔</td>      <td>✔</td>   </tr>   <tr>      <td>Coffeescript</td>      <td>✔</td>      <td>&nbsp;</td>   </tr>   <tr>      <td>Log aggregation</td>      <td>&nbsp;</td>      <td>✔</td>   </tr>   <tr>      <td>API</td>      <td>&nbsp;</td>      <td>✔</td>   </tr>   <tr>      <td>Terminal monitoring</td>      <td>&nbsp;</td>      <td>✔</td>   </tr>   <tr>      <td>Clustering</td>      <td>&nbsp;</td>      <td>✔</td>   </tr>   <tr>      <td>JSON configuration</td>      <td>&nbsp;</td>      <td>✔</td>   </tr></tbody></table>
+
+
+<p>现在让我来介绍一点点主要特性…</p>
+<h3 id="原生的集群化支持"><strong>原生的集群化支持</strong></h3>
+<p>Node v0.6引入了集群特性,允许你在多个Node应用中共享socket.问题在于,它不能在容器外运行而且需要一些额外的配置来处理主进程和子进程.</p>
+<p>PM2原生支持处理这个问题,而且不需要额外的代码:PM2本身作为主进程,然后它将你的代码封装到一个特殊的集群进程里,就像node.js一样,为你的代码文件添加一些全局变量.</p>
+<p>想要启动一个使用所有CPU核心的集群,你只需要键入如下的指令:</p>
+<pre><code>$ pm2 <span class="operator"><span class="keyword">start</span> app.js -i <span class="keyword">max</span></span>
+</code></pre><p>然后:</p>
+<pre><code>$ pm2 <span class="keyword">list</span>
+</code></pre><p>然后就会显示类似下面的东西(ASCII UI FTW);</p>
+<p><img src="./pm2_files/pm2-list.png" alt="pm2-list"></p>
+<p>就像你看到的,现在你的应用有多少个进程就取决于你的CPU核心数了</p>
+<h3 id="按照termcaps-HTOP(Linux下的系统监控与进程管理软件)的方式管理"><strong>按照termcaps-HTOP(Linux下的系统监控与进程管理软件)的方式管理</strong></h3>
+<p>通过<code>pm2 list</code>命令来观察所有运行的进程以及它们的状态已经足够好了.但是怎么来追踪它们的资源消耗呢?别担心,用这个命令:</p>
+<pre><code><span class="variable">$ </span>pm2 monit
+</code></pre><p>你可以得到进程(以及集群)的CPU的使用率和内存占用.</p>
+<p><img src="./pm2_files/pm2-monit.png" alt="pm2-monit"></p>
+<p><strong>声明:</strong><a href="https://github.com/arunoda/node-usage" target="_blank" rel="external">node-usage</a>到目前为止还不支持MacOS(随便什么性能要求),不过它在Linux下运行良好.</p>
+<p>现在,让我们来核实一下我们的集群,还有对内存堆栈的垃圾回收,我们假设你已经有一个HTTP基准测试工具(如果没有,你一定要使用<a href="https://github.com/wg/wrk" target="_blank" rel="external">WRK</a>):</p>
+<figure class="highlight"><table><tbody><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">$ express bufallo    <span class="comment">//Create an express app</span></div><div class="line">$ cd bufallo</div><div class="line">$ npm install</div><div class="line">$ pm2 start app.js -i <span class="built_in">max</span></div><div class="line">$ wrk -<span class="built_in">c</span> <span class="number">100</span> -d <span class="number">100</span> http:<span class="comment">//localhost:3000/</span></div></pre></td></tr></tbody></table></figure>
+
+<p>在另一个终端,运行监控选项:</p>
+<pre><code><span class="variable">$ </span>pm2 monit
+</code></pre><p>耶~</p>
+<h3 id="实时集中log处理"><strong>实时集中log处理</strong></h3>
+<p>现在你不得不管理多个集群进程:一个爬取数据,一个处理数据,等等…这就意味着大量log,你可以按照老式的方法处理:</p>
+<pre><code>$ tail -f /path/to/log1 /path/to/log2 <span class="keyword">...</span>
+</code></pre><p>但我们想的很周到,我们增加了<code>logs</code>功能:</p>
+<pre><code><span class="variable">$ </span>pm2 logs
+</code></pre><p><img src="./pm2_files/pm2-logs.png" alt="pm2-logs"></p>
+<h3 id="快速恢复"><strong>快速恢复</strong></h3>
+<p>现在事情一切顺利,你的进程嗡嗡的运行着,你需要做一次硬重启(hard restart).现在吗?是的,首先,dump掉:</p>
+<pre><code><span class="variable">$ </span>pm2 dump
+</code></pre><p>然后,你可以从文件中恢复它:</p>
+<pre><code>$ pm2 <span class="built_in">kill</span>     <span class="comment"> //让我们假设一个PM2停掉了</span>
+$ pm2 resurect <span class="comment"> //我所有的进程又满血满状态复活了</span>
+</code></pre><h3 id="强健的API"><strong>强健的API</strong></h3>
+<p>比方说,你想要监控所有被PM2管理的进程,而且同时还想监控运行这些进程的机器的状态(甚至希望创建一个Angular应用来调用这些API…):</p>
+<pre><code><span class="variable">$ </span>pm2 web
+</code></pre><p>打开浏览器输入<a href="http://localhost:9615/" target="_blank" rel="external">http://localhost:9615</a> ,我嘞个去!</p>
+	</div>
+	</article>
+</div>
+      <div class="openaside" style="top: 80px;"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside" style="top: 140px;">
+  <strong class="toc-title">文章目录</strong>
+  <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#PM2到底是什么个东西呢?"><span class="toc-number">1.</span> <span class="toc-text">PM2到底是什么个东西呢?</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#原生的集群化支持"><span class="toc-number">2.</span> <span class="toc-text">原生的集群化支持</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#按照termcaps-HTOP(Linux下的系统监控与进程管理软件)的方式管理"><span class="toc-number">3.</span> <span class="toc-text">按照termcaps-HTOP(Linux下的系统监控与进程管理软件)的方式管理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#实时集中log处理"><span class="toc-number">4.</span> <span class="toc-text">实时集中log处理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#快速恢复"><span class="toc-number">5.</span> <span class="toc-text">快速恢复</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#强健的API"><span class="toc-number">6.</span> <span class="toc-text">强健的API</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#对了,还有很多特性…"><span class="toc-number">7.</span> <span class="toc-text">对了,还有很多特性…</span></a></li></ol><li class="toc-item toc-level-2"><a class="toc-link" href="#下一步计划?"><span class="toc-number"></span> <span class="toc-text">下一步计划?</span></a>
+  </li></div>
+    </div>
+</body></html>

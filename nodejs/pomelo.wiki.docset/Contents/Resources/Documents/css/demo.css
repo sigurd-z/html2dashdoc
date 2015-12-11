@@ -1,0 +1,33 @@
+/* 清除浮动 */
+.m-demo .brief:after,.m-demo .section:after{clear:both;content:'.';display:block;height:0;visibility:hidden;}
+.m-demo .brief,.m-demo .section{zoom:1;}
+
+/* demo模块 */
+.m-demo{width:800px;color:#333;}
+
+.m-demo .brief{width:700px;padding:30px 0 35px 15px;}
+.m-demo .brief .tt{float:left;padding-bottom:10px;font:normal normal bold 16px/24px "Arial";}
+.m-demo .brief .bnt{float:left;margin-left:15px;}
+.m-demo .brief .bnt a{display:block;width:89px;height:24px;background:url("../image/demolnk.png") no-repeat 0 -25px;}
+.m-demo .brief .bnt a:hover{background-position:0 0;}
+.m-demo .brief .bnt2{float:left;margin-left:15px;}
+.m-demo .brief .bnt2 a{display:block;width:150px;height:24px;background:url("../image/demolnk.png") no-repeat -108px -25px;}
+.m-demo .brief .bnt2 a:hover{background-position:-108px 0;}
+.m-demo .brief .des{float:left;width:700px;font:normal normal normal 12px/22px 'Arial';}
+
+.m-demo .section{width:730px;padding:35px 15px 35px;border-top:1px solid #dedede;}
+.m-demo .section .text{float:left;position:relative;width:300px;height:281px;}
+.m-demo .section .text .mc{position:absolute;top:50%;}
+.m-demo .section .text .cnt{position:absolute;top:-50%;}
+.m-demo .section .text .cnt-hid{visibility:hidden;}
+.m-demo .section .text .tt{margin-bottom:15px;font:normal normal bold 16px/16px "Arial";}
+.m-demo .section .text .des{font:normal normal normal 12px/22px "Arial";}
+.m-demo .section .img{float:right;width:343px;height:281px;overflow:hidden;}
+.m-demo .section-1 .text{float:right;}
+.m-demo .section-1 .img{float:left;}
+
+.m-demo .section1{width:730px;padding:30px 15px 35px;border-top:1px solid #dedede;}
+.m-demo .section1 .tt{font:normal normal bold 16px/16px "Arial";}
+.m-demo .section1 .des{margin:15px 0 25px;font:normal normal normal 12px/22px "Arial";}
+.m-demo .section1 .img{display:block;width:692px;height:372px;margin:0 auto;}
+
