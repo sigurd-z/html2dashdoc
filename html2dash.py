@@ -130,6 +130,9 @@ def add_urls():
     any = re.compile('.*')
     # deal pageurl
     def indexpage_callback(indexsoup, p):
+        if len(indexsoup.attrs['href'])>0:
+            return
+
         name = indexsoup.text.strip()
         url = indexsoup.attrs['originhref'].strip()
         urlinfo = urlparse.urlparse(url)
@@ -153,6 +156,10 @@ def add_urls():
             def pullfunc(soup):
                 return soup.find("div", {"class": "showContent"})
             single_page = pulldiv(url, pullfunc)
+        elif urlinfo.netloc=="www.gfzj.us":
+            def pullfunc(soup):
+                return soup.find("article", {"class": "post-content"})
+            single_page = pulldiv(url, pullfunc)
         elif urlinfo.netloc=="archboy.org":
             def pullfunc(soup):
                 return soup
@@ -172,6 +179,9 @@ def add_urls():
                 saveres(soup, url, 'src', source_dir+'/page/')
             for soup in single_page.find_all('link', {'href': any}):
                 saveres(soup, url, 'href', source_dir+'/page/')
+
+            # add page border
+            single_page.body['style'] = "padding:0 25px;"
 
             # save page
             with open(source_dir+"/page/"+name+".html","w") as f:
@@ -367,17 +377,20 @@ if __name__ == "__main__":
         clear_trash()
         exit(2)
 
+    # try:
+    #     cur.execute('DROP TABLE searchIndex;')
+    # except:
+    #     pass
+
     try:
-        cur.execute('DROP TABLE searchIndex;')
+        cur.execute('CREATE TABLE searchIndex(id INTEGER PRIMARY KEY,\
+                    name TEXT,\
+                    type TEXT,\
+                    path TEXT);')
+        cur.execute('CREATE UNIQUE INDEX anchor ON searchIndex (name, type, path);')
+        print "Create the SQLite Index"
     except:
         pass
-
-    cur.execute('CREATE TABLE searchIndex(id INTEGER PRIMARY KEY,\
-                name TEXT,\
-                type TEXT,\
-                path TEXT);')
-    cur.execute('CREATE UNIQUE INDEX anchor ON searchIndex (name, type, path);')
-    print "Create the SQLite Index"
 
     add_urls()
     db.commit()
