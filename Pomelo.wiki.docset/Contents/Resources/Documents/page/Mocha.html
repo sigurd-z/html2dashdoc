@@ -1,0 +1,1178 @@
+<html><head>
+<!-- meta -->
+<meta charset="utf-8"/>
+<meta content="CNode：Node.js专业中文社区" name="description">
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<meta content="nodejs, node, express, connect, socket.io" name="keywords"/>
+<meta content="app-id=954734793" name="apple-itunes-app">
+<!-- see http://smerity.com/articles/2013/where_did_all_the_http_referrers_go.html -->
+<meta content="always" name="referrer">
+<meta content="EDP@TaoBao" name="author"/>
+<meta content="617be6bd946c6b96" property="wb:webmaster"/>
+<link href="/rss" rel="alternate" title="RSS" type="application/rss+xml"/>
+<link href="src/67af5bd2b853249f582a5ef37b457b1d.png" rel="icon" type="image/x-icon"/>
+<!-- style -->
+<link href="src/cadea945211b27ffb6686f7145ead82e.css" media="all" rel="stylesheet"/>
+<!-- scripts -->
+<script src="src/f9900eef9e6bfcf2e4617c2b9ae2586c.js"></script>
+<title>初识 mocha in NodeJS - CNode技术社区</title>
+<meta content="_csrf" name="csrf-param">
+<meta content="Zv2dw0mM-j21Q_TUEpHIs9rHNI6igngDaaHc" name="csrf-token">
+</meta></meta></meta></meta></meta></head><body style="padding:0 25px;"><div id="content">
+<div class="panel">
+<div class="header topic_header">
+<span class="topic_full_title">
+<span class="put_good">精华</span>
+
+
+
+        初识 mocha in NodeJS
+      </span>
+<div class="changes">
+<span>
+          发布于 3 年前
+        </span>
+<span>
+          作者 <a href="/user/lhfcws">lhfcws</a>
+</span>
+<span>
+          21988 次浏览
+        </span>
+<span>
+            最后一次编辑是 3 个月前
+          </span>
+<span> 来自 分享</span>
+</div>
+</div>
+<div class="inner topic">
+<div class="topic_content">
+<div class="markdown-text"><p><em>囧，cnodejs不能上传图。有图版请见 <a href="http://blog.csdn.net/lhfcws/article/details/8783553">无图无真相！</a></em></p>
+<p>NodeJS里最常用的测试框架估计就是mocha了。它支持多种node的assert libs， 同时支持异步和同步的测试，同时支持多种方式导出结果，也支持直接在browser上跑Javascript代码测试。</p>
+<p>本文示例大多源于官网示例，部分示例结合需要或自己的感想有所改动。更多介绍请看 官方网址：<a href="http://visionmedia.github.io/mocha/">Mocha on Github</a></p>
+<h2>Installation：</h2>
+<p>当你成功安装nodejs v0.10 和 npm后执行下面这条命令。</p>
+<pre class="prettyprint"><code># npm install -g mocha
+</code></pre><p>p.s. Ubuntu的注意apt源里的nodejs版本会比较旧，某些module会不支持，请从nodejs官网进行源码安装。</p>
+<h2>First step to Mocha：</h2>
+<p>以下为最简单的一个mocha示例：</p>
+<pre class="prettyprint"><code>var assert = require("assert");
+describe('Array', function(){
+	describe('#indexOf()', function(){
+  		it('should return -1 when the value is not present', function(){
+        	assert.equal(-1, [1,2,3].indexOf(5));
+		    assert.equal(-1, [1,2,3].indexOf(0));
+		})
+	})
+});
+</code></pre><ul>
+<li><strong>describe (moduleName, testDetails)</strong> 		
+由上述代码可看出，describe是可以嵌套的，比如上述代码嵌套的两个describe就可以理解成测试人员希望测试Array模块下的#indexOf() 子模块。module_name 是可以随便取的，关键是要让人读明白就好。</li>
+<li><strong>it (info, function)</strong> 		
+具体的测试语句会放在it的回调函数里，一般来说info字符串会写期望的正确输出的简要一句话文字说明。当该it block内的test failed的时候控制台就会把详细信息打印出来。一般是从最外层的describe的module_name开始输出（可以理解成沿着路径或者递归链或者回调链），最后输出info，表示该期望的info内容没有被满足。<strong>一个it对应一个实际的test case</strong></li>
+<li><strong>assert.equal (exp1, exp2)</strong> 		
+断言判断exp1结果是否等于exp2, 这里采取的等于判断是== 而并非 === 。即 assert.equal(1, ‘1’) 认为是True。这只是nodejs里的assert.js的一种断言形式，下文会提到同样比较常用的should.js。</li>
+</ul>
+<p>如果exp1和exp2均为字符串，字符串比较出错时则控制台会用颜色把相异的部分标出来。</p>
+<h2>Asynchronous</h2>
+<p>Frist step 中的代码显然是个 Synchronous 的代码，那么对于异步代码应该怎么做呢？很简单，在你最深处的回调函数中加done()表示结束。</p>
+<pre class="prettyprint"><code>fs = require('fs');
+describe('File', function(){
+	describe('#readFile()', function(){
+    	it('should read test.ls without error', function(done){
+	    	fs.readFile('test.ls', function(err){
+				if (err) throw err;
+				done();
+			});
+		})
+	})
+})
+</code></pre><ul>
+<li><strong>done ()</strong><br>
+按照瀑布流编程习惯，取名done是表示你回调的最深处，也就是结束写嵌套回调函数。但对于回调链来说done实际上意味着告诉mocha从此处开始测试，一层层回调回去。</br></li>
+</ul>
+<p>上例代码是test pass的，<a href="http://xn--test-965fu21e0qjz1ai23y.xn--lstest-xp7is53dw1inprigi777c.as">我们尝试把test.ls改成不存在的test.as</a>。便会返回具体的错误位置。</p>
+<p>这里可能会有个疑问，假如我有两个异步函数（两条分叉的回调链），那我应该在哪里加done()呢？实际上这个时候就不应该在一个it里面存在两个要测试的函数，事实上<strong>一个it里面只能调用一次done</strong>，当你调用多次done的话mocha会抛出错误。所以应该类似这样：</p>
+<pre class="prettyprint"><code>fs = require('fs');
+describe('File', function(){
+	describe('#readFile()', function(){
+    	it('should read test.ls without error', function(done){
+	    	fs.readFile('test.ls', function(err){
+				if (err) throw err;
+				done();
+			});
+		})
+    	it('should read test.js without error', function(done){
+	    	fs.readFile('test.js', function(err){
+				if (err) throw err;
+				done();
+			});
+		})
+	})
+})
+</code></pre><h2>Pending</h2>
+<p>即省去测试细节只保留函数体。一般适用情况比如负责测试框架的写好框架让组员去实现细节，或者测试细节尚未完全正确实现先注释以免影响全局测试情况。这种时候mocha会默认该测试pass。
+作用有点像Python的pass。</p>
+<pre class="prettyprint"><code>describe('Array', function(){
+	describe('#indexOf()', function(){
+  		it('should return -1 when the value is not present', function(){
+		})
+	})
+});
+</code></pre><h2>Exclusive &amp;&amp; Inclusive</h2>
+<p>其实很好理解，分别对应only和skip函数。</p>
+<pre class="prettyprint"><code>fs = require('fs');
+describe('File', function(){
+	describe('#readFile()', function(){
+    	it.skip('should read test.ls without error', function(done){
+	    	fs.readFile('test.ls', function(err){
+				if (err) throw err;
+				done();
+			});
+		})
+    	it('should read test.js without error', function(done){
+		})
+	})
+})
+</code></pre><p>上面的代码只会有一个test complete， 只有only的会被执行，另一个会被忽略掉。<strong>每个函数里只能有一个only</strong>。如果是it.skip ，那么该case就会被忽略。</p>
+<p>only和skip共用没有什么实际意义，因为only的作用会把skip屏蔽掉。</p>
+<pre class="prettyprint"><code>fs = require('fs');
+describe('File', function(){
+	describe('#readFile()', function(){
+    	it.skip('should read test.ls without error', function(done){
+	    	fs.readFile('test.as', function(err){
+				if (err) throw err;
+				done();
+			});
+		})
+    	it('should read test.js without error', function(done){
+		})
+	})
+})
+</code></pre><p>上面的代码尽管test.as不存在，但是由于skip，依然会显示test complete。</p>
+<h2>Before &amp;&amp; After</h2>
+<p>单元测试里经常会用到before和after。mocha同时还提供了beforeEach()和afterEach()。
+这里为方便阅读用livescript表示，!-&gt;可理解成function(){}。细节无需细读，只需通过框架了解这几个函数如何使用便可。</p>
+<pre class="prettyprint"><code>require! assert
+require! fs
+can = it
+
+
+describe 'Array', !-&gt;
+	beforeEach !-&gt;
+		console.log 'beforeEach Array'
+
+	before !-&gt;
+		console.log 'before Array'
+	
+	before !-&gt;
+		console.log 'before Array second time'
+
+	after !-&gt;
+		console.log 'after Array'
+
+	describe '#indexOf()', !-&gt;
+		can 'should return -1 when the value is not present', !-&gt;
+			assert.equal -1, [1,2,3].indexOf 0
+		can 'should return 1 when the value is not present', !-&gt;
+
+	describe 'File', !-&gt;
+
+		beforeEach !-&gt;
+			console.log 'beforeEach file test!'
+
+		afterEach !-&gt;
+			console.log 'afterEach File test!'
+
+		describe '#readFile()', !-&gt;
+			can 'should read test.ls without error', !(done)-&gt;
+				fs.readFile 'test.ls', !(err)-&gt;
+					if err
+						throw err
+					done!
+			can 'should read test.js without error', !(done)-&gt;
+				fs.readFile 'test.js', !(err)-&gt;
+					if err
+						throw err
+					done!
+</code></pre><p>由结果可知(after的使用与before同理)，</p>
+<ul>
+<li>beforeEach会对当前describe下的所有子case生效。</li>
+<li>before和after的代码没有特殊顺序要求。</li>
+<li>同一个describe下可以有多个before，执行顺序与代码顺序相同。</li>
+<li>同一个describe下的执行顺序为before, beforeEach, afterEach, after</li>
+<li>当一个it有多个before的时候，执行顺序从最外围的describe的before开始，其余同理。</li>
+</ul>
+<h2>Test Driven Develop (TDD)</h2>
+<p>mocha默认的模式是Behavior Driven Develop (BDD)，要想执行TDD的test的时候需要加上参数，如</p>
+<pre class="prettyprint"><code>mocha -u tdd test.js
+</code></pre><p>前文所讲的describe, it, before, after等都属于BDD的范畴，对于TDD，我们用suite, test, setup, teardown。样例代码如下:</p>
+<pre class="prettyprint"><code>suite 'Array', !-&gt;
+	setup !-&gt;
+		console.log 'setup'
+
+	teardown !-&gt;
+		console.log 'teardown'
+
+	suite '#indexOf()', !-&gt;
+		test 'should return -1 when not present', !-&gt;
+			assert.equal -1, [1,2,3].indexOf 4
+</code></pre><hr>
+### TDD的一些相关资料：
+1. **What is TDD** :
+<p><a href="http://stackoverflow.com/questions/2327119/what-is-test-driven-development-does-it-require-to-have-initial-designs">http://stackoverflow.com/questions/2327119/what-is-test-driven-development-does-it-require-to-have-initial-designs</a></p>
+<ol>
+<li><strong>Difference between TDD &amp;&amp; BDD</strong> :</li>
+</ol>
+<p><a href="http://stackoverflow.com/questions/4395469/tdd-and-bdd-differences">http://stackoverflow.com/questions/4395469/tdd-and-bdd-differences</a></p>
+</hr></div>
+</div>
+</div>
+</div>
+<div class="panel">
+<div class="header">
+<span class="col_fade">32 回复</span>
+</div>
+<div class="cell reply_area reply_item " id="reply1" reply_id="5165344f6d38277306c95b9a" reply_to_id="">
+<a class="anchor" id="5165344f6d38277306c95b9a"></a>
+<div class="author_content">
+<a class="user_avatar" href="/user/a272121742">
+<img src="//gravatar.com/avatar/b087595f7b1a3801718f7a04d24add89?size=48" title="a272121742"/></a>
+<div class="user_info">
+<a class="dark reply_author" href="/user/a272121742">a272121742
+      </a>
+<a class="reply_time" href="#5165344f6d38277306c95b9a">1楼•3 年前</a>
+</div>
+<div class="user_action">
+<span>
+<i class="fa up_btn fa-thumbs-o-up invisible" title="喜欢"></i>
+<span class="up-count">
+</span>
+</span>
+<span>
+</span>
+</div>
+</div>
+<div class="reply_content from-a272121742">
+<div class="markdown-text"><p>收藏</p>
+</div>
+</div>
+<div class="clearfix">
+<div class="reply2_area">
+</div>
+</div>
+</div>
+<div class="cell reply_area reply_item " id="reply2" reply_id="516615806d38277306e14d03" reply_to_id="">
+<a class="anchor" id="516615806d38277306e14d03"></a>
+<div class="author_content">
+<a class="user_avatar" href="/user/maniwang">
+<img src="//gravatar.com/avatar/9b3c7e83caa581e968624a3cd5af11f8?size=48" title="maniwang"/></a>
+<div class="user_info">
+<a class="dark reply_author" href="/user/maniwang">maniwang
+      </a>
+<a class="reply_time" href="#516615806d38277306e14d03">2楼•3 年前</a>
+</div>
+<div class="user_action">
+<span>
+<i class="fa up_btn fa-thumbs-o-up invisible" title="喜欢"></i>
+<span class="up-count">
+</span>
+</span>
+<span>
+</span>
+</div>
+</div>
+<div class="reply_content from-maniwang">
+<div class="markdown-text"><p>好文，收藏~</p>
+</div>
+</div>
+<div class="clearfix">
+<div class="reply2_area">
+</div>
+</div>
+</div>
+<div class="cell reply_area reply_item " id="reply3" reply_id="51663a496d38277306e60215" reply_to_id="">
+<a class="anchor" id="51663a496d38277306e60215"></a>
+<div class="author_content">
+<a class="user_avatar" href="/user/geforce">
+<img src="//gravatar.com/avatar/fc9c8c03fc1e12bb50810565f8cdbacb?size=48" title="geforce"/></a>
+<div class="user_info">
+<a class="dark reply_author" href="/user/geforce">geforce
+      </a>
+<a class="reply_time" href="#51663a496d38277306e60215">3楼•3 年前</a>
+</div>
+<div class="user_action">
+<span>
+<i class="fa up_btn fa-thumbs-o-up invisible" title="喜欢"></i>
+<span class="up-count">
+</span>
+</span>
+<span>
+</span>
+</div>
+</div>
+<div class="reply_content from-geforce">
+<div class="markdown-text"><p>学习下。支持</p>
+</div>
+</div>
+<div class="clearfix">
+<div class="reply2_area">
+</div>
+</div>
+</div>
+<div class="cell reply_area reply_item " id="reply4" reply_id="516646236d38277306e7444e" reply_to_id="">
+<a class="anchor" id="516646236d38277306e7444e"></a>
+<div class="author_content">
+<a class="user_avatar" href="/user/yooodooo">
+<img src="//gravatar.com/avatar/1f3c9ab9f06f338e8ce1daaf8f8fa133?size=48" title="yooodooo"/></a>
+<div class="user_info">
+<a class="dark reply_author" href="/user/yooodooo">yooodooo
+      </a>
+<a class="reply_time" href="#516646236d38277306e7444e">4楼•3 年前</a>
+</div>
+<div class="user_action">
+<span>
+<i class="fa up_btn fa-thumbs-o-up invisible" title="喜欢"></i>
+<span class="up-count">
+</span>
+</span>
+<span>
+</span>
+</div>
+</div>
+<div class="reply_content from-yooodooo">
+<div class="markdown-text"><p>今天刚好准备学习nodejs测试，果断收藏</p>
+</div>
+</div>
+<div class="clearfix">
+<div class="reply2_area">
+</div>
+</div>
+</div>
+<div class="cell reply_area reply_item " id="reply5" reply_id="516a27cb6d382773062e9993" reply_to_id="">
+<a class="anchor" id="516a27cb6d382773062e9993"></a>
+<div class="author_content">
+<a class="user_avatar" href="/user/Pana">
+<img src="https://avatars.githubusercontent.com/u/552081?v=3&amp;s=120" title="Pana"/></a>
+<div class="user_info">
+<a class="dark reply_author" href="/user/Pana">Pana
+      </a>
+<a class="reply_time" href="#516a27cb6d382773062e9993">5楼•3 年前</a>
+</div>
+<div class="user_action">
+<span>
+<i class="fa up_btn fa-thumbs-o-up invisible" title="喜欢"></i>
+<span class="up-count">
+</span>
+</span>
+<span>
+</span>
+</div>
+</div>
+<div class="reply_content from-Pana">
+<div class="markdown-text"><p>顶起, 还了解到livescript.</p>
+</div>
+</div>
+<div class="clearfix">
+<div class="reply2_area">
+</div>
+</div>
+</div>
+<div class="cell reply_area reply_item " id="reply6" reply_id="51e5ea8df4963ade0ec7ab53" reply_to_id="">
+<a class="anchor" id="51e5ea8df4963ade0ec7ab53"></a>
+<div class="author_content">
+<a class="user_avatar" href="/user/weiyongqing123">
+<img src="//gravatar.com/avatar/8341059515e9e257bbb8da3c9fc158c2?s=48" title="weiyongqing123"/></a>
+<div class="user_info">
+<a class="dark reply_author" href="/user/weiyongqing123">weiyongqing123
+      </a>
+<a class="reply_time" href="#51e5ea8df4963ade0ec7ab53">6楼•2 年前</a>
+</div>
+<div class="user_action">
+<span>
+<i class="fa up_btn fa-thumbs-o-up invisible" title="喜欢"></i>
+<span class="up-count">
+</span>
+</span>
+<span>
+</span>
+</div>
+</div>
+<div class="reply_content from-weiyongqing123">
+<div class="markdown-text"><p>不错文章，社区支持图片就好了</p>
+</div>
+</div>
+<div class="clearfix">
+<div class="reply2_area">
+</div>
+</div>
+</div>
+<div class="cell reply_area reply_item " id="reply7" reply_id="51e5f1cef4963ade0ec87c43" reply_to_id="">
+<a class="anchor" id="51e5f1cef4963ade0ec87c43"></a>
+<div class="author_content">
+<a class="user_avatar" href="/user/dengqiao">
+<img src="//gravatar.com/avatar/fd4a102060494cac282a8d48e79afc2b?size=48" title="dengqiao"/></a>
+<div class="user_info">
+<a class="dark reply_author" href="/user/dengqiao">dengqiao
+      </a>
+<a class="reply_time" href="#51e5f1cef4963ade0ec87c43">7楼•2 年前</a>
+</div>
+<div class="user_action">
+<span>
+<i class="fa up_btn fa-thumbs-o-up invisible" title="喜欢"></i>
+<span class="up-count">
+</span>
+</span>
+<span>
+</span>
+</div>
+</div>
+<div class="reply_content from-dengqiao">
+<div class="markdown-text"><p>让你爱上写测试的感觉哈哈</p>
+</div>
+</div>
+<div class="clearfix">
+<div class="reply2_area">
+</div>
+</div>
+</div>
+<div class="cell reply_area reply_item " id="reply8" reply_id="51e62a6df4963ade0ed03639" reply_to_id="51e5ea8df4963ade0ec7ab53">
+<a class="anchor" id="51e62a6df4963ade0ed03639"></a>
+<div class="author_content">
+<a class="user_avatar" href="/user/lhfcws">
+<img src="//gravatar.com/avatar/19775e24394f727eb342154459370d20?size=48" title="lhfcws"/></a>
+<div class="user_info">
+<a class="dark reply_author" href="/user/lhfcws">lhfcws
+      </a>
+<a class="reply_time" href="#51e62a6df4963ade0ed03639">8楼•2 年前</a>
+</div>
+<div class="user_action">
+<span>
+<i class="fa up_btn fa-thumbs-o-up invisible" title="喜欢"></i>
+<span class="up-count">
+</span>
+</span>
+<span>
+</span>
+</div>
+</div>
+<div class="reply_content from-lhfcws">
+<div class="markdown-text"><p>md不能直接上传图片，所以要等社区添加个上传图片的功能啦</p>
+</div>
+</div>
+<div class="clearfix">
+<div class="reply2_area">
+</div>
+</div>
+</div>
+<div class="cell reply_area reply_item " id="reply9" reply_id="51ea050df4963ade0e5e20e0" reply_to_id="">
+<a class="anchor" id="51ea050df4963ade0e5e20e0"></a>
+<div class="author_content">
+<a class="user_avatar" href="/user/dead-horse">
+<img src="https://avatars.githubusercontent.com/u/985607?v=3&amp;s=120" title="dead-horse"/></a>
+<div class="user_info">
+<a class="dark reply_author" href="/user/dead-horse">dead-horse
+      </a>
+<a class="reply_time" href="#51ea050df4963ade0e5e20e0">9楼•2 年前</a>
+</div>
+<div class="user_action">
+<span>
+<i class="fa up_btn fa-thumbs-o-up invisible" title="喜欢"></i>
+<span class="up-count">
+</span>
+</span>
+<span>
+</span>
+</div>
+</div>
+<div class="reply_content from-dead-horse">
+<div class="markdown-text"><p>md可以贴图…
+大家都是搞技术的…找个传图片的地方不难吧…
+真找不到就用这个 <a href="http://upload.cnodejs.net/">upload</a></p>
+</div>
+</div>
+<div class="clearfix">
+<div class="reply2_area">
+</div>
+</div>
+</div>
+<div class="cell reply_area reply_item " id="reply10" reply_id="51ea1830f4963ade0e5fe9aa" reply_to_id="51ea050df4963ade0e5e20e0">
+<a class="anchor" id="51ea1830f4963ade0e5fe9aa"></a>
+<div class="author_content">
+<a class="user_avatar" href="/user/hexie">
+<img src="//gravatar.com/avatar/218220edff46df5465c8c36b0e6d1e2f?size=48" title="hexie"/></a>
+<div class="user_info">
+<a class="dark reply_author" href="/user/hexie">hexie
+      </a>
+<a class="reply_time" href="#51ea1830f4963ade0e5fe9aa">10楼•2 年前</a>
+</div>
+<div class="user_action">
+<span>
+<i class="fa up_btn fa-thumbs-o-up invisible" title="喜欢"></i>
+<span class="up-count">
+</span>
+</span>
+<span>
+</span>
+</div>
+</div>
+<div class="reply_content from-hexie">
+<div class="markdown-text"><p>原来还有这玩意。。是私有接口，还是大家都可以用的。可以宣传一下。。</p>
+</div>
+</div>
+<div class="clearfix">
+<div class="reply2_area">
+</div>
+</div>
+</div>
+<div class="cell reply_area reply_item " id="reply11" reply_id="5217050bbee8d3cb1223002c" reply_to_id="">
+<a class="anchor" id="5217050bbee8d3cb1223002c"></a>
+<div class="author_content">
+<a class="user_avatar" href="/user/geekpwd">
+<img src="//gravatar.com/avatar/aad42b1425408846397682bc30074e73?size=48" title="geekpwd"/></a>
+<div class="user_info">
+<a class="dark reply_author" href="/user/geekpwd">geekpwd
+      </a>
+<a class="reply_time" href="#5217050bbee8d3cb1223002c">11楼•2 年前</a>
+</div>
+<div class="user_action">
+<span>
+<i class="fa up_btn fa-thumbs-o-up invisible" title="喜欢"></i>
+<span class="up-count">
+</span>
+</span>
+<span>
+</span>
+</div>
+</div>
+<div class="reply_content from-geekpwd">
+<div class="markdown-text"><p>very nice</p>
+</div>
+</div>
+<div class="clearfix">
+<div class="reply2_area">
+</div>
+</div>
+</div>
+<div class="cell reply_area reply_item " id="reply12" reply_id="52185835bee8d3cb1245c9ca" reply_to_id="">
+<a class="anchor" id="52185835bee8d3cb1245c9ca"></a>
+<div class="author_content">
+<a class="user_avatar" href="/user/chemdemo">
+<img src="https://avatars.githubusercontent.com/u/1014734?v=3&amp;s=120" title="chemdemo"/></a>
+<div class="user_info">
+<a class="dark reply_author" href="/user/chemdemo">chemdemo
+      </a>
+<a class="reply_time" href="#52185835bee8d3cb1245c9ca">12楼•2 年前</a>
+</div>
+<div class="user_action">
+<span>
+<i class="fa up_btn fa-thumbs-o-up invisible" title="喜欢"></i>
+<span class="up-count">
+</span>
+</span>
+<span>
+</span>
+</div>
+</div>
+<div class="reply_content from-chemdemo">
+<div class="markdown-text"><p>收藏！</p>
+</div>
+</div>
+<div class="clearfix">
+<div class="reply2_area">
+</div>
+</div>
+</div>
+<div class="cell reply_area reply_item " id="reply13" reply_id="52196455bee8d3cb125ddc6b" reply_to_id="">
+<a class="anchor" id="52196455bee8d3cb125ddc6b"></a>
+<div class="author_content">
+<a class="user_avatar" href="/user/bsspirit">
+<img src="https://avatars.githubusercontent.com/u/170283?v=3&amp;s=120" title="bsspirit"/></a>
+<div class="user_info">
+<a class="dark reply_author" href="/user/bsspirit">bsspirit
+      </a>
+<a class="reply_time" href="#52196455bee8d3cb125ddc6b">13楼•2 年前</a>
+</div>
+<div class="user_action">
+<span>
+<i class="fa up_btn fa-thumbs-o-up invisible" title="喜欢"></i>
+<span class="up-count">
+</span>
+</span>
+<span>
+</span>
+</div>
+</div>
+<div class="reply_content from-bsspirit">
+<div class="markdown-text"><p>收藏！</p>
+</div>
+</div>
+<div class="clearfix">
+<div class="reply2_area">
+</div>
+</div>
+</div>
+<div class="cell reply_area reply_item " id="reply14" reply_id="5219ff2cbee8d3cb126c8820" reply_to_id="">
+<a class="anchor" id="5219ff2cbee8d3cb126c8820"></a>
+<div class="author_content">
+<a class="user_avatar" href="/user/imzshh">
+<img src="//gravatar.com/avatar/1d79000101a332bba66ee02d4cd42ca6?size=48" title="imzshh"/></a>
+<div class="user_info">
+<a class="dark reply_author" href="/user/imzshh">imzshh
+      </a>
+<a class="reply_time" href="#5219ff2cbee8d3cb126c8820">14楼•2 年前</a>
+</div>
+<div class="user_action">
+<span>
+<i class="fa up_btn fa-thumbs-o-up invisible" title="喜欢"></i>
+<span class="up-count">
+</span>
+</span>
+<span>
+</span>
+</div>
+</div>
+<div class="reply_content from-imzshh">
+<div class="markdown-text"><p>写得很好。</p>
+<p>不过Pending tests这个有点问题。不是像你所说的“省去测试细节只保留函数体”，而是不指定回调函数：</p>
+<pre class="prettyprint"><code>describe('Array', function(){
+    describe('#indexOf()', function(){
+        it('should return -1 when the value is not present');
+    });
+});
+</code></pre></div>
+</div>
+<div class="clearfix">
+<div class="reply2_area">
+</div>
+</div>
+</div>
+<div class="cell reply_area reply_item " id="reply15" reply_id="521ad82bbee8d3cb1281b6e2" reply_to_id="5219ff2cbee8d3cb126c8820">
+<a class="anchor" id="521ad82bbee8d3cb1281b6e2"></a>
+<div class="author_content">
+<a class="user_avatar" href="/user/lhfcws">
+<img src="//gravatar.com/avatar/19775e24394f727eb342154459370d20?size=48" title="lhfcws"/></a>
+<div class="user_info">
+<a class="dark reply_author" href="/user/lhfcws">lhfcws
+      </a>
+<a class="reply_time" href="#521ad82bbee8d3cb1281b6e2">15楼•2 年前</a>
+</div>
+<div class="user_action">
+<span>
+<i class="fa up_btn fa-thumbs-o-up invisible" title="喜欢"></i>
+<span class="up-count">
+</span>
+</span>
+<span>
+</span>
+</div>
+</div>
+<div class="reply_content from-lhfcws">
+<div class="markdown-text"><p>感谢指正。确实是的，应该是without callback。但CnodeJS好像日志时间久了就不给修改了？</p>
+</div>
+</div>
+<div class="clearfix">
+<div class="reply2_area">
+</div>
+</div>
+</div>
+<div class="cell reply_area reply_item " id="reply16" reply_id="52b4086c588ff25a7258ed1b" reply_to_id="">
+<a class="anchor" id="52b4086c588ff25a7258ed1b"></a>
+<div class="author_content">
+<a class="user_avatar" href="/user/irou1217">
+<img src="//gravatar.com/avatar/aa92220a867ab0a71192ef9459216685?size=48" title="irou1217"/></a>
+<div class="user_info">
+<a class="dark reply_author" href="/user/irou1217">irou1217
+      </a>
+<a class="reply_time" href="#52b4086c588ff25a7258ed1b">16楼•2 年前</a>
+</div>
+<div class="user_action">
+<span>
+<i class="fa up_btn fa-thumbs-o-up invisible" title="喜欢"></i>
+<span class="up-count">
+</span>
+</span>
+<span>
+</span>
+</div>
+</div>
+<div class="reply_content from-irou1217">
+<div class="markdown-text"><p>求问，为什么我按上面的步骤安装完mocha后，复制第一个实例，运行后报错：
+describe is not defined??求问</p>
+</div>
+</div>
+<div class="clearfix">
+<div class="reply2_area">
+</div>
+</div>
+</div>
+<div class="cell reply_area reply_item " id="reply17" reply_id="52b408a6588ff25a7258f5b8" reply_to_id="">
+<a class="anchor" id="52b408a6588ff25a7258f5b8"></a>
+<div class="author_content">
+<a class="user_avatar" href="/user/irou1217">
+<img src="//gravatar.com/avatar/aa92220a867ab0a71192ef9459216685?size=48" title="irou1217"/></a>
+<div class="user_info">
+<a class="dark reply_author" href="/user/irou1217">irou1217
+      </a>
+<a class="reply_time" href="#52b408a6588ff25a7258f5b8">17楼•2 年前</a>
+</div>
+<div class="user_action">
+<span>
+<i class="fa up_btn fa-thumbs-o-up invisible" title="喜欢"></i>
+<span class="up-count">
+</span>
+</span>
+<span>
+</span>
+</div>
+</div>
+<div class="reply_content from-irou1217">
+<div class="markdown-text"><p>我的node版本是v.10.5</p>
+</div>
+</div>
+<div class="clearfix">
+<div class="reply2_area">
+</div>
+</div>
+</div>
+<div class="cell reply_area reply_item " id="reply18" reply_id="52b7ccec588ff25a72bb4fe9" reply_to_id="52b4086c588ff25a7258ed1b">
+<a class="anchor" id="52b7ccec588ff25a72bb4fe9"></a>
+<div class="author_content">
+<a class="user_avatar" href="/user/lhfcws">
+<img src="//gravatar.com/avatar/19775e24394f727eb342154459370d20?size=48" title="lhfcws"/></a>
+<div class="user_info">
+<a class="dark reply_author" href="/user/lhfcws">lhfcws
+      </a>
+<a class="reply_time" href="#52b7ccec588ff25a72bb4fe9">18楼•2 年前</a>
+</div>
+<div class="user_action">
+<span>
+<i class="fa up_btn fa-thumbs-o-up invisible" title="喜欢"></i>
+<span class="up-count">
+</span>
+</span>
+<span>
+</span>
+</div>
+</div>
+<div class="reply_content from-lhfcws">
+<div class="markdown-text"><p>你require了相应的模块吗？第一个demo可是官方demo啊～</p>
+</div>
+</div>
+<div class="clearfix">
+<div class="reply2_area">
+</div>
+</div>
+</div>
+<div class="cell reply_area reply_item " id="reply19" reply_id="52b85e77588ff25a72d6da37" reply_to_id="">
+<a class="anchor" id="52b85e77588ff25a72d6da37"></a>
+<div class="author_content">
+<a class="user_avatar" href="/user/chemdemo">
+<img src="https://avatars.githubusercontent.com/u/1014734?v=3&amp;s=120" title="chemdemo"/></a>
+<div class="user_info">
+<a class="dark reply_author" href="/user/chemdemo">chemdemo
+      </a>
+<a class="reply_time" href="#52b85e77588ff25a72d6da37">19楼•2 年前</a>
+</div>
+<div class="user_action">
+<span>
+<i class="fa up_btn fa-thumbs-o-up invisible" title="喜欢"></i>
+<span class="up-count">
+</span>
+</span>
+<span>
+</span>
+</div>
+</div>
+<div class="reply_content from-chemdemo">
+<div class="markdown-text"><p>问下楼主，it前后可以写before或者after吗？（也就是在describe里边）</p>
+</div>
+</div>
+<div class="clearfix">
+<div class="reply2_area">
+</div>
+</div>
+</div>
+<div class="cell reply_area reply_item " id="reply20" reply_id="533ac009e2a1591f6c01f99a" reply_to_id="">
+<a class="anchor" id="533ac009e2a1591f6c01f99a"></a>
+<div class="author_content">
+<a class="user_avatar" href="/user/usherwong">
+<img src="https://avatars.githubusercontent.com/u/1889378?v=2&amp;s=120" title="usherwong"/></a>
+<div class="user_info">
+<a class="dark reply_author" href="/user/usherwong">usherwong
+      </a>
+<a class="reply_time" href="#533ac009e2a1591f6c01f99a">20楼•2 年前</a>
+</div>
+<div class="user_action">
+<span>
+<i class="fa up_btn fa-thumbs-o-up invisible" title="喜欢"></i>
+<span class="up-count">
+</span>
+</span>
+<span>
+</span>
+</div>
+</div>
+<div class="reply_content from-usherwong">
+<div class="markdown-text"><p>好东西</p>
+</div>
+</div>
+<div class="clearfix">
+<div class="reply2_area">
+</div>
+</div>
+</div>
+<div class="cell reply_area reply_item " id="reply21" reply_id="543fbeacde346cb1644302d1" reply_to_id="">
+<a class="anchor" id="543fbeacde346cb1644302d1"></a>
+<div class="author_content">
+<a class="user_avatar" href="/user/zhishaofei3">
+<img src="https://avatars.githubusercontent.com/u/2910585?v=2&amp;s=120" title="zhishaofei3"/></a>
+<div class="user_info">
+<a class="dark reply_author" href="/user/zhishaofei3">zhishaofei3
+      </a>
+<a class="reply_time" href="#543fbeacde346cb1644302d1">21楼•1 年前</a>
+</div>
+<div class="user_action">
+<span>
+<i class="fa up_btn fa-thumbs-o-up invisible" title="喜欢"></i>
+<span class="up-count">
+</span>
+</span>
+<span>
+</span>
+</div>
+</div>
+<div class="reply_content from-zhishaofei3">
+<div class="markdown-text"><p>收藏</p>
+</div>
+</div>
+<div class="clearfix">
+<div class="reply2_area">
+</div>
+</div>
+</div>
+<div class="cell reply_area reply_item " id="reply22" reply_id="555eaa014eb040084cfe5bfc" reply_to_id="">
+<a class="anchor" id="555eaa014eb040084cfe5bfc"></a>
+<div class="author_content">
+<a class="user_avatar" href="/user/sunyonggang">
+<img src="https://avatars.githubusercontent.com/u/3059266?v=3&amp;s=120" title="sunyonggang"/></a>
+<div class="user_info">
+<a class="dark reply_author" href="/user/sunyonggang">sunyonggang
+      </a>
+<a class="reply_time" href="#555eaa014eb040084cfe5bfc">22楼•7 个月前</a>
+</div>
+<div class="user_action">
+<span>
+<i class="fa up_btn fa-thumbs-o-up invisible" title="喜欢"></i>
+<span class="up-count">
+</span>
+</span>
+<span>
+</span>
+</div>
+</div>
+<div class="reply_content from-sunyonggang">
+<div class="markdown-text"><p>收了</p>
+</div>
+</div>
+<div class="clearfix">
+<div class="reply2_area">
+</div>
+</div>
+</div>
+<div class="cell reply_area reply_item " id="reply23" reply_id="555eb6374eb040084cfe5c15" reply_to_id="">
+<a class="anchor" id="555eb6374eb040084cfe5c15"></a>
+<div class="author_content">
+<a class="user_avatar" href="/user/jerrywu55">
+<img src="https://avatars.githubusercontent.com/u/4902904?v=3&amp;s=120" title="jerrywu55"/></a>
+<div class="user_info">
+<a class="dark reply_author" href="/user/jerrywu55">jerrywu55
+      </a>
+<a class="reply_time" href="#555eb6374eb040084cfe5c15">23楼•7 个月前</a>
+</div>
+<div class="user_action">
+<span>
+<i class="fa up_btn fa-thumbs-o-up invisible" title="喜欢"></i>
+<span class="up-count">
+</span>
+</span>
+<span>
+</span>
+</div>
+</div>
+<div class="reply_content from-jerrywu55">
+<div class="markdown-text"><p>发现单元测试真的很重要，找时间把这块做起来</p>
+</div>
+</div>
+<div class="clearfix">
+<div class="reply2_area">
+</div>
+</div>
+</div>
+<div class="cell reply_area reply_item " id="reply24" reply_id="555eed864eb040084cfe5c76" reply_to_id="">
+<a class="anchor" id="555eed864eb040084cfe5c76"></a>
+<div class="author_content">
+<a class="user_avatar" href="/user/dd1994">
+<img src="https://avatars.githubusercontent.com/u/4121510?v=3&amp;s=120" title="dd1994"/></a>
+<div class="user_info">
+<a class="dark reply_author" href="/user/dd1994">dd1994
+      </a>
+<a class="reply_time" href="#555eed864eb040084cfe5c76">24楼•7 个月前</a>
+</div>
+<div class="user_action">
+<span>
+<i class="fa up_btn fa-thumbs-o-up invisible" title="喜欢"></i>
+<span class="up-count">
+</span>
+</span>
+<span>
+</span>
+</div>
+</div>
+<div class="reply_content from-dd1994">
+<div class="markdown-text"><p>我觉得这个论坛程序必须要采取些防挖坟措施了，老是看到几年前的帖子被顶上来。。。</p>
+</div>
+</div>
+<div class="clearfix">
+<div class="reply2_area">
+</div>
+</div>
+</div>
+<div class="cell reply_area reply_item " id="reply25" reply_id="556fd4a98ce3684b284b5685" reply_to_id="">
+<a class="anchor" id="556fd4a98ce3684b284b5685"></a>
+<div class="author_content">
+<a class="user_avatar" href="/user/jobn123">
+<img src="https://avatars.githubusercontent.com/u/11002787?v=3&amp;s=120" title="jobn123"/></a>
+<div class="user_info">
+<a class="dark reply_author" href="/user/jobn123">jobn123
+      </a>
+<a class="reply_time" href="#556fd4a98ce3684b284b5685">25楼•6 个月前</a>
+</div>
+<div class="user_action">
+<span>
+<i class="fa up_btn fa-thumbs-o-up invisible" title="喜欢"></i>
+<span class="up-count">
+</span>
+</span>
+<span>
+</span>
+</div>
+</div>
+<div class="reply_content from-jobn123">
+<div class="markdown-text"><p>马克</p>
+</div>
+</div>
+<div class="clearfix">
+<div class="reply2_area">
+</div>
+</div>
+</div>
+<div class="cell reply_area reply_item " id="reply26" reply_id="55712173693bb2265dfba190" reply_to_id="">
+<a class="anchor" id="55712173693bb2265dfba190"></a>
+<div class="author_content">
+<a class="user_avatar" href="/user/winky">
+<img src="https://avatars.githubusercontent.com/u/5661195?v=3&amp;s=120" title="winky"/></a>
+<div class="user_info">
+<a class="dark reply_author" href="/user/winky">winky
+      </a>
+<a class="reply_time" href="#55712173693bb2265dfba190">26楼•6 个月前</a>
+</div>
+<div class="user_action">
+<span>
+<i class="fa up_btn fa-thumbs-o-up invisible" title="喜欢"></i>
+<span class="up-count">
+</span>
+</span>
+<span>
+</span>
+</div>
+</div>
+<div class="reply_content from-winky">
+<div class="markdown-text"><p>收起。</p>
+</div>
+</div>
+<div class="clearfix">
+<div class="reply2_area">
+</div>
+</div>
+</div>
+<div class="cell reply_area reply_item " id="reply27" reply_id="55712341693bb2265dfba196" reply_to_id="">
+<a class="anchor" id="55712341693bb2265dfba196"></a>
+<div class="author_content">
+<a class="user_avatar" href="/user/davidzhang">
+<img src="//gravatar.com/avatar/74339af068121e5a97c9896688190a7b?size=48" title="davidzhang"/></a>
+<div class="user_info">
+<a class="dark reply_author" href="/user/davidzhang">davidzhang
+      </a>
+<a class="reply_time" href="#55712341693bb2265dfba196">27楼•6 个月前</a>
+</div>
+<div class="user_action">
+<span>
+<i class="fa up_btn fa-thumbs-o-up invisible" title="喜欢"></i>
+<span class="up-count">
+</span>
+</span>
+<span>
+</span>
+</div>
+</div>
+<div class="reply_content from-davidzhang">
+<div class="markdown-text"><p>目前支持 ecs6的特性嘛  最近新安装了一个co-mocha说是支持的,但是在实际应用中，却不支持，会报类似这样的错误：</p>
+<blockquote>
+<p>import Fetcher from ‘…/lib/mail_fetcher/126’;
+^^^^^^
+SyntaxError: Unexpected token import</p>
+</blockquote>
+</div>
+</div>
+<div class="clearfix">
+<div class="reply2_area">
+</div>
+</div>
+</div>
+<div class="cell reply_area reply_item " id="reply28" reply_id="55c483fdffe13be111a4bade" reply_to_id="">
+<a class="anchor" id="55c483fdffe13be111a4bade"></a>
+<div class="author_content">
+<a class="user_avatar" href="/user/zhanglun">
+<img src="https://avatars.githubusercontent.com/u/3086358?v=3&amp;s=120" title="zhanglun"/></a>
+<div class="user_info">
+<a class="dark reply_author" href="/user/zhanglun">zhanglun
+      </a>
+<a class="reply_time" href="#55c483fdffe13be111a4bade">28楼•4 个月前</a>
+</div>
+<div class="user_action">
+<span>
+<i class="fa up_btn fa-thumbs-o-up invisible" title="喜欢"></i>
+<span class="up-count">
+</span>
+</span>
+<span>
+</span>
+</div>
+</div>
+<div class="reply_content from-zhanglun">
+<div class="markdown-text"><p>以前一直都是一知半解，看完此文犹如醍醐灌顶！！！！</p>
+</div>
+</div>
+<div class="clearfix">
+<div class="reply2_area">
+</div>
+</div>
+</div>
+<div class="cell reply_area reply_item " id="reply29" reply_id="5614907adc59e9c947a53786" reply_to_id="">
+<a class="anchor" id="5614907adc59e9c947a53786"></a>
+<div class="author_content">
+<a class="user_avatar" href="/user/Tankpt">
+<img src="https://avatars.githubusercontent.com/u/5064507?v=3&amp;s=120" title="Tankpt"/></a>
+<div class="user_info">
+<a class="dark reply_author" href="/user/Tankpt">Tankpt
+      </a>
+<a class="reply_time" href="#5614907adc59e9c947a53786">29楼•2 个月前</a>
+</div>
+<div class="user_action">
+<span>
+<i class="fa up_btn fa-thumbs-o-up invisible" title="喜欢"></i>
+<span class="up-count">
+</span>
+</span>
+<span>
+</span>
+</div>
+</div>
+<div class="reply_content from-Tankpt">
+<div class="markdown-text"><p>mark</p>
+</div>
+</div>
+<div class="clearfix">
+<div class="reply2_area">
+</div>
+</div>
+</div>
+<div class="cell reply_area reply_item " id="reply30" reply_id="561529ad673aa4ad4791edb3" reply_to_id="">
+<a class="anchor" id="561529ad673aa4ad4791edb3"></a>
+<div class="author_content">
+<a class="user_avatar" href="/user/Jihann">
+<img src="https://avatars.githubusercontent.com/u/10825201?v=3&amp;s=120" title="Jihann"/></a>
+<div class="user_info">
+<a class="dark reply_author" href="/user/Jihann">Jihann
+      </a>
+<a class="reply_time" href="#561529ad673aa4ad4791edb3">30楼•2 个月前</a>
+</div>
+<div class="user_action">
+<span>
+<i class="fa up_btn fa-thumbs-o-up invisible" title="喜欢"></i>
+<span class="up-count">
+</span>
+</span>
+<span>
+</span>
+</div>
+</div>
+<div class="reply_content from-Jihann">
+<div class="markdown-text"><p>mark</p>
+</div>
+</div>
+<div class="clearfix">
+<div class="reply2_area">
+</div>
+</div>
+</div>
+<div class="cell reply_area reply_item " id="reply31" reply_id="561631671b8378a32bb1cd6e" reply_to_id="">
+<a class="anchor" id="561631671b8378a32bb1cd6e"></a>
+<div class="author_content">
+<a class="user_avatar" href="/user/naruto900814">
+<img src="https://avatars.githubusercontent.com/u/5361460?v=3&amp;s=120" title="naruto900814"/></a>
+<div class="user_info">
+<a class="dark reply_author" href="/user/naruto900814">naruto900814
+      </a>
+<a class="reply_time" href="#561631671b8378a32bb1cd6e">31楼•2 个月前</a>
+</div>
+<div class="user_action">
+<span>
+<i class="fa up_btn fa-thumbs-o-up invisible" title="喜欢"></i>
+<span class="up-count">
+</span>
+</span>
+<span>
+</span>
+</div>
+</div>
+<div class="reply_content from-naruto900814">
+<div class="markdown-text"><p>mark</p>
+</div>
+</div>
+<div class="clearfix">
+<div class="reply2_area">
+</div>
+</div>
+</div>
+<div class="cell reply_area reply_item " id="reply32" reply_id="5629f118004756b058c23792" reply_to_id="55712341693bb2265dfba196">
+<a class="anchor" id="5629f118004756b058c23792"></a>
+<div class="author_content">
+<a class="user_avatar" href="/user/whwnow">
+<img src="//gravatar.com/avatar/1e5d9c6016f0790467b54d7fb20f5000?size=48" title="whwnow"/></a>
+<div class="user_info">
+<a class="dark reply_author" href="/user/whwnow">whwnow
+      </a>
+<a class="reply_time" href="#5629f118004756b058c23792">32楼•2 个月前</a>
+</div>
+<div class="user_action">
+<span>
+<i class="fa up_btn fa-thumbs-o-up invisible" title="喜欢"></i>
+<span class="up-count">
+</span>
+</span>
+<span>
+</span>
+</div>
+</div>
+<div class="reply_content from-whwnow">
+<div class="markdown-text"><p><a href="/user/davidzhang">@davidzhang</a> import v8还没有实现，所以目前还用不了……</p>
+</div>
+</div>
+<div class="clearfix">
+<div class="reply2_area">
+</div>
+</div>
+</div>
+</div>
+</div></body></html>

@@ -66,12 +66,12 @@ def isurl(url):
     return urlparse.urlparse(url).scheme != "" or url.startswith("//")
 
 def fixurl(url, pageurl):
-    if url.startswith("/"):
+    if url.startswith("//"):
+        return "http:"+url
+    elif url.startswith("/"):
         urlinfo = urlparse.urlparse(pageurl)
         rooturl = urlinfo.scheme+"://"+urlinfo.netloc
         return rooturl+'/'+url
-    elif url.startswith("//"):
-        return "http:"+url
     elif isurl(url):
         return url
     else:
@@ -103,12 +103,12 @@ def saveres(soup, pageurl, tag, savepath):
         filename = md5.new(src).hexdigest()+"."+ext
 
         # create src dir
-        savedir = os.path.dirname(savepath+"src")
+        savedir = savepath+"src/"
         if not os.path.exists(savedir):
             os.makedirs(savedir)
 
         # check already downloaded
-        if not os.path.isfile(savepath+"src/"+filename):
+        if not os.path.isfile(savedir+filename):
             res = request_url(src)
             if len(res)>0:
                 # filename = md5.new(res).hexdigest()+"."+ext
@@ -191,6 +191,26 @@ def add_urls():
             update_db(name+" - "+tag, 'Guide', 'page/'+uriencode(name+".html"))
             indexsoup['href'] = "page/"+uriencode(name+".html")
             print "page: "+name+".html down!"
+
+        elif docset_name=="Pomelo.wiki.docset" and name == "Mocha":
+            def pullfunc(soup):
+                return soup.find("div", {"id": "content"})
+            pagesoup = pulldiv(url, pullfunc)
+            pagesoup.body['style'] = "padding:0 25px;"
+            for subsoup in pagesoup.find_all(src=any):
+                saveres(subsoup, url, 'src', source_dir+'/page/')
+            for subsoup in pagesoup.find_all('link', {'href': any}):
+                saveres(subsoup, url, 'href', source_dir+'/page/')
+
+            file = name+".html"
+            with open(source_dir+"/page/"+file,"w") as f:
+                f.write(pagesoup.renderContents())
+
+            # insert into table
+            update_db(name, 'Guide', 'page/'+uriencode(file))
+            indexsoup['href'] = uriencode("page/"+file)
+            print "page: "+file+" down!"
+
         elif docset_name=="Pomelo.wiki.docset" and name == "Api":
             # offline page
             page = request_file(os.path.join(source_dir, url))
