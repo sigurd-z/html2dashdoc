@@ -93,18 +93,31 @@ def isresource(url):
     return False
 
 def saveres(soup, pageurl, tag, savepath):
+    # get valided pageurl
     src = fixurl(soup.attrs[tag].strip(), pageurl)
+
+    # only download resource file
     if isresource(src):
+        # use md5(valided pageurl) create newfile
         ext = src.split('?')[0].split('.')[-1]
         filename = md5.new(src).hexdigest()+"."+ext
+
+        # create src dir
+        savedir = os.path.dirname(savepath+"src")
+        if not os.path.exists(savedir):
+            os.makedirs(savedir)
+
+        # check already downloaded
         if not os.path.isfile(savepath+"src/"+filename):
             res = request_url(src)
             if len(res)>0:
                 # filename = md5.new(res).hexdigest()+"."+ext
                 with open(savepath+"src/"+filename,"w") as f:
                     f.write(res)
+        # replace pageurl to local pageurl
         soup[tag] = "src/"+filename
 
+# pull head, pull subdiv as body
 def pulldiv(url, pullfunc):
     soup = BeautifulSoup(request_url(url), "html.parser")
     newsoup = BeautifulSoup("<html><body></body></html>", "html.parser")
@@ -115,6 +128,7 @@ def pulldiv(url, pullfunc):
 
 def add_urls():
     any = re.compile('.*')
+    # deal pageurl
     def indexpage_callback(indexsoup, p):
         name = indexsoup.text.strip()
         url = indexsoup.attrs['originhref'].strip()
@@ -144,7 +158,7 @@ def add_urls():
                 return soup
             single_page = pulldiv(url, pullfunc)
 
-        # is single page
+        # is single webpage
         if single_page:
             # single page has tag
             tag = indexsoup.attrs['tag'].strip()
@@ -168,6 +182,7 @@ def add_urls():
             indexsoup['href'] = "page/"+uriencode(name+".html")
             print "page: "+name+".html down!"
         elif docset_name=="Pomelo.wiki.docset" and name == "Api":
+            # offline page
             page = request_file(os.path.join(source_dir, url))
 
             def apipage_callback(soup, p):
