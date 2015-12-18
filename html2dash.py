@@ -419,6 +419,7 @@ if __name__ == "__main__":
     # Copy the HTML Documentation to the Docset Folder
     try:
         subprocess.call(["cp", "-r", results.SOURCE + "/", docset_path])
+        subprocess.call("find \""+docset_path+"\" -name \".gitignore\" | xargs rm -f", shell=True)
         print "Copy the HTML Documentation!"
     except:
         print "**Error**:  Copy Html Documents Failed..."

@@ -1,0 +1,616 @@
+<html><head>
+<title>用十条命令在一分钟内检查Linux服务器性能</title>
+<meta content="no-cache" http-equiv="pragma"/>
+<meta content="no-cache" http-equiv="cache-control"/>
+<meta content="0" http-equiv="expires"/>
+<meta content="text/html; charset=utf-8" http-equiv="content-type"/>
+<meta content="© 2006 C4Media" name="copyright"/>
+<meta content="0qInQx_1WYOeIIbxnh7DnXlw1XOxNgAYakO2k4GhNnY" name="google-site-verification"/>
+<meta content="#ffffff" name="msapplication-TileColor"/>
+<meta content="/styles/i/logo.jpg" name="msapplication-TileImage"/>
+<meta content="3eac1729a8bbe046" property="wb:webmaster"/>
+<script type="text/javascript">window.NREUM||(NREUM={}),__nr_require=function(e,n,t){function r(t){if(!n[t]){var o=n[t]={exports:{}};e[t][0].call(o.exports,function(n){var o=e[t][1][n];return r(o||n)},o,o.exports)}return n[t].exports}if("function"==typeof __nr_require)return __nr_require;for(var o=0;o<t.length;o++)r(t[o]);return r}({QJf3ax:[function(e,n){function t(e){function n(n,t,a){e&&e(n,t,a),a||(a={});for(var u=c(n),f=u.length,s=i(a,o,r),p=0;f>p;p++)u[p].apply(s,t);return s}function a(e,n){f[e]=c(e).concat(n)}function c(e){return f[e]||[]}function u(){return t(n)}var f={};return{on:a,emit:n,create:u,listeners:c,_events:f}}function r(){return{}}var o="nr@context",i=e("gos");n.exports=t()},{gos:"7eSDFh"}],ee:[function(e,n){n.exports=e("QJf3ax")},{}],3:[function(e,n){function t(e){return function(){r(e,[(new Date).getTime()].concat(i(arguments)))}}var r=e("handle"),o=e(1),i=e(2);"undefined"==typeof window.newrelic&&(newrelic=window.NREUM);var a=["setPageViewName","addPageAction","setCustomAttribute","finished","addToTrace","inlineHit","noticeError"];o(a,function(e,n){window.NREUM[n]=t("api-"+n)}),n.exports=window.NREUM},{1:12,2:13,handle:"D5DuLP"}],gos:[function(e,n){n.exports=e("7eSDFh")},{}],"7eSDFh":[function(e,n){function t(e,n,t){if(r.call(e,n))return e[n];var o=t();if(Object.defineProperty&&Object.keys)try{return Object.defineProperty(e,n,{value:o,writable:!0,enumerable:!1}),o}catch(i){}return e[n]=o,o}var r=Object.prototype.hasOwnProperty;n.exports=t},{}],D5DuLP:[function(e,n){function t(e,n,t){return r.listeners(e).length?r.emit(e,n,t):void(r.q&&(r.q[e]||(r.q[e]=[]),r.q[e].push(n)))}var r=e("ee").create();n.exports=t,t.ee=r,r.q={}},{ee:"QJf3ax"}],handle:[function(e,n){n.exports=e("D5DuLP")},{}],XL7HBI:[function(e,n){function t(e){var n=typeof e;return!e||"object"!==n&&"function"!==n?-1:e===window?0:i(e,o,function(){return r++})}var r=1,o="nr@id",i=e("gos");n.exports=t},{gos:"7eSDFh"}],id:[function(e,n){n.exports=e("XL7HBI")},{}],G9z0Bl:[function(e,n){function t(){var e=d.info=NREUM.info,n=f.getElementsByTagName("script")[0];if(e&&e.licenseKey&&e.applicationID&&n){c(p,function(n,t){n in e||(e[n]=t)});var t="https"===s.split(":")[0]||e.sslForHttp;d.proto=t?"https://":"http://",a("mark",["onload",i()]);var r=f.createElement("script");r.src=d.proto+e.agent,n.parentNode.insertBefore(r,n)}}function r(){"complete"===f.readyState&&o()}function o(){a("mark",["domContent",i()])}function i(){return(new Date).getTime()}var a=e("handle"),c=e(1),u=window,f=u.document;e(2);var s=(""+location).split("?")[0],p={beacon:"bam.nr-data.net",errorBeacon:"bam.nr-data.net",agent:"js-agent.newrelic.com/nr-768.min.js"},d=n.exports={offset:i(),origin:s,features:{}};f.addEventListener?(f.addEventListener("DOMContentLoaded",o,!1),u.addEventListener("load",t,!1)):(f.attachEvent("onreadystatechange",r),u.attachEvent("onload",t)),a("mark",["firstbyte",i()])},{1:12,2:3,handle:"D5DuLP"}],loader:[function(e,n){n.exports=e("G9z0Bl")},{}],12:[function(e,n){function t(e,n){var t=[],o="",i=0;for(o in e)r.call(e,o)&&(t[i]=n(o,e[o]),i+=1);return t}var r=Object.prototype.hasOwnProperty;n.exports=t},{}],13:[function(e,n){function t(e,n,t){n||(n=0),"undefined"==typeof t&&(t=e?e.length:0);for(var r=-1,o=t-n||0,i=Array(0>o?0:o);++r<o;)i[r]=e[n+r];return i}n.exports=t},{}]},{},["G9z0Bl"]);</script><link href="http://fonts.useso.com/css?family=Gentium+Book+Basic" rel="stylesheet" type="text/css"/>
+<link href="src/f198bb329c194df90cd761438dd69381.css" media="screen" rel="stylesheet" type="text/css"/>
+<link href="src/f02d481897003da0a2b362b8070034cb.css" media="screen" rel="stylesheet" type="text/css"/>
+<link href="http://cdn4.infoqstatic.com/statics_s2_20151215-0056/favicon.ico" rel="shortcut icon" type="image/x-icon"/>
+<link href="src/392587fcc9d1138d9b5d703da0cff975.png" rel="apple-touch-icon"/>
+<link href="src/47d59905d6a67d5a4b6ecd0cf73e633d.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript">
+        	var device="desktop";
+            var InfoQConstants = {};
+            InfoQConstants.language = 'zh';
+            InfoQConstants.countryCode = '/cn';
+            
+        </script>
+<script src="src/6964afd76e8a3e1734aefc430392061d.js" type="text/javascript"></script>
+<script type="text/javascript">
+            
+                var JSi18n = JSi18n || {}; // define only if not already defined
+                JSi18n.error='错误';
+                JSi18n.login_unverifiedAccount='未验证的账号';
+                JSi18n.contentSummary_showPresentations_1='整理准备中，敬请期待';
+                JSi18n.contentSummary_showPresentations_2='我们致力于为您提供来自全球业界及中国本土社区顶尖技术大会精彩的中英文专家演讲的视频，目前资料正在编辑整理中，将于近期发布。';
+                JSi18n.contentSummary_showPresentations_3='感谢您的支持与耐心等待！';
+                JSi18n.contentSummary_showInterviews_1='';
+                JSi18n.contentSummary_showInterviews_2='';
+                JSi18n.contentSummary_showInterviews_3='';
+                JSi18n.contentSummary_showMinibooks_1='';
+                JSi18n.contentSummary_showMinibooks_2='';
+                JSi18n.login_sendingRequest='发送请求……';
+                JSi18n.bookmark_saved='<q>&nbsp;&nbsp;&nbsp;已保存&nbsp;&nbsp;&nbsp;&nbsp;</q>';
+                JSi18n.bookmark_error='<q style=color:black;>&nbsp;&nbsp;&nbsp;出错&nbsp;&nbsp;&nbsp;&nbsp;</q>';
+                JSi18n.categoryManagement_showpopup_viewAllLink_viewAllPrefix='显示所有“';
+                JSi18n.categoryManagement_showpopup_viewAllLink_viewAllSuffix='”内容';
+                JSi18n.categoryManagement_showpopup_includeExcludeLink_Exclude='过滤';
+                JSi18n.categoryManagement_showpopup_includeExcludeLink_Include='取消过滤';
+                JSi18n.login_invalid_email='请填写有效的电子邮箱';
+                JSi18n.login_email_not_found = '这个邮箱好像没在这儿注册过';
+            
+
+            var loggedIn=false;
+        </script>
+<script type="text/javascript">
+            function createOverFunction(i) {
+                var pixels = i * 129;
+                return function() {
+                    $('#personas_' + i).addClass('selected');
+                    $('ul.menu > li .top_submenu.c' + i).css('left','-' + pixels + 'px');
+                }
+            };
+            function createOutFunction(i) {
+                return function() {
+                    $('ul.menu > li .top_submenu.c' + i).css('left','-999em');
+                    $('#personas_' + i).removeClass('selected');
+                }
+            }
+            $(function() {
+                for (var i = 0; i < 5; i++) {
+                    $('ul.menu > li').has('.top_submenu.c' + i).hoverIntent({
+                        sensitivity: 15,
+                        interval: 150,
+                        timeout:200,
+                        over: createOverFunction(i),
+                        out: createOutFunction(i)
+                    });
+                }
+            });
+        </script>
+<script src="src/c2270b956f149abcb03ae2bf0f78f015.js"></script>
+<script type="text/javascript">
+var googletag = googletag || {};
+googletag.cmd = googletag.cmd || [];
+(function() {
+	var gads = document.createElement('script');
+	gads.async = true;
+	gads.type = 'text/javascript';
+	var useSSL = 'https:' == document.location.protocol;
+	gads.src = (useSSL ? 'https:' : 'http:') + '//www.googletagservices.com/tag/js/gpt.js';
+	var node = document.getElementsByTagName('script')[0];
+	node.parentNode.insertBefore(gads, node);
+})();
+
+
+googletag.cmd.push(function() {
+	googletag.defineSlot('/5286733/zh_geo_banner_bottom', [728, 90], 'id_geo_banner_ad').addService(googletag.pubads());
+	googletag.defineSlot('/5286733/zh_300x250_banner_top', [300, 250], 'id_300x250_banner_top').addService(googletag.pubads());
+	googletag.defineSlot('/5286733/zh_300x250_banner_bottom', [300, 250], 'id_300x250_banner_bottom').addService(googletag.pubads());
+	googletag.defineSlot('/5286733/zh_textlink1', [250, 60], 'id_ad_textlink1').addService(googletag.pubads());
+	googletag.defineSlot('/5286733/zh_textlink2', [250, 60], 'id_ad_textlink2').addService(googletag.pubads());
+	googletag.defineSlot('/5286733/zh_textlink3', [250, 60], 'id_ad_textlink3').addService(googletag.pubads());
+/*	googletag.defineSlot('/5286733/zh_textlink4', [120, 100], 'id_ad_textlink4').addService(googletag.pubads());
+	googletag.defineSlot('/5286733/zh_textlink5', [120, 100], 'id_ad_textlink5').addService(googletag.pubads());*/
+	googletag.defineSlot('/5286733/zh_300x250_category', [300, 250], 'id_300x250_category').addService(googletag.pubads());
+	googletag.defineSlot('/5286733/zh_300x250_banner_searchResults', [300, 250], 'id_300x250_banner_searchResults').addService(googletag.pubads());
+	googletag.pubads().enableSingleRequest();       
+    
+	// central function used for checking the GAM slots for displayed/not displayed ads 
+    googletag.pubads().addEventListener('slotRenderEnded', function(event) {
+	  	// on slot rendered we need to check multiple events for multiple elements defined in multiple places
+       	// ( text links, optional vcr, related rightbar native vcr box)
+        	
+       	 
+	       	// check the optional vcr box on slot rendered (defined in vcr_optional.jsp)
+	       	if (typeof(optionalVcrBoxSlotRendered) == typeof(Function)){        		
+	       		optionalVcrBoxSlotRendered(event);
+	       	}
+       		
+       	// check the sponsored links (defined in see sponsoredLinks.jsp)
+       	if (typeof(sponsoredLinksSlotRendered) == typeof(Function)){
+       		sponsoredLinksSlotRendered(event);
+       	}
+       	
+       	// see the related rightbar optional vcr box(defined in rightbarOptionalVcrBox.js)
+       	if (optionalVcrBox && typeof(optionalVcrBox.relatedRightbarNativeVcrSlotRendered) == typeof(Function)){
+       		optionalVcrBox.relatedRightbarNativeVcrSlotRendered(event);
+       	}
+	});
+        
+   	googletag.pubads().collapseEmptyDivs();
+	googletag.enableServices();
+});
+
+function isAdBlocked(){
+    return ( window.noAdblocker === undefined );
+}
+</script>
+<script type="text/javascript">window.NREUM||(NREUM={}),__nr_require=function(e,n,t){function r(t){if(!n[t]){var o=n[t]={exports:{}};e[t][0].call(o.exports,function(n){var o=e[t][1][n];return r(o||n)},o,o.exports)}return n[t].exports}if("function"==typeof __nr_require)return __nr_require;for(var o=0;o<t.length;o++)r(t[o]);return r}({QJf3ax:[function(e,n){function t(e){function n(n,t,a){e&&e(n,t,a),a||(a={});for(var u=c(n),f=u.length,s=i(a,o,r),p=0;f>p;p++)u[p].apply(s,t);return s}function a(e,n){f[e]=c(e).concat(n)}function c(e){return f[e]||[]}function u(){return t(n)}var f={};return{on:a,emit:n,create:u,listeners:c,_events:f}}function r(){return{}}var o="nr@context",i=e("gos");n.exports=t()},{gos:"7eSDFh"}],ee:[function(e,n){n.exports=e("QJf3ax")},{}],3:[function(e,n){function t(e){return function(){r(e,[(new Date).getTime()].concat(i(arguments)))}}var r=e("handle"),o=e(1),i=e(2);"undefined"==typeof window.newrelic&&(newrelic=window.NREUM);var a=["setPageViewName","addPageAction","setCustomAttribute","finished","addToTrace","inlineHit","noticeError"];o(a,function(e,n){window.NREUM[n]=t("api-"+n)}),n.exports=window.NREUM},{1:12,2:13,handle:"D5DuLP"}],gos:[function(e,n){n.exports=e("7eSDFh")},{}],"7eSDFh":[function(e,n){function t(e,n,t){if(r.call(e,n))return e[n];var o=t();if(Object.defineProperty&&Object.keys)try{return Object.defineProperty(e,n,{value:o,writable:!0,enumerable:!1}),o}catch(i){}return e[n]=o,o}var r=Object.prototype.hasOwnProperty;n.exports=t},{}],D5DuLP:[function(e,n){function t(e,n,t){return r.listeners(e).length?r.emit(e,n,t):void(r.q&&(r.q[e]||(r.q[e]=[]),r.q[e].push(n)))}var r=e("ee").create();n.exports=t,t.ee=r,r.q={}},{ee:"QJf3ax"}],handle:[function(e,n){n.exports=e("D5DuLP")},{}],XL7HBI:[function(e,n){function t(e){var n=typeof e;return!e||"object"!==n&&"function"!==n?-1:e===window?0:i(e,o,function(){return r++})}var r=1,o="nr@id",i=e("gos");n.exports=t},{gos:"7eSDFh"}],id:[function(e,n){n.exports=e("XL7HBI")},{}],G9z0Bl:[function(e,n){function t(){var e=d.info=NREUM.info,n=f.getElementsByTagName("script")[0];if(e&&e.licenseKey&&e.applicationID&&n){c(p,function(n,t){n in e||(e[n]=t)});var t="https"===s.split(":")[0]||e.sslForHttp;d.proto=t?"https://":"http://",a("mark",["onload",i()]);var r=f.createElement("script");r.src=d.proto+e.agent,n.parentNode.insertBefore(r,n)}}function r(){"complete"===f.readyState&&o()}function o(){a("mark",["domContent",i()])}function i(){return(new Date).getTime()}var a=e("handle"),c=e(1),u=window,f=u.document;e(2);var s=(""+location).split("?")[0],p={beacon:"bam.nr-data.net",errorBeacon:"bam.nr-data.net",agent:"js-agent.newrelic.com/nr-768.min.js"},d=n.exports={offset:i(),origin:s,features:{}};f.addEventListener?(f.addEventListener("DOMContentLoaded",o,!1),u.addEventListener("load",t,!1)):(f.attachEvent("onreadystatechange",r),u.attachEvent("onload",t)),a("mark",["firstbyte",i()])},{1:12,2:3,handle:"D5DuLP"}],loader:[function(e,n){n.exports=e("G9z0Bl")},{}],12:[function(e,n){function t(e,n){var t=[],o="",i=0;for(o in e)r.call(e,o)&&(t[i]=n(o,e[o]),i+=1);return t}var r=Object.prototype.hasOwnProperty;n.exports=t},{}],13:[function(e,n){function t(e,n,t){n||(n=0),"undefined"==typeof t&&(t=e?e.length:0);for(var r=-1,o=t-n||0,i=Array(0>o?0:o);++r<o;)i[r]=e[n+r];return i}n.exports=t},{}]},{},["G9z0Bl"]);</script><script src="src/61b8e55382ce24bd958af14500b11a37.js" type="text/javascript"></script>
+<link href="src/b1caf2c84fe45f4adedbb1b25693e774.css" rel="stylesheet"/>
+<meta content="linux performance,架构 &amp; 设计,语言 &amp; 开发,Linux,Performance,原创,操作系统," name="keywords"/>
+<meta content="当系统遇到性能问题时，登录服务器后，最初的检查会包含哪些呢？本文展示了Netflix性能工程团队如何通过一些基础的命令行工具，对机器性能问题进行诊断。" name="description"/>
+<meta content="1450447200000" name="tprox"/>
+<meta content="website" property="og:type"/>
+<meta content="用十条命令在一分钟内检查Linux服务器性能 " property="og:title"/>
+<meta content="当系统遇到性能问题时，登录服务器后，最初的检查会包含哪些呢？本文展示了Netflix性能工程团队如何通过一些基础的命令行工具，对机器性能问题进行诊断。" property="og:description"/>
+<meta content="InfoQ" property="og:site_name"/>
+<link href="src/7ae033eb5b558983a06eb06acf808ed3.jpg" rel="image_src"/>
+<meta content="http://cdn.infoqstatic.com/statics_s2_20151215-0056/styles/i/logo-big.jpg" property="og:image"/>
+</head><body style="padding:0 25px;"><div class="article_page_left news_container text_content_container">
+<div class="text_info">
+<p>如果你的Linux服务器突然负载暴增，告警短信快发爆你的手机，如何在最短时间内找出Linux性能问题所在？来看Netflix性能工程团队的这篇<a href="http://techblog.netflix.com/2015/11/linux-performance-analysis-in-60s.html">博文</a>，看它们通过十条命令在一分钟内对机器性能问题进行诊断。</p>
+<p><strong>概述</strong></p>
+<p>通过执行以下命令，可以在1分钟内对系统资源使用情况有个大致的了解。</p>
+<ul>
+<li>uptime </li>
+<li>dmesg | tail </li>
+<li>vmstat 1 </li>
+<li>mpstat -P ALL 1 </li>
+<li>pidstat 1 </li>
+<li>iostat -xz 1 </li>
+<li>free -m </li>
+<li>sar -n DEV 1 </li>
+<li>sar -n TCP,ETCP 1 </li>
+<li>top</li>
+</ul>
+<p>其中一些命令需要安装sysstat包，有一些由procps包提供。这些命令的输出，有助于快速定位性能瓶颈，检查出所有资源（CPU、内存、磁盘IO等）的利用率（utilization）、饱和度（saturation）和错误（error）度量，也就是所谓的<a href="http://www.brendangregg.com/usemethod.html">USE方法</a>。</p>
+<p>下面我们来逐一介绍下这些命令，有关这些命令更多的参数和说明，请参照命令的手册。</p>
+<p><strong>uptime</strong></p>
+<pre>
+$ uptime
+23:51:26 up 21:31,  1 user,  load average: 30.02, 26.43, 19.02
+</pre>
+<p>这个命令可以快速查看机器的负载情况。在Linux系统中，这些数据表示等待CPU资源的进程和阻塞在不可中断IO进程（进程状态为D）的数量。这些数据可以让我们对系统资源使用有一个宏观的了解。</p>
+<p>命令的输出分别表示1分钟、5分钟、15分钟的平均负载情况。通过这三个数据，可以了解服务器负载是在趋于紧张还是区域缓解。如果1分钟平均负载很高，而15分钟平均负载很低，说明服务器正在命令高负载情况，需要进一步排查CPU资源都消耗在了哪里。反之，如果15分钟平均负载很高，1分钟平均负载较低，则有可能是CPU资源紧张时刻已经过去。</p>
+<p>上面例子中的输出，可以看见最近1分钟的平均负载非常高，且远高于最近15分钟负载，因此我们需要继续排查当前系统中有什么进程消耗了大量的资源。可以通过下文将会介绍的vmstat、mpstat等命令进一步排查。</p>
+<p><strong>dmesg | tail</strong></p>
+<pre>
+$ dmesg | tail
+[1880957.563150] perl invoked oom-killer: gfp_mask=0x280da, order=0, oom_score_adj=0
+[...]
+[1880957.563400] Out of memory: Kill process 18694 (perl) score 246 or sacrifice child
+[1880957.563408] Killed process 18694 (perl) total-vm:1972392kB, anon-rss:1953348kB, file-rss:0kB
+[2320864.954447] TCP: Possible SYN flooding on port 7001. Dropping request.  Check SNMP counters.
+</pre>
+<p>该命令会输出系统日志的最后10行。示例中的输出，可以看见一次内核的oom kill和一次TCP丢包。这些日志可以帮助排查性能问题。千万不要忘了这一步。</p>
+<p><strong>vmstat 1</strong></p>
+<pre>
+$ vmstat 1
+procs ---------memory---------- ---swap-- -----io---- -system-- ------cpu-----
+ r  b swpd   free   buff  cache   si   so    bi    bo   in   cs us sy id wa st
+34  0    0 200889792  73708 591828    0    0     0     5    6   10 96  1  3  0  0
+32  0    0 200889920  73708 591860    0    0     0   592 13284 4282 98  1  1  0  0
+32  0    0 200890112  73708 591860    0    0     0     0 9501 2154 99  1  0  0  0
+32  0    0 200889568  73712 591856    0    0     0    48 11900 2459 99  0  0  0  0
+32  0    0 200890208  73712 591860    0    0     0     0 15898 4840 98  1  1  0  0
+^C
+</pre>
+<p>vmstat(8) 命令，每行会输出一些系统核心指标，这些指标可以让我们更详细的了解系统状态。后面跟的参数1，表示每秒输出一次统计信息，表头提示了每一列的含义，这几介绍一些和性能调优相关的列：</p>
+<ul>
+<li>r：等待在CPU资源的进程数。这个数据比平均负载更加能够体现CPU负载情况，数据中不包含等待IO的进程。如果这个数值大于机器CPU核数，那么机器的CPU资源已经饱和。 </li>
+<li>free：系统可用内存数（以千字节为单位），如果剩余内存不足，也会导致系统性能问题。下文介绍到的free命令，可以更详细的了解系统内存的使用情况。 </li>
+<li>si, so：交换区写入和读取的数量。如果这个数据不为0，说明系统已经在使用交换区（swap），机器物理内存已经不足。 </li>
+<li>us, sy, id, wa, st：这些都代表了CPU时间的消耗，它们分别表示用户时间（user）、系统（内核）时间（sys）、空闲时间（idle）、IO等待时间（wait）和被偷走的时间（stolen，一般被其他虚拟机消耗）。</li>
+</ul>
+<p>上述这些CPU时间，可以让我们很快了解CPU是否出于繁忙状态。一般情况下，如果用户时间和系统时间相加非常大，CPU出于忙于执行指令。如果IO等待时间很长，那么系统的瓶颈可能在磁盘IO。</p>
+<p>示例命令的输出可以看见，大量CPU时间消耗在用户态，也就是用户应用程序消耗了CPU时间。这不一定是性能问题，需要结合r队列，一起分析。</p>
+<p><strong>mpstat -P ALL 1</strong></p>
+<pre>
+$ mpstat -P ALL 1
+Linux 3.13.0-49-generic (titanclusters-xxxxx)  07/14/2015  _x86_64_ (32 CPU)
+07:38:49 PM  CPU   %usr  %nice   %sys %iowait   %irq  %soft  %steal  %guest  %gnice  %idle
+07:38:50 PM  all  98.47   0.00   0.75    0.00   0.00   0.00    0.00    0.00    0.00   0.78
+07:38:50 PM    0  96.04   0.00   2.97    0.00   0.00   0.00    0.00    0.00    0.00   0.99
+07:38:50 PM    1  97.00   0.00   1.00    0.00   0.00   0.00    0.00    0.00    0.00   2.00
+07:38:50 PM    2  98.00   0.00   1.00    0.00   0.00   0.00    0.00    0.00    0.00   1.00
+07:38:50 PM    3  96.97   0.00   0.00    0.00   0.00   0.00    0.00    0.00    0.00   3.03
+[...]
+</pre>
+<p>该命令可以显示每个CPU的占用情况，如果有一个CPU占用率特别高，那么有可能是一个单线程应用程序引起的。</p>
+<p><strong>pidstat 1</strong></p>
+<pre>
+$ pidstat 1
+Linux 3.13.0-49-generic (titanclusters-xxxxx)  07/14/2015    _x86_64_    (32 CPU)
+07:41:02 PM   UID       PID    %usr %system  %guest    %CPU   CPU  Command
+07:41:03 PM     0         9    0.00    0.94    0.00    0.94     1  rcuos/0
+07:41:03 PM     0      4214    5.66    5.66    0.00   11.32    15  mesos-slave
+07:41:03 PM     0      4354    0.94    0.94    0.00    1.89     8  java
+07:41:03 PM     0      6521 1596.23    1.89    0.00 1598.11    27  java
+07:41:03 PM     0      6564 1571.70    7.55    0.00 1579.25    28  java
+07:41:03 PM 60004     60154    0.94    4.72    0.00    5.66     9  pidstat
+07:41:03 PM   UID       PID    %usr %system  %guest    %CPU   CPU  Command
+07:41:04 PM     0      4214    6.00    2.00    0.00    8.00    15  mesos-slave
+07:41:04 PM     0      6521 1590.00    1.00    0.00 1591.00    27  java
+07:41:04 PM     0      6564 1573.00   10.00    0.00 1583.00    28  java
+07:41:04 PM   108      6718    1.00    0.00    0.00    1.00     0  snmp-pass
+07:41:04 PM 60004     60154    1.00    4.00    0.00    5.00     9  pidstat
+^C
+</pre>
+<p>pidstat命令输出进程的CPU占用率，该命令会持续输出，并且不会覆盖之前的数据，可以方便观察系统动态。如上的输出，可以看见两个JAVA进程占用了将近1600%的CPU时间，既消耗了大约16个CPU核心的运算资源。</p>
+<p><strong>iostat -xz 1</strong></p>
+<pre>
+$ iostat -xz 1
+Linux 3.13.0-49-generic (titanclusters-xxxxx)  07/14/2015  _x86_64_ (32 CPU)
+avg-cpu:  %user   %nice %system %iowait  %steal   %idle
+          73.96    0.00    3.73    0.03    0.06   22.21
+Device:   rrqm/s   wrqm/s     r/s     w/s    rkB/s    wkB/s avgrq-sz avgqu-sz   await r_await w_await  svctm  %util
+xvda        0.00     0.23    0.21    0.18     4.52     2.08    34.37     0.00    9.98   13.80    5.42   2.44   0.09
+xvdb        0.01     0.00    1.02    8.94   127.97   598.53   145.79     0.00    0.43    1.78    0.28   0.25   0.25
+xvdc        0.01     0.00    1.02    8.86   127.79   595.94   146.50     0.00    0.45    1.82    0.30   0.27   0.26
+dm-0        0.00     0.00    0.69    2.32    10.47    31.69    28.01     0.01    3.23    0.71    3.98   0.13   0.04
+dm-1        0.00     0.00    0.00    0.94     0.01     3.78     8.00     0.33  345.84    0.04  346.81   0.01   0.00
+dm-2        0.00     0.00    0.09    0.07     1.35     0.36    22.50     0.00    2.55    0.23    5.62   1.78   0.03
+[...]
+^C
+</pre>
+<p>iostat命令主要用于查看机器磁盘IO情况。该命令输出的列，主要含义是：</p>
+<ul>
+<li>r/s, w/s, rkB/s, wkB/s：分别表示每秒读写次数和每秒读写数据量（千字节）。读写量过大，可能会引起性能问题。 </li>
+<li>await：IO操作的平均等待时间，单位是毫秒。这是应用程序在和磁盘交互时，需要消耗的时间，包括IO等待和实际操作的耗时。如果这个数值过大，可能是硬件设备遇到了瓶颈或者出现故障。 </li>
+<li>avgqu-sz：向设备发出的请求平均数量。如果这个数值大于1，可能是硬件设备已经饱和（部分前端硬件设备支持并行写入）。 </li>
+<li>%util：设备利用率。这个数值表示设备的繁忙程度，经验值是如果超过60，可能会影响IO性能（可以参照IO操作平均等待时间）。如果到达100%，说明硬件设备已经饱和。</li>
+</ul>
+<p>如果显示的是逻辑设备的数据，那么设备利用率不代表后端实际的硬件设备已经饱和。值得注意的是，即使IO性能不理想，也不一定意味这应用程序性能会不好，可以利用诸如预读取、写缓存等策略提升应用性能。</p>
+<p><strong>free –m</strong></p>
+<pre>
+$ free -m
+             total       used       free     shared    buffers     cached
+Mem:        245998      24545     221453         83         59        541
+-/+ buffers/cache:      23944     222053
+Swap:            0          0          0
+</pre>
+<p>free命令可以查看系统内存的使用情况，-m参数表示按照兆字节展示。最后两列分别表示用于IO缓存的内存数，和用于文件系统页缓存的内存数。需要注意的是，第二行-/+ buffers/cache，看上去缓存占用了大量内存空间。这是Linux系统的内存使用策略，尽可能的利用内存，如果应用程序需要内存，这部分内存会立即被回收并分配给应用程序。因此，这部分内存一般也被当成是可用内存。</p>
+<p>如果可用内存非常少，系统可能会动用交换区（如果配置了的话），这样会增加IO开销（可以在iostat命令中提现），降低系统性能。</p>
+<p><strong>sar -n DEV 1</strong></p>
+<pre>
+$ sar -n DEV 1
+Linux 3.13.0-49-generic (titanclusters-xxxxx)  07/14/2015     _x86_64_    (32 CPU)
+12:16:48 AM     IFACE   rxpck/s   txpck/s    rxkB/s    txkB/s   rxcmp/s   txcmp/s  rxmcst/s   %ifutil
+12:16:49 AM      eth0  18763.00   5032.00  20686.42    478.30      0.00      0.00      0.00      0.00
+12:16:49 AM        lo     14.00     14.00      1.36      1.36      0.00      0.00      0.00      0.00
+12:16:49 AM   docker0      0.00      0.00      0.00      0.00      0.00      0.00      0.00      0.00
+12:16:49 AM     IFACE   rxpck/s   txpck/s    rxkB/s    txkB/s   rxcmp/s   txcmp/s  rxmcst/s   %ifutil
+12:16:50 AM      eth0  19763.00   5101.00  21999.10    482.56      0.00      0.00      0.00      0.00
+12:16:50 AM        lo     20.00     20.00      3.25      3.25      0.00      0.00      0.00      0.00
+12:16:50 AM   docker0      0.00      0.00      0.00      0.00      0.00      0.00      0.00      0.00
+^C
+</pre>
+<p>sar命令在这里可以查看网络设备的吞吐率。在排查性能问题时，可以通过网络设备的吞吐量，判断网络设备是否已经饱和。如示例输出中，eth0网卡设备，吞吐率大概在22 Mbytes/s，既176 Mbits/sec，没有达到1Gbit/sec的硬件上限。</p>
+<p><strong>sar -n TCP,ETCP 1</strong></p>
+<pre>
+$ sar -n TCP,ETCP 1
+Linux 3.13.0-49-generic (titanclusters-xxxxx)  07/14/2015    _x86_64_    (32 CPU)
+12:17:19 AM  active/s passive/s    iseg/s    oseg/s
+12:17:20 AM      1.00      0.00  10233.00  18846.00
+12:17:19 AM  atmptf/s  estres/s retrans/s isegerr/s   orsts/s
+12:17:20 AM      0.00      0.00      0.00      0.00      0.00
+12:17:20 AM  active/s passive/s    iseg/s    oseg/s
+12:17:21 AM      1.00      0.00   8359.00   6039.00
+12:17:20 AM  atmptf/s  estres/s retrans/s isegerr/s   orsts/s
+12:17:21 AM      0.00      0.00      0.00      0.00      0.00
+^C
+</pre>
+<p>sar命令在这里用于查看TCP连接状态，其中包括：</p>
+<ul>
+<li>active/s：每秒本地发起的TCP连接数，既通过connect调用创建的TCP连接； </li>
+<li>passive/s：每秒远程发起的TCP连接数，即通过accept调用创建的TCP连接； </li>
+<li>retrans/s：每秒TCP重传数量；</li>
+</ul>
+<p>TCP连接数可以用来判断性能问题是否由于建立了过多的连接，进一步可以判断是主动发起的连接，还是被动接受的连接。TCP重传可能是因为网络环境恶劣，或者服务器压力过大导致丢包。</p>
+<p><strong>top</strong></p>
+<pre>
+$ top
+top - 00:15:40 up 21:56,  1 user,  load average: 31.09, 29.87, 29.92
+Tasks: 871 total,   1 running, 868 sleeping,   0 stopped,   2 zombie
+%Cpu(s): 96.8 us,  0.4 sy,  0.0 ni,  2.7 id,  0.1 wa,  0.0 hi,  0.0 si,  0.0 st
+KiB Mem:  25190241+total, 24921688 used, 22698073+free,    60448 buffers
+KiB Swap:        0 total,        0 used,        0 free.   554208 cached Mem
+   PID USER      PR  NI    VIRT    RES    SHR S  %CPU %MEM     TIME+ COMMAND
+ 20248 root      20   0  0.227t 0.012t  18748 S  3090  5.2  29812:58 java
+  4213 root      20   0 2722544  64640  44232 S  23.5  0.0 233:35.37 mesos-slave
+ 66128 titancl+  20   0   24344   2332   1172 R   1.0  0.0   0:00.07 top
+  5235 root      20   0 38.227g 547004  49996 S   0.7  0.2   2:02.74 java
+  4299 root      20   0 20.015g 2.682g  16836 S   0.3  1.1  33:14.42 java
+     1 root      20   0   33620   2920   1496 S   0.0  0.0   0:03.82 init
+     2 root      20   0       0      0      0 S   0.0  0.0   0:00.02 kthreadd
+     3 root      20   0       0      0      0 S   0.0  0.0   0:05.35 ksoftirqd/0
+     5 root       0 -20       0      0      0 S   0.0  0.0   0:00.00 kworker/0:0H
+     6 root      20   0       0      0      0 S   0.0  0.0   0:06.94 kworker/u256:0
+     8 root      20   0       0      0      0 S   0.0  0.0   2:38.05 rcu_sched
+</pre>
+<p>top命令包含了前面好几个命令的检查的内容。比如系统负载情况（uptime）、系统内存使用情况（free）、系统CPU使用情况（vmstat）等。因此通过这个命令，可以相对全面的查看系统负载的来源。同时，top命令支持排序，可以按照不同的列排序，方便查找出诸如内存占用最多的进程、CPU占用率最高的进程等。</p>
+<p>但是，top命令相对于前面一些命令，输出是一个瞬间值，如果不持续盯着，可能会错过一些线索。这时可能需要暂停top命令刷新，来记录和比对数据。</p>
+<p><strong>总结</strong></p>
+<p>排查Linux服务器性能问题还有很多工具，上面介绍的一些命令，可以帮助我们快速的定位问题。例如前面的示例输出，多个证据证明有JAVA进程占用了大量CPU资源，之后的性能调优就可以针对应用程序进行。</p>
+<hr/>
+<p>感谢<a href="http://www.infoq.com/cn/author/徐川">徐川</a>对本文的审校。</p>
+<p>给InfoQ中文站投稿或者参与内容翻译工作，请邮件至<a href="mailto:editors@cn.infoq.com">editors@cn.infoq.com</a>。也欢迎大家通过新浪微博（<a href="http://www.weibo.com/infoqchina">@InfoQ</a>，<a href="http://weibo.com/u/1451714913">@丁晓昀</a>），微信（微信号：<a href="http://weixin.sogou.com/gzh?openid=oIWsFt0HnZ93MfLi3pW2ggVJFRxY">InfoQChina</a>）关注我们，并与我们的编辑和其他读者朋友交流（欢迎加入InfoQ读者交流群<a href="http://shang.qq.com/wpa/qunwpa?idkey=cc82a73d7522f0090aa3cbb6a8f4bdafa8b82177f481014c976a8740d927997a" target="_blank"><img _href="img://group.png" _p="true" align="middle" alt="InfoQ好读者" border="0" src="src/a0f609b288c7de88131b6f6ba37c81b3.png" title="InfoQ好读者"/></a>（已满），InfoQ读者交流群（#2）<a href="http://shang.qq.com/wpa/qunwpa?idkey=7fbcba68eeac78cb6eb76751b8ba1b23ba970ac342dd32ffc2e57b7bed9cc85a" target="_blank"><img _href="img://group.png" _p="true" align="middle" alt="InfoQ好读者" border="0" src="src/a0f609b288c7de88131b6f6ba37c81b3.png" title="InfoQ好读者"/></a>）。</p>
+<div class="random_links">
+<ul>
+<li><a><span class="gray_color">领域</span></a></li>
+<li><a class="f_taxonomy" href="/cn/architecture-design" id="6,821" name="architecture-design"><b>架构 &amp; 设计</b></a></li> <li><a class="f_taxonomy" href="/cn/development" id="6,820" name="development"><b>语言 &amp; 开发</b></a></li>
+<li><a><span class="gray_color">专栏</span></a></li>
+<li><a class="f_taxonomy" href="/cn/Linux" id="848" name="Linux">Linux</a></li> <li><a class="f_taxonomy" href="/cn/fgfsf" id="16,543" name="fgfsf">原创</a></li> <li><a class="f_taxonomy" href="/cn/OS" id="3,658" name="OS">操作系统</a></li> <li><a class="f_taxonomy" href="/cn/performance" id="7,711" name="performance">Performance</a></li>
+</ul>
+</div>
+<div class="clear"></div>
+<div class="related_sponsors wholething">
+<div class="gray_section_related">
+<div class="related_editorial recommended">
+<p class="title">相关内容</p>
+<div class="links" id="editorial_links">
+<div class="clear"></div>
+</div>
+</div>
+<div class="related_editorial sponsored">
+<p class="title">相关厂商内容</p>
+<div class="links">
+<h3 class="entrypdf f_vcrbottom" jsh='{"id":3514,"title":"通过demo学习OpenStack开发所需的基础知识 — 软件包管理"}' title="">
+<a href="/cn/vendorcontent/show.action?vcr=3514&amp;utm_source=infoq&amp;utm_medium=VCR&amp;utm_campaign=vcr_news_click">
+	                                通过demo学习OpenStack开发所需的基础知识 — 软件包管理
+	                            </a>
+</h3>
+<h3 class="entrypdf f_vcrbottom" jsh='{"id":3430,"title":"利用 Amazon ElastiCache 保障规模化条件下的性能水平"}' title="">
+<a href="/cn/vendorcontent/show.action?vcr=3430&amp;utm_source=infoq&amp;utm_medium=VCR&amp;utm_campaign=vcr_news_click">
+	                                利用 Amazon ElastiCache 保障规模化条件下的性能水平
+	                            </a>
+</h3>
+<h3 class="entrypdf f_vcrbottom" jsh='{"id":3615,"title":"开源为实时Hadoop数据保驾护航"}' title="">
+<a href="/cn/vendorcontent/show.action?vcr=3615&amp;utm_source=infoq&amp;utm_medium=VCR&amp;utm_campaign=vcr_news_click" target="_blank">
+	                                开源为实时Hadoop数据保驾护航
+	                            </a>
+</h3>
+<h3 class="entrypdf f_vcrbottom" jsh='{"id":3663,"title":"更多活动，更多选择，尽在活动专区。"}' title="">
+<a href="/cn/vendorcontent/show.action?vcr=3663&amp;utm_source=infoq&amp;utm_medium=VCR&amp;utm_campaign=vcr_news_click" target="_blank">
+	                                更多活动，更多选择，尽在活动专区。
+	                            </a>
+</h3>
+<h3 class="entrypdf f_vcrbottom" jsh='{"id":3426,"title":"AWS云上的Active Directory Domain Services：快速入门参考部署"}' title="">
+<a href="/cn/vendorcontent/show.action?vcr=3426&amp;utm_source=infoq&amp;utm_medium=VCR&amp;utm_campaign=vcr_news_click">
+	                                AWS云上的Active Directory Domain Services：快速入门参考部署
+	                            </a>
+</h3>
+<div class="clear"></div>
+</div>
+</div>
+</div>
+<div class="clear"></div>
+<div class="related_research"></div>
+</div>
+<script type="text/javascript">
+    $.ajax({
+        url: "/api/recommendationlinks.action",
+        contentType: "application/x-www-form-urlencoded; charset=utf-8",
+        type: 'POST',
+        data: {"topicIds": "5146,2952,315,-1000,-1000", "title": "用十条命令在一分钟内检查Linux服务器性能", "contentPath": "/news/2015/12/linux-performance", "language": "zh"},
+        success: displayRelatedEditorial,
+        async: false
+    });
+    
+    function displayRelatedEditorial(data) {
+        var trackingCode = "?utm_source=infoq&utm_medium=related_content_link&utm_campaign=relatedContent_news_clk";
+        if (data.length > 0) {
+            for (var i = 0; i < data.length; i++) {
+                if (i === 5) {
+                    break;
+                }
+                var link = $('<h3 title="" class="' + data[i].contentType + '">\n\
+                                    <a title="" href="' + data[i].url + trackingCode +
+                        '">' + data[i].title + '</a></h3>');
+                $('#editorial_links').append(link);
+            }
+            $('.gray_section_related > .related_editorial.recommended').css('display', 'block');
+        }
+    }
+</script>
+<script type="text/javascript">
+    
+        $(function() {
+        	var grayBox = $('.gray_section_related');
+            var recommendedColumn = $('.gray_section_related > .related_editorial.recommended');
+            var recommendedExists = $(recommendedColumn).css('display') === 'block';
+            var vcrColumn = $('.gray_section_related > .related_editorial.sponsored');
+            var vcrExists = $(vcrColumn).length === 1;
+            var sponsorshipColumn = $('.related_sponsors > .s')
+            var sponsorshipExists = $(sponsorshipColumn).length === 1;
+            var researchRow = $('.related_research');
+            var researchExists = $(researchRow).css('display') === 'block';
+
+            if (recommendedExists || vcrExists || sponsorshipExists || researchExists) {
+                $('.related_sponsors.wholething').show(); // show the big related box
+            }
+			
+            if(recommendedExists || vcrExists){
+            	$('.gray_section_related').show(); // show the gray box for vcr and recommendations
+            }
+            
+            // in case all three available, leave now
+            if (recommendedExists && vcrExists && sponsorshipExists) {
+                return;
+            }
+            // in case only two of them available
+            if (recommendedExists && vcrExists && !sponsorshipExists) {
+                $(recommendedColumn).addClass('only2');
+                $(vcrColumn).addClass('only2last');
+                $(grayBox).addClass('only2 fullWidth');                
+            } else if (recommendedExists && sponsorshipExists && !vcrExists) {
+                $(recommendedColumn).addClass('only2');
+                $(sponsorshipColumn).addClass('only2last');
+                $(grayBox).addClass('only1');
+            } else if (vcrExists && sponsorshipExists && !recommendedExists) {
+                $(vcrColumn).addClass('only2');
+                $(sponsorshipColumn).addClass('only2last');
+                $(grayBox).addClass('only1');
+            }
+            // in case only one is available
+            else if (recommendedExists && !vcrExists && !sponsorshipExists) {
+                $(recommendedColumn).addClass('only1');
+                $(grayBox).addClass('only1 fullWidth');
+            } else if (vcrExists && !recommendedExists && !sponsorshipExists) {
+                $(vcrColumn).addClass('only1');
+                $(grayBox).addClass('only1 fullWidth');
+            } else if (sponsorshipExists && !recommendedExists && !vcrExists) {
+                $(sponsorshipColumn).addClass('only1');
+            }
+            // in case none is available, do not display upper border for the research category if any
+            else if (researchExists) {
+                $(researchRow).addClass('only1');
+            }
+        });
+</script>
+<div class="clear"></div>
+<div class="clear"></div>
+<script type="text/javascript">
+
+    var JSi18n = JSi18n || {}; // define only if not already defined
+    JSi18n.re='Re:';
+    JSi18n.errorSubject='Please enter a subject.';
+    JSi18n.errorBody='You can not post a blank message. Please type your message and try again.';
+    JSi18n.errorInvalidLinks='您的回复中包含无效的链接，请检查后重试';
+    JSi18n.stopWatchText='Stop Watching Thread';
+    JSi18n.startWatchText='Watch Thread';
+    JSi18n.timeExpiredMessage='已超出允许的5分钟编辑时长，我们为给您带来的不便深表抱歉。';
+    JSi18n.repostButtonFormat='重新发送 ($m 剩余)';
+    JSi18n.timeExpiredButton='超时';
+    JSi18n.sessionExpiredMessage='您的会话已超时，请登录后重新提交';
+    JSi18n.editLinkFormat='编辑 ($m 分钟剩余)';
+    JSi18n.enter_subject='请输入主题';
+    JSi18n.enter_message='信息';
+    JSi18n.content_datetime_format='yyyy年M月d日';
+
+var forumID=1;
+var threadID=47861;
+var ctxPath= '';
+var postAddress= ctxPath + '/forum/post!post.action?language=' + 'zh';
+var repostAddress= ctxPath + '/forum/repost.action?language=' + 'zh';
+var postAddWatches= ctxPath + '/forum/watches!add.action';
+var postRemoveWatches= ctxPath + '/forum/watches!remove.action';
+var threadWatched=false;
+var forumNotificationDefault=true;
+var commentEditPeriod=5;
+</script>
+<script src="src/238ce704d3437c5828c2b330a3de60f9.js" type="text/javascript"></script>
+<script src="src/9b01db8a70b3ba9370e68d85ef6b9454.js" type="text/javascript"></script>
+<script src="src/12f494952cd27c9688af9ea5a9f0abc8.js" type="text/javascript"></script>
+<div class="comment_here" id="comment_here">
+<div id="postFormDeck">
+<div id="deckText">
+<h2>您好，朋友！</h2>
+                您需要 <a href="/cn/reginit.action">注册一个InfoQ账号</a> 或者
+                <a class="login" href="javascript:;">登录</a> 才能进行评论。在您完成注册后还需要进行一些设置。<br/>
+<div id="getMost"><h2>获得来自InfoQ的更多体验。</h2></div>
+</div>
+</div>
+<a id="theCommentsSection"></a>
+<h3>告诉我们您的想法</h3>
+<form action="" enctype="multipart/form-data" method="post" name="" onsubmit="return false;" target="">
+<div class="area" name="comments">
+<input id="subject" type="text" value=""/>
+<textarea id="body"></textarea>
+</div>
+<div class="clear"></div>
+<p class="allowed">允许的HTML标签: a,b,br,blockquote,i,li,pre,u,ul,p</p>
+<input class="checkReply" id="emailMe" name="emailMe" type="checkbox">
+<span class="tocheck">当有人回复此评论时请E-mail通知我</span>
+<div class="clear"></div>
+<input class="submit" id="subButton" type="button" value="发送信息">
+</input></input></form>
+<div class="clear"></div>
+</div>
+<div class="comments">
+<div class="comments_title">社区评论 
+                <span id="watch">
+<a class="watch_thread" href="javascript:void(0)"></a>
+</span>
+</div>
+<div class="clear"></div>
+</div>
+<div class="all_comments">
+</div>
+<!-- overlay -->
+<div id="overlay_comments">
+<a class="close_comment" href="javascript:;" title="">关闭</a>
+<h4><strong></strong> by <span id="author"></span> <span id="timepast"></span></h4>
+<p id="body"></p>
+<div class="alt">
+<span>发布于 <span id="timestamp"></span></span>
+</div>
+<div class="clear"></div>
+<ul class="help_links">
+<li><a class="view" title="">查看</a></li>
+<li><a class="reply" href="javascript:;" title="">回复</a></li>
+<li><a class="backtop" href="#" title="">回到顶部</a></li>
+</ul>
+<div class="clear"></div>
+</div>
+<!-- reply box -->
+<div class="popupLoginComments" id="replyPopup">
+<a class="close_login_popup" href="javascript:;" title="">关闭</a>
+<form action="" method="post" name="tpopup-reply" onsubmit="return false;" target="">
+<label class="label_login">主题</label>
+<input class="login_text subject" name="subject" type="text">
+<label class="label_login">
+            	您的回复
+            	<a href="#" onclick="CommentsHandler.quoteOriginalMessage();return false;" style="float: right; text-decoration: underline; font-weight: normal; color: grey;">
+            		引用原消息
+            	</a>
+</label>
+<textarea class="commentsReply" name="commentsReply"></textarea>
+<div class="clear"></div>
+<p class="error allowed"></p>
+<div class="clear"></div>
+<p class="allowed">允许的HTML标签: a,b,br,blockquote,i,li,pre,u,ul,p</p>
+<input class="checkReply emailMe" id="emailMe" name="emailMe" type="checkbox">
+<span class="tocheck">当有人回复此评论时请E-mail通知我</span>
+<div class="clear"></div>
+<input id="submit-reply" name="submit-reply" type="button" value="发送信息">
+<input class="reset-reply" name="reset-reply" type="reset" value="取消">
+</input></input></input></input></form>
+</div>
+<!-- edit comment box -->
+<div class="popupLoginComments" id="editCommentPopup">
+<a class="close_login_popup" href="javascript:;" title="">关闭</a>
+<form action="" method="post" name="tpopup-reply" onsubmit="return false;" target="">
+<label class="label_login">主题</label>
+<input class="login_text subject" name="subject" type="text">
+<label class="label_login">您的回复</label>
+<textarea class="commentsReply" name="commentsReply"></textarea>
+<div class="clear"></div>
+<p class="error allowed"></p>
+<div class="clear"></div>
+<p class="allowed">允许的HTML标签: a,b,br,blockquote,i,li,pre,u,ul,p</p>
+<input class="checkReply emailMe" id="emailMe" name="emailMe" type="checkbox">
+<span class="tocheck">当有人回复此评论时请E-mail通知我</span>
+<div class="clear"></div>
+<p class="time_expired allowed"></p>
+<input id="resubmit-reply" name="submit-reply" type="button" value="">
+<input class="reset-reply" name="reset-reply" type="reset" value="取消">
+</input></input></input></input></form>
+</div>
+<!-- notification popup -->
+<div class="popupLoginComments" id="messagePopup">
+<a class="close_login_popup" href="javascript:;" title="">关闭</a>
+<div class="clear"></div>
+<p class="allowed"></p>
+<div class="clear"></div>
+<input class="reset-reply" name="reset-reply" type="reset" value="OK">
+</input></div>
+<div id="responseContent"></div>
+<a class="comments_like" href="#theCommentsSection" id="noOfComments" title="">
+<span class="comments_counts">
+<span class="nr">
+					讨论
+	        	</span>
+</span>
+</a>
+</div>
+<div class="clear"></div>
+</div></body></html>
