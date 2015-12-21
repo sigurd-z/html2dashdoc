@@ -45,14 +45,14 @@ def uriencode(uri):
     if isinstance(uri, unicode):
         uri = uri.encode("utf-8")
     if isinstance(uri, str):
-        return urllib.quote(uri)
+        return unicode(urllib.quote(uri), 'utf-8')
     return uri
 
 def uridecode(uri):
     if isinstance(uri, unicode):
         uri = uri.encode("utf-8")
     if isinstance(uri, str):
-        return urllib.unquote(uri)
+        return unicode(urllib.unquote(uri), 'utf-8')
     return uri
 
 def find_anchorpoint(soup, node, attrs, callback, p):
@@ -278,6 +278,36 @@ def add_urls():
 
             pagesoup = BeautifulSoup(page, "html.parser").find('div', {'class': 'sphinxsidebarwrapper'})
             find_anchorpoint(pagesoup, 'a', {'class': any, 'href': any}, bspage_callback, {})
+
+        elif docset_name=="IOS.wiki.docset":
+            tag = indexsoup.attrs['tag'].strip()
+            if tag=="iOS9AdaptationTips":
+                def pullfunc(soup):
+                    return soup.find("article", {"class": "markdown-body"})
+                pagesoup = pulldiv(url, pullfunc)
+
+                def page_callback(soup, p):
+                    tagurl = soup.attrs['href'].strip()
+                    urlinfo = urlparse.urlparse(tagurl)
+                    if urlinfo.netloc=="github.com" and urlinfo.path=="/ChenYilong/iOS9AdaptationTips":
+                        pagetag = tagurl.split('#')[-1]
+                        update_db(uridecode(pagetag)+" - "+tag, 'Guide', "page/"+uriencode(name+".html")+'#user-content-'+pagetag)
+                        soup['href']='#user-content-'+pagetag
+                find_anchorpoint(pagesoup, 'a', {'href': any}, page_callback, {})
+
+                # save images, js, css
+                for soup in pagesoup.find_all(src=any):
+                    saveres(soup, url, 'src', source_dir+'/page/')
+                for soup in pagesoup.find_all('link', {'href': any}):
+                    saveres(soup, url, 'href', source_dir+'/page/')
+
+                # add page border
+                pagesoup.body['style'] = "padding:0 25px;"
+
+                with open(source_dir+"/page/"+name+".html","w") as f:
+                    f.write(pagesoup.renderContents())
+
+                indexsoup['href'] = uriencode("page/"+name+".html")
 
         else:
             update_db(name, 'Guide', url)
