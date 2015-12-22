@@ -1,0 +1,256 @@
+<html><head>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+<title>3.6 使用事件管理器创建用户交互_Cocos帮助文档_Cocos引擎_游戏开发引擎_Cocos引擎官网</title>
+<meta content="IE=8" http-equiv="X-UA-Compatible">
+<meta content="Cocos帮助文档,Cocos2d-x文档,Cocos2d-JS文档,Cocos Code IDE文档,Quick-Cocos2d-x文档,Cocos API,Cocos,Cocos引擎,Cocos介绍,Cocos文档,Cocos特点,Cocos引擎下载,Cocos官网,游戏引擎,游戏引擎下载,游戏开发引擎,html5游戏开发,Android游戏开发,ios游戏开发,游戏开发方案,游戏开发工具" name="keywords"/>
+<meta content="Cocos提供了全套的引擎和开发工具,涵盖从前期设计,资源制作,开发调试,打包上线全套的解决方案,Cocos重点优化了工作流,规范了整个游戏开发流程,降低沟通成本,提高开发效率" name="description"/>
+<link href="src/2ef9a86fb35d52ac11578452ccf1485f.css" rel="stylesheet" type="text/css"/>
+<link href="src/88a5440cf79e2c8f05f9f10ce6aba841.css" rel="stylesheet" type="text/css"/>
+<link href="src/aade560970aa998972e368caf1c78181.css" rel="stylesheet" type="text/css"/>
+<script src="src/07bd722c9fad66b606a50c3acc1af50f.js" type="text/javascript"></script>
+<script src="src/de92148ebc93b342e9b5b8f21d7fe69c.js" type="text/javascript"></script>
+<script src="https://passport.cocos.com/sso/get_sso_header?client_id=161" type="text/javascript"></script>
+<script src="src/bd48e73433c4825b90f3554d64a5ae4f.js" type="text/javascript"></script>
+</meta></head><body style="padding:0 25px;"><div class="itemdoc">
+<h1>3.6 使用事件管理器创建用户交互</h1>
+<h2>概述</h2>
+<p>在前面的章节，我们已经创建好了游戏的场景，还缺少玩家交互。常见的是touch事件。在这个小游戏中，我们点击下落的Sushi精灵，消灭Sushi，播放Sushi消失动画。接下来将向大家展示如何添加touch事件和播放帧动画。</p>
+<h2>基础知识</h2>
+<h3>事件</h3>
+<p>Cocos2d-JS v3.x中事件分发机制进行了重写，事件可以与任意对象绑定，而不是只有Layer才能获取。对象创建自己的事件监听器，然后加入到全局的事件管理器统一管理。</p>
+<p>事件监听器有以下几种：</p>
+<ul>
+<li>触摸事件</li>
+<li>键盘响应事件</li>
+<li>鼠标响应事件</li>
+<li>自定义事件</li>
+<li>加速计事件</li>
+</ul>
+<h3>帧动画</h3>
+<p>帧动画就是很多张图片的序列图实现轮流播放产生动画效果，帧越多动画越流畅。Cocos2d-JS 提供<code>cc.spriteFrame</code>负责管理精灵帧，<code>cc.Animation</code>负责管理动画序列，多长时间内播放多少张帧。<code>cc.Animate</code>负责管理帧动画的动作创建。</p>
+<p>帧动画的创建流程：
+将连续的动作图片生成<code>cc.spriteFrame</code>对象放入到数组。然后通过<code>cc.Animation</code>创建动画序列，再通过<code>cc.Animate</code>制作成帧动画的动作。最后由该节点Node播放帧动画。</p>
+<h2>SushiSprite响应点击事件</h2>
+<p>为方便代码管理，在此新建一个SushiSprite.js文件代表SushiSprite。通过使用Cocos2d-JS的类继承方式cc.Sprite.extend实现为精灵类的一个扩展。</p>
+<ol>
+<li>
+<p>新建SushiSprite类，代码如下</p>
+<pre><code>    var SushiSprite = cc.Sprite.extend({
+        onEnter:function () {
+            cc.log("onEnter");
+            this._super();
+        },
+
+        onExit:function () {
+            cc.log("onExit");
+        }
+
+    });</code></pre>
+</li>
+<li>
+<p>添加触摸事件，代码如下：</p>
+<pre><code>addTouchEventListenser:function(){
+    this.touchListener = cc.EventListener.create({
+        event: cc.EventListener.TOUCH_ONE_BY_ONE,
+        // When "swallow touches" is true, then returning 'true' from the onTouchBegan method will "swallow" the touch event, preventing other listeners from using it.
+        swallowTouches: true,
+        //onTouchBegan event callback function                      
+        onTouchBegan: function (touch, event) { 
+            var pos = touch.getLocation();
+            var target = event.getCurrentTarget();  
+            if ( cc.rectContainsPoint(target.getBoundingBox(),pos)) {
+                cc.log("touched")
+                return true;
+            }
+            return false;
+        }
+    cc.eventManager.addListener(this.touchListener,this);
+    });</code></pre>
+<p>上面的代码，首先通过使用<code>cc.EventListener.create</code>创建了一个Touch事件监听器touchListener，然后，通过<code>cc.eventManager.addListener</code>注册监听器到事件管理器。<code>cc.EventListener.create</code>扩展出一个用户监听器。event属性，定义这个监听器监听的类型。swallowTouches属性设置是否吃掉事件，事件被吃掉后不会递给下一层监听器。
+onTouchBegan方法处理触摸点击按下事件，我们在这里可以获取到触摸点的坐标pos。<code>event.getCurrentTarget()</code>获取当前事件的接受者，并判断当前的是否点击到了SushiSprite。
+在touch事件中，我们还可以添加<code>onTouchMoved</code>/<code>onTouchEnded</code>方法监听touch移动和结束的回调。如果onTouchBegan返回false后<code>onTouchMoved</code>/<code>onTouchEnded</code>不会执行。</p>
+<p>在onTouchBegan方法中获取点击点的坐标pos,然后通过<code>cc.rectContainsPoint(target.getBoundingBox(),pos)</code>判断点击的点是否在SushiSprite上。</p>
+</li>
+</ol>
+<p>3.在onEnter方法中调用addTouchEventListenser
+4.修改PlayScene.js中的addSushi的SushiSprite创建</p>
+<pre><code>```
+var sushi = new SushiSprite(res.Sushi_png);
+```</code></pre>
+<p>运行并点击下落的SushiSprite,在Console输出下面的log</p>
+<pre><code>```
+cocos2d: JS: touched
+```</code></pre>
+<h2>SushiSprite消失动画</h2>
+<p>玩家点击SushiSprite，消灭下落的Sushi，点中的Sushi产生烟雾效果消失。下面我们就来实现SushiSprite消失动画。这里我们采用烟雾帧动画实现。</p>
+<p>首先，准备好Sushi消失的帧动画图片。有11张渐变的Sushi消失帧图片，如果我们一张张的从磁盘读取加载，那会非常的慢，还浪费内存资源。还好Cocos2d-JS支持精灵表单(Spritesheet),使用<a href="http://www.cocos.com/doc/doc/cocos-docs-master/manual/framework/cocos2d-js/3-jumping-into-cocos2d-js/3-6-creating-user-interaction-with-event-manager/www.texturepacker.com">TexturePacker</a>工具,将多张帧图片打包成一张大图和一个.plist文件，通过加载大图可以提高读取速度，并减少内存消耗。Cocos2d-JS中提供了<code>cc.spriteFrameCache</code>管理精灵缓存，通过<code>cc.spriteFrameCache</code>可以方便的读取打包好的大图到内存，根据.plist文件中的信息可以方便获取到各帧图片。
+<code>cc.spriteFrameCache.getSpriteFrame(str)</code>方法可以获取到各个精灵帧。</p>
+<p>打包的图片和.plist文件如下：</p>
+<p><img alt="play scene" src="src/f479eea46d5e36aa79e4d4e64c57a801.png"/></p>
+<p><img alt="play scene" src="src/30f03cd424c997fa3aa3ddc365cc8938.png"/></p>
+<p>将生成好的资源放到项目的res文件下，并在resource.js文件中添加资源的引用</p>
+<pre><code>```
+    var res = {
+        ...
+        Sushi_plist : "res/sushi.plist",
+        Sushi_png : "res/sushi.png"
+    };
+```</code></pre>
+<p>首先，在PlayScene.js的ctor方法中加载帧图片到缓存</p>
+<pre><code>```
+cc.spriteFrameCache.addSpriteFrames(res.Sushi_plist);
+```</code></pre>
+<p>然后，在SushiSprite.js中添加帧动画的创建代码</p>
+<pre><code>```
+    createDisappearAction : function() {
+    var frames = [];
+    for (var i = 0; i &lt; 11; i++) {
+        var str = "sushi_1n_"+i+".png"
+        //cc.log(str);
+        var frame = cc.spriteFrameCache.getSpriteFrame(str);
+        frames.push(frame);
+    }
+
+    var animation = new cc.Animation(frames, 0.02);
+    var action = new cc.Animate(animation);
+
+    return action;
+},
+```</code></pre>
+<p>其次，为SushiSprite添加一个属性disappearAction保存消失动画，</p>
+<pre><code>```
+disappearAction:null,//消失动画
+```</code></pre>
+<p>在onEnter方法中创建disappearAction</p>
+<pre><code>```
+onEnter:function () {
+    ...
+    this.disappearAction = this.createDisappearAction();
+    this.disappearAction.retain();
+}
+```</code></pre>
+<p>上面的<code>retain()</code>方法表示对生成的消失动画增加一次引用。Cocos2d-JS遵循Cocos2d-x的内存管理原则。上面创建的disappearAction是自动释放的，我们需要为它增加一次引用，以避免它被回收，在我们不需要的时候对它执行<code>release()</code>方法,释放对它的引用。避免内存泄露。
+在使用Cocos2d-JS的jsb模式时，部分情况是需要我们手动管理内存的。</p>
+<p>在onExit方法中释放对disappearAction的引用</p>
+<pre><code>```
+    onExit:function () {
+        cc.log("onExit");
+        this.disappearAction.release();
+        this._super();
+    },
+```</code></pre>
+<p>最后，在SushiSprite被点中的响应函数onTouchBegan中实现，SushiSprite消失动画的播放，和移除SushiSprite</p>
+<pre><code>```
+onTouchBegan: function (touch, event) { 
+    ...
+
+    target.removeTouchEventListenser();
+                    //响应精灵点中
+                    cc.log("pos.x="+pos.x+",pos.y="+pos.y);
+
+                    target.stopAllActions();
+
+                    var ac = target.disappearAction;
+                    var seqAc = cc.Sequence.create( ac, cc.CallFunc.create(function () {
+                        cc.log("callfun........");
+                        target.removeFromParent();
+
+                    },target) );
+
+    target.runAction(seqAc);
+
+    ...
+}
+```
+在SushiSprite被点中后，`removeTouchEventListenser()`移除注册的touch事件避免被再次点击。`stopAllActions()`停止SUshiSprite正在播放的动作。`cc.Sequence`是按序列播放动作。`cc.CallFunc`是Cocos2d-JS中提供的动画播放结束的处理回调。上面的代码通过cc.Sequence创建了Sushi消失的动作序列，并在动作结束后从层上移除SushiSprite.</code></pre>
+<p>运行结果：</p>
+<p><img alt="play scene" src="src/753021a67bf48850cf97a3c17125484e.gif"/></p>
+<h2>添加得分和倒计时标签</h2>
+<p>这部分很简单，在前面章节就介绍了Label的用法。在PlayScene的ctor方法中添加得分和倒计时标签的代码如下：</p>
+<pre><code>```
+    this.scoreLabel = new cc.LabelTTF("score:0", "Arial", 20);
+    this.scoreLabel.attr({
+        x:size.width / 2 + 100,
+        y:size.height - 20
+    });
+    this.addChild(this.scoreLabel, 5);
+
+    // timeout 60
+    this.timeoutLabel = cc.LabelTTF.create("" + this.timeout, "Arial", 30);
+    this.timeoutLabel.x = 20;
+    this.timeoutLabel.y = size.height - 20;
+    this.addChild(this.timeoutLabel, 5);
+```</code></pre>
+<p>上面代码分别创建了一个显示得分和计时的标签。</p>
+<p>运行结果：</p>
+<p><img alt="play scene" src="src/d080b68ed018543d5647e399bf906be8.png"/></p>
+<h2>游戏结束逻辑处理</h2>
+<p>游戏已经完成得差不多了，还差玩家得分的更新和计时器结束游戏。</p>
+<h3>更新游戏得分</h3>
+<p>在PlayScene中新建addScore方法</p>
+<pre><code>```
+    addScore:function(){
+        this.score +=1;
+        this.scoreLabel.setString("score:" + this.score);
+    }
+```</code></pre>
+<p>在SushiSprite的点中响应函数中调用addScore更新得分</p>
+<h3>计时器结束游戏</h3>
+<p>我们需要游戏添加一个结束处理，简单的就是使用倒计时，比如60S倒计时结束游戏。倒计时可以使用前面介绍的Schedule实现。</p>
+<p>在PlayScene中添加timer方法</p>
+<pre><code>```
+    timer : function() {
+
+    if (this.timeout == 0) {
+        //cc.log('游戏结束');
+        var gameOver = new cc.LayerColor(cc.color(225,225,225,100));
+        var size = cc.winSize;
+        var titleLabel = new cc.LabelTTF("Game Over", "Arial", 38);
+        titleLabel.attr({
+            x:size.width / 2 ,
+            y:size.height / 2
+        });
+        gameOver.addChild(titleLabel, 5);
+        var TryAgainItem = new cc.MenuItemFont(
+                "Try Again",
+                function () {
+                    cc.log("Menu is clicked!");
+                    var transition= cc.TransitionFade(1, new PlayScene(),cc.color(255,255,255,255));
+                    cc.director.runScene(transition);
+                }, this);
+        TryAgainItem.attr({
+            x: size.width/2,
+            y: size.height / 2 - 60,
+            anchorX: 0.5,
+            anchorY: 0.5
+        });
+
+        var menu = new cc.Menu(TryAgainItem);
+        menu.x = 0;
+        menu.y = 0;
+        gameOver.addChild(menu, 1);
+        this.getParent().addChild(gameOver);
+
+        this.unschedule(this.update);
+        this.unschedule(this.timer);
+        return;
+    }
+
+    this.timeout -=1;
+    this.timeoutLabel.setString("" + this.timeout);
+
+},
+```
+上面代码,在60s倒计时结束时，在游戏PlayScene上加入了一个GameOver的提示层，并提供了tryagain菜单。并停止添加SushiSprite和倒计时的Schedule。</code></pre>
+<p>然后在PlayScene的ctor方法中实现定时器</p>
+<pre><code>```
+    //timer倒计时60
+    this.schedule(this.timer,1,this.timeout,1);
+```
+每个1s调用一次timer方法。</code></pre>
+<p>游戏完整运行效果图：</p>
+<p><img alt="play scene" src="src/cedd13ee35c4ea43a0300853a2ef4bcc.gif"/></p>
+<h2>总结</h2>
+<p>到此，我们的Sushi掉落小游戏就完成了。我们对Cocos2d-JS也有一定的了解，在游戏的制作中，学习了场景，精灵，菜单，标签，动作，事件等，对Cocos2d-JS的API有一定的了解。相信大家不会满足于此，会使用Cocos2d-JS制作出更好的游戏。</p>
+<p><a href="http://www.cocos.com/doc/doc/cocos-docs-master/manual/framework/cocos2d-js/3-jumping-into-cocos2d-js/3-6-creating-user-interaction-with-event-manager/sushi.zip">完整代码</a></p>
+</div></body></html>

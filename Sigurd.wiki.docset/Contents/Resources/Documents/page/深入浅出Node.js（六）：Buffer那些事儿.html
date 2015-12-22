@@ -1,0 +1,761 @@
+<html><head>
+<title>深入浅出Node.js（六）：Buffer那些事儿</title>
+<meta content="no-cache" http-equiv="pragma"/>
+<meta content="no-cache" http-equiv="cache-control"/>
+<meta content="0" http-equiv="expires"/>
+<meta content="text/html; charset=utf-8" http-equiv="content-type"/>
+<meta content="© 2006 C4Media" name="copyright"/>
+<meta content="0qInQx_1WYOeIIbxnh7DnXlw1XOxNgAYakO2k4GhNnY" name="google-site-verification"/>
+<meta content="#ffffff" name="msapplication-TileColor"/>
+<meta content="/styles/i/logo.jpg" name="msapplication-TileImage"/>
+<meta content="3eac1729a8bbe046" property="wb:webmaster"/>
+<link href="http://fonts.useso.com/css?family=Gentium+Book+Basic" rel="stylesheet" type="text/css"/>
+<link href="src/d541dfcdd0034dfccfee98390dd4fd1c.css" media="screen" rel="stylesheet" type="text/css"/>
+<link href="src/3a7155688218e31cd5393efb73d259be.css" media="screen" rel="stylesheet" type="text/css"/>
+<link href="http://cdn2.infoqstatic.com/statics_s1_20151222-0055/favicon.ico" rel="shortcut icon" type="image/x-icon"/>
+<link href="src/174955d916dcee0c8443a13a50a11fff.png" rel="apple-touch-icon"/>
+<link href="src/53c06d331ae56a488892de44902af6d7.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript">
+        	var device="desktop";
+            var InfoQConstants = {};
+            InfoQConstants.language = 'zh';
+            InfoQConstants.countryCode = '/cn';
+            
+        </script>
+<script src="src/ca92f7afaa24d494482835748b6e9379.js" type="text/javascript"></script>
+<script type="text/javascript">
+            
+                var JSi18n = JSi18n || {}; // define only if not already defined
+                JSi18n.error='错误';
+                JSi18n.login_unverifiedAccount='未验证的账号';
+                JSi18n.contentSummary_showPresentations_1='整理准备中，敬请期待';
+                JSi18n.contentSummary_showPresentations_2='我们致力于为您提供来自全球业界及中国本土社区顶尖技术大会精彩的中英文专家演讲的视频，目前资料正在编辑整理中，将于近期发布。';
+                JSi18n.contentSummary_showPresentations_3='感谢您的支持与耐心等待！';
+                JSi18n.contentSummary_showInterviews_1='';
+                JSi18n.contentSummary_showInterviews_2='';
+                JSi18n.contentSummary_showInterviews_3='';
+                JSi18n.contentSummary_showMinibooks_1='';
+                JSi18n.contentSummary_showMinibooks_2='';
+                JSi18n.login_sendingRequest='发送请求……';
+                JSi18n.bookmark_saved='<q>&nbsp;&nbsp;&nbsp;已保存&nbsp;&nbsp;&nbsp;&nbsp;</q>';
+                JSi18n.bookmark_error='<q style=color:black;>&nbsp;&nbsp;&nbsp;出错&nbsp;&nbsp;&nbsp;&nbsp;</q>';
+                JSi18n.categoryManagement_showpopup_viewAllLink_viewAllPrefix='显示所有“';
+                JSi18n.categoryManagement_showpopup_viewAllLink_viewAllSuffix='”内容';
+                JSi18n.categoryManagement_showpopup_includeExcludeLink_Exclude='过滤';
+                JSi18n.categoryManagement_showpopup_includeExcludeLink_Include='取消过滤';
+                JSi18n.login_invalid_email='请填写有效的电子邮箱';
+                JSi18n.login_email_not_found = '这个邮箱好像没在这儿注册过';
+            
+
+            var loggedIn=false;
+        </script>
+<script type="text/javascript">
+            function createOverFunction(i) {
+                var pixels = i * 129;
+                return function() {
+                    $('#personas_' + i).addClass('selected');
+                    $('ul.menu > li .top_submenu.c' + i).css('left','-' + pixels + 'px');
+                }
+            };
+            function createOutFunction(i) {
+                return function() {
+                    $('ul.menu > li .top_submenu.c' + i).css('left','-999em');
+                    $('#personas_' + i).removeClass('selected');
+                }
+            }
+            $(function() {
+                for (var i = 0; i < 5; i++) {
+                    $('ul.menu > li').has('.top_submenu.c' + i).hoverIntent({
+                        sensitivity: 15,
+                        interval: 150,
+                        timeout:200,
+                        over: createOverFunction(i),
+                        out: createOutFunction(i)
+                    });
+                }
+            });
+        </script>
+<script src="src/c2270b956f149abcb03ae2bf0f78f015.js"></script>
+<script type="text/javascript">
+var googletag = googletag || {};
+googletag.cmd = googletag.cmd || [];
+(function() {
+	var gads = document.createElement('script');
+	gads.async = true;
+	gads.type = 'text/javascript';
+	var useSSL = 'https:' == document.location.protocol;
+	gads.src = (useSSL ? 'https:' : 'http:') + '//www.googletagservices.com/tag/js/gpt.js';
+	var node = document.getElementsByTagName('script')[0];
+	node.parentNode.insertBefore(gads, node);
+})();
+
+
+googletag.cmd.push(function() {
+	googletag.defineSlot('/5286733/zh_geo_banner_bottom', [728, 90], 'id_geo_banner_ad').addService(googletag.pubads());
+	googletag.defineSlot('/5286733/zh_300x250_banner_top', [300, 250], 'id_300x250_banner_top').addService(googletag.pubads());
+	googletag.defineSlot('/5286733/zh_300x250_banner_bottom', [300, 250], 'id_300x250_banner_bottom').addService(googletag.pubads());
+	googletag.defineSlot('/5286733/zh_textlink1', [250, 60], 'id_ad_textlink1').addService(googletag.pubads());
+	googletag.defineSlot('/5286733/zh_textlink2', [250, 60], 'id_ad_textlink2').addService(googletag.pubads());
+	googletag.defineSlot('/5286733/zh_textlink3', [250, 60], 'id_ad_textlink3').addService(googletag.pubads());
+/*	googletag.defineSlot('/5286733/zh_textlink4', [120, 100], 'id_ad_textlink4').addService(googletag.pubads());
+	googletag.defineSlot('/5286733/zh_textlink5', [120, 100], 'id_ad_textlink5').addService(googletag.pubads());*/
+	googletag.defineSlot('/5286733/zh_300x250_category', [300, 250], 'id_300x250_category').addService(googletag.pubads());
+	googletag.defineSlot('/5286733/zh_300x250_banner_searchResults', [300, 250], 'id_300x250_banner_searchResults').addService(googletag.pubads());
+	googletag.pubads().enableSingleRequest();       
+    
+	// central function used for checking the GAM slots for displayed/not displayed ads 
+    googletag.pubads().addEventListener('slotRenderEnded', function(event) {
+	  	// on slot rendered we need to check multiple events for multiple elements defined in multiple places
+       	// ( text links, optional vcr, related rightbar native vcr box)
+        	
+       	 
+	       	// check the optional vcr box on slot rendered (defined in vcr_optional.jsp)
+	       	if (typeof(optionalVcrBoxSlotRendered) == typeof(Function)){        		
+	       		optionalVcrBoxSlotRendered(event);
+	       	}
+       		
+       	// check the sponsored links (defined in see sponsoredLinks.jsp)
+       	if (typeof(sponsoredLinksSlotRendered) == typeof(Function)){
+       		sponsoredLinksSlotRendered(event);
+       	}
+       	
+       	// see the related rightbar optional vcr box(defined in rightbarOptionalVcrBox.js)
+       	if (optionalVcrBox && typeof(optionalVcrBox.relatedRightbarNativeVcrSlotRendered) == typeof(Function)){
+       		optionalVcrBox.relatedRightbarNativeVcrSlotRendered(event);
+       	}
+	});
+        
+   	googletag.pubads().collapseEmptyDivs();
+	googletag.enableServices();
+});
+
+function isAdBlocked(){
+    return ( window.noAdblocker === undefined );
+}
+</script>
+<script type="text/javascript">window.NREUM||(NREUM={}),__nr_require=function(e,n,t){function r(t){if(!n[t]){var o=n[t]={exports:{}};e[t][0].call(o.exports,function(n){var o=e[t][1][n];return r(o||n)},o,o.exports)}return n[t].exports}if("function"==typeof __nr_require)return __nr_require;for(var o=0;o<t.length;o++)r(t[o]);return r}({QJf3ax:[function(e,n){function t(e){function n(n,t,a){e&&e(n,t,a),a||(a={});for(var u=c(n),f=u.length,s=i(a,o,r),p=0;f>p;p++)u[p].apply(s,t);return s}function a(e,n){f[e]=c(e).concat(n)}function c(e){return f[e]||[]}function u(){return t(n)}var f={};return{on:a,emit:n,create:u,listeners:c,_events:f}}function r(){return{}}var o="nr@context",i=e("gos");n.exports=t()},{gos:"7eSDFh"}],ee:[function(e,n){n.exports=e("QJf3ax")},{}],3:[function(e,n){function t(e){return function(){r(e,[(new Date).getTime()].concat(i(arguments)))}}var r=e("handle"),o=e(1),i=e(2);"undefined"==typeof window.newrelic&&(newrelic=window.NREUM);var a=["setPageViewName","addPageAction","setCustomAttribute","finished","addToTrace","inlineHit","noticeError"];o(a,function(e,n){window.NREUM[n]=t("api-"+n)}),n.exports=window.NREUM},{1:12,2:13,handle:"D5DuLP"}],gos:[function(e,n){n.exports=e("7eSDFh")},{}],"7eSDFh":[function(e,n){function t(e,n,t){if(r.call(e,n))return e[n];var o=t();if(Object.defineProperty&&Object.keys)try{return Object.defineProperty(e,n,{value:o,writable:!0,enumerable:!1}),o}catch(i){}return e[n]=o,o}var r=Object.prototype.hasOwnProperty;n.exports=t},{}],D5DuLP:[function(e,n){function t(e,n,t){return r.listeners(e).length?r.emit(e,n,t):void(r.q&&(r.q[e]||(r.q[e]=[]),r.q[e].push(n)))}var r=e("ee").create();n.exports=t,t.ee=r,r.q={}},{ee:"QJf3ax"}],handle:[function(e,n){n.exports=e("D5DuLP")},{}],XL7HBI:[function(e,n){function t(e){var n=typeof e;return!e||"object"!==n&&"function"!==n?-1:e===window?0:i(e,o,function(){return r++})}var r=1,o="nr@id",i=e("gos");n.exports=t},{gos:"7eSDFh"}],id:[function(e,n){n.exports=e("XL7HBI")},{}],G9z0Bl:[function(e,n){function t(){var e=d.info=NREUM.info,n=f.getElementsByTagName("script")[0];if(e&&e.licenseKey&&e.applicationID&&n){c(p,function(n,t){n in e||(e[n]=t)});var t="https"===s.split(":")[0]||e.sslForHttp;d.proto=t?"https://":"http://",a("mark",["onload",i()]);var r=f.createElement("script");r.src=d.proto+e.agent,n.parentNode.insertBefore(r,n)}}function r(){"complete"===f.readyState&&o()}function o(){a("mark",["domContent",i()])}function i(){return(new Date).getTime()}var a=e("handle"),c=e(1),u=window,f=u.document;e(2);var s=(""+location).split("?")[0],p={beacon:"bam.nr-data.net",errorBeacon:"bam.nr-data.net",agent:"js-agent.newrelic.com/nr-768.min.js"},d=n.exports={offset:i(),origin:s,features:{}};f.addEventListener?(f.addEventListener("DOMContentLoaded",o,!1),u.addEventListener("load",t,!1)):(f.attachEvent("onreadystatechange",r),u.attachEvent("onload",t)),a("mark",["firstbyte",i()])},{1:12,2:3,handle:"D5DuLP"}],loader:[function(e,n){n.exports=e("G9z0Bl")},{}],12:[function(e,n){function t(e,n){var t=[],o="",i=0;for(o in e)r.call(e,o)&&(t[i]=n(o,e[o]),i+=1);return t}var r=Object.prototype.hasOwnProperty;n.exports=t},{}],13:[function(e,n){function t(e,n,t){n||(n=0),"undefined"==typeof t&&(t=e?e.length:0);for(var r=-1,o=t-n||0,i=Array(0>o?0:o);++r<o;)i[r]=e[n+r];return i}n.exports=t},{}]},{},["G9z0Bl"]);</script><script src="src/8e60e4e551e0c69c92a3b2a4f6047a40.js" type="text/javascript"></script>
+<meta content="website" property="og:type"/>
+<meta content="https://www.infoq.com/resource/articles/nodejs-about-buffer/zh/smallimage/nodejs.jpg" property="og:image"/>
+<meta content="深入浅出Node.js（六）：Buffer那些事儿 " property="og:title"/>
+<meta content="专栏的第六篇文章《Buffer那些事儿》。前一章节讲述了Node.js中异步IO的实现原理，这是Node.js的基调之一。作为JavaScript的一个服务端实现，必然有跟前端JavaScript有异同的地方，接下来我们来看看Buffer的那些事儿吧。" property="og:description"/>
+<meta content="InfoQ" property="og:site_name"/>
+<link href="src/0240490df23f0dee8d743a4c81603dea.jpg" rel="image_src"/>
+<link href="src/99dc6ed15d0c3bbb9e66a5c749ab0a2a.css" rel="stylesheet"/>
+<meta content="nodejs about buffer,架构 &amp; 设计,语言 &amp; 开发,Node.js,深入浅出Node.js,企业架构," name="keywords"/>
+<meta content="专栏的第六篇文章《Buffer那些事儿》。前一章节讲述了Node.js中异步IO的实现原理，这是Node.js的基调之一。作为JavaScript的一个服务端实现，必然有跟前端JavaScript有异同的地方，接下来我们来看看Buffer的那些事儿吧。" name="description"/>
+<meta content="1334602800000" name="tprox"/>
+<link href="src/310b421efa7c70b41edf38df96c4114f.jpg" rel="image_src"/>
+<meta content="http://cdn3.infoqstatic.com/statics_s1_20151222-0055/styles/i/logo-big.jpg" property="og:image"/>
+</head><body style="padding:0 25px;"><div class="article_page_left text_content_container">
+<div class="text_info text_info_article">
+<p>作为前端的JSer，是一件非常幸福的事情，因为在字符串上从来没有出现过任何纠结的问题。我们来看看PHP对字符串长度的判断结果：</p>
+<pre>
+&lt;? php 
+echo strlen("0123456789");     
+echo strlen("零一二三四五六七八九");     
+echo mb_strlen("零一二三四五六七八九", "utf-8");      
+echo "\n"; </pre>
+<p>以上三行判断分别返回10、30、10。对于中国人而言，strlen这个方法对于Unicode的判断结果是非常让人疑惑。而看看JavaScript中对字符串长度的判断，就知道这个length属性对调用者而言是多么友好。</p>
+<div class="clear"></div>
+<pre>
+console.log("0123456789".length); // 10
+console.log("零一二三四五六七八九".length); /10
+console.log("\u00bd".length); // 1
+</pre>
+<p>尽管在计算机内部，一个中文字和一个英文字占用的字节位数是不同的，但对于用户而言，它们拥有相同的长度。我认为这是JavaScript中 String处理得精彩的一个点。正是由于这个原因，所有的数据从后端传输到前端被调用时，都是这般友好的字符串。所以对于前端工程师而言，他们是没有字 符串Buffer的概念的。如果你是一名前端工程师，那么从此在与Node.js打交道的过程中，一定要小心Buffer啦，因为它比传统的String 要调皮一点。</p>
+<h2>你该小心Buffer啦</h2>
+<p>像许多计算机的技术一样，都是从国外传播过来的。那些以英文作为母语的传道者们应该没有考虑过英文以外的使用者，所以你有可能看到如下这样一段代码在向你描述如何在data事件中连接字符串。</p>
+<div class="related_sponsors visible ">
+<div class="gray_section_related only1 fullWidth">
+<div class="related_editorial sponsored only1">
+<p class="title">相关厂商内容</p>
+<div class="links">
+<h3 class="entrypdf f_vcrbottom" jsh='{"id":3663,"title":"更多活动，更多选择，尽在活动专区。"}' title="">
+<a href="/cn/vendorcontent/show.action?vcr=3663&amp;utm_source=infoq&amp;utm_medium=VCR&amp;utm_campaign=vcr_articles_click" target="_blank">
+	                                更多活动，更多选择，尽在活动专区。
+	                            </a>
+</h3>
+<h3 class="entrypdf f_vcrbottom" jsh='{"id":3514,"title":"通过demo学习OpenStack开发所需的基础知识 — 软件包管理"}' title="">
+<a href="/cn/vendorcontent/show.action?vcr=3514&amp;utm_source=infoq&amp;utm_medium=VCR&amp;utm_campaign=vcr_articles_click">
+	                                通过demo学习OpenStack开发所需的基础知识 — 软件包管理
+	                            </a>
+</h3>
+<h3 class="entrypdf f_vcrbottom" jsh='{"id":3615,"title":"开源为实时Hadoop数据保驾护航"}' title="">
+<a href="/cn/vendorcontent/show.action?vcr=3615&amp;utm_source=infoq&amp;utm_medium=VCR&amp;utm_campaign=vcr_articles_click" target="_blank">
+	                                开源为实时Hadoop数据保驾护航
+	                            </a>
+</h3>
+<h3 class="entrypdf f_vcrbottom" jsh='{"id":3170,"title":"环信打造即时通讯云+移动客服，为App打造用户体验闭环"}' title="">
+<a href="/cn/vendorcontent/show.action?vcr=3170&amp;utm_source=infoq&amp;utm_medium=VCR&amp;utm_campaign=vcr_articles_click" target="_blank">
+	                                环信打造即时通讯云+移动客服，为App打造用户体验闭环
+	                            </a>
+</h3>
+<h3 class="entrypdf f_vcrbottom" jsh='{"id":3006,"title":"如何通过使用 AWS对IT资源实现高级别管控，并大规模实现更高级别的安全性？"}' title="">
+<a href="/cn/vendorcontent/show.action?vcr=3006&amp;utm_source=infoq&amp;utm_medium=VCR&amp;utm_campaign=vcr_articles_click">
+	                                如何通过使用 AWS对IT资源实现高级别管控，并大规模实现更高级别的安全性？
+	                            </a>
+</h3>
+<div class="clear"></div>
+</div>
+</div>
+</div>
+<div class="clear"></div>
+</div>
+<pre>
+var fs = require('fs');
+var rs = fs.createReadStream('testdata.md');
+var data = '';
+rs.on("data", function (trunk){
+    data += trunk;
+});
+rs.on("end", function () {
+    console.log(data);
+});
+</pre>
+<p>如果这个文件读取流读取的是一个纯英文的文件，这段代码是能够正常输出的。但是如果我们再改变一下条件，将每次读取的buffer大小变成一个奇数，以模拟一个字符被分配在两个trunk中的场景。</p>
+<pre>
+var rs = fs.createReadStream('testdata.md', {bufferSize: 11}); </pre>
+<p>我们将会得到以下这样的乱码输出：</p>
+<pre>
+  事件循���和请求���象构成了Node.js���异步I/O模型的���个基本���素，这也是典���的消费���生产者场景。 </pre>
+<p>造成这个问题的根源在于data += trunk语句里隐藏的错误，在默认的情况下，trunk是一个Buffer对象。这句话的实质是隐藏了toString的变换的：</p>
+<pre>
+data = data.toString() + trunk.toString(); </pre>
+<p>由于汉字不是用一个字节来存储的，导致有被截破的汉字的存在，于是出现乱码。解决这个问题有一个简单的方案，是设置编码集：</p>
+<pre>
+var rs = fs.createReadStream('testdata.md', {encoding: 'utf-8', bufferSize: 11}); </pre>
+<p>这将得到一个正常的字符串响应：</p>
+<pre>
+事件循环和请求对象构成了Node.js的异步I/O模型的两个基本元素，这也是典型的消费者生产者场景。 </pre>
+<p>遗憾的是目前Node.js仅支持hex、utf8、ascii、binary、base64、ucs2几种编码的转换。对于那些因为历史遗留问题依旧还生存着的GBK，GB2312等编码，该方法是无能为力的。</p>
+<h2>有趣的string_decoder</h2>
+<p>在这个例子中，如果仔细观察，会发现一件有趣的事情发生在设置编码集之后。我们提到data += trunk等价于data = data.toString() + trunk.toString()。通过以下的代码可以测试到一个汉字占用三个字节，而我们按11个字节来截取trunk的话，依旧会存在一个汉字被分割在两个trunk中的情景。</p>
+<pre>
+console.log("事件循环和请求对象".length);
+console.log(new Buffer("事件循环和请求对象").length);
+</pre>
+<p>按照猜想的toString()方式，应该返回的是事件循xxx和请求xxx象才对，其中“环”字应该变成乱码才对，但是在设置了encoding（默认的utf8）之后，结果却正常显示了，这个结果十分有趣。</p>
+<p class="image-wide"><img _href="img://image1.png" _p="true" alt="" border="0" src="src/13c7100c8cf34c2e2c57a367ffa50fa5.png"/></p>
+<p>在好奇心的驱使下可以探查到<a href="https://github.com/joyent/node/blob/master/lib/fs.js#L1237">data事件</a>调用了string_decoder来进行编码补足的行为。通过string_decoder对象输出第一个截取Buffer(事件循xx)时，只返回事件循这个字符串，保留xx。第二次通过string_decoder对象输出时检测到上次保留的xx，将上次剩余内容和本次的Buffer进行重新拼接输出。于是达到正常输出的目的。</p>
+<p>string_decoder，目前在文件流读取和网络流读取中都有应用到，一定程度上避免了粗鲁拼接trunk导致的乱码错误。但是，遗憾在于string_decoder目前只支持utf8编码。它的思路其实还可以扩展到其他编码上，只是最终是否会支持目前尚不可得知。</p>
+<h2>连接Buffer对象的正确方法</h2>
+<p>那么万能的适应各种编码而且正确的拼接Buffer对象的方法是什么呢？我们从Node.js在github上的源码中找出这样一段<a href="https://github.com/joyent/node/blob/master/lib/fs.js#L107">正确读取文件，并连接buffer对象的方法</a>：</p>
+<pre>
+var buffers = [];
+var nread = 0;
+readStream.on('data', function (chunk) {
+    buffers.push(chunk);
+    nread += chunk.length;
+});
+readStream.on('end', function () {
+    var buffer = null;
+    switch(buffers.length) {
+        case 0: buffer = new Buffer(0);
+            break;
+        case 1: buffer = buffers[0];
+            break;
+        default:
+            buffer = new Buffer(nread);
+            for (var i = 0, pos = 0, l = buffers.length; i &lt; l; i++) {
+                var chunk = buffers[i];
+                chunk.copy(buffer, pos);
+                pos += chunk.length;
+            }
+        break;
+    }
+});
+
+</pre>
+<p>在end事件中通过细腻的连接方式，最后拿到理想的Buffer对象。这时候无论是在支持的编码之间转换，还是在不支持的编码之间转换（利用iconv模块转换），都不会导致乱码。</p>
+<h2>简化连接Buffer对象的过程</h2>
+<p>上述一大段代码仅只完成了一件事情，就是连接多个Buffer对象，而这种场景需求将会在多个地方发生，所以，采用一种更优雅的方式来完成该过程是必要的。笔者基于以上的代码封装出一个bufferhelper模块，用于更简洁地处理Buffer对象。可以通过NPM进行安装：</p>
+<pre>
+npm install bufferhelper </pre>
+<p>下面的例子演示了如何调用这个模块。与传统data += trunk之间只是bufferHelper.concat(chunk)的差别，既避免了错误的出现，又使得代码可以得到简化而有效地编写。</p>
+<pre>
+var http = require('http');  
+var BufferHelper = require('bufferhelper');
+http.createServer(function (request, response) {
+    var bufferHelper = new BufferHelper();
+    request.on("data", function (chunk) {
+    bufferHelper.concat(chunk);
+    });
+    request.on('end', function () {
+    var html = bufferHelper.toBuffer().toString();
+    response.writeHead(200);
+    response.end(html);
+    });
+
+}).listen(8001); 
+</pre>
+<p>所以关于Buffer对象的操作的最佳实践是：</p>
+<ul>
+<li>保持编码不变，以利于后续编码转换</li>
+<li>使用封装方法达到简洁代码的目的</li>
+</ul>
+<h2>参考</h2>
+<ul>
+<li><a href="https://github.com/joyent/node/blob/master/lib/fs.js#L107">https://github.com/joyent/node/blob/master/lib/fs.js#L107</a></li>
+<li><a href="https://github.com/JacksonTian/bufferhelper">https://github.com/JacksonTian/bufferhelper</a></li>
+</ul>
+<h2>关于作者</h2>
+<p>田永强，新浪微博<a href="http://weibo.com/shyvo">@朴灵</a>，前端工程师，曾就职于SAP，现就职于淘宝，花名朴灵，致力于NodeJS和Mobile Web  App方面的研发工作。双修前后端JavaScript，寄望将NodeJS引荐给更多的工程师。兴趣：读万卷书，行万里路。个人Github地 址：http://github.com/JacksonTian。</p>
+<hr/>
+<p>感谢<a href="http://www.infoq.com/cn/bycategory.action?authorName=崔康">崔康</a>对本文的审校。</p>
+<p>给InfoQ中文站投稿或者参与内容翻译工作，请邮件至<a href="mailto:editors@cn.infoq.com">editors@cn.infoq.com</a>。也欢迎大家通过新浪微博（<a href="http://www.weibo.com/infoqchina">@InfoQ</a>）或者腾讯微博（<a href="http://t.qq.com/infoqchina">@InfoQ</a>）关注我们，并与我们的编辑和其他读者朋友交流。</p>
+<div class="clear"></div>
+<div class="random_links">
+<ul>
+<li><a><span class="gray_color">领域</span></a></li>
+<li><a class="f_taxonomy" href="/cn/architecture-design" id="6,821" name="architecture-design"><b>架构 &amp; 设计</b></a></li> <li><a class="f_taxonomy" href="/cn/development" id="6,820" name="development"><b>语言 &amp; 开发</b></a></li>
+<li><a><span class="gray_color">专栏</span></a></li>
+<li><a class="f_taxonomy" href="/cn/nodejs" id="6,757" name="nodejs">Node.js</a></li> <li><a class="f_taxonomy" href="/cn/master-nodejs" id="6,978" name="master-nodejs">深入浅出Node.js</a></li> <li><a class="f_taxonomy" href="/cn/enterprise-architecture" id="786" name="enterprise-architecture">企业架构</a></li>
+</ul>
+</div>
+<div class="related_sponsors relEdRelRes">
+<div class="gray_section_related only1 fullWidth">
+<div class="related_editorial recommended only1">
+<p class="title">相关内容</p>
+<div class="links" id="editorial_links">
+<div class="clear"></div>
+</div>
+</div>
+</div>
+<div class="clear"></div>
+<div class="related_research"></div>
+</div>
+<script type="text/javascript">
+    $.ajax({
+        url: "/api/recommendationlinks.action",
+        contentType: "application/x-www-form-urlencoded; charset=utf-8",
+        type: 'POST',
+        data: {"topicIds": "2559,2007,2012,704", "title": "深入浅出Node.js（六）：Buffer那些事儿", "contentPath": "/articles/nodejs-about-buffer", "language": "zh"},
+        success: displayRelatedEditorial,
+        async: false
+    });
+    
+    function displayRelatedEditorial(data) {
+        var trackingCode = "?utm_source=infoq&utm_medium=related_content_link&utm_campaign=relatedContent_articles_clk";
+        if (data.length > 0) {
+            for (var i = 0; i < data.length; i++) {
+                if (i === 5) {
+                    break;
+                }
+                var link = $('<h3 title="" class="' + data[i].contentType + '">\n\
+                                    <a title="" href="' + data[i].url + trackingCode +
+                        '">' + data[i].title + '</a></h3>');
+                $('#editorial_links').append(link);
+            }
+            $('.gray_section_related > .related_editorial.recommended').css('display', 'block');
+        }
+    }
+</script>
+<script type="text/javascript">
+    
+        $(function() {
+        	var grayBox = $('.gray_section_related');
+            var recommendedColumn = $('.gray_section_related > .related_editorial.recommended');
+            var recommendedExists = $(recommendedColumn).css('display') === 'block';
+            var researchRow = $('.related_research');
+            var researchExists = $(researchRow).css('display') === 'block';
+
+            if (recommendedExists || researchExists) {
+                $('.related_sponsors.relEdRelRes').show(); // show the big related box
+            }
+
+            // in case all three available, leave now
+            if (recommendedExists) {
+            	$(grayBox).show(); // show the gray box for vcr and recommendations
+                return;
+            }
+        });
+</script>
+<div class="clear"></div>
+<div class="clear"></div>
+<script type="text/javascript">
+
+    var JSi18n = JSi18n || {}; // define only if not already defined
+    JSi18n.re='Re:';
+    JSi18n.errorSubject='Please enter a subject.';
+    JSi18n.errorBody='You can not post a blank message. Please type your message and try again.';
+    JSi18n.errorInvalidLinks='您的回复中包含无效的链接，请检查后重试';
+    JSi18n.stopWatchText='Stop Watching Thread';
+    JSi18n.startWatchText='Watch Thread';
+    JSi18n.timeExpiredMessage='已超出允许的5分钟编辑时长，我们为给您带来的不便深表抱歉。';
+    JSi18n.repostButtonFormat='重新发送 ($m 剩余)';
+    JSi18n.timeExpiredButton='超时';
+    JSi18n.sessionExpiredMessage='您的会话已超时，请登录后重新提交';
+    JSi18n.editLinkFormat='编辑 ($m 分钟剩余)';
+    JSi18n.enter_subject='请输入主题';
+    JSi18n.enter_message='信息';
+    JSi18n.content_datetime_format='yyyy年M月d日';
+
+var forumID=1;
+var threadID=24037;
+var ctxPath= '';
+var postAddress= ctxPath + '/forum/post!post.action?language=' + 'zh';
+var repostAddress= ctxPath + '/forum/repost.action?language=' + 'zh';
+var postAddWatches= ctxPath + '/forum/watches!add.action';
+var postRemoveWatches= ctxPath + '/forum/watches!remove.action';
+var threadWatched=false;
+var forumNotificationDefault=true;
+var commentEditPeriod=5;
+</script>
+<script src="src/238ce704d3437c5828c2b330a3de60f9.js" type="text/javascript"></script>
+<script src="src/0c802345f3b65cb365b03f6dba0698a3.js" type="text/javascript"></script>
+<script src="src/3aa55873932547c0c9945cc741d310f4.js" type="text/javascript"></script>
+<div class="comment_here" id="comment_here">
+<div id="postFormDeck">
+<div id="deckText">
+<h2>您好，朋友！</h2>
+                您需要 <a href="/cn/reginit.action">注册一个InfoQ账号</a> 或者
+                <a class="login" href="javascript:;">登录</a> 才能进行评论。在您完成注册后还需要进行一些设置。<br/>
+<div id="getMost"><h2>获得来自InfoQ的更多体验。</h2></div>
+</div>
+</div>
+<a id="theCommentsSection"></a>
+<h3>告诉我们您的想法</h3>
+<form action="" enctype="multipart/form-data" method="post" name="" onsubmit="return false;" target="">
+<div class="area" name="comments">
+<input id="subject" type="text" value=""/>
+<textarea id="body"></textarea>
+</div>
+<div class="clear"></div>
+<p class="allowed">允许的HTML标签: a,b,br,blockquote,i,li,pre,u,ul,p</p>
+<input class="checkReply" id="emailMe" name="emailMe" type="checkbox">
+<span class="tocheck">当有人回复此评论时请E-mail通知我</span>
+<div class="clear"></div>
+<input class="submit" id="subButton" type="button" value="发送信息">
+</input></input></form>
+<div class="clear"></div>
+</div>
+<div class="comments">
+<div class="comments_title">社区评论 
+                <span id="watch">
+<a class="watch_thread" href="javascript:void(0)"></a>
+</span>
+</div>
+<div class="clear"></div>
+<div class="comment_title lvl0" id="com85797">
+<a href="#anch85797" title="">
+<strong>出现乱码了，修改下吧</strong>
+<span>
+                            by
+                            文 海如
+                            Posted
+                            <span class="treeRelativeTime"></span>
+</span>
+</a>
+</div>
+<div class="comment_title lvl1" id="com85798">
+<a href="#anch85798" title="">
+<strong>Re: 出现乱码了，修改下吧</strong>
+<span>
+                            by
+                            胡 伟红
+                            Posted
+                            <span class="treeRelativeTime"></span>
+</span>
+</a>
+</div>
+<div class="comment_title lvl1" id="com85799">
+<a href="#anch85799" title="">
+<strong>Re: 出现乱码了，修改下吧</strong>
+<span>
+                            by
+                            yuan MK2
+                            Posted
+                            <span class="treeRelativeTime"></span>
+</span>
+</a>
+</div>
+<div class="comment_title lvl2" id="com85805">
+<a href="#anch85805" title="">
+<strong>Re: 出现乱码了，修改下吧</strong>
+<span>
+                            by
+                            雷 宗民
+                            Posted
+                            <span class="treeRelativeTime"></span>
+</span>
+</a>
+</div>
+<div class="comment_title lvl1" id="com86306">
+<a href="#anch86306" title="">
+<strong>Re: 出现乱码了，修改下吧</strong>
+<span>
+                            by
+                            bin liu
+                            Posted
+                            <span class="treeRelativeTime"></span>
+</span>
+</a>
+</div>
+<div class="comment_title lvl2" id="com88579">
+<a href="#anch88579" title="">
+<strong>Re: 出现乱码了，修改下吧</strong>
+<span>
+                            by
+                            苏 洋航
+                            Posted
+                            <span class="treeRelativeTime"></span>
+</span>
+</a>
+</div>
+<div class="comment_title lvl0" id="com92895">
+<a href="#anch92895" title="">
+<strong>建议楼主研究一下字符串编码</strong>
+<span>
+                            by
+                            吕 国瑞
+                            Posted
+                            <span class="treeRelativeTime"></span>
+</span>
+</a>
+</div>
+</div>
+<div class="all_comments">
+<div class="answers" id="ans85797">
+<a name="anch85797"></a>
+<p>
+<b class="title">出现乱码了，修改下吧</b>
+<span>
+<span class="bodyRelativeTime"></span>
+                            by
+                            <q>文 海如</q>
+</span>
+</p>
+<div class="flat_comment_body">
+                        出现乱码了，修改下吧
+                    </div>
+<div class="clear"></div>
+<ul class="help_links">
+<li><a class="reply_flat" href="javascript:;" title="">回复</a></li>
+<li><a class="backtop" href="#" title="">回到顶部</a></li>
+</ul>
+<div class="clear"></div>
+<input name="tmstmp" type="hidden" value="1334566325650"/>
+<input name="createdOn" type="hidden" value="2012年4月16日"/>
+<input name="isNotificationOn" type="hidden" value="false"/>
+</div>
+<div class="answers" id="ans85798">
+<a name="anch85798"></a>
+<p>
+<b class="title">Re: 出现乱码了，修改下吧</b>
+<span>
+<span class="bodyRelativeTime"></span>
+                            by
+                            <q>胡 伟红</q>
+</span>
+</p>
+<div class="flat_comment_body">
+                        这是作者作为举例故意设置的乱码。
+                    </div>
+<div class="clear"></div>
+<ul class="help_links">
+<li><a class="reply_flat" href="javascript:;" title="">回复</a></li>
+<li><a class="backtop" href="#" title="">回到顶部</a></li>
+</ul>
+<div class="clear"></div>
+<input name="tmstmp" type="hidden" value="1334571199831"/>
+<input name="createdOn" type="hidden" value="2012年4月16日"/>
+<input name="isNotificationOn" type="hidden" value="false"/>
+</div>
+<div class="answers" id="ans85799">
+<a name="anch85799"></a>
+<p>
+<b class="title">Re: 出现乱码了，修改下吧</b>
+<span>
+<span class="bodyRelativeTime"></span>
+                            by
+                            <q>yuan MK2</q>
+</span>
+</p>
+<div class="flat_comment_body">
+                        这个回复很搞！
+                    </div>
+<div class="clear"></div>
+<ul class="help_links">
+<li><a class="reply_flat" href="javascript:;" title="">回复</a></li>
+<li><a class="backtop" href="#" title="">回到顶部</a></li>
+</ul>
+<div class="clear"></div>
+<input name="tmstmp" type="hidden" value="1334572997990"/>
+<input name="createdOn" type="hidden" value="2012年4月16日"/>
+<input name="isNotificationOn" type="hidden" value="true"/>
+</div>
+<div class="answers" id="ans85805">
+<a name="anch85805"></a>
+<p>
+<b class="title">Re: 出现乱码了，修改下吧</b>
+<span>
+<span class="bodyRelativeTime"></span>
+                            by
+                            <q>雷 宗民</q>
+</span>
+</p>
+<div class="flat_comment_body">
+                        原谅人家太匆忙，没仔细看内容。。。。信息爆炸时代，要速度！速读！
+                    </div>
+<div class="clear"></div>
+<ul class="help_links">
+<li><a class="reply_flat" href="javascript:;" title="">回复</a></li>
+<li><a class="backtop" href="#" title="">回到顶部</a></li>
+</ul>
+<div class="clear"></div>
+<input name="tmstmp" type="hidden" value="1334627715778"/>
+<input name="createdOn" type="hidden" value="2012年4月16日"/>
+<input name="isNotificationOn" type="hidden" value="true"/>
+</div>
+<div class="answers" id="ans86306">
+<a name="anch86306"></a>
+<p>
+<b class="title">Re: 出现乱码了，修改下吧</b>
+<span>
+<span class="bodyRelativeTime"></span>
+                            by
+                            <q>bin liu</q>
+</span>
+</p>
+<div class="flat_comment_body">
+                        回复是亮点：）
+                    </div>
+<div class="clear"></div>
+<ul class="help_links">
+<li><a class="reply_flat" href="javascript:;" title="">回复</a></li>
+<li><a class="backtop" href="#" title="">回到顶部</a></li>
+</ul>
+<div class="clear"></div>
+<input name="tmstmp" type="hidden" value="1335885384687"/>
+<input name="createdOn" type="hidden" value="2012年5月1日"/>
+<input name="isNotificationOn" type="hidden" value="false"/>
+</div>
+<div class="answers" id="ans88579">
+<a name="anch88579"></a>
+<p>
+<b class="title">Re: 出现乱码了，修改下吧</b>
+<span>
+<span class="bodyRelativeTime"></span>
+                            by
+                            <q>苏 洋航</q>
+</span>
+</p>
+<div class="flat_comment_body">
+                        不看完内容就随意评论的人,拉出去砍了...
+                    </div>
+<div class="clear"></div>
+<ul class="help_links">
+<li><a class="reply_flat" href="javascript:;" title="">回复</a></li>
+<li><a class="backtop" href="#" title="">回到顶部</a></li>
+</ul>
+<div class="clear"></div>
+<input name="tmstmp" type="hidden" value="1342506376315"/>
+<input name="createdOn" type="hidden" value="2012年7月17日"/>
+<input name="isNotificationOn" type="hidden" value="false"/>
+</div>
+<div class="answers" id="ans92895">
+<a name="anch92895"></a>
+<p>
+<b class="title">建议楼主研究一下字符串编码</b>
+<span>
+<span class="bodyRelativeTime"></span>
+                            by
+                            <q>吕 国瑞</q>
+</span>
+</p>
+<div class="flat_comment_body">
+                        “但是，遗憾在于string_decoder目前只支持utf8编码。它的思路其实还可以扩展到其他编码上，只是最终是否会支持目前尚不可得知。”<br>只支持UTF8是因为UTF8是一种可自纠错的编码方式，读到第一个字节后可确切地知识后续还需要几个字节来组成一个字符。思路是不可以扩展到其它编码上的
+                    </br></div>
+<div class="clear"></div>
+<ul class="help_links">
+<li><a class="reply_flat" href="javascript:;" title="">回复</a></li>
+<li><a class="backtop" href="#" title="">回到顶部</a></li>
+</ul>
+<div class="clear"></div>
+<input name="tmstmp" type="hidden" value="1355381884148"/>
+<input name="createdOn" type="hidden" value="2012年12月13日"/>
+<input name="isNotificationOn" type="hidden" value="false"/>
+</div>
+</div>
+<!-- overlay -->
+<div id="overlay_comments">
+<a class="close_comment" href="javascript:;" title="">关闭</a>
+<h4><strong></strong> by <span id="author"></span> <span id="timepast"></span></h4>
+<p id="body"></p>
+<div class="alt">
+<span>发布于 <span id="timestamp"></span></span>
+</div>
+<div class="clear"></div>
+<ul class="help_links">
+<li><a class="view" title="">查看</a></li>
+<li><a class="reply" href="javascript:;" title="">回复</a></li>
+<li><a class="backtop" href="#" title="">回到顶部</a></li>
+</ul>
+<div class="clear"></div>
+</div>
+<!-- reply box -->
+<div class="popupLoginComments" id="replyPopup">
+<a class="close_login_popup" href="javascript:;" title="">关闭</a>
+<form action="" method="post" name="tpopup-reply" onsubmit="return false;" target="">
+<label class="label_login">主题</label>
+<input class="login_text subject" name="subject" type="text">
+<label class="label_login">
+            	您的回复
+            	<a href="#" onclick="CommentsHandler.quoteOriginalMessage();return false;" style="float: right; text-decoration: underline; font-weight: normal; color: grey;">
+            		引用原消息
+            	</a>
+</label>
+<textarea class="commentsReply" name="commentsReply"></textarea>
+<div class="clear"></div>
+<p class="error allowed"></p>
+<div class="clear"></div>
+<p class="allowed">允许的HTML标签: a,b,br,blockquote,i,li,pre,u,ul,p</p>
+<input class="checkReply emailMe" id="emailMe" name="emailMe" type="checkbox">
+<span class="tocheck">当有人回复此评论时请E-mail通知我</span>
+<div class="clear"></div>
+<input id="submit-reply" name="submit-reply" type="button" value="发送信息">
+<input class="reset-reply" name="reset-reply" type="reset" value="取消">
+</input></input></input></input></form>
+</div>
+<!-- edit comment box -->
+<div class="popupLoginComments" id="editCommentPopup">
+<a class="close_login_popup" href="javascript:;" title="">关闭</a>
+<form action="" method="post" name="tpopup-reply" onsubmit="return false;" target="">
+<label class="label_login">主题</label>
+<input class="login_text subject" name="subject" type="text">
+<label class="label_login">您的回复</label>
+<textarea class="commentsReply" name="commentsReply"></textarea>
+<div class="clear"></div>
+<p class="error allowed"></p>
+<div class="clear"></div>
+<p class="allowed">允许的HTML标签: a,b,br,blockquote,i,li,pre,u,ul,p</p>
+<input class="checkReply emailMe" id="emailMe" name="emailMe" type="checkbox">
+<span class="tocheck">当有人回复此评论时请E-mail通知我</span>
+<div class="clear"></div>
+<p class="time_expired allowed"></p>
+<input id="resubmit-reply" name="submit-reply" type="button" value="">
+<input class="reset-reply" name="reset-reply" type="reset" value="取消">
+</input></input></input></input></form>
+</div>
+<!-- notification popup -->
+<div class="popupLoginComments" id="messagePopup">
+<a class="close_login_popup" href="javascript:;" title="">关闭</a>
+<div class="clear"></div>
+<p class="allowed"></p>
+<div class="clear"></div>
+<input class="reset-reply" name="reset-reply" type="reset" value="OK">
+</input></div>
+<div id="responseContent"></div>
+<a class="comments_like" href="#theCommentsSection" id="noOfComments" title="">
+<span class="comments_counts">
+<span class="nr">
+	        		7
+	        	</span>
+</span>
+			讨论
+	    
+	    
+	</a>
+</div>
+<div class="clear"></div>
+</div></body></html>

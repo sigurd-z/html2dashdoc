@@ -1,0 +1,85 @@
+<html><head>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+<title>Cocos API风格说明_Cocos帮助文档_Cocos引擎_游戏开发引擎_Cocos引擎官网</title>
+<meta content="IE=8" http-equiv="X-UA-Compatible">
+<meta content="Cocos帮助文档,Cocos2d-x文档,Cocos2d-JS文档,Cocos Code IDE文档,Quick-Cocos2d-x文档,Cocos API,Cocos,Cocos引擎,Cocos介绍,Cocos文档,Cocos特点,Cocos引擎下载,Cocos官网,游戏引擎,游戏引擎下载,游戏开发引擎,html5游戏开发,Android游戏开发,ios游戏开发,游戏开发方案,游戏开发工具" name="keywords"/>
+<meta content="Cocos提供了全套的引擎和开发工具,涵盖从前期设计,资源制作,开发调试,打包上线全套的解决方案,Cocos重点优化了工作流,规范了整个游戏开发流程,降低沟通成本,提高开发效率" name="description"/>
+<link href="src/2ef9a86fb35d52ac11578452ccf1485f.css" rel="stylesheet" type="text/css"/>
+<link href="src/88a5440cf79e2c8f05f9f10ce6aba841.css" rel="stylesheet" type="text/css"/>
+<link href="src/aade560970aa998972e368caf1c78181.css" rel="stylesheet" type="text/css"/>
+<script src="src/07bd722c9fad66b606a50c3acc1af50f.js" type="text/javascript"></script>
+<script src="src/de92148ebc93b342e9b5b8f21d7fe69c.js" type="text/javascript"></script>
+<script src="https://passport.cocos.com/sso/get_sso_header?client_id=161" type="text/javascript"></script>
+<script src="src/bd48e73433c4825b90f3554d64a5ae4f.js" type="text/javascript"></script>
+</meta></head><body style="padding:0 25px;"><div class="itemdoc">
+<h1>Cocos API风格说明</h1>
+<p>适用版本：v3.0-beta2及更高版本</p>
+<h2>两阶段构造器及静态create()函数</h2>
+<p>在Cocos2d-x引擎中，我们使用了两阶段构造器，这不仅指Objective-C实现文件（implementation），也与Symbian SDK及Bada SDK相似。我认为这一举措在C++编程中很不错。</p>
+<p>第一阶段是运行C++类构造器。在C++类的默认构造器中，成员变量须设定为默认值。但我们不应在默认构造器中编写任何逻辑。例如</p>
+<pre><code class="language-cpp">MyClass::MyClass()  // c++ class constructor
+:_data(NULL)      // set all member variables to default values
+,_flag(false)
+,_count(0)
+{
+    memset(_array, 0, sizeof(_array));   // only set default values here, but not logics
+}</code></pre>
+<p>我们之所以不应在这里编写任何逻辑，是因为C++默认构造器不能返回表明我们逻辑正确与否的bool 值。</p>
+<p>使用C++关键词<code>try</code>/<code>catch</code>（捕获/异常）同样会给调用方返回失败状态，但是使用<code>try</code>/<code>catch</code>（捕获/异常）显然将增加你源代码编译后的二进制文件的大小。</p>
+<p>第二阶段是调用MyClass::init()函数，如下。</p>
+<pre><code class="language-cpp">bool MyClass::initWithFilename(const std::string&amp; filename)
+{
+    // just take loading texture as a sample, this behaviour can fail if the image file doesn't  exist. 
+    bool bReturnValue = loadTextureIntoMemory(filename);  
+    return bReturnValue;
+}</code></pre>
+<p>所以，我们可以构建如下</p>
+<pre><code class="language-cpp">MyClass* obj = new MyClass;
+ if (true == obj-&gt;initWithFilename("texture.png"))
+ {
+     // congratulations, go ahead!
+ }
+ else
+ {
+     // error process
+ }</code></pre>
+<p>在Cocos2d-x引擎中，我们已对这一两阶段构造器进行包装，并在静态函数create()中自动释放引用计数。除了单例模式，每一个cocos2d类都有自己的static CCClass* CCClass::create(...)方法。极力推荐这一方法。代码样本：</p>
+<pre><code class="language-cpp">Sprite* monster = Sprite::create("Monster.png");
+monster-&gt;setPosition(ccp(visibleSize.width/2 + origin.x, visibleSize.height/2 + origin.y));
+this-&gt;addChild(monster);</code></pre>
+<p>所以，如果你希望新建cocos2d的对象，比如Sprite, Label, Action，你必须首先从头文件或API文件中找到它的CocosClass::create() 方法。</p>
+<h2>doSomething()</h2>
+<p>这是最常见的函数名，在Cocos2d-x/-html5引擎中处处都有应用到。第一个字是一个动词，第二个字是一个名词。比如：<code>replaceScene(CCScene*)</code> 和 <code>getTexture()</code>。</p>
+<h2>doWithResource()</h2>
+<p>它是doSomething()方法的变体。在<code>initWithTexture(CCTexture*)</code> 和 <code>initWithFilename(const std::string&amp;)</code>中，你经常可以看见这一函数名。</p>
+<h2>onEventCallback()</h2>
+<p>当你看到类似<code>void onEnter()</code>的函数名时，<code>onAction</code>类型表明这是一个回调函数。当引发一定条件时，其他类将调用这一方法。比如：</p>
+<pre><code class="language-cpp">class Layer
+{
+public:
+    virtual void onEnter();
+    virtual void onExit();
+    virtual void onEnterTransitionDidFinish();
+}</code></pre>
+<h2>getInstance()</h2>
+<p>在Cocos2d-x引擎中，如果你没有发现<code>create()</code>，只发现了<code>getInstance()</code>方法，它就属于单例模式类。比如，<code>TextureCache::getInstance()</code>。单例类对应的析构方式是<code>destroyInstance()</code>。
+在v3.0之前，单例类的构造方式是<code>CocosClass::sharedCocosClass()</code>，比如<code>TextureCache::sharedTextureCache()</code>。这个方法在v3.0中仍然可以兼容，但不保证在v3.0更后面的版本中仍然保留。</p>
+<h2>属性</h2>
+<p>因为在C++ 和 C++11中没有"property" （“属性”）这个概念，所以我们在Cocos2d-x引擎中使用了许多getter和setters。</p>
+<h3>setProperty()</h3>
+<p>改变属性的值。这通常会影响到对象的行为。比如 <code>_sprite-&gt;setPosition(ccp(0,0))</code> 会将精灵移动到左下角。</p>
+<h3>getProperty()</h3>
+<p>与<code>setProperty</code>不同，<code>getProperty</code>将不会改变对象的成员变量及行为。比如，我们通常使用 <code>_director-&gt;getVisibleSize().width</code>获得可见大小或窗口大小以计算对象的方位。</p>
+<p><code>getProperty()</code>函数的默认类型如下：</p>
+<pre><code class="language-cpp">const CCSize&amp; getSize() const;</code></pre>
+<p>首先，根据性能优化，在此，我们返回CCSize引用，而不是构建另一个CCSize。当改变这一CCSize&amp;时，该对象的内部成员变量将会受到影响，所以这一CCSize&amp;属于常量。</p>
+<p>第二，getSize()方法不应改变该对象的其他成员变量，所以这一函数本身属于常量。</p>
+<h3>isProperty()</h3>
+<p>和getProperty一样，但会返回一个boolean值。</p>
+<p>总结起来：</p>
+<ul>
+<li>如果属性为“只读”，将不会有<code>setProperty(type)</code>方法；</li>
+<li>如果属性为一个bool值，将会有<code>setProperty(bool)</code>及 <code>isProperty()</code>方法。 比如：<code>Sprite::isDirty()</code>和<code>Sprite::setDirty(bool bDirty)</code>。</li>
+<li>如果属性不是一个bool值，将会有 <code>setProperty(type)</code> 和 <code>getProperty()</code> 方法。比如： <code>void Sprite::setTexture(Texture2D*)</code> 和 <code>Texture2D* CCSprite::getTexture()</code>。</li>
+</ul>
+</div></body></html>

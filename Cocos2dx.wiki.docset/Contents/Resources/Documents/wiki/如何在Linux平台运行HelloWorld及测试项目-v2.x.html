@@ -1,0 +1,62 @@
+<html><head>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+<title>如何在Linux平台运行HelloWorld及测试项目_Cocos帮助文档_Cocos引擎_游戏开发引擎_Cocos引擎官网</title>
+<meta content="IE=8" http-equiv="X-UA-Compatible">
+<meta content="Cocos帮助文档,Cocos2d-x文档,Cocos2d-JS文档,Cocos Code IDE文档,Quick-Cocos2d-x文档,Cocos API,Cocos,Cocos引擎,Cocos介绍,Cocos文档,Cocos特点,Cocos引擎下载,Cocos官网,游戏引擎,游戏引擎下载,游戏开发引擎,html5游戏开发,Android游戏开发,ios游戏开发,游戏开发方案,游戏开发工具" name="keywords"/>
+<meta content="Cocos提供了全套的引擎和开发工具,涵盖从前期设计,资源制作,开发调试,打包上线全套的解决方案,Cocos重点优化了工作流,规范了整个游戏开发流程,降低沟通成本,提高开发效率" name="description"/>
+<link href="src/2ef9a86fb35d52ac11578452ccf1485f.css" rel="stylesheet" type="text/css"/>
+<link href="src/88a5440cf79e2c8f05f9f10ce6aba841.css" rel="stylesheet" type="text/css"/>
+<link href="src/aade560970aa998972e368caf1c78181.css" rel="stylesheet" type="text/css"/>
+<script src="src/07bd722c9fad66b606a50c3acc1af50f.js" type="text/javascript"></script>
+<script src="src/de92148ebc93b342e9b5b8f21d7fe69c.js" type="text/javascript"></script>
+<script src="https://passport.cocos.com/sso/get_sso_header?client_id=161" type="text/javascript"></script>
+<script src="src/bd48e73433c4825b90f3554d64a5ae4f.js" type="text/javascript"></script>
+</meta></head><body style="padding:0 25px;"><div class="itemdoc">
+<h1>如何在Linux平台运行HelloWorld及测试项目</h1>
+<p>Cocos2d-x引擎自Cocos2d-1.0.1-x-0.9.2版本以来支持Linux平台。
+本文介绍如何在Linux及Android模拟器中运行HelloWorld及测试项目。
+运行环境为Ubuntu 11.04 + eclipse3.7。</p>
+<h2>1. 搭建环境</h2>
+<h3>1.1 获取Cocos2d-x源代码</h3>
+<p>a) 执行以下命令从git获取最新的Cocos2d-x源代码（不稳定）：</p>
+<pre><code>git clone https://github.com/cocos2d/cocos2d-x.git</code></pre>
+<p>b) 从以下网站下载发行版源代码（稳定）：   <br/>
+<a href="http://cn.cocos2d-x.org/download"><a href="http://cn.cocos2d-x.org/download" target="_blank">http://cn.cocos2d-x.org/download</a></a></p>
+<h3>1.2 安装Android SDK，使用Eclipse作为集成开发环境</h3>
+<p>安装Android SDK请参见 <a href="http://developer.android.com/sdk/index.html"><a href="http://developer.android.com/sdk/index.html" target="_blank">http://developer.android.com/sdk/index.html</a></a>。</p>
+<p>请用以下方法安装JDK</p>
+<pre><code>sudo add-apt-repository "deb http://archive.canonical.com/ lucid partner" 
+sudo apt-get update
+sudo apt-get install sun-java6-jdk</code></pre>
+<h3>1.3. install cdt for eclipse to compile c/c++ codes in eclipse在Eclipse中安装CDT以编译c/c++代码</h3>
+<p>打开Eclipse依次单击Help -&gt; Install New Software... -&gt; Add...如下图所示。</p>
+<p><img alt="" src="src/944bc445e3de8e30172d7253cd71085e.jpg"/></p>
+<p>CDT链接为 <a href="http://download.eclipse.org/tools/cdt/releases/helios"><a href="http://download.eclipse.org/tools/cdt/releases/helios" target="_blank">http://download.eclipse.org/tools/cdt/releases/helios</a></a>。</p>
+<h3>1.4. install needed libs 安装所需的库</h3>
+<pre><code>sudo apt-get install  libgl1-mesa-dev libglfw-dev freeglut3-dev libzip-dev</code></pre>
+<p>如果执行该命令遇到问题，可尝试在安装库之前运行以下命令：    </p>
+<pre><code>sudo apt-get -f</code></pre>
+<h2>2. 用makefile运行</h2>
+<p>首先，编译所有库    </p>
+<pre><code>cd $COCOS2DX
+./build_linux.sh</code></pre>
+<p>COCOS2DX是Cocos2d-x的根目录。用makefile运行很简单。如下：      </p>
+<pre><code>cd $HELLOWORLD/linux/
+make
+./HelloWorld</code></pre>
+<p>HELLOWORLD是helloworld的根目录，在本机环境的路径为“/home/zhangxm/cocos2d-x/HelloWorld”。你可以用相同的方法运行测试项目，很简单吧？</p>
+<h2>3. 用Eclipse运行</h2>
+<p>首先，导入现存项目，依次单击File -&gt; Import...。如下所示：</p>
+<p><img alt="" src="src/d94a0e7e04c06ab13838bb529695c85a.jpg"/></p>
+<p>然后选择Cocos2d-x根目录。</p>
+<p><img alt="" src="src/dbcf8a184a4b58837ab0d11d97966b58.jpg"/></p>
+<p>现在你可以编译运行HelloWorld及测试项目。</p>
+<ul>
+<li>编译  <br/>
+右键单击HelloWorld项目，选择“Build Project”（编译项目）</li>
+<li>运行    <br/>
+右键单击HelloWorld项目，选择“Run as”（运行项目），再选择“Local c/c++ Application”即可运行。</li>
+</ul>
+<h2>4. 在Android模拟器上运行</h2>
+<p>请参见<a href="http://">如何在NDK R4和R5中运行HelloWorld项目</a>。</p>
+</div></body></html>

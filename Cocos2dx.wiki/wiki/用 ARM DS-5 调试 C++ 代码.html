@@ -1,0 +1,117 @@
+<html><head>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+<title>用 DS-5 调试 C++ 代码_Cocos帮助文档_Cocos引擎_游戏开发引擎_Cocos引擎官网</title>
+<meta content="IE=8" http-equiv="X-UA-Compatible">
+<meta content="Cocos帮助文档,Cocos2d-x文档,Cocos2d-JS文档,Cocos Code IDE文档,Quick-Cocos2d-x文档,Cocos API,Cocos,Cocos引擎,Cocos介绍,Cocos文档,Cocos特点,Cocos引擎下载,Cocos官网,游戏引擎,游戏引擎下载,游戏开发引擎,html5游戏开发,Android游戏开发,ios游戏开发,游戏开发方案,游戏开发工具" name="keywords"/>
+<meta content="Cocos提供了全套的引擎和开发工具,涵盖从前期设计,资源制作,开发调试,打包上线全套的解决方案,Cocos重点优化了工作流,规范了整个游戏开发流程,降低沟通成本,提高开发效率" name="description"/>
+<link href="src/2ef9a86fb35d52ac11578452ccf1485f.css" rel="stylesheet" type="text/css"/>
+<link href="src/88a5440cf79e2c8f05f9f10ce6aba841.css" rel="stylesheet" type="text/css"/>
+<link href="src/aade560970aa998972e368caf1c78181.css" rel="stylesheet" type="text/css"/>
+<script src="src/07bd722c9fad66b606a50c3acc1af50f.js" type="text/javascript"></script>
+<script src="src/de92148ebc93b342e9b5b8f21d7fe69c.js" type="text/javascript"></script>
+<script src="https://passport.cocos.com/sso/get_sso_header?client_id=161" type="text/javascript"></script>
+<script src="src/bd48e73433c4825b90f3554d64a5ae4f.js" type="text/javascript"></script>
+</meta></head><body style="padding:0 25px;"><div class="itemdoc">
+<h1>用 DS-5 调试 C++ 代码</h1>
+<p>在 Cocos Code IDE 中调试安卓的 C++ 代码，需要先安装好 ARM DS-5 插件，如果还未安装，<a href="http://www.cocos.com/doc/article/index?type=code-ide&amp;url=/doc/cocos-docs-master/manual/code-ide/ds-5/debug-with-ds-5/../zh.md">请点击这里</a>。</p>
+<p>用 DS-5 调试安卓的 C++ 代码，需要做一些配置工作，高兴的告诉大家，Cocos Code IDE 从1.1.0版本开始，内置了 DS-5 调试的配置向导，帮助大家自动完成配置 DS-5 调试所需的设置。此外，调试还需要以下工具：</p>
+<ul>
+<li>Cocos2d-x 3.3 或 Cocos2d-JS 3.2 及以上版本</li>
+<li>Android SDK</li>
+<li>Android NDK r10c 及以上版本</li>
+<li>Apache Ant 1.9 及以上版本</li>
+</ul>
+<h2>DS-5 调试步骤</h2>
+<hr/>
+<ol>
+<li>首先建立一个包含C++代码的游戏工程，在选择工程之后，点击工具栏上的"DS-5 Debug..."按钮。 <br/>
+<img alt="" src="src/50b2978b249759b448c97d4825b3197f.jpg"/></li>
+<li>如果还没有配置好安卓的编译环境，则会打开设置对话框。如果之前已经设置好，则会跳过此步骤。 
+<img alt="" src="src/774f747d4350502538b63b370ef097a4.jpg"/></li>
+<li>编译设置除了选择安卓SDK的版本之外，还需要设置使用哪个版本的GCC工具链来编译C++代码，因为目前DS-5只支持调试用GCC编译的程序。GCC的版本最好选择高版本的，因为用低版本的GCC编译引擎时可以会出现编译不通过或编译后程序运行不正常的情况。如果在本机的编译环境中工程已配置好了用GCC编译，那么在此页面中可以选择不指定GCC版本。<br/>
+<img alt="" src="src/b12c855532577fc495d43af5e5167925.jpg"/></li>
+<li>设置好编译选项后点击"Generate"就可以开始编译了。编译需要一段时间，编译成功后，点击"Debug..." 进入 DS-5 的配置界面。<br/>
+<img alt="" src="src/c2bc1ec78b91f01b7371b5ee31b91634.jpg"/></li>
+<li>配置界面中所有配置已经被向导设置好了，此时只要用 USB 连接好一个调试模式已打开的安卓设备且被正确识别，就可以点击"Debug"开始调试了。<br/>
+<img alt="" src="src/454b278b40282be29081ec891e19a71b.jpg"/></li>
+<li>调试开始后，DS-5  会自动中断下来，此时可以在左上角的工程管理界面选择需要下断点的文件。<br/>
+<img alt="" src="src/37bba2f3d58894ee17da9719e2c2cd7c.jpg"/></li>
+<li>双击打开后在需要的地方双击代码窗口左边栏就可以设置断点了。<br/>
+<img alt="" src="src/3484d1c1e744e734364ff47fd4dd9a15.jpg"/></li>
+<li>不过目前 DS-5 安卓调试时还不能中断到程序入口处，所以可能开始部分代码已经运行过去了。断点设置好后，点击"继续执行"或按"F8"继续执行，执行到下断点的函数就会自动停下来调试了。<br/>
+<img alt="" src="src/288615fab4d6a2535fe84e19dd0ce1ae.jpg"/></li>
+<li>停止调试后，可以在 DS-5 的左上角的"Debug"界面重新起动调试。如果修改的C++代码，需要重新编译，此时可以工程上右键菜单中选择"Cocos Tools"-&gt;"DS-5 Debug ..."打开向导重新开始编译。当然，以其它方式编译代码也是可以的。<br/>
+<img alt="" src="src/50b2978b249759b448c97d4825b3197f.jpg"/></li>
+</ol>
+<hr/>
+<p>按上面的步骤就可以在 Cocos Code IDE 中使用 DS-5 在安卓平台调试 C++ 代码啦，那可不可以同时调试游戏的 C++ 代码和脚本代码呢？答案是可以！
+很简单，只要在 DS-5 调试启动后，让游戏停留在等待连接界面，然后切换到 Lua 或 JS 的开发界面，通过 "Remote Debug"的方式启动脚本调试就好了。详细步骤请参考<a href="http://www.cocos.com/doc/article/index?type=code-ide&amp;url=/doc/cocos-docs-master/manual/code-ide/ds-5/debug-with-ds-5/../../function-guides/debugging/how-to-debug-cpp/zh.md">《如何同时调试脚本代码和C++代码》</a>。</p>
+<h2>小提示</h2>
+<ul>
+<li>
+<p>Cocos Code IDE 中安卓编译相关功能已测试的 Cocos 引擎版本和所需 NDK 版本对应表：</p>
+<table>
+<thead>
+<tr>
+<th align="left">引擎版本</th>
+<th align="center">编译模拟器</th>
+<th align="center">打APK包</th>
+<th align="center">DS-5 调试</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">Cocos2d-x 3.3</td>
+<td align="center">r10c</td>
+<td align="center">r10c</td>
+<td align="center">r10c</td>
+</tr>
+<tr>
+<td align="left">Cocos2d-x 3.2</td>
+<td align="center">r9d, r10c</td>
+<td align="center">r9d, r10c</td>
+<td align="center">r10c</td>
+</tr>
+<tr>
+<td align="left">Cocos2d-JS 3.2RC0</td>
+<td align="center">r9d, r10c</td>
+<td align="center">r9d, r10c</td>
+<td align="center">r10c</td>
+</tr>
+<tr>
+<td align="left">Cocos2d-JS 3.1</td>
+<td align="center">r9d, r10c</td>
+<td align="center">r9d, r10c</td>
+<td align="center">r10c*</td>
+</tr>
+<tr>
+<td align="left">Cocos2d-JS 3.0</td>
+<td align="center">r9d, r10c</td>
+<td align="center">r9d, r10c</td>
+<td align="center">r10c*</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>*</strong>: 需要使用GCC4.9重新编译external中的库    </li>
+</ul>
+</li>
+<li>
+<p>在Cocos2d-x 引擎3.3正式版中对 DS-5 调试做了相应的调整，如是其它版本的引擎用 DS-5 调试时会出现在手机上点击"Play"按钮无法执行游戏的问题，需要修改"<project>/frameworks/runtime-src/Classes/runtime/Runtime.cpp"中的"lua_cocos2dx_runtime_addSearchPath"为：</project></p>
+<pre><code>int lua_cocos2dx_runtime_addSearchPath(lua_State* tolua_S)
+{
+    ......
+// Modify the 'if' condition, at line: 1090
+#if(CC_TARGET_PLATFORM == CC_PLATFORM_IOS || CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
+    cobj-&gt;addSearchPath(originPath);
+#endif
+    ......
+}</code></pre>
+</li>
+<li>
+<p>DS-5 识别通过"USB"连接的设备，需要调用安卓 SDK 中的"adb"命令。在Windows系统上Cocos Code IDE已自动把"adb"的路径设置给 DS-5，但在 Mac 系统上无法设置。如果在终端中无法访问"adb"命令，可以在终端执行如下命令解决问题：  </p>
+<pre><code>$&gt;sudo ln &lt;Android SDK&gt;/platform-tools/adb /usr/bin/adb</code></pre>
+</li>
+<li>想了解更多 DS-5 相关信息，请参考 ARM 官方文档：<a href="http://ds.arm.com/zh-cn/developer-resources/tutorials/android-native-app-debug-tutorial/">《DS-5 社区版 Android 调试》</a>。</li>
+</ul>
+</div></body></html>

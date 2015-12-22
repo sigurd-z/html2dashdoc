@@ -1,0 +1,91 @@
+<html><head>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+<title>Mac搭建Cocos2d-x v3.2alpha0 Android开发环境_Cocos帮助文档_Cocos引擎_游戏开发引擎_Cocos引擎官网</title>
+<meta content="IE=8" http-equiv="X-UA-Compatible">
+<meta content="Cocos帮助文档,Cocos2d-x文档,Cocos2d-JS文档,Cocos Code IDE文档,Quick-Cocos2d-x文档,Cocos API,Cocos,Cocos引擎,Cocos介绍,Cocos文档,Cocos特点,Cocos引擎下载,Cocos官网,游戏引擎,游戏引擎下载,游戏开发引擎,html5游戏开发,Android游戏开发,ios游戏开发,游戏开发方案,游戏开发工具" name="keywords"/>
+<meta content="Cocos提供了全套的引擎和开发工具,涵盖从前期设计,资源制作,开发调试,打包上线全套的解决方案,Cocos重点优化了工作流,规范了整个游戏开发流程,降低沟通成本,提高开发效率" name="description"/>
+<link href="src/2ef9a86fb35d52ac11578452ccf1485f.css" rel="stylesheet" type="text/css"/>
+<link href="src/88a5440cf79e2c8f05f9f10ce6aba841.css" rel="stylesheet" type="text/css"/>
+<link href="src/aade560970aa998972e368caf1c78181.css" rel="stylesheet" type="text/css"/>
+<script src="src/07bd722c9fad66b606a50c3acc1af50f.js" type="text/javascript"></script>
+<script src="src/de92148ebc93b342e9b5b8f21d7fe69c.js" type="text/javascript"></script>
+<script src="https://passport.cocos.com/sso/get_sso_header?client_id=161" type="text/javascript"></script>
+<script src="src/bd48e73433c4825b90f3554d64a5ae4f.js" type="text/javascript"></script>
+</meta></head><body style="padding:0 25px;"><div class="itemdoc">
+<h1>Mac搭建Cocos2d-x v3.2alpha0 Android开发环境</h1>
+<h1>准备工作</h1>
+<p>到Cocos2d-x官方网站下载最新版本<a href="http://cn.cocos2d-x.org/download">v3.2alpha0</a></p>
+<p>到Android官方网站下载<a href="http://developer.android.com/sdk/index.html">Android SDK</a></p>
+<p><img alt="download2" src="src/7e7450d4d723062f4bcf76d77f1fee23.png"/></p>
+<p>最后还需要在Android官方网站下载<a href="http://developer.android.com/tools/sdk/ndk/index.html">Android NDK</a></p>
+<p><img alt="download3" src="src/08c9226cacf724d6373f41589b4580fc.png"/></p>
+<h2>JDK</h2>
+<p>检测JDK是否安装，版本是否大于1.6.0。打开终端，输入：    </p>
+<pre><code>1java -version</code></pre>
+<p>MacOS X会自动下载JDK，如图所示。  <br/>
+<img alt="" src="src/88272a7b0b1fcd9961ebb6b5def8eeb0.png"/> <br/>
+你会看到如下所示信息：         </p>
+<pre><code>java version "1.6.0_37" 
+Java(TM) SE Runtime Environment (build 1.6.0_37-b06-434-11M3909)
+Java HotSpot(TM) 64-Bit Server VM (build 20.12-b01-434, mixed mode)</code></pre>
+<p>检查完后，便可开始设置Mac的Android开发环境。</p>
+<h2>配置Android SDK环境</h2>
+<p>解压ZIP文件（名字为“adt-bundle-<os_platform>.zip”），保存至适当位置如主目录的“Development”（开发）目录。</os_platform></p>
+<p>打开adt-bundle-<os_platform>/eclipse/目录并启动Eclipse。
+就这样！至此集成开发环境已经加载了Android开发人员（Android Developer Tools）工具插件，SDK已经准备就绪。</os_platform></p>
+<p><img alt="" src="src/fb1ea493b333767eea17248a22b0655c.png"/> </p>
+<h3>在MBP Retina电脑中安装Eclipse</h3>
+<p>如果你用的是配备Retina显示屏的MacBook Pro电脑，注意原装Eclipse不支持Retina显示屏，但是可以使用简单的技巧启动Retina支持功能。（本方法来自：<a href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=382972"><a href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=382972" target="_blank">https://bugs.eclipse.org/bugs/show_bug.cgi?id=382972</a></a>）</p>
+<ol>
+<li>在Eclipse.app上执行“Show package contents”</li>
+<li>编辑Contents/Info.plist文件。</li>
+<li>就在以下代码上方        
+<pre><code>&lt;/dict&gt;
+&lt;/plist&gt;</code></pre>
+<p>增加以下代码         </p>
+<pre><code>&lt;key&gt;NSHighResolutionCapable&lt;/key&gt;
+&lt;true/&gt;</code></pre></li>
+<li>将Eclipse.app应用移至一个新文件夹（清除OS X中info.plist文件的缓存），然后再移回旧文件夹。
+5．启动Eclipse即可，已支持Retina显示屏。</li>
+</ol>
+<p>打开Eclipse，选择”ADT-&gt;偏好设置”，然后选择Android项来指定Android SDK的安装目录。如下图所示：</p>
+<p><img alt="SDK" src="src/bc4927bead694f7e3f7d61f85e8653ba.png"/></p>
+<h2>配置NDK环境</h2>
+<p>将iOS项目源文件编译成项目时需要用到NDK来生成native文件。</p>
+<p>先解压下载的NDK和ADT放在同一个父文件夹里。</p>
+<p>按如下操作添加NDK环境变量：</p>
+<pre><code>export NDK_ROOT="/Users/yiming/Desktop/android-ndk-r9"</code></pre>
+<p>重启终端。</p>
+<h2>创建HelloWorld项目</h2>
+<p>将刚才下载的压缩包解压到你指定的文件夹里。</p>
+<p>进入到目录<strong>cocos2d-x-3.2alpha0/tools/cocos2d-console/bin/cocos.py</strong></p>
+<p>打开终端运行<strong>cocos.py</strong>脚本创建文件</p>
+<pre><code>./cocos.py new HelloWorldDemo -p com.coco2dx.org -l cpp -d ~/Desktop
+
+或者
+
+python cocos.py new HelloWorldDemo -p com.coco2dx.org -l cpp -d ~/Desktop</code></pre>
+<p>参数说明：</p>
+<ul>
+<li>HelloWorldDemo为项目名称</li>
+<li><code>-p</code>后面接包名</li>
+<li><code>-l</code>后面接开发语言类型，有cpp, lua, js三种类型</li>
+<li><code>-d</code>后面接项目存放的目录</li>
+</ul>
+<h2>生成Android项目文件</h2>
+<p>执行<strong>HelloWorldDemo/proj.android</strong>下的<em>build_native.py</em>脚本进行编译</p>
+<p><img alt="build" src="src/82213492fa5c560b00c3d0349067aa37.png"/></p>
+<p>编译成功！</p>
+<p>并将<strong>HelloWorldDemo/cocos2d/cocos/2d/platform/android/java/src/org/cocos2dx/lib</strong>文件夹拷贝到<strong>HelloWorldDemo/proj.android/src/org/cocos2dx</strong>下。</p>
+<h2>导入Android项目到Eclipse</h2>
+<p>通过导入一个已存在的Android项目的方法将生成的HelloWorldDemo导入到Eclipse中如下：</p>
+<p><img alt="export" src="src/daf532441b5dbe33f8e7c570738ab220.png"/></p>
+<p><img alt="export2" src="src/d3fd3a060856e3603aac50f4649decd8.png"/></p>
+<p><img alt="export3" src="src/a6337242fe8d94e8a7ad752cbfcce1cd.png"/></p>
+<p>你可能看到如下错误提示:</p>
+<pre><code>The import org.cocos2dx.lib cannot be resolved HelloWorld.java /HelloWorld/src/com/young40/test line 26 Java Problem Cocos2dxActivity cannot be resolved to a type HelloWorld.java /HelloWorld/src/com/young40/test line 30 Java Problem Cocos2dxActivity cannot be resolved to a type HelloWorld.java /HelloWorld/src/com/young40/test line 33 Java Problem</code></pre>
+<p>你需要将</p>
+<pre><code>/opt/cocos2d-2.1beta3-x-2.1.1/cocos2dx/platform/android/java</code></pre>
+<p>按照上面的方法导入到Eclipse里面。然后在HelloWorldDemo项目上单击右键刷新，错误就会消失。</p>
+<p>将您的手机设置成调试模式并用USB线连接到电脑, 在Eclipse中运行HelloWorld, 然后就能在手机上看到已经运行的HelloWorld了！</p>
+</div></body></html>

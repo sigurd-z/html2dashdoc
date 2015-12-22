@@ -1,0 +1,63 @@
+<html><head>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+<title>如何在Tizen平台中运行HelloWorld及测试项目_Cocos帮助文档_Cocos引擎_游戏开发引擎_Cocos引擎官网</title>
+<meta content="IE=8" http-equiv="X-UA-Compatible">
+<meta content="Cocos帮助文档,Cocos2d-x文档,Cocos2d-JS文档,Cocos Code IDE文档,Quick-Cocos2d-x文档,Cocos API,Cocos,Cocos引擎,Cocos介绍,Cocos文档,Cocos特点,Cocos引擎下载,Cocos官网,游戏引擎,游戏引擎下载,游戏开发引擎,html5游戏开发,Android游戏开发,ios游戏开发,游戏开发方案,游戏开发工具" name="keywords"/>
+<meta content="Cocos提供了全套的引擎和开发工具,涵盖从前期设计,资源制作,开发调试,打包上线全套的解决方案,Cocos重点优化了工作流,规范了整个游戏开发流程,降低沟通成本,提高开发效率" name="description"/>
+<link href="src/2ef9a86fb35d52ac11578452ccf1485f.css" rel="stylesheet" type="text/css"/>
+<link href="src/88a5440cf79e2c8f05f9f10ce6aba841.css" rel="stylesheet" type="text/css"/>
+<link href="src/aade560970aa998972e368caf1c78181.css" rel="stylesheet" type="text/css"/>
+<script src="src/07bd722c9fad66b606a50c3acc1af50f.js" type="text/javascript"></script>
+<script src="src/de92148ebc93b342e9b5b8f21d7fe69c.js" type="text/javascript"></script>
+<script src="https://passport.cocos.com/sso/get_sso_header?client_id=161" type="text/javascript"></script>
+<script src="src/bd48e73433c4825b90f3554d64a5ae4f.js" type="text/javascript"></script>
+</meta></head><body style="padding:0 25px;"><div class="itemdoc">
+<h1>如何在Tizen平台中运行HelloWorld及测试项目</h1>
+<p>取出（check out）开发分支（develop branch）。   </p>
+<h2>1. 从<a href="https://github.com/cocos2d/cocos2d-x"><a href="https://github.com/cocos2d/cocos2d-x" target="_blank">https://github.com/cocos2d/cocos2d-x</a></a>下载最新的cocos2d-x引擎</h2>
+<h2>2. 创建证书文件</h2>
+<p>运行{TIZEN_SDK}/tools/certificate-generator/certificate-generator.bat or .sh文件。  </p>
+<p><img alt="" src="src/f0cf150ba5207ee6304bd12bd253a7ec.png"/></p>
+<p>点击'Window'-&gt;'Preference'-&gt;'Tizen SDK'-&gt;'Secure Profiles'</p>
+<ol>
+<li>点击“Add”按钮设置资料</li>
+<li>设置“Certificate”（证书）路径</li>
+<li>输入密码  <br/>
+<img alt="" src="src/95a994a1b288d28833d61a5c8b13d410.png"/>
+<h2>3. 用Tizen SDK 2.1编译所有项目</h2>
+<h3>3.1 创建工作空间</h3>
+<pre><code>Create Workspace in cocos2d-x/samples/Cpp/{SampleName}</code></pre></li>
+</ol>
+<p>或者     </p>
+<pre><code>Create Workspace in cocos2d-x/samples/Cpp/TestCpp</code></pre>
+<p>如果设置路径不正确，则无法使用断点（breakpoint）</p>
+<h3>3.2 导入项目</h3>
+<p>点击'File'-&gt;'Import'-&gt;'Tizen'-&gt;'Native Projects'-&gt;'Next'</p>
+<p><img alt="" src="src/123a8462ce4d5e31548a007df9de587a.png"/> </p>
+<p>点击“Browse”选择cocos2d-x根路径，勾上以“proj.tizen”结尾的项目，点击“Finish”完成。       <br/>
+<img alt="" src="src/b84aedb1f82e35926e417cf4d846f42b.png"/> </p>
+<pre><code>cocos2d-x/external/Box2D/proj.tizen
+cocos2d-x/external/chipmunk/proj.tizen
+cocos2d-x/cocos2dx/proj.tizen
+cocos2d-x/CocosDenshion/proj.tizen
+cocos2d-x/extenshions/proj.tizen
+cocos2d-x/samples/Cpp/TestCpp/proj.tizen</code></pre>
+<p><img alt="" src="src/3ae8c09f982d8a86a54e1b927f7e1972.png"/></p>
+<h3>3.3 复制资源文件</h3>
+<p>将cocos2d-x/samples/Cpp/HelloCpp/Resources/<em>.</em>复制到cocos2d-x/samples/Cpp/HelloCpp/proj.tizen/res目录下。</p>
+<h3>3.4 编译所有项目，运行测试项目</h3>
+<p>右键单击“proj.tizen”项目，选择“Run as”（运行方式）再选择“Run Configurations”（运行配置）</p>
+<p><img alt="" src="src/d357755e62afc35d4cd97ec55b217514.png"/></p>
+<p>右键单击“Tizen Native Application”然后选择“New”。</p>
+<p><img alt="" src="src/80231d3e3545e1157137f53af586488d.png"/></p>
+<p>点击“Run”。</p>
+<p><img alt="" src="src/1c5dd21ec348082d35ad01bbd773027d.png"/></p>
+<p>TestCpp测试项目正在运行。如图所示。</p>
+<p><img alt="" src="src/134bd2c9384ad8c739597de862630ca6.png"/> <br/>
+<img alt="" src="src/1a3df5677417c74277a59a54019390c4.png"/> <br/>
+<img alt="" src="src/56accb1d6f33b8288971ac09fa2c2935.png"/> <br/>
+<img alt="" src="src/4ece9413ecaa52ce738df8061b3c7197.png"/> <br/>
+<img alt="" src="src/11a04bbe795eecb7b63b33d63af541a5.png"/> </p>
+<p>如果你是在“cocos2d-x/samples/Cpp/HelloCpp”路径下创建工作空间并导入“proj.tizen”项目，你会看到如下所示。</p>
+<p><img alt="" src="src/b8dc221d1bfc999148f2fb2d2bc80374.png"/></p>
+</div></body></html>

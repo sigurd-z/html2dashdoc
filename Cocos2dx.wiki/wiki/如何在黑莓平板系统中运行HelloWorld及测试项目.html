@@ -1,0 +1,39 @@
+<html><head>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+<title>如何在黑莓平板系统中运行HelloWorld及测试项目_Cocos帮助文档_Cocos引擎_游戏开发引擎_Cocos引擎官网</title>
+<meta content="IE=8" http-equiv="X-UA-Compatible">
+<meta content="Cocos帮助文档,Cocos2d-x文档,Cocos2d-JS文档,Cocos Code IDE文档,Quick-Cocos2d-x文档,Cocos API,Cocos,Cocos引擎,Cocos介绍,Cocos文档,Cocos特点,Cocos引擎下载,Cocos官网,游戏引擎,游戏引擎下载,游戏开发引擎,html5游戏开发,Android游戏开发,ios游戏开发,游戏开发方案,游戏开发工具" name="keywords"/>
+<meta content="Cocos提供了全套的引擎和开发工具,涵盖从前期设计,资源制作,开发调试,打包上线全套的解决方案,Cocos重点优化了工作流,规范了整个游戏开发流程,降低沟通成本,提高开发效率" name="description"/>
+<link href="src/2ef9a86fb35d52ac11578452ccf1485f.css" rel="stylesheet" type="text/css"/>
+<link href="src/88a5440cf79e2c8f05f9f10ce6aba841.css" rel="stylesheet" type="text/css"/>
+<link href="src/aade560970aa998972e368caf1c78181.css" rel="stylesheet" type="text/css"/>
+<script src="src/07bd722c9fad66b606a50c3acc1af50f.js" type="text/javascript"></script>
+<script src="src/de92148ebc93b342e9b5b8f21d7fe69c.js" type="text/javascript"></script>
+<script src="https://passport.cocos.com/sso/get_sso_header?client_id=161" type="text/javascript"></script>
+<script src="src/bd48e73433c4825b90f3554d64a5ae4f.js" type="text/javascript"></script>
+</meta></head><body style="padding:0 25px;"><div class="itemdoc">
+<h1>如何在黑莓平板系统中运行HelloWorld及测试项目</h1>
+<h2>搭建QNX及Cocos2d-x开发环境</h2>
+<ol>
+<li>从<a href="http://cn.cocos2d-x.org/download"><a href="http://cn.cocos2d-x.org/download" target="_blank">http://cn.cocos2d-x.org/download</a></a>下载最新Cocos2d-x引擎，解压至你的文件夹如C:\cocos2d-x。</li>
+<li>从<a href="https://github.com/cocos2d/cocos2d-x"><a href="https://bdsc.webapps.blackberry.com/native/download/" target="_blank">https://bdsc.webapps.blackberry.com/native/download/</a></a>下载黑莓NDK及模拟器并安装。</li>
+<li>点击桌面名为“BlackBerry Native SDK for Tablet OS 1.0”的图标启动QNX集成开发环境。</li>
+<li>导入Cocos2d-x项目   <br/>
+单击菜单，选择'File' --&gt; 'Import...'--&gt;'General'--&gt;'Existing Projects into workspace'--&gt;'Next'
+选择'Select root directory:<strong>____</strong>[Browse...]'，点击“浏览”（Browse）选择步骤1下载的文件夹，然后点击“OK”。
+选择所有后缀为“C:\cocos2d-x****\proj.qnx”的项目，点击“完成”（Finish）。至此，所有QNX项目已经导入至工作室。</li>
+</ol>
+<p><img alt="" src="src/3094657b08caa8b242a19249d97e8abf.png"/> <br/>
+———————————————————   <br/>
+<img alt="" src="src/e9e8ba4c53a2634d181ed468c934104d.png"/> <br/>
+———————————————————  <br/>
+<img alt="" src="src/f6a08ce91b47c071f49e15a377ba1c8d.png"/> <br/>
+———————————————————  <br/>
+<img alt="" src="src/94619a74e15a0011ecc95291fd7d4085.png"/> </p>
+<h2>编译项目</h2>
+<p>右键单击“TestCocos2dx”然后选择“Build Project”如上图所示，几分钟后编译完成。
+如果遇到编译错误，你可能需要编译Cocos2dx及其他项目。</p>
+<h2>运行应用</h2>
+<p>首先，根据<a href="https://bdsc.webapps.blackberry.com/native/documentation/getting_started.html"><a href="https://bdsc.webapps.blackberry.com/native/documentation/getting_started.html" target="_blank">https://bdsc.webapps.blackberry.com/native/documentation/getting_started.html</a></a>内容配置黑莓本地SDK及模拟器。
+然后右键单击“TestCocos2dx”，选择“Run as”（运行方式），再选择“1.BlackBerry Tablet OS C/C++ application”即可运行。</p>
+</div></body></html>

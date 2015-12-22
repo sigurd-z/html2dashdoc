@@ -1,0 +1,109 @@
+<html><head>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+<title>设置 Quick-Cocos2d-x 在 Windows 下的编译环境_Cocos帮助文档_Cocos引擎_游戏开发引擎_Cocos引擎官网</title>
+<meta content="IE=8" http-equiv="X-UA-Compatible">
+<meta content="Cocos帮助文档,Cocos2d-x文档,Cocos2d-JS文档,Cocos Code IDE文档,Quick-Cocos2d-x文档,Cocos API,Cocos,Cocos引擎,Cocos介绍,Cocos文档,Cocos特点,Cocos引擎下载,Cocos官网,游戏引擎,游戏引擎下载,游戏开发引擎,html5游戏开发,Android游戏开发,ios游戏开发,游戏开发方案,游戏开发工具" name="keywords"/>
+<meta content="Cocos提供了全套的引擎和开发工具,涵盖从前期设计,资源制作,开发调试,打包上线全套的解决方案,Cocos重点优化了工作流,规范了整个游戏开发流程,降低沟通成本,提高开发效率" name="description"/>
+<link href="src/2ef9a86fb35d52ac11578452ccf1485f.css" rel="stylesheet" type="text/css"/>
+<link href="src/88a5440cf79e2c8f05f9f10ce6aba841.css" rel="stylesheet" type="text/css"/>
+<link href="src/aade560970aa998972e368caf1c78181.css" rel="stylesheet" type="text/css"/>
+<script src="src/07bd722c9fad66b606a50c3acc1af50f.js" type="text/javascript"></script>
+<script src="src/de92148ebc93b342e9b5b8f21d7fe69c.js" type="text/javascript"></script>
+<script src="https://passport.cocos.com/sso/get_sso_header?client_id=161" type="text/javascript"></script>
+<script src="src/bd48e73433c4825b90f3554d64a5ae4f.js" type="text/javascript"></script>
+</meta></head><body style="padding:0 25px;"><div class="itemdoc">
+<h1>设置 Quick-Cocos2d-x 在 Windows 下的编译环境</h1>
+<p>配置编译环境的基本步骤：</p>
+<ol>
+<li>下载 Quick-Cocos2d-x 源代码</li>
+<li>设置运行环境</li>
+<li>安装 Java SDK</li>
+<li>安装最新的 Android ADT bundle 和 Android NDK</li>
+<li>编译 LuaJavaBridge 示例，并在 Android 真机上进行测试</li>
+</ol>
+<h2>Step 1: 下载 Quick-Cocos2d-x 源代码</h2>
+<p>访问 <a href="https://github.com/chukong/quick-cocos2d-x/releases"><a href="https://github.com/chukong/quick-cocos2d-x/releases" target="_blank">https://github.com/chukong/quick-cocos2d-x/releases</a></a> 下载最新版 quick 源代码。</p>
+<p>由于 <strong> Android SDK </strong> 和 <strong> NDK </strong> 的问题，<strong> Quick-Cocos2d-x 目录的放置有一定要求 </strong> ：</p>
+<ol>
+<li>必须和 Android SDK/NDK 在同一个分区</li>
+<li>不能放在根目录</li>
+<li>路径中不能包含中文和空格（所以别放桌面了）</li>
+</ol>
+<h2>Step 2: 设置运行环境</h2>
+<p>运行 <strong>setup.bat</strong>，完成运行环境的设置工作，成功会看到如下界面：</p>
+<p><img alt="" src="src/0f827ffb9c63bd9fe96c44686b254499.png"/></p>
+<p>启动 <strong>player/win/player.exe</strong>，即可运行示例和您的项目。</p>
+<p><img alt="" src="src/11847bc9bf31db3230a7c85248ff6911.png"/></p>
+<h2>Step 3: 安装 Java SDK</h2>
+<p>从 <a href="http://www.oracle.com/technetwork/java/javase/downloads/">http://www.oracle.com/technetwork/java/javase/downloads/</a> 下载最新版的 Java SDK，并进行安装。</p>
+<h2>Step 4: 安装最新的 Android ADT bundle 和 Android NDK</h2>
+<p>1.从 <a href="http://developer.android.com/sdk/">http://developer.android.com/sdk/</a> 下载最新的 <strong> ADT Bundle for Windows </strong>。</p>
+<p>2.解压缩 adt-bundle-windows-x86-2014????.zip 。</p>
+<p>3.将目录 adt-bundle-windows-x86-2014???? 改名为 android 。</p>
+<p>4.将目录 android\sdk 改名为 android\android-sdk-windows 。</p>
+<p>5.从 <a href="http://developer.android.com/tools/sdk/ndk/index.html">http://developer.android.com/tools/sdk/ndk/index.html</a> 下载 Android NDK r9?</p>
+<p>6.解压缩 android-ndk-r9?-windows-x86.zip</p>
+<p>7.将目录 android-ndk-r9? 移动到 android\android-ndk-r9?</p>
+<pre><code>最终的目录结构:</code></pre>
+<pre><code>
+    &lt;PATH_TO&gt;\android\android-ndk-r9?
+    &lt;PATH_TO&gt;\android\android-sdk-windows
+    &lt;PATH_TO&gt;\android\eclipse
+</code></pre>
+<p><img alt="" src="src/c2059e1158a4053da55671572d15b4f0.png"/></p>
+<p>8.运行 <strong> android\android-sdk-windows\tools\android.bat </strong> , 选中 <strong> Android SDK 2.2 </strong>（ <strong> 如果看不到 Android SDK 2.2，请设置代理 </strong> ）, 然后安装需要的包。</p>
+<p><img alt="" src="src/10fa1890c5f6bf14524b5f3377edb41a.png"/></p>
+<h2>Step 5: 编译 LuaJavaBridge 示例，并在 Android 真机上进行测试</h2>
+<p>启动 命令行提示符 程序, 改变当前目录为 <path_to>\Quick-cocos2d-x\sample\luajavabridge\proj.android, 运行 build_native.bat:</path_to></p>
+<pre><code>
+cd Quick-cocos2d-x\sample\luajavabridge\proj.android
+build_native.bat
+</code></pre>
+<p>如果一切正常，等待几分钟以后会看到如下信息：</p>
+<pre><code>
+SharedLibrary  : libgame.so
+Install        : libgame.so =&gt; libs/armeabi/libgame.so
+</code></pre>
+<h3>将项目导入 Eclipse ADT</h3>
+<p>启动 \<path_to>\eclipse\eclipse.exe, 导入 <strong> libcocos2dx </strong> 库（这个库是 Cocos2d-x 的 Java 支持）.</path_to></p>
+<p>1.选择菜单 <strong> File </strong> -&gt; <strong> Import </strong>, 再选择 <strong> Android </strong> -&gt; <strong> Existing Android Code Into Workspace </strong> :</p>
+<p><img alt="" src="src/d4381d29ec8c110cdd1f8cc427d24700.png"/></p>
+<p>2.点击 <strong> Browse </strong> 按钮, 选择 <strong> \Quick-cocos2d-x\lib\cocos2d-x\cocos2dx\platform\android\java </strong> 目录:</p>
+<p><img alt="" src="src/1c166797fa8e75b42e8caef2658b8e49.png"/></p>
+<p>3.点击 Finish.</p>
+<p>4.重复上述步骤, 将 <strong> luajavabridge\proj.android </strong> 目录导入 Eclipse:</p>
+<p><img alt="" src="src/f3c88eb9ebf17b5fb5ca5bef16dc14ab.png"/></p>
+<p>5.在左侧 <strong> Package Explorer </strong> 里的 <strong> LuajavaBridge </strong> 项目上点击鼠标右键，选择菜单 <strong> Properties </strong> :</p>
+<p><img alt="" src="src/b3a5426b0db0152b9ed51b9cba934c94.png"/></p>
+<p>6.如果 <strong> Library </strong> 中已经存在 <strong> libcocos2dx </strong> 项，请先删除。然后点击 <strong> Add </strong> 按钮, 再选择添加 <strong> libcocos2dx </strong> 库.</p>
+<p><img alt="" src="src/5be0f44fe4245b2bd49858aa619449a8.png"/></p>
+<p>7.导入完成。</p>
+<h3>设置 Android 设备允许真机调试</h3>
+<p>Android 官方文档：<a href="http://developer.android.com/tools/device.html">http://developer.android.com/tools/device.html</a></p>
+<ol>
+<li>
+<p>Enable USB debugging on your device.</p>
+<ul>
+<li>On most devices running Android 3.2 or older, you can find the option under Settings &gt; Applications &gt; Development.</li>
+<li>On Android 4.0 and newer, it’s in Settings &gt; Developer options.</li>
+</ul>
+<p>Note: On Android 4.2 and newer, Developer options is hidden by default. To make it available, go to Settings &gt; About phone and tap Build number seven times. Return to the previous screen to find Developer options.</p>
+<ul>
+<li>在系统设置中找到“开发者选项”，打开“USB调试”。</li>
+</ul>
+</li>
+<li>Set up your system to detect your device.
+<ul>
+<li>If you’re developing on Windows, you need to install a USB driver for adb. For an installation guide and links to OEM drivers, see the OEM USB Drivers document.</li>
+<li>根据不同的机型，也许需要安装该机型特定的 USB 驱动程序。例如 Moto 就必须安装 Moto 的 USB 驱动。</li>
+</ul></li>
+</ol>
+<h3>在设备上测试 LuaJavaBridge 示例</h3>
+<p>1.在 Eclipse 里选择菜单 <strong> Window </strong> -&gt; <strong> Show View </strong> -&gt; <strong> Other… </strong> , 再选择 <strong> Android </strong> -&gt; <strong> Devices </strong>.</p>
+<p>2.如果设备设置完成，并且安装了正确的 USB 驱动，那么在 Devices 标签页中就可以看到你的设备:</p>
+<p><img alt="" src="src/68c5ccd169ccfcf4ec5f81c00a815c75.png"/></p>
+<p>如果看不到设备，请仔细检查设备设置和驱动程序。</p>
+<p>3.在项目 <strong> LuajavaBridge </strong> 上点击鼠标右键, 选择菜单 <strong> Debug As </strong> -&gt; <strong> Android Application </strong>. 如果一切正常，等一会儿就可以在设备上看到运行画面了：</p>
+<p><img alt="" src="src/53a52bec7e10cc9671ee598e3f893636.png"/></p>
+<p>-EOF-</p>
+</div></body></html>

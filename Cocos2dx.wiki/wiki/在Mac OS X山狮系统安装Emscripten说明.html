@@ -1,0 +1,53 @@
+<html><head>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+<title>在Mac OS X系统安装Emscripten说明_Cocos帮助文档_Cocos引擎_游戏开发引擎_Cocos引擎官网</title>
+<meta content="IE=8" http-equiv="X-UA-Compatible">
+<meta content="Cocos帮助文档,Cocos2d-x文档,Cocos2d-JS文档,Cocos Code IDE文档,Quick-Cocos2d-x文档,Cocos API,Cocos,Cocos引擎,Cocos介绍,Cocos文档,Cocos特点,Cocos引擎下载,Cocos官网,游戏引擎,游戏引擎下载,游戏开发引擎,html5游戏开发,Android游戏开发,ios游戏开发,游戏开发方案,游戏开发工具" name="keywords"/>
+<meta content="Cocos提供了全套的引擎和开发工具,涵盖从前期设计,资源制作,开发调试,打包上线全套的解决方案,Cocos重点优化了工作流,规范了整个游戏开发流程,降低沟通成本,提高开发效率" name="description"/>
+<link href="src/2ef9a86fb35d52ac11578452ccf1485f.css" rel="stylesheet" type="text/css"/>
+<link href="src/88a5440cf79e2c8f05f9f10ce6aba841.css" rel="stylesheet" type="text/css"/>
+<link href="src/aade560970aa998972e368caf1c78181.css" rel="stylesheet" type="text/css"/>
+<script src="src/07bd722c9fad66b606a50c3acc1af50f.js" type="text/javascript"></script>
+<script src="src/de92148ebc93b342e9b5b8f21d7fe69c.js" type="text/javascript"></script>
+<script src="https://passport.cocos.com/sso/get_sso_header?client_id=161" type="text/javascript"></script>
+<script src="src/bd48e73433c4825b90f3554d64a5ae4f.js" type="text/javascript"></script>
+</meta></head><body style="padding:0 25px;"><div class="itemdoc">
+<h1>在Mac OS X系统安装Emscripten说明</h1>
+<h2>系统Emscripten安装指南</h2>
+<p>默认安装在OS X Moutain Lion系统的python版本号为2.7.2。 </p>
+<p>编辑cocos2d-x/external/emscripten/emcc
+将以下代码       <br/>
+<code>#!/usr/bin/env python2</code> <br/>
+改为      <br/>
+<code>#!/usr/bin/env python</code> <br/>
+或者搭建软连接（softlink）如   <br/>
+<code>sudo ln -s /usr/bin/python /usr/bin/python2</code> </p>
+<p>安装macports软件包管理系统
+<a href="http://www.macports.org/install.php"><a href="http://www.macports.org/install.php" target="_blank">http://www.macports.org/install.php</a></a> <br/>
+<a href="https://distfiles.macports.org/MacPorts/MacPorts-2.1.3-10.8-MountainLion.pkg"><a href="https://distfiles.macports.org/MacPorts/MacPorts-2.1.3-10.8-MountainLion.pkg" target="_blank">https://distfiles.macports.org/MacPorts/MacPorts-2.1.3-10.8-MountainLion.pkg</a></a></p>
+<p>在终端升级macports    <br/>
+<code>sudo port -v selfupdate</code> </p>
+<p>安装llvm-3.2虚拟机   </p>
+<pre><code>sudo port install llvm-3.2
+exec on Cocos2d-x dir
+make -f Makefile.emscripten</code></pre>
+<p>这是会出现错误。 <br/>
+modify $HOME/.emscripten     <br/>
+修改$HOME/.emscripten     <br/>
+<code>LLVM_ROOT = os.path.expanduser(os.getenv('LLVM') or '/opt/local/bin') # directory</code></p>
+<p>搭建软连接（softlink）   </p>
+<pre><code>cd /opt/local/bin
+sudo ln -s llvm-nm-mp-3.2 llvm-nm
+sudo ln -s llvm-dis-mp-3.2 llvm-dis
+sudo ln -s llvm-as-mp-3.2 llvm-as
+sudo ln -s opt-mp-3.2 opt
+sudo ln -s llvm-ar-mp-3.2 llvm-ar
+sudo ln -s llvm-link-mp-3.2 llvm-link
+sudo ln -s clang-mp-3.2 clang
+sudo ln -s clang++-mp-3.2 clang++</code></pre>
+<p>用emscripten编译Cocos2d-x</p>
+<p>在Cocos2d-x重新运行Makefile.emscripten</p>
+<p>安装XAMPP或者MAMPP</p>
+<p>在samples/Cpp/Project/proj.emscripten/bin/release与htdocs之间搭建联系（make a link）</p>
+<p>祝贺你！</p>
+</div></body></html>

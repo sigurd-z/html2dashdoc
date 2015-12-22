@@ -1,0 +1,149 @@
+<html><head>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+<title>SQLite集成与用法_Cocos帮助文档_Cocos引擎_游戏开发引擎_Cocos引擎官网</title>
+<meta content="IE=8" http-equiv="X-UA-Compatible">
+<meta content="Cocos帮助文档,Cocos2d-x文档,Cocos2d-JS文档,Cocos Code IDE文档,Quick-Cocos2d-x文档,Cocos API,Cocos,Cocos引擎,Cocos介绍,Cocos文档,Cocos特点,Cocos引擎下载,Cocos官网,游戏引擎,游戏引擎下载,游戏开发引擎,html5游戏开发,Android游戏开发,ios游戏开发,游戏开发方案,游戏开发工具" name="keywords"/>
+<meta content="Cocos提供了全套的引擎和开发工具,涵盖从前期设计,资源制作,开发调试,打包上线全套的解决方案,Cocos重点优化了工作流,规范了整个游戏开发流程,降低沟通成本,提高开发效率" name="description"/>
+<link href="src/2ef9a86fb35d52ac11578452ccf1485f.css" rel="stylesheet" type="text/css"/>
+<link href="src/88a5440cf79e2c8f05f9f10ce6aba841.css" rel="stylesheet" type="text/css"/>
+<link href="src/aade560970aa998972e368caf1c78181.css" rel="stylesheet" type="text/css"/>
+<script src="src/07bd722c9fad66b606a50c3acc1af50f.js" type="text/javascript"></script>
+<script src="src/de92148ebc93b342e9b5b8f21d7fe69c.js" type="text/javascript"></script>
+<script src="https://passport.cocos.com/sso/get_sso_header?client_id=161" type="text/javascript"></script>
+<script src="src/bd48e73433c4825b90f3554d64a5ae4f.js" type="text/javascript"></script>
+</meta></head><body style="padding:0 25px;"><div class="itemdoc">
+<h1>SQLite集成与用法</h1>
+<h2>概述</h2>
+<p>在Cocos2d-x中，简单数据存储，可以使用UserDefault。那么如何存储大量，不规则的数据？我们可以使用SQLite数据库存储数据。SQLite是使用非常广泛的嵌入式数据库，它有小巧 、高效、跨平台、开源免费和易操作的特点。</p>
+<p>SQLite数据库是使用C语言来编写的，那么在Cocos2d-x使用SQLite也是得心应手。</p>
+<h2>准备</h2>
+<p>首先创建一个Cocos2d-x v3.x的helloworld工程，我们将以该工程作为SQLite集成与用法的实战工程。</p>
+<p>打开终端，使用如下命令新建工程：</p>
+<pre><code>cocos new HelloWorld -p com.your_company.HelloWorld -l cpp 
+</code></pre>
+<p>按照上面的操作，我们新建了一个Cocos2d-x v3.x的HelloWorld工程。</p>
+<h3>iOS/Mac</h3>
+<p>iOS/Mac的系统库自带sqlite库,我们只需添加libsqlite3.0.dylib库即可。</p>
+<p><img alt="" src="src/3f5d52d907b34fa8428bef7c88f3cadd.png"/></p>
+<h3>Android</h3>
+<p>Android系统没有自带sqlite库，我们需要手动添加。</p>
+<p>1.下载sqlite包</p>
+<p>下载地址：<a href="http://www.sqlite.org/download.html"><a href="http://www.sqlite.org/download.html" target="_blank">http://www.sqlite.org/download.html</a></a>
+下载后，在项目中导入sqlite3.c和sqlite3.h两个文件即可。</p>
+<p>2.导入到工程</p>
+<p><img alt="" src="src/50d40af6d440956e248e8b6e7362f6cb.png"/></p>
+<p>3.修改Android.mk</p>
+<p><img alt="" src="src/a384d94c0aea1cb9e7d9c1b4eb6e0ac7.png"/></p>
+<h2>使用SQLite</h2>
+<p>打开HelloWorldScene.cpp文件，我们在里面加入SQLite的使用示例</p>
+<p>引入头文件</p>
+<pre><code>#include "sqlite3.h"</code></pre>
+<h3>创建SQLite 数据库</h3>
+<pre><code>    sqlite3 *pdb=NULL;//1
+    std::string path= FileUtils::getInstance()-&gt;getWritablePath()+"save.db";//2
+
+    std::string sql;
+    int result;
+    result=sqlite3_open(path.c_str(),&amp;pdb);//3
+    if(result!=SQLITE_OK)
+    {
+        log("open database failed,  number%d",result);
+    }</code></pre>
+<ol>
+<li>数据库指针</li>
+<li>指定数据库的路径</li>
+<li>打开一个数据库，如果该数据库不存在，则创建一个数据库文件 </li>
+</ol>
+<h3>SQL语句</h3>
+<pre><code>    sql="create table student(ID integer primary key autoincrement,name text,sex text)";//1</code></pre>
+<ol>
+<li>创建表的SQL语句</li>
+</ol>
+<h3>创建Table</h3>
+<pre><code>    result=sqlite3_exec(pdb,sql.c_str(),NULL,NULL,NULL);//1
+    if(result!=SQLITE_OK)
+        log("create table failed");</code></pre>
+<ol>
+<li>创建表</li>
+</ol>
+<h3>插入数据</h3>
+<pre><code>    sql="insert into student  values(1,'student1','male')";
+    result=sqlite3_exec(pdb,sql.c_str(),NULL,NULL,NULL);
+    if(result!=SQLITE_OK)
+        log("insert data failed!");
+
+    sql="insert into student  values(2,'student2','female')";
+    result=sqlite3_exec(pdb,sql.c_str(),NULL,NULL,NULL);
+    if(result!=SQLITE_OK)
+        log("insert data failed!");
+
+    sql="insert into student  values(3,'student3','male')";
+    result=sqlite3_exec(pdb,sql.c_str(),NULL,NULL,NULL);
+    if(result!=SQLITE_OK)
+        log("insert data failed!");
+</code></pre>
+<ol>
+<li>向表中插入3条数据</li>
+</ol>
+<h3>查询</h3>
+<pre><code>    char **re;//查询结果
+    int r,c;//行、列
+    sqlite3_get_table(pdb,"select * from student",&amp;re,&amp;r,&amp;c,NULL);//1
+    log("row is %d,column is %d",r,c);
+
+    for(int i=1;i&lt;=r;i++)//2
+    {
+        for(int j=0;j&lt;c;j++)
+        {
+            log("%s",re[i*c+j]);
+        }
+    }
+    sqlite3_free_table(re);</code></pre>
+<ol>
+<li>查询表中的数据</li>
+<li>将查询结果的log输出</li>
+</ol>
+<p>查询结果：</p>
+<pre><code>cocos2d: row is 3,column is 3
+cocos2d: 1
+cocos2d: student1
+cocos2d: male
+cocos2d: 2
+cocos2d: student2
+cocos2d: female
+cocos2d: 3
+cocos2d: student3
+cocos2d: male</code></pre>
+<p>我们可以看到查询到结果和我们前面插入的数据一样。</p>
+<h3>删除</h3>
+<pre><code>    sql="delete from student where ID=1";
+    result=sqlite3_exec(pdb,sql.c_str(), NULL,NULL,NULL);//1
+    if(result!=SQLITE_OK)
+        log("delete data failed!");</code></pre>
+<ol>
+<li>删除ID=1的学生</li>
+</ol>
+<p>使用上面的查询语句查询删除ID=1的学生后的数据</p>
+<p>查询结果：</p>
+<pre><code>cocos2d: row is 2,column is 3
+cocos2d: 2
+cocos2d: student2
+cocos2d: female
+cocos2d: 3
+cocos2d: student3
+cocos2d: male</code></pre>
+<p>我们可以看到，表中ID=1的数据已经被删除了</p>
+<h3>注意：</h3>
+<p>使用sqlite一定要注意的内存管理问题，那就是打开数据库之后，数据操作完成之后，一定要关闭数据库，否侧会造成内存泄漏。</p>
+<pre><code>sqlite3_close(pdb);</code></pre>
+<h2>数据文件存放的位置</h2>
+<ul>
+<li>Android：</li>
+</ul>
+<pre><code>    /data/data/com.youCompany.Helloworld/files/save.db</code></pre>
+<ul>
+<li>iOS:</li>
+</ul>
+<p>位于程序沙盒的文档目录下</p>
+<pre><code>../Documents/save.db</code></pre>
+</div></body></html>

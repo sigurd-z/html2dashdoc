@@ -309,6 +309,56 @@ def add_urls():
 
                 indexsoup['href'] = uriencode("page/"+name+".html")
 
+        elif docset_name=="Cocos2dx.wiki.docset":
+            tag = indexsoup.attrs['tag'].strip()
+            if tag=="Cocos2d-x":
+                def indexpage_callback(tag, p):
+                    pagename = tag.text.strip()
+                    pageurl = tag.attrs['href'].strip()
+                    urlinfo = urlparse.urlparse(pageurl)
+                    if urlinfo.netloc=='www.cocos.com' and urlinfo.path=='/doc/article/index':
+                        def pullfunc(soup):
+                            return soup.find("div", {"class": "itemdoc"})
+                        pagesoup = pulldiv(pageurl, pullfunc)
+
+                        # save images, js, css
+                        for soup in pagesoup.find_all(src=any):
+                            saveres(soup, url, 'src', source_dir+'/wiki/')
+                        for soup in pagesoup.find_all('link', {'href': any}):
+                            saveres(soup, url, 'href', source_dir+'/wiki/')
+
+                        # add page border
+                        pagesoup.body['style'] = "padding:0 25px;"
+
+                        with open(source_dir+"/wiki/"+pagename+".html","w") as f:
+                            f.write(pagesoup.renderContents())
+
+                        update_db(pagename+" - doc", 'Guide', 'wiki/'+uriencode(pagename)+'.html')
+                        tag['href']=uriencode(pagename)+'.html'
+
+                def pullfunc(soup):
+                    return soup.find("div", {"class": "docbg"})
+                subindexsoup = pulldiv(url, pullfunc)
+                find_anchorpoint(subindexsoup.find('div', {'id': 'navdocs2'}), 'a', {'href': all}, indexpage_callback, {'rooturl': rooturl, 'indexurl': url})
+                def pullfunc(soup):
+                    return soup.find("div", {"class": "docdetail"})
+                subindexsoup = pulldiv(url, pullfunc)
+                subindexsoup.find("div", {"class": "docdetail"})['class'] = 'docdetail'
+                find_anchorpoint(subindexsoup, 'a', {'href': all}, indexpage_callback, {'rooturl': rooturl, 'indexurl': url})
+
+                # save images, js, css
+                for soup in subindexsoup.find_all(src=any):
+                    saveres(soup, url, 'src', source_dir+'/wiki/')
+                for soup in subindexsoup.find_all('link', {'href': any}):
+                    saveres(soup, url, 'href', source_dir+'/wiki/')
+
+                # add page border
+                subindexsoup.body['style'] = "padding:0 25px;"
+
+                with open(source_dir+"/wiki/"+name+".html","w") as f:
+                    f.write(subindexsoup.renderContents())
+
+                indexsoup['href'] = uriencode("wiki/"+name+".html")
         else:
             update_db(name, 'Guide', url)
 

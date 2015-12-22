@@ -1,0 +1,65 @@
+<html><head>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+<title>手把手，快速搭建 Cocos2d-html5 v2.x 开发调试环境_Cocos帮助文档_Cocos引擎_游戏开发引擎_Cocos引擎官网</title>
+<meta content="IE=8" http-equiv="X-UA-Compatible">
+<meta content="Cocos帮助文档,Cocos2d-x文档,Cocos2d-JS文档,Cocos Code IDE文档,Quick-Cocos2d-x文档,Cocos API,Cocos,Cocos引擎,Cocos介绍,Cocos文档,Cocos特点,Cocos引擎下载,Cocos官网,游戏引擎,游戏引擎下载,游戏开发引擎,html5游戏开发,Android游戏开发,ios游戏开发,游戏开发方案,游戏开发工具" name="keywords"/>
+<meta content="Cocos提供了全套的引擎和开发工具,涵盖从前期设计,资源制作,开发调试,打包上线全套的解决方案,Cocos重点优化了工作流,规范了整个游戏开发流程,降低沟通成本,提高开发效率" name="description"/>
+<link href="src/2ef9a86fb35d52ac11578452ccf1485f.css" rel="stylesheet" type="text/css"/>
+<link href="src/88a5440cf79e2c8f05f9f10ce6aba841.css" rel="stylesheet" type="text/css"/>
+<link href="src/aade560970aa998972e368caf1c78181.css" rel="stylesheet" type="text/css"/>
+<script src="src/07bd722c9fad66b606a50c3acc1af50f.js" type="text/javascript"></script>
+<script src="src/de92148ebc93b342e9b5b8f21d7fe69c.js" type="text/javascript"></script>
+<script src="https://passport.cocos.com/sso/get_sso_header?client_id=161" type="text/javascript"></script>
+<script src="src/bd48e73433c4825b90f3554d64a5ae4f.js" type="text/javascript"></script>
+</meta></head><body style="padding:0 25px;"><div class="itemdoc">
+<h1>手把手，快速搭建 Cocos2d-html5 v2.x 开发调试环境</h1>
+<hr/>
+<p>在这篇文章中，你将学会如何快速搭建 Cocos2d-html5 的开发和运行环境，对于脚本来说，大多编辑器提供语法高亮显示，而没有语义补全，虽然有些开发环境提供了自动补全功能，但都不大好用。这里推荐使用 WebStorm，作为一个 IDE（集成开发环境），它有非常强大的代码补全，而且其补全相当智能，提高了开发效率。还能与 Google Chrome 浏览器配合，完成实时编辑和调试功能。当然你可以有其它选择。下面详细介绍它的详细配置步骤。</p>
+<h2>环境准备</h2>
+<p>在开始之前，首先下载需要的文件，依赖等，对于 Cocos2d-html5 使用当前的最新稳定版本，2.1.5 。你可以在 这里<a href="http://cocos2d-x.googlecode.com/files/Cocos2d-html5-v2.1.5.zip">下载</a>。<a href="http://www.jetbrains.com/webstorm/download/index.html">WebStorm</a> 请访问官网，根据自己的系统环境选择下载，这里使用的是 6.0.2 版本。 为了能够使得 IDE 与浏览器协同编辑调试，需要安装 Chrome <a href="https://chrome.google.com/webstore/detail/jetbrains-ide-support/hmhgeddbohgjknpmjagkdomcpobmllji">jetbrains-ide-support</a> 插件。有了以上三者，就可以进行配置。这里以 Mac OS X 作为系统环境。</p>
+<h2>配置 WebStorm 项目，代码补全功能</h2>
+<p>在开始开发之前，第一步需要将 Cocos2d-html5 导入 WebStorm 项目工程。</p>
+<ul>
+<li>首先解压缩 Cocos2d-html5-v2.1.5.zip 压缩包。</li>
+<li>打开 WebStorm 进入欢迎界面，选择又侧<code>Create New Project from Existing Files</code> 项</li>
+</ul>
+<p><img alt="image" src="src/7ac2a772766e369237d454c6f83f8f19.png"/></p>
+<ul>
+<li><code>Select scenario</code>选择最后一项一项“Source files are in a local directory …”，点击下一步</li>
+</ul>
+<p><img alt="image" src="src/fb2fc0ee4d8415ac55cf69aa37d2756c.png"/></p>
+<ul>
+<li>浏览文件夹到<strong>Cocos2d-html5-v2.1.5</strong>目录，然后点击<code>Project Root</code>设定根目录</li>
+</ul>
+<p><img alt="image" src="src/70399e83c707e42e94754db1bcc196b0.png"/></p>
+<ul>
+<li>点击 “Finish” 完成项目导入。</li>
+</ul>
+<p>完成以上步骤，便已经能够在 WebStorm 里面打开所有内容，编辑 <code>HelloHTML5World/src/myApp.js</code> 已经能够完成自动补全功能，这是因为当前整个项目包含了所有 js 源码。</p>
+<p>如果是其它位置的项目没有包含 js 库完成自动补全的需要手动添加库（根据实际需要）。完成对 Cocos2d-html5 的补全，使用以下方式添加 js 库：</p>
+<ul>
+<li>点击菜单 WebStorm Preferences 进入 Settings 界面</li>
+<li>定位到 Project Settings 中 JavaScript 的 Libraries 选购项</li>
+</ul>
+<p><img alt="image" src="src/2d96de2233ec7decf77ee68cc49bb3cc.png"/></p>
+<ul>
+<li>点击 Add 按钮，进入 库 添加配置界面</li>
+</ul>
+<p><img alt="image" src="src/81feea8c0634a6652bf1cc6812350644.png"/></p>
+<ul>
+<li>如图所示，填写库名称，然后 <code>Attach</code> 浏览添加目录，其中根据需要包含库目录，OK！
+以上是在其它独立的项目，使用 Cocos2d-html5 库时的环境配置。能够以如此的方式在任何项目添加 Cocos2d-html5 的库，可以在项目的 “External Libraries” 看到所有的依赖库。</li>
+</ul>
+<h2>浏览器同步编写实时刷新，单步调试</h2>
+<p>以上是使用 WebStorm 开发环境的步骤，但同样需要浏览运行，查看效果。</p>
+<p>右击项目主目录的 index.html 选择 调试 index.html 后，将以 Chrome 打开此页面（系统默认浏览器），而打开的方式，我们看到是系统文件路径，如 ：</p>
+<p><code>url = “file:///Users/leafsoar/Cocos2d-html5-v2.1.5/index.html”</code></p>
+<p>需要注意的是，以此方式所打开的页面，静态页面正常浏览，但选择<strong>Hello World</strong>运行，会加载不了，这是由于 Cocos2d-html5 的处理机制与浏览器的兼容问题造成的（在其它浏览器会有不同的结果），官方推荐以服务的方式运行，如<code>http://localhost</code>的方式。</p>
+<p>在这里我们在浏览器中输入<code>http://localhost:63342/Cocos2d-html5-v2.1.5/</code>来访问当前项目，在 Chrome 我们也同样安装了 JetBrains 插件，以此协同工作。这样在修改项目中静态页面的时候，将会自动更新至页面，看到实时效果。<code>http://localhost:63342</code>是由 WebStorm 提供了服务，后面跟项目名称，以服务的方式访问页面，查看效果。</p>
+<p>调试步骤，我们需要修改 右击 调试 index.html 的 url 地址。点击工具条，调试配置，<strong>index.html</strong>右侧下拉<strong>Edit Configurations</strong>，将默认的 Path 地址由：</p>
+<p><code>“/Users/leafsoar/Cocos2d-html5-v2.1.5/index.html”</code>修改为 <code>“http://localhost:63342/Cocos2d-html5-v2.1.5/”</code>如图：</p>
+<p><img alt="image" src="src/23d1ad6c579e0ec0dbe3c4d259398227.png"/></p>
+<p>完成以上配置后，我们在如 “HelloHTML5World/src/myApp.js” 中的代码设置以断点，后调试运行项目，测试 Hello World 便可以单步调试了：</p>
+<p><img alt="image" src="src/ea77e0981f6c5ccfd428d26dbf7612aa.png"/></p>
+<p>我们可以修改<code>HelloHTML5World</code>来快速学习它们，其中<code>template</code>提供了一个项目模板，如果需要建立自己的项目，可以将它拷贝，然后基于它编写自己的代码程序。</p>
+</div></body></html>

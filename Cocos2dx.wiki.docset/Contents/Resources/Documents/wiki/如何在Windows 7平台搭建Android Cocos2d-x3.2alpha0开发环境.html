@@ -1,0 +1,91 @@
+<html><head>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+<title>如何在Windows 7平台搭建Android Cocos2d-x3.2alpha0开发环境_Cocos帮助文档_Cocos引擎_游戏开发引擎_Cocos引擎官网</title>
+<meta content="IE=8" http-equiv="X-UA-Compatible">
+<meta content="Cocos帮助文档,Cocos2d-x文档,Cocos2d-JS文档,Cocos Code IDE文档,Quick-Cocos2d-x文档,Cocos API,Cocos,Cocos引擎,Cocos介绍,Cocos文档,Cocos特点,Cocos引擎下载,Cocos官网,游戏引擎,游戏引擎下载,游戏开发引擎,html5游戏开发,Android游戏开发,ios游戏开发,游戏开发方案,游戏开发工具" name="keywords"/>
+<meta content="Cocos提供了全套的引擎和开发工具,涵盖从前期设计,资源制作,开发调试,打包上线全套的解决方案,Cocos重点优化了工作流,规范了整个游戏开发流程,降低沟通成本,提高开发效率" name="description"/>
+<link href="src/2ef9a86fb35d52ac11578452ccf1485f.css" rel="stylesheet" type="text/css"/>
+<link href="src/88a5440cf79e2c8f05f9f10ce6aba841.css" rel="stylesheet" type="text/css"/>
+<link href="src/aade560970aa998972e368caf1c78181.css" rel="stylesheet" type="text/css"/>
+<script src="src/07bd722c9fad66b606a50c3acc1af50f.js" type="text/javascript"></script>
+<script src="src/de92148ebc93b342e9b5b8f21d7fe69c.js" type="text/javascript"></script>
+<script src="https://passport.cocos.com/sso/get_sso_header?client_id=161" type="text/javascript"></script>
+<script src="src/bd48e73433c4825b90f3554d64a5ae4f.js" type="text/javascript"></script>
+</meta></head><body style="padding:0 25px;"><div class="itemdoc">
+<h1>如何在Windows 7平台搭建Android Cocos2d-x3.2alpha0开发环境</h1>
+<p><strong>建议：</strong>为避免安全相关问题，所有操作请在管理员身份下进行，在运行命令时，请确保以管理员身份打开控制台（console）。    <br/>
+本指南将介绍如何在Windows 7平台搭建Cocos2d-x Android开发环境。本指南操作要求一台搭载Windows 7平台及安装Visual Studio 2012/2013的电脑。最好拥有快速稳定的网络，因为在指南操作中需要下载许多软件包。</p>
+<p>搭建开发环境需要安装工具包括</p>
+<ul>
+<li>Visual Studio 2012/2013 ——— 因为Cocos2d-x-v3.x引擎不能用老版本的VS编译，所以我们需要下载安装Visual Studio 2012或2013。VS的安装简单，本教程不做讲解。</li>
+<li>Cocos2d-x ———本教程以Cocos2d-x 3.2alpha0版本为例，下载地址：<a href="http://cocos2d-x.org/download"><a href="http://cocos2d-x.org/download" target="_blank">http://cocos2d-x.org/download</a></a></li>
+<li>JAVA JDK</li>
+<li>Android SDK</li>
+<li>NDK</li>
+</ul>
+<h2>下载Cocos2d-x 3.2alpha0引擎</h2>
+<p>用户可以登陆<a href="http://www.cocos2d-x.org/">Cocos2d-x</a> 官方网站下载最新版的Cocos2d-x。点击导航栏的“Download”（下载）后你会看到如下下载页面：</p>
+<p><img alt="" src="src/78642ecc2d09ac445e3e5f8f1d127da1.png"/></p>
+<p>在本指南中，将会以目前最新版本的Cocos2d-x 3.2alpha0引擎为例。
+（注意：如果你想要下载旧版的Cocos2d-x，可点击“looking for an old versoin?”链接。但本人强烈推荐使用最新版本的Cocos2d-x，新版引擎有很多新功能，修复了旧版的很多问题。）</p>
+<p>右键单击“Download”链接选择“save link as…”（将链接保存为…），然后将压缩文件保存至适当的位置。本机保存位置为 D:\Cocos2d-x\Cocos2d-x 3.2alpha0。    </p>
+<p>（注意：请不要将Cocos2d-x文件夹放置c:\下，因为会导致很多优先级别（privilege）相关的问题。可尝试将该文件夹放到其他盘如D:\及E:\等等。）</p>
+<p>打开 “D:\Cocos2d-x\Cocos2d-x 3.2alpha0\build”目录，如下所示：         <br/>
+<img alt="" src="src/05d5652041fb6fb78dfabbf7bf00323f.jpg"/> <br/>
+双击“cocos2d-win32.vs2012.sln”文件，然后会自动启动Visual Studio 2012/2013。
+现在你便可以将HelloCpp项目当作默认启动项目来编译，按CTRL-F5运行样本程序。如果编译没有什么错误，同时运行成功的话，你会看到如下画面。</p>
+<p><img alt="" src="src/eef9b1d5c3417414cde4b1c61f6295a1.jpg"/></p>
+<p>祝贺你！你已成功在Windows 7平台中运行Cocos2d-x引擎。接下里介绍如何配置Android开发环境。</p>
+<h3>安装配置JAVA JDK</h3>
+<p>因为我们是针对Android开发，所以我们需要安装的第一个软件包绝对是JDK。如果你用的是64位的Windows 7，那应该下载以下版本软件64 bit JDK for windows 64bit，下载地址：<a href="http://www.oracle.com/technetwork/java/javase/downloads/index.html"><a href="http://www.oracle.com/technetwork/java/javase/downloads/index.html" target="_blank">http://www.oracle.com/technetwork/java/javase/downloads/index.html</a></a> 。    </p>
+<p><img alt="" src="src/3871d8d19951eab631f06cad3f931b99.jpg"/></p>
+<p>下载完成之后，双击exe文件安装JDK，注意最好不要将其安装在有空格或者中文文件夹下，其他无限制，注意记下其安装路径，本机安装路径为：D:\Program Files\Java\jdk1.7.0_51\</p>
+<p><img alt="" src="src/b55350fcfc80dfb6c4799058d6450484.jpg"/> <br/>
+<strong>配置环境变量：</strong></p>
+<p>新建环境变量：JAVA_HOME 值为：D:\Program Files\Java\jdk1.7.0   <br/>
+新建环境变量：CLASSPATH  值为：.;%JAVA_HOME%\lib;（注意：点号表示当前目录，不能省略）  <br/>
+在系统变量Path的值的前面加入以下内容：%JAVA_HOME%\bin;(注意:这里的分号不能省略)到这里，JDK安装完毕。     </p>
+<p>单击“开始”—&gt;“运行”—&gt;输入：cmd命令，在CMD窗口中输入：java -version<br/>
+出现如下界面，就表示安装成功：</p>
+<p><img alt="" src="src/f7d706df314240a3faf0157b827e62e6.jpg"/></p>
+<h3>配置Android SDK环境</h3>
+<p>点击进入<a href="http://developer.android.com/sdk/index.html"><a href="http://developer.android.com/sdk/index.html" target="_blank">http://developer.android.com/sdk/index.html</a></a>页面，下载ADT包，它能帮你快速开始开发应用程序。它包括了必要的Android SDK组件和一个内置ADT(Android开发者工具)的Eclipse IDE版本，简化了Android应用程序开发。</p>
+<p><img alt="" src="src/8641ea33f4d82f5bae8167926399c064.jpg"/></p>
+<p>下载Android SDK下载之后解压，并将其放置于你要放置的目录下，在 “..\adt-bundle-windows-x86_64-20131030\eclipse” 文件夹中会有一个eclipse.exe程序，本机在桌面上创建了该程序的快捷方式。</p>
+<p>现在就可以双击桌面的快捷方式启动Eclipse，同时会出现一个即时对话框，要求设置默认工作区（workspace）。选择“OK”接受默认设置即可。</p>
+<p><strong>配置环境变量：</strong></p>
+<p>新建环境变量：ANDROID_SDK 值为：D:\TDDownload\android\adt-bundle-windows-x86_64-20131030\sdk\platforms\;D:\TDDownload\android\adt-bundle-windows-x86_64-20131030\sdk\tools\;D:\TDDownload\android\adt-bundle-windows-x86_64-20131030\sdk\platform-tools（D:\TDDownload\android是SDK存放的位置）。</p>
+<p>在系统变量Path的值的前面加入以下内容：%ANDROID_SDK%    </p>
+<p>单击“开始”—&gt;“运行”—&gt;输入：cmd命令，在CMD窗口中输入：<code>adb -h</code> 检验是否安装成功。
+<img alt="" src="src/f7cf6ed0dc10701a839dd8d1f3d88900.png"/></p>
+<p>在“..\adt-bundle-windows-x86_64-20131030\sdk” 目录下有两个可执行程序，“AVD Manager.exe”和“SDK Manager.exe”，可直接通过它们创建管理AVD，SDK。</p>
+<h3>安装NDK</h3>
+<p>安装完Android SDK之后，还要安装“Android NDK”软件包，用户可前往<a href="http://developer.android.com/tools/sdk/ndk/index.html"><a href="http://developer.android.com/tools/sdk/ndk/index.html" target="_blank">http://developer.android.com/tools/sdk/ndk/index.html</a></a>下载。下载完成之后，解压，并将其放置到相应路径，本机路径为 D:\android-ndk-r9，设置另一个名为“NDK_ROOT”同时指向存放路径的环境变量。</p>
+<p>Android NDK包含build、docs、samples、sources、GNUmakefile、ndk-build、ndk-gdb及readme等内容。</p>
+<h3>创建Cocos2d-x项目</h3>
+<p>将刚才下载的cocos2d-x-3.2alpha0压缩包解压到你指定的文件夹里。</p>
+<p>进入到目录<strong>cocos2d-x-3.2alpha0/tools/cocos2d-console/bin/cocos.py</strong></p>
+<p>打开终端运行<strong>cocos.py</strong>脚本创建文件</p>
+<pre><code>python cocos.py new test -p com.coco2dx.org -l cpp -d ~/Desktop</code></pre>
+<p>参数说明：</p>
+<ul>
+<li>test为项目名称</li>
+<li><code>-p</code>后面接包名</li>
+<li><code>-l</code>后面接开发语言类型，有cpp, lua, js三种类型</li>
+<li><code>-d</code>后面接项目存放的目录</li>
+</ul>
+<h3>生成Android项目文件</h3>
+<p>在新建项目test项目中，执行proj.android下的<em>build_native.py</em>脚本进行编译。          <br/>
+<img alt="build" src="src/6f3b4dc0c7db408e511cf4b421abf08f.jpg"/> <br/>
+等待它编译成功！</p>
+<h2>导入Android项目</h2>
+<p>最后便可启动Eclipse然后导入Android项目了。操作步骤如下：</p>
+<ul>
+<li>右键点击“Package Explorer”并选择“Import…”</li>
+<li>当出现对话框时，选择“Exsiting Android project into workspace”（将现有Android项目导入工作区）。</li>
+</ul>
+<p><img alt="" src="src/7f53b78fa1e4d924981bc6ded7b4554c.jpg"/></p>
+<p><img alt="" src="src/50a6d8d716de9183e4131e633da794c7.jpg"/></p>
+<p><img alt="" src="src/fc39fbecec19141a34edd4c6c36a402f.jpg"/></p>
+<p>按照上面的方法导入到Eclipse里面。将您的手机设置成调试模式并用USB线连接到电脑, 在Eclipse中运行test, 然后就能在手机上看到已经运行的HelloWorld了！</p>
+</div></body></html>

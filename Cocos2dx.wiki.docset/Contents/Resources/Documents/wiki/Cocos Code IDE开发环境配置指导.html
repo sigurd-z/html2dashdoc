@@ -1,0 +1,284 @@
+<html><head>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+<title>Cocos Code IDE开发环境配置指导_Cocos帮助文档_Cocos引擎_游戏开发引擎_Cocos引擎官网</title>
+<meta content="IE=8" http-equiv="X-UA-Compatible">
+<meta content="Cocos帮助文档,Cocos2d-x文档,Cocos2d-JS文档,Cocos Code IDE文档,Quick-Cocos2d-x文档,Cocos API,Cocos,Cocos引擎,Cocos介绍,Cocos文档,Cocos特点,Cocos引擎下载,Cocos官网,游戏引擎,游戏引擎下载,游戏开发引擎,html5游戏开发,Android游戏开发,ios游戏开发,游戏开发方案,游戏开发工具" name="keywords"/>
+<meta content="Cocos提供了全套的引擎和开发工具,涵盖从前期设计,资源制作,开发调试,打包上线全套的解决方案,Cocos重点优化了工作流,规范了整个游戏开发流程,降低沟通成本,提高开发效率" name="description"/>
+<link href="src/2ef9a86fb35d52ac11578452ccf1485f.css" rel="stylesheet" type="text/css"/>
+<link href="src/88a5440cf79e2c8f05f9f10ce6aba841.css" rel="stylesheet" type="text/css"/>
+<link href="src/aade560970aa998972e368caf1c78181.css" rel="stylesheet" type="text/css"/>
+<script src="src/07bd722c9fad66b606a50c3acc1af50f.js" type="text/javascript"></script>
+<script src="src/de92148ebc93b342e9b5b8f21d7fe69c.js" type="text/javascript"></script>
+<script src="https://passport.cocos.com/sso/get_sso_header?client_id=161" type="text/javascript"></script>
+<script src="src/bd48e73433c4825b90f3554d64a5ae4f.js" type="text/javascript"></script>
+</meta></head><body style="padding:0 25px;"><div class="itemdoc">
+<h1>Cocos Code IDE开发环境配置指导</h1>
+<hr/>
+<h2><strong>1. 与Cocos Code IDE相关的配置</strong></h2>
+<ul>
+<li>
+<h3><strong>python</strong></h3>
+<ul>
+<li>
+<p><strong>版本要求</strong></p>
+<p>Python版应大于等于2.7.5并且暂不支持Python 3.0及以上版本。建议使用2.7.5及以上的版本。</p>
+</li>
+<li>
+<p><strong>安装注意事项</strong></p>
+<p>Mac平台：Mac OS系统会默认安装Python，请检查系统中的Python版本，如果不符合，需要到Python官网下载对应的Python安装包。</p>
+<p>Windows平台：需要到Python官网下载所对应Python安装包进行安装。</p>
+<p><strong>备注：</strong>下载前请确认系统位数，按照正确的系统位数选择Python安装包。</p>
+</li>
+</ul>
+</li>
+</ul>
+<h2><strong>2. 引擎配置</strong></h2>
+<ul>
+<li>
+<h3><strong>引擎同IDE的依赖关系</strong></h3>
+<p>Cocos Code IDE需要依赖引擎的cocos-console来进行工程的建立、编译和打包等操作。</p>
+</li>
+<li>
+<h3><strong>引擎同Python的依赖关系</strong></h3>
+<p>引擎依赖Python环境，引擎中的cocos-console在新建工程、编译和打包的过程中，都是需要调用相关的Python脚本来实现，所以用户需要正确安装Python环境后，才可以正常的使用这些功能。</p>
+</li>
+<li>
+<h3><strong>Cocos2d-x</strong></h3>
+<ul>
+<li>
+<p><strong>引擎版本和Cocos Code IDE版本的对应关系</strong></p>
+<table>
+<thead>
+<tr>
+<th>Cocos Code IDE 版本</th>
+<th align="center">IDE对Cocos2d-x引擎支持的最高版本</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Cocos Code IDE 1.2.0</td>
+<td align="center">Cocos2d-x 3.4</td>
+</tr>
+<tr>
+<td>Cocos Code IDE 1.1.0</td>
+<td align="center">Cocos2d-x 3.3final</td>
+</tr>
+<tr>
+<td>Cocos Code IDE 1.0.1</td>
+<td align="center">Cocos2d-x 3.3rc0</td>
+</tr>
+<tr>
+<td>Cocos Code IDE 1.0.0-Final</td>
+<td align="center">Cocos2d-x 3.3rc0</td>
+</tr>
+<tr>
+<td>Cocos Code IDE 1.0.0-RC2</td>
+<td align="center">Cocos2d-x 3.2</td>
+</tr>
+<tr>
+<td>Cocos Code IDE 1.0.0-RC1</td>
+<td align="center">Cocos2d-x 3.2rc0</td>
+</tr>
+<tr>
+<td>Cocos Code IDE 1.0.0-RC0</td>
+<td align="center">Cocos2d-x 3.2alpha0</td>
+</tr>
+</tbody>
+</table>
+</li>
+</ul>
+</li>
+<li>
+<h3><strong>Cocos2d-JS</strong></h3>
+<ul>
+<li>
+<p><strong>引擎版本和Cocos Code IDE版本的对应关系</strong></p>
+<table>
+<thead>
+<tr>
+<th>Cocos Code IDE 版本</th>
+<th align="center">IDE对Cocos2d-JS引擎支持的最高版本</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Cocos Code IDE 1.2.0</td>
+<td align="center">Cocos2d-JS 3.3</td>
+</tr>
+<tr>
+<td>Cocos Code IDE 1.1.0</td>
+<td align="center">Cocos2d-JS 3.2</td>
+</tr>
+<tr>
+<td>Cocos Code IDE 1.0.1</td>
+<td align="center">Cocos2d-JS 3.1</td>
+</tr>
+<tr>
+<td>Cocos Code IDE 1.0.0-Final</td>
+<td align="center">Cocos2d-JS 3.1</td>
+</tr>
+<tr>
+<td>Cocos Code IDE 1.0.0-RC2</td>
+<td align="center">Cocos2d-JS 3.0</td>
+</tr>
+<tr>
+<td>Cocos Code IDE 1.0.0-RC1</td>
+<td align="center">Cocos2d-JS 3.0 RC2</td>
+</tr>
+<tr>
+<td>Cocos Code IDE 1.0.0-RC0</td>
+<td align="center">Cocos2d-JS 3.0 RC1</td>
+</tr>
+</tbody>
+</table>
+</li>
+</ul>
+</li>
+<li>
+<h3><strong>Quick</strong></h3>
+<ul>
+<li>
+<table>
+<thead>
+<tr>
+<th><strong>引擎版本和Cocos Code IDE版本的对应关系</strong></th>
+<th align="center">Cocos Code IDE 版本</th>
+<th>IDE对Quick引擎支持的最高版本</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Cocos Code IDE 1.2.0</td>
+<td align="center">Quick 3.2rc1</td>
+</tr>
+<tr>
+<td>Cocos Code IDE 1.1.0</td>
+<td align="center">Quick 3.2rc1</td>
+</tr>
+<tr>
+<td>Cocos Code IDE 1.0.1</td>
+<td align="center">Quick 3.2rc1</td>
+</tr>
+<tr>
+<td>Cocos Code IDE 1.0.0-Final</td>
+<td align="center">Quick 3.2rc0</td>
+</tr>
+</tbody>
+</table>
+</li>
+</ul>
+</li>
+<li>
+<h3><strong>注意事项</strong></h3>
+<p>引擎路径中请不要包含带有非ASCII码的字符。</p>
+<p>如果是使用git方式获取的引擎，需要执行引擎目录下的download-deps.py来下载相应的依赖库，还需要执行git submodule update的命令来更新子模块。</p>
+</li>
+</ul>
+<h2><strong>3. Android环境配置</strong></h2>
+<ul>
+<li>
+<h3><strong>Android SDK</strong></h3>
+<ul>
+<li>
+<p><strong>Android SDK:</strong> Android专属的软件开发工具包</p>
+</li>
+<li>
+<p><strong>版本要求</strong></p>
+<p>要求sdk版本在android-10及以上。</p>
+</li>
+<li>
+<p><strong>注意事项</strong></p>
+<p>sdk中的platforms目录如果为空，需要开发者使用SDK Manager进行下载不同版本的sdk。</p>
+</li>
+</ul>
+</li>
+<li>
+<h3><strong>Android NDK</strong></h3>
+<ul>
+<li>
+<p><strong>Android NDK:</strong> 使用Android NDK可以使用开发者方便的使用C/C++语言来进行Android平台的开发。Android NDK中包含了从C/C++生成原生代码库所需要的工具和build files。</p>
+</li>
+<li>
+<p><strong>NDK版本与引擎版本的对应关系</strong></p>
+<p>Cocos2d-x 3.4，支持r10c。</p>
+<p>Cocos2d-x 3.2和Cocos2d-x 3.3，支持r9d和r10c。</p>
+<p>Cocos2d-x 3.0以上版本，Cocos2d-x 3.2以下版本，可以使用r9b、r9d。</p>
+</li>
+<li>
+<p><strong>注意事项</strong></p>
+<p>Android NDK路径不可以包含有空格或非ASCII码字符，否则可能会导致编译失败或未知的一些错误。</p>
+</li>
+</ul>
+</li>
+<li>
+<h3><strong>Ant</strong></h3>
+<ul>
+<li>
+<p><strong>Ant:</strong> 是一个Apache基金会下的跨平台的构件工具，它可以实现项目的自动构建和部署等功能。使用Ant可以很方便的对Android项目进行构建，最终生成可用的应用程序    </p>
+</li>
+<li>
+<p><strong>版本要求</strong></p>
+<p>经测试，1.9.3和1.9.4版本可以正常使用。</p>
+</li>
+</ul>
+</li>
+<li>
+<h3><strong>JDK</strong></h3>
+<ul>
+<li>
+<p><strong>JDK:</strong> Java语言的软件开发工具包，没有JDK的话，无法编译Java程序。而且还需要使用JDK中的工具对Android项目进行签名等操作</p>
+</li>
+<li>
+<p><strong>版本要求</strong></p>
+<p>Cocos Code IDE 1.0.0-RC2及以上版本自带JDK 1.8，相关功能在此版本经过测试，可正常使用。</p>
+</li>
+<li>
+<p><strong>注意事项</strong></p>
+<p>Cocos Code IDE 1.0.0-RC2及以上版本自带JDK，如果开发者想使用自定义的JDK，可以在Cocos Code IDE中Preference下的Cocos配置页进行更改。</p>
+</li>
+</ul>
+</li>
+</ul>
+<h2><strong>4. iOS环境配置</strong></h2>
+<ul>
+<li>
+<h3><strong>Xcode</strong></h3>
+<ul>
+<li>
+<p><strong>Xcode简介</strong></p>
+<p>Xcode是苹果公司向开发人员提供的集成开发环境（非开源），用于开发Mac OS X,iOS的应用程序。Cocos Code IDE依赖于Xcode中的编译和打包工具。</p>
+</li>
+<li>
+<p><strong>Xcode版本和IDE版本的对应关系</strong>
+只支持Xcode 5.0及以上版本。</p>
+<p>Cocos Code IDE 1.0.0-Final及以上版本最高支持Xcode 6.1(6A1052d)版本。</p>
+</li>
+</ul>
+</li>
+<li>
+<h3><strong>Keychain Tools</strong></h3>
+<ul>
+<li>
+<p><strong>Keychain Tools简介</strong></p>
+<p>keychain tools中包含有iOS真机调试或发布时，所需要的证书，Cocos Code IDE在编译打包时，需要读取这些信息来对app进行签名等操作 。</p>
+</li>
+</ul>
+</li>
+</ul>
+<h2><strong>5. Win32环境配置</strong></h2>
+<ul>
+<li>
+<h3><strong>VisualStudio</strong></h3>
+<ul>
+<li>
+<p><strong>VisualStudio简介</strong></p>
+<p>是目前最流行的Windows平台应用程序的集成开发环境，同时也是一个基本完整的开发工具集，它包括了整个软件生命周期中所需要的大部分工具。并且Cocos Code IDE依赖VisualStudio中的MSBuild工具对win32的工程进行编译。</p>
+</li>
+<li>
+<p><strong>版本要求</strong></p>
+<p>Visual Studio 2012及以上版本，并且不支持express版本。</p>
+</li>
+</ul>
+</li>
+</ul>
+</div></body></html>
